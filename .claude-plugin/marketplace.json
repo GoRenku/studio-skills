@@ -1,0 +1,13 @@
+{
+  "name": "renku",
+  "owner": {
+    "name": "Kerem Karatal"
+  },
+  "plugins": [
+    {
+      "name": "renku",
+      "source": "./",
+      "description": "Filmmaking skills for screenplay development and movie-making workflows."
+    }
+  ]
+}

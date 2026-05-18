@@ -1,0 +1,34 @@
+{
+  "name": "renku",
+  "version": "0.1.0",
+  "description": "Renku filmmaking skills for screenplay development, and movie-making workflows.",
+  "author": {
+    "name": "Kerem Karatal"
+  },
+  "license": "MIT",
+  "keywords": [
+    "renku",
+    "filmmaking",
+    "screenplay",
+    "screenwriting",
+    "pre-production",
+    "movie-making"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Renku",
+    "shortDescription": "Movie-making skills for writers and filmmakers.",
+    "longDescription": "Renku is a filmmaking skills library for Codex and Claude Code. Its first skill, Screenplay Drafter, helps writers break through writer's block by developing story arcs, characters, locations, and formal screenplay pages as structured YAML that can later be rendered into a traditional screenplay document.",
+    "developerName": "Kerem Karatal",
+    "category": "Video / Media",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "brandColor": "#4F6D7A",
+    "defaultPrompt": [
+      "Use Renku to help with this movie-making workflow.",
+      "For screenplay work, use $screenplay-drafter to create or iterate a structured screenplay YAML draft."
+    ]
+  }
+}

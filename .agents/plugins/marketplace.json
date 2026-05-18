@@ -1,0 +1,20 @@
+{
+  "name": "renku",
+  "interface": {
+    "displayName": "Renku"
+  },
+  "plugins": [
+    {
+      "name": "renku",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Video / Media"
+    }
+  ]
+}
