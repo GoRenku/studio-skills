@@ -1,6 +1,6 @@
 ---
 name: screenplay-drafter
-description: Create and iterate structured YAML screenplay drafts in formal screenplay format. Use when a user wants help developing a script, screenplay, short film, feature, pilot, scene sequence, story arc, characters, locations, dialogue, narration, scene headings, action lines, or a screenplay YAML file that can later be rendered into a traditional screenplay document.
+description: Create and iterate structured YAML screenplay drafts in formal screenplay format. Use when a user wants help developing a script, screenplay, short film, feature, pilot, scene sequence, story arc, cast, locations, dialogue, narration, scene headings, action lines, or a screenplay YAML package that can later be rendered into a traditional screenplay document.
 ---
 
 # Screenplay Drafter
@@ -19,11 +19,11 @@ In commands below, `<skill>` is the absolute path to this skill folder.
 2. For a new screenplay, gather or infer these inputs:
 
    - Scenario overview, more detailed than a logline.
-   - Main characters and known relationships.
+   - Main cast members and known relationships.
    - Time period.
    - Primary locations.
    - Target length, such as 5-minute short, short film, feature, standard feature, pilot, or custom page/minute target.
-   - Main conflict, stakes, and character wants.
+   - Main conflict, stakes, and cast member wants.
    - Audience expectation, such as young kids, family, teens, mature adults, or festival drama.
    - Tone, genre, and hard constraints if provided.
 
@@ -46,10 +46,10 @@ In commands below, `<skill>` is the absolute path to this skill folder.
 
    Use the schema in `references/screenplay-yaml-schema.md`. The YAML must include:
 
-   - `screenplay.yaml`: `document`, `concept`, `story_arc`, file references, and `revision_state`.
-   - `characters.yaml`: character IDs, names, roles, wants, needs, arcs, and voice notes.
-   - `locations.yaml`: location IDs, slugline names, period, description, and visual notes.
-   - One act YAML file per act: act metadata, sequences, scenes, scene headings, and renderer-friendly screenplay blocks.
+   - `screenplay/screenplay.yaml`: `schema_version`, `cast_ref`, `locations_ref`, `act_refs`, `project`, and `revision_state`.
+   - `cast/<cast-id>/description.md`: front-matter Markdown for each cast member, using a durable kebab-case folder id.
+   - `locations/<location-id>/description.md`: front-matter Markdown for each location, using a durable kebab-case folder id.
+   - One act YAML file per act under `screenplay/acts/`: act metadata, sequences, scenes, scene headings, and renderer-friendly screenplay blocks.
 
 5. Write the opening pages.
 
@@ -59,7 +59,8 @@ In commands below, `<skill>` is the absolute path to this skill folder.
 
    - Scene headings use standard sluglines such as `INT. DINER - NIGHT` or special headings such as `OVER BLACK.`
    - Action lines are visual, present tense, and production-readable.
-   - Dialogue blocks include character cue, optional extension such as `V.O.` or `O.S.`, optional parenthetical, and dialogue lines.
+   - Dialogue blocks include `cast_id`, readable character cue, optional extension such as `V.O.` or `O.S.`, optional parenthetical, and dialogue lines.
+   - Scene heading `location_id` values point to location folder IDs, and dialogue `cast_id` values point to cast folder IDs.
    - Montage markers, shots, and transitions use explicit block types.
 
 7. Iterate carefully.
@@ -70,6 +71,7 @@ In commands below, `<skill>` is the absolute path to this skill folder.
    - If moving a scene, keep its `scene-###` ID and place it under the correct act and sequence.
    - If adding material, use the next available ID number for that entity type.
    - If removing material, do not reuse retired IDs in the same draft.
+   - Preserve existing cast and location kebab-case IDs once they have been established; they are used as folder names and durable references.
    - Update `revision_state` with major assumptions, open questions, and next useful revision options.
 
 ## Schema Reference

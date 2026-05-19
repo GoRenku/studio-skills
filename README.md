@@ -19,13 +19,13 @@ skills/screenplay-drafter/
 
 Screenplay Drafter helps writers move from a rough story idea to:
 
-- A proposed title, logline, summary, and dramatic question
+- Project metadata, logline, summary, dramatic question, and themes
 - A story arc with acts and key inflection points
-- Characters, wants, needs, voice notes, and arcs
-- Locations with slugline-ready names and visual notes
-- Screenplay scenes made from renderer-friendly blocks: scene headings, action, dialogue, voiceover, montage headings, transitions, and notes
+- Cast folders with front-matter Markdown for names, roles, wants, needs, voice notes, arcs, and long descriptions
+- Location folders with front-matter Markdown for names, time periods, descriptions, and visual notes
+- Act YAML files made from renderer-friendly blocks: scene headings, action, dialogue with `cast_id`, voiceover, montage headings, transitions, and notes
 
-The output is YAML so a later renderer can turn it into a traditional screenplay document.
+The output is a small screenplay package so a later renderer can turn it into a traditional screenplay document.
 
 Invoke it in Codex with:
 

@@ -1,0 +1,296 @@
+id: act-1
+title: The Offer
+purpose: Open on the siege, then rewind to Urban's failed attempt to sell his work to Byzantium.
+sequences:
+  - id: seq-001
+    title: The Sound That Opens Stone
+    purpose: Begin with the siege consequence before rewinding to the bargain.
+    scenes:
+      - id: scene-001
+        title: Bombardment
+        scene_heading:
+          raw: EXT. THEODOSIAN WALLS - DAWN
+          type: standard
+          location_id: theodosian-walls
+          interior_exterior: EXT
+          time_of_day: DAWN
+        story_function:
+          - hook
+          - future consequence
+        blocks:
+          - id: block-001
+            type: scene_heading
+            text: EXT. THEODOSIAN WALLS - DAWN
+          - id: block-002
+            type: action
+            text: A gray April dawn. Constantinople's land walls rise from smoke like a cliff at the edge
+              of the world.
+          - id: block-122
+            type: dialogue
+            cast_id: narrator
+            character: Narrator
+            extension: V.O.
+            parenthetical: null
+            lines:
+              - For a thousand years, these walls had taught armies to turn back.
+              - In the spring of 1453, a new lesson arrived on wheels.
+          - id: block-003
+            type: action
+            text: In the Ottoman lines, a bronze mouth big enough for a man to crawl inside points at
+              the city.
+          - id: block-004
+            type: action
+            text: URBAN stands beside it, face blackened, one hand on the warm metal as if taking a pulse.
+          - id: block-005
+            type: dialogue
+            cast_id: mara
+            character: Mara
+            extension: null
+            parenthetical: low
+            lines:
+              - The barrel is still angry.
+          - id: block-006
+            type: dialogue
+            cast_id: urban
+            character: Urban
+            extension: null
+            parenthetical: null
+            lines:
+              - Bronze has no temper. Men give it one.
+          - id: block-007
+            type: action
+            text: Crews wedge the great stone ball into place. Men cover their ears before the order is
+              even given.
+          - id: block-008
+            type: dialogue
+            cast_id: mehmed-ii
+            character: Mehmed II
+            extension: O.S.
+            parenthetical: null
+            lines:
+              - Fire.
+          - id: block-009
+            type: action
+            text: The cannon erupts. The world becomes flame, thunder, and flying dust.
+          - id: block-010
+            type: shot
+            text: >
+              ON THE WALLS: stone cracks. Defenders vanish inside a white cloud.
+          - id: block-123
+            type: dialogue
+            cast_id: narrator
+            character: Narrator
+            extension: V.O.
+            parenthetical: null
+            lines:
+              - The maker of this thunder was not Ottoman. He had come first to the men inside the city.
+          - id: block-011
+            type: action
+            text: Urban watches the smoke strike the city before the ball does.
+          - id: block-012
+            type: transition
+            text: CUT TO BLACK.
+          - id: block-013
+            type: transition_or_special
+            text: >
+              TITLE: FOUR MONTHS EARLIER
+  - id: seq-002
+    title: The Emperor Without Coin
+    purpose: Show Urban's Byzantine offer and the material reasons for rejection.
+    scenes:
+      - id: scene-002
+        title: The First Patron
+        scene_heading:
+          raw: INT. IMPERIAL COUNCIL CHAMBER - DAY
+          type: standard
+          location_id: imperial-council-chamber
+          interior_exterior: INT
+          time_of_day: DAY
+        story_function:
+          - setup
+          - failed offer
+        blocks:
+          - id: block-014
+            type: scene_heading
+            text: INT. IMPERIAL COUNCIL CHAMBER - DAY
+          - id: block-015
+            type: action
+            text: Urban unrolls a charcoal drawing across a table scarred by generations of decisions.
+          - id: block-016
+            type: action
+            text: CONSTANTINE XI studies the design. NOTARAS studies the numbers beside it.
+          - id: block-124
+            type: dialogue
+            cast_id: narrator
+            character: Narrator
+            extension: V.O.
+            parenthetical: null
+            lines:
+              - By then, Byzantium was less an empire than a magnificent city with debts, memories, and
+                enemies.
+              - Constantine could recognize genius. Recognition was cheaper than bronze.
+          - id: block-017
+            type: dialogue
+            cast_id: urban
+            character: Urban
+            extension: null
+            parenthetical: null
+            lines:
+              - A gun this size does not defend a wall. It changes the mind of the man approaching it.
+          - id: block-018
+            type: dialogue
+            cast_id: loukas-notaras
+            character: Loukas Notaras
+            extension: null
+            parenthetical: null
+            lines:
+              - It changes the mind of the treasurer first.
+          - id: block-019
+            type: dialogue
+            cast_id: constantine-xi-palaiologos
+            character: Constantine XI Palaiologos
+            extension: null
+            parenthetical: null
+            lines:
+              - What would you require?
+          - id: block-020
+            type: dialogue
+            cast_id: urban
+            character: Urban
+            extension: null
+            parenthetical: null
+            lines:
+              - Bronze. Powder. Charcoal. Masons. Carpenters. Oxen. A foundry that can breathe without
+                collapsing.
+              - And pay enough that my men do not sell the design before the mold dries.
+          - id: block-021
+            type: action
+            text: Notaras slides a small tray of coins into view. It is almost embarrassing.
+          - id: block-022
+            type: dialogue
+            cast_id: loukas-notaras
+            character: Loukas Notaras
+            extension: null
+            parenthetical: null
+            lines:
+              - This is what the empire can breathe.
+          - id: block-023
+            type: dialogue
+            cast_id: urban
+            character: Urban
+            extension: null
+            parenthetical: null
+            lines:
+              - Then the empire is suffocating.
+          - id: block-024
+            type: action
+            text: The insult lands. Constantine absorbs it without flinching.
+          - id: block-025
+            type: dialogue
+            cast_id: constantine-xi-palaiologos
+            character: Constantine XI Palaiologos
+            extension: null
+            parenthetical: null
+            lines:
+              - Yes.
+              - But it is still my city.
+          - id: block-026
+            type: dialogue
+            cast_id: urban
+            character: Urban
+            extension: null
+            parenthetical: null
+            lines:
+              - Then buy what may keep it yours.
+          - id: block-027
+            type: dialogue
+            cast_id: constantine-xi-palaiologos
+            character: Constantine XI Palaiologos
+            extension: null
+            parenthetical: null
+            lines:
+              - Master Urban, I cannot buy bread with prophecy, nor bronze with courage.
+          - id: block-028
+            type: action
+            text: Urban looks from emperor to minister. He understands too well. That makes it worse.
+          - id: block-125
+            type: dialogue
+            cast_id: narrator
+            character: Narrator
+            extension: V.O.
+            parenthetical: null
+            lines:
+              - The refusal was not blindness. It was poverty.
+              - And poverty, in war, can look very much like fate.
+      - id: scene-003
+        title: The Harbor Argument
+        scene_heading:
+          raw: EXT. HARBOR QUARTER - EVENING
+          type: standard
+          location_id: harbor-quarter
+          interior_exterior: EXT
+          time_of_day: EVENING
+        story_function:
+          - moral pressure
+          - choice
+        blocks:
+          - id: block-029
+            type: scene_heading
+            text: EXT. HARBOR QUARTER - EVENING
+          - id: block-030
+            type: action
+            text: Urban and Mara pass refugees mending nets, soldiers mending shields, monks mending hope.
+          - id: block-031
+            type: dialogue
+            cast_id: mara
+            character: Mara
+            extension: null
+            parenthetical: null
+            lines:
+              - They are afraid of your gun.
+          - id: block-032
+            type: dialogue
+            cast_id: urban
+            character: Urban
+            extension: null
+            parenthetical: null
+            lines:
+              - They are afraid of the man who can afford it.
+          - id: block-033
+            type: dialogue
+            cast_id: mara
+            character: Mara
+            extension: null
+            parenthetical: null
+            lines:
+              - Then do not go to him.
+          - id: block-034
+            type: dialogue
+            cast_id: urban
+            character: Urban
+            extension: null
+            parenthetical: null
+            lines:
+              - A design unfired is a corpse with clean hands.
+          - id: block-035
+            type: action
+            text: Across the water, Ottoman watchfires mark the dark like a second coastline.
+          - id: block-036
+            type: dialogue
+            cast_id: mara
+            character: Mara
+            extension: null
+            parenthetical: null
+            lines:
+              - And a design fired?
+          - id: block-037
+            type: action
+            text: Urban folds the drawing and tucks it under his coat.
+          - id: block-038
+            type: dialogue
+            cast_id: urban
+            character: Urban
+            extension: null
+            parenthetical: null
+            lines:
+              - Work.
