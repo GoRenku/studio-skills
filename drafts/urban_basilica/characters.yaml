@@ -1,0 +1,82 @@
+characters:
+  - id: char-001
+    name: Urban / Orban
+    display_name: URBAN
+    role: protagonist
+    age: 40
+    description: A Hungarian cannon founder from Brassó; practical, brilliant, proud, and tired of being treated as a wandering tradesman.
+    want: To build the greatest cannon in the world and be paid what his skill is worth.
+    need: To understand that a maker is not absolved by selling the use of his hands.
+    arc: Moves from hungry professional pride to horrified recognition of complicity.
+    voice_notes: Plain, technical, unsentimental; becomes quieter as the weapon succeeds.
+  - id: char-002
+    name: Mara
+    display_name: MARA
+    role: fictional apprentice and moral counterweight
+    age: 19
+    description: A foundry assistant from a Balkan Christian family displaced by war; sharp-eyed, competent, and less impressed by patrons than Urban is.
+    want: To survive by attaching herself to useful work.
+    need: To decide when loyalty to a master becomes loyalty to a disaster.
+    arc: Begins as Urban's helper, ends as witness to the cost of his bargain.
+    voice_notes: Economical, direct, often says the human thing Urban avoids.
+  - id: char-003
+    name: Constantine XI Palaiologos
+    display_name: CONSTANTINE
+    role: Byzantine emperor
+    age: 49
+    description: The last Byzantine emperor; exhausted but dignified, aware that courage cannot mint coins or summon armies.
+    want: To preserve Constantinople long enough for Western aid to arrive.
+    need: To make decisions worthy of the city even when the choices are all losses.
+    arc: >
+      Brief but firm: he refuses the cannon because he cannot buy it, not because he fails to understand it.
+    voice_notes: Controlled, grave, personal when speaking of the city.
+  - id: char-004
+    name: Loukas Notaras
+    display_name: NOTARAS
+    role: Byzantine megas doux and chief minister
+    age: 50
+    description: A shrewd, wealthy statesman caught between court finance, church politics, foreign aid, and military reality.
+    want: To keep the state functioning through impossible scarcity.
+    need: To admit that prudence can look like cowardice when history is collapsing.
+    arc: Uses numbers as armor but knows the arithmetic is fatal.
+    voice_notes: Precise, skeptical, politically alert.
+  - id: char-005
+    name: Mehmed II
+    display_name: MEHMED
+    role: Ottoman sultan
+    age: 21
+    description: Young, intense, educated, theatrical, and strategically relentless; sees Constantinople as destiny and proof.
+    want: To take Constantinople and become the ruler who breaks the old world's locked gate.
+    need: To turn desire into logistics, not merely rage.
+    arc: Recognizes Urban's cannon as both weapon and symbol.
+    voice_notes: Elegant, probing, sometimes almost intimate before becoming absolute.
+  - id: char-006
+    name: Saruca
+    display_name: SARUCA
+    role: Ottoman master founder
+    age: 50
+    description: An experienced Ottoman cannon founder; practical enough to respect Urban and seasoned enough to distrust giant promises.
+    want: To make artillery that works without killing the crew.
+    need: To balance craft discipline against the sultan's appetite for spectacle.
+    arc: Warns Urban that metal remembers every insult.
+    voice_notes: Dry, technical, fatalistic.
+  - id: char-007
+    name: Giovanni Giustiniani Longo
+    display_name: GIUSTINIANI
+    role: Genoese defender
+    age: 35
+    description: A professional soldier and siege specialist who arrives with Genoese men to organize the defense of the land walls.
+    want: To hold the walls long enough for relief or Ottoman exhaustion.
+    need: To face an artillery age with courage and improvisation.
+    arc: Appears as the defender who understands where Urban's work will hurt most.
+    voice_notes: Blunt, tactical, impatient with courtly despair.
+  - id: char-008
+    name: Narrator
+    display_name: NARRATOR
+    role: historical voice-over
+    age: null
+    description: A restrained, reflective voice that grounds the audience in historical context without explaining away the characters' choices.
+    want: To frame the siege as a turning point in technology, empire, and responsibility.
+    need: To let silence and image carry the emotion whenever the audience already understands enough.
+    arc: Moves from broad historical framing to intimate uncertainty around Urban's final moments.
+    voice_notes: Measured, grave, literary but plain; speaks in short passages that feel like remembered history, not classroom exposition.

@@ -1,0 +1,247 @@
+act:
+  id: act-3
+  title: The Sound
+  purpose: Return to the siege and force Urban to face the human meaning of his craft.
+  sequences:
+    - id: seq-005
+      title: The Maker at the Wall
+      purpose: Return to the siege, bring Byzantine figures into direct dramatic collision with Urban's work, and end with his death.
+      scenes:
+        - id: scene-008
+          title: Night Repairs
+          scene_heading:
+            raw: EXT. THEODOSIAN WALLS - NIGHT
+            type: standard
+            location_id: loc-001
+            interior_exterior: EXT
+            time_of_day: NIGHT
+          story_function:
+            - defender perspective
+            - human cost
+          blocks:
+            - id: block-081
+              type: scene_heading
+              text: EXT. THEODOSIAN WALLS - NIGHT
+            - id: block-082
+              type: action
+              text: On the Byzantine side, defenders drag barrels, stones, and beams into a breach still warm from impact.
+            - id: block-083
+              type: action
+              text: GIUSTINIANI directs the work with a bloodied sleeve tied around his forearm. Constantine hauls a timber with ordinary men.
+            - id: block-084
+              type: dialogue
+              character: GIUSTINIANI
+              extension: null
+              parenthetical: null
+              lines:
+                - Again before dawn. They need hours to cool and load.
+            - id: block-085
+              type: dialogue
+              character: CONSTANTINE
+              extension: null
+              parenthetical: null
+              lines:
+                - Then we will have hours.
+            - id: block-086
+              type: action
+              text: Notaras arrives with men from the sea walls. He sees the breach and all his ledgers fail him.
+            - id: block-087
+              type: dialogue
+              character: NOTARAS
+              extension: null
+              parenthetical: null
+              lines:
+                - We should have found the bronze.
+            - id: block-088
+              type: dialogue
+              character: CONSTANTINE
+              extension: null
+              parenthetical: null
+              lines:
+                - We should have found a century.
+            - id: block-089
+              type: action
+              text: Across the field, Ottoman torches gather around the sleeping cannon.
+        - id: scene-009
+          title: Too Soon
+          scene_heading:
+            raw: EXT. OTTOMAN SIEGE CAMP - PRE-DAWN
+            type: standard
+            location_id: loc-005
+            interior_exterior: EXT
+            time_of_day: PRE-DAWN
+          story_function:
+            - climax setup
+            - pressure
+          blocks:
+            - id: block-090
+              type: scene_heading
+              text: EXT. OTTOMAN SIEGE CAMP - PRE-DAWN
+            - id: block-091
+              type: action
+              text: The cannon steams in cold air. Urban presses wet cloth to the barrel and hears a faint complaint inside the metal.
+            - id: block-092
+              type: dialogue
+              character: URBAN
+              extension: null
+              parenthetical: null
+              lines:
+                - It needs more time.
+            - id: block-093
+              type: dialogue
+              character: MEHMED
+              extension: null
+              parenthetical: null
+              lines:
+                - The wall is open.
+            - id: block-094
+              type: dialogue
+              character: SARUCA
+              extension: null
+              parenthetical: null
+              lines:
+                - Open walls invite impatience. Impatience bursts guns.
+            - id: block-095
+              type: action
+              text: Mehmed looks to Urban, not Saruca. The privilege feels like a sentence.
+            - id: block-096
+              type: dialogue
+              character: MEHMED
+              extension: null
+              parenthetical: null
+              lines:
+                - Will it fire?
+            - id: block-097
+              type: action
+              text: Mara stares at Urban. Say no, her face says. Let one thing be stronger than pride.
+            - id: block-098
+              type: dialogue
+              character: URBAN
+              extension: null
+              parenthetical: null
+              lines:
+                - It will fire.
+            - id: block-099
+              type: action
+              text: The crew loads. Urban stays close, checking wedges, powder, angle, touchhole.
+            - id: block-100
+              type: dialogue
+              character: MARA
+              extension: null
+              parenthetical: urgent whisper
+              lines:
+                - You said bronze has no temper.
+            - id: block-101
+              type: dialogue
+              character: URBAN
+              extension: null
+              parenthetical: null
+              lines:
+                - I lied.
+            - id: block-102
+              type: action
+              text: He pushes her back behind a powder cart.
+        - id: scene-010
+          title: The Maker's Sound
+          scene_heading:
+            raw: EXT. OTTOMAN SIEGE CAMP / THEODOSIAN WALLS - DAWN
+            type: standard
+            location_id: loc-005
+            interior_exterior: EXT
+            time_of_day: DAWN
+          story_function:
+            - climax
+            - resolution
+          blocks:
+            - id: block-103
+              type: scene_heading
+              text: EXT. OTTOMAN SIEGE CAMP / THEODOSIAN WALLS - DAWN
+            - id: block-104
+              type: action
+              text: The fuse takes. A thread of fire crawls toward the great bronze chamber.
+            - id: block-105
+              type: shot
+              text: >
+                ON URBAN: no triumph now. Only attention.
+            - id: block-106
+              type: action
+              text: The cannon fires and bursts in the same impossible breath.
+            - id: block-128
+              type: dialogue
+              character: NARRATOR
+              extension: V.O.
+              parenthetical: null
+              lines:
+                - Here the records become smoke.
+                - Some say Urban lived to hear the city fall. Others say his own invention took him first.
+            - id: block-107
+              type: action
+              text: Bronze fragments scythe through smoke. Men drop. The carriage splits. The roar turns inside out.
+            - id: block-108
+              type: action
+              text: Mara crawls through ash and shattered wood to Urban.
+            - id: block-109
+              type: dialogue
+              character: MARA
+              extension: null
+              parenthetical: null
+              lines:
+                - Master.
+            - id: block-110
+              type: action
+              text: Urban lies against a wheel, blood dark beneath the soot. His eyes search past her.
+            - id: block-111
+              type: shot
+              text: >
+                HIS POV: through thinning smoke, the walls of Constantinople still stand, but wounded.
+            - id: block-112
+              type: dialogue
+              character: URBAN
+              extension: null
+              parenthetical: barely
+              lines:
+                - Did it strike?
+            - id: block-113
+              type: dialogue
+              character: MARA
+              extension: null
+              parenthetical: after a beat
+              lines:
+                - Yes.
+            - id: block-114
+              type: action
+              text: This is not comfort. It is mercy's nearest shape.
+            - id: block-115
+              type: dialogue
+              character: URBAN
+              extension: null
+              parenthetical: null
+              lines:
+                - Then remember the men who moved it.
+            - id: block-116
+              type: action
+              text: Urban's hand loosens around a charred measuring cord.
+            - id: block-117
+              type: action
+              text: Mehmed stands beyond the smoke, alive, untouched, already looking toward the breach instead of the dead.
+            - id: block-118
+              type: action
+              text: On the walls, Constantine turns at the distant explosion. For one suspended moment, maker and emperor share the same silence across the battlefield.
+            - id: block-119
+              type: action
+              text: Then drums begin again.
+            - id: block-129
+              type: dialogue
+              character: NARRATOR
+              extension: V.O.
+              parenthetical: null
+              lines:
+                - The walls had not fallen yet.
+                - But the future had found their weakness.
+            - id: block-120
+              type: transition
+              text: FADE OUT.
+            - id: block-121
+              type: transition_or_special
+              text: >
+                SUPER: CONSTANTINOPLE FELL ON MAY 29, 1453. URBAN'S EXACT END IS UNCERTAIN; ONE TRADITION HOLDS THAT HE DIED WHEN HIS OWN GREAT GUN BURST.

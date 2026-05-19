@@ -46,13 +46,10 @@ In commands below, `<skill>` is the absolute path to this skill folder.
 
    Use the schema in `references/screenplay-yaml-schema.md`. The YAML must include:
 
-   - `document`: title, draft label, audience, target length, genre, tone, and content boundaries.
-   - `concept`: proposed title, logline, summary, premise, conflict, dramatic question, and themes.
-   - `story_arc`: acts and key inflection points.
-   - `characters`: character IDs, names, roles, wants, needs, arcs, and voice notes.
-   - `locations`: location IDs, slugline names, period, description, and visual notes.
-   - `screenplay_body`: sequences, scenes, scene headings, and renderer-friendly screenplay blocks.
-   - `revision_state`: open questions, assumptions, and next iteration options.
+   - `screenplay.yaml`: `document`, `concept`, `story_arc`, file references, and `revision_state`.
+   - `characters.yaml`: character IDs, names, roles, wants, needs, arcs, and voice notes.
+   - `locations.yaml`: location IDs, slugline names, period, description, and visual notes.
+   - One act YAML file per act: act metadata, sequences, scenes, scene headings, and renderer-friendly screenplay blocks.
 
 5. Write the opening pages.
 
@@ -70,7 +67,7 @@ In commands below, `<skill>` is the absolute path to this skill folder.
    Preserve stable IDs for existing material:
 
    - If rewriting a block, keep its `block-###` ID.
-   - If moving a scene, keep its `scene-###` ID and update `act_id`, `sequence_id`, and ordering.
+   - If moving a scene, keep its `scene-###` ID and place it under the correct act and sequence.
    - If adding material, use the next available ID number for that entity type.
    - If removing material, do not reuse retired IDs in the same draft.
    - Update `revision_state` with major assumptions, open questions, and next useful revision options.

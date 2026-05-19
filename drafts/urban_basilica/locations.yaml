@@ -1,0 +1,47 @@
+locations:
+  - id: loc-001
+    name: Theodosian Walls
+    slugline_name: THEODOSIAN WALLS
+    time_period: Constantinople, 1453
+    description: The ancient land walls of Constantinople, scarred by bombardment, patched nightly with timber, barrels, rubble, and prayer.
+    visual_notes:
+      - Dust drifting from cracked stone
+      - Smoke lying low in the moat
+      - Tiny human figures against impossible masonry
+  - id: loc-002
+    name: Imperial Council Chamber
+    slugline_name: IMPERIAL COUNCIL CHAMBER
+    time_period: Constantinople, late 1452
+    description: >
+      A diminished room of empire: icons, maps, unpaid ledgers, and cold light from the Bosporus.
+    visual_notes:
+      - Gold leaf dulled by soot
+      - Empty coin trays
+      - Maps weighted with broken arrowheads
+  - id: loc-003
+    name: Harbor Quarter
+    slugline_name: HARBOR QUARTER
+    time_period: Constantinople, late 1452
+    description: A crowded district of traders, refugees, soldiers, monks, and rumor beneath the chain of the Golden Horn.
+    visual_notes:
+      - Ship ropes creaking
+      - Refugees cooking over shielded fires
+      - Latin and Greek prayers overlapping
+  - id: loc-004
+    name: Edirne Foundry
+    slugline_name: EDIRNE FOUNDRY
+    time_period: Ottoman capital, winter 1452-1453
+    description: A roaring industrial court of clay molds, charcoal, bellows, bronze, sweating laborers, and imperial urgency.
+    visual_notes:
+      - Molten bronze like a second sunrise
+      - Oxen steaming in winter air
+      - Scribes counting every ingot
+  - id: loc-005
+    name: Ottoman Siege Camp
+    slugline_name: OTTOMAN SIEGE CAMP
+    time_period: Outside Constantinople, April 1453
+    description: A city of tents, soldiers, engineers, animals, powder carts, prayers, drums, and ambition facing the walls.
+    visual_notes:
+      - Mehmed's pavilion aligned with the bombard
+      - Janissaries drilling in silence
+      - Powder smoke staining dawn
