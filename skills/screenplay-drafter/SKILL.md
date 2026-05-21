@@ -1,88 +1,60 @@
 ---
 name: screenplay-drafter
-description: Create and iterate structured YAML screenplay drafts in formal screenplay format. Use when a user wants help developing a script, screenplay, short film, feature, pilot, scene sequence, story arc, cast, locations, dialogue, narration, scene settings, action lines, or a screenplay YAML package that can later be rendered into a traditional screenplay document.
+description: Create and revise Renku Studio screenplay JSON for movies. Use when a user wants help developing a script, screenplay, short film, feature, story arc, cast, locations, dialogue, narration, scene settings, action lines, or Renku screenplay create/apply JSON for the screenplay CLI.
 ---
 
 # Screenplay Drafter
 
-Use this skill to help a user move from story idea to a structured screenplay YAML draft, then iterate that draft without losing its document structure.
+Use this skill to help a user turn a story idea or revision request into Renku Studio screenplay JSON.
 
-In commands below, `<skill>` is the absolute path to this skill folder.
+Renku owns durable IDs. Agents author temporary keys for new records, run the Renku commands, then use Renku's generated IDs for later edits.
 
-## Workflow
+## Start Here
 
-1. Identify whether this is a new screenplay or an iteration.
+1. Decide whether the user is creating the first screenplay or revising an existing one.
+2. For a first screenplay, draft a `screenplayCreate` JSON document and run:
 
-   - For a new screenplay, collect the minimum story brief needed to create momentum.
-   - For an iteration, preserve the existing YAML structure and stable IDs unless the user explicitly asks for a larger restructure.
+```bash
+renku screenplay validate --file <screenplay-json> --json
+renku screenplay create --file <screenplay-json> --json
+```
 
-2. For a new screenplay, gather or infer these inputs:
+3. For a revision, read the current state, draft a `screenplayOperations` JSON document, validate it, then apply it:
 
-   - Scenario overview, more detailed than a logline.
-   - Main cast members and known relationships.
-   - Time period.
-   - Primary locations.
-   - Target length, such as 5-minute short, short film, feature, standard feature, pilot, or custom page/minute target.
-   - Main conflict, stakes, and cast member wants.
-   - Audience expectation, such as young kids, family, teens, mature adults, or festival drama.
-   - Tone, genre, and hard constraints if provided.
+```bash
+renku screenplay show --json
+renku screenplay validate --file <operations-json> --json
+renku screenplay apply --file <operations-json> --json
+```
 
-   Ask only for missing high-impact inputs. If the user wants momentum or asks you to proceed, make clear assumptions and record them in `revision_state.assumptions_made`.
+4. Use `--dry-run` before apply/create when the edit is broad or risky.
+5. Preserve the user's story intent. Ask only for missing choices that materially change the story, scope, or command shape.
 
-3. Shape the story before writing pages.
+## Reference Files
 
-   Use a three-act structure by default unless the user's format calls for something else. For very short scripts, keep the act model lightweight but still identify the hook, inciting incident, midpoint or turn, climax, and resolution.
+- Read `references/screenplay-json-workflow.md` when you need command order, current-project setup, validation, dry-run, or output handling.
+- Read `references/screenplay-json-contract.md` before writing JSON. It defines create documents, operation documents, references, placement, and canonical output.
+- Read `references/screenplay-writing-guidelines.md` when shaping story, scenes, dialogue, cast, locations, tone, and draft quality.
+- Use `samples/urban-basilica/create-screenplay.json` as the full create example.
+- Use `samples/urban-basilica/updates/*.json` for focused update examples. Replace placeholder IDs with IDs from `generatedIds` or `renku screenplay show --json`.
 
-   Length guidance:
+## Non-Negotiables
 
-   - One screenplay page roughly equals one screen minute.
-   - Very short: 1-3 pages.
-   - 5-minute short: about 5 pages.
-   - 10-minute short: about 10 pages.
-   - Short film: roughly 5-30 pages.
-   - Feature: roughly 80-120 pages.
-
-4. Produce YAML, not prose-only output.
-
-   Use the schema in `references/screenplay-yaml-schema.md`. The YAML must include:
-
-   - `screenplay/screenplay.yaml`: `schema_version`, `cast_ref`, `locations_ref`, `act_refs`, `project`, and `revision_state`.
-   - `cast/<cast-id>/description.md`: front-matter Markdown for each cast member, using a durable kebab-case folder id.
-   - `locations/<location-id>/description.md`: front-matter Markdown for each location, using a durable kebab-case folder id.
-   - One act YAML file per act under `screenplay/acts/`: act metadata, sequences, scenes, scene settings, and renderer-friendly screenplay blocks.
-
-5. Write the opening pages.
-
-   The first anti-writer's-block draft should include a developed arc plus at least the hook and first few pages of screenplay blocks. Do not attempt a full feature-length draft unless the user explicitly asks.
-
-6. Use formal screenplay conventions inside the YAML.
-
-   - Scene settings store `interior_exterior`, `location_ids`, and `time_of_day`; renderers construct sluglines such as `INT. DINER - NIGHT`.
-   - Action lines are visual, present tense, and production-readable.
-   - Non-dialogue text may reference cast and location records with global `@id` mentions, such as `@mara` or `@abandoned-mountain-tunnel`.
-   - Dialogue blocks include `cast_id`, optional extension such as `V.O.` or `O.S.`, optional parenthetical, and dialogue lines; renderers resolve the cue from the cast file.
-   - Scene setting `location_ids` values point to location folder IDs, and dialogue `cast_id` values point to cast folder IDs.
-   - Montage markers, shots, title cards, supers, and transitions use explicit block types.
-
-7. Iterate carefully.
-
-   Preserve stable IDs for existing material:
-
-   - If rewriting a block, keep its `block-###` ID.
-   - If moving a scene, keep its `scene-###` ID and place it under the correct act and sequence.
-   - If adding material, use the next available ID number for that entity type.
-   - If removing material, do not reuse retired IDs in the same draft.
-   - Preserve existing cast and location kebab-case IDs once they have been established; they are used as folder names and durable references.
-   - Update `revision_state` with major assumptions, open questions, and next useful revision options.
-
-## Schema Reference
-
-Read `references/screenplay-yaml-schema.md` before generating or revising YAML screenplay content. It defines the expected document shape, block types, renderer contract, and example output.
+- Use `key`, not `localKey`, for new records in create/add input.
+- Do not provide `id` for a new cast member, location, act, sequence, or scene. Renku generates it.
+- Use durable `id` values for existing records, update targets, delete targets, move targets, parent targets, and placement targets.
+- Reference objects contain exactly one of `id` or `key`.
+- Put structured narrative arc data in `screenplay.storyArc`. Do not put `keyBeats` on acts.
+- Story-arc acts use `actReference` with exactly one of `id` or `key`; story beats are internal narrative objects and do not have IDs or keys.
+- Use `locationReferences`, `castMemberReferences`, and `castMemberReference` in create/apply input.
+- Expect canonical `renku screenplay show --json` output to use durable `id`, `locationIds`, and `castMemberId`, without authoring keys or reference objects.
+- `screenplay.update` replaces the top-level `screenplay` object. Include every screenplay field you want to keep.
+- Do not invent block IDs. Scene updates replace the scene's full `blocks` array.
 
 ## Quality Bar
 
-- Prioritize momentum without flattening the user's voice.
-- Make the story playable: clear wants, obstacles, stakes, and scene turns.
-- Keep audience expectations visible in content choices.
-- Avoid novelistic interiority unless it is expressed through action, dialogue, or voiceover.
-- Do not claim industry-standard formatting in the final document unless the YAML follows the renderer contract.
+- Make the story playable: clear wants, obstacles, stakes, turns, and consequences.
+- Keep action visual, present tense, and production-readable.
+- Use dialogue for behavior, pressure, and subtext, not exposition that can be shown.
+- Keep cast and location handles stable, lower-case, and unique across cast and locations.
+- Record important assumptions in `screenplay.assumptionsMade` when the user asks you to proceed with incomplete information.

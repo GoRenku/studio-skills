@@ -1,0 +1,69 @@
+{
+  "kind": "screenplayOperations",
+  "operations": [
+    {
+      "operation": "location.add",
+      "location": {
+        "key": "powder-yard",
+        "handle": "powder-yard",
+        "name": "Powder Yard",
+        "timePeriod": "Ottoman capital, winter 1452-1453",
+        "description": "A guarded yard of powder barrels, carts, damp canvas, and nervous distance from open flame.",
+        "visualNotes": "Powder dust on sleeves; sentries keeping lamps low; carts waiting in frost."
+      }
+    },
+    {
+      "operation": "scene.update",
+      "scene": {
+        "id": "scene_scene-006",
+        "title": "The Test",
+        "setting": {
+          "interiorExterior": "EXT",
+          "timeOfDay": "DAY",
+          "locationReferences": [
+            {
+              "id": "location_edirne-test-field"
+            },
+            {
+              "key": "powder-yard"
+            }
+          ]
+        },
+        "storyFunction": [
+          "midpoint",
+          "proof",
+          "expose the material risk behind spectacle"
+        ],
+        "blocks": [
+          {
+            "type": "action",
+            "text": "A stone ball waits inside the cannon while carts from @powder-yard creak toward the test line.",
+            "locationReferences": [
+              {
+                "key": "powder-yard"
+              }
+            ]
+          },
+          {
+            "type": "dialogue",
+            "castMemberReference": {
+              "id": "cast_saruca"
+            },
+            "lines": [
+              "If it bursts, no one will hear your apology."
+            ]
+          },
+          {
+            "type": "dialogue",
+            "castMemberReference": {
+              "id": "cast_urban"
+            },
+            "lines": [
+              "Then stand farther away."
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

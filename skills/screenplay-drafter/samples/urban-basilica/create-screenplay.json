@@ -1,0 +1,1571 @@
+{
+  "kind": "screenplayCreate",
+  "screenplay": {
+    "title": "Basilica",
+    "intendedAudience": "mature adults",
+    "targetLengthLabel": "10-minute short film",
+    "estimatedMinutes": 10,
+    "genrePrimary": "historical drama",
+    "genreSecondary": [
+      "war drama",
+      "character tragedy"
+    ],
+    "tone": [
+      "grave",
+      "intimate",
+      "morally uneasy",
+      "political"
+    ],
+    "ratingIntent": "mature adults",
+    "boundaries": [
+      "Siege violence is present but not graphically dwelled on.",
+      "Religious and political tensions are treated as historical pressures, not caricature.",
+      "Urban's final moments are dramatized from disputed historical tradition."
+    ],
+    "logline": "In the last winter of Byzantium, a Hungarian cannon founder rejected by a bankrupt emperor sells his terrible invention to a young Ottoman sultan and must watch his genius become the sound that ends a thousand-year empire.\n",
+    "summary": "The film opens at the bombardment of Constantinople in April 1453, then cuts back to Urban arriving in the dying Byzantine capital with a proposition: fund his great cannon and the city may still frighten its enemies. Emperor Constantine XI and Loukas Notaras recognize the danger and value of the offer but cannot pay him, nor can they source the bronze, powder, labor, and transport needed. Urban crosses to Mehmed II, who understands not only the weapon but the theater of power it creates. As the gun is cast, hauled, tested, and finally fired at the Theodosian Walls, Urban's practical hunger for patronage curdles into recognition: no master truly owns a weapon once history wants to use it. The final scene follows the disputed tradition that Urban dies when one of his own great bombards bursts, leaving his last sight fixed on the walls he taught the world how to break.\n",
+    "premiseOverview": "Urban is treated as a talented foreign specialist from Brasso in the Kingdom of Hungary. The short compresses events from late 1452 through the 1453 siege into a chamber tragedy about money, craft, ambition, and responsibility.\n",
+    "centralConflict": "Urban wants a patron who can pay for the cannon he knows he can build. Constantine wants to save a city with empty coffers and too few soldiers. Mehmed wants to make the impossible fall not merely possible but inevitable.\n",
+    "dramaticQuestion": "When survival, ambition, and invention collide, can Urban still claim he is only a craftsman?",
+    "themes": [
+      "Technology does not stay neutral once power buys it.",
+      "Empires can die from poverty before they die from assault.",
+      "The maker's pride and the maker's guilt may be the same flame.",
+      "A wall built for one age can become a monument to another."
+    ],
+    "historicalBasis": [
+      "Urban is traditionally described as a Hungarian or Transylvanian cannon founder who offered services to Byzantium before serving Mehmed II.",
+      "Constantine XI could not meet Urban's price or provide the materials for such large artillery.",
+      "Mehmed II used large artillery, including the famous bombard often called Basilica, against Constantinople in 1453.",
+      "The great cannon was difficult to move, slow to reload, inaccurate, and dangerous to operate.",
+      "Urban's death is not securely documented; many retellings use the tradition that he was killed when a gun exploded."
+    ],
+    "dramatizedElements": [
+      "Urban's private conversations with Constantine, Notaras, Mehmed, Saruca, and a fictional apprentice are invented.",
+      "The exact timing of Urban's death is shaped for the final image of the short.",
+      "Mara, Urban's apprentice, is fictional and serves as his conscience, audience surrogate, and craft partner."
+    ],
+    "storyArc": {
+      "structureModel": "three_act",
+      "acts": [
+        {
+          "actReference": {
+            "key": "act-1"
+          },
+          "title": "The Offer",
+          "purpose": "Open on the siege, then rewind to Urban's failed attempt to sell his work to Byzantium.",
+          "estimatedPages": "1-3",
+          "keyBeats": [
+            {
+              "type": "hook",
+              "label": "The walls shake under Urban's cannon.",
+              "description": "The audience first meets Urban through the destructive consequence of his work."
+            },
+            {
+              "type": "setup",
+              "label": "Urban brings his design to Constantine XI.",
+              "description": "He believes the Byzantines will understand the need for a weapon equal to the age."
+            },
+            {
+              "type": "inciting_incident",
+              "label": "Byzantium cannot pay.",
+              "description": "Constantine and Notaras reject Urban not out of ignorance, but because their empire is already starved."
+            }
+          ]
+        },
+        {
+          "actReference": {
+            "key": "act-2"
+          },
+          "title": "The Patron",
+          "purpose": "Urban enters Mehmed's world, where resources and ambition are abundant but moral distance collapses.",
+          "estimatedPages": "4-8",
+          "keyBeats": [
+            {
+              "type": "first_turn",
+              "label": "Urban crosses to Edirne.",
+              "description": "He offers Mehmed a cannon large enough to batter the walls that have resisted centuries."
+            },
+            {
+              "type": "midpoint",
+              "label": "The test shot succeeds.",
+              "description": "Urban earns his patron and loses his plausible innocence."
+            },
+            {
+              "type": "reversal",
+              "label": "The gun's hunger becomes visible.",
+              "description": "The massive bombard consumes men, animals, metal, powder, and time while threatening its own crew."
+            }
+          ]
+        },
+        {
+          "actReference": {
+            "key": "act-3"
+          },
+          "title": "The Sound",
+          "purpose": "Return to the siege and force Urban to face the human meaning of his craft.",
+          "estimatedPages": "9-10",
+          "keyBeats": [
+            {
+              "type": "low_point",
+              "label": "The breach opens.",
+              "description": "Urban sees the walls crumble and realizes the cannon has become more powerful than his intention."
+            },
+            {
+              "type": "climax",
+              "label": "The bombard bursts.",
+              "description": "Urban tries to correct a dangerous firing under pressure; the weapon destroys its maker."
+            },
+            {
+              "type": "resolution",
+              "label": "The city still waits for the next shot.",
+              "description": "Urban dies before the fall, leaving history to remember the weapon more clearly than the man."
+            }
+          ]
+        }
+      ]
+    },
+    "status": "initial_draft",
+    "researchSources": [
+      "Britannica, Fall of Constantinople: https://www.britannica.com/event/Fall-of-Constantinople-1453. Mehmed tasked Hungarian gunsmith Urban with arming Rumelihisari and building cannon powerful enough for Constantinople's walls.  By March 1453 Urban's cannon was transported from Edirne to Constantinople.  Constantine XI sought aid; Genoese commander Giovanni Giustiniani arrived with 700 soldiers.",
+      "World History Encyclopedia - 1453 The Fall of Constantinople: https://www.worldhistory.org/article/1180/1453-the-fall-of-constantinople/. Urban first offered the cannon to the Byzantines, but Constantine could not meet his price.  Mehmed offered far more and used large artillery in the siege.  The largest cannon was slow to cool and reload, while defenders repaired breaches at night.",
+      "Oxford Cabinet, Fall of Constantinople 1453: https://www.cabinet.ox.ac.uk/fall-constantinople-1453. The largest bombard is traditionally attributed to Urban and called Basilica.  It required a large team of oxen and men to move, was slow to reload, and could damage walls despite inaccuracy.",
+      "Fracture and Structural Integrity, Damage and failure of Urban's gun: https://www.fracturae.com/index.php/fis/article/view/2615. Modern technical analysis treats historical reports of damage and possible failure of Urban's gun as plausible engineering problems.",
+      "Britannica, Constantine XI Palaeologus: https://www.britannica.com/biography/Constantine-XI-Palaeologus. Constantine XI was killed in the final defense of Constantinople on May 29, 1453."
+    ],
+    "assumptionsMade": [
+      "Urban is portrayed as a mature craftsman in his forties; his exact age is unknown.",
+      "Mara is fictional, added to externalize Urban's conscience and provide a practical foundry relationship.",
+      "Saruca is used as an Ottoman master founder based on historical references to Ottoman artillery specialists; his direct relationship with Urban is dramatized.",
+      "Urban's death by cannon explosion is used as the final scene because it is a strong tradition, but the script openly marks it as uncertain.",
+      "The story compresses late 1452 through the April-May 1453 siege for a 10-minute short.",
+      "A narrator has been added for selected historical grounding, especially where context deepens the audience's understanding without needing extra scenes.",
+      "Open question: Should the next draft make Urban more sympathetic, more mercenary, or more morally divided from the start?",
+      "Open question: Do you want the final film to end before the city's fall, as drafted, or include a brief image from May 29, 1453?",
+      "Open question: Should Mara remain fictional, or should the conscience role be transferred to a historically plausible but unnamed foundry worker?",
+      "Open question: Do you prefer a more multilingual texture with Greek, Hungarian, Italian, and Ottoman Turkish phrases noted in dialogue?",
+      "Next iteration option: Expand this into a full 10-page dialogue-polished draft with tighter scene timing.",
+      "Next iteration option: Create a historically annotated version that marks each beat as documented, inferred, or invented.",
+      "Next iteration option: Make it more cinematic and sparse, with less dialogue and more visual storytelling around the casting and siege.",
+      "Next iteration option: Prepare a shot list and production design notes for a low-budget short.",
+      "Estimated pages from source draft: 10."
+    ]
+  },
+  "cast": [
+    {
+      "key": "constantine-xi-palaiologos",
+      "handle": "constantine-xi-palaiologos",
+      "name": "Constantine XI Palaiologos",
+      "role": "Byzantine emperor",
+      "age": 49,
+      "want": "To preserve Constantinople long enough for Western aid to arrive.",
+      "need": "To make decisions worthy of the city even when the choices are all losses.",
+      "arc": "Brief but firm: he refuses the cannon because he cannot buy it, not because he fails to understand it.\n",
+      "voiceNotes": "Controlled, grave, personal when speaking of the city.",
+      "description": "The last Byzantine emperor; exhausted but dignified, aware that courage cannot mint coins or summon armies."
+    },
+    {
+      "key": "giovanni-giustiniani-longo",
+      "handle": "giovanni-giustiniani-longo",
+      "name": "Giovanni Giustiniani Longo",
+      "role": "Genoese defender",
+      "age": 35,
+      "want": "To hold the walls long enough for relief or Ottoman exhaustion.",
+      "need": "To face an artillery age with courage and improvisation.",
+      "arc": "Appears as the defender who understands where Urban's work will hurt most.",
+      "voiceNotes": "Blunt, tactical, impatient with courtly despair.",
+      "description": "A professional soldier and siege specialist who arrives with Genoese men to organize the defense of the land walls."
+    },
+    {
+      "key": "loukas-notaras",
+      "handle": "loukas-notaras",
+      "name": "Loukas Notaras",
+      "role": "Byzantine megas doux and chief minister",
+      "age": 50,
+      "want": "To keep the state functioning through impossible scarcity.",
+      "need": "To admit that prudence can look like cowardice when history is collapsing.",
+      "arc": "Uses numbers as armor but knows the arithmetic is fatal.",
+      "voiceNotes": "Precise, skeptical, politically alert.",
+      "description": "A shrewd, wealthy statesman caught between court finance, church politics, foreign aid, and military reality."
+    },
+    {
+      "key": "mara",
+      "handle": "mara",
+      "name": "Mara",
+      "role": "fictional apprentice and moral counterweight",
+      "age": 19,
+      "want": "To survive by attaching herself to useful work.",
+      "need": "To decide when loyalty to a master becomes loyalty to a disaster.",
+      "arc": "Begins as Urban's helper, ends as witness to the cost of his bargain.",
+      "voiceNotes": "Economical, direct, often says the human thing Urban avoids.",
+      "description": "A foundry assistant from a Balkan Christian family displaced by war; sharp-eyed, competent, and less impressed by patrons than Urban is."
+    },
+    {
+      "key": "mehmed-ii",
+      "handle": "mehmed-ii",
+      "name": "Mehmed II",
+      "role": "Ottoman sultan",
+      "age": 21,
+      "want": "To take Constantinople and become the ruler who breaks the old world's locked gate.",
+      "need": "To turn desire into logistics, not merely rage.",
+      "arc": "Recognizes Urban's cannon as both weapon and symbol.",
+      "voiceNotes": "Elegant, probing, sometimes almost intimate before becoming absolute.",
+      "description": "Young, intense, educated, theatrical, and strategically relentless; sees Constantinople as destiny and proof."
+    },
+    {
+      "key": "narrator",
+      "handle": "narrator",
+      "name": "Narrator",
+      "role": "historical voice-over",
+      "want": "To frame the siege as a turning point in technology, empire, and responsibility.",
+      "need": "To let silence and image carry the emotion whenever the audience already understands enough.",
+      "arc": "Moves from broad historical framing to intimate uncertainty around Urban's final moments.",
+      "voiceNotes": "Measured, grave, literary but plain; speaks in short passages that feel like remembered history, not classroom exposition.",
+      "description": "A restrained, reflective voice that grounds the audience in historical context without explaining away the cast's choices."
+    },
+    {
+      "key": "saruca",
+      "handle": "saruca",
+      "name": "Saruca",
+      "role": "Ottoman master founder",
+      "age": 50,
+      "want": "To make artillery that works without killing the crew.",
+      "need": "To balance craft discipline against the sultan's appetite for spectacle.",
+      "arc": "Warns Urban that metal remembers every insult.",
+      "voiceNotes": "Dry, technical, fatalistic.",
+      "description": "An experienced Ottoman cannon founder; practical enough to respect Urban and seasoned enough to distrust giant promises."
+    },
+    {
+      "key": "urban",
+      "handle": "urban",
+      "name": "Urban",
+      "role": "protagonist",
+      "age": 40,
+      "want": "To build the greatest cannon in the world and be paid what his skill is worth.",
+      "need": "To understand that a maker is not absolved by selling the use of his hands.",
+      "arc": "Moves from hungry professional pride to horrified recognition of complicity.",
+      "voiceNotes": "Plain, technical, unsentimental; becomes quieter as the weapon succeeds.",
+      "description": "A Hungarian cannon founder from Brasso; practical, brilliant, proud, and tired of being treated as a wandering tradesman."
+    }
+  ],
+  "locations": [
+    {
+      "key": "edirne-foundry",
+      "handle": "edirne-foundry",
+      "name": "Edirne Foundry",
+      "timePeriod": "Ottoman capital, winter 1452-1453",
+      "description": "A roaring industrial court of clay molds, charcoal, bellows, bronze, sweating laborers, and imperial urgency.",
+      "visualNotes": "- Molten bronze like a second sunrise\n- Oxen steaming in winter air\n- Scribes counting every ingot"
+    },
+    {
+      "key": "edirne-palace-workroom",
+      "handle": "edirne-palace-workroom",
+      "name": "Edirne Palace Workroom",
+      "timePeriod": "Ottoman capital, winter 1452-1453",
+      "description": "A lamplit palace workroom where drawings, ledgers, tools, and imperial ambition share the same table.",
+      "visualNotes": "- Oil lamps burning over cannon plans\n- Scribes waiting with sharpened reeds\n- Coinlight catching on polished wood"
+    },
+    {
+      "key": "edirne-test-field",
+      "handle": "edirne-test-field",
+      "name": "Edirne Test Field",
+      "timePeriod": "Ottoman capital, winter 1452-1453",
+      "description": "An open field outside Edirne where the new bombard can be fired without pretending the earth will stay still.",
+      "visualNotes": "- Frozen ruts cut by carts and oxen\n- A target wall of timber and packed earth\n- Smoke spreading low across winter grass"
+    },
+    {
+      "key": "harbor-quarter",
+      "handle": "harbor-quarter",
+      "name": "Harbor Quarter",
+      "timePeriod": "Constantinople, late 1452",
+      "description": "A crowded district of traders, refugees, soldiers, monks, and rumor beneath the chain of the Golden Horn.",
+      "visualNotes": "- Ship ropes creaking\n- Refugees cooking over shielded fires\n- Latin and Greek prayers overlapping"
+    },
+    {
+      "key": "imperial-council-chamber",
+      "handle": "imperial-council-chamber",
+      "name": "Imperial Council Chamber",
+      "timePeriod": "Constantinople, late 1452",
+      "description": "A diminished room of empire: icons, maps, unpaid ledgers, and cold light from the Bosporus.",
+      "visualNotes": "- Gold leaf dulled by soot\n- Empty coin trays\n- Maps weighted with broken arrowheads"
+    },
+    {
+      "key": "ottoman-siege-camp",
+      "handle": "ottoman-siege-camp",
+      "name": "Ottoman Siege Camp",
+      "timePeriod": "Outside Constantinople, April 1453",
+      "description": "A city of tents, soldiers, engineers, animals, powder carts, prayers, drums, and ambition facing the walls.",
+      "visualNotes": "- Mehmed's pavilion aligned with the bombard\n- Janissaries drilling in silence\n- Powder smoke staining dawn"
+    },
+    {
+      "key": "road-to-constantinople",
+      "handle": "road-to-constantinople",
+      "name": "Road to Constantinople",
+      "timePeriod": "Winter 1452-1453",
+      "description": "The road between Edirne and Constantinople, turned into a slow procession of artillery, animals, soldiers, and fear.",
+      "visualNotes": "- Mud churned under oxen and wagon wheels\n- Villagers watching from a distance\n- The bombard moving like a bronze gate on timber"
+    },
+    {
+      "key": "theodosian-walls",
+      "handle": "theodosian-walls",
+      "name": "Theodosian Walls",
+      "timePeriod": "Constantinople, 1453",
+      "description": "The ancient land walls of Constantinople, scarred by bombardment, patched nightly with timber, barrels, rubble, and prayer.",
+      "visualNotes": "- Dust drifting from cracked stone\n- Smoke lying low in the moat\n- Tiny human figures against impossible masonry"
+    }
+  ],
+  "acts": [
+    {
+      "key": "act-1",
+      "title": "The Offer",
+      "purpose": "Open on the siege, then rewind to Urban's failed attempt to sell his work to Byzantium.",
+      "sequences": [
+        {
+          "key": "seq-001",
+          "title": "The Sound That Opens Stone",
+          "purpose": "Begin with the siege consequence before rewinding to the bargain.",
+          "scenes": [
+            {
+              "key": "scene-001",
+              "title": "Bombardment",
+              "setting": {
+                "interiorExterior": "EXT",
+                "timeOfDay": "DAWN",
+                "locationReferences": [
+                  {
+                    "key": "theodosian-walls"
+                  }
+                ]
+              },
+              "storyFunction": [
+                "hook",
+                "future consequence"
+              ],
+              "blocks": [
+                {
+                  "type": "action",
+                  "text": "A gray April dawn. @theodosian-walls rise from smoke like a cliff at the edge of the world.",
+                  "locationReferences": [
+                    {
+                      "key": "theodosian-walls"
+                    }
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "narrator"
+                  },
+                  "extension": "V.O.",
+                  "lines": [
+                    "For a thousand years, these walls had taught armies to turn back.",
+                    "In the spring of 1453, a new lesson arrived on wheels."
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "In the Ottoman lines, a bronze mouth big enough for a man to crawl inside points at the city."
+                },
+                {
+                  "type": "action",
+                  "text": "@urban stands beside it, face blackened, one hand on the warm metal as if taking a pulse.",
+                  "castMemberReferences": [
+                    {
+                      "key": "urban"
+                    }
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "mara"
+                  },
+                  "parenthetical": "low",
+                  "lines": [
+                    "The barrel is still angry."
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "urban"
+                  },
+                  "lines": [
+                    "Bronze has no temper. Men give it one."
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "Crews wedge the great stone ball into place. Men cover their ears before the order is even given."
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "mehmed-ii"
+                  },
+                  "extension": "O.S.",
+                  "lines": [
+                    "Fire."
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "The cannon erupts. The world becomes flame, thunder, and flying dust."
+                },
+                {
+                  "type": "shot",
+                  "text": "ON @theodosian-walls: stone cracks. Defenders vanish inside a white cloud.\n",
+                  "locationReferences": [
+                    {
+                      "key": "theodosian-walls"
+                    }
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "narrator"
+                  },
+                  "extension": "V.O.",
+                  "lines": [
+                    "The maker of this thunder was not Ottoman. He had come first to the men inside the city."
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "@urban watches the smoke strike the city before the ball does.",
+                  "castMemberReferences": [
+                    {
+                      "key": "urban"
+                    }
+                  ]
+                },
+                {
+                  "type": "transition",
+                  "text": "CUT TO BLACK."
+                },
+                {
+                  "type": "title_card",
+                  "text": "FOUR MONTHS EARLIER"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "seq-002",
+          "title": "The Emperor Without Coin",
+          "purpose": "Show Urban's Byzantine offer and the material reasons for rejection.",
+          "scenes": [
+            {
+              "key": "scene-002",
+              "title": "The First Patron",
+              "setting": {
+                "interiorExterior": "INT",
+                "timeOfDay": "DAY",
+                "locationReferences": [
+                  {
+                    "key": "imperial-council-chamber"
+                  }
+                ]
+              },
+              "storyFunction": [
+                "setup",
+                "failed offer"
+              ],
+              "blocks": [
+                {
+                  "type": "action",
+                  "text": "@urban unrolls a charcoal drawing across a table scarred by generations of decisions.",
+                  "castMemberReferences": [
+                    {
+                      "key": "urban"
+                    }
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "@constantine-xi-palaiologos studies the design. @loukas-notaras studies the numbers beside it.",
+                  "castMemberReferences": [
+                    {
+                      "key": "constantine-xi-palaiologos"
+                    },
+                    {
+                      "key": "loukas-notaras"
+                    }
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "narrator"
+                  },
+                  "extension": "V.O.",
+                  "lines": [
+                    "By then, Byzantium was less an empire than a magnificent city with debts, memories, and enemies.",
+                    "Constantine could recognize genius. Recognition was cheaper than bronze."
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "urban"
+                  },
+                  "lines": [
+                    "A gun this size does not defend a wall. It changes the mind of the man approaching it."
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "loukas-notaras"
+                  },
+                  "lines": [
+                    "It changes the mind of the treasurer first."
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "constantine-xi-palaiologos"
+                  },
+                  "lines": [
+                    "What would you require?"
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "urban"
+                  },
+                  "lines": [
+                    "Bronze. Powder. Charcoal. Masons. Carpenters. Oxen. A foundry that can breathe without collapsing.",
+                    "And pay enough that my men do not sell the design before the mold dries."
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "@loukas-notaras slides a small tray of coins into view. It is almost embarrassing.",
+                  "castMemberReferences": [
+                    {
+                      "key": "loukas-notaras"
+                    }
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "loukas-notaras"
+                  },
+                  "lines": [
+                    "This is what the empire can breathe."
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "urban"
+                  },
+                  "lines": [
+                    "Then the empire is suffocating."
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "The insult lands. @constantine-xi-palaiologos absorbs it without flinching.",
+                  "castMemberReferences": [
+                    {
+                      "key": "constantine-xi-palaiologos"
+                    }
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "constantine-xi-palaiologos"
+                  },
+                  "lines": [
+                    "Yes.",
+                    "But it is still my city."
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "urban"
+                  },
+                  "lines": [
+                    "Then buy what may keep it yours."
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "constantine-xi-palaiologos"
+                  },
+                  "lines": [
+                    "Master Urban, I cannot buy bread with prophecy, nor bronze with courage."
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "@urban looks from emperor to minister. He understands too well. That makes it worse.",
+                  "castMemberReferences": [
+                    {
+                      "key": "urban"
+                    }
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "narrator"
+                  },
+                  "extension": "V.O.",
+                  "lines": [
+                    "The refusal was not blindness. It was poverty.",
+                    "And poverty, in war, can look very much like fate."
+                  ]
+                }
+              ]
+            },
+            {
+              "key": "scene-003",
+              "title": "The Harbor Argument",
+              "setting": {
+                "interiorExterior": "EXT",
+                "timeOfDay": "EVENING",
+                "locationReferences": [
+                  {
+                    "key": "harbor-quarter"
+                  }
+                ]
+              },
+              "storyFunction": [
+                "moral pressure",
+                "choice"
+              ],
+              "blocks": [
+                {
+                  "type": "action",
+                  "text": "@urban and @mara pass refugees mending nets, soldiers mending shields, monks mending hope.",
+                  "castMemberReferences": [
+                    {
+                      "key": "urban"
+                    },
+                    {
+                      "key": "mara"
+                    }
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "mara"
+                  },
+                  "lines": [
+                    "They are afraid of your gun."
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "urban"
+                  },
+                  "lines": [
+                    "They are afraid of the man who can afford it."
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "mara"
+                  },
+                  "lines": [
+                    "Then do not go to him."
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "urban"
+                  },
+                  "lines": [
+                    "A design unfired is a corpse with clean hands."
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "Across the water, Ottoman watchfires mark the dark like a second coastline."
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "mara"
+                  },
+                  "lines": [
+                    "And a design fired?"
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "@urban folds the drawing and tucks it under his coat.",
+                  "castMemberReferences": [
+                    {
+                      "key": "urban"
+                    }
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "urban"
+                  },
+                  "lines": [
+                    "Work."
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "act-2",
+      "title": "The Patron",
+      "purpose": "Urban enters Mehmed's world, where resources and ambition are abundant but moral distance collapses.",
+      "sequences": [
+        {
+          "key": "seq-003",
+          "title": "The Sultan Who Understands Scale",
+          "purpose": "Urban sells the same vision to a ruler with resources and a political imagination for artillery.",
+          "scenes": [
+            {
+              "key": "scene-004",
+              "title": "Four Times the Price",
+              "setting": {
+                "interiorExterior": "INT",
+                "timeOfDay": "NIGHT",
+                "locationReferences": [
+                  {
+                    "key": "edirne-palace-workroom"
+                  }
+                ]
+              },
+              "storyFunction": [
+                "first turn",
+                "new patron"
+              ],
+              "blocks": [
+                {
+                  "type": "action",
+                  "text": "The same drawing lies under better lamps. @mehmed-ii circles it like a hunter circling tracks.",
+                  "castMemberReferences": [
+                    {
+                      "key": "mehmed-ii"
+                    }
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "mehmed-ii"
+                  },
+                  "lines": [
+                    "Can it break the walls of Constantinople?"
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "urban"
+                  },
+                  "lines": [
+                    "No cannon breaks a wall by itself.",
+                    "It breaks one stone. Then another. Then the sleep of the men repairing them."
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "mehmed-ii"
+                  },
+                  "parenthetical": "pleased",
+                  "lines": [
+                    "So it is a weapon against time."
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "urban"
+                  },
+                  "lines": [
+                    "Against time, pride, and mortar."
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "@mehmed-ii gestures. A scribe opens a chest. Coinlight spills across @urban's design.",
+                  "castMemberReferences": [
+                    {
+                      "key": "mehmed-ii"
+                    },
+                    {
+                      "key": "urban"
+                    }
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "mehmed-ii"
+                  },
+                  "lines": [
+                    "You asked the Romans for a price.",
+                    "I will pay four."
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "urban"
+                  },
+                  "lines": [
+                    "And the bronze?"
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "mehmed-ii"
+                  },
+                  "lines": [
+                    "My empire has bells enough to become thunder."
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "@mara watches @urban's face. The answer is visible before he speaks.",
+                  "castMemberReferences": [
+                    {
+                      "key": "mara"
+                    },
+                    {
+                      "key": "urban"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "seq-004",
+          "title": "Bronze Remembers",
+          "purpose": "Make the engineering difficulty dramatic and human.",
+          "scenes": [
+            {
+              "key": "scene-005",
+              "title": "The Casting",
+              "setting": {
+                "interiorExterior": "INT",
+                "timeOfDay": "NIGHT",
+                "locationReferences": [
+                  {
+                    "key": "edirne-foundry"
+                  }
+                ]
+              },
+              "storyFunction": [
+                "craft ordeal",
+                "midpoint build"
+              ],
+              "blocks": [
+                {
+                  "type": "action",
+                  "text": "Bellows roar. Men feed charcoal until the air itself seems flammable."
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "narrator"
+                  },
+                  "extension": "V.O.",
+                  "lines": [
+                    "A cannon of this scale was not simply built. It was persuaded into being.",
+                    "Metal, timber, powder, animals, wages, weather, and fear all had to obey at once."
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "@saruca taps the clay mold, listening. @urban waits beside him, sleepless and radiant.",
+                  "castMemberReferences": [
+                    {
+                      "key": "saruca"
+                    },
+                    {
+                      "key": "urban"
+                    }
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "saruca"
+                  },
+                  "lines": [
+                    "Too much pride in one barrel."
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "urban"
+                  },
+                  "lines": [
+                    "It is measured."
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "saruca"
+                  },
+                  "lines": [
+                    "So is a grave."
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "The pour begins. Molten bronze runs through channels like a controlled catastrophe."
+                },
+                {
+                  "type": "action",
+                  "text": "A worker slips. @mara catches his belt before he pitches forward into the glow.",
+                  "castMemberReferences": [
+                    {
+                      "key": "mara"
+                    }
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "mara"
+                  },
+                  "parenthetical": "to Urban",
+                  "lines": [
+                    "Look at him."
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "@urban does. The worker's face is young, terrified, alive by inches.",
+                  "castMemberReferences": [
+                    {
+                      "key": "urban"
+                    }
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "urban"
+                  },
+                  "lines": [
+                    "Back to the bellows."
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "@mara's disappointment hurts more because she expected it.",
+                  "castMemberReferences": [
+                    {
+                      "key": "mara"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "key": "scene-006",
+              "title": "The Test",
+              "setting": {
+                "interiorExterior": "EXT",
+                "timeOfDay": "DAY",
+                "locationReferences": [
+                  {
+                    "key": "edirne-test-field"
+                  }
+                ]
+              },
+              "storyFunction": [
+                "midpoint",
+                "proof"
+              ],
+              "blocks": [
+                {
+                  "type": "action",
+                  "text": "A stone ball sits inside the cannon's mouth. Beyond it, a target wall waits in an empty field."
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "saruca"
+                  },
+                  "lines": [
+                    "If it bursts, no one will hear your apology."
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "urban"
+                  },
+                  "lines": [
+                    "Then stand farther away."
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "@mehmed-ii lifts one hand. Silence rolls outward through the field.",
+                  "castMemberReferences": [
+                    {
+                      "key": "mehmed-ii"
+                    }
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "Fire. The shot tears across the air and punches the target wall open."
+                },
+                {
+                  "type": "action",
+                  "text": "For a moment no one cheers. The sound has made celebration feel small."
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "mehmed-ii"
+                  },
+                  "parenthetical": "softly, to Urban",
+                  "lines": [
+                    "The city will hear this before it sees me."
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "@urban smiles, but it leaves him quickly.",
+                  "castMemberReferences": [
+                    {
+                      "key": "urban"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "key": "scene-007",
+              "title": "The Road",
+              "setting": {
+                "interiorExterior": "EXT",
+                "timeOfDay": "DAY",
+                "locationReferences": [
+                  {
+                    "key": "road-to-constantinople"
+                  }
+                ]
+              },
+              "storyFunction": [
+                "logistical ordeal",
+                "reversal"
+              ],
+              "blocks": [
+                {
+                  "type": "action",
+                  "text": "Dozens of oxen strain against ropes. Hundreds of men lever the huge bombard through mud."
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "narrator"
+                  },
+                  "extension": "V.O.",
+                  "lines": [
+                    "The great gun was cast far from the walls it was meant to break.",
+                    "Moving it became its own siege: road against weight, mud against ambition.\n"
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "The gun moves less like a weapon than a captive tower."
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "mara"
+                  },
+                  "lines": [
+                    "It takes an army to move your idea."
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "urban"
+                  },
+                  "lines": [
+                    "That is why emperors ignored it."
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "A rope snaps. Men scatter. One ox falls screaming beneath the carriage."
+                },
+                {
+                  "type": "action",
+                  "text": "The cannon does not care. It simply waits to be moved again."
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "mara"
+                  },
+                  "lines": [
+                    "How many dead before it fires?"
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "urban"
+                  },
+                  "lines": [
+                    "Less than after."
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "He regrets saying it. He does not take it back."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "act-3",
+      "title": "The Sound",
+      "purpose": "Return to the siege and force Urban to face the human meaning of his craft.",
+      "sequences": [
+        {
+          "key": "seq-005",
+          "title": "The Maker at the Wall",
+          "purpose": "Return to the siege, bring Byzantine figures into direct dramatic collision with Urban's work, and end with his death.",
+          "scenes": [
+            {
+              "key": "scene-008",
+              "title": "Night Repairs",
+              "setting": {
+                "interiorExterior": "EXT",
+                "timeOfDay": "NIGHT",
+                "locationReferences": [
+                  {
+                    "key": "theodosian-walls"
+                  }
+                ]
+              },
+              "storyFunction": [
+                "defender perspective",
+                "human cost"
+              ],
+              "blocks": [
+                {
+                  "type": "action",
+                  "text": "On the Byzantine side, defenders drag barrels, stones, and beams into a breach still warm from impact."
+                },
+                {
+                  "type": "action",
+                  "text": "@giovanni-giustiniani-longo directs the work with a bloodied sleeve tied around his forearm. @constantine-xi-palaiologos hauls a timber with ordinary men.",
+                  "castMemberReferences": [
+                    {
+                      "key": "giovanni-giustiniani-longo"
+                    },
+                    {
+                      "key": "constantine-xi-palaiologos"
+                    }
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "giovanni-giustiniani-longo"
+                  },
+                  "lines": [
+                    "Again before dawn. They need hours to cool and load."
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "constantine-xi-palaiologos"
+                  },
+                  "lines": [
+                    "Then we will have hours."
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "@loukas-notaras arrives with men from the sea walls. He sees the breach and all his ledgers fail him.",
+                  "castMemberReferences": [
+                    {
+                      "key": "loukas-notaras"
+                    }
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "loukas-notaras"
+                  },
+                  "lines": [
+                    "We should have found the bronze."
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "constantine-xi-palaiologos"
+                  },
+                  "lines": [
+                    "We should have found a century."
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "Across the field, Ottoman torches gather around the sleeping cannon."
+                }
+              ]
+            },
+            {
+              "key": "scene-009",
+              "title": "Too Soon",
+              "setting": {
+                "interiorExterior": "EXT",
+                "timeOfDay": "PRE-DAWN",
+                "locationReferences": [
+                  {
+                    "key": "ottoman-siege-camp"
+                  }
+                ]
+              },
+              "storyFunction": [
+                "climax setup",
+                "pressure"
+              ],
+              "blocks": [
+                {
+                  "type": "action",
+                  "text": "The cannon steams in cold air. @urban presses wet cloth to the barrel and hears a faint complaint inside the metal.",
+                  "castMemberReferences": [
+                    {
+                      "key": "urban"
+                    }
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "urban"
+                  },
+                  "lines": [
+                    "It needs more time."
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "mehmed-ii"
+                  },
+                  "lines": [
+                    "The wall is open."
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "saruca"
+                  },
+                  "lines": [
+                    "Open walls invite impatience. Impatience bursts guns."
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "@mehmed-ii looks to @urban, not @saruca. The privilege feels like a sentence.",
+                  "castMemberReferences": [
+                    {
+                      "key": "mehmed-ii"
+                    },
+                    {
+                      "key": "urban"
+                    },
+                    {
+                      "key": "saruca"
+                    }
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "mehmed-ii"
+                  },
+                  "lines": [
+                    "Will it fire?"
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "@mara stares at @urban. Say no, her face says. Let one thing be stronger than pride.",
+                  "castMemberReferences": [
+                    {
+                      "key": "mara"
+                    },
+                    {
+                      "key": "urban"
+                    }
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "urban"
+                  },
+                  "lines": [
+                    "It will fire."
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "The crew loads. @urban stays close, checking wedges, powder, angle, touchhole.",
+                  "castMemberReferences": [
+                    {
+                      "key": "urban"
+                    }
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "mara"
+                  },
+                  "parenthetical": "urgent whisper",
+                  "lines": [
+                    "You said bronze has no temper."
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "urban"
+                  },
+                  "lines": [
+                    "I lied."
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "He pushes her back behind a powder cart."
+                }
+              ]
+            },
+            {
+              "key": "scene-010",
+              "title": "The Maker's Sound",
+              "setting": {
+                "interiorExterior": "EXT",
+                "timeOfDay": "DAWN",
+                "locationReferences": [
+                  {
+                    "key": "ottoman-siege-camp"
+                  },
+                  {
+                    "key": "theodosian-walls"
+                  }
+                ]
+              },
+              "storyFunction": [
+                "climax",
+                "resolution"
+              ],
+              "blocks": [
+                {
+                  "type": "action",
+                  "text": "The fuse takes. A thread of fire crawls toward the great bronze chamber."
+                },
+                {
+                  "type": "shot",
+                  "text": "ON @urban: no triumph now. Only attention.\n",
+                  "castMemberReferences": [
+                    {
+                      "key": "urban"
+                    }
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "The cannon fires and bursts in the same impossible breath."
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "narrator"
+                  },
+                  "extension": "V.O.",
+                  "lines": [
+                    "Here the records become smoke.",
+                    "Some say Urban lived to hear the city fall. Others say his own invention took him first."
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "Bronze fragments scythe through smoke. Men drop. The carriage splits. The roar turns inside out."
+                },
+                {
+                  "type": "action",
+                  "text": "@mara crawls through ash and shattered wood to @urban.",
+                  "castMemberReferences": [
+                    {
+                      "key": "mara"
+                    },
+                    {
+                      "key": "urban"
+                    }
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "mara"
+                  },
+                  "lines": [
+                    "Master."
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "@urban lies against a wheel, blood dark beneath the soot. His eyes search past her.",
+                  "castMemberReferences": [
+                    {
+                      "key": "urban"
+                    }
+                  ]
+                },
+                {
+                  "type": "shot",
+                  "text": "HIS POV: through thinning smoke, @theodosian-walls still stand, but wounded.\n",
+                  "locationReferences": [
+                    {
+                      "key": "theodosian-walls"
+                    }
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "urban"
+                  },
+                  "parenthetical": "barely",
+                  "lines": [
+                    "Did it strike?"
+                  ]
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "mara"
+                  },
+                  "parenthetical": "after a beat",
+                  "lines": [
+                    "Yes."
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "This is not comfort. It is mercy's nearest shape."
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "urban"
+                  },
+                  "lines": [
+                    "Then remember the men who moved it."
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "@urban's hand loosens around a charred measuring cord.",
+                  "castMemberReferences": [
+                    {
+                      "key": "urban"
+                    }
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "@mehmed-ii stands beyond the smoke, alive, untouched, already looking toward the breach instead of the dead.",
+                  "castMemberReferences": [
+                    {
+                      "key": "mehmed-ii"
+                    }
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "On the walls, @constantine-xi-palaiologos turns at the distant explosion. For one suspended moment, maker and emperor share the same silence across the battlefield.",
+                  "castMemberReferences": [
+                    {
+                      "key": "constantine-xi-palaiologos"
+                    }
+                  ]
+                },
+                {
+                  "type": "action",
+                  "text": "Then drums begin again."
+                },
+                {
+                  "type": "dialogue",
+                  "castMemberReference": {
+                    "key": "narrator"
+                  },
+                  "extension": "V.O.",
+                  "lines": [
+                    "The walls had not fallen yet.",
+                    "But the future had found their weakness."
+                  ]
+                },
+                {
+                  "type": "transition",
+                  "text": "FADE OUT."
+                },
+                {
+                  "type": "super",
+                  "text": "Constantinople fell on May 29, 1453. @urban's exact end is uncertain; one tradition holds that he died when his own great gun burst.",
+                  "castMemberReferences": [
+                    {
+                      "key": "urban"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

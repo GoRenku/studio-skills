@@ -1,0 +1,14 @@
+{
+  "kind": "screenplayOperations",
+  "operations": [
+    {
+      "operation": "scene.move",
+      "sceneId": "scene_scene-007",
+      "fromSequenceId": "sequence_seq-004",
+      "toSequenceId": "sequence_seq-005",
+      "placement": {
+        "beforeId": "scene_scene-008"
+      }
+    }
+  ]
+}

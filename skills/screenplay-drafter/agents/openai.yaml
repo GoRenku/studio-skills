@@ -1,4 +1,4 @@
 interface:
   display_name: "Screenplay Drafter"
-  short_description: "Draft and iterate screenplay YAML in formal script format."
-  default_prompt: "Use $screenplay-drafter to turn this story idea into a structured screenplay YAML draft."
+  short_description: "Draft Renku screenplay JSON"
+  default_prompt: "Use $screenplay-drafter to create or revise a Renku screenplay JSON document."

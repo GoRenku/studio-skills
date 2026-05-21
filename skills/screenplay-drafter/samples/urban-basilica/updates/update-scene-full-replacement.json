@@ -1,0 +1,66 @@
+{
+  "kind": "screenplayOperations",
+  "operations": [
+    {
+      "operation": "scene.update",
+      "scene": {
+        "id": "scene_scene-003",
+        "title": "The Harbor Argument",
+        "setting": {
+          "interiorExterior": "EXT",
+          "timeOfDay": "EVENING",
+          "locationReferences": [
+            {
+              "id": "location_harbor-quarter"
+            }
+          ]
+        },
+        "storyFunction": [
+          "moral pressure",
+          "choice"
+        ],
+        "blocks": [
+          {
+            "type": "action",
+            "text": "@urban and @mara pass refugees mending nets, soldiers mending shields, monks mending hope.",
+            "castMemberReferences": [
+              {
+                "id": "cast_urban"
+              },
+              {
+                "id": "cast_mara"
+              }
+            ],
+            "locationReferences": [
+              {
+                "id": "location_harbor-quarter"
+              }
+            ]
+          },
+          {
+            "type": "dialogue",
+            "castMemberReference": {
+              "id": "cast_mara"
+            },
+            "lines": [
+              "They are afraid of your gun."
+            ]
+          },
+          {
+            "type": "dialogue",
+            "castMemberReference": {
+              "id": "cast_urban"
+            },
+            "lines": [
+              "They are afraid of the man who can afford it."
+            ]
+          },
+          {
+            "type": "action",
+            "text": "Across the water, Ottoman watchfires mark the dark like a second coastline."
+          }
+        ]
+      }
+    }
+  ]
+}
