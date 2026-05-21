@@ -1,6 +1,6 @@
 ---
 name: screenplay-drafter
-description: Create and iterate structured YAML screenplay drafts in formal screenplay format. Use when a user wants help developing a script, screenplay, short film, feature, pilot, scene sequence, story arc, cast, locations, dialogue, narration, scene headings, action lines, or a screenplay YAML package that can later be rendered into a traditional screenplay document.
+description: Create and iterate structured YAML screenplay drafts in formal screenplay format. Use when a user wants help developing a script, screenplay, short film, feature, pilot, scene sequence, story arc, cast, locations, dialogue, narration, scene settings, action lines, or a screenplay YAML package that can later be rendered into a traditional screenplay document.
 ---
 
 # Screenplay Drafter
@@ -49,7 +49,7 @@ In commands below, `<skill>` is the absolute path to this skill folder.
    - `screenplay/screenplay.yaml`: `schema_version`, `cast_ref`, `locations_ref`, `act_refs`, `project`, and `revision_state`.
    - `cast/<cast-id>/description.md`: front-matter Markdown for each cast member, using a durable kebab-case folder id.
    - `locations/<location-id>/description.md`: front-matter Markdown for each location, using a durable kebab-case folder id.
-   - One act YAML file per act under `screenplay/acts/`: act metadata, sequences, scenes, scene headings, and renderer-friendly screenplay blocks.
+   - One act YAML file per act under `screenplay/acts/`: act metadata, sequences, scenes, scene settings, and renderer-friendly screenplay blocks.
 
 5. Write the opening pages.
 
@@ -57,11 +57,12 @@ In commands below, `<skill>` is the absolute path to this skill folder.
 
 6. Use formal screenplay conventions inside the YAML.
 
-   - Scene headings use standard sluglines such as `INT. DINER - NIGHT` or special headings such as `OVER BLACK.`
+   - Scene settings store `interior_exterior`, `location_ids`, and `time_of_day`; renderers construct sluglines such as `INT. DINER - NIGHT`.
    - Action lines are visual, present tense, and production-readable.
-   - Dialogue blocks include `cast_id`, readable character cue, optional extension such as `V.O.` or `O.S.`, optional parenthetical, and dialogue lines.
-   - Scene heading `location_id` values point to location folder IDs, and dialogue `cast_id` values point to cast folder IDs.
-   - Montage markers, shots, and transitions use explicit block types.
+   - Non-dialogue text may reference cast and location records with global `@id` mentions, such as `@mara` or `@abandoned-mountain-tunnel`.
+   - Dialogue blocks include `cast_id`, optional extension such as `V.O.` or `O.S.`, optional parenthetical, and dialogue lines; renderers resolve the cue from the cast file.
+   - Scene setting `location_ids` values point to location folder IDs, and dialogue `cast_id` values point to cast folder IDs.
+   - Montage markers, shots, title cards, supers, and transitions use explicit block types.
 
 7. Iterate carefully.
 

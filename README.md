@@ -23,7 +23,7 @@ Screenplay Drafter helps writers move from a rough story idea to:
 - A story arc with acts and key inflection points
 - Cast folders with front-matter Markdown for names, roles, wants, needs, voice notes, arcs, and long descriptions
 - Location folders with front-matter Markdown for names, time periods, descriptions, and visual notes
-- Act YAML files made from renderer-friendly blocks: scene headings, action, dialogue with `cast_id`, voiceover, montage headings, transitions, and notes
+- Act YAML files made from scene settings and renderer-friendly blocks: action with optional `@id` mentions, dialogue with `cast_id`, voiceover, montage headings, title cards, supers, transitions, and notes
 
 The output is a small screenplay package so a later renderer can turn it into a traditional screenplay document.
 

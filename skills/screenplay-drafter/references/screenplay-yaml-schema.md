@@ -319,20 +319,19 @@ sequences:
     purpose: Open with myth, atmosphere, and the first image of the hidden world.
     scenes:
       - id: scene-001
-        title: Over Black
-        scene_heading:
-          raw: OVER BLACK.
-          type: special
-          location_id: null
-          interior_exterior: null
-          time_of_day: null
+        title: Tunnel Entrance
+        scene_setting:
+          interior_exterior: EXT
+          location_ids:
+            - abandoned-mountain-tunnel
+          time_of_day: DAY
         story_function:
           - hook
           - mythic framing
         blocks: []
 ```
 
-Use `scene_heading.location_id` to point to a location folder id. Use `cast_id` inside dialogue blocks to point to a cast folder id.
+Use `scene_setting.location_ids` to point to one or more location folder ids. Use `cast_id` inside dialogue blocks to point to a cast folder id.
 
 ## Screenplay Block Types
 
@@ -340,25 +339,15 @@ Supported initial block types:
 
 ```yaml
 block_types:
-  - scene_heading
   - action
   - dialogue
   - parenthetical
   - transition
   - special_heading
-  - transition_or_special
+  - title_card
+  - super
   - shot
   - note
-```
-
-### `scene_heading`
-
-Use for traditional sluglines inside the block stream.
-
-```yaml
-- id: block-009
-  type: scene_heading
-  text: EXT. PRIMEVAL FOREST - DAY
 ```
 
 ### `action`
@@ -368,25 +357,27 @@ Use visual, present-tense, production-readable action.
 ```yaml
 - id: block-010
   type: action
-  text: Camera is attached to a tree, looking up the length of it as the crown sways in the breeze.
+  text: @mara studies the tunnel door before touching the rusted latch.
 ```
+
+Non-dialogue text may use global `@id` mentions for cast and location records, such as `@mara` or `@abandoned-mountain-tunnel`. Mentions are not processed inside dialogue lines.
 
 ### `dialogue`
 
-Use one block for the cast reference, cue, optional extension, optional parenthetical, and dialogue lines.
+Use one block for the cast reference, optional extension, optional parenthetical, and dialogue lines.
 
-`cast_id` links to the cast folder. `character` is the readable cue. `extension` is standard screenplay cue notation such as `V.O.` for voice-over or `O.S.` for off-screen speech. `parenthetical` is a short delivery or target note that renders under the cue, such as `(low)`, `(urgent whisper)`, or `(to Mara)`.
+`cast_id` links to the cast folder. Renderers resolve the readable cue from that cast file and may uppercase it for screenplay format. `extension` is standard screenplay cue notation such as `V.O.` for voice-over or `O.S.` for off-screen speech. `parenthetical` is a short delivery or target note that renders under the cue, such as `(low)`, `(urgent whisper)`, or `(to Mara)`.
 
 ```yaml
 - id: block-002
   type: dialogue
   cast_id: narrator
-  character: Narrator
   extension: V.O.
-  parenthetical: null
   lines:
     - There were once passageways to the old world.
 ```
+
+Omit `extension` and `parenthetical` when they are empty.
 
 ### `special_heading`
 
@@ -398,14 +389,24 @@ Use for montage or screenplay markers such as `BEGIN MONTAGE.`
   text: BEGIN MONTAGE.
 ```
 
-### `transition_or_special`
+### `title_card`
 
-Use for opening and transitional special lines that are not normal scene headings.
+Use for on-screen title cards.
 
 ```yaml
 - id: block-001
-  type: transition_or_special
-  text: OVER BLACK.
+  type: title_card
+  text: FOUR MONTHS EARLIER
+```
+
+### `super`
+
+Use for explanatory on-screen text.
+
+```yaml
+- id: block-023
+  type: super
+  text: Three days later.
 ```
 
 ### `transition`
@@ -425,7 +426,7 @@ Use sparingly for explicit camera or shot wording when the script needs it.
 ```yaml
 - id: block-021
   type: shot
-  text: CLOSE ON Mara's hand hovering over the rusted door latch.
+  text: CLOSE ON @mara's hand hovering over the rusted door latch.
 ```
 
 ### `note`
@@ -445,14 +446,16 @@ Use for non-rendered writer notes only when useful during iteration.
 - Read cast and location folders by directory name, and verify each `description.md` front matter repeats the same `id`.
 - Render acts in `act_refs` order.
 - Within each act, render sequences, scenes, and blocks in YAML list order.
-- `scene_heading` renders like `EXT. PRIMEVAL FOREST - DAY`.
+- For each scene, construct the rendered slugline from `scene_setting.interior_exterior`, the names resolved from `scene_setting.location_ids`, and `scene_setting.time_of_day`.
+- Join multiple resolved location names with ` / `, then uppercase the rendered slugline.
 - `action` renders as left-aligned screenplay action.
-- `dialogue` renders with centered character cue, optional extension such as `V.O.` or `O.S.`, optional parenthetical, and dialogue lines.
-- Renderers may uppercase dialogue cues and location names during formatting.
+- `dialogue` renders with a centered cue resolved from `cast_id`, optional extension such as `V.O.` or `O.S.`, optional parenthetical, and dialogue lines.
+- Renderers may uppercase dialogue cues during formatting.
 - `special_heading` supports montage markers like `BEGIN MONTAGE.`
+- `title_card` and `super` render as on-screen text.
+- Resolve `@id` mentions in non-dialogue text against cast and location ids.
 - Stable IDs allow navigation by act, sequence, scene, block, cast member, and location.
-- `scene_heading.raw` preserves exact screenplay appearance.
-- Parsed scene heading fields support structured editing and UI filtering.
+- `scene_setting` fields support structured editing, slugline rendering, and UI filtering.
 
 ## Revision State
 
@@ -605,26 +608,23 @@ sequences:
     purpose: Open with myth, atmosphere, and the first image of the hidden world.
     scenes:
       - id: scene-001
-        title: Over Black
-        scene_heading:
-          raw: OVER BLACK.
-          type: special
-          location_id: null
-          interior_exterior: null
-          time_of_day: null
+        title: Tunnel Entrance
+        scene_setting:
+          interior_exterior: EXT
+          location_ids:
+            - abandoned-mountain-tunnel
+          time_of_day: DAY
         story_function:
           - hook
           - mythic framing
         blocks:
           - id: block-001
-            type: transition_or_special
-            text: OVER BLACK.
+            type: action
+            text: @mara stops at the sealed mouth of @abandoned-mountain-tunnel.
           - id: block-002
             type: dialogue
             cast_id: narrator
-            character: Narrator
             extension: V.O.
-            parenthetical: null
             lines:
               - There were once passageways to the old world.
 ```
