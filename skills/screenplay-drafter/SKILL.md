@@ -84,7 +84,44 @@ Screenplay craft and Renku persistence go hand in hand. Think like a screenwrite
 
    Renku owns durable IDs. Agents author temporary keys for new records, run the Renku commands, then use Renku's generated IDs for later edits.
 
+## Project Preflight
+
+Screenplay commands operate on the current Renku authoring project. Resolve that
+project before writing, validating, creating, or applying screenplay JSON.
+
+The user must either provide an existing Renku project name or let the skill
+create a new project. Treat a user-supplied project ID as the Renku CLI
+`<project-name>`.
+
+1. For an existing project, open the provided Renku project name:
+
+```bash
+renku project open <project-name> --json
+```
+
+2. For a new project, derive or ask for a kebab-case project name and title, then create it:
+
+```bash
+renku create <project-name> --title <title> --json
+```
+
+`renku create` opens the created project as the current authoring project. Do
+not run `renku project open` again after a successful create.
+
+3. Before any screenplay mutation, inspect screenplay state:
+
+```bash
+renku screenplay status --json
+```
+
+Use the status result to choose the command path:
+
+- `exists: false`: create the first screenplay with `screenplayCreate` and `renku screenplay create`.
+- `exists: true`: revise the existing screenplay with `screenplayOperations` and `renku screenplay apply`.
+
 ## Create A First Screenplay
+
+Use this path only after `renku screenplay status --json` reports `exists: false`.
 
 1. Build a `screenplayCreate` JSON document from the developed brief.
 2. Include the creative development in the top-level `screenplay` object:
@@ -124,6 +161,8 @@ renku screenplay create --file <screenplay-json> --json
 
 ## Revise An Existing Screenplay
 
+Use this path whenever `renku screenplay status --json` reports `exists: true`.
+
 1. Read the current state first:
 
 ```bash
@@ -153,7 +192,7 @@ renku screenplay apply --file <operations-json> --json
 - Read only the reference files needed for the task.
 - Read `references/screenplay-writing-guidelines.md` before creating a new screenplay, giving focused craft help, or making a substantial story, scene, cast, location, dialogue, tone, or structure revision.
 - Read `references/screenplay-json-contract.md` before writing JSON. It defines create documents, operation documents, references, placement, and canonical output.
-- Read `references/screenplay-json-workflow.md` when you need command order, current-project setup, validation, dry-run, or output handling.
+- Read `references/screenplay-json-workflow.md` when you need project preflight, command order, validation, dry-run, or output handling.
 - Use `samples/urban-basilica/create-screenplay.json` as the full create example.
 - Use `samples/urban-basilica/updates/*.json` for focused update examples. Replace placeholder IDs with IDs from `generatedIds` or `renku screenplay show --json`.
 
@@ -162,6 +201,9 @@ renku screenplay apply --file <operations-json> --json
 - Use `key`, not `localKey`, for new records in create/add input.
 - Do not provide `id` for a new cast member, location, act, sequence, or scene. Renku generates it.
 - Use durable `id` values for existing records, update targets, delete targets, move targets, parent targets, and placement targets.
+- Run project preflight and `renku screenplay status --json` before any screenplay create/apply.
+- Do not run `renku screenplay create` when status reports `exists: true`; use `renku screenplay apply`.
+- Do not replace an existing screenplay with a fresh full create document. Read the current screenplay and apply focused operations.
 - Reference objects contain exactly one of `id` or `key`.
 - Put structured narrative arc data in `screenplay.storyArc`. Do not put `keyBeats` on acts.
 - Story-arc acts use `actReference` with exactly one of `id` or `key`; story beats are internal narrative objects and do not have IDs or keys.

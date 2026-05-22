@@ -1,6 +1,6 @@
 {
   "name": "renku",
-  "description": "Claude Code plugin library for filmmaking skills. Includes screenplay drafting as the first skill, with structured YAML scripts, story arcs, characters, locations, formal scene headings, action, narration, and dialogue.",
+  "description": "Claude Code plugin library for filmmaking skills. Includes screenplay drafting with persisted Renku Studio screenplay JSON, story arcs, cast, locations, formal scene settings, action, narration, and dialogue.",
   "version": "0.1.0",
   "author": {
     "name": "Kerem Karatal"

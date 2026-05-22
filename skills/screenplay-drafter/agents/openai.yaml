@@ -1,4 +1,4 @@
 interface:
   display_name: "Screenplay Drafter"
   short_description: "Develop screenplays and Renku JSON"
-  default_prompt: "Use $screenplay-drafter to develop a screenplay, gather the needed story brief, and create or revise Renku screenplay JSON."
+  default_prompt: "Use $screenplay-drafter to open or create the Renku project, preflight screenplay status, then create or revise persisted Renku screenplay JSON."

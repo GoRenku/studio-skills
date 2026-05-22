@@ -5,17 +5,43 @@ Use this reference for command order and validation when creating or revising Re
 ## Current Project
 
 Screenplay commands operate on the current authoring project.
+The user must either provide an existing Renku project name or let the skill
+create a new project. Treat user-facing "project ID" as the CLI
+`<project-name>`.
+
+For an existing project:
 
 ```bash
-renku create urban-basilica --title "Basilica"
 renku project open urban-basilica --json
-renku project current --json
 ```
 
-If a screenplay command fails because no current project is set, open the project first.
+For a new project:
+
+```bash
+renku create urban-basilica --title "Basilica" --json
+```
+
+`renku create` opens the new project as the current authoring project and its
+JSON report includes `currentProject`. Do not run `renku project open` after a
+successful create.
+
+If a screenplay command fails because no current project is set, open an
+existing project or create a new project first.
+
+Before any screenplay create/apply command, inspect screenplay state:
+
+```bash
+renku screenplay status --json
+```
+
+Route from the status result:
+
+- `exists: false`: use `renku screenplay create`.
+- `exists: true`: use `renku screenplay show --json`, then `renku screenplay apply`.
 
 ## Create A First Screenplay
 
+Use this path only when `renku screenplay status --json` reports `exists: false`.
 Author a JSON document with `kind: "screenplayCreate"`.
 
 ```bash
@@ -33,6 +59,7 @@ The create report includes `generatedIds`. Save those mappings mentally or read 
 
 ## Revise An Existing Screenplay
 
+Use this path whenever `renku screenplay status --json` reports `exists: true`.
 Read the current canonical state first:
 
 ```bash
@@ -42,6 +69,7 @@ renku screenplay show --json
 Use durable IDs from that output in update, delete, move, parent, and placement fields.
 For top-level screenplay edits such as `storyArc`, use `screenplay.update` and
 include every `screenplay` field you want to keep.
+Do not create a new full screenplay over an existing project screenplay.
 
 ```bash
 renku screenplay validate --file samples/urban-basilica/updates/update-scene-full-replacement.json --json
@@ -53,6 +81,9 @@ Use `--dry-run` for broad edits:
 ```bash
 renku screenplay apply --file <operations-json> --dry-run --json
 ```
+
+Always use `--dry-run` before top-level `screenplay.update`, full scene
+replacement, deletes, moves, or broad restructuring.
 
 The update samples in `samples/urban-basilica/updates/` use placeholder durable
 IDs such as `cast_urban`, `act_act-1`, `location_edirne-foundry`,

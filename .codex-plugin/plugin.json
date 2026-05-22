@@ -18,7 +18,7 @@
   "interface": {
     "displayName": "Renku",
     "shortDescription": "Movie-making skills for writers and filmmakers.",
-    "longDescription": "Renku is a filmmaking skills library for Codex and Claude Code. Its first skill, Screenplay Drafter, helps writers break through writer's block by developing story arcs, characters, locations, and formal screenplay pages as structured YAML that can later be rendered into a traditional screenplay document.",
+    "longDescription": "Renku is a filmmaking skills library for Codex and Claude Code. Its Screenplay Drafter skill helps writers develop story arcs, cast, locations, and formal screenplay pages as persisted Renku Studio screenplay JSON that Studio can render and visualize.",
     "developerName": "Kerem Karatal",
     "category": "Video / Media",
     "capabilities": [
@@ -28,7 +28,7 @@
     "brandColor": "#4F6D7A",
     "defaultPrompt": [
       "Use Renku to help with this movie-making workflow.",
-      "For screenplay work, use $screenplay-drafter to create or iterate a structured screenplay YAML draft."
+      "For screenplay work, use $screenplay-drafter to author persisted Renku Studio screenplay JSON."
     ]
   }
 }
