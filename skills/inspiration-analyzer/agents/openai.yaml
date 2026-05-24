@@ -1,0 +1,4 @@
+interface:
+  display_name: "Inspiration Analyzer"
+  short_description: "Analyze Inspiration folder images"
+  default_prompt: "Use $inspiration-analyzer to open the Renku project, inspect an Inspiration folder, analyze the stored images with the folder name as context, then validate and write Inspiration Analysis JSON."

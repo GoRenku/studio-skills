@@ -1,0 +1,294 @@
+{
+  "kind": "inspirationAnalysis",
+  "analysis": {
+    "thesis": {
+      "statement": "This folder builds its look from a violent collision between product imagery and surgical unease. White rooms, blue medical light, hard grids, and diagrammatic framing make bodies feel measured, inspected, and replaceable. Against that, red, pink, yellow, and stage lighting turn glamour into a branded trap rather than an escape. As the folder progresses, the same graphic discipline mutates into wet, dark, tactile body horror, so the visual language appears to rot from advertisement into anatomy.",
+      "principles": [
+        "Design beauty imagery and clinical imagery as parts of the same control system.",
+        "Use graphic one-point space when the environment should feel like a machine closing around the subject.",
+        "Let late horror corrupt the earlier glossy surface language instead of switching into an unrelated style."
+      ],
+      "imageFiles": [
+        "still-004.jpg",
+        "still-012.jpg",
+        "still-028.jpg",
+        "still-029.jpg"
+      ]
+    },
+    "palette": {
+      "description": "Color works as a sorting system. White and pale blue belong to bathrooms, clinics, night interiors, and surfaces that make flesh look exposed. Red, pink, and saturated orange belong to commercial spectacle, but they are predatory rather than comforting. Yellow operates as a loud warning or consumption accent, while the late horror material crushes the palette into blood red, black-blue, and contaminated skin tones.",
+      "colors": [
+        {
+          "hex": "#E9ECF2",
+          "name": "sterile tile white",
+          "meaning": "Inspection, exposure, and bodily vulnerability without privacy."
+        },
+        {
+          "hex": "#9EC3D4",
+          "name": "medical blue",
+          "meaning": "Procedure, sleep, dissociation, and emotional coldness."
+        },
+        {
+          "hex": "#C63025",
+          "name": "advertising red",
+          "meaning": "Appetite, spectacle, danger, and the violence hidden inside branding."
+        },
+        {
+          "hex": "#EAA3C5",
+          "name": "plastic pink",
+          "meaning": "Beauty as packaging, youth as surface, and seduction as product."
+        },
+        {
+          "hex": "#F2C23B",
+          "name": "commercial yellow",
+          "meaning": "Warning, appetite, signage, and aggressive attention capture."
+        },
+        {
+          "hex": "#151B2B",
+          "name": "bruised black-blue",
+          "meaning": "The dark underside of polish, where red flesh becomes monstrous."
+        }
+      ],
+      "observations": [
+        {
+          "text": "White tile and pale surfaces flatten the space and remove warmth from the body. The grid makes posture, age, and vulnerability feel diagrammed.",
+          "imageFiles": [
+            "still-012.jpg",
+            "still-017.jpg",
+            "still-020.jpg"
+          ]
+        },
+        {
+          "text": "Red and pink are commercial colors before they are emotional colors. They make the performance and publicity spaces feel manufactured, hungry, and unsafe.",
+          "imageFiles": [
+            "still-004.jpg",
+            "still-015.jpg",
+            "still-024.jpg"
+          ]
+        },
+        {
+          "text": "Small saturated props and details pop against controlled backgrounds, turning objects, labels, and body fragments into warning lights.",
+          "imageFiles": [
+            "still-002.jpg",
+            "still-010.jpg",
+            "still-019.jpg"
+          ]
+        },
+        {
+          "text": "Late horror collapses the clean palette into blood red and blue-black shadow. The red-blue contrast remains, but its meaning changes from branding to contamination.",
+          "imageFiles": [
+            "still-028.jpg",
+            "still-029.jpg"
+          ]
+        }
+      ]
+    },
+    "toneMood": {
+      "tone": "glossy clinical pop turning grotesque",
+      "moodTags": [
+        "seductive",
+        "antiseptic",
+        "humiliating",
+        "feverish",
+        "grotesque"
+      ],
+      "description": "The folder keeps surfaces highly legible: whites stay clean, reds stay dense, and skin often sits between polished beauty light and unforgiving exposure. Its emotional strategy is not simply bright versus dark; it is polish versus putrefaction. The early images promise control and desirability, while the later images reveal the bodily cost of that same control.",
+      "imageFiles": [
+        "still-007.jpg",
+        "still-013.jpg",
+        "still-023.jpg",
+        "still-028.jpg"
+      ]
+    },
+    "composition": {
+      "description": "Composition is blunt, graphic, and confrontational. Rooms behave like diagrams: one-point corridors, centered bodies, tiled walls, and wide frames expose the system around the character. Close-ups interrupt that order with lips, eyes, food, labels, skin, and other fragments, making the body feel like an object being advertised or inspected.",
+      "patterns": [
+        {
+          "name": "One-point pressure corridors",
+          "description": "Hard central vanishing points and repeated wall or ceiling geometry turn movement through space into a march through branding, surveillance, or institutional control.",
+          "imageFiles": [
+            "still-004.jpg",
+            "still-018.jpg"
+          ]
+        },
+        {
+          "name": "Bodies pinned to grids",
+          "description": "Wide, square-on framings place bodies against tile grids and clean architectural planes so posture, age, and vulnerability become the subject of the shot.",
+          "imageFiles": [
+            "still-012.jpg",
+            "still-017.jpg",
+            "still-020.jpg"
+          ]
+        },
+        {
+          "name": "Consumer-product close-ups",
+          "description": "The camera moves into lips, eyes, labels, eggs, and small objects with the scale and simplicity of product photography. Bodily processes start to feel packaged and sold.",
+          "imageFiles": [
+            "still-010.jpg",
+            "still-011.jpg",
+            "still-016.jpg",
+            "still-026.jpg"
+          ]
+        },
+        {
+          "name": "Spectacle frames that reveal machinery",
+          "description": "Performance images include lamps, rigs, theatrical backlights, and studio space, so the beauty fantasy is visibly manufactured inside the frame.",
+          "imageFiles": [
+            "still-015.jpg",
+            "still-023.jpg",
+            "still-022.jpg"
+          ]
+        },
+        {
+          "name": "Abjection as tableau",
+          "description": "The late body-horror frames remain composed even when the material becomes chaotic. The discipline of the framing makes the grotesque feel staged for viewing.",
+          "imageFiles": [
+            "still-028.jpg",
+            "still-029.jpg",
+            "still-030.jpg"
+          ]
+        }
+      ]
+    },
+    "lighting": {
+      "description": "Lighting is motivated less by realism than by display systems: bathroom fluorescents, corridor strips, studio lamps, show lights, and surgical-feeling top or side sources. Faces and bodies remain readable, but the environment decides whether that readability feels glamorous or cruel. In the horror passages, specular highlights on wet surfaces become a lighting principle of their own.",
+      "patterns": [
+        {
+          "name": "Cruel high-key cleanliness",
+          "description": "Soft but exposed white light fills tiled spaces, keeping the frame bright while denying the body flattering depth or privacy.",
+          "imageFiles": [
+            "still-012.jpg",
+            "still-017.jpg",
+            "still-020.jpg"
+          ]
+        },
+        {
+          "name": "Strip-light geometry",
+          "description": "Long ceiling lights become compositional rails. They pull the eye into the center and make red corridors feel like controlled conveyor belts.",
+          "imageFiles": [
+            "still-004.jpg",
+            "still-018.jpg"
+          ]
+        },
+        {
+          "name": "Night-blue isolation",
+          "description": "Cool low frontal or overhead light separates the figure from a dark room, creating dissociation rather than ordinary nighttime comfort.",
+          "imageFiles": [
+            "still-013.jpg",
+            "still-021.jpg"
+          ]
+        },
+        {
+          "name": "Performance backlight and beauty haze",
+          "description": "Strong stage lamps and lifted haze wrap the performer in spectacle, while visible sources keep the fantasy exposed as an apparatus.",
+          "imageFiles": [
+            "still-023.jpg",
+            "still-022.jpg"
+          ]
+        },
+        {
+          "name": "Wet-specular horror",
+          "description": "Dark, hard-edged illumination catches blood, prosthetics, and damp skin with glossy highlights, converting the earlier polish into grotesque surface language.",
+          "imageFiles": [
+            "still-028.jpg",
+            "still-029.jpg"
+          ]
+        }
+      ]
+    },
+    "texture": {
+      "description": "Texture moves from polished image culture to physical breakdown. Early frames favor tile, seamless studio floors, shiny clothing, laminated posters, glass, and clean medical surfaces. Later frames keep the same gloss but translate it into sweat, blood, prosthetics, sticky darkness, and irregular flesh.",
+      "observations": [
+        {
+          "text": "Tile, poster glass, and seamless studio surfaces make the world feel washable, product-ready, and hostile to ordinary bodily mess.",
+          "imageFiles": [
+            "still-004.jpg",
+            "still-012.jpg",
+            "still-015.jpg"
+          ]
+        },
+        {
+          "text": "Macro detail turns flesh-adjacent material into inspection: lips, eyes, eggs, labels, and skin all become surfaces to scrutinize.",
+          "imageFiles": [
+            "still-011.jpg",
+            "still-014.jpg",
+            "still-016.jpg",
+            "still-026.jpg"
+          ]
+        },
+        {
+          "text": "Late-film body horror preserves clean display instincts while filling the frame with wet, lumpy, irregular material.",
+          "imageFiles": [
+            "still-028.jpg",
+            "still-029.jpg",
+            "still-030.jpg"
+          ]
+        },
+        {
+          "text": "Visible studio gear and performance lighting add production texture: beauty is not just lit, it is seen being manufactured.",
+          "imageFiles": [
+            "still-015.jpg",
+            "still-023.jpg"
+          ]
+        }
+      ]
+    },
+    "inspiredBy": {
+      "description": "These are visual affinities suggested by the folder images, not claims of confirmed influence unless the user provides sources.",
+      "items": [
+        {
+          "category": "movie",
+          "name": "The Shining",
+          "confidence": "medium",
+          "why": "The one-point corridors and institutional geometry share a strategy of making architecture feel like psychological pressure.",
+          "imageFiles": [
+            "still-004.jpg",
+            "still-018.jpg"
+          ]
+        },
+        {
+          "category": "director",
+          "name": "David Cronenberg",
+          "confidence": "medium",
+          "why": "The late images sit near body-horror traditions where medical anxiety, flesh, and wet prosthetic surface become spectacle.",
+          "imageFiles": [
+            "still-028.jpg",
+            "still-029.jpg"
+          ]
+        },
+        {
+          "category": "movie",
+          "name": "The Neon Demon",
+          "confidence": "medium",
+          "why": "Both visual systems treat beauty-world color as artificial seduction, using pink, red, hard light, and display spaces to commodify the body.",
+          "imageFiles": [
+            "still-015.jpg",
+            "still-022.jpg",
+            "still-024.jpg"
+          ]
+        },
+        {
+          "category": "movie",
+          "name": "Suspiria",
+          "confidence": "low",
+          "why": "The red corridor and theatrical color fields potentially echo giallo-adjacent color design, though this folder uses saturation more like commercial branding than occult atmosphere.",
+          "imageFiles": [
+            "still-004.jpg",
+            "still-018.jpg"
+          ]
+        },
+        {
+          "category": "director",
+          "name": "Darren Aronofsky",
+          "confidence": "low",
+          "why": "The insert-shot language around bodily routines, consumption, and degradation sits near a sensory style of bodies under obsessive pressure.",
+          "imageFiles": [
+            "still-010.jpg",
+            "still-016.jpg",
+            "still-026.jpg"
+          ]
+        }
+      ]
+    }
+  }
+}

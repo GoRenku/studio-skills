@@ -1,0 +1,284 @@
+{
+  "kind": "inspirationAnalysis",
+  "analysis": {
+    "thesis": {
+      "statement": "This folder builds its visual language like a hand-made diorama: frontal, centered, symmetrical, and openly artificial. Color carries narrative time, with confectionery pinks, purples, reds, and golds giving way to colder slate and bone as the world becomes more historical and less enchanted. The strongest principle is planimetric staging, where architecture, props, and people flatten into a precise graphic surface. Texture is not hidden realism; miniatures, painted signs, soft diffusion, and theatrical lighting become the grammar of memory.",
+      "principles": [
+        "Place the subject on the central vertical axis before adding movement or decoration.",
+        "Let one dominant hue define the emotional era of the scene, then use costume and props as crisp graphic accents.",
+        "Treat artificial textures, painted backdrops, lettering, and miniatures as expressive evidence rather than production secrets."
+      ],
+      "imageFiles": [
+        "still-003.jpg",
+        "still-015.jpg",
+        "still-020.jpg",
+        "still-028.jpg"
+      ]
+    },
+    "palette": {
+      "description": "Color is organized like a memory system rather than a naturalistic record. The warm chapters lean into pastry pink, aubergine, ceremonial red, mustard gold, and cream; colder or more historical passages drain into slate, bone, and tobacco brown. Most frames are built around one or two strong hues against a calm neutral, so the image reads quickly, almost like a flag or a storybook plate.",
+      "colors": [
+        {
+          "hex": "#F2B6C1",
+          "name": "pastry pink",
+          "meaning": "A tender memory color for the hotel, packaging, skies, curtains, and the vanished golden age."
+        },
+        {
+          "hex": "#5D2B63",
+          "name": "lobby aubergine",
+          "meaning": "Uniform discipline and theatrical service; a human accent that stays legible against snow, stone, and pink interiors."
+        },
+        {
+          "hex": "#BE342A",
+          "name": "ceremonial red",
+          "meaning": "Luxury, warning, carpet, blood, and institutional pageantry compressed into a single recurring accent."
+        },
+        {
+          "hex": "#D99A34",
+          "name": "mustard gold",
+          "meaning": "Old-world ornament, wallpaper, lamp glow, and the brittle warmth of inherited culture."
+        },
+        {
+          "hex": "#263D52",
+          "name": "winter slate",
+          "meaning": "History, grief, night, and the colder world outside the protected interior."
+        },
+        {
+          "hex": "#8A6A4B",
+          "name": "tobacco brown",
+          "meaning": "A later, dimmed afterlife of the same world, warmed by lamps but no longer bright with fantasy."
+        }
+      ],
+      "observations": [
+        {
+          "text": "Pink functions as the folder's emotional home base. It returns in architecture, packaging, curtains, and sky, making the remembered world feel sweet, fragile, and designed to be looked at.",
+          "imageFiles": [
+            "still-003.jpg",
+            "still-007.jpg",
+            "still-028.jpg"
+          ]
+        },
+        {
+          "text": "Deep purple costume accents act like labels on the centered figures. The uniforms do not blend into the world; they identify the people who serve and preserve it.",
+          "imageFiles": [
+            "still-008.jpg",
+            "still-010.jpg"
+          ]
+        },
+        {
+          "text": "When the system becomes colder, saturation drops sharply. Slate, grey, and bone replace the candy palette, so the loss of color becomes a visible loss of innocence.",
+          "imageFiles": [
+            "still-013.jpg",
+            "still-014.jpg",
+            "still-022.jpg",
+            "still-029.jpg"
+          ]
+        },
+        {
+          "text": "Single-color environments swallow the frame: yellow wallpaper, orange lockers, blue night courtyards, and pink exterior fields make location feel like a designed emotional container.",
+          "imageFiles": [
+            "still-005.jpg",
+            "still-006.jpg",
+            "still-019.jpg"
+          ]
+        }
+      ]
+    },
+    "toneMood": {
+      "tone": "storybook formalism with melancholic decay",
+      "moodTags": [
+        "ceremonial",
+        "wistful",
+        "precise",
+        "theatrical",
+        "melancholic"
+      ],
+      "description": "The tone is controlled and affectionate, but never casual. Soft lifted midtones and clean color fields make the images feel like curated memory, while colder scenes introduce a sense of historical damage. The folder's emotional temperature comes from the tension between playful artifice and the knowledge that the world being shown is already disappearing.",
+      "imageFiles": [
+        "still-003.jpg",
+        "still-016.jpg",
+        "still-029.jpg",
+        "still-030.jpg"
+      ]
+    },
+    "composition": {
+      "description": "Composition is the folder's dominant signature. Frames are frontal, centered, flat, and arranged around a strict vertical axis. Rooms become display boxes, corridors become graphic tunnels, and overhead views turn people and props into pieces on a board. The camera often looks less like an observer than a curator placing objects in a vitrine.",
+      "patterns": [
+        {
+          "name": "Planimetric centering",
+          "description": "Subjects sit dead center against a flat back wall or symmetrical environment. The move turns portraits, confrontations, and rooms into clean graphic statements rather than naturalistic slices of space.",
+          "imageFiles": [
+            "still-005.jpg",
+            "still-016.jpg",
+            "still-024.jpg",
+            "still-014.jpg"
+          ]
+        },
+        {
+          "name": "One-point corridor pressure",
+          "description": "Hallways, gardens, stairways, and archways pull the eye toward a central vanishing point. The geometry makes the world feel ordered, ceremonial, and slightly trapped.",
+          "imageFiles": [
+            "still-004.jpg",
+            "still-009.jpg",
+            "still-019.jpg",
+            "still-027.jpg"
+          ]
+        },
+        {
+          "name": "God's-eye inventory",
+          "description": "Top-down angles flatten rooms, boxes, beds, and props into readable diagrams. The style is useful for reveals, puzzles, travel routes, and object comedy because it makes the frame behave like a board game.",
+          "imageFiles": [
+            "still-010.jpg",
+            "still-020.jpg",
+            "still-023.jpg",
+            "still-028.jpg"
+          ]
+        },
+        {
+          "name": "Frame within a frame",
+          "description": "Doors, windows, hatches, paintings, and proscenium-like openings repeatedly place a smaller rectangle inside the image. Characters feel handled, observed, and miniaturized by the architecture around them.",
+          "imageFiles": [
+            "still-006.jpg",
+            "still-007.jpg",
+            "still-017.jpg",
+            "still-029.jpg"
+          ]
+        },
+        {
+          "name": "Aspect ratio as memory container",
+          "description": "The squarer images feel like recovered photographs or illustrated plates, while wider images open into later, colder periods. Format itself becomes a historical cue, not just a framing choice.",
+          "imageFiles": [
+            "still-003.jpg",
+            "still-016.jpg",
+            "still-030.jpg"
+          ]
+        }
+      ]
+    },
+    "lighting": {
+      "description": "Lighting is soft, frontal, and illustrative. Faces are usually readable with little harsh modeling, while practicals such as chandeliers, candles, lanterns, station lamps, and projection beams become visible design objects. When the folder turns dark, it isolates warm practical sources against dense shadow so each lamp reads like a small illuminated manuscript.",
+      "patterns": [
+        {
+          "name": "Soft frontal storybook key",
+          "description": "Faces are lit with a broad, low-contrast source that keeps expression and costume graphically clear. The subject becomes part of the designed surface rather than a sculpted chiaroscuro figure.",
+          "imageFiles": [
+            "still-011.jpg",
+            "still-016.jpg",
+            "still-024.jpg"
+          ]
+        },
+        {
+          "name": "Practical-driven pools",
+          "description": "Candles, lamps, chandeliers, and station sources are allowed to be the brightest objects in the frame. The surrounding room falls into ornament or darkness while the practical defines emotional focus.",
+          "imageFiles": [
+            "still-012.jpg",
+            "still-015.jpg",
+            "still-022.jpg"
+          ]
+        },
+        {
+          "name": "Color backlight as theatrical halo",
+          "description": "Pink, cyan, and red backlight turns silhouettes and windows into stained-glass tableaux. The color is expressive first and realistic second.",
+          "imageFiles": [
+            "still-007.jpg",
+            "still-009.jpg",
+            "still-018.jpg"
+          ]
+        },
+        {
+          "name": "Cold exterior judgment",
+          "description": "Night and wartime exteriors are pushed toward cyan-slate, with warm practicals reduced to small islands. The temperature split makes the world outside the protected interior feel hostile.",
+          "imageFiles": [
+            "still-013.jpg",
+            "still-019.jpg",
+            "still-021.jpg"
+          ]
+        }
+      ]
+    },
+    "texture": {
+      "description": "The folder celebrates constructed texture. Miniatures, painted skies, matte backdrops, hand lettering, wallpaper, boxes, and set flats are not concealed; they announce that the image is an artifact. Soft diffusion and slight grain make the world feel remembered rather than encountered.",
+      "observations": [
+        {
+          "text": "Miniatures and painted backgrounds give architecture a toy-like certainty. The world feels hand-built, which strengthens the folder's memory-box quality.",
+          "imageFiles": [
+            "still-003.jpg",
+            "still-013.jpg",
+            "still-019.jpg"
+          ]
+        },
+        {
+          "text": "Hand-lettered signs, labels, and packaging function as compositional anchors. Text is treated as part of the graphic design, not incidental detail.",
+          "imageFiles": [
+            "still-002.jpg",
+            "still-011.jpg",
+            "still-014.jpg"
+          ]
+        },
+        {
+          "text": "Snow, haze, and diffusion soften hard edges in exterior and cold-weather frames, making them feel more like old photographs or postcards than clean digital images.",
+          "imageFiles": [
+            "still-026.jpg",
+            "still-027.jpg"
+          ]
+        },
+        {
+          "text": "Theatrical interiors reveal their own builtness through flat backdrops, ornament, and frontal staging. The folder uses stage texture as emotional evidence.",
+          "imageFiles": [
+            "still-006.jpg",
+            "still-015.jpg",
+            "still-030.jpg"
+          ]
+        }
+      ]
+    },
+    "inspiredBy": {
+      "description": "These are visual affinities suggested by the folder's images, not claims of confirmed production influence unless the user separately supplies sources.",
+      "items": [
+        {
+          "category": "movie",
+          "name": "The Shop Around the Corner",
+          "confidence": "medium",
+          "why": "The hotel-as-social-microcosm, warm interior ritual, and proscenium-like staging sit near the tradition of affectionate Central European workplace and hotel spaces.",
+          "imageFiles": [
+            "still-010.jpg",
+            "still-004.jpg"
+          ]
+        },
+        {
+          "category": "director",
+          "name": "Stanley Kubrick",
+          "confidence": "medium",
+          "why": "The strict one-point corridors, centered figures, and architectural pressure share a compositional strategy with Kubrick's planimetric and symmetrical staging.",
+          "imageFiles": [
+            "still-004.jpg",
+            "still-019.jpg",
+            "still-027.jpg"
+          ]
+        },
+        {
+          "category": "movie",
+          "name": "The Red Shoes",
+          "confidence": "medium",
+          "why": "Saturated theatrical color, painted environments, and the willingness to let production design become fairy-tale artifice create a plausible visual kinship.",
+          "imageFiles": [
+            "still-030.jpg",
+            "still-007.jpg",
+            "still-009.jpg"
+          ]
+        },
+        {
+          "category": "visual movement",
+          "name": "Mitteleuropean postcards and lithographs",
+          "confidence": "high",
+          "why": "Snowy vistas, painted city silhouettes, alpine miniatures, and hand-lettered signage echo pre-war Central European illustration and souvenir imagery.",
+          "imageFiles": [
+            "still-002.jpg",
+            "still-003.jpg",
+            "still-006.jpg"
+          ]
+        }
+      ]
+    }
+  }
+}
