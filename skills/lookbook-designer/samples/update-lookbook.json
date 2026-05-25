@@ -1,0 +1,37 @@
+{
+  "kind": "lookbook",
+  "lookbook": {
+    "thesis": {
+      "statement": "The revised look stays intimate, but the palette is colder and the camera feels more withheld.",
+      "principles": ["Make emotional access feel earned rather than immediate."]
+    },
+    "palette": {
+      "description": "Cold blue-gray carries distance while small warm accents mark fragile trust.",
+      "colors": [{ "hex": "#6F8790", "name": "Withheld blue", "meaning": "Emotional distance and restraint." }],
+      "observations": [{ "text": "Warmth should appear only when a character risks honesty." }]
+    },
+    "toneMood": {
+      "tone": "withheld tenderness",
+      "moodTags": ["cool", "restrained"],
+      "description": "Lower saturation and softer contrast keep the image emotionally guarded."
+    },
+    "composition": {
+      "description": "Frames hold more distance and isolate characters with architecture.",
+      "patterns": [{ "name": "Separated planes", "description": "Use foreground and background distance to show hesitation." }]
+    },
+    "lighting": {
+      "description": "Soft daylight and cool ambience dominate, with warmth kept rare.",
+      "patterns": [{ "name": "Late warmth", "description": "Introduce warm practicals only after trust has been earned." }]
+    },
+    "texture": {
+      "description": "Matte surfaces, cool air, and quiet fabric replace gloss.",
+      "observations": [{ "text": "Texture should feel dry, restrained, and lived-in." }]
+    },
+    "camera": {
+      "description": "The camera observes from a respectful distance.",
+      "movement": [{ "name": "Delayed approach", "description": "Move closer only after a scene commits emotionally." }],
+      "motion": [{ "name": "Still pressure", "description": "Let stillness carry discomfort." }],
+      "framing": [{ "name": "Reserved close-up", "description": "Use close-ups sparingly and decisively." }]
+    }
+  }
+}

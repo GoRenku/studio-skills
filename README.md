@@ -4,7 +4,8 @@ Renku is a Codex and Claude Code plugin library for movie-making workflows.
 
 This repo is meant to grow into a collection of filmmaking skills for writing, development, pre-production, production planning, and related creative workflows.
 
-The included skills cover screenplay drafting and Visual Language Inspiration analysis.
+The included skills cover screenplay drafting, Visual Language Inspiration
+analysis, and Lookbook design.
 
 ## Included Skills
 
@@ -73,6 +74,46 @@ Example prompt:
 
 ```text
 $inspiration-analyzer analyze the Blade Runner 2049 Inspiration folder in my current Renku project.
+```
+
+### Lookbook Designer
+
+```text
+skills/lookbook-designer/
+  SKILL.md
+  agents/openai.yaml
+  references/lookbook-cli-workflow.md
+  references/lookbook-json-contract.md
+  references/lookbook-design-guidelines.md
+  references/using-inspiration-sources.md
+  samples/create-lookbook.json
+  samples/update-lookbook.json
+  samples/source-inspirations.json
+  samples/reference-driven-lookbook.json
+```
+
+Lookbook Designer helps agents create or revise Renku Studio Visual Language
+Lookbooks from user direction, Inspiration folders, Inspiration analyses, raw
+folder images, named references, screenplay context, or existing Lookbooks.
+
+It uses:
+
+- the Renku CLI to list, validate, create, update, and read Lookbooks;
+- Inspiration commands to discover source folders and analyses;
+- normal shell commands inside returned folder paths to inspect grabs;
+- schema-validated `kind: "lookbook"` JSON documents;
+- Lookbook image commands for generated example placement.
+
+Invoke it in Codex with:
+
+```text
+$lookbook-designer
+```
+
+Example prompt:
+
+```text
+$lookbook-designer create a new lookbook from the Substance Inspiration folder, but use acid green to mean tenderness becoming contamination.
 ```
 
 ## Install In Codex

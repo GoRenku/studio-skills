@@ -1,0 +1,3 @@
+display_name: Lookbook Designer
+short_description: Create or revise Renku Studio visual language Lookbooks through the CLI.
+default_prompt: Create or revise a Renku Studio Lookbook from my project context and Inspiration folders.
