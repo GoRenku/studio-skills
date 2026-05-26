@@ -1,0 +1,12 @@
+{
+  "purpose": "cast.character-sheet",
+  "target": { "kind": "castMember", "id": "cast_ada" },
+  "modelChoice": "fal-ai/nano-banana-2",
+  "prompt": "A full character sheet for Ada, grounded in the project screenplay, active Lookbook, and period context. Include full-body reference, face close-up, wardrobe, materials, expression range, posture, and period-specific detail.",
+  "takeCount": 1,
+  "seed": null,
+  "imageFrame": "project",
+  "detail": "standard",
+  "outputFormat": "png",
+  "title": "Ada character sheet"
+}
