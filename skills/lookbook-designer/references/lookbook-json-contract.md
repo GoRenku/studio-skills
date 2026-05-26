@@ -61,4 +61,4 @@ Rules:
 - If `sourceInspirationFolderIds` is omitted on update, existing source relationships are preserved.
 - If `sourceInspirationFolderIds` is `[]`, existing source relationships are cleared.
 - Do not include `imageFiles` anywhere.
-- Attach generated examples with `renku lookbook image ...` commands.
+- Attach generated examples with `renku media import --purpose lookbook.image ...`.

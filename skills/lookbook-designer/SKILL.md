@@ -13,7 +13,7 @@ A Lookbook is not a neutral analysis. It is the movie's working visual language:
 
 1. Resolve the Renku project.
 2. Read existing Lookbooks.
-3. Decide whether the user wants a new Lookbook, an update, active-state change, example-image attachment, or brainstorming only.
+3. Decide whether the user wants a new Lookbook, an update, active-state change, media import, or brainstorming only.
 4. Gather source context from the user's direction, Inspiration folders, existing analyses, raw folder images, named references, screenplay context, or existing Lookbooks.
 5. Write a complete `kind: "lookbook"` JSON document.
 6. Validate through the Renku CLI.
@@ -118,7 +118,8 @@ renku lookbook show --lookbook <lookbook-id> --json
 - Do not register Inspiration folder images as assets.
 - Do not store `imageFiles` in Lookbook JSON.
 - Do not attach example images by editing Lookbook JSON.
-- Use Lookbook image commands for generated example placement.
+- Use `media-producer` for generating purpose-specific Lookbook images.
+- Use `renku media import --purpose lookbook.image --target lookbook:<lookbook-id>` for placing an existing generated or uploaded image into the Lookbook.
 - Validate before create or update.
 - Read the existing Lookbook before updating it.
 - Do not overwrite a user's Lookbook unless the user asked for that Lookbook to be updated.

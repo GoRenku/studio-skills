@@ -1,0 +1,16 @@
+{
+  "purpose": "lookbook.image",
+  "target": {
+    "kind": "lookbook",
+    "id": "lookbook_abc"
+  },
+  "modelChoice": "fal-ai/nano-banana-2",
+  "prompt": "A horror hallway showing the Lookbook palette under dread lighting.",
+  "focusSections": ["palette", "lighting", "texture"],
+  "takeCount": 1,
+  "seed": null,
+  "imageFrame": "project",
+  "detail": "standard",
+  "outputFormat": "png",
+  "title": "Horror palette hallway"
+}

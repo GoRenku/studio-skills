@@ -40,15 +40,15 @@ renku lookbook update --lookbook <lookbook-id> --file lookbook.json --json
 renku lookbook set-active --lookbook <lookbook-id> --json
 ```
 
-7. Attach generated example images after files exist in the project:
+7. Import example images after files exist in the project:
 
 ```bash
-renku lookbook image import --lookbook <lookbook-id> --file <project-relative-path> --sections palette,lighting --json
+renku media import --purpose lookbook.image --target lookbook:<lookbook-id> --source <project-relative-path> --sections palette,lighting --json
 renku lookbook image set-sections --image <lookbook-image-id> --sections camera,texture --json
 renku lookbook card-image set --lookbook <lookbook-id> --image <lookbook-image-id> --json
 ```
 
-Use `--image` for Lookbook image IDs. Use `--file` only for JSON input files or project-relative image source files.
+Use `--image` for Lookbook image IDs. Use `--file` only for JSON input files. Use `--source` for project-relative media source files.
 
 Source Inspiration relationships:
 
