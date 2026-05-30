@@ -1,0 +1,31 @@
+{
+  "kind": "sceneShotList",
+  "sceneId": "scene_control_room",
+  "title": "Ada confronts the empty control room",
+  "summary": "A restrained coverage plan that starts with institutional distance and ends in intimate uncertainty.",
+  "coverageStrategy": "Begin with the room geometry, then tighten toward Ada's face and hands as the silence becomes evidence.",
+  "lookbookInfluence": "Use the active Lookbook's cold practical light and centered institutional framing.",
+  "shots": [
+    {
+      "shotId": "shot_001",
+      "title": "Empty room establishes the absence",
+      "storyBeat": "Ada enters expecting a person and finds the room abandoned.",
+      "narrativePurpose": "Establish geography, absence, and emotional distance.",
+      "description": "Wide static frame from the doorway with Ada small against the control consoles.",
+      "shotType": "wide",
+      "cameraAngle": "eye level",
+      "cameraMovement": "static",
+      "framing": "centered doorway frame with deep background symmetry",
+      "lensIntent": "moderate wide lens feel; keep room geometry legible",
+      "subject": "Ada and the empty control room",
+      "action": "Ada pauses in the doorway before stepping inside.",
+      "dialogue": [],
+      "coveredBlockIndexes": [0, 1],
+      "castMemberIds": ["cast_ada"],
+      "locationIds": ["location_control_room"],
+      "audioNotes": "Let room tone and distant machinery carry the silence.",
+      "productionNotes": "Avoid warm fill; the absence should feel institutional."
+    }
+  ],
+  "openQuestions": []
+}

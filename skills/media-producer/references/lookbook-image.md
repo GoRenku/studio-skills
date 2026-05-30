@@ -26,6 +26,13 @@ renku generation estimate --spec <spec-id> --json
 renku generation run --spec <spec-id> --approval-token <approval-token> --json
 ```
 
+Run only after the user explicitly approves both the estimated cost and sending
+project-derived prompt/context to the provider.
+
+For the real `renku generation run`, request sandbox/network permission before
+the first attempt. The permission request should say that Renku will contact the
+approved provider and send the approved project-derived prompt/context.
+
 Inspect each generated image before import. Compare the visible image against the Lookbook sections and choose only the sections it clearly demonstrates. Treat `focusSections` as generation intent, not placement truth.
 
 Import finished media with the agent-reviewed section tags:

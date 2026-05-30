@@ -5,7 +5,7 @@ description: Generate purpose-specific media for Renku Studio projects by readin
 
 # Media Producer
 
-Use this skill when the user wants to create media for a Renku Studio purpose, such as a Lookbook demonstration image, cast character sheet, cast profile image, location environment sheet, future scene mood frame, or future narration audio.
+Use this skill when the user wants to create media for a Renku Studio purpose, such as a Lookbook demonstration image, cast character sheet, cast profile image, location environment sheet, scene storyboard sheet, future scene mood frame, or future narration audio.
 
 This is not a generic image prompt skill. Renku is the context engine: first ask Renku what the media is for, then create or update a persisted spec that captures the user's binding choices.
 
@@ -37,13 +37,13 @@ renku generation spec create --file <spec-json> --json
 renku generation estimate --spec <spec-id> --json
 ```
 
-7. Run generation only after the user has approved the model and cost. Do not ask for a separate content-disclosure approval; Renku approval is cost approval for the bound provider request. Use `--simulate` when validating shape without paid provider calls.
+7. Run generation only after the user has approved the model, cost, and any project-derived prompt/context transfer to the external provider. Because provider-backed generation needs network access, request sandbox/network permission before the first real `renku generation run` attempt instead of waiting for a network failure. Use `--simulate` when validating shape without paid provider calls.
 
 ```bash
 renku generation run --spec <spec-id> --approval-token <approval-token> --json
 ```
 
-8. Inspect generated images before import. For Lookbook images, decide which Lookbook sections the image actually demonstrates. For cast images, choose the strongest take for the cast asset role. For location environment sheets, inspect the composite, use vision to identify the four scenic view blocks, crop only those four blocks, and inspect the four slices before import.
+8. Inspect generated images before import. For Lookbook images, decide which Lookbook sections the image actually demonstrates. For cast images, choose the strongest take for the cast asset role. For location environment sheets, inspect the composite, use vision to identify the four scenic view blocks, crop only those four blocks, and inspect the four slices before import. For scene storyboard sheets, inspect each composite, use vision to identify the actual storyboard panel image blocks, crop only those selected shot panels, and inspect every slice before import.
 9. Import the finished file for the purpose:
 
 ```bash
@@ -74,6 +74,7 @@ renku studio current --json
   `location:<location-id>`.
 - If `context.kind` is `castMember`, use `context.id` as
   `cast:<cast-member-id>`.
+- If `context.kind` is `scene`, use `context.id` as `scene:<scene-id>`.
 - If `context.kind` is `locations`, use `context.locations` as the location
   list to resolve from.
 - If `context.kind` is `cast`, use `context.cast` as the cast list to resolve
@@ -102,16 +103,24 @@ clear match, use `cast:<id>`. If there are multiple plausible matches, ask the
 user to choose. If there is no match, say the Cast member must be added to the
 screenplay before generating cast media.
 
+When the user names a scene, use the screenplay hierarchy to resolve the scene
+id. Storyboard sheet generation requires a Scene Shot List. If the user says
+"the storyboard for this scene", use the active shot list for that scene. If a
+specific `shotListId` is already known, honor it exactly. If no active shot list
+exists, hand back to shot-list design first.
+
 ## Binding Rules
 
 - The persisted spec is binding.
-- Do not change model choice, take count, seed, image frame, sheet frame, view frame, detail, output format, or future advanced controls after the user has selected them.
+- Do not change model choice, take count, seed, image frame, sheet frame, view frame, shot frame, shot ids, detail, output format, or future advanced controls after the user has selected them.
 - Do not use external generation CLIs.
-- Do not generate with a paid provider before estimating cost and getting explicit cost approval.
+- Do not generate with a paid provider before estimating cost and getting explicit approval for both the estimated cost and sending project-derived prompt/context to the provider.
+- Do not make a real provider-backed `renku generation run` call without sandbox/network permission when the environment requires it. Request permission up front for all media generation purposes, and include that the run will contact the approved provider using project-derived prompt/context.
 - Generation and import are separate steps. Do not assume a generated file is attached until `renku media import` succeeds.
 - For Lookbook images, section placement is based on post-generation agent visual inspection. Do not copy `focusSections` into `--sections` without checking the actual image.
 - For cast profile edit models, `sourceAssetId` is binding and must point to a cast-attached character sheet image.
 - For location environment sheets, the target Location must already exist and the active Lookbook is required.
+- For scene storyboard sheets, the target Scene and Scene Shot List must already exist, and selected shots are batched into specs with at most four shots per sheet.
 
 ## Lookbook Image Purpose
 
@@ -335,6 +344,67 @@ The import file must explicitly list `composite`, `view_front`, `view_right`,
 Use `references/location-environment-sheet.md` for prompt structure,
 historical guardrails, and extraction expectations.
 
+## Scene Storyboard Sheet Purpose
+
+Purpose key: `scene.storyboard-sheet`
+
+Target format: `scene:<scene-id>`
+
+Read context and model choices first:
+
+```bash
+renku generation context --purpose scene.storyboard-sheet --target scene:<scene-id> --shot-list <shot-list-id> --json
+renku generation model list --purpose scene.storyboard-sheet --target scene:<scene-id> --shot-list <shot-list-id> --json
+```
+
+Storyboard sheet generation uses the media-purpose selector and persisted spec
+workflow. It does not belong to the shot-list authoring workflow after the shot
+list exists.
+
+For longer shot lists, split selected shots into batches of at most four and
+create one persisted spec per batch.
+
+Spec shape:
+
+```json
+{
+  "purpose": "scene.storyboard-sheet",
+  "target": { "kind": "scene", "id": "scene_foundry" },
+  "shotListId": "scene_shot_list_foundry",
+  "shotIds": ["shot_001", "shot_002", "shot_003", "shot_004"],
+  "modelChoice": "fal-ai/nano-banana-2",
+  "prompt": "Create a hand-drawn production storyboard sheet for these selected shots...",
+  "takeCount": 1,
+  "seed": null,
+  "sheetFrame": "4:3",
+  "shotFrame": "project",
+  "detail": "standard",
+  "outputFormat": "png",
+  "title": "Foundry storyboard sheet 1"
+}
+```
+
+The provider returns one composite image per spec. After generation, inspect the
+composite before import. Use vision to identify the actual storyboard panel
+image blocks for the selected shots, crop only those blocks, and inspect every
+slice. Rough grid slicing, fixed coordinates, border detection, marker
+detection, OCR, and reusable grid slicers are not allowed.
+
+Import the selected sheet or sheets:
+
+```bash
+renku media import --purpose scene.storyboard-sheet --target scene:<scene-id> --shot-list <shot-list-id> --file scene-storyboard-sheet-import.json --json
+```
+
+For multiple generated storyboard sheets that belong to the same scene shot-list
+storyboard package, create one multi-sheet import manifest. Do not stitch
+generated sheets together to satisfy import. The import file must explicitly list
+each composite sheet and one cropped shot file for every selected shot in each
+sheet. Do not use source-only import for this purpose.
+
+Use `references/scene-storyboard-sheet.md` for prompt structure, batching,
+vision-guided cropping, and import expectations.
+
 ## Quality Bar
 
 - Make the output serve the purpose context, not just the literal prompt.
@@ -342,6 +412,7 @@ historical guardrails, and extraction expectations.
 - For cast character sheets, include full-body, face, wardrobe, expression, pose, material, and period cues when the prompt asks for a sheet.
 - For cast profiles, keep the prompt focused on a single recognizable portrait and preserve continuity with the character sheet when using an edit model.
 - For location environment sheets, preserve one composite with four usable azimuth views and a bottom Lookbook texture/lighting guideline strip. Crop only the four scenic views; do not crop or import the texture strip separately.
+- For scene storyboard sheets, preserve one composite per sheet, keep each sheet to at most four shots, and crop only vision-identified storyboard image content for the selected shots.
 - Do not tag all Lookbook sections unless the image visibly and specifically demonstrates every section.
 - If an image does not clearly demonstrate any Lookbook section, do not import it automatically; explain the problem and ask whether to regenerate or import it unsectioned.
 - Prefer concrete cinematic language over abstract mood words.
@@ -355,9 +426,12 @@ historical guardrails, and extraction expectations.
 - `references/cast-character-sheet.md`
 - `references/cast-profile.md`
 - `references/location-environment-sheet.md`
+- `references/scene-storyboard-sheet.md`
 - `references/character-images.md`
 - `references/future-purpose-sketches.md`
 - `samples/lookbook-image-spec.json`
 - `samples/cast-character-sheet-spec.json`
 - `samples/cast-profile-spec.json`
 - `samples/location-environment-sheet-spec.json`
+- `samples/scene-storyboard-sheet-spec.json`
+- `samples/scene-storyboard-sheet-import.json`

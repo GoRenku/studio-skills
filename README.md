@@ -5,7 +5,7 @@ Renku is a Codex and Claude Code plugin library for movie-making workflows.
 This repo is meant to grow into a collection of filmmaking skills for writing, development, pre-production, production planning, and related creative workflows.
 
 The included skills cover screenplay drafting, Visual Language Inspiration
-analysis, and Lookbook design.
+analysis, Lookbook design, media production, and scene shot design.
 
 ## Included Skills
 
@@ -114,6 +114,44 @@ Example prompt:
 
 ```text
 $lookbook-designer create a new lookbook from the Substance Inspiration folder, but use acid green to mean tenderness becoming contamination.
+```
+
+
+### Scene Shot Designer
+
+```text
+skills/scene-shot-designer/
+  SKILL.md
+  agents/openai.yaml
+  references/shot-list-cli-workflow.md
+  references/scene-shot-list-json-contract.md
+  references/shot-design-guidelines.md
+  references/storyboard-sheet-generation-workflow.md
+  scripts/slice_storyboard_grid.py
+  samples/scene-shot-list.json
+  samples/storyboard-sheet-spec.json
+  samples/storyboard-sheet-import.json
+```
+
+Scene Shot Designer helps agents create durable Renku Studio Scene Shot Lists for screenplay scenes and optionally generate one storyboard sheet for the full shot list.
+
+It uses:
+
+- the Renku CLI to read scene shot-list context, validate shot-list JSON, write history entries, and set the active shot list;
+- active Lookbook text, referenced cast, referenced locations, and user direction to design practical coverage;
+- schema-validated `kind: "sceneShotList"` JSON documents;
+- `scene.storyboard-sheet` media generation plus local slicing for optional storyboard images.
+
+Invoke it in Codex with:
+
+```text
+$scene-shot-designer
+```
+
+Example prompt:
+
+```text
+$scene-shot-designer design a tense, symmetrical shot list for the current scene and save it to the project.
 ```
 
 ## Install In Codex

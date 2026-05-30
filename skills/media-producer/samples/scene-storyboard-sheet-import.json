@@ -1,0 +1,34 @@
+{
+  "kind": "sceneStoryboardSheetImport",
+  "title": "Foundry storyboard package",
+  "sheets": [
+    {
+      "source": "generated/media/foundry-storyboard-sheet-1.png",
+      "title": "Foundry storyboard sheet 1",
+      "shots": [
+        {
+          "shotId": "shot_001",
+          "source": "generated/media/foundry-storyboard-sheet-1-shot-001.png"
+        },
+        {
+          "shotId": "shot_002",
+          "source": "generated/media/foundry-storyboard-sheet-1-shot-002.png"
+        }
+      ]
+    },
+    {
+      "source": "generated/media/foundry-storyboard-sheet-2.png",
+      "title": "Foundry storyboard sheet 2",
+      "shots": [
+        {
+          "shotId": "shot_005",
+          "source": "generated/media/foundry-storyboard-sheet-2-shot-005.png"
+        },
+        {
+          "shotId": "shot_006",
+          "source": "generated/media/foundry-storyboard-sheet-2-shot-006.png"
+        }
+      ]
+    }
+  ]
+}

@@ -11,7 +11,7 @@ Target format: `location:<location-id>`
 3. Verify the target Location exists in the screenplay location list.
 4. If the intended historical place is missing, ask the user or screenplay agent to add a Location first.
 5. Create a persisted spec and estimate cost before any paid run.
-6. Run only after user cost approval for the bound provider request.
+6. Run only after user approval for both the estimated cost and sending project-derived prompt/context to the provider. Request sandbox/network permission before the first real run, because Renku will contact the approved provider with that approved context.
 7. Inspect the returned composite, use vision to identify the four scenic image blocks, crop those four blocks, and inspect the four slices.
 8. Import only when the sheet has four useful views of the same location.
 

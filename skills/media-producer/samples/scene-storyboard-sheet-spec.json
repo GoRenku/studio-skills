@@ -1,0 +1,18 @@
+{
+  "purpose": "scene.storyboard-sheet",
+  "target": {
+    "kind": "scene",
+    "id": "scene_foundry"
+  },
+  "shotListId": "scene_shot_list_foundry",
+  "shotIds": ["shot_001", "shot_002", "shot_003", "shot_004"],
+  "modelChoice": "fal-ai/nano-banana-2",
+  "prompt": "Create a hand-drawn production storyboard sheet for the selected foundry shots. Keep the panels clear, warm, and practical for shot planning.",
+  "takeCount": 1,
+  "seed": null,
+  "sheetFrame": "4:3",
+  "shotFrame": "project",
+  "detail": "standard",
+  "outputFormat": "png",
+  "title": "Foundry storyboard sheet 1"
+}
