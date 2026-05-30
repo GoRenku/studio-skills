@@ -142,7 +142,6 @@ Use this path only after `renku screenplay status --json` reports `exists: false
    - `themes`
    - `historicalBasis`
    - `dramatizedElements`
-   - `storyArc`
    - `researchSources`
    - `assumptionsMade`
 
@@ -174,7 +173,7 @@ renku screenplay show --json
    - What story problem is being solved?
    - Which cast, locations, acts, sequences, scenes, or blocks are affected?
    - Does the revision change continuity, structure, tone, audience promise, or running time?
-   - Does `screenplay.storyArc`, `summary`, `centralConflict`, or `assumptionsMade` need to change too?
+   - Do `summary`, `centralConflict`, `dramaticQuestion`, `themes`, or `assumptionsMade` need to change too?
 
 3. Draft a focused `screenplayOperations` JSON document.
 4. Validate and apply:
@@ -205,8 +204,7 @@ renku screenplay apply --file <operations-json> --json
 - Do not run `renku screenplay create` when status reports `exists: true`; use `renku screenplay apply`.
 - Do not replace an existing screenplay with a fresh full create document. Read the current screenplay and apply focused operations.
 - Reference objects contain exactly one of `id` or `key`.
-- Put structured narrative arc data in `screenplay.storyArc`. Do not put `keyBeats` on acts.
-- Story-arc acts use `actReference` with exactly one of `id` or `key`; story beats are internal narrative objects and do not have IDs or keys.
+- Represent the initial three-act structure through real `acts`, `sequences`, `scenes`, `purpose`, and `storyFunction` fields.
 - Use `locationReferences`, `castMemberReferences`, and `castMemberReference` in create/apply input.
 - Expect canonical `renku screenplay show --json` output to use durable `id`, `locationIds`, and `castMemberId`, without authoring keys or reference objects.
 - `screenplay.update` replaces the top-level `screenplay` object. Include every screenplay field you want to keep.

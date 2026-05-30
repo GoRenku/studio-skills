@@ -1,0 +1,51 @@
+{
+  "kind": "screenplayOperations",
+  "operations": [
+    {
+      "operation": "act.add",
+      "placement": {
+        "afterId": "act_act-3"
+      },
+      "act": {
+        "key": "act-epilogue",
+        "title": "The Echo",
+        "purpose": "Add a short aftermath act if the project expands beyond the ten-minute ending.",
+        "sequences": [
+          {
+            "key": "sequence-echo",
+            "title": "The City Remembers",
+            "purpose": "Let the consequence of Urban's invention echo beyond his death.",
+            "scenes": [
+              {
+                "key": "scene-echo",
+                "title": "The Last Sound Carries",
+                "setting": {
+                  "locationReferences": [
+                    {
+                      "id": "location_theodosian-walls"
+                    }
+                  ]
+                },
+                "storyFunction": [
+                  "resolution",
+                  "aftermath"
+                ],
+                "blocks": [
+                  {
+                    "type": "action",
+                    "text": "Smoke thins over @theodosian-walls as the city waits for the next impossible sound.",
+                    "locationReferences": [
+                      {
+                        "id": "location_theodosian-walls"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

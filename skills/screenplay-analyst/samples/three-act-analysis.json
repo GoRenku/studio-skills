@@ -1,0 +1,192 @@
+{
+  "kind": "screenplayAnalysis",
+  "structureModel": "threeAct",
+  "title": "Three-act screenplay analysis",
+  "summary": "Urban has a strong moral engine, but the opening can make his active choice clearer.",
+  "criteria": [
+    {
+      "key": "dramaticEnergy",
+      "label": "Dramatic Energy",
+      "description": "How strongly the moment pulls the audience forward."
+    },
+    {
+      "key": "stakes",
+      "label": "Stakes",
+      "description": "How clearly the audience understands what can be lost or gained."
+    },
+    {
+      "key": "characterAgency",
+      "label": "Character Agency",
+      "description": "How clearly a character's choice drives the story."
+    }
+  ],
+  "acts": [
+    {
+      "actId": "act_example1",
+      "actRole": "actOne",
+      "title": "The Offer",
+      "synopsis": "Urban is introduced through need, skill, and the first failed patronage attempt.",
+      "scoreByCriterion": {
+        "dramaticEnergy": 62,
+        "stakes": 58,
+        "characterAgency": 50
+      },
+      "critique": {
+        "summary": "The act has pressure, but Urban's active choice can arrive sooner.",
+        "strengths": ["The premise gives craft a moral consequence."],
+        "concerns": ["The opening pressure can feel external before Urban's want is explicit."],
+        "evidence": [
+          {
+            "sceneId": "scene_example1",
+            "text": "The first scene shows pressure before it clearly dramatizes Urban choosing a path."
+          }
+        ],
+        "suggestions": ["Make Urban's decision pressure visible before the act moves to negotiation."]
+      }
+    },
+    {
+      "actId": "act_example2",
+      "actRole": "actTwo",
+      "title": "The Patron",
+      "synopsis": "Urban enters a world that can fund his ambition and shrink his moral distance.",
+      "scoreByCriterion": {
+        "dramaticEnergy": 68,
+        "stakes": 72,
+        "characterAgency": 61
+      },
+      "critique": {
+        "summary": "The act gains scale when resources meet ambition.",
+        "strengths": ["The patron relationship naturally raises stakes."],
+        "concerns": ["Urban's self-justification should be tested by visible human cost."],
+        "evidence": [
+          {
+            "sceneId": "scene_example2",
+            "text": "The patron scene turns skill into political consequence."
+          }
+        ],
+        "suggestions": ["Let a scene force Urban to defend his bargain in human terms."]
+      }
+    },
+    {
+      "actId": "act_example3",
+      "actRole": "actThree",
+      "title": "The Sound",
+      "synopsis": "The weapon works, and Urban must face the meaning of success.",
+      "scoreByCriterion": {
+        "dramaticEnergy": 80,
+        "stakes": 84,
+        "characterAgency": 66
+      },
+      "critique": {
+        "summary": "The final act has scale and consequence; the strongest version makes recognition unavoidable.",
+        "strengths": ["The climax naturally ties invention to empire-level cost."],
+        "concerns": ["Urban's inner recognition needs a clear dramatic expression."],
+        "evidence": [
+          {
+            "sceneId": "scene_example3",
+            "text": "The wall sequence shows the weapon succeeding at a human cost."
+          }
+        ],
+        "suggestions": ["Give Urban a concrete moment of recognition before the final consequence lands."]
+      }
+    }
+  ],
+  "keyBeats": [
+    {
+      "key": "hook",
+      "label": "Hook",
+      "actId": "act_example1",
+      "sequenceId": "sequence_example1",
+      "sceneId": "scene_example1",
+      "synopsis": "The story opens on pressure created by Urban's craft.",
+      "scoreByCriterion": {
+        "dramaticEnergy": 70,
+        "stakes": 60,
+        "characterAgency": 48
+      },
+      "critique": {
+        "summary": "The hook is forceful but can attach more tightly to Urban's choice.",
+        "evidence": [
+          {
+            "sceneId": "scene_example1",
+            "text": "The scene shows consequence before choice."
+          }
+        ],
+        "suggestions": ["Tie the opening image to a question about Urban's responsibility."]
+      }
+    }
+  ],
+  "sequences": [
+    {
+      "sequenceId": "sequence_example1",
+      "actId": "act_example1",
+      "title": "The Sound That Opens Stone",
+      "synopsis": "The sequence frames the cost of the weapon before the bargain.",
+      "beatRole": "hook",
+      "scoreByCriterion": {
+        "dramaticEnergy": 70,
+        "stakes": 60,
+        "characterAgency": 48
+      },
+      "critique": {
+        "summary": "A strong pressure sequence with room for clearer agency.",
+        "strengths": ["The audience understands that the weapon matters."],
+        "concerns": ["The audience needs a sharper sense of Urban's immediate want."],
+        "evidence": [
+          {
+            "sceneId": "scene_example1",
+            "text": "The scene emphasizes result before decision."
+          }
+        ],
+        "suggestions": ["End the sequence on a question about responsibility, not only spectacle."]
+      }
+    }
+  ],
+  "scenes": [
+    {
+      "sceneId": "scene_example1",
+      "sequenceId": "sequence_example1",
+      "actId": "act_example1",
+      "title": "Bombardment",
+      "synopsis": "The cannon's impact establishes the cost of Urban's craft.",
+      "beatRole": "hook",
+      "scoreByCriterion": {
+        "dramaticEnergy": 72,
+        "stakes": 60,
+        "characterAgency": 42
+      },
+      "critique": {
+        "summary": "The scene is forceful but low on visible agency.",
+        "strengths": ["Immediate consequence gives the story scale."],
+        "concerns": ["Urban is defined by effect before choice."],
+        "evidence": [
+          {
+            "sceneId": "scene_example1",
+            "text": "The conflict is external before Urban's decision is dramatized."
+          }
+        ],
+        "suggestions": ["Add or revise a beat so Urban actively confronts what his craft enables."]
+      }
+    }
+  ],
+  "suggestedSceneAdditions": [
+    {
+      "targetActId": "act_example1",
+      "targetSequenceId": "sequence_example1",
+      "placement": {
+        "afterSceneId": "scene_example1"
+      },
+      "title": "The Maker Calculates",
+      "purpose": "Give Urban an active choice after the opening pressure.",
+      "synopsis": "Urban privately weighs whether his craft can survive without patronage and chooses pursuit over retreat.",
+      "rationale": "This makes the hook personal instead of only situational.",
+      "expectedCriterionChanges": [
+        {
+          "criterionKey": "characterAgency",
+          "direction": "increase",
+          "reason": "The audience sees Urban choose pressure rather than merely experience it."
+        }
+      ]
+    }
+  ]
+}

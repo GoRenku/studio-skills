@@ -67,8 +67,7 @@ renku screenplay show --json
 ```
 
 Use durable IDs from that output in update, delete, move, parent, and placement fields.
-For top-level screenplay edits such as `storyArc`, use `screenplay.update` and
-include every `screenplay` field you want to keep.
+For top-level screenplay metadata edits, use `screenplay.update` and include every `screenplay` field you want to keep.
 Do not create a new full screenplay over an existing project screenplay.
 
 ```bash
@@ -91,9 +90,7 @@ IDs such as `cast_urban`, `act_act-1`, `location_edirne-foundry`,
 `generatedIds` or the latest `renku screenplay show --json` output before
 applying a sample to a real project.
 
-`add-act-and-update-story-arc-with-mixed-references.json` deliberately mixes
-existing act IDs with a newly added act key inside `storyArc.acts[].actReference`.
-That is valid because the new act is created in the same apply request.
+`add-act-with-new-sequence.json` demonstrates adding a new act, sequence, and scene through focused operations.
 
 ## Read Helpers
 

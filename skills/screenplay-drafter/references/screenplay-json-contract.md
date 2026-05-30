@@ -54,46 +54,22 @@ Canonical output does not include temporary `key` values or authoring reference 
 - `themes`;
 - `historicalBasis`;
 - `dramatizedElements`;
-- `storyArc`;
 - `status`;
 - `researchSources`;
 - `assumptionsMade`.
 
 Keep list-like fields as arrays of strings.
 
-## Story Arc
+## Three-Act Structure
 
-Use `screenplay.storyArc` for the screenplay's structured narrative arc:
+Use real Renku acts, sequences, scenes, `purpose`, and `storyFunction` fields
+to represent the screenplay's initial three-act structure.
 
-```json
-{
-  "structureModel": "three_act",
-  "acts": [
-    {
-      "actReference": { "key": "act-1" },
-      "title": "The Offer",
-      "purpose": "Open on the siege, then rewind to Urban's failed Byzantine sale.",
-      "estimatedPages": "1-3",
-      "keyBeats": [
-        {
-          "type": "hook",
-          "label": "The walls shake under Urban's cannon.",
-          "description": "The audience first meets Urban through the destructive consequence of his work."
-        }
-      ]
-    }
-  ]
-}
-```
-
-Story-arc acts point to real Renku acts with `actReference`:
-
-- use `{ "key": "act-1" }` when the act is created in the same create/apply request;
-- use `{ "id": "act_existing" }` when the act already exists.
-
-Story beats are internal narrative JSON only. Do not add `id`, `key`, `beatKey`, or any other identifier to a beat.
-
-Do not put `keyBeats` on act records. Acts store hierarchy and scene content; `screenplay.storyArc` stores the narrative arc.
+For initial screenplay generation, create three acts by default unless the
+user's requested format calls for a different structure. Use act titles and
+purposes to express the dramatic shape, and use sequence purpose or scene
+`storyFunction` values for critical beats such as `hook`, `inciting_incident`,
+`first_turn`, `midpoint`, `crisis`, `climax`, and `resolution`.
 
 ## Cast And Locations
 
@@ -253,7 +229,7 @@ Add operations for sequences and scenes require an existing parent ID:
 
 `screenplay.update` replaces the whole top-level `screenplay` object. Start from
 `renku screenplay show --json`, keep the fields you still want, then edit the
-target fields such as `storyArc`, `logline`, or `summary`.
+target fields such as `logline`, `summary`, `centralConflict`, or `dramaticQuestion`.
 
 Move operations require source and target parents:
 
