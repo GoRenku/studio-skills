@@ -1,0 +1,12 @@
+{
+  "purpose": "lookbook.sheet",
+  "target": { "kind": "lookbook", "id": "lookbook_c7g2k6w8" },
+  "modelChoice": "fal-ai/nano-banana-2",
+  "prompt": "Create one polished 16:9 Lookbook sheet for Imperial Wound as a single finished image for downstream film/video generation. This must be an informative visual language guide, not a collage of existing images. Header: Imperial Wound, with the short thesis line history becoming machinery. Include a palette strip with named swatches: dim imperial gold #C7B06A, Bosporus winter gray #66727A, cinnabar command red #4A1E1B, worked bronze #8A6437, tent canvas and parchment #D8C8A7, powder black #171B1B, fresh wound red #A33A2E. Include four cinematic example panels: Byzantine council room with cold gray daylight and insufficient amber candles; Ottoman command tent with disciplined red, cream, black, bronze, and supplied lamp placement; cannon/foundry close study with bronze, soot, molten furnace glow, hands, tools, and smoke; Theodosian wall or siege dawn with tiny figures, cracked stone, smoke-reduced light, and mechanical consequence. Add compact rule cards for composition, lighting, texture/materials, and camera. Use short readable captions only: power is frontal and symmetrical; labor breaks order with ropes, smoke, bodies; cold daylight drains Byzantine rooms; furnace glow turns craft into judgment; bronze, soot, parchment, wet rope, cracked stone; slow history, sudden physics. Keep the sheet clean, editorial, production-board style, with readable large labels, no paragraphs, no fake UI, no marketing poster treatment, no modern anachronisms.",
+  "takeCount": 1,
+  "seed": null,
+  "sheetFrame": "project",
+  "detail": "standard",
+  "outputFormat": "png",
+  "title": "Imperial Wound lookbook sheet"
+}

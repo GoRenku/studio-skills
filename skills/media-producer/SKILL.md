@@ -5,7 +5,7 @@ description: Generate purpose-specific media for Renku Studio projects by readin
 
 # Media Producer
 
-Use this skill when the user wants to create media for a Renku Studio purpose, such as a Lookbook demonstration image, cast character sheet, cast profile image, location environment sheet, scene storyboard sheet, shot first frame (`shot.first-frame`), shot last frame (`shot.last-frame`), shot reference sheet (`shot.reference-sheet`), shot multi-shot storyboard sheet (`shot.multi-shot-storyboard-sheet`), final shot video take (`shot.video-take`), future scene mood frame, or future narration audio.
+Use this skill when the user wants to create media for a Renku Studio purpose, such as a Lookbook demonstration image, Lookbook sheet (`lookbook.sheet`), cast character sheet, cast profile image, location environment sheet, scene storyboard sheet, shot first frame (`shot.first-frame`), shot last frame (`shot.last-frame`), shot reference sheet (`shot.reference-sheet`), shot multi-shot storyboard sheet (`shot.multi-shot-storyboard-sheet`), final shot video take (`shot.video-take`), future scene mood frame, or future narration audio.
 
 This is not a generic image prompt skill. Renku is the context engine: first ask Renku what the media is for, then create or update a persisted spec that captures the user's binding choices.
 
@@ -43,14 +43,14 @@ renku generation estimate --spec <spec-id> --json
 renku generation run --spec <spec-id> --approval-token <approval-token> --json
 ```
 
-8. Inspect generated images before import. For Lookbook images, decide which Lookbook sections the image actually demonstrates. For cast images, choose the strongest take for the cast asset role. For location environment sheets, inspect the composite, use vision to identify the four scenic view blocks, crop only those four blocks, and inspect the four slices before import. For scene storyboard sheets, inspect each composite, use vision to identify the actual storyboard panel image blocks, crop only those selected shot panels, and inspect every slice before import.
+8. Inspect generated images before import. For Lookbook images, decide which Lookbook sections the image actually demonstrates. For Lookbook sheets, verify that the sheet is informative, legible, and summarizes the visual language rather than merely collaging existing Lookbook images. For cast images, choose the strongest take for the cast asset role. For location environment sheets, inspect the composite, use vision to identify the four scenic view blocks, crop only those four blocks, and inspect the four slices before import. For scene storyboard sheets, inspect each composite, use vision to identify the actual storyboard panel image blocks, crop only those selected shot panels, and inspect every slice before import.
 9. Import the finished file for the purpose:
 
 ```bash
 renku media import --purpose <purpose-key> --target <target> --source <project-relative-path> --sections <agent-reviewed-sections> --json
 ```
 
-Use `--sections` only for `lookbook.image`. Cast image imports do not use section tags.
+Use `--sections` only for `lookbook.image`. Lookbook sheet, cast image, and shot input imports do not use section tags.
 
 ## Shot Video Take Purposes
 
@@ -134,6 +134,7 @@ exists, hand back to shot-list design first.
 - Do not make a real provider-backed `renku generation run` call without sandbox/network permission when the environment requires it. Request permission up front for all media generation purposes, and include that the run will contact the approved provider using project-derived prompt/context.
 - Generation and import are separate steps. Do not assume a generated file is attached until `renku media import` succeeds.
 - For Lookbook images, section placement is based on post-generation agent visual inspection. Do not copy `focusSections` into `--sections` without checking the actual image.
+- For Lookbook sheets, the output is a model-facing visual language guide. It must include compact palette, lighting, composition, texture/material, camera, and visual motif guidance in one readable sheet. Do not crop or slice Lookbook sheets.
 - For cast profile edit models, `sourceAssetId` is binding and must point to a cast-attached character sheet image.
 - For location environment sheets, the target Location must already exist and the active Lookbook is required.
 - For scene storyboard sheets, the target Scene and Scene Shot List must already exist, and selected shots are batched into specs with at most four shots per sheet.
@@ -180,6 +181,58 @@ Import the result with the agent-reviewed sections:
 ```bash
 renku media import --purpose lookbook.image --target lookbook:<lookbook-id> --source generated/media/<file> --sections palette,lighting --json
 ```
+
+## Lookbook Sheet Purpose
+
+Purpose key: `lookbook.sheet`
+
+Target format: `lookbook:<lookbook-id>`
+
+Read context and model choices first:
+
+```bash
+renku generation context --purpose lookbook.sheet --target lookbook:<lookbook-id> --json
+renku generation model list --purpose lookbook.sheet --target lookbook:<lookbook-id> --json
+```
+
+A Lookbook sheet is a single visual-language reference image for downstream
+image/video models. It is closer to a concise cinematography style guide than a
+gallery: it should teach the model the Lookbook's palette, lighting behavior,
+composition grammar, texture/material world, camera behavior, and recurring
+motifs at a glance.
+
+Best current models:
+
+- `fal-ai/openai/gpt-image-2`
+- `fal-ai/nano-banana-2`
+- `fal-ai/xai/grok-imagine-image` as a cheaper alternative when its limits are acceptable
+- `fal-ai/bytedance/seedream/v5/lite/text-to-image` when the model list reports it available
+
+Spec shape:
+
+```json
+{
+  "purpose": "lookbook.sheet",
+  "target": { "kind": "lookbook", "id": "lookbook_abc" },
+  "modelChoice": "fal-ai/nano-banana-2",
+  "prompt": "Create one 16:9 Lookbook sheet...",
+  "takeCount": 1,
+  "seed": null,
+  "sheetFrame": "project",
+  "detail": "standard",
+  "outputFormat": "png",
+  "title": "Imperial Wound lookbook sheet"
+}
+```
+
+Import the selected sheet:
+
+```bash
+renku media import --purpose lookbook.sheet --target lookbook:<lookbook-id> --source generated/media/<file> --json
+```
+
+Use `references/lookbook-sheet.md` for sheet layout, prompt structure,
+legibility checks, and import expectations.
 
 ## Cast Character Sheet Purpose
 
@@ -425,12 +478,14 @@ vision-guided cropping, and import expectations.
 
 - Make the output serve the purpose context, not just the literal prompt.
 - Before import, visually inspect every generated Lookbook image and assign only sections with concrete visible evidence.
+- Before import, visually inspect every generated Lookbook sheet for readable palette/rule information, concrete visual examples, and absence of fake UI clutter, illegible walls of text, or mere image collage.
 - For cast character sheets, include full-body, face, wardrobe, expression, pose, material, and period cues when the prompt asks for a sheet.
 - For cast profiles, keep the prompt focused on a single recognizable portrait and preserve continuity with the character sheet when using an edit model.
 - For location environment sheets, preserve one composite with four usable azimuth views and a bottom Lookbook texture/lighting guideline strip. Crop only the four scenic views; do not crop or import the texture strip separately.
 - For scene storyboard sheets, preserve one composite per sheet, keep each sheet to at most four shots, and crop only vision-identified storyboard image content for the selected shots.
 - Do not tag all Lookbook sections unless the image visibly and specifically demonstrates every section.
 - If an image does not clearly demonstrate any Lookbook section, do not import it automatically; explain the problem and ask whether to regenerate or import it unsectioned.
+- If a Lookbook sheet is visually attractive but does not teach the model the Lookbook rules, do not import it automatically; explain the missing guidance and regenerate with a more explicit sheet prompt.
 - Prefer concrete cinematic language over abstract mood words.
 - Keep the user in control of model choice and binding controls.
 - Return the generated file path, run record, and import result in your final answer.
@@ -439,6 +494,7 @@ vision-guided cropping, and import expectations.
 
 - `references/workflow.md`
 - `references/lookbook-image.md`
+- `references/lookbook-sheet.md`
 - `references/cast-character-sheet.md`
 - `references/cast-profile.md`
 - `references/location-environment-sheet.md`
@@ -446,6 +502,7 @@ vision-guided cropping, and import expectations.
 - `references/character-images.md`
 - `references/future-purpose-sketches.md`
 - `samples/lookbook-image-spec.json`
+- `samples/lookbook-sheet-spec.json`
 - `samples/cast-character-sheet-spec.json`
 - `samples/cast-profile-spec.json`
 - `samples/location-environment-sheet-spec.json`
