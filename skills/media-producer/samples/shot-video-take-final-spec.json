@@ -1,0 +1,41 @@
+{
+  "purpose": "shot.video-take",
+  "target": {
+    "kind": "sceneShotGroup",
+    "id": "scene_001:shot_list_001:scene_shot_video_take_group_001",
+    "sceneId": "scene_001",
+    "shotListId": "shot_list_001",
+    "productionGroupId": "scene_shot_video_take_group_001",
+    "shotIds": [
+      "shot_003"
+    ]
+  },
+  "intentId": "first-last-frame",
+  "modelChoice": "fal-ai/veo3.1/first-last-frame-to-video",
+  "prompt": "Generate Shot 3 as a restrained cinematic motion take.",
+  "negativePrompt": "No extra characters, no text overlays.",
+  "parameterValues": {
+    "duration": "6s",
+    "aspect_ratio": "16:9",
+    "resolution": "720p"
+  },
+  "inputs": [
+    {
+      "kind": "first-frame",
+      "assetId": "asset_first_frame",
+      "assetFileId": "asset_file_first_frame",
+      "role": "first-frame",
+      "mediaKind": "image",
+      "projectRelativePath": "generated/media/shot-003-first-frame.png"
+    },
+    {
+      "kind": "last-frame",
+      "assetId": "asset_last_frame",
+      "assetFileId": "asset_file_last_frame",
+      "role": "last-frame",
+      "mediaKind": "image",
+      "projectRelativePath": "generated/media/shot-003-last-frame.png"
+    }
+  ],
+  "title": "Shot 3 video take"
+}

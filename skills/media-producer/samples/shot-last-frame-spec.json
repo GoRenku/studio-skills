@@ -1,0 +1,23 @@
+{
+  "purpose": "shot.last-frame",
+  "target": {
+    "kind": "sceneShotGroup",
+    "id": "scene_001:shot_list_001:scene_shot_video_take_group_001",
+    "sceneId": "scene_001",
+    "shotListId": "shot_list_001",
+    "productionGroupId": "scene_shot_video_take_group_001",
+    "shotIds": [
+      "shot_003"
+    ]
+  },
+  "dependencyKind": "last-frame",
+  "outputInputKind": "last-frame",
+  "modelChoice": "fal-ai/openai/gpt-image-2",
+  "prompt": "Create the last frame for Shot 3.",
+  "parameterValues": {
+    "image_size": "landscape_16_9",
+    "quality": "medium",
+    "output_format": "png"
+  },
+  "title": "Shot 3 last frame"
+}

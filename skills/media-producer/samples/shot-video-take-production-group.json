@@ -1,0 +1,62 @@
+{
+  "intentId": "first-last-frame",
+  "modelChoice": "fal-ai/veo3.1/first-last-frame-to-video",
+  "parameterValues": {
+    "duration": "6s",
+    "aspect_ratio": "16:9",
+    "resolution": "720p"
+  },
+  "requestedInputs": [
+    {
+      "kind": "first-frame",
+      "subjectKind": "shot",
+      "subjectId": "shot_003",
+      "fulfillmentMode": "generate-new"
+    },
+    {
+      "kind": "last-frame",
+      "subjectKind": "shot",
+      "subjectId": "shot_003",
+      "fulfillmentMode": "generate-new"
+    }
+  ],
+  "preparedInputs": [],
+  "agentProposal": {
+    "basedOnIntentId": "first-last-frame",
+    "basedOnModelChoice": "fal-ai/veo3.1/first-last-frame-to-video",
+    "dependencyDrafts": [
+      {
+        "purpose": "shot.first-frame",
+        "dependencyKind": "first-frame",
+        "outputInputKind": "first-frame",
+        "modelChoice": "fal-ai/openai/gpt-image-2",
+        "prompt": "Create the opening frame for Shot 3.",
+        "parameterValues": {
+          "image_size": "landscape_16_9",
+          "quality": "medium",
+          "output_format": "png"
+        },
+        "title": "Shot 3 first frame"
+      },
+      {
+        "purpose": "shot.last-frame",
+        "dependencyKind": "last-frame",
+        "outputInputKind": "last-frame",
+        "modelChoice": "fal-ai/openai/gpt-image-2",
+        "prompt": "Create the closing frame for Shot 3.",
+        "parameterValues": {
+          "image_size": "landscape_16_9",
+          "quality": "medium",
+          "output_format": "png"
+        },
+        "title": "Shot 3 last frame"
+      }
+    ],
+    "finalPromptDraft": {
+      "prompt": "Generate Shot 3 as one cinematic take using the selected first and last frames.",
+      "negativePrompt": "No text overlays.",
+      "title": "Shot 3 video take"
+    }
+  },
+  "customPromptNote": "Honor the selected first and last frame dependencies."
+}

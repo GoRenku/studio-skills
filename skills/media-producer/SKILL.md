@@ -5,7 +5,7 @@ description: Generate purpose-specific media for Renku Studio projects by readin
 
 # Media Producer
 
-Use this skill when the user wants to create media for a Renku Studio purpose, such as a Lookbook demonstration image, cast character sheet, cast profile image, location environment sheet, scene storyboard sheet, future scene mood frame, or future narration audio.
+Use this skill when the user wants to create media for a Renku Studio purpose, such as a Lookbook demonstration image, cast character sheet, cast profile image, location environment sheet, scene storyboard sheet, shot first frame (`shot.first-frame`), shot last frame (`shot.last-frame`), shot reference sheet (`shot.reference-sheet`), shot multi-shot storyboard sheet (`shot.multi-shot-storyboard-sheet`), final shot video take (`shot.video-take`), future scene mood frame, or future narration audio.
 
 This is not a generic image prompt skill. Renku is the context engine: first ask Renku what the media is for, then create or update a persisted spec that captures the user's binding choices.
 
@@ -51,6 +51,22 @@ renku media import --purpose <purpose-key> --target <target> --source <project-r
 ```
 
 Use `--sections` only for `lookbook.image`. Cast image imports do not use section tags.
+
+## Shot Video Take Purposes
+
+For shot video take work, use the detailed operational reference:
+
+- `references/shot-video-take.md`
+
+Supported purpose keys:
+
+- `shot.first-frame`
+- `shot.last-frame`
+- `shot.reference-sheet`
+- `shot.multi-shot-storyboard-sheet`
+- `shot.video-take`
+
+Use these concrete purposes directly. Do not use or invent a generic shot video input purpose. Always honor user-selected shot ids, intent, model choice, and parameters exactly.
 
 ## Target Resolution
 
