@@ -1,5 +1,5 @@
 {
-  "intentId": "first-last-frame",
+  "inputModeId": "first-last-frame",
   "modelChoice": "fal-ai/veo3.1/first-last-frame-to-video",
   "parameterValues": {
     "duration": "6s",
@@ -22,41 +22,40 @@
   ],
   "preparedInputs": [],
   "agentProposal": {
-    "basedOnIntentId": "first-last-frame",
+    "basedOnInputModeId": "first-last-frame",
     "basedOnModelChoice": "fal-ai/veo3.1/first-last-frame-to-video",
+    "basedOnShotIds": ["shot_003"],
     "dependencyDrafts": [
       {
         "purpose": "shot.first-frame",
         "dependencyKind": "first-frame",
         "outputInputKind": "first-frame",
         "modelChoice": "fal-ai/openai/gpt-image-2",
-        "prompt": "Create the opening frame for Shot 3.",
+        "prompt": "Author the exact first frame for Shot 3 from the selected composition, motion, cast, location, lookbook, and prop references. Elise holds the torn petition at chest height in the market doorway before movement begins.",
         "parameterValues": {
-          "image_size": "landscape_16_9",
-          "quality": "medium",
-          "output_format": "png"
+          "image_size": { "width": 1024, "height": 768 },
+          "quality": "medium"
         },
-        "title": "Shot 3 first frame"
+        "title": "Shot 3 first frame - Elise decides"
       },
       {
         "purpose": "shot.last-frame",
         "dependencyKind": "last-frame",
         "outputInputKind": "last-frame",
         "modelChoice": "fal-ai/openai/gpt-image-2",
-        "prompt": "Create the closing frame for Shot 3.",
+        "prompt": "Author the exact last frame for Shot 3. Preserve continuity from the first frame while showing Elise half a pace forward with the torn petition raised into the doorway light.",
         "parameterValues": {
-          "image_size": "landscape_16_9",
-          "quality": "medium",
-          "output_format": "png"
+          "image_size": { "width": 1024, "height": 768 },
+          "quality": "medium"
         },
-        "title": "Shot 3 last frame"
+        "title": "Shot 3 last frame - petition raised"
       }
     ],
     "finalPromptDraft": {
-      "prompt": "Generate Shot 3 as one cinematic take using the selected first and last frames.",
-      "negativePrompt": "No text overlays.",
+      "prompt": "Generate Shot 3 as one cinematic take using the selected first and last frames. Begin with Elise holding the petition; end with the petition raised into the doorway light after one subtle hand-held push-in. Preserve all selected references exactly.",
+      "negativePrompt": "No text overlays, no new characters, no changed prop design.",
       "title": "Shot 3 video take"
     }
   },
-  "customPromptNote": "Honor the selected first and last frame dependencies."
+  "customPromptNote": "Honor the selected first and last frame dependencies. Do not generate without authored dependency drafts and finalPromptDraft."
 }
