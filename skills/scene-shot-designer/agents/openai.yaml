@@ -1,3 +1,3 @@
 display_name: Scene Shot Designer
-short_description: Design scene shot lists and optional storyboard sheets through the Renku CLI.
+short_description: Design scene shot lists through the Renku CLI.
 default_prompt: Design a Scene Shot List for a Renku Studio scene and save it to the project.

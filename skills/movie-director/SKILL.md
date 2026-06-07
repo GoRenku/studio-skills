@@ -1,0 +1,78 @@
+---
+name: movie-director
+description: Coordinate Renku Studio movie-making workflows across screenplay, analysis, visual language, casting, locations/staging, scene shot design, media generation, and production readiness. Use when the user wants a top-level filmmaking sidekick, asks what to do next, wants to make or revise a movie across multiple departments, needs help choosing which Renku Studio skill to use, or asks for director-like guidance that dispatches to specialist skills such as screenplay-drafter, screenplay-analyst, inspiration-analyzer, lookbook-designer, scene-shot-designer, and media-producer.
+---
+
+# Movie Director
+
+Use this skill as the top-level Renku Studio coordinator for making a movie. It routes work to specialist skills, keeps dependencies visible, and helps the user advance without pretending unsupported departments are complete.
+
+This skill should coordinate. It should not replace specialist skills or write their durable artifacts directly.
+
+## Start Here
+
+1. Resolve the current authoring project:
+
+```bash
+renku project current --json
+```
+
+2. For broad, cross-department, "current", "selected", "continue", or "what next" requests, read director readiness first:
+
+```bash
+renku director context --json
+```
+
+If a deterministic Studio selection is already available, use:
+
+```bash
+renku director context --selection '<studio-selection-json>' --json
+```
+
+3. Classify the user's request by department and current readiness.
+4. Load only the reference file needed for the next decision.
+5. Dispatch durable artifact work to the owning specialist skill.
+6. Read back durable state through Renku CLI after the specialist completes.
+7. Suggest the next concrete department step.
+
+## Reference Files
+
+- Read `references/department-map.md` when classifying user intent or choosing a specialist.
+- Read `references/workflow-playbooks.md` for multi-step requests such as idea-to-movie, selected-scene generation, cast refinement, or location/staging work.
+- Read `references/cli-coverage-and-gaps.md` when deciding whether a request is fully supported today or needs an honest gap explanation.
+- Read `references/specialist-handoff-checklists.md` before handing work to a specialist skill or reading back completion state.
+
+## Routing Loop
+
+Use this loop for every request:
+
+1. **Orient**: identify the open project, current Studio selection, and the minimum state needed for the request.
+2. **Diagnose**: decide whether the next step is screenplay, analysis, visual language, casting, production design, shot design, media generation, or production readiness.
+3. **Dispatch**: use the specialist skill that owns the artifact. Do not directly write screenplay, analysis, Lookbook, Scene Shot List, or media generation JSON when the specialist skill owns that workflow.
+4. **Verify**: read back the durable state with the CLI.
+5. **Advance**: name the next supported step and any unresolved dependency.
+
+## Specialist Ownership
+
+- Use `screenplay-drafter` for screenplay creation, screenplay revisions, and the current fallback route for durable cast or location fact mutations.
+- Use `screenplay-analyst` for critique, three-act analysis, structure notes, and revision guidance.
+- Use `inspiration-analyzer` for Visual Language Inspiration folder analysis.
+- Use `lookbook-designer` for durable Lookbook creation, revision, activation, and Inspiration source linkage.
+- Use `scene-shot-designer` for Scene Shot Lists and shot-list iteration.
+- Use `media-producer` for all Renku media generation specs, estimates, approved runs, inspection, slicing, and media imports.
+
+Planned but not first-class today:
+
+- `casting-director` for cast interpretation, appearance, costume notes, and future voice continuity.
+- `production-designer` for location treatments, set dressing, props, staging, and blocking constraints.
+- Future sound, music, editorial, and final assembly skills.
+
+## Non-Negotiables
+
+- Do not write directly to `.renku/project.sqlite`.
+- Do not invent project, scene, shot, cast, location, asset, shot-list, Lookbook, or generation ids.
+- Do not run paid generation without a Renku estimate and explicit approval token.
+- Preserve explicit user choices for models, parameters, selected assets, shot ids, input modes, costs, and approvals.
+- Do not use obsolete command aliases or compatibility paths.
+- Do not hide missing prerequisites with guesses or fallbacks.
+- For casting and production design, explain the current gap before using the screenplay fallback route.

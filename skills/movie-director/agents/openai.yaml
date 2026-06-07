@@ -1,0 +1,4 @@
+interface:
+  display_name: "Movie Director"
+  short_description: "Coordinate Renku movie workflows"
+  default_prompt: "Use $movie-director to decide the next Renku Studio production step."
