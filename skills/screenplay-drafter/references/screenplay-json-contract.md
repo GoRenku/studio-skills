@@ -25,6 +25,22 @@ Focused revision input:
 }
 ```
 
+Focused scene replacement input:
+
+```json
+{
+  "kind": "screenplaySceneRevision",
+  "scene": {
+    "id": "scene_control_room",
+    "sequenceId": "sequence_opening",
+    "title": "Ada enters the control room",
+    "setting": {},
+    "storyFunction": [],
+    "blocks": []
+  }
+}
+```
+
 Canonical read output from `renku screenplay show --json` uses:
 
 - `kind: "screenplay"`;

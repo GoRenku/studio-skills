@@ -1,0 +1,29 @@
+{
+  "kind": "sceneShotListOperations",
+  "sceneId": "scene_foundry_opening",
+  "baseShotListId": "scene_shot_list_foundry_v1",
+  "activate": true,
+  "title": "Foundry coverage, revised",
+  "operations": [
+    {
+      "operation": "shots.replace",
+      "shotIds": ["shot_003"],
+      "shots": [
+        {
+          "shotId": "shot_003a",
+          "title": "The bronze crack",
+          "storyBeat": "The damaged bronze becomes undeniable.",
+          "narrativePurpose": "Turn the object into evidence.",
+          "description": "Insert of the crack crossing the bronze surface.",
+          "shotType": "insert",
+          "subject": "The cracked bronze",
+          "action": "Light catches the crack as Urban reaches toward it.",
+          "dialogue": [],
+          "coveredBlockIndexes": [2],
+          "castMemberIds": ["cast_urban"],
+          "locationIds": ["location_foundry"]
+        }
+      ]
+    }
+  ]
+}

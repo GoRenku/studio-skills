@@ -86,35 +86,27 @@ whether to regenerate.
 
 ## Import Expectations
 
-Import all generated sheets for the scene shot-list as one semantic storyboard
-package. Do not stitch generated sheets together just to make import work.
+Import the cropped shot images from the generated sheets as one semantic
+storyboard image package. Do not import the temporary composite sheet files, and
+do not stitch generated sheets together just to make import work.
 
-Preferred multi-sheet import shape:
+Preferred import shape:
 
 ```json
 {
-  "kind": "sceneStoryboardSheetImport",
+  "kind": "sceneStoryboardImagesImport",
+  "shotListId": "scene_shot_list_foundry_v1",
   "title": "Foundry storyboard package",
-  "sheets": [
+  "shots": [
     {
-      "source": "generated/media/foundry-storyboard-sheet-1.png",
-      "title": "Foundry storyboard sheet 1",
-      "shots": [
-        {
-          "shotId": "shot_001",
-          "source": "generated/media/foundry-storyboard-sheet-1-shot-001.png"
-        }
-      ]
+      "shotId": "shot_001",
+      "source": "generated/media/foundry-storyboard-sheet-1-shot-001.png",
+      "sourcePurpose": "scene.storyboard-sheet"
     },
     {
-      "source": "generated/media/foundry-storyboard-sheet-2.png",
-      "title": "Foundry storyboard sheet 2",
-      "shots": [
-        {
-          "shotId": "shot_005",
-          "source": "generated/media/foundry-storyboard-sheet-2-shot-005.png"
-        }
-      ]
+      "shotId": "shot_005",
+      "source": "generated/media/foundry-storyboard-sheet-2-shot-005.png",
+      "sourcePurpose": "scene.storyboard-sheet"
     }
   ]
 }
@@ -122,16 +114,16 @@ Preferred multi-sheet import shape:
 
 Import expectations:
 
-- at least one sheet is required;
-- each sheet must include its generated composite sheet file;
-- each sheet must include at least one cropped shot panel;
-- one cropped file is required for every selected `shotId` in each sheet spec;
+- at least one cropped shot image is required;
+- the import `shotListId` must match the CLI `--shot-list`;
+- one cropped file is required for every selected `shotId` being imported;
 - duplicate `shotId`s across the import manifest are invalid;
 - every imported `shotId` must belong to the target `shotListId`;
 - an import may cover only selected shots, not every shot in the full shot list;
 - all files must be project-relative and inside the project;
-- source-only import is not valid for this purpose.
+- source-only import is valid only for one cropped image and exactly one
+  `--shots` id.
 
-Studio stores the imported files and shot relationships. Do not store crop boxes,
-extraction confidence, grid layout, crop diagnostics, or other agent-side crop
-mechanics.
+Studio stores the imported cropped images and shot relationships. Do not store
+crop boxes, extraction confidence, grid layout, crop diagnostics, composite
+sheet files, or other agent-side crop mechanics.

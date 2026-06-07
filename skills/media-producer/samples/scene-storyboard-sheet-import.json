@@ -1,34 +1,27 @@
 {
-  "kind": "sceneStoryboardSheetImport",
+  "kind": "sceneStoryboardImagesImport",
+  "shotListId": "scene_shot_list_foundry_v1",
   "title": "Foundry storyboard package",
-  "sheets": [
+  "shots": [
     {
-      "source": "generated/media/foundry-storyboard-sheet-1.png",
-      "title": "Foundry storyboard sheet 1",
-      "shots": [
-        {
-          "shotId": "shot_001",
-          "source": "generated/media/foundry-storyboard-sheet-1-shot-001.png"
-        },
-        {
-          "shotId": "shot_002",
-          "source": "generated/media/foundry-storyboard-sheet-1-shot-002.png"
-        }
-      ]
+      "shotId": "shot_001",
+      "source": "generated/media/foundry-storyboard-sheet-1-shot-001.png",
+      "sourcePurpose": "scene.storyboard-sheet"
     },
     {
-      "source": "generated/media/foundry-storyboard-sheet-2.png",
-      "title": "Foundry storyboard sheet 2",
-      "shots": [
-        {
-          "shotId": "shot_005",
-          "source": "generated/media/foundry-storyboard-sheet-2-shot-005.png"
-        },
-        {
-          "shotId": "shot_006",
-          "source": "generated/media/foundry-storyboard-sheet-2-shot-006.png"
-        }
-      ]
+      "shotId": "shot_002",
+      "source": "generated/media/foundry-storyboard-sheet-1-shot-002.png",
+      "sourcePurpose": "scene.storyboard-sheet"
+    },
+    {
+      "shotId": "shot_005",
+      "source": "generated/media/foundry-storyboard-sheet-2-shot-005.png",
+      "sourcePurpose": "scene.storyboard-sheet"
+    },
+    {
+      "shotId": "shot_006",
+      "source": "generated/media/foundry-storyboard-sheet-2-shot-006.png",
+      "sourcePurpose": "scene.storyboard-sheet"
     }
   ]
 }

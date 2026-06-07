@@ -78,3 +78,43 @@ Each shot:
 - Company moves.
 
 Storyboard images are attached later through `renku media import --purpose scene.storyboard-sheet`.
+
+## Operation Documents
+
+Use operations for structural edits against a known base shot-list version:
+
+```json
+{
+  "kind": "sceneShotListOperations",
+  "sceneId": "scene_control_room",
+  "baseShotListId": "scene_shot_list_control_room_v1",
+  "activate": true,
+  "title": "Control room coverage, revised",
+  "operations": [
+    {
+      "operation": "shots.replace",
+      "shotIds": ["shot_003"],
+      "shots": []
+    }
+  ]
+}
+```
+
+Supported operation names:
+
+- `shots.insert`
+- `shots.replace`
+- `shot.update`
+- `shots.delete`
+- `shotList.replace`
+
+Rules:
+
+- `sceneId` and `baseShotListId` are required durable ids.
+- `activate` is explicit. Use `true` only when the derived shot list should
+  become active.
+- Operations use durable `shotId` values, not display labels such as `Shot 3`.
+- The resulting full shot list must satisfy the same shot rules as
+  `kind: "sceneShotList"`.
+- After apply, read storyboard status and generate/import images for missing or
+  stale shots.

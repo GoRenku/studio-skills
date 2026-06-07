@@ -63,6 +63,31 @@ Common warnings:
 - a shot has dialogue references that do not cite covered blocks;
 - a cast member or location is outside the scene references and needs a note.
 
+## Apply Structural Edits
+
+Use operation documents for expand, replace, delete, range, and focused update
+requests against an existing shot-list version:
+
+```bash
+renku screenplay shot-list validate-operations --file <operations-json> --json
+renku screenplay shot-list apply --file <operations-json> --dry-run --json
+renku screenplay shot-list apply --file <operations-json> --json
+```
+
+Operation documents must include explicit `sceneId`, `baseShotListId`, and
+`activate`. Do not depend on the currently active shot list after target
+discovery. Resolve user-facing labels such as "Shot 3" to durable `shotId`
+values from the explicit base shot list before writing the operation document.
+
+After apply, always read storyboard status for the created shot-list id:
+
+```bash
+renku screenplay shot-list storyboard status --scene <scene-id> --shot-list <shot-list-id> --json
+```
+
+Use the status report to identify missing or stale storyboard images for
+media-producer handoff.
+
 ## Write And Confirm
 
 ```bash
@@ -70,7 +95,8 @@ renku screenplay shot-list write --file <shot-list-json> --json
 renku screenplay shot-list show --active --scene <scene-id> --json
 ```
 
-`write` creates a new history row and makes it active. Use `set-active` only to restore an earlier row:
+`write` creates a new full shot-list history row and makes it active. Use it for
+complete replacement documents. Use `set-active` only to restore an earlier row:
 
 ```bash
 renku screenplay shot-list list --scene <scene-id> --json

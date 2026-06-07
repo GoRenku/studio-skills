@@ -118,6 +118,12 @@ Use the status result to choose the command path:
 
 - `exists: false`: create the first screenplay with `screenplayCreate` and `renku screenplay create`.
 - `exists: true`: revise the existing screenplay with `screenplayOperations` and `renku screenplay apply`.
+- `exists: true` and only one existing scene changes: use
+  `screenplaySceneRevision` with `renku screenplay scene revise --scene <scene-id>`.
+
+Use `renku screenplay revision list`, `renku screenplay revision show`, and
+`renku screenplay revision restore` when the user asks to inspect or restore
+screenplay history.
 
 ## Create A First Screenplay
 
