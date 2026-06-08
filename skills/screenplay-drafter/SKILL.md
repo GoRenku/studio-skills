@@ -1,6 +1,6 @@
 ---
 name: screenplay-drafter
-description: Create and revise Renku Studio screenplay JSON as the persisted screenplay source of truth. Use when a user wants help figuring out a story, gathering the needed brief, developing a script, screenplay, short film, feature, story arc, cast, locations, dialogue, narration, scene settings, action lines, or Renku screenplay create/apply JSON for the screenplay CLI.
+description: Create and revise Renku Studio screenplay JSON as the persisted screenplay source of truth. Use when a user wants help figuring out a story, gathering the needed brief, developing a script, screenplay, short film, feature, story arc, dialogue, narration, scene settings, action lines, or Renku screenplay create/apply JSON for the screenplay CLI.
 ---
 
 # Screenplay Drafter
@@ -151,7 +151,7 @@ Use this path only after `renku screenplay status --json` reports `exists: false
    - `researchSources`
    - `assumptionsMade`
 
-3. Add cast, locations, acts, sequences, scenes, and blocks that support the screenplay's dramatic shape.
+3. Ensure Cast Members and Locations already exist through `casting-director`/`renku cast` and `production-designer`/`renku location`, then add acts, sequences, scenes, and blocks that reference those durable ids.
 
    For a short piece, draft the full requested scope when feasible. For a feature, pilot, or broad long-form idea, do not attempt a full draft unless the user explicitly asks; create the developed arc plus the opening pages, requested scene sequence, or next useful writing unit.
 
@@ -203,15 +203,16 @@ renku screenplay apply --file <operations-json> --json
 
 ## Non-Negotiables
 
+- Do not create, update, delete, or move Cast Members or Locations through screenplay JSON. Use `casting-director`/`renku cast` and `production-designer`/`renku location` first.
 - Use `key`, not `localKey`, for new records in create/add input.
-- Do not provide `id` for a new cast member, location, act, sequence, or scene. Renku generates it.
+- Do not provide `id` for a new act, sequence, or scene. Renku generates those screenplay ids. Cast Members and Locations are created separately before screenplay authoring.
 - Use durable `id` values for existing records, update targets, delete targets, move targets, parent targets, and placement targets.
 - Run project preflight and `renku screenplay status --json` before any screenplay create/apply.
 - Do not run `renku screenplay create` when status reports `exists: true`; use `renku screenplay apply`.
 - Do not replace an existing screenplay with a fresh full create document. Read the current screenplay and apply focused operations.
 - Reference objects contain exactly one of `id` or `key`.
 - Represent the initial three-act structure through real `acts`, `sequences`, `scenes`, `purpose`, and `storyFunction` fields.
-- Use `locationReferences`, `castMemberReferences`, and `castMemberReference` in create/apply input.
+- Use `locationReferences`, `castMemberReferences`, and `castMemberReference` with durable `id` values for existing Locations and Cast Members.
 - Expect canonical `renku screenplay show --json` output to use durable `id`, `locationIds`, and `castMemberId`, without authoring keys or reference objects.
 - `screenplay.update` replaces the top-level `screenplay` object. Include every screenplay field you want to keep.
 - Do not invent block IDs. Scene updates replace the scene's full `blocks` array.

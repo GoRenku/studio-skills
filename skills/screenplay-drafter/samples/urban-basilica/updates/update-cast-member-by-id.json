@@ -2,18 +2,10 @@
   "kind": "screenplayOperations",
   "operations": [
     {
-      "operation": "castMember.update",
-      "castMember": {
-        "id": "cast_urban",
-        "handle": "urban",
-        "name": "Urban",
-        "role": "protagonist and cannon founder",
-        "age": 40,
-        "want": "To build the greatest cannon in the world and be paid what his skill is worth.",
-        "need": "To understand that a maker is not absolved by selling the use of his hands.",
-        "arc": "Moves from hungry professional pride to horrified recognition of complicity.",
-        "voiceNotes": "Plain, technical, unsentimental; becomes quieter as the weapon succeeds.",
-        "description": "A Hungarian cannon founder from Brasso; practical, brilliant, proud, and newly more aware of the human cost of his bargain."
+      "operation": "screenplay.update",
+      "screenplay": {
+        "title": "Basilica",
+        "summary": "Urban follows the cannon from promise to consequence."
       }
     }
   ]

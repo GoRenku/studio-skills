@@ -20,9 +20,7 @@ Use for:
 
 - new screenplay drafts;
 - screenplay revisions;
-- scene rewrites;
-- current fallback for cast fact mutations;
-- current fallback for location fact mutations.
+- scene rewrites.
 
 Pass:
 
@@ -103,13 +101,59 @@ renku lookbook list --json
 renku lookbook show --lookbook <lookbook-id> --json
 ```
 
+
+## `casting-director`
+
+Use for:
+
+- Cast Member fact creation or revision;
+- Cast Design creation or revision;
+- costume continuity and scoped costume variants;
+- voice casting notes;
+- cast character-sheet/profile readiness.
+
+Pass:
+
+- cast member id when one exists;
+- user casting goal and constraints;
+- relevant scene or sequence ids for costume scope;
+- whether the user wants media generation or only design writing.
+
+Verify:
+
+```bash
+renku cast list --json
+renku cast design show --active --cast <cast-member-id> --json
+```
+
+## `production-designer`
+
+Use for:
+
+- Location fact creation or revision;
+- Location Design creation or revision;
+- props, set dressing, atmosphere, and continuity risks.
+
+Pass:
+
+- location id;
+- user production-design goal and constraints;
+- active Lookbook state when known;
+- whether the user wants media generation or only design writing.
+
+Verify:
+
+```bash
+renku production-design location show --active --location <location-id> --json
+```
+
 ## `scene-shot-designer`
 
 Use for:
 
 - Scene Shot List creation;
 - shot-list revisions;
-- coverage changes driven by staging, blocking, scene rewrite, or visual-language changes.
+- coverage changes driven by scene rewrite, user direction, or visual-language changes.
 
 Pass:
 
@@ -177,6 +221,6 @@ When the request is cast or production-design authoring:
 2. Split durable facts from generated media.
 3. Use `screenplay-drafter` only for supported cast/location fact changes.
 4. Use `media-producer` for cast/location visual media.
-5. Use `scene-shot-designer` when staging changes affect shot coverage.
+5. Use `scene-shot-designer` when shot coverage needs to change.
 
 Do not create fake department JSON or sidecar files to fill the gap.

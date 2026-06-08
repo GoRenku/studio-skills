@@ -2,64 +2,47 @@
   "kind": "screenplayOperations",
   "operations": [
     {
-      "operation": "castMember.add",
-      "castMember": {
-        "key": "apprentice-witness",
-        "handle": "apprentice-witness",
-        "name": "Apprentice Witness",
-        "role": "foundry assistant",
-        "age": 16,
-        "want": "To survive the foundry work without being noticed by power.",
-        "need": "To speak when technical danger becomes human danger.",
-        "arc": "Briefly turns from silent laborer to warning voice.",
-        "voiceNotes": "Young, practical, frightened but observant.",
-        "description": "A new foundry assistant who notices a flaw before the masters do."
-      }
-    },
-    {
       "operation": "scene.add",
       "sequenceId": "sequence_seq-004",
-      "placement": {
-        "afterId": "scene_scene-005"
-      },
       "scene": {
-        "key": "apprentice-warning",
-        "title": "The Apprentice Notices The Crack",
+        "key": "new-apprentice-arrives",
+        "title": "The apprentice arrives",
         "setting": {
           "interiorExterior": "INT",
           "timeOfDay": "NIGHT",
           "locationReferences": [
             {
-              "id": "location_edirne-foundry"
+              "id": "location_edirne_foundry"
             }
           ]
         },
         "storyFunction": [
-          "turn the technical problem into human danger"
+          "complication"
         ],
         "blocks": [
           {
             "type": "action",
-            "text": "@apprentice-witness sees a hairline split travel through the cooling clay at @edirne-foundry.",
+            "text": "@urban notices the apprentice waiting near the molds.",
             "castMemberReferences": [
               {
-                "key": "apprentice-witness"
+                "id": "cast_urban"
+              },
+              {
+                "id": "cast_new_apprentice"
               }
             ],
             "locationReferences": [
               {
-                "id": "location_edirne-foundry"
+                "id": "location_edirne_foundry"
               }
             ]
           },
           {
             "type": "dialogue",
             "castMemberReference": {
-              "key": "apprentice-witness"
+              "id": "cast_new_apprentice"
             },
-            "lines": [
-              "Master, the mold is opening."
-            ]
+            "text": "I was told the metal sings before it breaks."
           }
         ]
       }

@@ -1,6 +1,6 @@
 ---
 name: movie-director
-description: Coordinate Renku Studio movie-making workflows across screenplay, analysis, visual language, casting, locations/staging, scene shot design, media generation, and production readiness. Use when the user wants a top-level filmmaking sidekick, asks what to do next, wants to make or revise a movie across multiple departments, needs help choosing which Renku Studio skill to use, or asks for director-like guidance that dispatches to specialist skills such as screenplay-drafter, screenplay-analyst, inspiration-analyzer, lookbook-designer, scene-shot-designer, and media-producer.
+description: Coordinate Renku Studio movie-making workflows across screenplay, analysis, visual language, casting, locations, scene shot design, media generation, and production readiness. Use when the user wants a top-level filmmaking sidekick, asks what to do next, wants to make or revise a movie across multiple departments, needs help choosing which Renku Studio skill to use, or asks for director-like guidance that dispatches to specialist skills such as screenplay-drafter, screenplay-analyst, inspiration-analyzer, lookbook-designer, casting-director, production-designer, scene-shot-designer, and media-producer.
 ---
 
 # Movie Director
@@ -38,7 +38,7 @@ renku director context --selection '<studio-selection-json>' --json
 ## Reference Files
 
 - Read `references/department-map.md` when classifying user intent or choosing a specialist.
-- Read `references/workflow-playbooks.md` for multi-step requests such as idea-to-movie, selected-scene generation, cast refinement, or location/staging work.
+- Read `references/workflow-playbooks.md` for multi-step requests such as idea-to-movie, selected-scene generation, cast refinement, or location work.
 - Read `references/cli-coverage-and-gaps.md` when deciding whether a request is fully supported today or needs an honest gap explanation.
 - Read `references/specialist-handoff-checklists.md` before handing work to a specialist skill or reading back completion state.
 
@@ -54,18 +54,19 @@ Use this loop for every request:
 
 ## Specialist Ownership
 
-- Use `screenplay-drafter` for screenplay creation, screenplay revisions, and the current fallback route for durable cast or location fact mutations.
+- Use `screenplay-drafter` for screenplay creation and screenplay revisions.
 - Use `screenplay-analyst` for critique, three-act analysis, structure notes, and revision guidance.
+- Use `casting-director` for Cast Member facts, Cast Design, costume continuity, voice casting notes, and cast media readiness.
+- Use `production-designer` for Location facts, Location Design, props, set dressing, atmosphere, and production-design media readiness.
 - Use `inspiration-analyzer` for Visual Language Inspiration folder analysis.
 - Use `lookbook-designer` for durable Lookbook creation, revision, activation, and Inspiration source linkage.
 - Use `scene-shot-designer` for Scene Shot Lists and shot-list iteration.
 - Use `media-producer` for all Renku media generation specs, estimates, approved runs, inspection, slicing, and media imports.
 
-Planned but not first-class today:
+Not first-class today:
 
-- `casting-director` for cast interpretation, appearance, costume notes, and future voice continuity.
-- `production-designer` for location treatments, set dressing, props, staging, and blocking constraints.
-- Future sound, music, editorial, and final assembly skills.
+- Costume-variant media and voice media. Keep their design notes in Cast Design and hand off only existing cast media purposes to `media-producer`.
+- Prop media, set-dressing media, sound, music, editorial, and final assembly skills.
 
 ## Non-Negotiables
 
@@ -75,4 +76,3 @@ Planned but not first-class today:
 - Preserve explicit user choices for models, parameters, selected assets, shot ids, input modes, costs, and approvals.
 - Do not use obsolete command aliases or compatibility paths.
 - Do not hide missing prerequisites with guesses or fallbacks.
-- For casting and production design, explain the current gap before using the screenplay fallback route.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Casting Director"
+  short_description: "Author cast design and media handoffs."
+  default_prompt: "Help me refine casting for this Renku Studio project."

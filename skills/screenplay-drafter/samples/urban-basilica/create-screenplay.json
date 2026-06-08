@@ -71,169 +71,8 @@
       "Estimated pages from source draft: 10."
     ]
   },
-  "cast": [
-    {
-      "key": "constantine-xi-palaiologos",
-      "handle": "constantine-xi-palaiologos",
-      "name": "Constantine XI Palaiologos",
-      "role": "Byzantine emperor",
-      "age": 49,
-      "want": "To preserve Constantinople long enough for Western aid to arrive.",
-      "need": "To make decisions worthy of the city even when the choices are all losses.",
-      "arc": "Brief but firm: he refuses the cannon because he cannot buy it, not because he fails to understand it.\n",
-      "voiceNotes": "Controlled, grave, personal when speaking of the city.",
-      "description": "The last Byzantine emperor; exhausted but dignified, aware that courage cannot mint coins or summon armies."
-    },
-    {
-      "key": "giovanni-giustiniani-longo",
-      "handle": "giovanni-giustiniani-longo",
-      "name": "Giovanni Giustiniani Longo",
-      "role": "Genoese defender",
-      "age": 35,
-      "want": "To hold the walls long enough for relief or Ottoman exhaustion.",
-      "need": "To face an artillery age with courage and improvisation.",
-      "arc": "Appears as the defender who understands where Urban's work will hurt most.",
-      "voiceNotes": "Blunt, tactical, impatient with courtly despair.",
-      "description": "A professional soldier and siege specialist who arrives with Genoese men to organize the defense of the land walls."
-    },
-    {
-      "key": "loukas-notaras",
-      "handle": "loukas-notaras",
-      "name": "Loukas Notaras",
-      "role": "Byzantine megas doux and chief minister",
-      "age": 50,
-      "want": "To keep the state functioning through impossible scarcity.",
-      "need": "To admit that prudence can look like cowardice when history is collapsing.",
-      "arc": "Uses numbers as armor but knows the arithmetic is fatal.",
-      "voiceNotes": "Precise, skeptical, politically alert.",
-      "description": "A shrewd, wealthy statesman caught between court finance, church politics, foreign aid, and military reality."
-    },
-    {
-      "key": "mara",
-      "handle": "mara",
-      "name": "Mara",
-      "role": "fictional apprentice and moral counterweight",
-      "age": 19,
-      "want": "To survive by attaching herself to useful work.",
-      "need": "To decide when loyalty to a master becomes loyalty to a disaster.",
-      "arc": "Begins as Urban's helper, ends as witness to the cost of his bargain.",
-      "voiceNotes": "Economical, direct, often says the human thing Urban avoids.",
-      "description": "A foundry assistant from a Balkan Christian family displaced by war; sharp-eyed, competent, and less impressed by patrons than Urban is."
-    },
-    {
-      "key": "mehmed-ii",
-      "handle": "mehmed-ii",
-      "name": "Mehmed II",
-      "role": "Ottoman sultan",
-      "age": 21,
-      "want": "To take Constantinople and become the ruler who breaks the old world's locked gate.",
-      "need": "To turn desire into logistics, not merely rage.",
-      "arc": "Recognizes Urban's cannon as both weapon and symbol.",
-      "voiceNotes": "Elegant, probing, sometimes almost intimate before becoming absolute.",
-      "description": "Young, intense, educated, theatrical, and strategically relentless; sees Constantinople as destiny and proof."
-    },
-    {
-      "key": "narrator",
-      "handle": "narrator",
-      "name": "Narrator",
-      "role": "historical voice-over",
-      "want": "To frame the siege as a turning point in technology, empire, and responsibility.",
-      "need": "To let silence and image carry the emotion whenever the audience already understands enough.",
-      "arc": "Moves from broad historical framing to intimate uncertainty around Urban's final moments.",
-      "voiceNotes": "Measured, grave, literary but plain; speaks in short passages that feel like remembered history, not classroom exposition.",
-      "description": "A restrained, reflective voice that grounds the audience in historical context without explaining away the cast's choices."
-    },
-    {
-      "key": "saruca",
-      "handle": "saruca",
-      "name": "Saruca",
-      "role": "Ottoman master founder",
-      "age": 50,
-      "want": "To make artillery that works without killing the crew.",
-      "need": "To balance craft discipline against the sultan's appetite for spectacle.",
-      "arc": "Warns Urban that metal remembers every insult.",
-      "voiceNotes": "Dry, technical, fatalistic.",
-      "description": "An experienced Ottoman cannon founder; practical enough to respect Urban and seasoned enough to distrust giant promises."
-    },
-    {
-      "key": "urban",
-      "handle": "urban",
-      "name": "Urban",
-      "role": "protagonist",
-      "age": 40,
-      "want": "To build the greatest cannon in the world and be paid what his skill is worth.",
-      "need": "To understand that a maker is not absolved by selling the use of his hands.",
-      "arc": "Moves from hungry professional pride to horrified recognition of complicity.",
-      "voiceNotes": "Plain, technical, unsentimental; becomes quieter as the weapon succeeds.",
-      "description": "A Hungarian cannon founder from Brasso; practical, brilliant, proud, and tired of being treated as a wandering tradesman."
-    }
-  ],
-  "locations": [
-    {
-      "key": "edirne-foundry",
-      "handle": "edirne-foundry",
-      "name": "Edirne Foundry",
-      "timePeriod": "Ottoman capital, winter 1452-1453",
-      "description": "A roaring industrial court of clay molds, charcoal, bellows, bronze, sweating laborers, and imperial urgency.",
-      "visualNotes": "- Molten bronze like a second sunrise\n- Oxen steaming in winter air\n- Scribes counting every ingot"
-    },
-    {
-      "key": "edirne-palace-workroom",
-      "handle": "edirne-palace-workroom",
-      "name": "Edirne Palace Workroom",
-      "timePeriod": "Ottoman capital, winter 1452-1453",
-      "description": "A lamplit palace workroom where drawings, ledgers, tools, and imperial ambition share the same table.",
-      "visualNotes": "- Oil lamps burning over cannon plans\n- Scribes waiting with sharpened reeds\n- Coinlight catching on polished wood"
-    },
-    {
-      "key": "edirne-test-field",
-      "handle": "edirne-test-field",
-      "name": "Edirne Test Field",
-      "timePeriod": "Ottoman capital, winter 1452-1453",
-      "description": "An open field outside Edirne where the new bombard can be fired without pretending the earth will stay still.",
-      "visualNotes": "- Frozen ruts cut by carts and oxen\n- A target wall of timber and packed earth\n- Smoke spreading low across winter grass"
-    },
-    {
-      "key": "harbor-quarter",
-      "handle": "harbor-quarter",
-      "name": "Harbor Quarter",
-      "timePeriod": "Constantinople, late 1452",
-      "description": "A crowded district of traders, refugees, soldiers, monks, and rumor beneath the chain of the Golden Horn.",
-      "visualNotes": "- Ship ropes creaking\n- Refugees cooking over shielded fires\n- Latin and Greek prayers overlapping"
-    },
-    {
-      "key": "imperial-council-chamber",
-      "handle": "imperial-council-chamber",
-      "name": "Imperial Council Chamber",
-      "timePeriod": "Constantinople, late 1452",
-      "description": "A diminished room of empire: icons, maps, unpaid ledgers, and cold light from the Bosporus.",
-      "visualNotes": "- Gold leaf dulled by soot\n- Empty coin trays\n- Maps weighted with broken arrowheads"
-    },
-    {
-      "key": "ottoman-siege-camp",
-      "handle": "ottoman-siege-camp",
-      "name": "Ottoman Siege Camp",
-      "timePeriod": "Outside Constantinople, April 1453",
-      "description": "A city of tents, soldiers, engineers, animals, powder carts, prayers, drums, and ambition facing the walls.",
-      "visualNotes": "- Mehmed's pavilion aligned with the bombard\n- Janissaries drilling in silence\n- Powder smoke staining dawn"
-    },
-    {
-      "key": "road-to-constantinople",
-      "handle": "road-to-constantinople",
-      "name": "Road to Constantinople",
-      "timePeriod": "Winter 1452-1453",
-      "description": "The road between Edirne and Constantinople, turned into a slow procession of artillery, animals, soldiers, and fear.",
-      "visualNotes": "- Mud churned under oxen and wagon wheels\n- Villagers watching from a distance\n- The bombard moving like a bronze gate on timber"
-    },
-    {
-      "key": "theodosian-walls",
-      "handle": "theodosian-walls",
-      "name": "Theodosian Walls",
-      "timePeriod": "Constantinople, 1453",
-      "description": "The ancient land walls of Constantinople, scarred by bombardment, patched nightly with timber, barrels, rubble, and prayer.",
-      "visualNotes": "- Dust drifting from cracked stone\n- Smoke lying low in the moat\n- Tiny human figures against impossible masonry"
-    }
-  ],
+  "cast": [],
+  "locations": [],
   "acts": [
     {
       "key": "act-1",
@@ -253,7 +92,7 @@
                 "timeOfDay": "DAWN",
                 "locationReferences": [
                   {
-                    "key": "theodosian-walls"
+                    "id": "location_theodosian_walls"
                   }
                 ]
               },
@@ -267,14 +106,14 @@
                   "text": "A gray April dawn. @theodosian-walls rise from smoke like a cliff at the edge of the world.",
                   "locationReferences": [
                     {
-                      "key": "theodosian-walls"
+                      "id": "location_theodosian_walls"
                     }
                   ]
                 },
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "narrator"
+                    "id": "cast_narrator"
                   },
                   "extension": "V.O.",
                   "lines": [
@@ -291,14 +130,14 @@
                   "text": "@urban stands beside it, face blackened, one hand on the warm metal as if taking a pulse.",
                   "castMemberReferences": [
                     {
-                      "key": "urban"
+                      "id": "cast_urban"
                     }
                   ]
                 },
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "mara"
+                    "id": "cast_mara"
                   },
                   "parenthetical": "low",
                   "lines": [
@@ -308,7 +147,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "urban"
+                    "id": "cast_urban"
                   },
                   "lines": [
                     "Bronze has no temper. Men give it one."
@@ -321,7 +160,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "mehmed-ii"
+                    "id": "cast_mehmed_ii"
                   },
                   "extension": "O.S.",
                   "lines": [
@@ -337,14 +176,14 @@
                   "text": "ON @theodosian-walls: stone cracks. Defenders vanish inside a white cloud.\n",
                   "locationReferences": [
                     {
-                      "key": "theodosian-walls"
+                      "id": "location_theodosian_walls"
                     }
                   ]
                 },
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "narrator"
+                    "id": "cast_narrator"
                   },
                   "extension": "V.O.",
                   "lines": [
@@ -356,7 +195,7 @@
                   "text": "@urban watches the smoke strike the city before the ball does.",
                   "castMemberReferences": [
                     {
-                      "key": "urban"
+                      "id": "cast_urban"
                     }
                   ]
                 },
@@ -385,7 +224,7 @@
                 "timeOfDay": "DAY",
                 "locationReferences": [
                   {
-                    "key": "imperial-council-chamber"
+                    "id": "location_imperial_council_chamber"
                   }
                 ]
               },
@@ -399,7 +238,7 @@
                   "text": "@urban unrolls a charcoal drawing across a table scarred by generations of decisions.",
                   "castMemberReferences": [
                     {
-                      "key": "urban"
+                      "id": "cast_urban"
                     }
                   ]
                 },
@@ -408,17 +247,17 @@
                   "text": "@constantine-xi-palaiologos studies the design. @loukas-notaras studies the numbers beside it.",
                   "castMemberReferences": [
                     {
-                      "key": "constantine-xi-palaiologos"
+                      "id": "cast_constantine_xi_palaiologos"
                     },
                     {
-                      "key": "loukas-notaras"
+                      "id": "cast_loukas_notaras"
                     }
                   ]
                 },
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "narrator"
+                    "id": "cast_narrator"
                   },
                   "extension": "V.O.",
                   "lines": [
@@ -429,7 +268,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "urban"
+                    "id": "cast_urban"
                   },
                   "lines": [
                     "A gun this size does not defend a wall. It changes the mind of the man approaching it."
@@ -438,7 +277,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "loukas-notaras"
+                    "id": "cast_loukas_notaras"
                   },
                   "lines": [
                     "It changes the mind of the treasurer first."
@@ -447,7 +286,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "constantine-xi-palaiologos"
+                    "id": "cast_constantine_xi_palaiologos"
                   },
                   "lines": [
                     "What would you require?"
@@ -456,7 +295,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "urban"
+                    "id": "cast_urban"
                   },
                   "lines": [
                     "Bronze. Powder. Charcoal. Masons. Carpenters. Oxen. A foundry that can breathe without collapsing.",
@@ -468,14 +307,14 @@
                   "text": "@loukas-notaras slides a small tray of coins into view. It is almost embarrassing.",
                   "castMemberReferences": [
                     {
-                      "key": "loukas-notaras"
+                      "id": "cast_loukas_notaras"
                     }
                   ]
                 },
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "loukas-notaras"
+                    "id": "cast_loukas_notaras"
                   },
                   "lines": [
                     "This is what the empire can breathe."
@@ -484,7 +323,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "urban"
+                    "id": "cast_urban"
                   },
                   "lines": [
                     "Then the empire is suffocating."
@@ -495,14 +334,14 @@
                   "text": "The insult lands. @constantine-xi-palaiologos absorbs it without flinching.",
                   "castMemberReferences": [
                     {
-                      "key": "constantine-xi-palaiologos"
+                      "id": "cast_constantine_xi_palaiologos"
                     }
                   ]
                 },
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "constantine-xi-palaiologos"
+                    "id": "cast_constantine_xi_palaiologos"
                   },
                   "lines": [
                     "Yes.",
@@ -512,7 +351,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "urban"
+                    "id": "cast_urban"
                   },
                   "lines": [
                     "Then buy what may keep it yours."
@@ -521,7 +360,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "constantine-xi-palaiologos"
+                    "id": "cast_constantine_xi_palaiologos"
                   },
                   "lines": [
                     "Master Urban, I cannot buy bread with prophecy, nor bronze with courage."
@@ -532,14 +371,14 @@
                   "text": "@urban looks from emperor to minister. He understands too well. That makes it worse.",
                   "castMemberReferences": [
                     {
-                      "key": "urban"
+                      "id": "cast_urban"
                     }
                   ]
                 },
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "narrator"
+                    "id": "cast_narrator"
                   },
                   "extension": "V.O.",
                   "lines": [
@@ -557,7 +396,7 @@
                 "timeOfDay": "EVENING",
                 "locationReferences": [
                   {
-                    "key": "harbor-quarter"
+                    "id": "location_harbor_quarter"
                   }
                 ]
               },
@@ -571,17 +410,17 @@
                   "text": "@urban and @mara pass refugees mending nets, soldiers mending shields, monks mending hope.",
                   "castMemberReferences": [
                     {
-                      "key": "urban"
+                      "id": "cast_urban"
                     },
                     {
-                      "key": "mara"
+                      "id": "cast_mara"
                     }
                   ]
                 },
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "mara"
+                    "id": "cast_mara"
                   },
                   "lines": [
                     "They are afraid of your gun."
@@ -590,7 +429,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "urban"
+                    "id": "cast_urban"
                   },
                   "lines": [
                     "They are afraid of the man who can afford it."
@@ -599,7 +438,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "mara"
+                    "id": "cast_mara"
                   },
                   "lines": [
                     "Then do not go to him."
@@ -608,7 +447,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "urban"
+                    "id": "cast_urban"
                   },
                   "lines": [
                     "A design unfired is a corpse with clean hands."
@@ -621,7 +460,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "mara"
+                    "id": "cast_mara"
                   },
                   "lines": [
                     "And a design fired?"
@@ -632,14 +471,14 @@
                   "text": "@urban folds the drawing and tucks it under his coat.",
                   "castMemberReferences": [
                     {
-                      "key": "urban"
+                      "id": "cast_urban"
                     }
                   ]
                 },
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "urban"
+                    "id": "cast_urban"
                   },
                   "lines": [
                     "Work."
@@ -669,7 +508,7 @@
                 "timeOfDay": "NIGHT",
                 "locationReferences": [
                   {
-                    "key": "edirne-palace-workroom"
+                    "id": "location_edirne_palace_workroom"
                   }
                 ]
               },
@@ -683,14 +522,14 @@
                   "text": "The same drawing lies under better lamps. @mehmed-ii circles it like a hunter circling tracks.",
                   "castMemberReferences": [
                     {
-                      "key": "mehmed-ii"
+                      "id": "cast_mehmed_ii"
                     }
                   ]
                 },
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "mehmed-ii"
+                    "id": "cast_mehmed_ii"
                   },
                   "lines": [
                     "Can it break the walls of Constantinople?"
@@ -699,7 +538,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "urban"
+                    "id": "cast_urban"
                   },
                   "lines": [
                     "No cannon breaks a wall by itself.",
@@ -709,7 +548,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "mehmed-ii"
+                    "id": "cast_mehmed_ii"
                   },
                   "parenthetical": "pleased",
                   "lines": [
@@ -719,7 +558,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "urban"
+                    "id": "cast_urban"
                   },
                   "lines": [
                     "Against time, pride, and mortar."
@@ -730,17 +569,17 @@
                   "text": "@mehmed-ii gestures. A scribe opens a chest. Coinlight spills across @urban's design.",
                   "castMemberReferences": [
                     {
-                      "key": "mehmed-ii"
+                      "id": "cast_mehmed_ii"
                     },
                     {
-                      "key": "urban"
+                      "id": "cast_urban"
                     }
                   ]
                 },
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "mehmed-ii"
+                    "id": "cast_mehmed_ii"
                   },
                   "lines": [
                     "You asked the Romans for a price.",
@@ -750,7 +589,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "urban"
+                    "id": "cast_urban"
                   },
                   "lines": [
                     "And the bronze?"
@@ -759,7 +598,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "mehmed-ii"
+                    "id": "cast_mehmed_ii"
                   },
                   "lines": [
                     "My empire has bells enough to become thunder."
@@ -770,10 +609,10 @@
                   "text": "@mara watches @urban's face. The answer is visible before he speaks.",
                   "castMemberReferences": [
                     {
-                      "key": "mara"
+                      "id": "cast_mara"
                     },
                     {
-                      "key": "urban"
+                      "id": "cast_urban"
                     }
                   ]
                 }
@@ -794,7 +633,7 @@
                 "timeOfDay": "NIGHT",
                 "locationReferences": [
                   {
-                    "key": "edirne-foundry"
+                    "id": "location_edirne_foundry"
                   }
                 ]
               },
@@ -810,7 +649,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "narrator"
+                    "id": "cast_narrator"
                   },
                   "extension": "V.O.",
                   "lines": [
@@ -823,17 +662,17 @@
                   "text": "@saruca taps the clay mold, listening. @urban waits beside him, sleepless and radiant.",
                   "castMemberReferences": [
                     {
-                      "key": "saruca"
+                      "id": "cast_saruca"
                     },
                     {
-                      "key": "urban"
+                      "id": "cast_urban"
                     }
                   ]
                 },
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "saruca"
+                    "id": "cast_saruca"
                   },
                   "lines": [
                     "Too much pride in one barrel."
@@ -842,7 +681,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "urban"
+                    "id": "cast_urban"
                   },
                   "lines": [
                     "It is measured."
@@ -851,7 +690,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "saruca"
+                    "id": "cast_saruca"
                   },
                   "lines": [
                     "So is a grave."
@@ -866,14 +705,14 @@
                   "text": "A worker slips. @mara catches his belt before he pitches forward into the glow.",
                   "castMemberReferences": [
                     {
-                      "key": "mara"
+                      "id": "cast_mara"
                     }
                   ]
                 },
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "mara"
+                    "id": "cast_mara"
                   },
                   "parenthetical": "to Urban",
                   "lines": [
@@ -885,14 +724,14 @@
                   "text": "@urban does. The worker's face is young, terrified, alive by inches.",
                   "castMemberReferences": [
                     {
-                      "key": "urban"
+                      "id": "cast_urban"
                     }
                   ]
                 },
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "urban"
+                    "id": "cast_urban"
                   },
                   "lines": [
                     "Back to the bellows."
@@ -903,7 +742,7 @@
                   "text": "@mara's disappointment hurts more because she expected it.",
                   "castMemberReferences": [
                     {
-                      "key": "mara"
+                      "id": "cast_mara"
                     }
                   ]
                 }
@@ -917,7 +756,7 @@
                 "timeOfDay": "DAY",
                 "locationReferences": [
                   {
-                    "key": "edirne-test-field"
+                    "id": "location_edirne_test_field"
                   }
                 ]
               },
@@ -933,7 +772,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "saruca"
+                    "id": "cast_saruca"
                   },
                   "lines": [
                     "If it bursts, no one will hear your apology."
@@ -942,7 +781,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "urban"
+                    "id": "cast_urban"
                   },
                   "lines": [
                     "Then stand farther away."
@@ -953,7 +792,7 @@
                   "text": "@mehmed-ii lifts one hand. Silence rolls outward through the field.",
                   "castMemberReferences": [
                     {
-                      "key": "mehmed-ii"
+                      "id": "cast_mehmed_ii"
                     }
                   ]
                 },
@@ -968,7 +807,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "mehmed-ii"
+                    "id": "cast_mehmed_ii"
                   },
                   "parenthetical": "softly, to Urban",
                   "lines": [
@@ -980,7 +819,7 @@
                   "text": "@urban smiles, but it leaves him quickly.",
                   "castMemberReferences": [
                     {
-                      "key": "urban"
+                      "id": "cast_urban"
                     }
                   ]
                 }
@@ -994,7 +833,7 @@
                 "timeOfDay": "DAY",
                 "locationReferences": [
                   {
-                    "key": "road-to-constantinople"
+                    "id": "location_road_to_constantinople"
                   }
                 ]
               },
@@ -1010,7 +849,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "narrator"
+                    "id": "cast_narrator"
                   },
                   "extension": "V.O.",
                   "lines": [
@@ -1025,7 +864,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "mara"
+                    "id": "cast_mara"
                   },
                   "lines": [
                     "It takes an army to move your idea."
@@ -1034,7 +873,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "urban"
+                    "id": "cast_urban"
                   },
                   "lines": [
                     "That is why emperors ignored it."
@@ -1051,7 +890,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "mara"
+                    "id": "cast_mara"
                   },
                   "lines": [
                     "How many dead before it fires?"
@@ -1060,7 +899,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "urban"
+                    "id": "cast_urban"
                   },
                   "lines": [
                     "Less than after."
@@ -1094,7 +933,7 @@
                 "timeOfDay": "NIGHT",
                 "locationReferences": [
                   {
-                    "key": "theodosian-walls"
+                    "id": "location_theodosian_walls"
                   }
                 ]
               },
@@ -1112,17 +951,17 @@
                   "text": "@giovanni-giustiniani-longo directs the work with a bloodied sleeve tied around his forearm. @constantine-xi-palaiologos hauls a timber with ordinary men.",
                   "castMemberReferences": [
                     {
-                      "key": "giovanni-giustiniani-longo"
+                      "id": "cast_giovanni_giustiniani_longo"
                     },
                     {
-                      "key": "constantine-xi-palaiologos"
+                      "id": "cast_constantine_xi_palaiologos"
                     }
                   ]
                 },
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "giovanni-giustiniani-longo"
+                    "id": "cast_giovanni_giustiniani_longo"
                   },
                   "lines": [
                     "Again before dawn. They need hours to cool and load."
@@ -1131,7 +970,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "constantine-xi-palaiologos"
+                    "id": "cast_constantine_xi_palaiologos"
                   },
                   "lines": [
                     "Then we will have hours."
@@ -1142,14 +981,14 @@
                   "text": "@loukas-notaras arrives with men from the sea walls. He sees the breach and all his ledgers fail him.",
                   "castMemberReferences": [
                     {
-                      "key": "loukas-notaras"
+                      "id": "cast_loukas_notaras"
                     }
                   ]
                 },
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "loukas-notaras"
+                    "id": "cast_loukas_notaras"
                   },
                   "lines": [
                     "We should have found the bronze."
@@ -1158,7 +997,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "constantine-xi-palaiologos"
+                    "id": "cast_constantine_xi_palaiologos"
                   },
                   "lines": [
                     "We should have found a century."
@@ -1178,7 +1017,7 @@
                 "timeOfDay": "PRE-DAWN",
                 "locationReferences": [
                   {
-                    "key": "ottoman-siege-camp"
+                    "id": "location_ottoman_siege_camp"
                   }
                 ]
               },
@@ -1192,14 +1031,14 @@
                   "text": "The cannon steams in cold air. @urban presses wet cloth to the barrel and hears a faint complaint inside the metal.",
                   "castMemberReferences": [
                     {
-                      "key": "urban"
+                      "id": "cast_urban"
                     }
                   ]
                 },
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "urban"
+                    "id": "cast_urban"
                   },
                   "lines": [
                     "It needs more time."
@@ -1208,7 +1047,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "mehmed-ii"
+                    "id": "cast_mehmed_ii"
                   },
                   "lines": [
                     "The wall is open."
@@ -1217,7 +1056,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "saruca"
+                    "id": "cast_saruca"
                   },
                   "lines": [
                     "Open walls invite impatience. Impatience bursts guns."
@@ -1228,20 +1067,20 @@
                   "text": "@mehmed-ii looks to @urban, not @saruca. The privilege feels like a sentence.",
                   "castMemberReferences": [
                     {
-                      "key": "mehmed-ii"
+                      "id": "cast_mehmed_ii"
                     },
                     {
-                      "key": "urban"
+                      "id": "cast_urban"
                     },
                     {
-                      "key": "saruca"
+                      "id": "cast_saruca"
                     }
                   ]
                 },
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "mehmed-ii"
+                    "id": "cast_mehmed_ii"
                   },
                   "lines": [
                     "Will it fire?"
@@ -1252,17 +1091,17 @@
                   "text": "@mara stares at @urban. Say no, her face says. Let one thing be stronger than pride.",
                   "castMemberReferences": [
                     {
-                      "key": "mara"
+                      "id": "cast_mara"
                     },
                     {
-                      "key": "urban"
+                      "id": "cast_urban"
                     }
                   ]
                 },
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "urban"
+                    "id": "cast_urban"
                   },
                   "lines": [
                     "It will fire."
@@ -1273,14 +1112,14 @@
                   "text": "The crew loads. @urban stays close, checking wedges, powder, angle, touchhole.",
                   "castMemberReferences": [
                     {
-                      "key": "urban"
+                      "id": "cast_urban"
                     }
                   ]
                 },
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "mara"
+                    "id": "cast_mara"
                   },
                   "parenthetical": "urgent whisper",
                   "lines": [
@@ -1290,7 +1129,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "urban"
+                    "id": "cast_urban"
                   },
                   "lines": [
                     "I lied."
@@ -1310,10 +1149,10 @@
                 "timeOfDay": "DAWN",
                 "locationReferences": [
                   {
-                    "key": "ottoman-siege-camp"
+                    "id": "location_ottoman_siege_camp"
                   },
                   {
-                    "key": "theodosian-walls"
+                    "id": "location_theodosian_walls"
                   }
                 ]
               },
@@ -1331,7 +1170,7 @@
                   "text": "ON @urban: no triumph now. Only attention.\n",
                   "castMemberReferences": [
                     {
-                      "key": "urban"
+                      "id": "cast_urban"
                     }
                   ]
                 },
@@ -1342,7 +1181,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "narrator"
+                    "id": "cast_narrator"
                   },
                   "extension": "V.O.",
                   "lines": [
@@ -1359,17 +1198,17 @@
                   "text": "@mara crawls through ash and shattered wood to @urban.",
                   "castMemberReferences": [
                     {
-                      "key": "mara"
+                      "id": "cast_mara"
                     },
                     {
-                      "key": "urban"
+                      "id": "cast_urban"
                     }
                   ]
                 },
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "mara"
+                    "id": "cast_mara"
                   },
                   "lines": [
                     "Master."
@@ -1380,7 +1219,7 @@
                   "text": "@urban lies against a wheel, blood dark beneath the soot. His eyes search past her.",
                   "castMemberReferences": [
                     {
-                      "key": "urban"
+                      "id": "cast_urban"
                     }
                   ]
                 },
@@ -1389,14 +1228,14 @@
                   "text": "HIS POV: through thinning smoke, @theodosian-walls still stand, but wounded.\n",
                   "locationReferences": [
                     {
-                      "key": "theodosian-walls"
+                      "id": "location_theodosian_walls"
                     }
                   ]
                 },
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "urban"
+                    "id": "cast_urban"
                   },
                   "parenthetical": "barely",
                   "lines": [
@@ -1406,7 +1245,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "mara"
+                    "id": "cast_mara"
                   },
                   "parenthetical": "after a beat",
                   "lines": [
@@ -1420,7 +1259,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "urban"
+                    "id": "cast_urban"
                   },
                   "lines": [
                     "Then remember the men who moved it."
@@ -1431,7 +1270,7 @@
                   "text": "@urban's hand loosens around a charred measuring cord.",
                   "castMemberReferences": [
                     {
-                      "key": "urban"
+                      "id": "cast_urban"
                     }
                   ]
                 },
@@ -1440,7 +1279,7 @@
                   "text": "@mehmed-ii stands beyond the smoke, alive, untouched, already looking toward the breach instead of the dead.",
                   "castMemberReferences": [
                     {
-                      "key": "mehmed-ii"
+                      "id": "cast_mehmed_ii"
                     }
                   ]
                 },
@@ -1449,7 +1288,7 @@
                   "text": "On the walls, @constantine-xi-palaiologos turns at the distant explosion. For one suspended moment, maker and emperor share the same silence across the battlefield.",
                   "castMemberReferences": [
                     {
-                      "key": "constantine-xi-palaiologos"
+                      "id": "cast_constantine_xi_palaiologos"
                     }
                   ]
                 },
@@ -1460,7 +1299,7 @@
                 {
                   "type": "dialogue",
                   "castMemberReference": {
-                    "key": "narrator"
+                    "id": "cast_narrator"
                   },
                   "extension": "V.O.",
                   "lines": [
@@ -1477,7 +1316,7 @@
                   "text": "Constantinople fell on May 29, 1453. @urban's exact end is uncertain; one tradition holds that he died when his own great gun burst.",
                   "castMemberReferences": [
                     {
-                      "key": "urban"
+                      "id": "cast_urban"
                     }
                   ]
                 }

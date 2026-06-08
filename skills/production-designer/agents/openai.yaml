@@ -1,0 +1,4 @@
+interface:
+  display_name: "Production Designer"
+  short_description: "Author locations, set design, props, and atmosphere."
+  default_prompt: "Help me refine production design for this Renku Studio project."
