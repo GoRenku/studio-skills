@@ -5,7 +5,7 @@ description: Generate purpose-specific media for Renku Studio projects by readin
 
 # Media Producer
 
-Use this skill when the user wants to create media for a Renku Studio purpose, such as a Lookbook demonstration image, Lookbook sheet (`lookbook.sheet`), cast character sheet, cast profile image, location environment sheet, scene storyboard sheet, shot first frame (`shot.first-frame`), shot last frame (`shot.last-frame`), ad hoc shot reference image (`shot.reference-image`), shot multi-shot storyboard sheet (`shot.multi-shot-storyboard-sheet`), final shot video take (`shot.video-take`), future scene mood frame, or future narration audio.
+Use this skill when the user wants to create media for a Renku Studio purpose, such as a Lookbook demonstration image, Lookbook sheet (`lookbook.sheet`), cast character sheet, cast profile image, location environment sheet, scene storyboard sheet, shot first frame (`shot.first-frame`), shot last frame (`shot.last-frame`), ad hoc shot reference image (`shot.reference-image`), shot multi-shot storyboard sheet (`shot.multi-shot-storyboard-sheet`), final shot video take (`shot.video-take`), future scene mood frame, or cast voice sample (`cast.voice-sample`).
 
 This is not a generic image prompt skill. Renku is the context engine: first ask Renku what the media is for, then create or update a persisted spec that captures the user's binding choices.
 
@@ -43,14 +43,22 @@ renku generation estimate --spec <spec-id> --json
 renku generation run --spec <spec-id> --approval-token <approval-token> --json
 ```
 
-8. Inspect generated images before import. For Lookbook images, decide which Lookbook sections the image actually demonstrates. For Lookbook sheets, verify that the sheet is informative, legible, and summarizes the visual language rather than merely collaging existing Lookbook images. For cast images, choose the strongest take for the cast asset role. For location environment sheets, inspect the composite, use vision to identify the four scenic view blocks, crop only those four blocks, and inspect the four slices before import. For scene storyboard sheets, inspect each composite, use vision to identify the actual storyboard panel image blocks, crop only those selected shot panels, and inspect every slice before import.
-9. Import the finished file for the purpose:
+8. Inspect generated media before import or attachment. For Lookbook images, decide which Lookbook sections the image actually demonstrates. For Lookbook sheets, verify that the sheet is informative, legible, and summarizes the visual language rather than merely collaging existing Lookbook images. For cast images, choose the strongest take for the cast asset role. For location environment sheets, inspect the composite, use vision to identify the four scenic view blocks, crop only those four blocks, and inspect the four slices before import. For scene storyboard sheets, inspect each composite, use vision to identify the actual storyboard panel image blocks, crop only those selected shot panels, and inspect every slice before import.
+9. Import or attach the finished file for the purpose:
 
 ```bash
 renku media import --purpose <purpose-key> --target <target> --source <project-relative-path> --sections <agent-reviewed-sections> --json
 ```
 
-Use `--sections` only for `lookbook.image`. Lookbook sheet, cast image, and shot input imports do not use section tags.
+Use `--sections` only for `lookbook.image`. Lookbook sheet, cast image, and shot input imports do not use section tags. Cast Voice samples are attached with `renku cast voice attach`, not `renku media import`.
+
+## Cast Voice Sample
+
+For Cast Voice sample audio, use the detailed operational reference:
+
+- `references/cast-voice-sample.md`
+
+`cast.voice-sample` uses direct ElevenLabs text-to-speech models. The generation run creates audio only. A `casting-director` pass owns attaching the provider voice id and sample file through `renku cast voice attach`.
 
 ## Shot Video Take Purposes
 

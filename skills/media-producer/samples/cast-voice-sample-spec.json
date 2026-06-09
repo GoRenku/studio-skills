@@ -1,0 +1,21 @@
+{
+  "kind": "mediaGenerationSpec",
+  "purpose": "cast.voice-sample",
+  "target": {
+    "kind": "castMember",
+    "castMemberId": "cast_ada"
+  },
+  "provider": "elevenlabs",
+  "model": "eleven_v3",
+  "bindings": {
+    "text": "Ada tests the locked door, then lowers her voice: we only get one clean chance.",
+    "voiceId": "21m00Tcm4TlvDq8ikWAM",
+    "voiceSettings": {
+      "stability": 0.45,
+      "similarityBoost": 0.8,
+      "style": 0.35,
+      "useSpeakerBoost": true
+    },
+    "outputFormat": "mp3_44100_128"
+  }
+}

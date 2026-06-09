@@ -1,6 +1,6 @@
 # Voice Casting
 
-Voice casting currently lives inside Cast Design.
+Creative voice direction lives inside Cast Design. Provider voice ids and playable sample audio live in Cast Voice records.
 
 Useful fields to capture:
 
@@ -12,4 +12,4 @@ Useful fields to capture:
 - locale-specific notes;
 - anti-references.
 
-Voice sample generation is not first-class yet. If the user asks for voice media, write the voice casting guidance first and explain that audio generation needs a later media-purpose contract.
+If the user asks for voice media, write or confirm the voice casting guidance first. Then either hand `cast.voice-sample` generation to `media-producer` or attach an existing provider voice id and sample with `renku cast voice attach`. Do not store generated sample paths or provider voice ids in Cast Design JSON.
