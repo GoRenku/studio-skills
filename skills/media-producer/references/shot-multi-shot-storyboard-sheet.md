@@ -59,7 +59,7 @@ Choose one, based on user direction or scene needs:
 
 ## Quality Check Before Import
 
-Reject and regenerate if:
+Do not import automatically when:
 
 - panel order differs from `target.shotIds`;
 - the sheet invents extra shots;
@@ -67,6 +67,11 @@ Reject and regenerate if:
 - selected camera movement or composition is ignored;
 - character or location continuity conflicts with context;
 - it becomes a moodboard rather than one panel per shot.
+
+For any failed check, show or describe the sheet, explain the practical impact
+on downstream shot/video work, and ask whether the user wants to accept it with
+caveats, revise the spec, or approve a new paid generation. Do not regenerate
+automatically.
 
 Import only after inspection:
 

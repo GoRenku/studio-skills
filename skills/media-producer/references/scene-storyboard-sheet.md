@@ -82,7 +82,8 @@ quadrants, or grid slicing.
 Do not import automatically when the image no longer provides clean useful
 storyboard panels for the selected shots. Show the composite to the user,
 explain that the generation is not good enough for a storyboard sheet, and ask
-whether to regenerate.
+whether to accept it with caveats, revise the storyboard/spec, or approve
+another paid generation.
 
 ## Import Expectations
 

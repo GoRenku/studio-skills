@@ -17,10 +17,32 @@ Good prompts describe the sheet structure plainly:
 
 - full-body front view;
 - face close-up or head turnaround when useful;
-- wardrobe and props;
+- wardrobe, grooming, hands, and only character-owned props that the cast member
+  would plausibly carry or be identified by;
 - expression and posture range;
 - materials, wear, grooming, and period-specific details;
 - visual language cues from the active Lookbook.
+
+Do not add plot, location, engineering, weapon, or scene props just because they
+appear elsewhere in the screenplay. For example, a cannon founder can have tools
+of the trade; a ruler should not get cannon-design props unless the user or
+Cast Design explicitly asks for them. If a prop belongs to a scene, Location,
+shot, or another character, keep it out of the character sheet.
+
+Quality bar:
+
+- match the strongest existing approved character sheets in the project before
+  accepting a new one;
+- prefer realistic, tactile production-reference rendering over cartoon,
+  game-character, comic-book, clean digital illustration, or generic concept-art
+  styling unless the active Lookbook calls for that;
+- translate the active Lookbook into concrete lighting, material, texture,
+  palette, framing, and camera behavior in the prompt;
+- if the generated sheet visibly ignores the active Lookbook, loses the supplied
+  likeness, adds irrelevant props, or reads as cartoony when the project does
+  not, do not import it automatically. Explain the issue, expected downstream
+  impact, and whether you recommend accepting it with caveats or revising the
+  spec for a user-approved paid regeneration.
 
 Avoid vague phrases such as "cinematic character design" unless they are backed
 by concrete materials, lighting, framing, and period details from context.

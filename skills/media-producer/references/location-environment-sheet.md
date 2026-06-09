@@ -71,4 +71,7 @@ The bottom texture/material/lighting strip stays in the composite sheet. Do not 
 
 Crop around the image content, not the panel frame. Exclude labels, azimuth text, gutters, decorative sheet background, borders, red dots, debug marks, and bottom-strip content. The crop boxes are selected by vision for the specific returned image; they are not fixed coordinates and are not discovered through border detection, marker detection, OCR, or rough quadrant fallback.
 
-Do not import automatically when the image no longer provides four clean useful views. Show the composite to the user, explain that the generation is not good enough for a location sheet, and ask whether to regenerate or add better location details before trying again.
+Do not import automatically when the image no longer provides four clean useful
+views. Show the composite to the user, explain that the generation is not good
+enough for a location sheet, and ask whether to accept it with caveats, revise
+the location details/spec, or approve another paid generation.

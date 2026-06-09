@@ -43,7 +43,7 @@ renku generation estimate --spec <spec-id> --json
 renku generation run --spec <spec-id> --approval-token <approval-token> --json
 ```
 
-8. Inspect generated media before import or attachment. For Lookbook images, decide which Lookbook sections the image actually demonstrates. For Lookbook sheets, verify that the sheet is informative, legible, and summarizes the visual language rather than merely collaging existing Lookbook images. For cast images, choose the strongest take for the cast asset role. For location environment sheets, inspect the composite, use vision to identify the four scenic view blocks, crop only those four blocks, and inspect the four slices before import. For scene storyboard sheets, inspect each composite, use vision to identify the actual storyboard panel image blocks, crop only those selected shot panels, and inspect every slice before import.
+8. Inspect generated media before import or attachment. For Lookbook images, decide which Lookbook sections the image actually demonstrates. For Lookbook sheets, verify that the sheet is informative, legible, and summarizes the visual language rather than merely collaging existing Lookbook images. For cast images, compare against the active Cast Design, the active Lookbook, any user-supplied likeness/reference constraints, and the strongest existing approved cast sheets in the project. For location environment sheets, inspect the composite, use vision to identify the four scenic view blocks, crop only those four blocks, and inspect the four slices before import. For scene storyboard sheets, inspect each composite, use vision to identify the actual storyboard panel image blocks, crop only those selected shot panels, and inspect every slice before import.
 9. Import or attach the finished file for the purpose:
 
 ```bash
@@ -51,6 +51,49 @@ renku media import --purpose <purpose-key> --target <target> --source <project-r
 ```
 
 Use `--sections` only for `lookbook.image`. Lookbook sheet, cast image, and shot input imports do not use section tags. Cast Voice samples are attached with `renku cast voice attach`, not `renku media import`.
+
+For cast imports, choose production-meaningful relationship metadata:
+
+- `--reference-name` is mandatory. Use a stable, human-readable key that names
+  the character and usage context, not the filename, spec id, run id, or version
+  number. Examples: `mehmed-ii-palace-main`, `mehmed-ii-armored-siege`, or
+  `urban-workshop-main`.
+- `--reference-purpose` is optional. Use it when the intended use is clear, and
+  make it descriptive rather than generic. Examples: `main palace character
+  sheet`, `armored siege costume reference`, or `profile portrait for cast
+  sidebar`. If the context is unclear, omit it; the CLI may warn, but the import
+  should still succeed.
+- If the wardrobe/context variant affects continuity and the user has not made
+  it clear, ask before importing. A palace robe sheet and an armored battle
+  sheet should not share the same reference name.
+
+Do not treat a successful provider run as attached cast media until
+`renku media import` succeeds and a follow-up generation context read shows the
+new asset. If only an existing asset's visible title, reference name, or purpose
+needs correction, update it in place with `renku asset reference-update`; do not
+re-import the file or create a duplicate asset.
+
+```bash
+renku asset reference-update <asset-id> --target cast:<cast-member-id> --reference-name <stable-reference-name> --reference-purpose "<descriptive purpose>" --title "<visible card title>" --json
+```
+
+## Post-Run QA And Cost Control
+
+Paid regeneration is never automatic. When a generated asset has problems,
+perform an advisory QA pass:
+
+1. Show or name the generated asset.
+2. Explain concrete issues and expected downstream impact.
+3. State whether you recommend importing, importing with caveats, revising the
+   prompt/spec, or regenerating.
+4. If regeneration is recommended, explain why it is worth another paid run and
+   what prompt/spec changes would address the failure.
+5. Estimate the revised spec and ask for explicit user approval before any new
+   paid generation.
+
+Do not import weak media automatically. Do not regenerate weak media
+automatically. The user decides whether the artifact is acceptable, should be
+imported with caveats, or is worth another paid attempt.
 
 ## Cast Voice Sample
 

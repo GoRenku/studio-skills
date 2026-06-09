@@ -41,4 +41,8 @@ Import finished media with the agent-reviewed section tags:
 renku media import --purpose lookbook.image --target lookbook:<lookbook-id> --source generated/media/<file> --sections palette,lighting --json
 ```
 
-Use section tags only when the image clearly demonstrates those sections. Prefer one to three sections for a single image. Do not tag all sections unless the image visibly and specifically demonstrates every section. If no section is clear, do not import automatically; explain why and ask whether to regenerate or import it unsectioned.
+Use section tags only when the image clearly demonstrates those sections. Prefer
+one to three sections for a single image. Do not tag all sections unless the
+image visibly and specifically demonstrates every section. If no section is
+clear, do not import automatically; explain why and ask whether to import it
+unsectioned, revise the spec, or approve another paid generation.

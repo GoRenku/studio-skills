@@ -107,8 +107,10 @@ Do not import automatically when:
 - the sheet invents a different visual language;
 - it looks like a marketing poster instead of a production reference.
 
-If the take is close but weak, regenerate with a more explicit prompt. Do not
-crop or slice Lookbook sheets.
+If the take is close but weak, explain the weaknesses and the prompt changes
+that would improve it, then ask whether the user wants to accept it with caveats
+or approve another paid generation. Do not regenerate automatically. Do not crop
+or slice Lookbook sheets.
 
 ## Import
 
