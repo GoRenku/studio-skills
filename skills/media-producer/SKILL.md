@@ -101,7 +101,16 @@ For Cast Voice sample audio, use the detailed operational reference:
 
 - `references/cast-voice-sample.md`
 
-`cast.voice-sample` uses direct ElevenLabs text-to-speech models. The generation run creates audio only. A `casting-director` pass owns attaching the provider voice id and sample file through `renku cast voice attach`.
+`cast.voice-sample` uses direct ElevenLabs text-to-speech models to generate
+new spoken audio from text. It is not needed when the user wants to attach an
+existing ElevenLabs provider-owned sample for a known `voiceId`. Route existing
+provider sample requests back to `casting-director`; that workflow uses
+`kind: "castVoiceElevenLabsSampleAttachment"` with `renku cast voice attach`
+and does not create a media generation spec, estimate, approval token, or media
+generation run.
+
+A `casting-director` pass owns attaching the provider voice id and sample file
+through `renku cast voice attach`.
 
 ## Shot Video Take Purposes
 

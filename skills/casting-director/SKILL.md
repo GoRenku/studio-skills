@@ -38,13 +38,43 @@ renku cast design validate --file <cast-design-json> --json
 renku cast design write --file <cast-design-json> --json
 ```
 
-5. If provider voice id and sample audio are ready, validate and attach a `kind: "castVoiceAttachment"` document:
+5. If provider voice id and sample audio are ready, validate and attach the right Cast Voice document:
 
 ```bash
 renku cast voice validate --file <cast-voice-attachment-json> --json
 renku cast voice attach --file <cast-voice-attachment-json> --json
 renku cast voice list --cast <cast-member-id> --json
 ```
+
+Use `kind: "castVoiceAttachment"` when the user provides or approves a
+project-local custom audio file, including an already generated sample file.
+Use `kind: "castVoiceElevenLabsSampleAttachment"` when the user provides an
+ElevenLabs `voiceId` and wants Renku to fetch an existing provider-owned sample.
+Provider sample attachment documents must include `name`, `provider`, `model`,
+`voiceId`, `purpose`, and `sample.title`; they must not include
+`sample.sourceProjectRelativePath` or `sample.receipt`.
+
+Example provider sample attachment:
+
+```json
+{
+  "kind": "castVoiceElevenLabsSampleAttachment",
+  "castMemberId": "cast_urban",
+  "name": "normal-voice",
+  "provider": "elevenlabs",
+  "model": "eleven_v3",
+  "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+  "purpose": "Default spoken dialogue and calm technical explanation.",
+  "sample": {
+    "title": "Urban normal ElevenLabs voice sample"
+  }
+}
+```
+
+Validate before live attachment. When the environment requires network
+approval, ask before running `renku cast voice attach` for an ElevenLabs provider
+sample because that command calls ElevenLabs and writes the fetched MP3 under
+`cast/<handle>/voice-samples/`.
 
 6. Hand off character-sheet/profile/voice-sample generation to `media-producer` only when the user wants media work.
 
