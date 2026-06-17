@@ -1,19 +1,23 @@
 {
   "purpose": "shot.last-frame",
   "target": {
-    "kind": "sceneShotGroup",
-    "id": "scene_001:shot_list_001:scene_shot_video_take_group_001",
+    "kind": "sceneShotVideoTakeGeneration",
+    "id": "scene_001:scene_shot_video_take_generation_001",
     "sceneId": "scene_001",
-    "shotListId": "shot_list_001",
-    "productionGroupId": "scene_shot_video_take_group_001",
-    "shotIds": ["shot_003"]
+    "takeGenerationId": "scene_shot_video_take_generation_001",
+    "shotIds": [
+      "shot_003"
+    ]
   },
   "dependencyKind": "last-frame",
   "outputInputKind": "last-frame",
   "modelChoice": "fal-ai/openai/gpt-image-2",
   "prompt": "Author the exact last frame for Shot 3. Preserve continuity from the approved first frame: Elise, same market doorway, same crowd silhouettes, same short telephoto shallow focus. Ending state: Elise has stepped half a pace forward, the torn petition now raised into the light, her expression steady and confrontational. Camera result: the hand-held push-in has tightened to a medium close-up while keeping the paper edge readable. No new props, no text overlays, no invented action beyond the described movement endpoint.",
   "parameterValues": {
-    "image_size": { "width": 1024, "height": 768 },
+    "image_size": {
+      "width": 1024,
+      "height": 768
+    },
     "quality": "medium"
   },
   "title": "Shot 3 last frame - petition raised"

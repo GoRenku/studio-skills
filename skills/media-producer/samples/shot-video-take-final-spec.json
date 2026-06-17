@@ -1,12 +1,13 @@
 {
   "purpose": "shot.video-take",
   "target": {
-    "kind": "sceneShotGroup",
-    "id": "scene_001:shot_list_001:scene_shot_video_take_group_001",
+    "kind": "sceneShotVideoTakeGeneration",
+    "id": "scene_001:scene_shot_video_take_generation_001",
     "sceneId": "scene_001",
-    "shotListId": "shot_list_001",
-    "productionGroupId": "scene_shot_video_take_group_001",
-    "shotIds": ["shot_003"]
+    "takeGenerationId": "scene_shot_video_take_generation_001",
+    "shotIds": [
+      "shot_003"
+    ]
   },
   "inputModeId": "first-last-frame",
   "modelChoice": "fal-ai/veo3.1/first-last-frame-to-video",

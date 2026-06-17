@@ -50,7 +50,7 @@ renku generation run --spec <spec-id> --approval-token <approval-token> --json
 renku media import --purpose <purpose-key> --target <target> --source <project-relative-path> --sections <agent-reviewed-sections> --json
 ```
 
-Use `--sections` only for `lookbook.image`. Lookbook sheet, cast image, and shot input imports do not use section tags. Cast Voice samples are attached with `renku cast voice attach`, not `renku media import`.
+Use `--sections` only for `lookbook.image`. Lookbook sheet, cast image, and shot input imports do not use section tags. Cast Voice samples are attached with `renku cast voice attach`, not `renku media import`. Kling voice-control `voice_id` values are transient shot-video run artifacts: select or generate the needed dialogue audio as a logical shot-video input, then let Core convert it through Kling `create-voice` during `shot.video-take` estimate/run.
 
 For cast imports, choose production-meaningful relationship metadata:
 
@@ -109,14 +109,21 @@ provider sample requests back to `casting-director`; that workflow uses
 and does not create a media generation spec, estimate, approval token, or media
 generation run.
 
-A `casting-director` pass owns attaching the provider voice id and sample file
-through `renku cast voice attach`.
+A `casting-director` pass owns attaching the durable ElevenLabs provider voice
+id and sample file through `renku cast voice attach`.
 
 ## Shot Video Take Purposes
 
 For shot video take work, use the detailed operational reference:
 
 - `references/shot-video-take.md`
+
+For shot-video work, establish the working take generation before drafting
+prompts, dependency inputs, estimates, final specs, generation runs, or final
+media imports. If the user gives a durable take-generation id, use it. If the
+user says "this take" or gives no explicit take reference, read
+`renku studio current --json`, summarize the focused scene/take candidate, and
+confirm before mutating project state or preparing paid generation.
 
 Load the more specific shot references when needed:
 

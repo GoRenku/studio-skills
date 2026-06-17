@@ -1,19 +1,23 @@
 {
   "purpose": "shot.first-frame",
   "target": {
-    "kind": "sceneShotGroup",
-    "id": "scene_001:shot_list_001:scene_shot_video_take_group_001",
+    "kind": "sceneShotVideoTakeGeneration",
+    "id": "scene_001:scene_shot_video_take_generation_001",
     "sceneId": "scene_001",
-    "shotListId": "shot_list_001",
-    "productionGroupId": "scene_shot_video_take_group_001",
-    "shotIds": ["shot_003"]
+    "takeGenerationId": "scene_shot_video_take_generation_001",
+    "shotIds": [
+      "shot_003"
+    ]
   },
   "dependencyKind": "first-frame",
   "outputInputKind": "first-frame",
   "modelChoice": "fal-ai/openai/gpt-image-2",
   "prompt": "Author the exact first frame for Shot 3. Composition: medium close-up, low angle, hand-held micro push-in implied. Subject: Elise holds the torn petition at chest height, face half-lit by the market doorway. Action state: she has decided to speak but has not moved yet. Lens/focus: short telephoto, shallow focus on her eyes and paper edge. Continuity: match the selected Elise character sheet, Greenway Market location view, active lookbook palette, and approved crowd reference. No extra characters beyond the selected crowd silhouettes.",
   "parameterValues": {
-    "image_size": { "width": 1024, "height": 768 },
+    "image_size": {
+      "width": 1024,
+      "height": 768
+    },
     "quality": "medium"
   },
   "title": "Shot 3 first frame - Elise decides"

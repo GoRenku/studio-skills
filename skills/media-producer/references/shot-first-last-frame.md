@@ -4,7 +4,7 @@ Use this when creating `shot.first-frame` or `shot.last-frame` dependencies. The
 
 ## Required Context
 
-Read `generation context` for the selected shot or group before drafting. Use selected Composition and Motion values as binding creative context. Use selected Cast, Location, Lookbook, and custom reference images as continuity context.
+Read `generation context` for the selected take generation before drafting. Use selected Composition and Motion values as binding creative context. Use selected Cast, Location, Lookbook, and custom reference images as continuity context.
 
 If a required character sheet, location sheet, lookbook sheet, custom reference image, first frame, or last frame is missing, let preflight report the missing dependency. Do not create loosely described first/last frames to paper over missing references.
 
@@ -46,7 +46,7 @@ Author the first frame for Shot 3. Composition: medium close-up, low angle, hand
 ## Import
 
 ```bash
-renku media import --purpose shot.first-frame --target scene:<scene-id> --shot-list <shot-list-id> --shots <shot-id> --source generated/media/<first-frame>.png --selection select --receipt <run-json> --json
+renku media import --purpose shot.first-frame --target scene:<scene-id> --take-generation <take-generation-id> --source generated/media/<first-frame>.png --selection select --receipt <run-json> --json
 ```
 
 Use `shot.last-frame` for the closing image.

@@ -38,7 +38,7 @@ renku cast design validate --file <cast-design-json> --json
 renku cast design write --file <cast-design-json> --json
 ```
 
-5. If provider voice id and sample audio are ready, validate and attach the right Cast Voice document:
+5. If a durable ElevenLabs provider voice id and sample audio are ready, validate and attach the right Cast Voice document:
 
 ```bash
 renku cast voice validate --file <cast-voice-attachment-json> --json
@@ -84,11 +84,11 @@ sample because that command calls ElevenLabs and writes the fetched MP3 under
 - Read `references/cast-design.md` before writing Cast Design JSON.
 - Read `references/cast-media-handoff.md` before asking `media-producer` for character sheets, profiles, or voice samples.
 - Read `references/voice-casting.md` when the request involves voice, accent, tempo, texture, or localization notes.
-- Read `references/cast-voice-attachments.md` before attaching provider voice ids or sample audio.
+- Read `references/cast-voice-attachments.md` before attaching durable ElevenLabs provider voice ids or sample audio.
 
 ## Boundaries
 
 - Cast Design can describe costume variants, but costume-variant media is not first-class yet.
-- Cast Design can describe voice casting and locale notes, but provider voice ids and sample audio belong in Cast Voice records.
-- Generated files, asset ids, provider voice ids, and media paths do not belong in Cast Design JSON.
+- Cast Design can describe voice casting and locale notes, but durable ElevenLabs provider voice ids and sample audio belong in Cast Voice records. Kling `voice_id` values are transient shot-video run artifacts.
+- Generated files, asset ids, durable provider voice ids, transient Kling `voice_id` values, and media paths do not belong in Cast Design JSON.
 - When casting changes affect coverage, report the need for a `scene-shot-designer` pass instead of editing shot-list documents directly.

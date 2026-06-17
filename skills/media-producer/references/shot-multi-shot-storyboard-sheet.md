@@ -1,13 +1,13 @@
 # Shot Multi-Shot Storyboard Sheet
 
-Use this when creating `shot.multi-shot-storyboard-sheet` for an ordered contiguous production group. The output is one readable planning sheet, not a moodboard.
+Use this when creating `shot.multi-shot-storyboard-sheet` for an ordered multi-shot take generation. The output is one readable planning sheet, not a moodboard.
 
 ## Required Context
 
 Read:
 
 ```bash
-renku generation context --purpose shot.video-take --target scene:<scene-id> --shot-list <shot-list-id> --shots <shot-id[,shot-id...]> --json
+renku generation context --purpose shot.video-take --target scene:<scene-id> --take-generation <take-generation-id> --json
 ```
 
 Use `context.target.shotIds` and `context.shots` exactly in order. Do not add, remove, reorder, or merge shots.
@@ -27,7 +27,7 @@ For each shot, extract:
 Use a prompt like this, filled with actual shot data:
 
 ```text
-Create a single storyboard planning sheet for this ordered shot group.
+Create a single storyboard planning sheet for this ordered take generation.
 
 Layout:
 - one panel per shot in exact order;
@@ -76,5 +76,5 @@ automatically.
 Import only after inspection:
 
 ```bash
-renku media import --purpose shot.multi-shot-storyboard-sheet --target scene:<scene-id> --shot-list <shot-list-id> --shots <shot-id[,shot-id...]> --source generated/media/<sheet>.png --selection select --receipt <run-json> --json
+renku media import --purpose shot.multi-shot-storyboard-sheet --target scene:<scene-id> --take-generation <take-generation-id> --source generated/media/<sheet>.png --selection select --receipt <run-json> --json
 ```
