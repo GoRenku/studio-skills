@@ -94,9 +94,9 @@ slice images, or import storyboard files in this skill.
 - Do not write directly to `.renku/project.sqlite`.
 - Do not mutate the screenplay scene while designing shots.
 - Do not invent scene, cast, location, shot-list, or shot ids.
-- Do not store generated image paths in Scene Shot List JSON.
+- Do not store generated image paths or take-owned shot design values in Scene Shot List JSON.
 - Do not add setup minutes, equipment checkout, crew assignments, call-sheet timing, company moves, or other analog shooting logistics.
 - Use the project aspect ratio by default. Write shot-level `aspectRatio` only for a deliberate effect.
 - Validate before write.
 - Use the active Lookbook when present unless the user overrides it.
-- If storyboard media is requested, hand off after a shot list exists. Do not store generated image paths in Scene Shot List JSON.
+- If storyboard media is requested, hand off after a shot list exists. Do not store generated image paths or take-owned shot design values in Scene Shot List JSON.

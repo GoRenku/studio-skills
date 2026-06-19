@@ -1,10 +1,10 @@
 {
   "purpose": "shot.multi-shot-storyboard-sheet",
   "target": {
-    "kind": "sceneShotVideoTakeGeneration",
-    "id": "scene_001:scene_shot_video_take_generation_002",
+    "kind": "sceneShotVideoTake",
+    "id": "scene_shot_video_take_002",
     "sceneId": "scene_001",
-    "takeGenerationId": "scene_shot_video_take_generation_002",
+    "takeId": "scene_shot_video_take_002",
     "shotIds": [
       "shot_003",
       "shot_004"

@@ -1,10 +1,10 @@
 {
   "purpose": "shot.video-take",
   "target": {
-    "kind": "sceneShotVideoTakeGeneration",
-    "id": "scene_001:scene_shot_video_take_generation_001",
+    "kind": "sceneShotVideoTake",
+    "id": "scene_shot_video_take_001",
     "sceneId": "scene_001",
-    "takeGenerationId": "scene_shot_video_take_generation_001",
+    "takeId": "scene_shot_video_take_001",
     "shotIds": [
       "shot_003"
     ]

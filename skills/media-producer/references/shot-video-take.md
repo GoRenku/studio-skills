@@ -1,18 +1,18 @@
 # Shot Video Take Media Production
 
-Use this reference for final AI video takes for one Shot Video Take Generation: either a single shot or an ordered multi-shot selection. Core owns context, validation, preflight, spec persistence, provider mapping, runs, imports, reusable dependency relationships, and final take attachment. The skill owns creative dependency analysis and model-specific prompt drafting.
+Use this reference for final AI video takes for one Shot Video Take: either a single shot or an ordered multi-shot selection. Core owns take state, context, validation, preflight, spec persistence, provider mapping, runs, imports, reusable dependency relationships, and output attachment. The skill owns creative dependency analysis and model-specific prompt drafting.
 
-Never write `.renku/project.sqlite` directly. Never override the user-selected input mode, model, parameters, or take generation. Never submit raw provider payload JSON; submit logical Renku specs and production plans. Never rely on fallback prompts. Paid generation requires an authored prompt and, for ad hoc reference images, an authored title naming the reference intent.
+Never write `.renku/project.sqlite` directly. Never override the user-selected input mode, model, parameters, shot ids, reference choices, or take. Take-tab edits must update take-owned state through `renku take update` or Studio take routes. Never submit raw provider payload JSON; submit logical Renku specs and production plans. Never rely on fallback prompts. Paid generation requires an authored prompt and, for ad hoc reference images, an authored title naming the reference intent.
 
-Shot-video work starts by establishing the working take generation. Explicit user references win: use an explicit `takeGenerationId`, then an explicit take id, then an explicit production scene/shot/take reference when the CLI supports it. If the user says "this take" or gives no durable reference, read `renku studio current --json`; treat focus as a candidate and confirm before mutating project state, preparing paid generation, or importing final media.
+Shot-video work starts by establishing the working take. Explicit user references win: use an explicit `takeId` or production scene/shot/take reference. If the user says "this take" or gives no durable reference, read `renku studio current --json`; treat focus as a candidate and confirm before mutating project state, preparing paid generation, or importing final media.
 
 ## Purposes
 
 - `shot.first-frame`: carefully authored opening still for a shot video take.
 - `shot.last-frame`: carefully authored closing still for a first/last-frame workflow.
-- `shot.reference-image`: ad hoc reference image generated only for a named single-shot or multi-shot take-generation need.
-- `shot.multi-shot-storyboard-sheet`: one storyboard planning sheet for an ordered multi-shot take generation.
-- `shot.video-take`: final video take attached to the take generation while preserving its ordered shot ids.
+- `shot.reference-image`: ad hoc reference image generated only for a named single-shot or multi-shot take need.
+- `shot.multi-shot-storyboard-sheet`: one storyboard planning sheet for an ordered multi-shot take.
+- `shot.video-take`: final video output attached to the take while preserving its ordered shot ids.
 
 Use `fal-ai/openai/gpt-image-2` as the default image dependency model unless the user or model report chooses another supported dependency image model.
 
@@ -22,54 +22,41 @@ Use `fal-ai/openai/gpt-image-2` as the default image dependency model unless the
 2. Resolve the scene id from Studio focus or screenplay navigation.
 3. Resolve the active or specified Scene Shot List id.
 4. Resolve the selected shot id, or an ordered shot id list for a multi-shot take.
-5. Create a take generation when one does not already exist:
+5. Create a take when one does not already exist:
 
 ```bash
-renku generation take create \
-  --purpose shot.video-take \
-  --target scene:<scene-id> \
+renku take create \
+  --scene <scene-id> \
   --shot-list <shot-list-id> \
   --shots <shot-id>[,<shot-id>...] \
   --json
 ```
 
-6. List or show take generations when resolving an existing working take:
+6. List or show takes when resolving an existing working take:
 
 ```bash
-renku generation take list \
-  --purpose shot.video-take \
-  --scene <scene-id> \
-  --json
-
-renku generation take show \
-  --purpose shot.video-take \
-  --take-generation <take-generation-id> \
-  --json
+renku take list --scene <scene-id> --json
+renku take show --take <take-id> --json
 ```
 
-7. Update the working take generation's shot membership only when the user asks
-   to change the take:
+7. Update the working take state only when the user asks to change take-owned state:
 
 ```bash
-renku generation take update-shots \
-  --purpose shot.video-take \
-  --target scene:<scene-id> \
-  --take-generation <take-generation-id> \
-  --shots <shot-id>[,<shot-id>...] \
-  --json
+renku take update --take <take-id> --file <take-state-patch-json> --json
 ```
 
-8. Read bounded context for the take generation:
+8. Read bounded context for the take:
 
 ```bash
 renku generation context \
   --purpose shot.video-take \
   --target scene:<scene-id> \
-  --take-generation <take-generation-id> \
+  --take <take-id> \
+  --shots <shot-id>[,<shot-id>...] \
   --json
 ```
 
-Use `context.shots` as the ordered selected-shot source of truth. Use `context.displayShots` only for surrounding shot-list context. Prefer `shot.shotSpecs` values when present, then the prompt-facing shot fields: `shotType`, `cameraAngle`, `cameraMovement`, `framing`, `lensIntent`, `subject`, `action`, `audioNotes`, and `productionNotes`.
+Use `context.target.shotIds` and `context.shots` as the ordered selected-shot source of truth. Use `context.take.state.shotDesignByShotId` for editable Composition, Motion, Cast, Location, Lookbook, References, Dialogue, and Production choices. Use `context.displayShots` only for surrounding shot-list context. Use prompt-facing shot fields such as `shotType`, `subject`, `action`, `audioNotes`, and `productionNotes` as baseline coverage, not as mutable take state.
 
 Read the model report before drafting provider-reference tokens. Use provider
 labels such as `@Image1`, `@Element1`, `@Video1`, and `@Audio1` only when the
@@ -84,8 +71,9 @@ Read model choices for the chosen input mode:
 renku generation model list \
   --purpose shot.video-take \
   --target scene:<scene-id> \
-  --take-generation <take-generation-id> \
+  --take <take-id> \
   --intent <input-mode-id> \
+  --shots <shot-id>[,<shot-id>...] \
   --json
 ```
 
@@ -95,17 +83,17 @@ Read reusable dependency candidates:
 renku generation input list \
   --purpose shot.video-take \
   --target scene:<scene-id> \
-  --take-generation <take-generation-id> \
+  --take <take-id> \
   --json
 ```
 
-Select a reusable dependency only when the user wants reuse and it matches the current take generation:
+Select a reusable dependency only when the user wants reuse and it matches the current take:
 
 ```bash
 renku generation input select \
   --purpose shot.video-take \
   --target scene:<scene-id> \
-  --take-generation <take-generation-id> \
+  --take <take-id> \
   --input <shot-video-take-input-id> \
   --json
 ```
@@ -116,7 +104,7 @@ Clear a selected slot before regenerating it:
 renku generation input clear \
   --purpose shot.video-take \
   --target scene:<scene-id> \
-  --take-generation <take-generation-id> \
+  --take <take-id> \
   --kind <input-kind> \
   --subject-kind <subject-kind> \
   --subject-id <subject-id> \
@@ -125,7 +113,7 @@ renku generation input clear \
 
 ## Production Proposal And Preflight
 
-Write a `ShotVideoTakeAgentProposal` into the take-generation production JSON. Use `inputModeId`, not `intentId`. Use `basedOnInputModeId`, not `basedOnIntentId`.
+Write a `ShotVideoTakeAgentProposal` into take-owned production state. Use `inputModeId`, not `intentId`. Use `basedOnInputModeId`, not `basedOnIntentId`.
 
 The proposal must include:
 
@@ -141,14 +129,14 @@ Run preflight before creating or estimating the final video spec:
 renku generation production update \
   --purpose shot.video-take \
   --target scene:<scene-id> \
-  --take-generation <take-generation-id> \
+  --take <take-id> \
   --file shot-video-take-production.json \
   --json
 
 renku generation preflight \
   --purpose shot.video-take \
   --target scene:<scene-id> \
-  --take-generation <take-generation-id> \
+  --take <take-id> \
   --file shot-video-take-production.json \
   --json
 ```
@@ -237,28 +225,28 @@ For every dependency and final video spec:
 6. Inspect generated media before import.
 7. Import with the concrete purpose.
 
-Dependency import defaults to selecting the imported input for the current take generation:
+Dependency import defaults to selecting the imported media input for the current take:
 
 ```bash
 renku media import \
   --purpose shot.first-frame \
   --target scene:<scene-id> \
-  --take-generation <take-generation-id> \
+  --take <take-id> \
   --source generated/media/<output>.png \
   --receipt <run-json> \
   --selection select \
   --json
 ```
 
-Use the matching concrete purpose for `shot.last-frame`, `shot.reference-image`, and `shot.multi-shot-storyboard-sheet`. The Studio References tab shows imported/generated first frames, last frames, ad hoc reference images, and multi-shot storyboard sheets for the relevant take generation.
+Use the matching concrete purpose for `shot.last-frame`, `shot.reference-image`, and `shot.multi-shot-storyboard-sheet`. The Studio References tab shows imported/generated first frames, last frames, ad hoc reference images, and multi-shot storyboard sheets for the relevant take.
 
-Final video import attaches the video take to the take generation and preserves the ordered shot rows:
+Final video import attaches the video output to the take and preserves the ordered shot rows:
 
 ```bash
 renku media import \
   --purpose shot.video-take \
   --target scene:<scene-id> \
-  --take-generation <take-generation-id> \
+  --take <take-id> \
   --source generated/media/<shot-video-output>.mp4 \
   --receipt <run-json> \
   --json
@@ -271,7 +259,7 @@ Scenario: the user asks for a take for Shot 3, input mode is `first-last-frame`,
 1. Read context, model choices, and reusable inputs.
 2. Author `shot.first-frame` and `shot.last-frame` dependency drafts from the selected shot design and references.
 3. Validate, create, estimate, approve, run, inspect, and import each dependency.
-4. Update take-generation production with `inputModeId`, video model, parameters, selected inputs, dependency drafts, and final prompt draft.
+4. Update take-owned production with `inputModeId`, video model, parameters, selected inputs, dependency drafts, and final prompt draft.
 5. Run preflight. It must show no missing first/last-frame inputs before final video generation.
 6. Create, estimate, approve, run, inspect, and import the final `shot.video-take`.
 
@@ -279,15 +267,15 @@ Expected result: dependency assets are reusable later, final video is attached t
 
 ## Example: Multi-Shot Group With Storyboard Sheet
 
-Scenario: the user creates a take generation for Shot 3 and Shot 4 and the final generation should be one provider call.
+Scenario: the user creates a take for Shot 3 and Shot 4 and the final generation should be one provider call.
 
 1. Read context and model choices for the selected multi-shot input mode.
 2. Read reusable inputs. Reuse a `multi-shot-storyboard-sheet` only when it matches exactly `shot_003,shot_004` in that order.
 3. If regenerating, clear the slot.
 4. Create `shot.multi-shot-storyboard-sheet` from `shot-multi-shot-storyboard-sheet.md`.
 5. Validate, create, estimate, approve, run, inspect, and import the storyboard sheet.
-6. Write the take-generation production proposal and final prompt as one continuous video while preserving shot boundaries.
+6. Write the take production proposal and final prompt as one continuous video while preserving shot boundaries.
 7. Run preflight. Core maps logical prepared inputs to provider fields and returns diagnostics if a selected logical role is unsupported.
 8. Create, estimate, approve, run, inspect, and import one final `shot.video-take` spec. Do not run separate final videos per shot.
 
-Expected result: the storyboard sheet is reusable for the same ordered take generation, visible in the References tab for every included shot, one video asset is attached to the take generation and both ordered shots, and changing model/prompt/parameters/inputs requires a new preflight and estimate.
+Expected result: the storyboard sheet is reusable for the same ordered take, visible in the References tab for every included shot, one video output is attached to the take and both ordered shots, and changing model/prompt/parameters/inputs requires a new preflight and estimate.

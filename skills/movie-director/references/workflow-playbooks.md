@@ -33,7 +33,7 @@ Use these playbooks when a user asks for an outcome rather than naming a single 
 ## Storyboard References To Shot Video Take
 
 1. Confirm active shot list and storyboard readiness through `renku director context --json`.
-2. Create or choose the shot-video take generation for the exact ordered shot ids. If the user says "this take", first read `renku studio current --json` and confirm the focused scene/take candidate before mutation or paid generation.
-3. Dispatch shot-video dependency planning to `media-producer` with the take-generation id.
-4. Use `renku generation preflight --purpose shot.video-take --target scene:<scene-id> --take-generation <take-generation-id> --json` before creating final specs.
+2. Create or choose the Shot Video Take for the exact ordered shot ids. If the user says "this take", first read `renku studio current --json` and confirm the focused scene/take candidate before mutation or paid generation.
+3. Dispatch shot-video dependency planning to `media-producer` with the take id.
+4. Use `renku generation preflight --purpose shot.video-take --target scene:<scene-id> --take <take-id> --json` before creating final specs.
 5. Keep generation behind the media-producer estimate and approval token.

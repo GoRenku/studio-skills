@@ -118,10 +118,10 @@ For shot video take work, use the detailed operational reference:
 
 - `references/shot-video-take.md`
 
-For shot-video work, establish the working take generation before drafting
+For shot-video work, establish the working Shot Video Take before drafting
 prompts, dependency inputs, estimates, final specs, generation runs, or final
-media imports. If the user gives a durable take-generation id, use it. If the
-user says "this take" or gives no explicit take reference, read
+media imports. If the user gives a durable take id, use it. If the user says
+"this take" or gives no explicit take reference, read
 `renku studio current --json`, summarize the focused scene/take candidate, and
 confirm before mutating project state or preparing paid generation.
 
