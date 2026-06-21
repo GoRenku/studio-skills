@@ -2,7 +2,7 @@
   "purpose": "location.environment-sheet",
   "target": { "kind": "location", "id": "location_sea_walls" },
   "modelChoice": "fal-ai/openai/gpt-image-2",
-  "prompt": "Create one polished 4:3 location environment sheet for the Constantinople sea walls as a single finished image. Arrange four clean 16:9 scenic panels in a 2x2 sheet: 0 front top-left, 90 right top-right, 180 back bottom-left, 270 left bottom-right. Place labels in the sheet header or margin area, never inside the scenic image content. Add one bottom guideline strip for the active Lookbook texture, materials, palette, and lighting behavior. Keep architecture, scale, entrances, wall breaks, landmarks, materials, weather, and horizon logic consistent across views. No red dots, crop marks, debug overlays, construction marks, heavy extraction borders, or labels over the scenic panels.",
+  "prompt": "Create one polished 4:3 location environment sheet for the Constantinople sea walls as a single finished image. Arrange four clean 16:9 scenic panels in a 2x2 sheet: 0 front top-left, 90 right top-right, 180 back bottom-left, 270 left bottom-right. Place labels in the sheet header or margin area, never inside the scenic image content. Add one bottom guideline strip for the selected Movie Lookbook texture, materials, palette, and lighting behavior. Keep architecture, scale, entrances, wall breaks, landmarks, materials, weather, and horizon logic consistent across views. No red dots, crop marks, debug overlays, construction marks, heavy extraction borders, or labels over the scenic panels.",
   "takeCount": 1,
   "seed": null,
   "sheetFrame": "4:3",

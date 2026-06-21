@@ -11,13 +11,13 @@ renku generation context --purpose cast.character-sheet --target cast:<cast-memb
 renku generation model list --purpose cast.character-sheet --target cast:<cast-member-id> --json
 ```
 
-Character sheet generation requires an active Lookbook. The sheet should
+Character sheet generation requires an selected Movie Lookbook. The sheet should
 synthesize:
 
 - the screenplay and story function;
 - the cast member's description, role, want, need, arc, and voice notes;
 - period and setting signals;
-- the active Lookbook's palette, lighting, composition, texture, and camera
+- the selected Movie Lookbook's palette, lighting, composition, texture, and camera
   language.
 - active Cast Design `generationGuidance`, `continuity`, likeness anchors,
   costume variants, and explicit user constraints.
@@ -76,9 +76,9 @@ Style and quality gate:
 - before writing the spec, inspect existing approved character sheets for the
   project when available and match their production-reference caliber;
 - avoid cartoon, game-character, comic-book, glossy generic concept-art, or
-  clean digital illustration styling unless the active Lookbook explicitly asks
+  clean digital illustration styling unless the selected Movie Lookbook explicitly asks
   for it;
-- translate the active Lookbook into concrete instructions: lighting source,
+- translate the selected Movie Lookbook into concrete instructions: lighting source,
   lens/framing behavior, texture, palette, weathering, materials, and historical
   surface detail;
 - after generation, inspect the image before import. If a take is cartoony

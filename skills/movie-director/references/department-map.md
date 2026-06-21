@@ -9,7 +9,7 @@ Use this map to classify user intent and choose the next specialist. When a requ
 | Create/revise Cast Member facts, appearance, performance, costume, voice casting notes | Casting | `casting-director` | `renku cast design context --cast <cast-member-id> --json` |
 | Create/revise Location facts, spatial design, set dressing, props, atmosphere | Production Design | `production-designer` | `renku production-design location context --location <location-id> --json` |
 | Analyze reference folders, extract visual principles from images | Cinematography / Visual Language | `inspiration-analyzer` | `renku inspiration show --folder <folder-id> --json` |
-| Create, revise, activate, or connect a Lookbook to Inspiration folders | Cinematography / Visual Language | `lookbook-designer` | `renku lookbook list --json` |
+| Create, revise, select, or connect a Movie Lookbook or Storyboard Lookbook to Inspiration folders | Cinematography / Visual Language | `lookbook-designer` | `renku lookbook list --json` |
 | Design or revise scene coverage and shot composition/movement/cast/location intent | Directing / Shot Design | `scene-shot-designer` | `renku screenplay shot-list context --scene <scene-id> --json` |
 | Generate or import media | Media Production | `media-producer` | `renku generation context --purpose <purpose> --target <target> --json` |
 
@@ -20,14 +20,15 @@ Use this map to classify user intent and choose the next specialist. When a requ
 3. Screenplay draft.
 4. Screenplay analysis and targeted revision.
 5. Inspiration folders and Inspiration Analysis.
-6. Active Lookbook.
-7. Cast Design and Location Design.
-8. Cast character sheets, cast profiles, and location environment sheets.
-9. Scene Shot Lists.
-10. Per-shot storyboard images.
-11. Shot reference images, first/last frames, and multi-shot storyboard inputs.
-12. Shot video takes.
-13. Selects, production export, and future post/editorial work.
+6. Selected Movie Lookbook.
+7. Selected Storyboard Lookbook and its `lookbook.sheet` when storyboard generation is needed.
+8. Cast Design and Location Design.
+9. Cast character sheets, cast profiles, and location environment sheets.
+10. Scene Shot Lists.
+11. Per-shot storyboard images.
+12. Shot reference images, first/last frames, and multi-shot storyboard inputs.
+13. Shot video takes.
+14. Selects, production export, and future post/editorial work.
 
 ## Current Gaps
 

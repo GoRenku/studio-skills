@@ -7,13 +7,15 @@ Target format: `scene:<scene-id>`
 ## Required Workflow
 
 1. Read context with `renku generation context --purpose scene.storyboard-sheet --target scene:<scene-id> --shot-list <shot-list-id> --json`.
-2. List model choices with `renku generation model list --purpose scene.storyboard-sheet --target scene:<scene-id> --shot-list <shot-list-id> --json` unless the user already chose one.
-3. Verify the target Scene and Shot List exist.
-4. Split the selected shots into batches of at most four shots.
-5. Create one persisted spec per batch and estimate cost before any paid run.
-6. Run only after user approval for both cost and sending project-derived prompt/context to the external provider. Request sandbox/network permission before the first real run, because Renku will contact the approved provider.
-7. Inspect each returned composite, use vision to identify the actual storyboard panel image blocks, crop those blocks, and inspect every slice.
-8. Import only when the sheets and all slices are clean, useful, and match the resolved shot aspect ratio.
+2. If context fails because there is no selected Storyboard Lookbook, stop and dispatch to `lookbook-designer` to create/select one. Do not substitute the selected Movie Lookbook.
+3. If dependency planning reports a missing `lookbook-sheet` for the selected Storyboard Lookbook, generate or import `lookbook.sheet` for that Storyboard Lookbook first.
+4. List model choices with `renku generation model list --purpose scene.storyboard-sheet --target scene:<scene-id> --shot-list <shot-list-id> --json` unless the user already chose one.
+5. Verify the target Scene and Shot List exist.
+6. Split the selected shots into batches of at most four shots.
+7. Create one persisted spec per batch and estimate cost before any paid run.
+8. Run only after user approval for both cost and sending project-derived prompt/context to the external provider. Request sandbox/network permission before the first real run, because Renku will contact the approved provider.
+9. Inspect each returned composite, use vision to identify the actual storyboard panel image blocks, crop those blocks, and inspect every slice.
+10. Import only when the sheets and all slices are clean, useful, and match the resolved shot aspect ratio.
 
 ## Prompt Inputs
 
@@ -23,8 +25,12 @@ Use the returned context:
 - selected shot ids and shot titles for this sheet only;
 - each selected shot's subject, framing, camera angle, movement, action, and story purpose;
 - referenced cast and locations for the selected shots;
-- active Lookbook palette, texture, lighting, composition, camera, and tone notes;
+- selected Movie Lookbook palette, texture, lighting, composition, camera, and tone notes when available;
+- selected Storyboard Lookbook style brief, line/finish, value/accent, panel/notation, continuity/clarity, and guardrails;
+- selected Storyboard Lookbook sheet as the required visual style reference dependency;
 - the resolved per-shot aspect ratio.
+
+The scene and shot list decide what to draw. The selected Storyboard Lookbook definition and sheet decide how the storyboard drawing should look. The selected Movie Lookbook may inform cinematic intent, but it is not the storyboard style source of truth.
 
 ## Sheet Layout
 
@@ -41,12 +47,18 @@ contact sheet.
 Example prompt instruction:
 
 ```text
-Create one 4:3 storyboard sheet as a single finished image. Arrange up to four clean 16:9 landscape storyboard panels in shot-list order. Use hand-drawn graphite pencil and light ink on warm off-white paper, with subtle gray/beige washes, visible sketch construction, readable staging, and production-board clarity. Use rounded white panel cards with dark gutters or a considered dark presentation surround. Preserve the project's historical visual language and shot intent, but render the frames as storyboard drawings rather than cinematic black-and-white film stills. Keep labels in the margin or sheet header; do not place labels, debug marks, crop marks, or decorative text inside the shot image content.
+Create one 4:3 storyboard sheet as a single finished image. Arrange up to four clean 16:9 landscape storyboard panels in shot-list order. Match the selected Storyboard Lookbook sheet for line quality, finish level, value range, accent behavior, panel gutters, margin notation, and clarity rules. Preserve the scene's shot intent and cinematic visual language, but render the frames as storyboard drawings rather than final film stills. Keep labels in the margin or sheet header; do not place labels, debug marks, crop marks, or decorative text inside the shot image content.
 ```
 
-Avoid photorealism, final film still polish, heavy charcoal/noir contrast,
-cinematic black-and-white grading, labels inside panel image content, crop marks,
-red dots, debug overlays, and template artifacts.
+Avoid photorealism, final film still polish, heavy charcoal/noir contrast unless the Storyboard Lookbook requires it, labels inside panel image content, crop marks, red dots, debug overlays, and template artifacts.
+
+## Dependency Planning
+
+`scene.storyboard-sheet` has a required `lookbook-sheet` dependency whose subject is the selected Storyboard Lookbook id.
+
+If the selected Storyboard Lookbook has no sheet, use `lookbook.sheet` for that Storyboard Lookbook before creating the final scene storyboard spec. Do not satisfy the dependency with a Movie Lookbook sheet, a generic Lookbook image, or an unselected Storyboard Lookbook sheet.
+
+Supported reference-capable routes receive the selected Storyboard Lookbook sheet as an image/reference input. If a route cannot use the reference sheet, do not pretend the sheet is applied; choose a supported route or explain the limitation.
 
 ## Historical Guardrails
 

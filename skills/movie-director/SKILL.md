@@ -59,7 +59,7 @@ Use this loop for every request:
 - Use `casting-director` for Cast Member facts, Cast Design, costume continuity, voice casting notes, and cast media readiness.
 - Use `production-designer` for Location facts, Location Design, props, set dressing, atmosphere, and production-design media readiness.
 - Use `inspiration-analyzer` for Visual Language Inspiration folder analysis.
-- Use `lookbook-designer` for durable Lookbook creation, revision, activation, and Inspiration source linkage.
+- Use `lookbook-designer` for durable Movie Lookbook and Storyboard Lookbook creation, revision, typed selection, and Inspiration source linkage.
 - Use `scene-shot-designer` for Scene Shot Lists and shot-list iteration.
 - Use `media-producer` for all Renku media generation specs, estimates, approved runs, inspection, slicing, and media imports.
 

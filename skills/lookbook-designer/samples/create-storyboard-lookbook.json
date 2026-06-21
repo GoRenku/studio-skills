@@ -1,0 +1,41 @@
+{
+  "kind": "storyboardLookbook",
+  "storyboardLookbook": {
+    "name": "Sepia Graphite Siege Boards",
+    "styleBrief": {
+      "text": "Hand-drawn graphite and light ink on warm off-white paper, with restrained gray wash and subtle sepia warmth around metal and fire. Serious 1452 siege staging that reads clearly at thumbnail size.",
+      "styleKind": "graphite hand-drawn",
+      "palette": [
+        { "hex": "#ede7d6", "name": "Paper", "meaning": "Warm off-white substrate." },
+        { "hex": "#2b2a28", "name": "Line", "meaning": "Graphite contour." },
+        { "hex": "#6e6c66", "name": "Smoke", "meaning": "Mid gray wash." },
+        { "hex": "#8a6a4a", "name": "Umber", "meaning": "Diluted shadow warmth." },
+        { "hex": "#a8763c", "name": "Bronze", "meaning": "Restrained accent on metal and fire." }
+      ],
+      "tags": ["1452 siege", "tactile", "heavy", "production-facing"]
+    },
+    "lineAndFinish": {
+      "text": "Confident dark contour for silhouettes and major props, with lighter exploratory construction marks inside the form. Folds, masonry cracks, and smoke stay in thinner graphite.",
+      "marks": [
+        { "label": "contour", "thickness": 5 },
+        { "label": "interior", "thickness": 2.5 },
+        { "label": "guide", "thickness": 1 }
+      ],
+      "hatching": "Sparse cross-hatch in shadow only; let paper tooth show."
+    },
+    "valueAndAccent": {
+      "text": "Five-step value range with high contrast. Simple shadow blocks keep silhouettes readable against stone and smoke.",
+      "valueSteps": ["#ede7d6", "#b8b2a2", "#807c73", "#4a4844", "#232220"],
+      "contrast": "high",
+      "accents": [
+        { "hex": "#a8763c", "name": "Bronze", "meaning": "Allowed only on metal and fire." }
+      ]
+    },
+    "guardrails": {
+      "text": "Favor serious, heavy, plausible siege imagery; avoid anything that weakens readable staging.",
+      "forbidden": ["photorealistic film stills", "fantasy spectacle", "ornate costume plates"],
+      "favored": ["grounded siege imagery"]
+    }
+  },
+  "sourceInspirationFolderIds": []
+}

@@ -1,6 +1,7 @@
 {
-  "kind": "lookbook",
-  "lookbook": {
+  "kind": "movieLookbook",
+  "name": "Withheld Tenderness",
+  "movieLookbook": {
     "thesis": {
       "statement": "The revised look stays intimate, but the palette is colder and the camera feels more withheld.",
       "principles": ["Make emotional access feel earned rather than immediate."]

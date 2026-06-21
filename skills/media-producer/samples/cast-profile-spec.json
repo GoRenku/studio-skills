@@ -3,7 +3,7 @@
   "target": { "kind": "castMember", "id": "cast_ada" },
   "modelChoice": "fal-ai/nano-banana-2/edit",
   "sourceAssetId": "asset_character_sheet",
-  "prompt": "Create a square profile portrait derived from the attached character sheet. Preserve the character's recognizable identity, wardrobe logic, period cues, and active Lookbook visual language.",
+  "prompt": "Create a square profile portrait derived from the attached character sheet. Preserve the character's recognizable identity, wardrobe logic, period cues, and selected Movie Lookbook visual language.",
   "takeCount": 1,
   "seed": null,
   "imageFrame": "1:1",

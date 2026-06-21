@@ -82,16 +82,16 @@ renku inspiration analysis show --folder <folder-id> --json
 
 Use for:
 
-- Lookbook creation;
-- Lookbook revision;
-- Lookbook activation;
+- Movie Lookbook creation or revision;
+- Storyboard Lookbook creation or revision;
+- typed Lookbook selection;
 - linking Inspiration source folders.
 
 Pass:
 
 - project story/tone context;
 - relevant Inspiration Analysis ids or folder ids;
-- existing active Lookbook id when revising;
+- existing selected Movie or Storyboard Lookbook id when revising;
 - user visual preferences and exclusions.
 
 Verify:
@@ -138,7 +138,7 @@ Pass:
 
 - location id;
 - user production-design goal and constraints;
-- active Lookbook state when known;
+- selected Movie Lookbook state when known;
 - whether the user wants media generation or only design writing.
 
 Verify:
@@ -158,7 +158,7 @@ Use for:
 Pass:
 
 - scene id;
-- active Lookbook state;
+- selected Movie Lookbook state;
 - relevant cast and location ids;
 - screenplay critique or user direction;
 - whether the user wants saved shot-list state or only brainstorming.
@@ -173,7 +173,7 @@ renku screenplay shot-list storyboard status --scene <scene-id> --shot-list <sho
 Storyboard media handoff:
 
 - scene-shot-designer supplies or revises the Scene Shot List.
-- media-producer owns `scene.storyboard-sheet` generation, inspection, slicing, and import.
+- media-producer owns selected Storyboard Lookbook sheet readiness, `scene.storyboard-sheet` generation, inspection, slicing, and import.
 
 ## `media-producer`
 

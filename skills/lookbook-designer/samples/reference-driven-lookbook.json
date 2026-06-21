@@ -1,6 +1,7 @@
 {
-  "kind": "lookbook",
-  "lookbook": {
+  "kind": "movieLookbook",
+  "name": "Body Horror Care",
+  "movieLookbook": {
     "thesis": {
       "statement": "The look borrows the intensity of body-horror color logic but redirects it toward care, repair, and fear of intimacy.",
       "principles": ["Use one symbolic color as both attraction and alarm."]

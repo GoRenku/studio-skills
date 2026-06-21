@@ -26,9 +26,11 @@ Use these playbooks when a user asks for an outcome rather than naming a single 
 ## Scene To Shot List To Storyboard Images
 
 1. Read director context, preferably with a selected scene.
-2. If no active Lookbook exists, dispatch to `lookbook-designer` first unless the user explicitly wants text-only shot work.
-3. If no active Scene Shot List exists or the user asks to revise coverage, dispatch to `scene-shot-designer`.
-4. If storyboard images are missing, dispatch to `media-producer` with `scene.storyboard-sheet`.
+2. If no selected Movie Lookbook exists, dispatch to `lookbook-designer` first unless the user explicitly wants text-only shot work.
+3. If no selected Storyboard Lookbook exists and storyboard images are requested, dispatch to `lookbook-designer` to create/select one.
+4. If the selected Storyboard Lookbook has no `lookbook.sheet`, dispatch to `media-producer` for `lookbook.sheet` before final scene storyboard generation.
+5. If no active Scene Shot List exists or the user asks to revise coverage, dispatch to `scene-shot-designer`.
+6. If storyboard images are missing, dispatch to `media-producer` with `scene.storyboard-sheet`.
 
 ## Storyboard References To Shot Video Take
 

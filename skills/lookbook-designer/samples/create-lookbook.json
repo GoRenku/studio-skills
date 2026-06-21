@@ -1,6 +1,7 @@
 {
-  "kind": "lookbook",
-  "lookbook": {
+  "kind": "movieLookbook",
+  "name": "Surgical Intimacy",
+  "movieLookbook": {
     "thesis": {
       "statement": "The movie should feel precise, intimate, and slightly contaminated. Beauty is allowed, but it always carries a trace of threat.",
       "principles": ["Let tenderness and danger share the same visual language."]

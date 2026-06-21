@@ -43,7 +43,7 @@ renku generation estimate --spec <spec-id> --json
 renku generation run --spec <spec-id> --approval-token <approval-token> --json
 ```
 
-8. Inspect generated media before import or attachment. For Lookbook images, decide which Lookbook sections the image actually demonstrates. For Lookbook sheets, verify that the sheet is informative, legible, and summarizes the visual language rather than merely collaging existing Lookbook images. For cast images, compare against the active Cast Design, the active Lookbook, any user-supplied likeness/reference constraints, and the strongest existing approved cast sheets in the project. For location environment sheets, inspect the composite, use vision to identify the four scenic view blocks, crop only those four blocks, and inspect the four slices before import. For scene storyboard sheets, inspect each composite, use vision to identify the actual storyboard panel image blocks, crop only those selected shot panels, and inspect every slice before import.
+8. Inspect generated media before import or attachment. For Lookbook images, decide which type-specific Lookbook sections the image actually demonstrates. For Lookbook sheets, verify that the sheet is informative, legible, and summarizes the target Movie or Storyboard Lookbook rather than merely collaging existing images. For cast images, compare against the active Cast Design, the selected Movie Lookbook, any user-supplied likeness/reference constraints, and the strongest existing approved cast sheets in the project. For location environment sheets, inspect the composite, use vision to identify the four scenic view blocks, crop only those four blocks, and inspect the four slices before import. For scene storyboard sheets, first ensure the selected Storyboard Lookbook and its `lookbook.sheet` are ready, then inspect each composite, use vision to identify the actual storyboard panel image blocks, crop only those selected shot panels, and inspect every slice before import.
 9. Import or attach the finished file for the purpose:
 
 ```bash
@@ -193,10 +193,14 @@ user to choose. If there is no match, say the Cast member must be added to the
 screenplay before generating cast media.
 
 When the user names a scene, use the screenplay hierarchy to resolve the scene
-id. Storyboard sheet generation requires a Scene Shot List. If the user says
-"the storyboard for this scene", use the active shot list for that scene. If a
-specific `shotListId` is already known, honor it exactly. If no active shot list
-exists, hand back to shot-list design first.
+id. Storyboard sheet generation requires a Scene Shot List, a selected Storyboard
+Lookbook, and a `lookbook.sheet` for that selected Storyboard Lookbook. If the
+user says "the storyboard for this scene", use the active shot list for that
+scene. If a specific `shotListId` is already known, honor it exactly. If no
+active shot list exists, hand back to shot-list design first. If there is no
+selected Storyboard Lookbook, hand back to lookbook design first. If the selected
+Storyboard Lookbook has no sheet, generate or import `lookbook.sheet` for that
+Storyboard Lookbook before final scene storyboard spec creation.
 
 ## Binding Rules
 

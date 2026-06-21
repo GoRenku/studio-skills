@@ -1,0 +1,34 @@
+{
+  "kind": "storyboardLookbook",
+  "storyboardLookbook": {
+    "name": "Painted Color Keyframes",
+    "styleBrief": {
+      "text": "Full-colour painted keyframes with soft edges and cinematic light, used to preview mood and staging. Realistic proportions, no visible line art.",
+      "styleKind": "painterly colour keyframe",
+      "palette": [
+        { "hex": "#1f2a37", "name": "Night", "meaning": "Cool shadow base." },
+        { "hex": "#3f6f8f", "name": "Sky", "meaning": "Atmospheric midground." },
+        { "hex": "#c98a3c", "name": "Torch", "meaning": "Warm key light." },
+        { "hex": "#e8d9b5", "name": "Highlight", "meaning": "Lit skin and stone." }
+      ],
+      "tags": ["cinematic", "painterly", "full colour"]
+    },
+    "lineAndFinish": {
+      "text": "Soft brushed edges and blocked shapes; finish reads as a colour key, not a drawing. No outlines."
+    },
+    "valueAndAccent": {
+      "text": "Wide value range with warm key against cool shadow; torchlight is the accent that draws the eye.",
+      "valueSteps": ["#e8d9b5", "#b59b6e", "#6f5f49", "#3a3329", "#191510"],
+      "contrast": "medium-high",
+      "accents": [
+        { "hex": "#c98a3c", "name": "Torch", "meaning": "Warm light on the focal action only." }
+      ]
+    },
+    "guardrails": {
+      "text": "Favor readable cinematic staging; avoid flat graphic looks and harsh outlines.",
+      "forbidden": ["flat line art", "comic ink outlines", "cartoon proportions"],
+      "favored": ["soft painterly edges", "motivated light"]
+    }
+  },
+  "sourceInspirationFolderIds": []
+}

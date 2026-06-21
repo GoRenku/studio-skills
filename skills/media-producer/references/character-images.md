@@ -10,7 +10,7 @@ context to connect four things:
 - the story and dramatic function;
 - the cast member's facts, arc, desire, and voice notes;
 - the period and setting signals;
-- the active Lookbook's palette, lighting, composition, texture, and camera
+- the selected Movie Lookbook's palette, lighting, composition, texture, and camera
   language.
 
 Good prompts describe the sheet structure plainly:
@@ -21,7 +21,7 @@ Good prompts describe the sheet structure plainly:
   would plausibly carry or be identified by;
 - expression and posture range;
 - materials, wear, grooming, and period-specific details;
-- visual language cues from the active Lookbook.
+- visual language cues from the selected Movie Lookbook.
 
 Do not add plot, location, engineering, weapon, or scene props just because they
 appear elsewhere in the screenplay. For example, a cannon founder can have tools
@@ -35,10 +35,10 @@ Quality bar:
   accepting a new one;
 - prefer realistic, tactile production-reference rendering over cartoon,
   game-character, comic-book, clean digital illustration, or generic concept-art
-  styling unless the active Lookbook calls for that;
-- translate the active Lookbook into concrete lighting, material, texture,
+  styling unless the selected Movie Lookbook calls for that;
+- translate the selected Movie Lookbook into concrete lighting, material, texture,
   palette, framing, and camera behavior in the prompt;
-- if the generated sheet visibly ignores the active Lookbook, loses the supplied
+- if the generated sheet visibly ignores the selected Movie Lookbook, loses the supplied
   likeness, adds irrelevant props, or reads as cartoony when the project does
   not, do not import it automatically. Explain the issue, expected downstream
   impact, and whether you recommend accepting it with caveats or revising the
