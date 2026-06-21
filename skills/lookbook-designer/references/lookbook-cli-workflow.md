@@ -53,11 +53,16 @@ renku lookbook clear-selection --type storyboard --json
    widget. Movie aspects are `thesis`, `palette`, `toneMood`, `composition`,
    `lighting`, `texture`, `camera`. Storyboard aspects are `styleBrief`,
    `lineAndFinish`, `valueAndAccent`, `guardrails`. Prefer one aspect per image;
-   do not tag every aspect on one image. Set the `styleBrief` image (the overall
-   look) as the card image so it becomes the detail-page hero.
+   do not tag every aspect on one image. When a Movie Lookbook image clearly
+   demonstrates one specific pattern or observation, anchor it to that point with
+   `--anchor <point-id>` (paired with the single `--sections` that owns the point)
+   so it renders beside that point instead of the whole section. Set the
+   `styleBrief` image (the overall look) as the card image so it becomes the
+   detail-page hero.
 
 ```bash
 renku media import --purpose lookbook.image --target lookbook:<movie-lookbook-id> --source <project-relative-path> --sections palette --json
+renku media import --purpose lookbook.image --target lookbook:<movie-lookbook-id> --source <project-relative-path> --sections composition --anchor composition-clinical-symmetry --json
 renku media import --purpose lookbook.image --target lookbook:<storyboard-lookbook-id> --source <project-relative-path> --sections lineAndFinish --json
 renku lookbook image set-sections --image <lookbook-image-id> --sections valueAndAccent --json
 renku lookbook image set-sections --image <lookbook-image-id> --sections styleBrief --json

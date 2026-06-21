@@ -1,7 +1,7 @@
 {
   "kind": "movieLookbook",
-  "name": "Body Horror Care",
   "movieLookbook": {
+    "name": "Body Horror Care",
     "thesis": {
       "statement": "The look borrows the intensity of body-horror color logic but redirects it toward care, repair, and fear of intimacy.",
       "principles": ["Use one symbolic color as both attraction and alarm."]
@@ -9,7 +9,7 @@
     "palette": {
       "description": "A single acid color becomes the emotional switch inside otherwise restrained rooms.",
       "colors": [{ "hex": "#B7FF2A", "name": "Living signal", "meaning": "Desire, care, infection, and warning." }],
-      "observations": [{ "text": "The symbolic color should contaminate neutrals rather than sit beside them." }]
+      "observations": [{ "id": "palette-contaminating-color", "text": "The symbolic color should contaminate neutrals rather than sit beside them." }]
     },
     "toneMood": {
       "tone": "beautiful unease",
@@ -18,21 +18,21 @@
     },
     "composition": {
       "description": "Symmetry creates promise; interruptions create doubt.",
-      "patterns": [{ "name": "Perfect surface, broken edge", "description": "Keep frames controlled but let one edge betray instability." }]
+      "patterns": [{ "id": "composition-broken-edge", "name": "Perfect surface, broken edge", "description": "Keep frames controlled but let one edge betray instability." }]
     },
     "lighting": {
       "description": "Soft beauty light becomes suspect when colored sources enter.",
-      "patterns": [{ "name": "Soft corruption", "description": "Let gentle light be invaded by the symbolic color." }]
+      "patterns": [{ "id": "lighting-soft-corruption", "name": "Soft corruption", "description": "Let gentle light be invaded by the symbolic color." }]
     },
     "texture": {
       "description": "Gloss, skin, fabric, and condensation carry emotional and bodily stakes.",
-      "observations": [{ "text": "Texture should make beauty feel vulnerable." }]
+      "observations": [{ "id": "texture-vulnerable-beauty", "text": "Texture should make beauty feel vulnerable." }]
     },
     "camera": {
       "description": "The camera treats intimacy as evidence.",
-      "movement": [{ "name": "Curious push", "description": "Push in when beauty becomes suspicious." }],
-      "motion": [{ "name": "Contained rupture", "description": "Hold still until the body or room breaks the pattern." }],
-      "framing": [{ "name": "Intimate specimen", "description": "Frame close details with care, not detachment." }]
+      "movement": [{ "id": "camera-curious-push", "name": "Curious push", "description": "Push in when beauty becomes suspicious." }],
+      "motion": [{ "id": "camera-contained-rupture", "name": "Contained rupture", "description": "Hold still until the body or room breaks the pattern." }],
+      "framing": [{ "id": "camera-intimate-specimen", "name": "Intimate specimen", "description": "Frame close details with care, not detachment." }]
     }
   },
   "sourceInspirationFolderIds": []

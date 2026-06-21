@@ -7,8 +7,8 @@ Lookbook input is a tagged JSON document. Use one of the current Lookbook kinds:
 ```json
 {
   "kind": "movieLookbook",
-  "name": "Cold Civic Glow",
   "movieLookbook": {
+    "name": "Cold Civic Glow",
     "thesis": {
       "statement": "Project visual-language thesis.",
       "principles": ["Repeatable visual principle."]
@@ -22,7 +22,7 @@ Lookbook input is a tagged JSON document. Use one of the current Lookbook kinds:
           "meaning": "Care that has become unstable."
         }
       ],
-      "observations": [{ "text": "Specific palette observation." }]
+      "observations": [{ "id": "palette-cold-glow", "text": "Specific palette observation." }]
     },
     "toneMood": {
       "tone": "short tonal phrase",
@@ -31,21 +31,21 @@ Lookbook input is a tagged JSON document. Use one of the current Lookbook kinds:
     },
     "composition": {
       "description": "Overall compositional strategy.",
-      "patterns": [{ "name": "Pattern name", "description": "How it works." }]
+      "patterns": [{ "id": "composition-pattern-name", "name": "Pattern name", "description": "How it works." }]
     },
     "lighting": {
       "description": "Overall lighting strategy.",
-      "patterns": [{ "name": "Lighting pattern", "description": "How it works." }]
+      "patterns": [{ "id": "lighting-pattern", "name": "Lighting pattern", "description": "How it works." }]
     },
     "texture": {
       "description": "Surface, grain, atmosphere, and material strategy.",
-      "observations": [{ "text": "Specific texture observation." }]
+      "observations": [{ "id": "texture-observation", "text": "Specific texture observation." }]
     },
     "camera": {
       "description": "Camera strategy.",
-      "movement": [{ "name": "Movement rule", "description": "When and why the camera moves." }],
-      "motion": [{ "name": "Motion rule", "description": "How motion behaves." }],
-      "framing": [{ "name": "Framing rule", "description": "How frames are built." }]
+      "movement": [{ "id": "camera-movement-rule", "name": "Movement rule", "description": "When and why the camera moves." }],
+      "motion": [{ "id": "camera-motion-rule", "name": "Motion rule", "description": "How motion behaves." }],
+      "framing": [{ "id": "camera-framing-rule", "name": "Framing rule", "description": "How frames are built." }]
     }
   },
   "sourceInspirationFolderIds": ["inspiration_folder_abc"]
@@ -53,6 +53,18 @@ Lookbook input is a tagged JSON document. Use one of the current Lookbook kinds:
 ```
 
 Valid Movie Lookbook image sections are `thesis`, `palette`, `toneMood`, `composition`, `lighting`, `texture`, and `camera`.
+
+### Point ids (Movie Lookbooks)
+
+Every `pattern` (in `composition`, `lighting`, and `camera.movement`/`motion`/`framing`) and every `observation` (in `palette` and `texture`) carries a stable `id` that is unique within the Lookbook. Use a readable `<section>-<slug>` form, e.g. `composition-clinical-symmetry`, `palette-biological-green`, `camera-controlled-drift`.
+
+These ids let a generated example image be anchored to the exact point it demonstrates at import time:
+
+```bash
+renku media import --purpose lookbook.image --target lookbook:<movie-lookbook-id> --source <file> --sections composition --anchor composition-clinical-symmetry --json
+```
+
+`--anchor` requires exactly one `--sections` value: the section that owns the point. An image imported without `--anchor` stays section-level evidence. `thesis` and `toneMood` have no sub-points, so anchor them at the section level with `--sections` only. Storyboard Lookbook sections are single-point and never use point ids or `--anchor`.
 
 ## Storyboard Lookbook
 
@@ -133,4 +145,5 @@ Rules:
 - If `sourceInspirationFolderIds` is omitted on update, existing source relationships are preserved.
 - If `sourceInspirationFolderIds` is `[]`, existing source relationships are cleared.
 - Do not include `imageFiles` anywhere.
-- Attach generated examples with `renku media import --purpose lookbook.image ...`.
+- Give every Movie Lookbook `pattern` and `observation` a stable, Lookbook-unique `id` (see "Point ids" above). Storyboard sections are single-point and take no `id`.
+- Attach generated examples with `renku media import --purpose lookbook.image ...`, using `--anchor <point-id>` to pin an image to a specific pattern or observation.

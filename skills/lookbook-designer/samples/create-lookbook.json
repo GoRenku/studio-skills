@@ -1,7 +1,7 @@
 {
   "kind": "movieLookbook",
-  "name": "Surgical Intimacy",
   "movieLookbook": {
+    "name": "Surgical Intimacy",
     "thesis": {
       "statement": "The movie should feel precise, intimate, and slightly contaminated. Beauty is allowed, but it always carries a trace of threat.",
       "principles": ["Let tenderness and danger share the same visual language."]
@@ -9,7 +9,7 @@
     "palette": {
       "description": "Acid green marks unstable care against soft flesh tones and clinical whites.",
       "colors": [{ "hex": "#39FF75", "name": "Acid tenderness", "meaning": "Care that has become unstable." }],
-      "observations": [{ "text": "Green should feel biological and emotionally charged." }]
+      "observations": [{ "id": "palette-biological-green", "text": "Green should feel biological and emotionally charged." }]
     },
     "toneMood": {
       "tone": "surgical intimacy",
@@ -18,21 +18,21 @@
     },
     "composition": {
       "description": "Frames are centered and controlled until bodily pressure breaks them.",
-      "patterns": [{ "name": "Clinical symmetry", "description": "Use centered frames when identity or body becomes an argument." }]
+      "patterns": [{ "id": "composition-clinical-symmetry", "name": "Clinical symmetry", "description": "Use centered frames when identity or body becomes an argument." }]
     },
     "lighting": {
       "description": "Institutional softness is interrupted by charged colored sources.",
-      "patterns": [{ "name": "Contaminated practicals", "description": "Let green practicals corrupt clean rooms." }]
+      "patterns": [{ "id": "lighting-contaminated-practicals", "name": "Contaminated practicals", "description": "Let green practicals corrupt clean rooms." }]
     },
     "texture": {
       "description": "Skin, gloss, condensation, and plastic make clean spaces feel biological.",
-      "observations": [{ "text": "Surfaces should be touchable, slightly wet, and too visible." }]
+      "observations": [{ "id": "texture-wet-surfaces", "text": "Surfaces should be touchable, slightly wet, and too visible." }]
     },
     "camera": {
       "description": "Camera grammar stays precise until control collapses.",
-      "movement": [{ "name": "Controlled drift", "description": "Move slowly when unease merges with desire." }],
-      "motion": [{ "name": "Sudden rupture", "description": "Reserve abrupt motion for breaks in control." }],
-      "framing": [{ "name": "Body as diagram", "description": "Frame bodies like evidence without losing empathy." }]
+      "movement": [{ "id": "camera-controlled-drift", "name": "Controlled drift", "description": "Move slowly when unease merges with desire." }],
+      "motion": [{ "id": "camera-sudden-rupture", "name": "Sudden rupture", "description": "Reserve abrupt motion for breaks in control." }],
+      "framing": [{ "id": "camera-body-as-diagram", "name": "Body as diagram", "description": "Frame bodies like evidence without losing empathy." }]
     }
   },
   "sourceInspirationFolderIds": []

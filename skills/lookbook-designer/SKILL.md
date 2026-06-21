@@ -133,9 +133,10 @@ renku lookbook show --lookbook <lookbook-id> --json
 - Do not add or depend on image lists in Inspiration CLI results. Use returned folder paths and shell commands.
 - Do not register Inspiration folder images as assets.
 - Do not store `imageFiles` in Lookbook JSON.
+- Give every Movie Lookbook `pattern` and `observation` a stable, Lookbook-unique `id` (e.g. `composition-clinical-symmetry`) so example images can be anchored to the exact point. Storyboard sections are single-point and take no `id`.
 - Do not attach example images by editing Lookbook JSON.
 - Use `media-producer` for generating purpose-specific Lookbook images and sheets.
-- Use `renku media import --purpose lookbook.image --target lookbook:<lookbook-id>` for placing an existing generated or uploaded image into the Lookbook.
+- Use `renku media import --purpose lookbook.image --target lookbook:<lookbook-id>` for placing an existing generated or uploaded image into the Lookbook, adding `--anchor <point-id>` to pin a Movie Lookbook image to a specific pattern or observation.
 - Validate before create or update.
 - Read the existing Lookbook before updating it.
 - Do not select a Lookbook unless the user asked or the workflow explicitly requires it.

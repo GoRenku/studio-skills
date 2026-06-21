@@ -53,9 +53,10 @@ Import finished media with the agent-reviewed section tags:
 
 ```bash
 renku media import --purpose lookbook.image --target lookbook:<movie-lookbook-id> --source generated/media/<file> --sections palette --json
+renku media import --purpose lookbook.image --target lookbook:<movie-lookbook-id> --source generated/media/<file> --sections composition --anchor composition-clinical-symmetry --json
 renku media import --purpose lookbook.image --target lookbook:<storyboard-lookbook-id> --source generated/media/<file> --sections lineAndFinish --json
 ```
 
-Use Movie Lookbook section tags only for Movie Lookbooks and Storyboard Lookbook section tags only for Storyboard Lookbooks. For Storyboard Lookbooks, tag exactly one style aspect per image so it appears next to the matching style widget, and set the `styleBrief` image as the card image / hero. For Movie Lookbooks, prefer one to three sections. Do not tag all sections unless the image visibly and specifically demonstrates every section. If no section is clear, do not import automatically; explain why and ask whether to import it unsectioned, revise the spec, or approve another paid generation.
+Use Movie Lookbook section tags only for Movie Lookbooks and Storyboard Lookbook section tags only for Storyboard Lookbooks. For Storyboard Lookbooks, tag exactly one style aspect per image so it appears next to the matching style widget, and set the `styleBrief` image as the card image / hero. For Movie Lookbooks, prefer one to three sections. When a Movie Lookbook image clearly demonstrates one specific `composition`/`lighting`/`camera` pattern or `palette`/`texture` observation, anchor it to that point's `id` with `--anchor <point-id>` (paired with the single `--sections` that owns the point) so it renders beside that point; read the available point ids from `renku lookbook show`. Do not tag all sections unless the image visibly and specifically demonstrates every section. If no section is clear, do not import automatically; explain why and ask whether to import it unsectioned, revise the spec, or approve another paid generation.
 
 A good Storyboard Lookbook sample image should be useful later as visual evidence for drawing style. It should not be a final film still, marketing poster, or generic mood image.
