@@ -48,6 +48,17 @@ Use `media-producer` for generation specs, estimates, approved runs, inspection,
 
 Current media purposes include Lookbook images/sheets, cast character sheets, cast profiles, location environment sheets, scene storyboard sheets, shot reference inputs, and shot video takes.
 
+## Lookbook Image Placement
+
+Use the Lookbook command surface for existing Lookbook image placement changes:
+
+```bash
+renku lookbook image set-placement --image <lookbook-image-id> --sections <section>[,<section>] --json
+renku lookbook image set-placement --image <lookbook-image-id> --sections <section> --anchor <lookbook-point-id> --json
+```
+
+Do not use discard plus media import to retag or re-anchor an existing Lookbook image. `renku lookbook image discard` is only for intentional removal from the Lookbook.
+
 ## Hard Gaps
 
 - Costume-variant media and voice sample media are not first-class purposes.

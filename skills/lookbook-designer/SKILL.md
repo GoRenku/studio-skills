@@ -136,7 +136,9 @@ renku lookbook show --lookbook <lookbook-id> --json
 - Give every Movie Lookbook `pattern` and `observation` a stable, Lookbook-unique `id` (e.g. `composition-clinical-symmetry`) so example images can be anchored to the exact point. Storyboard sections are single-point and take no `id`.
 - Do not attach example images by editing Lookbook JSON.
 - Use `media-producer` for generating purpose-specific Lookbook images and sheets.
-- Use `renku media import --purpose lookbook.image --target lookbook:<lookbook-id>` for placing an existing generated or uploaded image into the Lookbook, adding `--anchor <point-id>` to pin a Movie Lookbook image to a specific pattern or observation.
+- Use `renku media import --purpose lookbook.image --target lookbook:<lookbook-id>` only when attaching a file that is not already a Lookbook image, adding `--anchor <point-id>` to pin a Movie Lookbook image to a specific pattern or observation.
+- Use `renku lookbook image set-placement --image <lookbook-image-id> --sections <section>[,<section>] [--anchor <point-id>] --json` to retag or re-anchor an existing Lookbook image.
+- Never discard and re-import a Lookbook image merely to change its section or point placement. `renku lookbook image discard` is only for intentional removal requested by the user.
 - Validate before create or update.
 - Read the existing Lookbook before updating it.
 - Do not select a Lookbook unless the user asked or the workflow explicitly requires it.

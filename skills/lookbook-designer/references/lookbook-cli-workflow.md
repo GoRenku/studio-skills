@@ -64,12 +64,15 @@ renku lookbook clear-selection --type storyboard --json
 renku media import --purpose lookbook.image --target lookbook:<movie-lookbook-id> --source <project-relative-path> --sections palette --json
 renku media import --purpose lookbook.image --target lookbook:<movie-lookbook-id> --source <project-relative-path> --sections composition --anchor composition-clinical-symmetry --json
 renku media import --purpose lookbook.image --target lookbook:<storyboard-lookbook-id> --source <project-relative-path> --sections lineAndFinish --json
-renku lookbook image set-sections --image <lookbook-image-id> --sections valueAndAccent --json
-renku lookbook image set-sections --image <lookbook-image-id> --sections styleBrief --json
+renku lookbook image set-placement --image <lookbook-image-id> --sections valueAndAccent --json
+renku lookbook image set-placement --image <lookbook-image-id> --sections styleBrief --json
+renku lookbook image set-placement --image <lookbook-image-id> --sections composition --anchor composition-clinical-symmetry --json
 renku lookbook card-image set --lookbook <storyboard-lookbook-id> --image <styleBrief-image-id> --json
 ```
 
 Use `--image` for Lookbook image IDs. Use `--file` only for JSON input files. Use `--source` for project-relative media source files.
+
+For an existing Lookbook image, use `renku lookbook image set-placement` to change section tags or point anchors. Do not use `renku lookbook image discard` plus `renku media import` as a retagging workflow. If `set-placement` is unavailable, stop and report the missing CLI support instead of creating duplicate media.
 
 Source Inspiration relationships:
 
