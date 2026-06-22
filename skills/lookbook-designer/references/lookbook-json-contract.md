@@ -62,9 +62,12 @@ These ids let a generated example image be anchored to the exact point it demons
 
 ```bash
 renku media import --purpose lookbook.image --target lookbook:<movie-lookbook-id> --source <file> --sections composition --anchor composition-clinical-symmetry --json
+renku media import --purpose lookbook.image --target lookbook:<movie-lookbook-id> --source <file> --sections thesis,texture --anchor texture-cannon-material-states --json
 ```
 
-`--anchor` requires exactly one `--sections` value: the section that owns the point. An image imported without `--anchor` stays section-level evidence. `thesis` and `toneMood` have no sub-points, so anchor them at the section level with `--sections` only. Storyboard Lookbook sections are single-point and never use point ids or `--anchor`.
+`--anchor` requires `--sections` to include the section that owns the point. That owning section becomes point-level evidence; any additional `--sections` values stay section-level evidence. For example, `--sections thesis,texture --anchor texture-cannon-material-states` makes one image appear under the Movie thesis and beside the texture point. An image imported without `--anchor` stays section-level evidence. `thesis` and `toneMood` have no sub-points, so place them with `--sections` only unless they are an additional broad placement alongside some other anchored point. Storyboard Lookbook sections are single-point and never use point ids or `--anchor`.
+
+Movie `thesis` is single-image placement. A new Thesis placement replaces the previous Thesis placement without discarding that previous image or stripping its other placements. Other Movie section and point placements can hold up to 10 images.
 
 ## Storyboard Lookbook
 
@@ -146,4 +149,4 @@ Rules:
 - If `sourceInspirationFolderIds` is `[]`, existing source relationships are cleared.
 - Do not include `imageFiles` anywhere.
 - Give every Movie Lookbook `pattern` and `observation` a stable, Lookbook-unique `id` (see "Point ids" above). Storyboard sections are single-point and take no `id`.
-- Attach generated examples with `renku media import --purpose lookbook.image ...`, using `--anchor <point-id>` to pin an image to a specific pattern or observation.
+- Attach generated examples with `renku media import --purpose lookbook.image ...`, using `--sections thesis` for Movie thesis hero evidence and `--anchor <point-id>` to pin an image to a specific pattern or observation when the point-owning section is included in `--sections`.

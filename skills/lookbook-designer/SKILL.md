@@ -136,8 +136,10 @@ renku lookbook show --lookbook <lookbook-id> --json
 - Give every Movie Lookbook `pattern` and `observation` a stable, Lookbook-unique `id` (e.g. `composition-clinical-symmetry`) so example images can be anchored to the exact point. Storyboard sections are single-point and take no `id`.
 - Do not attach example images by editing Lookbook JSON.
 - Use `media-producer` for generating purpose-specific Lookbook images and sheets.
-- Use `renku media import --purpose lookbook.image --target lookbook:<lookbook-id>` only when attaching a file that is not already a Lookbook image, adding `--anchor <point-id>` to pin a Movie Lookbook image to a specific pattern or observation.
-- Use `renku lookbook image set-placement --image <lookbook-image-id> --sections <section>[,<section>] [--anchor <point-id>] --json` to retag or re-anchor an existing Lookbook image.
+- Use `renku media import --purpose lookbook.image --target lookbook:<lookbook-id>` only when attaching a file that is not already a Lookbook image. Use `--sections thesis` for a Movie thesis hero image; use `--sections styleBrief` for a Storyboard hero/card candidate.
+- For Movie Lookbook point evidence, add `--anchor <point-id>` and include the point-owning section in `--sections`. Additional sections remain section-level placements, e.g. `--sections thesis,texture --anchor texture-cannon-material-states` shows the image under Thesis and beside that Texture point.
+- Movie `thesis` is a single-image slot. A new image imported or placed with `--sections thesis` replaces the previous Thesis placement without discarding that previous image or removing its other placements. Other Movie section and point placements append until the slot has 10 images.
+- Use `renku lookbook image set-placement --image <lookbook-image-id> --sections <section>[,<section>] [--anchor <point-id>] --json` to retag or re-anchor an existing Lookbook image with the same placement rules.
 - Never discard and re-import a Lookbook image merely to change its section or point placement. `renku lookbook image discard` is only for intentional removal requested by the user.
 - Validate before create or update.
 - Read the existing Lookbook before updating it.

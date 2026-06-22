@@ -55,9 +55,10 @@ Use the Lookbook command surface for existing Lookbook image placement changes:
 ```bash
 renku lookbook image set-placement --image <lookbook-image-id> --sections <section>[,<section>] --json
 renku lookbook image set-placement --image <lookbook-image-id> --sections <section> --anchor <lookbook-point-id> --json
+renku lookbook image set-placement --image <lookbook-image-id> --sections thesis,<point-owning-section> --anchor <lookbook-point-id> --json
 ```
 
-Do not use discard plus media import to retag or re-anchor an existing Lookbook image. `renku lookbook image discard` is only for intentional removal from the Lookbook.
+Do not use discard plus media import to retag or re-anchor an existing Lookbook image. `set-placement` replaces the image placement set, so include every section and optional point anchor the image should keep. Movie `thesis` is a single-image placement: a new Thesis placement replaces the previous Thesis placement without discarding that previous image or removing its other placements. Other Movie section and point placements append until the slot has 10 images. `renku lookbook image discard` is only for intentional removal from the Lookbook.
 
 ## Hard Gaps
 
