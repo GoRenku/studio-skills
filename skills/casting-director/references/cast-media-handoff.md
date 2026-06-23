@@ -10,6 +10,14 @@ renku generation context --purpose cast.profile --target cast:<cast-member-id> -
 renku generation context --purpose cast.voice-sample --target cast:<cast-member-id> --json
 ```
 
+For Cast Members with `isVoiceOver: true`, hand off profile image requests to
+`media-producer` as `cast.profile` only. The profile image is a symbolic
+navigation/display asset, not a character sheet or physical character
+reference. Do not request `cast.character-sheet` for a voice-over Cast Member
+unless the user first changes that Cast Member into a visible on-screen role.
+Voice identity and sample audio remain separate Cast Voice / `cast.voice-sample`
+work.
+
 Before handoff, read `renku cast design context --cast <cast-member-id> --json` and summarize:
 
 - cast facts that matter;

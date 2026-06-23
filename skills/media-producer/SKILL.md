@@ -5,7 +5,7 @@ description: Generate or import purpose-specific media for Renku Studio projects
 
 # Media Producer
 
-Use this skill when the user wants to create or attach media for a Renku Studio purpose, such as a Lookbook demonstration image, Lookbook sheet (`lookbook.sheet`), cast character sheet, cast profile image, location environment sheet, scene storyboard sheet, shot first frame (`shot.first-frame`), shot last frame (`shot.last-frame`), ad hoc shot reference image (`shot.reference-image`), shot multi-shot storyboard sheet (`shot.multi-shot-storyboard-sheet`), final shot video take (`shot.video-take`), future scene mood frame, or cast voice sample (`cast.voice-sample`).
+Use this skill when the user wants to create or attach media for a Renku Studio purpose, such as a Lookbook demonstration image, Lookbook sheet (`lookbook.sheet`), cast character sheet, cast profile image, voice-over profile image, location environment sheet, scene storyboard sheet, shot first frame (`shot.first-frame`), shot last frame (`shot.last-frame`), ad hoc shot reference image (`shot.reference-image`), shot multi-shot storyboard sheet (`shot.multi-shot-storyboard-sheet`), final shot video take (`shot.video-take`), future scene mood frame, or cast voice sample (`cast.voice-sample`).
 
 This is not a generic image prompt skill. Renku is the context engine and the project metadata boundary: first ask Renku what the media is for, then choose the correct execution path. For Renku-managed paid generation, create or update a persisted spec that captures the user's binding choices. For Codex built-in image generation, generate the image with the system `$imagegen` path, save the finished file inside the Renku project, and attach it with the same purpose-specific Renku import command.
 
@@ -105,6 +105,17 @@ generation run id, or provider receipt. Still inspect the image before import,
 but treat revisions as Codex image iterations rather than Renku paid
 regeneration unless the user explicitly switches to a Renku-managed provider
 run.
+
+## Voice-Over Profile Images
+
+For voice-only Cast Member profile images, use the detailed operational
+reference:
+
+- `references/voice-over-profile-image.md`
+
+Voice-over profile images use the existing `cast.profile` purpose. They are
+symbolic navigation/display images only, not character sheets, physical
+character references, or voice samples.
 
 ## Cast Voice Sample
 

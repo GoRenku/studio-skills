@@ -21,6 +21,12 @@ text-to-image when no source sheet exists or the user wants a looser
 interpretation. Use edit models when the user wants continuity with a selected
 character sheet.
 
+For Cast Members with `isVoiceOver: true`, do not require or generate a
+character sheet first. Use `cast.profile` for a symbolic navigation/display
+image and read `voice-over-profile-image.md` before drafting the prompt. The
+image must not show a face, body, silhouette, avatar, stock microphone scene, or
+other physical character substitute.
+
 Renku-managed model notes:
 
 - `fal-ai/openai/gpt-image-2`
