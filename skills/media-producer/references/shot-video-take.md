@@ -14,7 +14,11 @@ Shot-video work starts by establishing the working take. Explicit user reference
 - `shot.multi-shot-storyboard-sheet`: one storyboard planning sheet for an ordered multi-shot take.
 - `shot.video-take`: final video output attached to the take while preserving its ordered shot ids.
 
-Use `fal-ai/openai/gpt-image-2` as the default image dependency model unless the user or model report chooses another supported dependency image model.
+For image dependencies, use Codex built-in image generation when the user asks
+for Codex, `$imagegen`, built-in GPT-Image 2, or no-extra-cost image generation.
+Use Renku-managed image models such as `fal-ai/openai/gpt-image-2` only when the
+user chooses app-side/provider generation or wants Renku generation records and
+cost estimates. Final `shot.video-take` video generation remains Renku-managed.
 
 ## Resolve Context
 
@@ -215,7 +219,7 @@ selected route supports that provider field before estimating or running.
 
 ## Spec Lifecycle
 
-For every dependency and final video spec:
+For every Renku-managed dependency and final video spec:
 
 1. Validate: `renku generation spec validate --file <spec-json> --json`.
 2. Persist: `renku generation spec create --file <spec-json> --json`.
@@ -240,6 +244,9 @@ renku media import \
 
 Use the matching concrete purpose for `shot.last-frame`, `shot.reference-image`, and `shot.multi-shot-storyboard-sheet`. The Studio References tab shows imported/generated first frames, last frames, ad hoc reference images, and multi-shot storyboard sheets for the relevant take.
 
+Omit `--receipt` when an image dependency came from Codex built-in image
+generation or another non-Renku source.
+
 Final video import attaches the video output to the take and preserves the ordered shot rows:
 
 ```bash
@@ -258,12 +265,12 @@ Scenario: the user asks for a take for Shot 3, input mode is `first-last-frame`,
 
 1. Read context, model choices, and reusable inputs.
 2. Author `shot.first-frame` and `shot.last-frame` dependency drafts from the selected shot design and references.
-3. Validate, create, estimate, approve, run, inspect, and import each dependency.
+3. Generate or import each dependency. If using Codex built-in image generation, prompt `$imagegen`, save the selected stills inside the project, inspect them, and import without receipts. If using Renku-managed image generation, validate, create, estimate, approve, run, inspect, and import each dependency.
 4. Update take-owned production with `inputModeId`, video model, parameters, selected inputs, dependency drafts, and final prompt draft.
 5. Run preflight. It must show no missing first/last-frame inputs before final video generation.
 6. Create, estimate, approve, run, inspect, and import the final `shot.video-take`.
 
-Expected result: dependency assets are reusable later, final video is attached to Shot 3, and approval binds to the exact prompt, parameters, first frame, and last frame files.
+Expected result: dependency assets are reusable later, final video is attached to Shot 3, and final video approval binds to the exact prompt, parameters, first frame, and last frame files.
 
 ## Example: Multi-Shot Group With Storyboard Sheet
 
@@ -273,7 +280,7 @@ Scenario: the user creates a take for Shot 3 and Shot 4 and the final generation
 2. Read reusable inputs. Reuse a `multi-shot-storyboard-sheet` only when it matches exactly `shot_003,shot_004` in that order.
 3. If regenerating, clear the slot.
 4. Create `shot.multi-shot-storyboard-sheet` from `shot-multi-shot-storyboard-sheet.md`.
-5. Validate, create, estimate, approve, run, inspect, and import the storyboard sheet.
+5. Generate or import the storyboard sheet. If using Codex built-in image generation, prompt `$imagegen`, save the selected sheet inside the project, inspect it, and import without a receipt. If using Renku-managed image generation, validate, create, estimate, approve, run, inspect, and import the storyboard sheet.
 6. Write the take production proposal and final prompt as one continuous video while preserving shot boundaries.
 7. Run preflight. Core maps logical prepared inputs to provider fields and returns diagnostics if a selected logical role is unsupported.
 8. Create, estimate, approve, run, inspect, and import one final `shot.video-take` spec. Do not run separate final videos per shot.

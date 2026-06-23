@@ -23,6 +23,10 @@ Every generated `shot.reference-image` spec must include:
 
 If the reference need is vague, ask the user to name what the image is for. Do not generate a generic helpful reference.
 
+If the user wants Codex built-in image generation, use the same authored
+reference intent to prompt `$imagegen`, save the selected image inside the
+project, inspect it, and import it without `--receipt`.
+
 ## Multiple References
 
 Multiple `reference-image` inputs may be generated/imported for the same single-shot or multi-shot take. Keep each one separate and title each by intent. Examples:
@@ -38,3 +42,6 @@ After import, these appear in the Studio shot References tab alongside first fra
 ```bash
 renku media import --purpose shot.reference-image --target scene:<scene-id> --take <take-id> --source generated/media/<reference>.png --title <reference-intent-title> --selection select --receipt <run-json> --json
 ```
+
+Omit `--receipt` when the reference image came from Codex built-in image
+generation or another non-Renku source.

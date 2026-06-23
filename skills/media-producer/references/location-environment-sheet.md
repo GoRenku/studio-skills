@@ -7,13 +7,14 @@ Target format: `location:<location-id>`
 ## Required Workflow
 
 1. Read context with `renku generation context --purpose location.environment-sheet --target location:<location-id> --json`.
-2. List model choices with `renku generation model list --purpose location.environment-sheet --target location:<location-id> --json` unless the user already chose a model.
-3. Verify the target Location exists in the screenplay location list.
-4. If the intended historical place is missing, ask the user or screenplay agent to add a Location first.
-5. Create a persisted spec and estimate cost before any paid run.
-6. Run only after user approval for both the estimated cost and sending project-derived prompt/context to the provider. Request sandbox/network permission before the first real run, because Renku will contact the approved provider with that approved context.
-7. Inspect the returned composite, use vision to identify the four scenic image blocks, crop those four blocks, and inspect the four slices.
-8. Import only when the sheet has four useful views of the same location.
+2. If the user wants Codex built-in image generation, use the context below to prompt `$imagegen`, save the selected composite inside the project, inspect it, crop the four scenic views, and import the grouped files without a receipt.
+3. For Renku-managed generation, list model choices with `renku generation model list --purpose location.environment-sheet --target location:<location-id> --json` unless the user already chose a model.
+4. Verify the target Location exists in the screenplay location list.
+5. If the intended historical place is missing, ask the user or screenplay agent to add a Location first.
+6. For Renku-managed generation, create a persisted spec and estimate cost before any paid run.
+7. For Renku-managed generation, run only after user approval for both the estimated cost and sending project-derived prompt/context to the provider. Request sandbox/network permission before the first real run, because Renku will contact the approved provider with that approved context.
+8. Inspect the returned composite, use vision to identify the four scenic image blocks, crop those four blocks, and inspect the four slices.
+9. Import only when the sheet has four useful views of the same location.
 
 ## Prompt Inputs
 
@@ -60,7 +61,9 @@ Do not dump a generic anachronism list into every prompt. Choose exclusions from
 
 ## Vision-Guided Cropping Expectations
 
-Renku generates one provider image, then the agent uses vision to locate the four actual scenic image blocks. Crop only those four blocks:
+Renku-managed generation or Codex built-in image generation creates one
+composite image. The agent then uses vision to locate the four actual scenic
+image blocks. Crop only those four blocks:
 
 - `view_front`
 - `view_right`
@@ -74,4 +77,5 @@ Crop around the image content, not the panel frame. Exclude labels, azimuth text
 Do not import automatically when the image no longer provides four clean useful
 views. Show the composite to the user, explain that the generation is not good
 enough for a location sheet, and ask whether to accept it with caveats, revise
-the location details/spec, or approve another paid generation.
+the location details/spec, or approve another Codex image iteration or
+Renku-managed paid generation.

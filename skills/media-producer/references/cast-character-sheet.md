@@ -4,12 +4,17 @@ Purpose key: `cast.character-sheet`
 
 Target format: `cast:<cast-member-id>`
 
-Read context and model choices first:
+Read Renku context first. For Renku-managed generation, also read model
+choices:
 
 ```bash
 renku generation context --purpose cast.character-sheet --target cast:<cast-member-id> --json
 renku generation model list --purpose cast.character-sheet --target cast:<cast-member-id> --json
 ```
+
+If the user wants Codex built-in image generation, use the context, Cast Design,
+Movie Lookbook, and quality gate below to prompt `$imagegen`, save the selected
+sheet inside the project, inspect it, and import it without `--receipt`.
 
 Character sheet generation requires an selected Movie Lookbook. The sheet should
 synthesize:
@@ -22,7 +27,7 @@ synthesize:
 - active Cast Design `generationGuidance`, `continuity`, likeness anchors,
   costume variants, and explicit user constraints.
 
-Best current models:
+Renku-managed model notes:
 
 - `fal-ai/openai/gpt-image-2` for realistic, high-caliber, tactile
   production-reference sheets, especially when matching an existing realistic
@@ -85,7 +90,8 @@ Style and quality gate:
   against a realistic Lookbook, contains garbled dominant labels, misses the
   likeness, or includes irrelevant props, do not import it automatically. Give
   the user a concrete QA assessment and recommend whether to accept it with
-  caveats or approve a revised paid regeneration.
+  caveats or approve a revised Codex image iteration or Renku-managed paid
+  regeneration.
 
 Import the selected take:
 

@@ -8,6 +8,10 @@ Read `generation context` for the selected take before drafting. Use `context.ta
 
 If a required character sheet, location sheet, lookbook sheet, custom reference image, first frame, or last frame is missing, let preflight report the missing dependency. Do not create loosely described first/last frames to paper over missing references.
 
+If the user wants Codex built-in image generation, use this same authored
+context to prompt `$imagegen`, save the selected still inside the project,
+inspect it, and import it without `--receipt`.
+
 ## First Frame Prompt Must Specify
 
 - exact opening composition;
@@ -48,5 +52,8 @@ Author the first frame for Shot 3. Composition: medium close-up, low angle, hand
 ```bash
 renku media import --purpose shot.first-frame --target scene:<scene-id> --take <take-id> --source generated/media/<first-frame>.png --selection select --receipt <run-json> --json
 ```
+
+Omit `--receipt` when the still came from Codex built-in image generation or
+another non-Renku source.
 
 Use `shot.last-frame` for the closing image.

@@ -9,13 +9,14 @@ Target format: `scene:<scene-id>`
 1. Read context with `renku generation context --purpose scene.storyboard-sheet --target scene:<scene-id> --shot-list <shot-list-id> --json`.
 2. If context fails because there is no selected Storyboard Lookbook, stop and dispatch to `lookbook-designer` to create/select one. Do not substitute the selected Movie Lookbook.
 3. If dependency planning reports a missing `lookbook-sheet` for the selected Storyboard Lookbook, generate or import `lookbook.sheet` for that Storyboard Lookbook first.
-4. List model choices with `renku generation model list --purpose scene.storyboard-sheet --target scene:<scene-id> --shot-list <shot-list-id> --json` unless the user already chose one.
-5. Verify the target Scene and Shot List exist.
-6. Split the selected shots into batches of at most four shots.
-7. Create one persisted spec per batch and estimate cost before any paid run.
-8. Run only after user approval for both cost and sending project-derived prompt/context to the external provider. Request sandbox/network permission before the first real run, because Renku will contact the approved provider.
-9. Inspect each returned composite, use vision to identify the actual storyboard panel image blocks, crop those blocks, and inspect every slice.
-10. Import only when the sheets and all slices are clean, useful, and match the resolved shot aspect ratio.
+4. If the user wants Codex built-in image generation, use the context below to prompt `$imagegen`, save each selected composite inside the project, inspect it, crop the storyboard panel image blocks, and import the cropped shot images without receipts.
+5. For Renku-managed generation, list model choices with `renku generation model list --purpose scene.storyboard-sheet --target scene:<scene-id> --shot-list <shot-list-id> --json` unless the user already chose one.
+6. Verify the target Scene and Shot List exist.
+7. Split the selected shots into batches of at most four shots.
+8. For Renku-managed generation, create one persisted spec per batch and estimate cost before any paid run.
+9. For Renku-managed generation, run only after user approval for both cost and sending project-derived prompt/context to the external provider. Request sandbox/network permission before the first real run, because Renku will contact the approved provider.
+10. Inspect each returned composite, use vision to identify the actual storyboard panel image blocks, crop those blocks, and inspect every slice.
+11. Import only when the sheets and all slices are clean, useful, and match the resolved shot aspect ratio.
 
 ## Prompt Inputs
 
@@ -80,9 +81,10 @@ generating.
 
 ## Vision-Guided Cropping Expectations
 
-Renku generates one provider image for each storyboard sheet. The agent then
-uses vision to locate the actual storyboard panel image blocks for the selected
-shots. Crop only those image blocks.
+Renku-managed generation or Codex built-in image generation creates one
+composite image for each storyboard sheet. The agent then uses vision to locate
+the actual storyboard panel image blocks for the selected shots. Crop only those
+image blocks.
 
 Crop around the image content, not the panel frame. Exclude labels, gutters,
 decorative sheet background, borders, debug marks, and any non-shot content
@@ -95,7 +97,7 @@ Do not import automatically when the image no longer provides clean useful
 storyboard panels for the selected shots. Show the composite to the user,
 explain that the generation is not good enough for a storyboard sheet, and ask
 whether to accept it with caveats, revise the storyboard/spec, or approve
-another paid generation.
+another Codex image iteration or Renku-managed paid generation.
 
 ## Import Expectations
 

@@ -4,19 +4,24 @@ Purpose key: `cast.profile`
 
 Target format: `cast:<cast-member-id>`
 
-Read context and model choices first:
+Read Renku context first. For Renku-managed generation, also read model
+choices:
 
 ```bash
 renku generation context --purpose cast.profile --target cast:<cast-member-id> --json
 renku generation model list --purpose cast.profile --target cast:<cast-member-id> --json
 ```
 
+If the user wants Codex built-in image generation, use the context and
+continuity guidance below to prompt `$imagegen`, save the selected profile image
+inside the project, inspect it, and import it without `--receipt`.
+
 Profile images should ideally derive from a character sheet first. Use
 text-to-image when no source sheet exists or the user wants a looser
 interpretation. Use edit models when the user wants continuity with a selected
 character sheet.
 
-Best current models:
+Renku-managed model notes:
 
 - `fal-ai/openai/gpt-image-2`
 - `fal-ai/nano-banana-2`

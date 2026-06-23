@@ -12,6 +12,10 @@ renku generation context --purpose shot.video-take --target scene:<scene-id> --t
 
 Use `context.target.shotIds` and `context.shots` exactly in order. Do not add, remove, reorder, or merge shots.
 
+If the user wants Codex built-in image generation, use the context and prompt
+structure below to prompt `$imagegen`, save the selected planning sheet inside
+the project, inspect it, and import it without `--receipt`.
+
 ## Per-Shot Extraction
 
 For each shot, extract:
@@ -69,11 +73,14 @@ Do not import automatically when:
 
 For any failed check, show or describe the sheet, explain the practical impact
 on downstream shot/video work, and ask whether the user wants to accept it with
-caveats, revise the spec, or approve a new paid generation. Do not regenerate
-automatically.
+caveats, revise the prompt/spec, or approve a Codex image iteration or
+Renku-managed paid generation. Do not regenerate automatically.
 
 Import only after inspection:
 
 ```bash
 renku media import --purpose shot.multi-shot-storyboard-sheet --target scene:<scene-id> --take <take-id> --source generated/media/<sheet>.png --selection select --receipt <run-json> --json
 ```
+
+Omit `--receipt` when the sheet came from Codex built-in image generation or
+another non-Renku source.

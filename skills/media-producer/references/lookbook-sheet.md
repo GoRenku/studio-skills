@@ -7,10 +7,11 @@ Target format: `lookbook:<lookbook-id>`
 ## Required Workflow
 
 1. Read context with `renku generation context --purpose lookbook.sheet --target lookbook:<lookbook-id> --json`.
-2. List model choices with `renku generation model list --purpose lookbook.sheet --target lookbook:<lookbook-id> --json` unless the user already chose one.
-3. Create one persisted spec and estimate cost before any paid run.
-4. Run only after user approval for both cost and sending project-derived prompt/context to the external provider. Request sandbox/network permission before the first real run, because Renku will contact the approved provider.
-5. Inspect the returned sheet before import. Import only when it works as a compact model-facing guide for the target Lookbook type.
+2. If the user wants Codex built-in image generation, use the context below to prompt `$imagegen`, save the selected sheet inside the project, inspect it, and import it without `--receipt`.
+3. For Renku-managed generation, list model choices with `renku generation model list --purpose lookbook.sheet --target lookbook:<lookbook-id> --json` unless the user already chose one.
+4. For Renku-managed generation, create one persisted spec and estimate cost before any paid run.
+5. For Renku-managed generation, run only after user approval for both cost and sending project-derived prompt/context to the external provider. Request sandbox/network permission before the first real run, because Renku will contact the approved provider.
+6. Inspect the returned sheet before import. Import only when it works as a compact model-facing guide for the target Lookbook type.
 
 ## Prompt Inputs
 
@@ -108,8 +109,8 @@ Do not import automatically when:
 
 If the take is close but weak, explain the weaknesses and the prompt changes
 that would improve it, then ask whether the user wants to accept it with caveats
-or approve another paid generation. Do not regenerate automatically. Do not crop
-or slice Lookbook sheets.
+or approve another Codex image iteration or Renku-managed paid generation. Do
+not regenerate automatically. Do not crop or slice Lookbook sheets.
 
 ## Import
 

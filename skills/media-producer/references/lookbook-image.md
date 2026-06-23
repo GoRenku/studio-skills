@@ -25,14 +25,19 @@ Lookbook). Examples include:
 - a guardrail example that demonstrates what to avoid, only when the prompt can
   keep the output useful.
 
-Read context and model choices first:
+Read Renku context first. For Renku-managed generation, also read model
+choices:
 
 ```bash
 renku generation context --purpose lookbook.image --target lookbook:<lookbook-id> --json
 renku generation model list --purpose lookbook.image --target lookbook:<lookbook-id> --json
 ```
 
-Persist a spec before estimating or running:
+If the user wants Codex built-in image generation, use the context and section
+intent below to prompt `$imagegen`, save the selected image inside the project,
+inspect it, and import it without `--receipt`.
+
+For Renku-managed generation, persist a spec before estimating or running:
 
 ```bash
 renku generation spec create --file lookbook-image-spec.json --json
@@ -59,7 +64,7 @@ renku media import --purpose lookbook.image --target lookbook:<movie-lookbook-id
 renku media import --purpose lookbook.image --target lookbook:<storyboard-lookbook-id> --source generated/media/<file> --sections lineAndFinish --json
 ```
 
-Use Movie Lookbook section tags only for Movie Lookbooks and Storyboard Lookbook section tags only for Storyboard Lookbooks. For Movie Lookbooks, `--sections thesis` is how a thesis hero/evidence image appears under The Thesis, and Thesis is single-image placement: importing a new Thesis image replaces the previous Thesis placement without discarding that previous image or removing its other placements. `toneMood` is also section-level only. For Storyboard Lookbooks, tag exactly one style aspect per image so it appears next to the matching style widget, and set the `styleBrief` image as the card image / hero. For Movie Lookbooks, prefer one to three sections. When a Movie Lookbook image clearly demonstrates one specific `composition`/`lighting`/`camera` pattern or `palette`/`texture` observation, anchor it to that point's `id` with `--anchor <point-id>` and include the point-owning section in `--sections`; any additional sections remain section-level placements. For example, `--sections thesis,texture --anchor texture-cannon-material-states` shows one image under The Thesis and beside that Texture point. Other Movie section and point placements append until the slot has 10 images. Read available point ids from `renku lookbook show`. Do not tag all sections unless the image visibly and specifically demonstrates every section. If no section is clear, do not import automatically; explain why and ask whether to import it unsectioned, revise the spec, or approve another paid generation.
+Use Movie Lookbook section tags only for Movie Lookbooks and Storyboard Lookbook section tags only for Storyboard Lookbooks. For Movie Lookbooks, `--sections thesis` is how a thesis hero/evidence image appears under The Thesis, and Thesis is single-image placement: importing a new Thesis image replaces the previous Thesis placement without discarding that previous image or removing its other placements. `toneMood` is also section-level only. For Storyboard Lookbooks, tag exactly one style aspect per image so it appears next to the matching style widget, and set the `styleBrief` image as the card image / hero. For Movie Lookbooks, prefer one to three sections. When a Movie Lookbook image clearly demonstrates one specific `composition`/`lighting`/`camera` pattern or `palette`/`texture` observation, anchor it to that point's `id` with `--anchor <point-id>` and include the point-owning section in `--sections`; any additional sections remain section-level placements. For example, `--sections thesis,texture --anchor texture-cannon-material-states` shows one image under The Thesis and beside that Texture point. Other Movie section and point placements append until the slot has 10 images. Read available point ids from `renku lookbook show`. Do not tag all sections unless the image visibly and specifically demonstrates every section. If no section is clear, do not import automatically; explain why and ask whether to import it unsectioned, revise the prompt/spec, or approve another Codex image iteration or Renku-managed paid generation.
 
 If the file is already attached as a Lookbook image, do not import it again. Change section tags or point anchors in place with `renku lookbook image set-placement --image <lookbook-image-id> --sections <section>[,<section>] [--anchor <point-id>] --json`; include every placement the image should keep because the command replaces the placement set. Use `discard` only for user-requested removal.
 

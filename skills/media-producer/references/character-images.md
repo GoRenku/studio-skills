@@ -42,7 +42,7 @@ Quality bar:
   likeness, adds irrelevant props, or reads as cartoony when the project does
   not, do not import it automatically. Explain the issue, expected downstream
   impact, and whether you recommend accepting it with caveats or revising the
-  spec for a user-approved paid regeneration.
+  prompt/spec for a user-approved iteration or paid regeneration.
 
 Avoid vague phrases such as "cinematic character design" unless they are backed
 by concrete materials, lighting, framing, and period details from context.

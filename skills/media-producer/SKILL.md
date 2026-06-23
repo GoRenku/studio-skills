@@ -1,13 +1,13 @@
 ---
 name: media-producer
-description: Generate purpose-specific media for Renku Studio projects by reading Renku generation context, creating persisted generation specs, honoring user-selected controls exactly, estimating cost, running through Studio engines, and importing finished files separately.
+description: Generate or import purpose-specific media for Renku Studio projects by reading Renku context, using either Renku persisted generation specs or Codex built-in image generation when requested, and attaching finished files through Renku import commands.
 ---
 
 # Media Producer
 
-Use this skill when the user wants to create media for a Renku Studio purpose, such as a Lookbook demonstration image, Lookbook sheet (`lookbook.sheet`), cast character sheet, cast profile image, location environment sheet, scene storyboard sheet, shot first frame (`shot.first-frame`), shot last frame (`shot.last-frame`), ad hoc shot reference image (`shot.reference-image`), shot multi-shot storyboard sheet (`shot.multi-shot-storyboard-sheet`), final shot video take (`shot.video-take`), future scene mood frame, or cast voice sample (`cast.voice-sample`).
+Use this skill when the user wants to create or attach media for a Renku Studio purpose, such as a Lookbook demonstration image, Lookbook sheet (`lookbook.sheet`), cast character sheet, cast profile image, location environment sheet, scene storyboard sheet, shot first frame (`shot.first-frame`), shot last frame (`shot.last-frame`), ad hoc shot reference image (`shot.reference-image`), shot multi-shot storyboard sheet (`shot.multi-shot-storyboard-sheet`), final shot video take (`shot.video-take`), future scene mood frame, or cast voice sample (`cast.voice-sample`).
 
-This is not a generic image prompt skill. Renku is the context engine: first ask Renku what the media is for, then create or update a persisted spec that captures the user's binding choices.
+This is not a generic image prompt skill. Renku is the context engine and the project metadata boundary: first ask Renku what the media is for, then choose the correct execution path. For Renku-managed paid generation, create or update a persisted spec that captures the user's binding choices. For Codex built-in image generation, generate the image with the system `$imagegen` path, save the finished file inside the Renku project, and attach it with the same purpose-specific Renku import command.
 
 ## Start Here
 
@@ -18,39 +18,43 @@ This is not a generic image prompt skill. Renku is the context engine: first ask
 renku generation context --purpose <purpose-key> --target <target> --json
 ```
 
-3. Inspect purpose-specific model choices if the user has not already chosen one:
+3. Choose the execution path:
+   - Use **Codex built-in image generation** when the user asks to use Codex, `$imagegen`, built-in image generation, GPT-Image 2 through Codex, or to avoid app-side/fal.ai generation costs for an image purpose.
+   - Use **Renku-managed generation** when the user explicitly chooses a Studio/fal.ai/provider model, wants Renku cost tracking or generation records, needs video or audio generation, or asks for an app-side generation run.
+4. For Codex built-in image generation, skip spec creation, estimate, approval token, and `renku generation run`. Use the `$imagegen` skill/tool with a prompt grounded in the Renku context, copy the selected output into the project as a project-relative file such as `generated/media/<descriptive-file>.png`, inspect it, and import it without `--receipt`.
+5. For Renku-managed generation, inspect purpose-specific model choices if the user has not already chosen one:
 
 ```bash
 renku generation model list --purpose <purpose-key> --target <target> --json
 ```
 
-4. Create a Media Generation Spec JSON with the user's binding choices.
-5. Persist the spec:
+6. For Renku-managed generation, create a Media Generation Spec JSON with the user's binding choices.
+7. For Renku-managed generation, persist the spec:
 
 ```bash
 renku generation spec create --file <spec-json> --json
 ```
 
-6. Estimate cost and get the approval token:
+8. For Renku-managed generation, estimate cost and get the approval token:
 
 ```bash
 renku generation estimate --spec <spec-id> --json
 ```
 
-7. Run generation only after the user has approved the model, cost, and any project-derived prompt/context transfer to the external provider. Because provider-backed generation needs network access, request sandbox/network permission before the first real `renku generation run` attempt instead of waiting for a network failure. Use `--simulate` when validating shape without paid provider calls.
+9. For Renku-managed generation, run only after the user has approved the model, cost, and any project-derived prompt/context transfer to the external provider. Because provider-backed generation needs network access, request sandbox/network permission before the first real `renku generation run` attempt instead of waiting for a network failure. Use `--simulate` when validating shape without paid provider calls.
 
 ```bash
 renku generation run --spec <spec-id> --approval-token <approval-token> --json
 ```
 
-8. Inspect generated media before import or attachment. For Lookbook images, decide which type-specific Lookbook sections the image actually demonstrates. For Lookbook sheets, verify that the sheet is informative, legible, and summarizes the target Movie or Storyboard Lookbook rather than merely collaging existing images. For cast images, compare against the active Cast Design, the selected Movie Lookbook, any user-supplied likeness/reference constraints, and the strongest existing approved cast sheets in the project. For location environment sheets, inspect the composite, use vision to identify the four scenic view blocks, crop only those four blocks, and inspect the four slices before import. For scene storyboard sheets, first ensure the selected Storyboard Lookbook and its `lookbook.sheet` are ready, then inspect each composite, use vision to identify the actual storyboard panel image blocks, crop only those selected shot panels, and inspect every slice before import.
-9. Import or attach the finished file for the purpose:
+10. Inspect generated media before import or attachment. For Lookbook images, decide which type-specific Lookbook sections the image actually demonstrates. For Lookbook sheets, verify that the sheet is informative, legible, and summarizes the target Movie or Storyboard Lookbook rather than merely collaging existing images. For cast images, compare against the active Cast Design, the selected Movie Lookbook, any user-supplied likeness/reference constraints, and the strongest existing approved cast sheets in the project. For location environment sheets, inspect the composite, use vision to identify the four scenic view blocks, crop only those four blocks, and inspect the four slices before import. For scene storyboard sheets, first ensure the selected Storyboard Lookbook and its `lookbook.sheet` are ready, then inspect each composite, use vision to identify the actual storyboard panel image blocks, crop only those selected shot panels, and inspect every slice before import.
+11. Import or attach the finished file for the purpose:
 
 ```bash
 renku media import --purpose <purpose-key> --target <target> --source <project-relative-path> --sections <agent-reviewed-sections> --json
 ```
 
-Use `--sections` only for `lookbook.image`. Lookbook sheet, cast image, and shot input imports do not use section tags. Cast Voice samples are attached with `renku cast voice attach`, not `renku media import`. Kling voice-control `voice_id` values are transient shot-video run artifacts: select or generate the needed dialogue audio as a logical shot-video input, then let Core convert it through Kling `create-voice` during `shot.video-take` estimate/run.
+Use `--sections` only for `lookbook.image`. Lookbook sheet, cast image, and shot input imports do not use section tags. Omit `--receipt` when the file came from Codex built-in image generation, a manual upload, or any other non-Renku generation source; never fabricate a Renku receipt. Cast Voice samples are attached with `renku cast voice attach`, not `renku media import`. Kling voice-control `voice_id` values are transient shot-video run artifacts: select or generate the needed dialogue audio as a logical shot-video input, then let Core convert it through Kling `create-voice` during `shot.video-take` estimate/run.
 
 For cast imports, choose production-meaningful relationship metadata:
 
@@ -93,7 +97,14 @@ perform an advisory QA pass:
 
 Do not import weak media automatically. Do not regenerate weak media
 automatically. The user decides whether the artifact is acceptable, should be
-imported with caveats, or is worth another paid attempt.
+imported with caveats, needs a Codex image iteration, or is worth another
+Renku-managed paid attempt.
+
+For Codex built-in image generation, there is no Renku estimate, approval token,
+generation run id, or provider receipt. Still inspect the image before import,
+but treat revisions as Codex image iterations rather than Renku paid
+regeneration unless the user explicitly switches to a Renku-managed provider
+run.
 
 ## Cast Voice Sample
 
@@ -209,3 +220,4 @@ Storyboard Lookbook before final scene storyboard spec creation.
 - Do not synthesize fallback prompts for paid generation. If the context, dependency draft, final prompt draft, title, source file, or selected input is missing, stop and report the missing authored requirement.
 - Do not run paid generation until the user has approved the exact spec, estimate, and provider context transfer.
 - Import is a separate explicit step after inspecting the generated media.
+- Codex built-in image generation is allowed only for image purposes. It bypasses Renku generation records by design, but it must not bypass Renku project metadata: save the selected file inside the project and attach it through `renku media import` without `--receipt`.
