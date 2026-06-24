@@ -7,7 +7,7 @@ description: Generate or import purpose-specific media for Renku Studio projects
 
 Use this skill when the user wants to create or attach media for a Renku Studio purpose, such as a Lookbook demonstration image, Lookbook sheet (`lookbook.sheet`), cast character sheet, cast profile image, voice-over profile image, location environment sheet, scene storyboard sheet, shot first frame (`shot.first-frame`), shot last frame (`shot.last-frame`), ad hoc shot reference image (`shot.reference-image`), shot multi-shot storyboard sheet (`shot.multi-shot-storyboard-sheet`), final shot video take (`shot.video-take`), future scene mood frame, or cast voice sample (`cast.voice-sample`).
 
-This is not a generic image prompt skill. Renku is the context engine and the project metadata boundary: first ask Renku what the media is for, then choose the correct execution path. For Renku-managed paid generation, create or update a persisted spec that captures the user's binding choices. For Codex built-in image generation, generate the image with the system `$imagegen` path, save the finished file inside the Renku project, and attach it with the same purpose-specific Renku import command.
+This is not a generic image prompt skill. Renku is the context engine and the project metadata boundary: first ask Renku what the media is for, then choose the correct execution path. For Renku-managed paid generation, create or update a persisted spec that captures the user's binding choices. For Codex built-in image generation, generate the image with the system `$imagegen` path, stage the finished file under `generated/media/`, and attach it with the same purpose-specific Renku import command.
 
 ## Start Here
 
@@ -21,7 +21,7 @@ renku generation context --purpose <purpose-key> --target <target> --json
 3. Choose the execution path:
    - Use **Codex built-in image generation** when the user asks to use Codex, `$imagegen`, built-in image generation, GPT-Image 2 through Codex, or to avoid app-side/fal.ai generation costs for an image purpose.
    - Use **Renku-managed generation** when the user explicitly chooses a Studio/fal.ai/provider model, wants Renku cost tracking or generation records, needs video or audio generation, or asks for an app-side generation run.
-4. For Codex built-in image generation, skip spec creation, estimate, approval token, and `renku generation run`. Use the `$imagegen` skill/tool with a prompt grounded in the Renku context, copy the selected output into the project as a project-relative file such as `generated/media/<descriptive-file>.png`, inspect it, and import it without `--receipt`.
+4. For Codex built-in image generation, skip spec creation, estimate, approval token, and `renku generation run`. Use the `$imagegen` skill/tool with a prompt grounded in the Renku context, save the selected output as a staging project-relative file under `generated/media/<descriptive-file>.png`, inspect it, and import it without `--receipt`. Do not manually copy the output into canonical asset folders such as `cast/`, `locations/`, `visual-language/`, or `shotlist/`; the purpose-specific import command owns those folders and registers the durable Studio attachment.
 5. For Renku-managed generation, inspect purpose-specific model choices if the user has not already chosen one:
 
 ```bash
@@ -47,7 +47,7 @@ renku generation estimate --spec <spec-id> --json
 renku generation run --spec <spec-id> --approval-token <approval-token> --json
 ```
 
-10. Inspect generated media before import or attachment. For Lookbook images, decide which type-specific Lookbook sections the image actually demonstrates. For Lookbook sheets, verify that the sheet is informative, legible, and summarizes the target Movie or Storyboard Lookbook rather than merely collaging existing images. For cast images, compare against the active Cast Design, the selected Movie Lookbook, any user-supplied likeness/reference constraints, and the strongest existing approved cast sheets in the project. For location environment sheets, inspect the composite, use vision to identify the four scenic view blocks, crop only those four blocks, and inspect the four slices before import. For scene storyboard sheets, first ensure the selected Storyboard Lookbook and its `lookbook.sheet` are ready, then inspect each composite, use vision to identify the actual storyboard panel image blocks, crop only those selected shot panels, and inspect every slice before import.
+10. Inspect generated media before import or attachment. For Lookbook images, decide which type-specific Lookbook sections the image actually demonstrates. For Lookbook sheets, verify that the sheet is informative, legible, and summarizes the target Movie or Storyboard Lookbook rather than merely collaging existing images. For cast images, compare against the active Cast Design, the selected Movie Lookbook, any user-supplied likeness/reference constraints, and the strongest existing approved cast sheets in the project. For Location Sheets, inspect the full image as one production reference board and make sure it matches the persisted description; do not crop or slice it. For Location Hero Images, verify that the source Location Sheet is the chosen basis and that the hero works as compact overview/detail display media, not as a shot reference sheet. For scene storyboard sheets, first ensure the selected Storyboard Lookbook and its `lookbook.sheet` are ready, then inspect each composite, use vision to identify the actual storyboard panel image blocks, crop only those selected shot panels, and inspect every slice before import.
 11. Import or attach the finished file for the purpose:
 
 ```bash
@@ -76,6 +76,14 @@ Do not treat a successful provider run as attached cast media until
 new asset. If only an existing asset's visible title, reference name, or purpose
 needs correction, update it in place with `renku asset reference-update`; do not
 re-import the file or create a duplicate asset.
+
+For Codex built-in image generation, do not treat a saved staging file as
+attached media. A project-bound Codex image is complete only after
+`renku media import` succeeds, the returned imported asset/file path is used as
+the project media, and the final response includes a visible Markdown image
+preview using an absolute path to the imported file when available. Also report
+the imported asset id and project-relative path so the user can verify the
+attachment.
 
 ```bash
 renku asset reference-update <asset-id> --target cast:<cast-member-id> --reference-name <stable-reference-name> --reference-purpose "<descriptive purpose>" --title "<visible card title>" --json
@@ -163,6 +171,25 @@ Supported purpose keys:
 
 Use these concrete purposes directly. Do not use or invent a generic shot video input purpose. Always honor user-selected shot ids, input mode, model choice, and parameters exactly.
 
+## Location Sheet And Hero Purposes
+
+For Location Sheet and Location Hero work, use the detailed operational
+reference:
+
+- `references/location-environment-sheet.md`
+
+Supported purpose keys:
+
+- `location.environment-sheet`
+- `location.hero`
+
+Location Sheets are full-image reference boards. Import them with `renku media
+import --purpose location.environment-sheet --source ... --summary ...`; do not
+create directional slice files. Location Hero Images are separate display
+assets generated or imported from an explicit source Location Sheet asset. Use
+`sourceLocationSheetAssetId` in `location.hero` specs and `--source-sheet
+<asset-id>` when importing generated hero media.
+
 ## Target Resolution
 
 Use the current open authoring project. Do not add `--project` to normal
@@ -231,4 +258,4 @@ Storyboard Lookbook before final scene storyboard spec creation.
 - Do not synthesize fallback prompts for paid generation. If the context, dependency draft, final prompt draft, title, source file, or selected input is missing, stop and report the missing authored requirement.
 - Do not run paid generation until the user has approved the exact spec, estimate, and provider context transfer.
 - Import is a separate explicit step after inspecting the generated media.
-- Codex built-in image generation is allowed only for image purposes. It bypasses Renku generation records by design, but it must not bypass Renku project metadata: save the selected file inside the project and attach it through `renku media import` without `--receipt`.
+- Codex built-in image generation is allowed only for image purposes. It bypasses Renku generation records by design, but it must not bypass Renku project metadata: stage the selected file under `generated/media/` and attach it through `renku media import` without `--receipt`.

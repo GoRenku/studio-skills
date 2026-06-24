@@ -1,0 +1,17 @@
+{
+  "purpose": "location.hero",
+  "target": {
+    "kind": "location",
+    "id": "location_theodosian_walls"
+  },
+  "sourceLocationSheetAssetId": "asset_theodosian_walls_siege_sheet",
+  "modelChoice": "fal-ai/nano-banana-2/edit",
+  "prompt": "Create a single wide representative Location Hero Image for the Theodosian Walls from the supplied Location Sheet. Preserve the siege-facing wall massing, Ottoman field direction, gate damage, scale, weathered stone, smoke behavior, and late medieval atmosphere. Do not create a multi-panel sheet, labels, captions, diagrams, borders, or production annotations.",
+  "description": "Wide display image grounded in the siege-facing Theodosian Walls Location Sheet.",
+  "takeCount": 1,
+  "seed": null,
+  "heroFrame": "16:9",
+  "detail": "standard",
+  "outputFormat": "png",
+  "title": "Theodosian Walls hero image"
+}

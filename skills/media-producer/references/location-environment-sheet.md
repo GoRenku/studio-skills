@@ -1,81 +1,163 @@
-# Location Environment Sheet Purpose
+# Location Sheet And Location Hero Purposes
 
-Purpose key: `location.environment-sheet`
+Purpose keys:
+
+- `location.environment-sheet`
+- `location.hero`
 
 Target format: `location:<location-id>`
 
-## Required Workflow
+## Location Sheet Workflow
 
 1. Read context with `renku generation context --purpose location.environment-sheet --target location:<location-id> --json`.
-2. If the user wants Codex built-in image generation, use the context below to prompt `$imagegen`, save the selected composite inside the project, inspect it, crop the four scenic views, and import the grouped files without a receipt.
+2. Verify the target Location exists in the screenplay location list.
 3. For Renku-managed generation, list model choices with `renku generation model list --purpose location.environment-sheet --target location:<location-id> --json` unless the user already chose a model.
-4. Verify the target Location exists in the screenplay location list.
-5. If the intended historical place is missing, ask the user or screenplay agent to add a Location first.
-6. For Renku-managed generation, create a persisted spec and estimate cost before any paid run.
-7. For Renku-managed generation, run only after user approval for both the estimated cost and sending project-derived prompt/context to the provider. Request sandbox/network permission before the first real run, because Renku will contact the approved provider with that approved context.
-8. Inspect the returned composite, use vision to identify the four scenic image blocks, crop those four blocks, and inspect the four slices.
-9. Import only when the sheet has four useful views of the same location.
+4. Write a persisted spec with a concise `description`. The description is stored on the imported Location Sheet and shown in Studio cards.
+5. Estimate cost and ask for explicit approval before any paid run.
+6. Inspect the returned full image as one production reference board.
+7. Import the approved full image with `--source`, `--title`, and `--summary`.
 
-## Prompt Inputs
+If the user wants Codex built-in image generation for a Location Sheet, use the
+same context and prompt inputs, generate with `$imagegen`, save the selected
+image as `generated/media/<location-handle>-sheet.png`, inspect it, and import
+it with the same `location.environment-sheet` command without `--receipt`. Do
+not copy the file directly into `locations/<handle>/environment-sheets/`; the
+CLI/Core import copies the staging file into that canonical folder and registers
+the Location Sheet asset.
+
+Location Sheets are not sliced. Do not create or import `view_front`,
+`view_right`, `view_back`, or `view_left` files. Do not ask for a mandatory
+front/right/back/left layout unless the user specifically wants that design
+inside the single full sheet.
+
+Example import:
+
+```bash
+renku media import \
+  --purpose location.environment-sheet \
+  --target location:<location-id> \
+  --source generated/media/theodosian-walls-sheet.png \
+  --title "Theodosian Walls Location Sheet" \
+  --summary "Siege-facing wall, Ottoman field, gate damage, and city-edge context." \
+  --receipt generation-run.json \
+  --json
+```
+
+Omit `--receipt` when the image came from Codex built-in image generation,
+manual upload, or any non-Renku generation source.
+
+## Location Sheet Prompt Inputs
 
 Use the returned context:
 
 - screenplay overview, story function, and scene usage;
 - target location name, description, time period, and visual notes;
-- selected Movie Lookbook palette, texture, lighting, composition, and camera rules;
+- active Location Design spatial thesis, architecture, set dressing, materials,
+  atmosphere, props, and continuity;
+- selected Movie Lookbook palette, texture, lighting, composition, and camera
+  rules;
 - selected location references and anti-references when present;
 - historical basis, dramatized elements, research sources, and assumptions.
 
-## Sheet Layout
+Prompt for one useful full-image reference board. It can contain maps,
+elevations, material samples, annotated details, distant establishing context,
+or multiple arranged views when that serves the Location. Keep the prompt tied
+to the Location Design and the current production need.
 
-Prompt for one composite image. Do not provide or reference a template image,
-mask, uploaded grid, red marker sheet, or debug layout.
+## Location Hero Workflow
 
-- front, azimuth 0;
-- right, azimuth 90;
-- back, azimuth 180;
-- left, azimuth 270;
-- one bottom guideline strip showing the selected Movie Lookbook texture and lighting behavior applied to the location.
+Use `location.hero` when the Location needs a compact overview/detail image.
+The hero image is not a shot-generation reference. It must be grounded in an
+explicit source Location Sheet asset owned by the same Location.
 
-Example prompt instruction:
+1. Choose the source Location Sheet asset with the user or from the current
+   task brief.
+2. Create a `location.hero` spec with `sourceLocationSheetAssetId`.
+3. Estimate and run only after approval.
+4. Inspect the hero image as display media.
+5. Import generated hero media with `--source-sheet`.
 
-```text
-Create one polished 4:3 location environment sheet as a single finished image. Arrange four clean 16:9 scenic panels in a 2x2 sheet: 0 front top-left, 90 right top-right, 180 back bottom-left, 270 left bottom-right. Place labels in the sheet header or margin area, never inside the scenic image content. Add one bottom guideline strip for the selected Movie Lookbook's texture, materials, palette, and lighting behavior. Keep scale, entrances, wall breaks, landmarks, materials, weather, and horizon logic consistent between views. No red dots, crop marks, debug overlays, construction marks, heavy extraction borders, or labels over the scenic panels.
+For Codex built-in image generation, do not create a `location.hero` spec,
+estimate, run, or receipt. Still read context first:
+
+```bash
+renku generation context --purpose location.hero --target location:<location-id> --json
 ```
+
+Choose a source Location Sheet from `environmentSheetTakes` or
+`sourceLocationSheetAsset` in that context. If there is no source Location Sheet
+asset, stop and tell the user a Location Sheet must be generated or imported
+before creating a Location Hero Image. A Location Hero without
+`--source-sheet` is invalid.
+
+Prompt `$imagegen` to create one clean 16:9 representative Location Hero Image
+derived from the chosen source sheet. The hero should be a readable overview or
+detail display image, not a multi-panel sheet, contact sheet, labels, captions,
+diagram, shot frame, or new Location Sheet.
+
+Save the chosen Codex output as
+`generated/media/<location-handle>-hero.png`, then import it:
+
+```bash
+renku media import \
+  --purpose location.hero \
+  --target location:<location-id> \
+  --source generated/media/<location-handle>-hero.png \
+  --source-sheet <location-sheet-asset-id> \
+  --title "<Location Name> hero" \
+  --summary "<one-line hero summary>" \
+  --json
+```
+
+Do not manually copy the Codex output into `locations/<handle>/heroes/`. The
+import command validates the source Location Sheet, copies the staging file into
+`locations/<handle>/heroes/<hero-slug>/hero.<ext>`, registers the
+`location_hero` asset, and selects it as the current hero.
+
+Example spec:
+
+```json
+{
+  "purpose": "location.hero",
+  "target": { "kind": "location", "id": "location_theodosian_walls" },
+  "sourceLocationSheetAssetId": "asset_theodosian_walls_siege_sheet",
+  "modelChoice": "fal-ai/nano-banana-2/edit",
+  "prompt": "Create a wide representative hero image for the Theodosian Walls from the supplied Location Sheet. Preserve the wall massing, field direction, gate damage, and late medieval siege atmosphere.",
+  "description": "Wide hero image grounded in the siege-facing Location Sheet.",
+  "takeCount": 1,
+  "seed": null,
+  "heroFrame": "16:9",
+  "outputFormat": "png",
+  "title": "Theodosian Walls hero"
+}
+```
+
+Example import:
+
+```bash
+renku media import \
+  --purpose location.hero \
+  --target location:<location-id> \
+  --source generated/media/theodosian-walls-hero.png \
+  --source-sheet asset_theodosian_walls_siege_sheet \
+  --title "Theodosian Walls hero" \
+  --summary "Wide display image grounded in the siege-facing Location Sheet." \
+  --receipt generation-run.json \
+  --json
+```
+
+Omit `--receipt` when the hero image came from Codex built-in image generation,
+manual upload, or any non-Renku generation source.
 
 ## Historical Guardrails
 
-When the context is historical, include concrete exclusions that match the time period, geography, and location type. For a 1400s setting, relevant exclusions might include:
+When the context is historical, include concrete exclusions that match the time
+period, geography, and location type. For a 1400s setting, relevant exclusions
+might include telegraph poles, electrical wires, asphalt roads, cars, modern
+signage, glass curtain walls, industrial streetlights, or railway
+infrastructure.
 
-- telegraph poles;
-- electrical wires;
-- asphalt roads;
-- concrete utility poles;
-- cars or tire marks;
-- modern signage;
-- glass curtain walls;
-- industrial steel streetlights;
-- steam-era railway infrastructure.
-
-Do not dump a generic anachronism list into every prompt. Choose exclusions from the context. If the context is too thin to write meaningful guardrails, ask for the missing location details or suggest adding them to the Location record.
-
-## Vision-Guided Cropping Expectations
-
-Renku-managed generation or Codex built-in image generation creates one
-composite image. The agent then uses vision to locate the four actual scenic
-image blocks. Crop only those four blocks:
-
-- `view_front`
-- `view_right`
-- `view_back`
-- `view_left`
-
-The bottom texture/material/lighting strip stays in the composite sheet. Do not crop it, store it, or import it as a separate file role.
-
-Crop around the image content, not the panel frame. Exclude labels, azimuth text, gutters, decorative sheet background, borders, red dots, debug marks, and bottom-strip content. The crop boxes are selected by vision for the specific returned image; they are not fixed coordinates and are not discovered through border detection, marker detection, OCR, or rough quadrant fallback.
-
-Do not import automatically when the image no longer provides four clean useful
-views. Show the composite to the user, explain that the generation is not good
-enough for a location sheet, and ask whether to accept it with caveats, revise
-the location details/spec, or approve another Codex image iteration or
-Renku-managed paid generation.
+Do not dump a generic anachronism list into every prompt. Choose exclusions
+from the context. If the context is too thin to write meaningful guardrails,
+ask for the missing location details or suggest adding them to the Location
+record.
