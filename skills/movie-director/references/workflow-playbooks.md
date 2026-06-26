@@ -2,6 +2,8 @@
 
 Use these playbooks when a user asks for an outcome rather than naming a single department. Always preserve explicit user choices and avoid paid generation until `media-producer` has produced an estimate and approval token.
 
+For Codex runs, remember that local Studio HTTP notification is network access. Before dispatching any specialist step that will mutate Renku state while Studio is running, make sure the mutating CLI command is run with sandbox/network permission. If `CLI026` appears, do not rerun non-idempotent mutations just to notify Studio.
+
 ## Idea To First Screenplay
 
 1. Ask only for missing brief details that materially affect the screenplay.
@@ -27,10 +29,10 @@ Use these playbooks when a user asks for an outcome rather than naming a single 
 
 1. Read director context, preferably with a selected scene.
 2. If no selected Movie Lookbook exists, dispatch to `lookbook-designer` first unless the user explicitly wants text-only shot work.
-3. If no selected Storyboard Lookbook exists and storyboard images are requested, dispatch to `lookbook-designer` to create/select one.
+3. If no selected Storyboard Lookbook exists and storyboard images are requested or implied by a saved shot-list revision, dispatch to `lookbook-designer` to create/select one unless the user explicitly asked for text-only/no-media work.
 4. If the selected Storyboard Lookbook has no `lookbook.sheet`, dispatch to `media-producer` for `lookbook.sheet` before final scene storyboard generation.
 5. If no active Scene Shot List exists or the user asks to revise coverage, dispatch to `scene-shot-designer`.
-6. If storyboard images are missing, dispatch to `media-producer` with `scene.storyboard-sheet`.
+6. If storyboard images are missing or stale after the shot-list pass, dispatch to `media-producer` with `scene.storyboard-sheet` unless the user explicitly asked for text-only/no-media work.
 
 ## Storyboard References To Shot Video Take
 

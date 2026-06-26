@@ -9,7 +9,7 @@ Target format: `scene:<scene-id>`
 1. Read context with `renku generation context --purpose scene.storyboard-sheet --target scene:<scene-id> --shot-list <shot-list-id> --json`.
 2. If context fails because there is no selected Storyboard Lookbook, stop and dispatch to `lookbook-designer` to create/select one. Do not substitute the selected Movie Lookbook.
 3. If dependency planning reports a missing `lookbook-sheet` for the selected Storyboard Lookbook, generate or import `lookbook.sheet` for that Storyboard Lookbook first.
-4. If the user wants Codex built-in image generation, use the context below to prompt `$imagegen`, save each selected composite inside the project, inspect it, crop the storyboard panel image blocks, and import the cropped shot images without receipts.
+4. If the user wants Codex built-in image generation, use the context below to prompt `$imagegen`, save each selected composite inside the project, inspect it, crop the storyboard panel image blocks, and import the cropped shot images without receipts. Codex built-in image generation is a first-class alternative for this purpose; use fal.ai/Renku-managed generation only when the user chooses a provider model, wants app-side cost tracking, or asks for a Renku-managed run.
 5. For Renku-managed generation, list model choices with `renku generation model list --purpose scene.storyboard-sheet --target scene:<scene-id> --shot-list <shot-list-id> --json` unless the user already chose one.
 6. Verify the target Scene and Shot List exist.
 7. Split the selected shots into batches of at most four shots.

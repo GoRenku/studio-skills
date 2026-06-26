@@ -164,6 +164,11 @@ codex plugin marketplace add GoRenku/renku --ref main
 
 Then open Codex's plugin directory and install `renku` from the `Renku` marketplace.
 
+For reliable Studio refreshes, media imports, temporary file work, and optional
+live generation providers, configure a Renku Codex permission profile:
+
+- [Codex Permissions For Renku Skills](docs/codex-renku-permissions.md)
+
 ## Install In Claude Code
 
 From Claude Code:

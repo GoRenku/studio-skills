@@ -2,6 +2,8 @@
 
 Use the Renku CLI for every metadata mutation. Do not edit project SQLite directly.
 
+When Studio is running, metadata mutations also need to notify Studio through local HTTP. In Codex, that means requesting sandbox/network permission before mutating commands. Treat `CLI026` as a notification failure after a successful mutation, not as permission to rerun the mutation.
+
 ## Resolve The Project
 
 Open a project when the user names one:
@@ -14,6 +16,12 @@ Check the current authoring project when needed:
 
 ```bash
 renku project current --json
+```
+
+When the user refers to the selected Studio view, read the focused Studio context before falling back to prose matching:
+
+```bash
+renku studio current --json
 ```
 
 ## Resolve The Scene
@@ -65,8 +73,7 @@ Common warnings:
 
 ## Apply Structural Edits
 
-Use operation documents for expand, replace, delete, range, and focused update
-requests against an existing shot-list version:
+Use operation documents as the default path for expand, replace, delete, range, and focused update requests against an existing shot-list version:
 
 ```bash
 renku screenplay shot-list validate-operations --file <operations-json> --json
@@ -86,7 +93,7 @@ renku screenplay shot-list storyboard status --scene <scene-id> --shot-list <sho
 ```
 
 Use the status report to identify missing or stale storyboard images for
-media-producer handoff. The media-producer pass is responsible for selected Storyboard Lookbook and Storyboard Lookbook sheet readiness.
+media-producer handoff. If the user did not explicitly request text-only/no-media work, continue to that handoff instead of merely reporting that storyboard images are missing. The media-producer pass is responsible for selected Storyboard Lookbook and Storyboard Lookbook sheet readiness.
 
 ## Write And Confirm
 
@@ -95,8 +102,7 @@ renku screenplay shot-list write --file <shot-list-json> --json
 renku screenplay shot-list show --active --scene <scene-id> --json
 ```
 
-`write` creates a new full shot-list history row and makes it active. Use it for
-complete replacement documents. Use `set-active` only to restore an earlier row:
+`write` creates a new full shot-list history row and makes it active. Use it for the first shot list or for an intentional complete replacement document. When a full replacement is based on an existing list, include `baseShotListId` so unchanged storyboard images can be preserved. Use `set-active` only to restore an earlier row:
 
 ```bash
 renku screenplay shot-list list --scene <scene-id> --json
@@ -111,4 +117,5 @@ Summarize:
 - coverage strategy;
 - important visual choices;
 - any unresolved open questions;
-- whether the shot list is now active.
+- whether the shot list is now active;
+- storyboard readiness, including any media-producer handoff already completed or still needed.

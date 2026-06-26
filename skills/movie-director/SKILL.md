@@ -35,6 +35,13 @@ renku director context --selection '<studio-selection-json>' --json
 6. Read back durable state through Renku CLI after the specialist completes.
 7. Suggest the next concrete department step.
 
+
+## Codex Sandbox And Studio Notifications
+
+Renku CLI mutations notify the running Studio app through local HTTP at the Studio server URL, normally `http://localhost:5173`. In Codex, localhost HTTP is still network access. When Studio is running and a workflow will mutate project state, import media, apply shot-list operations, set active rows, or run generation/import commands that should refresh Studio, request sandbox/network permission before the first mutating command.
+
+If a command reports `CLI026`, the mutation already succeeded but Studio was not notified. Do not blindly rerun non-idempotent mutations such as shot-list apply/write or media import. Instead, report the warning, refresh/read back state, and use a separate Studio notification/recovery step if one is available with local network permission.
+
 ## Reference Files
 
 - Read `references/department-map.md` when classifying user intent or choosing a specialist.
