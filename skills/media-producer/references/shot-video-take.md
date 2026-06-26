@@ -36,6 +36,11 @@ renku take create \
   --json
 ```
 
+The create command returns a `SceneShotVideoTakeCreateReport`. Read the working
+take from `overview.take`; use `overview.take.takeId` for later `--take`
+commands. Do not call `take show` immediately after create unless you need to
+refresh the take from storage later.
+
 6. List or show takes when resolving an existing working take:
 
 ```bash
