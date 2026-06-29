@@ -2,7 +2,7 @@
 
 Use this reference for final AI video takes for one Shot Video Take: either a single shot or an ordered multi-shot selection. Core owns take state, context, validation, preflight, spec persistence, provider mapping, runs, imports, reusable dependency relationships, and output attachment. The skill owns creative dependency analysis and model-specific prompt drafting.
 
-Never write `.renku/project.sqlite` directly. Never override the user-selected input mode, model, parameters, shot ids, reference choices, or take. Take-tab edits must update take-owned state through `renku take update` or Studio take routes. Never submit raw provider payload JSON; submit logical Renku specs and production plans. Never rely on fallback prompts. Paid generation requires an authored prompt and, for ad hoc reference images, an authored title naming the reference intent.
+Never write `.renku/project.sqlite` directly. Never override the user-selected input mode, model, parameters, shot ids, reference choices, or take. Take-tab edits must update take-owned state through `renku take authoring apply`; do not use Studio routes or generic state patches. Never submit raw provider payload JSON; submit logical Renku specs and production plans. Never rely on fallback prompts. Paid generation requires an authored prompt and, for ad hoc reference images, an authored title naming the reference intent.
 
 Shot-video work starts by establishing the working take. Explicit user references win: use an explicit `takeId` or production scene/shot/take reference. If the user says "this take" or gives no durable reference, read `renku studio current --json`; treat focus as a candidate and confirm before mutating project state, preparing paid generation, or importing final media.
 
@@ -48,24 +48,52 @@ renku take list --scene <scene-id> --json
 renku take show --take <take-id> --json
 ```
 
-7. Update the working take state only when the user asks to change take-owned state:
+7. Read the canonical authoring context for the take:
 
 ```bash
-renku take update --take <take-id> --file <take-state-patch-json> --json
+renku take authoring context --take <take-id> --json
 ```
 
-8. Read bounded context for the take:
+For multi-cut takes, include the selected shot when the user is editing one shot's
+direction:
 
 ```bash
-renku generation context \
-  --purpose shot.video-take \
-  --target scene:<scene-id> \
-  --take <take-id> \
-  --shots <shot-id>[,<shot-id>...] \
-  --json
+renku take authoring context --take <take-id> --selected-shot <shot-id> --json
 ```
 
-Use `context.target.shotIds` and `context.shots` as the ordered selected-shot source of truth. Use `context.take.state.shotDesignByShotId` for editable Composition, Motion, Cast, Location, Lookbook, References, Dialogue, and Production choices. Use `context.displayShots` only for surrounding shot-list context. Use prompt-facing shot fields such as `shotType`, `subject`, `action`, `audioNotes`, and `productionNotes` as baseline coverage, not as mutable take state.
+Use `document.shotIds` and `context.shots` as the ordered selected-shot source
+of truth. Use `document.structure` for editable Composition, Motion, Cast,
+Location, Lookbook, References, and Dialogue direction. Continuous takes edit
+`structure.sharedDirection`; multi-cut takes edit
+`structure.directionsByShotId[shotId]`. Use `context.displayShots` only for
+surrounding shot-list context. Use prompt-facing shot fields such as `shotType`,
+`subject`, `action`, `audioNotes`, and `productionNotes` as baseline coverage,
+not as mutable take state.
+
+When changing take-owned state, write a full `sceneShotVideoTakeAuthoring`
+document that preserves the returned `takeId`, `sceneId`, `sourceShotListId`,
+`baseTakeUpdatedAt`, unchanged directions, and unchanged production fields.
+Studio-edited state is user intent. If a model, input mode, parameter,
+reference choice, composition, motion, or prompt draft should survive your
+proposal, copy it into the document explicitly. Missing fields are not merge
+requests.
+Validate before applying:
+
+```bash
+renku take authoring validate --file shot-video-take-authoring.json --json
+renku take authoring apply --file shot-video-take-authoring.json --json
+```
+
+Core validates shot membership, structure mode, reference ownership, route
+compatibility, prompt drafts, and stale-write protection. If validation reports
+a stale `baseTakeUpdatedAt`, re-read authoring context and rebuild the document
+from the fresh state instead of replaying the old file.
+
+Validation output contains `prior` for the persisted baseline and `current` for
+the proposed state. Compare them before applying so accidental overwrites are
+visible. Apply output contains `prior` for the pre-write state and `current` for
+the applied state. That comparison is informational only; do not treat it as a
+merge or repair layer.
 
 Read the model report before drafting provider-reference tokens. Use provider
 labels such as `@Image1`, `@Element1`, `@Video1`, and `@Audio1` only when the
@@ -122,7 +150,9 @@ renku generation input clear \
 
 ## Production Proposal And Preflight
 
-Write a `ShotVideoTakeAgentProposal` into take-owned production state. Use `inputModeId`, not `intentId`. Use `basedOnInputModeId`, not `basedOnIntentId`.
+Write a `ShotVideoTakeAgentProposal` into the authoring document's
+`production.agentProposal`. Use `inputModeId`, not `intentId`. Use
+`basedOnInputModeId`, not `basedOnIntentId`.
 
 The proposal must include:
 
@@ -132,25 +162,31 @@ The proposal must include:
 - `dependencyDrafts[]` for every generated shot dependency that preflight needs
 - `finalPromptDraft` for `shot.video-take`
 
-Run preflight before creating or estimating the final video spec:
+Validate and apply the authoring document before creating or estimating the final
+video spec:
 
 ```bash
-renku generation production update \
-  --purpose shot.video-take \
-  --target scene:<scene-id> \
-  --take <take-id> \
-  --file shot-video-take-production.json \
-  --json
-
-renku generation preflight \
-  --purpose shot.video-take \
-  --target scene:<scene-id> \
-  --take <take-id> \
-  --file shot-video-take-production.json \
-  --json
+renku take authoring validate --file shot-video-take-authoring.json --json
+renku take authoring apply --file shot-video-take-authoring.json --json
 ```
 
-Preflight is the authoritative dependency checklist. Read `inputsToCreate`, `inputPlanItems`, `plan.dependencyMap`, `prompts`, and `finalTake.canCreateSpec`.
+The authoring context, validation `current`, and apply `current` snapshots
+include the authoritative dependency checklist, preflight readiness, estimate,
+and provider payload preview. Read `productionPlan.plan.lines`,
+`productionPlan.references`, `preflight`, and `providerPreview`.
+
+Before creating, estimating, approving, or running the final `shot.video-take`
+spec, re-read the persisted authoring context:
+
+```bash
+renku take authoring context --take <take-id> --json
+```
+
+Final generation uses the persisted take state, not memory from an earlier
+apply response. If the final persisted model, input mode, route parameters,
+selected references, composition, motion, or prompt draft no longer match your
+prompt assumptions, warn the user and revise the prompt or authoring document
+before paid generation.
 
 If preflight reports `CORE_SHOT_VIDEO_DEPENDENCY_DRAFT_MISSING` or `CORE_SHOT_VIDEO_FINAL_PROMPT_DRAFT_MISSING`, do not generate. Author the missing spec or prompt first.
 
@@ -268,12 +304,16 @@ renku media import \
 
 Scenario: the user asks for a take for Shot 3, input mode is `first-last-frame`, and no suitable first or last frame is selected.
 
-1. Read context, model choices, and reusable inputs.
+1. Read authoring context, model choices, and reusable inputs.
 2. Author `shot.first-frame` and `shot.last-frame` dependency drafts from the selected shot design and references.
 3. Generate or import each dependency. If using Codex built-in image generation, prompt `$imagegen`, save the selected stills inside the project, inspect them, and import without receipts. If using Renku-managed image generation, validate, create, estimate, approve, run, inspect, and import each dependency.
-4. Update take-owned production with `inputModeId`, video model, parameters, selected inputs, dependency drafts, and final prompt draft.
-5. Run preflight. It must show no missing first/last-frame inputs before final video generation.
-6. Create, estimate, approve, run, inspect, and import the final `shot.video-take`.
+4. Update the authoring document with `inputModeId`, video model, parameters, selected inputs, dependency drafts, and final prompt draft.
+5. Validate and apply the authoring document. Compare validation `prior` versus
+   `current`, then apply `prior` versus `current`. The returned preflight must
+   show no missing first/last-frame inputs.
+6. Re-read authoring context, confirm the final persisted settings still match
+   the prompt, then create, estimate, approve, run, inspect, and import the
+   final `shot.video-take`.
 
 Expected result: dependency assets are reusable later, final video is attached to Shot 3, and final video approval binds to the exact prompt, parameters, first frame, and last frame files.
 
@@ -281,13 +321,18 @@ Expected result: dependency assets are reusable later, final video is attached t
 
 Scenario: the user creates a take for Shot 3 and Shot 4 and the final generation should be one provider call.
 
-1. Read context and model choices for the selected multi-shot input mode.
+1. Read authoring context and model choices for the selected multi-shot input mode.
 2. Read reusable inputs. Reuse a `multi-shot-storyboard-sheet` only when it matches exactly `shot_003,shot_004` in that order.
 3. If regenerating, clear the slot.
 4. Create `shot.multi-shot-storyboard-sheet` from `shot-multi-shot-storyboard-sheet.md`.
 5. Generate or import the storyboard sheet. If using Codex built-in image generation, prompt `$imagegen`, save the selected sheet inside the project, inspect it, and import without a receipt. If using Renku-managed image generation, validate, create, estimate, approve, run, inspect, and import the storyboard sheet.
-6. Write the take production proposal and final prompt as one continuous video while preserving shot boundaries.
-7. Run preflight. Core maps logical prepared inputs to provider fields and returns diagnostics if a selected logical role is unsupported.
-8. Create, estimate, approve, run, inspect, and import one final `shot.video-take` spec. Do not run separate final videos per shot.
+6. Write the take production proposal and final prompt into the authoring document as one continuous video while preserving shot boundaries.
+7. Validate and apply the authoring document. Compare validation `prior` versus
+   `current`, then apply `prior` versus `current`. Core maps logical prepared
+   inputs to provider fields and returns diagnostics if a selected logical role
+   is unsupported.
+8. Re-read authoring context, confirm the final persisted settings still match
+   the prompt, then create, estimate, approve, run, inspect, and import one
+   final `shot.video-take` spec. Do not run separate final videos per shot.
 
 Expected result: the storyboard sheet is reusable for the same ordered take, visible in the References tab for every included shot, one video output is attached to the take and both ordered shots, and changing model/prompt/parameters/inputs requires a new preflight and estimate.

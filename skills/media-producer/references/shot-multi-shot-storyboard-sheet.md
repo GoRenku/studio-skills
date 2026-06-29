@@ -7,10 +7,11 @@ Use this when creating `shot.multi-shot-storyboard-sheet` for an ordered multi-s
 Read:
 
 ```bash
-renku generation context --purpose shot.video-take --target scene:<scene-id> --take <take-id> --shots <shot-id>[,<shot-id>...] --json
+renku take authoring context --take <take-id> --json
 ```
 
-Use `context.target.shotIds` and `context.shots` exactly in order. Do not add, remove, reorder, or merge shots.
+Use `document.shotIds` and `context.shots` exactly in order. Do not add, remove,
+reorder, or merge shots.
 
 If the user wants Codex built-in image generation, use the context and prompt
 structure below to prompt `$imagegen`, save the selected planning sheet inside
@@ -20,7 +21,7 @@ the project, inspect it, and import it without `--receipt`.
 
 For each shot, extract:
 
-1. Take-owned design from `context.take.state.shotDesignByShotId[shotId]`: composition, motion, cast, location, lookbook, reference images, dialogue, and custom notes.
+1. Take-owned direction from `document.structure`: for continuous takes use `sharedDirection`; for multi-cut takes use `directionsByShotId[shotId]`. Extract composition, motion, cast, location, lookbook, reference images, dialogue, and custom notes only when present.
 2. Baseline shot-list fields from `context.shots`: `storyBeat`, `narrativePurpose`, `description`, `subject`, and `action`.
 3. Continuity: `referencedCast`, `referencedLocations`, `activeLookbook`, selected media inputs, and storyboard images.
 4. Notes: `audioNotes`, `productionNotes`, dialogue references only when the exact text is known.

@@ -4,7 +4,11 @@ Use this when creating `shot.first-frame` or `shot.last-frame` dependencies. The
 
 ## Required Context
 
-Read `generation context` for the selected take before drafting. Use `context.take.state.shotDesignByShotId` as binding creative context for selected Composition and Motion values, and use take-owned Cast, Location, Lookbook, and custom reference choices as continuity context.
+Read `renku take authoring context --take <take-id> --json` before drafting.
+Use `document.structure.sharedDirection` for continuous takes and
+`document.structure.directionsByShotId[shotId]` for multi-cut takes as binding
+creative context for selected Composition and Motion values. Use take-owned
+Cast, Location, Lookbook, and custom reference choices as continuity context.
 
 If a required character sheet, location sheet, lookbook sheet, custom reference image, first frame, or last frame is missing, let preflight report the missing dependency. Do not create loosely described first/last frames to paper over missing references.
 
