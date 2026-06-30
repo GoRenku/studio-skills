@@ -26,7 +26,7 @@ Use this map to classify user intent and choose the next specialist. When a requ
 9. Cast character sheets, cast profiles, and location environment sheets.
 10. Scene Shot Lists.
 11. Per-shot storyboard images.
-12. Shot reference images, first/last frames, and multi-shot storyboard inputs.
+12. Shot reference images, first/last frames, and video prompt sheet inputs.
 13. Shot video takes.
 14. Selects, production export, and future post/editorial work.
 

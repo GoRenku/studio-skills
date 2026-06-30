@@ -35,7 +35,7 @@ Multiple `reference-image` inputs may be generated/imported for the same single-
 - `Rainy alley sodium-light continuity`
 - `Robe embroidery insert`
 
-After import, these appear in the Studio shot References tab alongside first frames, last frames, and multi-shot storyboard sheets.
+After import, these appear in the Studio shot References tab alongside first frames, last frames, and video prompt sheets.
 
 ## Import
 

@@ -11,14 +11,18 @@ Shot-video work starts by establishing the working take. Explicit user reference
 - `shot.first-frame`: carefully authored opening still for a shot video take.
 - `shot.last-frame`: carefully authored closing still for a first/last-frame workflow.
 - `shot.reference-image`: ad hoc reference image generated only for a named single-shot or multi-shot take need.
-- `shot.multi-shot-storyboard-sheet`: one storyboard planning sheet for an ordered multi-shot take.
+- `shot.video-prompt-sheet`: one storyboard planning sheet for an ordered multi-shot take.
 - `shot.video-take`: final video output attached to the take while preserving its ordered shot ids.
 
 For image dependencies, use Codex built-in image generation when the user asks
-for Codex, `$imagegen`, built-in GPT-Image 2, or no-extra-cost image generation.
-Use Renku-managed image models such as `fal-ai/openai/gpt-image-2` only when the
-user chooses app-side/provider generation or wants Renku generation records and
-cost estimates. Final `shot.video-take` video generation remains Renku-managed.
+for Codex, `$imagegen`, built-in GPT-Image 2, or no-extra-cost image generation,
+or when `agentMedia.imageGeneration.defaultExecutionPath` is
+`codexBuiltInWhenAvailable` and the image tool is available. Use Renku-managed
+image models such as `fal-ai/openai/gpt-image-2` only when the user chooses
+app-side/provider generation, wants Renku generation records and cost estimates,
+or the policy says `renkuManaged`. If the policy says `ask` and the user has not
+chosen, ask before generating image dependencies. Final `shot.video-take` video
+generation remains Renku-managed.
 
 ## Resolve Context
 
@@ -107,8 +111,7 @@ Read model choices for the chosen input mode:
 ```bash
 renku generation model list \
   --purpose shot.video-take \
-  --target scene:<scene-id> \
-  --take <take-id> \
+  --target take:<take-id> \
   --intent <input-mode-id> \
   --shots <shot-id>[,<shot-id>...] \
   --json
@@ -119,8 +122,7 @@ Read reusable dependency candidates:
 ```bash
 renku generation input list \
   --purpose shot.video-take \
-  --target scene:<scene-id> \
-  --take <take-id> \
+  --target take:<take-id> \
   --json
 ```
 
@@ -129,8 +131,7 @@ Select a reusable dependency only when the user wants reuse and it matches the c
 ```bash
 renku generation input select \
   --purpose shot.video-take \
-  --target scene:<scene-id> \
-  --take <take-id> \
+  --target take:<take-id> \
   --input <shot-video-take-input-id> \
   --json
 ```
@@ -140,8 +141,7 @@ Clear a selected slot before regenerating it:
 ```bash
 renku generation input clear \
   --purpose shot.video-take \
-  --target scene:<scene-id> \
-  --take <take-id> \
+  --target take:<take-id> \
   --kind <input-kind> \
   --subject-kind <subject-kind> \
   --subject-id <subject-id> \
@@ -195,7 +195,7 @@ If preflight reports `CORE_SHOT_VIDEO_DEPENDENCY_DRAFT_MISSING` or `CORE_SHOT_VI
 Use the specific references for dependency prompts:
 
 - First/last frames: `shot-first-last-frame.md`
-- Multi-shot sheets: `shot-multi-shot-storyboard-sheet.md`
+- Video prompt sheets: `shot-video-prompt-sheet.md`
 - Ad hoc reference images: `shot-reference-images.md`
 
 Do not invent exact dialogue, duration, music, or transitions when absent. If exact dialogue is needed, read the screenplay scene before drafting.
@@ -275,26 +275,27 @@ Dependency import defaults to selecting the imported media input for the current
 ```bash
 renku media import \
   --purpose shot.first-frame \
-  --target scene:<scene-id> \
-  --take <take-id> \
+  --target take:<take-id> \
   --source generated/media/<output>.png \
   --receipt <run-json> \
   --selection select \
   --json
 ```
 
-Use the matching concrete purpose for `shot.last-frame`, `shot.reference-image`, and `shot.multi-shot-storyboard-sheet`. The Studio References tab shows imported/generated first frames, last frames, ad hoc reference images, and multi-shot storyboard sheets for the relevant take.
+Use the matching concrete purpose for `shot.last-frame`, `shot.reference-image`, and `shot.video-prompt-sheet`. The Studio References tab shows imported/generated first frames, last frames, ad hoc reference images, and video prompt sheets for the relevant take.
 
 Omit `--receipt` when an image dependency came from Codex built-in image
-generation or another non-Renku source.
+generation or another non-Renku source. For Codex outputs, stage the selected file under project `generated/media/`
+and import that project-relative path with `renku media import --target take:<take-id>`. Use `--replace-selected` only when the
+user is correcting the selected dependency and wants the old selected input
+discarded.
 
 Final video import attaches the video output to the take and preserves the ordered shot rows:
 
 ```bash
 renku media import \
   --purpose shot.video-take \
-  --target scene:<scene-id> \
-  --take <take-id> \
+  --target take:<take-id> \
   --source generated/media/<shot-video-output>.mp4 \
   --receipt <run-json> \
   --json
@@ -317,15 +318,15 @@ Scenario: the user asks for a take for Shot 3, input mode is `first-last-frame`,
 
 Expected result: dependency assets are reusable later, final video is attached to Shot 3, and final video approval binds to the exact prompt, parameters, first frame, and last frame files.
 
-## Example: Multi-Shot Group With Storyboard Sheet
+## Example: Multi-Shot Group With Video Prompt Sheet
 
 Scenario: the user creates a take for Shot 3 and Shot 4 and the final generation should be one provider call.
 
 1. Read authoring context and model choices for the selected multi-shot input mode.
-2. Read reusable inputs. Reuse a `multi-shot-storyboard-sheet` only when it matches exactly `shot_003,shot_004` in that order.
+2. Read reusable inputs. Reuse a `video-prompt-sheet` only when it matches exactly `shot_003,shot_004` in that order.
 3. If regenerating, clear the slot.
-4. Create `shot.multi-shot-storyboard-sheet` from `shot-multi-shot-storyboard-sheet.md`.
-5. Generate or import the storyboard sheet. If using Codex built-in image generation, prompt `$imagegen`, save the selected sheet inside the project, inspect it, and import without a receipt. If using Renku-managed image generation, validate, create, estimate, approve, run, inspect, and import the storyboard sheet.
+4. Create `shot.video-prompt-sheet` from `shot-video-prompt-sheet.md`.
+5. Generate or import the video prompt sheet. If using Codex built-in image generation, prompt `$imagegen`, save the selected sheet inside the project, inspect it, and import without a receipt. If using Renku-managed image generation, validate, create, estimate, approve, run, inspect, and import the storyboard sheet.
 6. Write the take production proposal and final prompt into the authoring document as one continuous video while preserving shot boundaries.
 7. Validate and apply the authoring document. Compare validation `prior` versus
    `current`, then apply `prior` versus `current`. Core maps logical prepared
@@ -335,4 +336,4 @@ Scenario: the user creates a take for Shot 3 and Shot 4 and the final generation
    the prompt, then create, estimate, approve, run, inspect, and import one
    final `shot.video-take` spec. Do not run separate final videos per shot.
 
-Expected result: the storyboard sheet is reusable for the same ordered take, visible in the References tab for every included shot, one video output is attached to the take and both ordered shots, and changing model/prompt/parameters/inputs requires a new preflight and estimate.
+Expected result: the video prompt sheet is reusable for the same ordered take, visible in the References tab for every included shot, one video output is attached to the take and both ordered shots, and changing model/prompt/parameters/inputs requires a new preflight and estimate.

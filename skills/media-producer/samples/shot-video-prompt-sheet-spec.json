@@ -1,5 +1,5 @@
 {
-  "purpose": "shot.multi-shot-storyboard-sheet",
+  "purpose": "shot.video-prompt-sheet",
   "target": {
     "kind": "sceneShotVideoTake",
     "id": "scene_shot_video_take_002",
@@ -10,8 +10,8 @@
       "shot_004"
     ]
   },
-  "dependencyKind": "multi-shot-storyboard-sheet",
-  "outputInputKind": "multi-shot-storyboard-sheet",
+  "dependencyKind": "video-prompt-sheet",
+  "outputInputKind": "video-prompt-sheet",
   "modelChoice": "fal-ai/openai/gpt-image-2",
   "prompt": "Create one readable storyboard planning sheet for this exact ordered shot group. Layout: two numbered panels in order, each with an image frame and compact metadata below. Panel 1 / Shot 3: medium close-up, low angle, hand-held micro push-in; Elise raises the torn petition at the market doorway; short telephoto, shallow focus; audio note: crowd chant softens under her breath. Panel 2 / Shot 4: over-the-shoulder from Lucas toward Elise, slight hand-held sway; Lucas listens as the crowd compresses behind him; normal lens, natural focus falloff; audio note: ambient street sound drops. Include camera arrows for the push-in and sway. Do not add shots, durations, dialogue, music, or transitions not listed here. Keep all text legible.",
   "parameterValues": {

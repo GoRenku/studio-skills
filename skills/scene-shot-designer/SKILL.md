@@ -89,6 +89,8 @@ Storyboard maintenance is part of saved shot-list revision work unless the user 
 
 The media-producer skill owns checking the selected Storyboard Lookbook, ensuring its `lookbook.sheet` dependency exists, choosing supported routes, drafting prompts, slicing outputs, and importing storyboard images.
 
+This skill does not handle `shot.video-prompt-sheet` for an existing Shot Video Take. If the user says "multi-shot storyboard" while focused on, or referring to, a take, route that work to `media-producer` with purpose `shot.video-prompt-sheet` and target `take:<take-id>`.
+
 Do not choose media models, create generation specs, write storyboard prompts,
 slice images, or import storyboard files in this skill.
 

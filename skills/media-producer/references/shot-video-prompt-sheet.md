@@ -1,6 +1,6 @@
-# Shot Multi-Shot Storyboard Sheet
+# Shot Video Prompt Sheet
 
-Use this when creating `shot.multi-shot-storyboard-sheet` for an ordered multi-shot take. The output is one readable planning sheet, not a moodboard.
+Use this when creating `shot.video-prompt-sheet` for an ordered multi-shot take. The output is one readable AI-video prompt sheet that clarifies shot order, continuity, motion, and model-facing visual notes. It is not a scene-owned storyboard sheet and not a moodboard.
 
 ## Required Context
 
@@ -13,9 +13,11 @@ renku take authoring context --take <take-id> --json
 Use `document.shotIds` and `context.shots` exactly in order. Do not add, remove,
 reorder, or merge shots.
 
-If the user wants Codex built-in image generation, use the context and prompt
-structure below to prompt `$imagegen`, save the selected planning sheet inside
-the project, inspect it, and import it without `--receipt`.
+If the user wants Codex built-in image generation, or `agentMedia` prefers
+`codexBuiltInWhenAvailable` and the image tool is available, use the context and
+prompt structure below to prompt `$imagegen`, stage the selected planning sheet
+under project `generated/media/`, inspect it, and import it with `renku media import`
+without `--receipt`.
 
 ## Per-Shot Extraction
 
@@ -80,8 +82,11 @@ Renku-managed paid generation. Do not regenerate automatically.
 Import only after inspection:
 
 ```bash
-renku media import --purpose shot.multi-shot-storyboard-sheet --target scene:<scene-id> --take <take-id> --source generated/media/<sheet>.png --selection select --receipt <run-json> --json
+renku media import --purpose shot.video-prompt-sheet --target take:<take-id> --source generated/media/<sheet>.png --selection select --receipt <run-json> --json
+
 ```
 
 Omit `--receipt` when the sheet came from Codex built-in image generation or
 another non-Renku source.
+
+Use `--replace-selected` on the import command only when the user is correcting a prior selected video prompt sheet and wants the old selected sheet discarded in the same slot.

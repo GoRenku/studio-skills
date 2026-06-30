@@ -46,7 +46,7 @@ Screenplay commands do not mutate Cast Members or Locations.
 
 Use `media-producer` for generation specs, estimates, approved runs, inspection, slicing, and import.
 
-Current media purposes include Lookbook images/sheets, cast character sheets, cast profiles, location environment sheets, scene storyboard sheets, shot reference inputs, and shot video takes.
+Current media purposes include Lookbook images/sheets, cast character sheets, cast profiles, location environment sheets, scene storyboard sheets, shot reference inputs, shot video prompt sheets, and shot video takes.
 
 ## Lookbook Image Placement
 

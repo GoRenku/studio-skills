@@ -190,8 +190,8 @@ Use for:
 Pass:
 
 - purpose key;
-- target id;
-- exact user-selected generation controls;
+- target id, using `take:<take-id>` for shot-video take inputs when available;
+- exact user-selected generation controls and any `agentMedia` execution policy from context;
 - shot-list id and shot ids when relevant;
 - dependency order from director context;
 - approval constraints.
@@ -205,7 +205,7 @@ renku generation estimate --spec <spec-id> --json
 renku director context --json
 ```
 
-Use the purpose-specific `renku media import ...` command documented by `media-producer`; import flags differ between single-file sources and grouped import JSON.
+Use the purpose-specific import command documented by `media-producer`; import flags differ between single-file project-relative sources and grouped import JSON. For Codex-generated shot-video take inputs, stage the file under project `generated/media/`, import with `renku media import --target take:<take-id> --source generated/media/<file>`, and add `--replace-selected` only for explicit correction flows.
 
 Approval gate:
 

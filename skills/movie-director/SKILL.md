@@ -69,6 +69,7 @@ Use this loop for every request:
 - Use `lookbook-designer` for durable Movie Lookbook and Storyboard Lookbook creation, revision, typed selection, and Inspiration source linkage.
 - Use `scene-shot-designer` for Scene Shot Lists and shot-list iteration.
 - Use `media-producer` for all Renku media generation specs, estimates, approved runs, inspection, slicing, and media imports.
+- Treat take-owned "multi-shot storyboard" requests as `shot.video-prompt-sheet` media work. Route them to `media-producer` with `take:<take-id>`, not to `scene-shot-designer`.
 
 Not first-class today:
 
