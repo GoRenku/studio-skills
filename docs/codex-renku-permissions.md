@@ -1,13 +1,33 @@
 # Codex Permissions For Renku Skills
 
-Renku skills work best with a named Codex permission profile that is close to
-the built-in `:workspace` profile, but also allows the local Studio notification
-endpoint and whichever live generation providers the user wants to use.
+Codex permission profiles are the best way to give Renku skills the local
+access they need without granting broad access to the rest of your machine or
+network.
 
 This guide is for Codex users who want Renku skills such as
 `movie-director`, `scene-shot-designer`, `media-producer`, `lookbook-designer`,
 `casting-director`, and the screenplay skills to work without repeated
-sandbox prompts.
+permission prompts.
+
+Permission profiles are still beta in Codex. The examples below use the newer
+`default_permissions` and `[permissions.<name>]` model. Do not mix this model
+with the older `sandbox_mode` / `sandbox_workspace_write` settings in the same
+effective Codex config.
+
+## Recommended Approach
+
+For Renku Studio work, start from Codex's built-in `:workspace` profile and add
+only the Renku-specific pieces:
+
+- read access to Renku's global config directory;
+- write access to your active Renku project, through workspace roots;
+- loopback network access for the running Studio app;
+- provider network domains only for the generation providers you use.
+
+Extending `:workspace` is important. It preserves Codex's built-in workspace
+behavior, including write access to active workspace roots and temp directories,
+while keeping protected workspace metadata such as `.git`, `.codex`, and
+`.agents` read-only unless you explicitly override those protections.
 
 ## Why Renku Needs A Custom Profile
 
@@ -25,12 +45,6 @@ does not allow loopback network access, a Renku CLI mutation can succeed but
 Studio may not refresh. In that case the CLI reports `CLI026`: the project was
 changed, but Studio was not notified.
 
-The built-in `:workspace` profile is convenient because it follows the current
-session's workspace roots. A custom profile that hardcodes only one or two
-directories can accidentally be narrower than `:workspace`. The profile below
-keeps the useful `:workspace_roots` behavior and adds Renku-specific network
-and temp access.
-
 ## Step 1: Open Your Codex Config
 
 Codex reads user configuration from:
@@ -45,7 +59,29 @@ This document uses a Codex **permission profile**, configured under
 `[permissions.<name>]`. That is different from a Codex configuration profile
 started with `codex --profile <name>`.
 
-## Step 2: Add The Base Renku Profile
+## Step 2: Remove Older Sandbox Settings
+
+Permission profiles do not compose with the older sandbox settings. Before
+using the profile below, remove or comment out older settings such as:
+
+```toml
+sandbox_mode = "workspace-write"
+
+[sandbox_workspace_write]
+network_access = true
+```
+
+Also check selected Codex configuration profiles. If a selected config profile
+sets `sandbox_mode`, Codex will use the older sandbox settings instead of
+`default_permissions`.
+
+For managed enterprise deployments, `allowed_permission_profiles` is the
+exception: when that managed allowlist is present, Codex uses permission
+profiles. In a mixed-version rollout, administrators may temporarily keep older
+managed `allowed_sandbox_modes` requirements until all clients are on a version
+that supports custom permission profiles.
+
+## Step 3: Add The Base Renku Profile
 
 Add this to `~/.codex/config.toml`:
 
@@ -63,32 +99,26 @@ approval_policy = "on-request"
 # Use "auto_review" if you want eligible prompts reviewed automatically.
 approvals_reviewer = "auto_review"
 
+[permissions.renku-studio]
+description = "Renku Studio project editing with local Studio refresh."
+extends = ":workspace"
+
 [permissions.renku-studio.workspace_roots]
 # Add the parent folder where you keep Renku movie projects.
 # Every current Codex workspace root also counts automatically.
 "~/renku-movies" = true
 
 [permissions.renku-studio.filesystem]
-# Required by common tools and runtimes.
-":minimal" = "read"
-
-# Required for image crops, downloads, generated specs, package caches, and
-# other temporary files created by Renku workflows.
-":tmpdir" = "write"
-":slash_tmp" = "write"
-
 # Renku provider credentials are normally read from ~/.config/renku/.env or
 # ~/.config/renku/.env.local. Keep this read-only; edit credentials yourself.
 "~/.config/renku" = "read"
 
-# Needed only because the deny rules below use unbounded globs.
+# Needed only because the deny rules below use unbounded globs. This matters
+# most on Linux, WSL, and native Windows, where Codex may pre-expand deny globs
+# before the sandbox starts.
 glob_scan_max_depth = 4
 
 [permissions.renku-studio.filesystem.":workspace_roots"]
-# Give Codex normal workspace-like write access to the current project roots
-# and any roots listed above.
-"." = "write"
-
 # Keep common project-local secret files unreadable. Prefer storing Renku
 # provider keys in ~/.config/renku instead of project-local .env files.
 "**/.env" = "deny"
@@ -96,10 +126,6 @@ glob_scan_max_depth = 4
 
 [permissions.renku-studio.network]
 enabled = true
-
-# Required so allowlisted local hostnames can resolve to loopback/private
-# addresses. Keep the domain allowlist narrow.
-allow_local_binding = true
 
 [permissions.renku-studio.network.domains]
 # Studio notification endpoint. Without these, CLI mutations can succeed but
@@ -121,13 +147,41 @@ If you only want to grant access to one movie project at a time, omit the
 profile-defined workspace root and open Codex with that movie project folder as
 the active workspace root.
 
-## Step 3: Add Provider Domains You Actually Use
+### Local Hostname Note
+
+For the default Studio URL, the exact `localhost`, `127.0.0.1`, and `::1`
+allow rules are enough.
+
+Only add `allow_local_binding = true` if your local setup uses an allowlisted
+hostname that resolves to a local or private address, such as a custom
+development hostname:
+
+```toml
+[permissions.renku-studio.network]
+enabled = true
+allow_local_binding = true
+
+[permissions.renku-studio.network.domains]
+"studio.local" = "allow"
+```
+
+Leave it unset for ordinary Renku Studio use. Local and private network access
+is intentionally guarded because those destinations may expose sensitive local
+services.
+
+## Step 4: Add Provider Domains You Actually Use
 
 The base profile is enough for local screenplay, cast, location, lookbook,
 shot-list, storyboard import, and Studio refresh workflows. Live media
 generation needs network access to the selected provider.
 
-Add only the provider blocks you use.
+Add only the provider domains you use. A command that can read provider
+credentials and reach a broad network allowlist has a much larger trust
+boundary than one that can reach only the provider API it needs.
+
+Do not duplicate `[permissions.renku-studio.network.domains]` multiple times in
+the final file. TOML tables should appear once; merge the entries you need into
+one table.
 
 ### fal.ai
 
@@ -222,7 +276,7 @@ Use this for WaveSpeed-backed models.
 "api.wavespeed.ai" = "allow"
 ```
 
-## Recommended All-In-One Profile
+## Recommended All-In-One Domain Table
 
 If you want one profile that supports the currently known Renku providers, use
 this combined domain table:
@@ -260,9 +314,15 @@ this combined domain table:
 "api.wavespeed.ai" = "allow"
 ```
 
-Do not duplicate `[permissions.renku-studio.network.domains]` multiple times in
-the final file. TOML tables should appear once; merge the entries you need into
-one table.
+Avoid the global network allow rule unless you intentionally want broad public
+network access:
+
+```toml
+[permissions.renku-studio.network.domains]
+"*" = "allow"
+```
+
+That setting is convenient, but it is not a least-privilege Renku profile.
 
 ## Optional: Local Renku Development
 
@@ -276,7 +336,24 @@ Renku Studio or the Renku skills themselves:
 "~/Projects/aitinkerbox/studio-skills" = true
 ```
 
-## Step 4: Restart Or Start A New Codex Session
+## Optional: Unix Sockets
+
+Renku Studio workflows normally do not need Unix socket access. Do not enable
+Docker or other local daemon sockets unless a specific local development task
+requires them.
+
+If you do need Docker for a Renku development workflow, allow only the exact
+socket path:
+
+```toml
+[permissions.renku-studio.network.unix_sockets]
+"/var/run/docker.sock" = "allow"
+```
+
+Avoid `dangerously_allow_all_unix_sockets = true`. It is a broad local escape
+hatch, not a normal Renku setting.
+
+## Step 5: Restart Or Start A New Codex Session
 
 After editing `~/.codex/config.toml`, restart Codex or start a new Codex
 session so the profile is loaded.
@@ -292,7 +369,7 @@ new sessions should use it automatically.
 If you did not make it the default, choose the `renku-studio` permission profile
 when you start Renku work.
 
-## Step 5: Verify The Profile
+## Step 6: Verify The Profile
 
 With Studio running, ask Codex to run a harmless local network check:
 
@@ -318,7 +395,54 @@ If Studio is open and focused on a Renku project, this should return the current
 Studio context. If it says no active selection is available, refresh Studio or
 click inside the Studio window so it publishes fresh browser activity.
 
+## Best Practices
+
+- Prefer `extends = ":workspace"` over rebuilding the whole profile by hand.
+  That keeps Codex's default workspace protections in place.
+- Keep Renku provider credentials in `~/.config/renku`, and grant that
+  directory read-only access.
+- Keep project-local `.env` files denied unless you have a specific reason to
+  let Codex commands read them.
+- Add provider domains only when a workflow needs them.
+- Keep `approval_policy = "on-request"` for Renku work so Codex can ask before
+  leaving the profile.
+- Leave network proxy listener settings at their defaults unless you are
+  integrating with a special runtime.
+- Avoid `:danger-full-access`, `dangerously_allow_non_loopback_proxy`, and
+  `dangerously_allow_all_unix_sockets` for ordinary Studio use.
+- Treat generated media folders as normal project data. If they live outside
+  the active project root, add that directory as a workspace root instead of
+  granting broad filesystem access.
+
+## What This Profile Does Not Control
+
+Permission profiles govern sandboxed local commands Codex runs on your machine.
+They do not directly control:
+
+- Codex app connectors or MCP tools;
+- browser, Chrome, or computer-use surfaces;
+- Codex cloud environment internet settings;
+- commands the user explicitly approves to run outside the sandbox;
+- Codex built-in tools such as built-in image generation.
+
+Those surfaces have their own authorization and safety controls. For Renku, the
+profile mainly matters when Codex runs local commands such as `renku ...`,
+package-manager commands, or helper scripts.
+
 ## Troubleshooting
+
+### Codex Still Uses The Old Sandbox
+
+If your new profile appears to be ignored, check for older sandbox settings in
+any loaded config file:
+
+- `sandbox_mode`
+- `[sandbox_workspace_write]`
+- CLI flags such as `--sandbox`
+- a selected config profile that sets `sandbox_mode`
+
+Codex uses those older settings instead of `default_permissions` unless a
+managed `allowed_permission_profiles` requirement forces permission profiles.
 
 ### CLI026 After A Successful Mutation
 
@@ -329,15 +453,25 @@ shot lists, media imports, or generation records.
 Check:
 
 - the `renku-studio` profile is active;
-- `localhost`, `127.0.0.1`, and `::1` are allowlisted;
 - `[permissions.renku-studio.network].enabled = true`;
-- `[permissions.renku-studio.network].allow_local_binding = true`;
-- Studio is running on the expected port, normally `5173`.
+- `localhost`, `127.0.0.1`, and `::1` are allowlisted;
+- Studio is running on the expected port, normally `5173`;
+- if you use a custom local hostname, that hostname is allowlisted and
+  `allow_local_binding = true` is set.
 
 ### The Profile Feels Narrower Than `:workspace`
 
-This usually means the profile hardcoded too few workspace roots. Use
-`:workspace_roots` for filesystem rules, and either:
+This usually means the profile hardcoded too few workspace roots, or it was
+created from scratch instead of extending `:workspace`.
+
+Use:
+
+```toml
+[permissions.renku-studio]
+extends = ":workspace"
+```
+
+Then either:
 
 - open Codex with the movie project folder as a workspace root; or
 - add the parent folder that contains your Renku projects under
@@ -345,7 +479,8 @@ This usually means the profile hardcoded too few workspace roots. Use
 
 ### Temp File Or Cache Permission Errors
 
-Make sure the profile includes:
+The recommended profile inherits temp-directory write access from `:workspace`.
+If you created a profile from scratch instead, make sure it includes:
 
 ```toml
 [permissions.renku-studio.filesystem]
@@ -384,3 +519,30 @@ provider hostname to `[permissions.renku-studio.network.domains]`.
 Keep the allowlist narrow. Avoid unrestricted network access unless you are
 intentionally using a broader trust model.
 
+### Glob Denies Behave Differently Across Platforms
+
+The profile uses:
+
+```toml
+[permissions.renku-studio.filesystem]
+glob_scan_max_depth = 4
+
+[permissions.renku-studio.filesystem.":workspace_roots"]
+"**/.env" = "deny"
+"**/.env.*" = "deny"
+```
+
+On Linux, WSL, and native Windows, Codex may pre-expand unbounded deny globs
+before sandbox startup. If startup becomes slow in very large project trees,
+either reduce the scan depth or replace the unbounded patterns with explicit
+depths such as:
+
+```toml
+[permissions.renku-studio.filesystem.":workspace_roots"]
+".env" = "deny"
+".env.*" = "deny"
+"*/.env" = "deny"
+"*/.env.*" = "deny"
+"*/*/.env" = "deny"
+"*/*/.env.*" = "deny"
+```
