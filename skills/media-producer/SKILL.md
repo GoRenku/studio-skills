@@ -158,15 +158,23 @@ For shot video take work, use the detailed operational reference:
 For shot-video work, establish the working Shot Video Take before drafting
 prompts, dependency inputs, estimates, final specs, generation runs, or final
 media imports. If the user gives a durable take id, use it. If the user says
-"this take" or gives no explicit take reference, read
-`renku studio current --json`, summarize the focused scene/take candidate, and
-confirm before mutating project state or preparing paid generation.
+"this take", "current", "selected", "open", or gives no explicit take
+reference, read `renku studio current --json` and verify that Studio current
+identifies an existing Shot Video Take id before continuing. If it does not,
+stop and ask the user to open the take or provide the take id. Do not infer the
+take from a scene, shot list, newest take, filenames, or prior conversation.
 
 Load the more specific shot references when needed:
 
 - Video prompt sheets: `references/shot-video-prompt-sheet.md`
 - First/last frame dependencies: `references/shot-first-last-frame.md`
 - Ad hoc reference images: `references/shot-reference-images.md`
+
+For `shot.video-prompt-sheet`, draft an internal prompt-sheet brief from
+`renku take authoring context --take <take-id> --json` before prompting any
+image model. Use that brief to generate or revise the sheet, inspect the image
+against the brief before import, and import only when it preserves shot order,
+continuity, motion, visual references, spoken timing, and readable labels.
 
 Supported purpose keys:
 

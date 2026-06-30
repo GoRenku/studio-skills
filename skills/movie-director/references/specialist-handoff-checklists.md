@@ -205,7 +205,21 @@ renku generation estimate --spec <spec-id> --json
 renku director context --json
 ```
 
-Use the purpose-specific import command documented by `media-producer`; import flags differ between single-file project-relative sources and grouped import JSON. For Codex-generated shot-video take inputs, stage the file under project `generated/media/`, import with `renku media import --target take:<take-id> --source generated/media/<file>`, and add `--replace-selected` only for explicit correction flows.
+Use the purpose-specific import command documented by `media-producer`; import
+flags differ between single-file project-relative sources and grouped import
+JSON. For Codex-generated shot-video prompt sheets, stage the file under
+project `generated/media/` and import it with:
+
+```bash
+renku media import \
+  --purpose shot.video-prompt-sheet \
+  --target take:<take-id> \
+  --source generated/media/<sheet>.png \
+  --selection select \
+  --json
+```
+
+Add `--replace-selected` only for explicit correction flows.
 
 Approval gate:
 

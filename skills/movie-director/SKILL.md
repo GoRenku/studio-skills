@@ -35,6 +35,22 @@ renku director context --selection '<studio-selection-json>' --json
 6. Read back durable state through Renku CLI after the specialist completes.
 7. Suggest the next concrete department step.
 
+When the user asks about "this", "current", "selected", "open", "the thing on
+screen", or a similar Studio-focused object, treat Studio current context as a
+required input before specialist dispatch:
+
+```bash
+renku studio current --json
+```
+
+Continue only when Studio current returns the object kind and durable id needed
+for the next command. For existing Shot Video Take prompt-sheet work, it must
+identify an existing take id before routing to `media-producer`. If Studio
+current shows only a scene, shot list, new-take form, unrelated tab, or no take
+id, stop and ask the user to open the take or provide the take id. Do not infer
+a take, scene, shot, cast member, location, lookbook, or dialogue from nearby
+project data.
+
 
 ## Codex Sandbox And Studio Notifications
 
@@ -69,7 +85,11 @@ Use this loop for every request:
 - Use `lookbook-designer` for durable Movie Lookbook and Storyboard Lookbook creation, revision, typed selection, and Inspiration source linkage.
 - Use `scene-shot-designer` for Scene Shot Lists and shot-list iteration.
 - Use `media-producer` for all Renku media generation specs, estimates, approved runs, inspection, slicing, and media imports.
-- Treat take-owned "multi-shot storyboard" requests as `shot.video-prompt-sheet` media work. Route them to `media-producer` with `take:<take-id>`, not to `scene-shot-designer`.
+- Treat take-owned "multi-shot storyboard" or video prompt-sheet requests as
+  `shot.video-prompt-sheet` media work. Route them to `media-producer` with
+  `take:<take-id>` after reading
+  `renku take authoring context --take <take-id> --json`; do not send this work
+  to `scene-shot-designer`.
 
 Not first-class today:
 

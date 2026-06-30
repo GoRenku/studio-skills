@@ -4,14 +4,21 @@ Use this reference for final AI video takes for one Shot Video Take: either a si
 
 Never write `.renku/project.sqlite` directly. Never override the user-selected input mode, model, parameters, shot ids, reference choices, or take. Take-tab edits must update take-owned state through `renku take authoring apply`; do not use Studio routes or generic state patches. Never submit raw provider payload JSON; submit logical Renku specs and production plans. Never rely on fallback prompts. Paid generation requires an authored prompt and, for ad hoc reference images, an authored title naming the reference intent.
 
-Shot-video work starts by establishing the working take. Explicit user references win: use an explicit `takeId` or production scene/shot/take reference. If the user says "this take" or gives no durable reference, read `renku studio current --json`; treat focus as a candidate and confirm before mutating project state, preparing paid generation, or importing final media.
+Shot-video work starts by establishing the working take. Explicit user
+references win: use an explicit `takeId` or production scene/shot/take
+reference. If the user says "this take", "current", "selected", "open", or
+gives no durable reference, read `renku studio current --json` and continue
+only when Studio current identifies an existing Shot Video Take id. If it does
+not, stop and ask the user to open the take or provide the take id. Do not infer
+the take from a scene, shot list, new-take form, newest take, filenames, or
+prior conversation.
 
 ## Purposes
 
 - `shot.first-frame`: carefully authored opening still for a shot video take.
 - `shot.last-frame`: carefully authored closing still for a first/last-frame workflow.
 - `shot.reference-image`: ad hoc reference image generated only for a named single-shot or multi-shot take need.
-- `shot.video-prompt-sheet`: one storyboard planning sheet for an ordered multi-shot take.
+- `shot.video-prompt-sheet`: one readable AI-video prompt sheet for an ordered multi-shot take, built from a prompt-sheet brief and inspected before import.
 - `shot.video-take`: final video output attached to the take while preserving its ordered shot ids.
 
 For image dependencies, use Codex built-in image generation when the user asks
@@ -198,6 +205,14 @@ Use the specific references for dependency prompts:
 - Video prompt sheets: `shot-video-prompt-sheet.md`
 - Ad hoc reference images: `shot-reference-images.md`
 
+For `shot.video-prompt-sheet`, build the internal prompt-sheet brief from
+`renku take authoring context --take <take-id> --json` before prompting any
+image model. The brief must preserve the ordered shot ids, take structure mode,
+spatial continuity, motion continuity, selected visual references, and known
+spoken timing. Inspect the resulting sheet against that brief before import.
+Do not import moodboards, reordered panels, reversed movement, invented
+geography, misplaced spoken text, or unreadable labels.
+
 Do not invent exact dialogue, duration, music, or transitions when absent. If exact dialogue is needed, read the screenplay scene before drafting.
 
 ## Provider Reference Tokens
@@ -326,7 +341,7 @@ Scenario: the user creates a take for Shot 3 and Shot 4 and the final generation
 2. Read reusable inputs. Reuse a `video-prompt-sheet` only when it matches exactly `shot_003,shot_004` in that order.
 3. If regenerating, clear the slot.
 4. Create `shot.video-prompt-sheet` from `shot-video-prompt-sheet.md`.
-5. Generate or import the video prompt sheet. If using Codex built-in image generation, prompt `$imagegen`, save the selected sheet inside the project, inspect it, and import without a receipt. If using Renku-managed image generation, validate, create, estimate, approve, run, inspect, and import the storyboard sheet.
+5. Generate or import the video prompt sheet. If using Codex built-in image generation, prompt `$imagegen`, save the selected sheet inside the project, inspect it, and import without a receipt. If using Renku-managed image generation, validate, create, estimate, approve, run, inspect, and import the prompt sheet.
 6. Write the take production proposal and final prompt into the authoring document as one continuous video while preserving shot boundaries.
 7. Validate and apply the authoring document. Compare validation `prior` versus
    `current`, then apply `prior` versus `current`. Core maps logical prepared
