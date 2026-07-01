@@ -109,8 +109,8 @@ extends = ":workspace"
 "~/renku-movies" = true
 
 [permissions.renku-studio.filesystem]
-# Renku provider credentials are normally read from ~/.config/renku/.env or
-# ~/.config/renku/.env.local. Keep this read-only; edit credentials yourself.
+# Renku provider credentials are read from ~/.config/renku/.env.
+# Keep this read-only; edit credentials yourself.
 "~/.config/renku" = "read"
 
 # Needed only because the deny rules below use unbounded globs. This matters
@@ -119,8 +119,8 @@ extends = ":workspace"
 glob_scan_max_depth = 4
 
 [permissions.renku-studio.filesystem.":workspace_roots"]
-# Keep common project-local secret files unreadable. Prefer storing Renku
-# provider keys in ~/.config/renku instead of project-local .env files.
+# Keep common project-local secret files unreadable. Store Renku provider
+# keys in ~/.config/renku/.env instead of project-local .env files.
 "**/.env" = "deny"
 "**/.env.*" = "deny"
 
@@ -405,10 +405,10 @@ click inside the Studio window so it publishes fresh browser activity.
 
 - Prefer `extends = ":workspace"` over rebuilding the whole profile by hand.
   That keeps Codex's default workspace protections in place.
-- Keep Renku provider credentials in `~/.config/renku`, and grant that
-  directory read-only access.
-- Keep project-local `.env` files denied unless you have a specific reason to
-  let Codex commands read them.
+- Keep Renku provider credentials in `~/.config/renku/.env`, and grant the
+  config directory read-only access.
+- Keep project-local `.env` files denied so they cannot become a second
+  provider-credential source.
 - Add provider domains only when a workflow needs them.
 - Keep `approval_policy = "on-request"` for Renku work so Codex can ask before
   leaving the profile.
@@ -499,11 +499,10 @@ downloads, and provider SDK internals.
 
 ### Provider Credentials Are Missing
 
-Renku generation providers normally read credentials from:
+Renku generation providers read credentials from one file:
 
 ```text
 ~/.config/renku/.env
-~/.config/renku/.env.local
 ```
 
 Make sure the profile includes:
@@ -513,9 +512,9 @@ Make sure the profile includes:
 "~/.config/renku" = "read"
 ```
 
-If you intentionally store provider keys in a project-local `.env`, the deny
-rules in this guide will block them. Prefer moving those keys to
-`~/.config/renku`; otherwise remove the `.env` deny rules for your local setup.
+If provider keys exist in a project-local `.env`, move them to
+`~/.config/renku/.env`. Do not remove the project `.env` deny rules just to
+make provider credentials work.
 
 ### A Live Provider Is Still Blocked
 
