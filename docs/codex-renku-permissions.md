@@ -194,9 +194,12 @@ workflows.
 "127.0.0.1" = "allow"
 "::1" = "allow"
 
+"fal.run" = "allow"
 "**.fal.run" = "allow"
 "rest.fal.ai" = "allow"
+"fal.ai" = "allow"
 "**.fal.ai" = "allow"
+"fal.media" = "allow"
 "**.fal.media" = "allow"
 "storage.googleapis.com" = "allow"
 ```
@@ -288,9 +291,12 @@ this combined domain table:
 "::1" = "allow"
 
 # fal.ai
+"fal.run" = "allow"
 "**.fal.run" = "allow"
 "rest.fal.ai" = "allow"
+"fal.ai" = "allow"
 "**.fal.ai" = "allow"
+"fal.media" = "allow"
 "**.fal.media" = "allow"
 "storage.googleapis.com" = "allow"
 
@@ -518,6 +524,33 @@ provider hostname to `[permissions.renku-studio.network.domains]`.
 
 Keep the allowlist narrow. Avoid unrestricted network access unless you are
 intentionally using a broader trust model.
+
+### Provider Run Fails With `fetch failed`
+
+If `renku generation run` gets past credential/env loading but fails with only
+`fetch failed`, first confirm the active Codex session is using the
+provider-enabled permission profile. Defining `[permissions.renku-studio]` in
+`config.toml` does not affect a session that is still running under
+`:workspace` or another profile with network disabled.
+
+For fal.ai image generations that use project references, the first provider
+network request may be a file upload for selected Lookbook, Location Sheet, or
+Character Sheet images, before the model request itself starts. That path needs
+the fal.ai API domains and the storage/upload/download domains listed above.
+
+A quick diagnosis is:
+
+```bash
+curl -I -sS https://rest.fal.ai
+curl -I -sS https://storage.googleapis.com
+```
+
+Run those checks inside the same Codex permission context as the failing
+generation command. If they fail inside the sandbox but work outside it, fix the
+active permission profile or domain allowlist before retrying the paid
+generation. Do not rewrite a validated Renku generation spec, remove
+`referenceMode`, add provider URLs by hand, or switch to local image processing
+just because the provider upload could not reach the network.
 
 ### Glob Denies Behave Differently Across Platforms
 

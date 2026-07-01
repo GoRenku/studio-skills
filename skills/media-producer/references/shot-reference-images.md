@@ -17,15 +17,27 @@ Every generated `shot.reference-image` spec must include:
 - `purpose`: `shot.reference-image`;
 - `dependencyKind`: `reference-image`;
 - `outputInputKind`: `reference-image`;
+- `referenceMode`: normally `movie-lookbook`;
 - authored `prompt`;
 - authored `title` naming the reference intent;
 - exact target scene, take id, and ordered shot ids.
+
+Use `referenceMode: "storyboard-lookbook"` only when the user explicitly asks
+for storyboard, hand-drawn, sketch, animatic, or Storyboard Lookbook aesthetics
+for this reference image. Do not use storyboard mode merely because a Storyboard
+Lookbook or scene storyboard sheet exists.
 
 If the reference need is vague, ask the user to name what the image is for. Do not generate a generic helpful reference.
 
 If the user wants Codex built-in image generation, use the same authored
 reference intent to prompt `$imagegen`, save the selected image inside the
-project, inspect it, and import it without `--receipt`.
+project, inspect it, and import it without `--receipt`. If the current image
+tool cannot accept actual image references, disclose that selected Movie
+Lookbook, Location Sheet, and Character Sheet files cannot be used as image
+conditioning through that path; prefer Renku-managed reference-capable
+generation when the reference image must use those selected sheets directly. Do
+not imitate those references through local compositing, recoloring, filters, or
+other post-processing.
 
 ## Multiple References
 

@@ -15,6 +15,20 @@ Media imports and generation runs that attach assets should refresh the open Stu
 
 If a command prints `CLI026`, the media import or mutation has already succeeded but Studio was not notified. Do not rerun non-idempotent imports just to notify Studio; that can duplicate assets. Read back durable state, then use `renku studio notify-refresh --project <project-name> --resource <resource-key> --json` with local network permission when a focused refresh is enough, or tell the user Studio needs a refresh.
 
+Provider-backed generation also needs outbound network permission. A configured
+Codex permission profile is not enough by itself; confirm the active session is
+using a profile that allows the approved provider and any upload/download hosts
+before a real `renku generation run`. For fal.ai reference-image generation this
+includes the fal.ai API host and cloud storage upload/download hosts used by
+the SDK.
+
+If a real run fails with only `fetch failed`, do not rewrite the spec, remove
+`referenceMode`, manually add `image_urls`, or switch to local image processing.
+First diagnose the active Codex network permission/profile and provider host
+reachability. For shot input image specs with references, the failure often
+happens while uploading selected Movie Lookbook, Location Sheet, or Character
+Sheet images before the model request starts.
+
 ## Start Here
 
 1. Resolve the current Renku project, target purpose, and target id.
@@ -25,7 +39,7 @@ renku generation context --purpose <purpose-key> --target <target> --json
 ```
 
 3. Choose the execution path from user intent and the returned `agentMedia` policy:
-   - Use **Codex built-in image generation** when the user asks to use Codex, `$imagegen`, built-in image generation, GPT-Image 2 through Codex, or to avoid app-side/fal.ai generation costs for an image purpose, and the agent surface has the image tool available. This includes `scene.storyboard-sheet`; do not route storyboard sheets to fal.ai solely because they are storyboard sheets.
+   - Use **Codex built-in image generation** when the user asks to use Codex, `$imagegen`, built-in image generation, GPT-Image 2 through Codex, or to avoid app-side/fal.ai generation costs for an image purpose, and the agent surface has the image tool available. This includes `scene.storyboard-sheet`; do not route storyboard sheets to fal.ai solely because they are storyboard sheets. If the current image tool cannot accept actual image references, disclose that limitation before generating shot input images that Core says require selected Movie Lookbook, Location Sheet, or Character Sheet references; prefer Renku-managed reference-capable routes when the user wants those references applied as image conditioning. Do not create local composites, recolors, filters, or post-processed derivatives as substitutes for missing model reference conditioning.
    - If `agentMedia.imageGeneration.defaultExecutionPath` is `codexBuiltInWhenAvailable`, prefer Codex built-in image generation for eligible image purposes when the tool is available. If it is `renkuManaged`, use the Renku-managed path unless the user explicitly overrides. If it is `ask`, ask when the user has not already chosen.
    - Use **Renku-managed generation** when the user explicitly chooses a Studio/fal.ai/provider model, wants Renku cost tracking or generation records, needs video or audio generation, or asks for an app-side generation run.
 4. For Codex built-in image generation, skip spec creation, estimate, approval token, and `renku generation run`. Use the `$imagegen` skill/tool with a prompt grounded in the Renku context, stage the selected output under project `generated/media/<descriptive-file>.png`, inspect it, and import it with `renku media import --source generated/media/<descriptive-file>.png` without `--receipt`. For `scene.storyboard-sheet`, generate the composite sheet, inspect it, crop the selected shot panels, inspect every crop, and import the cropped shot images with the storyboard import shape. Do not manually copy the output into canonical asset folders such as `cast/`, `locations/`, `visual-language/`, or `shotlist/`; the purpose-specific import command owns those folders and registers the durable Studio attachment.
@@ -36,6 +50,8 @@ renku generation model list --purpose <purpose-key> --target <target> --json
 ```
 
 6. For Renku-managed generation, create a Media Generation Spec JSON with the user's binding choices.
+   - For shot input image specs (`shot.first-frame`, `shot.last-frame`, `shot.reference-image`, and `shot.video-prompt-sheet`), do not put provider `image_urls` in the spec. Use `referenceMode` plus the take target; Core resolves selected reference assets during validation, estimate, and run.
+   - Before telling the user a shot input spec is ready for paid generation, run `renku generation spec validate --file <spec-json> --json` or estimate the persisted spec and check the prepared `providerPayload.image_urls` / input files. If those references are present, explain that the raw spec intentionally stays free of provider paths.
 7. For Renku-managed generation, persist the spec:
 
 ```bash
@@ -172,7 +188,12 @@ Load the more specific shot references when needed:
 
 For `shot.video-prompt-sheet`, draft an internal prompt-sheet brief from
 `renku take authoring context --take <take-id> --json` before prompting any
-image model. Use that brief to generate or revise the sheet, inspect the image
+image model. Use `referenceMode: "movie-lookbook"` by default for shot input
+images so Core attaches the selected Movie Lookbook sheet as the primary style
+reference and selected Location Sheets and Character Sheets as continuity
+references. Use `referenceMode: "storyboard-lookbook"` only when the user
+explicitly asks for storyboard, hand-drawn, sketch, animatic, or Storyboard
+Lookbook aesthetics for that generated shot input image. Inspect the image
 against the brief before import, and import only when it preserves shot order,
 continuity, motion, visual references, spoken timing, and readable labels.
 

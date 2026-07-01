@@ -12,7 +12,7 @@
 7. For Renku-managed generation, persist the spec with `renku generation spec create`.
 8. For Renku-managed generation, estimate cost from the persisted spec.
 9. For Renku-managed generation, before any paid provider-backed run, get explicit user approval for both the estimated cost and sending project-derived prompt/context to the provider.
-10. For Renku-managed generation, run with `--simulate` for dry checks or with the approval token for paid generation. For a real provider-backed run, request sandbox/network permission before the first `renku generation run` attempt, because generation needs outbound network access.
+10. For Renku-managed generation, run with `--simulate` for dry checks or with the approval token for paid generation. For a real provider-backed run, request sandbox/network permission before the first `renku generation run` attempt, because generation needs outbound network access. If Codex uses named permission profiles, confirm the active session is actually using the provider-enabled profile; defining the profile in config is not enough if the session remains on a workspace-only profile.
 11. Inspect finished media before import. For Location Sheets, inspect the full image as one production reference board, confirm it matches the required description, and do not crop or slice it. For storyboard sheets, follow the storyboard-specific slicing reference.
 12. Import finished media with `renku media import`.
 
@@ -51,3 +51,10 @@ until `renku media import` succeeds, and the user has not actually been shown
 the result until the final response includes a visible preview or attachment.
 
 When requesting permission for a real run, make the reason explicit: the command will contact the approved generation provider and send project-derived prompt/context that the user already approved for that run.
+
+If a real run fails with only `fetch failed`, treat it as a network/permission
+diagnostic first. Do not rewrite a validated spec, remove reference settings,
+manually add provider URLs, or create local image-processing substitutes. Check
+the active Codex permission profile and provider host reachability, especially
+for reference-image runs where Renku uploads selected project images before the
+provider model invocation.

@@ -52,9 +52,16 @@ renku generation model list --purpose shot.video-prompt-sheet --target take:<tak
 The take authoring context is the source of truth for take id, scene id, source
 shot list id, structure mode, ordered selected shot ids, continuous shared
 direction, multi-cut per-shot direction, selected cast, selected locations,
-selected lookbook references, prepared inputs, production plan, preflight, and
-readiness. Do not reconstruct those facts from filenames, screen copy, old plan
-files, or sample-project memory.
+selected lookbook references, prepared inputs, production plan, preflight,
+`shotVideoInputReferences`, and readiness. Do not reconstruct those facts from
+filenames, screen copy, old plan files, or sample-project memory.
+
+Default shot input style is the selected Movie Lookbook, not the selected
+Storyboard Lookbook. Use `referenceMode: "movie-lookbook"` unless the user
+explicitly asks for storyboard, hand-drawn, sketch, animatic, or Storyboard
+Lookbook aesthetics for this prompt sheet. A panelled layout does not imply
+storyboard drawing style. Use selected Location Sheets and Character Sheets as
+continuity inputs when Core reports them for the take.
 
 ## Authoring Flow
 
@@ -67,9 +74,50 @@ files, or sample-project memory.
 
 For Codex built-in image generation, stage the selected output under project
 `generated/media/`, inspect it, and import it with `renku media import` without
-`--receipt`. For Renku-managed generation, create and estimate a persisted spec
+`--receipt`. If the active Codex image tool cannot accept actual reference
+images, tell the user the selected Movie Lookbook, Location Sheet, and Character
+Sheet files cannot be applied as image conditioning through that path. Prefer a
+Renku-managed reference-capable route when the user wants selected references
+applied directly. Do not create a local composite, recolor, filter, traced
+layout, or post-processed derivative as a substitute for model-native reference
+conditioning. For Renku-managed generation, create and estimate a persisted spec
 before any paid run, inspect the generated image, and import with the receipt
 only after the sheet passes the quality gate.
+
+Renku-managed specs do not store provider `image_urls` or raw asset file paths.
+They store `referenceMode`, the take target, and the authored prompt. Core
+resolves the selected Movie Lookbook sheet, Location Sheets, and Character
+Sheets into provider inputs during validation, estimate, and run. Do not add
+`image_urls`, asset ids, or project file paths to the spec manually. Before
+asking the user to approve a paid run, validate or estimate the spec and verify
+that the prepared provider payload includes the expected reference images.
+
+Reference check:
+
+```bash
+renku generation spec validate --file <spec-json> --json
+```
+
+In the JSON output, confirm:
+
+- `spec.referenceMode` is `movie-lookbook` unless storyboard style was explicitly requested;
+- `providerPayload.image_urls` contains the expected logical `renku-input://...`
+  entries;
+- the appended "Reference-conditioning instructions" name the selected Movie
+  Lookbook sheet and selected continuity references.
+
+If the raw spec looks "unreferenced" but validation shows the correct
+`providerPayload.image_urls`, the spec is correct. Explain that references are
+resolved by Core at preparation time.
+
+For a real Renku-managed run, confirm Codex has outbound provider network
+permission before invoking `renku generation run`. A configured permission
+profile must be active for the session. If the run reports only `fetch failed`,
+diagnose network/profile/host reachability first; for this purpose the failure
+may occur while uploading the selected Movie Lookbook, Location Sheet, or
+Character Sheet references before GPT-Image-2 is invoked. Do not remove
+`referenceMode`, add provider `image_urls` manually, or substitute local
+compositing/post-processing for model-native reference conditioning.
 
 ## Prompt-Sheet Brief
 
@@ -108,10 +156,11 @@ Motion continuity
 - transition or continuity link between panels when known
 
 Visual continuity
-- selected cast references
-- selected location sheets
-- selected lookbook sheets
-- storyboard images or prepared inputs that should influence the sheet
+- referenceMode, normally movie-lookbook
+- selected Movie Lookbook sheet as the primary style reference
+- selected Location Sheets and Character Sheets as continuity references
+- Storyboard Lookbook sheet only when referenceMode is explicitly storyboard-lookbook
+- storyboard images or prepared inputs that Core context provides as shot intent, not default style
 - costume, prop, palette, lighting, or texture constraints when present
 
 Audio and spoken timing
@@ -188,7 +237,7 @@ requested layout.
 Use this provider-neutral template, filled from the brief:
 
 ```text
-Create one readable video prompt sheet for this existing Shot Video Take.
+Create one readable video prompt sheet for this existing Shot Video Take. Use the selected Movie Lookbook sheet as the primary style reference and the selected Location Sheets and Character Sheets as continuity references. Do not render this as a Storyboard Lookbook drawing unless the user explicitly requested storyboard style for this prompt sheet.
 
 Purpose:
 - make one planning panel per selected shot;

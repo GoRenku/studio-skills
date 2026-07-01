@@ -179,7 +179,8 @@ renku take authoring apply --file shot-video-take-authoring.json --json
 
 The authoring context, validation `current`, and apply `current` snapshots
 include the authoritative dependency checklist, preflight readiness, estimate,
-and provider payload preview. Read `productionPlan.plan.lines`,
+shot input reference report, and provider payload preview. Read
+`shotVideoInputReferences`, `productionPlan.plan.lines`,
 `productionPlan.references`, `preflight`, and `providerPreview`.
 
 Before creating, estimating, approving, or running the final `shot.video-take`
@@ -205,6 +206,14 @@ Use the specific references for dependency prompts:
 - Video prompt sheets: `shot-video-prompt-sheet.md`
 - Ad hoc reference images: `shot-reference-images.md`
 
+For ordinary shot input images, author specs with `referenceMode: "movie-lookbook"`. Core will attach the selected Movie Lookbook sheet as the
+primary style reference and selected Location Sheets and Character Sheets as
+continuity references. Use `referenceMode: "storyboard-lookbook"` only when
+the user explicitly asks for storyboard, hand-drawn, sketch, animatic, or
+Storyboard Lookbook aesthetics for that generated shot input image. Do not infer
+storyboard mode from the existence of a Storyboard Lookbook or scene storyboard
+sheet.
+
 For `shot.video-prompt-sheet`, build the internal prompt-sheet brief from
 `renku take authoring context --take <take-id> --json` before prompting any
 image model. The brief must preserve the ordered shot ids, take structure mode,
@@ -212,6 +221,14 @@ spatial continuity, motion continuity, selected visual references, and known
 spoken timing. Inspect the resulting sheet against that brief before import.
 Do not import moodboards, reordered panels, reversed movement, invented
 geography, misplaced spoken text, or unreadable labels.
+
+When a shot input image must use selected Movie Lookbook, Location Sheet, or
+Character Sheet files as actual image references, use a model path that can
+receive those references. If the active Codex image tool cannot pass actual
+image references, disclose the limitation and choose Renku-managed generation
+unless the user explicitly accepts a weaker text-only path. Do not replace
+reference conditioning with local compositing, recoloring, filters, or
+post-processing.
 
 Do not invent exact dialogue, duration, music, or transitions when absent. If exact dialogue is needed, read the screenplay scene before drafting.
 

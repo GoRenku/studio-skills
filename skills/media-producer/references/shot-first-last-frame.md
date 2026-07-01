@@ -9,12 +9,23 @@ Use `document.structure.sharedDirection` for continuous takes and
 `document.structure.directionsByShotId[shotId]` for multi-cut takes as binding
 creative context for selected Composition and Motion values. Use take-owned
 Cast, Location, Lookbook, and custom reference choices as continuity context.
+Use `referenceMode: "movie-lookbook"` by default so Core applies the selected
+Movie Lookbook sheet as the primary style reference and selected Location
+Sheets and Character Sheets as continuity inputs. Use `referenceMode: "storyboard-lookbook"` only when the user explicitly wants the first/last
+frame itself, and likely the resulting video, to have storyboard or hand-drawn
+aesthetics.
 
 If a required character sheet, location sheet, lookbook sheet, custom reference image, first frame, or last frame is missing, let preflight report the missing dependency. Do not create loosely described first/last frames to paper over missing references.
 
 If the user wants Codex built-in image generation, use this same authored
 context to prompt `$imagegen`, save the selected still inside the project,
-inspect it, and import it without `--receipt`.
+inspect it, and import it without `--receipt`. If the current image tool cannot
+accept actual image references, disclose that the selected Movie Lookbook,
+Location Sheet, and Character Sheet files cannot be applied as image
+conditioning through that path; prefer Renku-managed reference-capable
+generation when those references must be applied directly. Do not imitate those
+references through local compositing, recoloring, filters, or other
+post-processing.
 
 ## First Frame Prompt Must Specify
 
