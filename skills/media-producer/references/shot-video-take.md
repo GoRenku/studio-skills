@@ -1,6 +1,6 @@
 # Shot Video Take Media Production
 
-Use this reference for final AI video takes for one Shot Video Take: either a single shot or an ordered multi-shot selection. Core owns take state, context, validation, preflight, spec persistence, provider mapping, runs, imports, reusable dependency relationships, and output attachment. The skill owns creative dependency analysis and model-specific prompt drafting.
+Use this reference for final AI video takes for one Shot Video Take: either a single shot or an ordered multi-shot selection. Core owns take state, context, validation, preflight, spec persistence, provider mapping, runs, imports, reusable dependency relationships, video attachment, and regeneration copies. The skill owns creative dependency analysis and model-specific prompt drafting.
 
 Never write `.renku/project.sqlite` directly. Never override the user-selected input mode, model, parameters, shot ids, reference choices, or take. Take-tab edits must update take-owned state through `renku take authoring apply`; do not use Studio routes or generic state patches. Never submit raw provider payload JSON; submit logical Renku specs and production plans. Never rely on fallback prompts. Paid generation requires an authored prompt and, for ad hoc reference images, an authored title naming the reference intent.
 
@@ -19,7 +19,7 @@ prior conversation.
 - `shot.last-frame`: carefully authored closing still for a first/last-frame workflow.
 - `shot.reference-image`: ad hoc reference image generated only for a named single-shot or multi-shot take need.
 - `shot.video-prompt-sheet`: one readable AI-video prompt sheet for an ordered multi-shot take, built from a prompt-sheet brief and inspected before import.
-- `shot.video-take`: final video output attached to the take while preserving its ordered shot ids.
+- `shot.video-take`: final video attached to the take while preserving its ordered shot ids.
 
 For image dependencies, use Codex built-in image generation when the user asks
 for Codex, `$imagegen`, built-in GPT-Image 2, or no-extra-cost image generation,
@@ -198,6 +198,13 @@ before paid generation.
 
 If preflight reports `CORE_SHOT_VIDEO_DEPENDENCY_DRAFT_MISSING` or `CORE_SHOT_VIDEO_FINAL_PROMPT_DRAFT_MISSING`, do not generate. Author the missing spec or prompt first.
 
+Mechanical readiness is not prompt-quality readiness. Mechanical readiness
+means Core has the required inputs, model, route, parameters, and prompt field
+needed to estimate or run. Prompt-quality readiness means the final prompt
+follows the active model/workflow guidance, names provider references, preserves
+selected-input constraints, and passes any route-specific checklist. Report both
+when the user asks whether a take is ready to generate.
+
 ## Dependency Authoring
 
 Use the specific references for dependency prompts:
@@ -222,6 +229,13 @@ spoken timing. Inspect the resulting sheet against that brief before import.
 Do not import moodboards, reordered panels, reversed movement, invented
 geography, misplaced spoken text, or unreadable labels.
 
+Keep the prompt-sheet brief or generation spec available for downstream final
+video prompting whenever possible. Final `shot.video-take` prompts must preserve
+hard constraints from the current take, user corrections, the prompt-sheet
+brief/spec, the visible prompt sheet, and selected continuity references. If the
+final prompt contradicts a hard constraint, stop and resolve the contradiction
+before estimating or running.
+
 When a shot input image must use selected Movie Lookbook, Location Sheet, or
 Character Sheet files as actual image references, use a model path that can
 receive those references. If the active Codex image tool cannot pass actual
@@ -237,6 +251,11 @@ Do not invent exact dialogue, duration, music, or transitions when absent. If ex
 Core maps logical Renku inputs to provider payload fields. Prompt drafts must
 match that logical mapping:
 
+- Determine actual token order from `providerPreview`, especially its prepared
+  provider inputs or payload fields. Assign `image_urls` to `@ImageN` in order,
+  `audio_urls` to `@AudioN` in order, and `video_urls` to `@VideoN` in order.
+  Do not infer numbering from filenames, memory, UI card order, or old run
+  payloads.
 - Seedance 2.0 reference audio uses `audio_urls` as per-generation voice/style
   conditioning. Prefer clean Cast Voice samples or selected scene dialogue audio
   and write the spoken line in the prompt. Do not promise exact timing,
@@ -290,6 +309,30 @@ Maintenance check: if a prompt contains `@Audio`, `@Image`, `@Element`, or
 `@Video`, confirm the corresponding Renku input exists in preflight and that the
 selected route supports that provider field before estimating or running.
 
+## Prompt-Sheet Handoff Gate
+
+When `providerPreview` includes a `video-prompt-sheet` input, the final prompt
+must pass this gate before estimate or paid generation:
+
+- name the prompt sheet by its actual provider token;
+- say to work through the panels in order;
+- say the panels are temporal waypoints, not a split-screen, collage, panorama,
+  poster, grid, or frozen composite;
+- forbid sheet layout, panel borders, labels, arrows, captions, metadata rows,
+  text boxes, UI, and shot ids from appearing in the final footage;
+- give every supplied image, video, and audio reference a role;
+- copy known narration or dialogue exactly;
+- describe native-audio timing as best-effort unless an exact-sync workflow is
+  selected;
+- preserve hard constraints from the current take, user corrections,
+  prompt-sheet brief/spec, visible sheet, and selected references;
+- check that the final prompt does not contradict visible or documented sheet
+  constraints.
+
+For Seedance reference-to-video with a prompt sheet, also read
+`seedance-prompt-sheet-reference-video.md`. Keep that guidance route-specific;
+do not load it for unrelated models or non-reference Seedance routes.
+
 ## Spec Lifecycle
 
 For every Renku-managed dependency and final video spec:
@@ -301,6 +344,13 @@ For every Renku-managed dependency and final video spec:
 5. Run only after approval: `renku generation run --spec <spec-id> --approval-token <approval-token> --json`.
 6. Inspect generated media before import.
 7. Import with the concrete purpose.
+
+If validation, estimate, or run fails because the provider rejects an
+unsupported field such as `negative_prompt`, do not only remove the field and
+continue. Re-read the provider preview and final prompt, move any essential
+negative constraints into the main prompt when the route lacks a separate
+negative field, and re-run the route-specific prompt-quality checklist before
+asking for paid generation approval again.
 
 Dependency import defaults to selecting the imported media input for the current take:
 
@@ -333,6 +383,27 @@ renku media import \
   --json
 ```
 
+Each take has one attached final video. If the target take has no video, Core
+attaches the imported file to that take. If the target take already has a video,
+Core creates a copied regeneration take from the target, preserves the ordered
+shot ids, selected inputs, model, parameters, and authored prompt state, then
+attaches the imported file to the copied take. The import report identifies
+`sourceTake`, `take`, `createdRegeneratedTake`, and `video`; use those fields in
+the user-facing summary so it is clear whether the original draft was filled or
+a regenerated take was created.
+
+Do not write output rows, add alternate videos to one take, manually copy take
+settings, or import a final video into a generic asset slot. Regeneration is a
+take-level copy with one visible video, not an output-list append.
+
+Do not call a final video take successful merely because the provider returned
+a file or because import attached it. Inspect or scrub the clip when the
+environment supports it. For prompt-sheet-guided videos, compare the output
+against panel order, artifact suppression, geography, object/character counts,
+camera liveliness, ending behavior, and narration placement. If the generation
+auto-attaches a weak output, say so explicitly in the user-facing summary and
+recommend targeted regeneration rather than presenting it as final.
+
 ## Example: Single Shot, First/Last Frame Take
 
 Scenario: the user asks for a take for Shot 3, input mode is `first-last-frame`, and no suitable first or last frame is selected.
@@ -348,7 +419,7 @@ Scenario: the user asks for a take for Shot 3, input mode is `first-last-frame`,
    the prompt, then create, estimate, approve, run, inspect, and import the
    final `shot.video-take`.
 
-Expected result: dependency assets are reusable later, final video is attached to Shot 3, and final video approval binds to the exact prompt, parameters, first frame, and last frame files.
+Expected result: dependency assets are reusable later, one final video is attached to the Shot 3 take, and final video approval binds to the exact prompt, parameters, first frame, and last frame files.
 
 ## Example: Multi-Shot Group With Video Prompt Sheet
 
@@ -356,10 +427,12 @@ Scenario: the user creates a take for Shot 3 and Shot 4 and the final generation
 
 1. Read authoring context and model choices for the selected multi-shot input mode.
 2. Read reusable inputs. Reuse a `video-prompt-sheet` only when it matches exactly `shot_003,shot_004` in that order.
-3. If regenerating, clear the slot.
+3. If regenerating a dependency input, clear the selected slot. If regenerating a final video from an already-videoed take, keep the source take intact; Core will create the copied regeneration take during final `shot.video-take` import.
 4. Create `shot.video-prompt-sheet` from `shot-video-prompt-sheet.md`.
 5. Generate or import the video prompt sheet. If using Codex built-in image generation, prompt `$imagegen`, save the selected sheet inside the project, inspect it, and import without a receipt. If using Renku-managed image generation, validate, create, estimate, approve, run, inspect, and import the prompt sheet.
 6. Write the take production proposal and final prompt into the authoring document as one continuous video while preserving shot boundaries.
+   If the selected final route uses a `video-prompt-sheet`, apply the
+   prompt-sheet handoff gate before saving the final prompt.
 7. Validate and apply the authoring document. Compare validation `prior` versus
    `current`, then apply `prior` versus `current`. Core maps logical prepared
    inputs to provider fields and returns diagnostics if a selected logical role
@@ -368,4 +441,4 @@ Scenario: the user creates a take for Shot 3 and Shot 4 and the final generation
    the prompt, then create, estimate, approve, run, inspect, and import one
    final `shot.video-take` spec. Do not run separate final videos per shot.
 
-Expected result: the video prompt sheet is reusable for the same ordered take, visible in the References tab for every included shot, one video output is attached to the take and both ordered shots, and changing model/prompt/parameters/inputs requires a new preflight and estimate.
+Expected result: the video prompt sheet is reusable for the same ordered take, visible in the References tab for every included shot, one final video is attached to one take that preserves both ordered shots, and changing model/prompt/parameters/inputs requires a new preflight and estimate.

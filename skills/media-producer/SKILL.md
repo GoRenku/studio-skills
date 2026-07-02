@@ -185,6 +185,8 @@ Load the more specific shot references when needed:
 - Video prompt sheets: `references/shot-video-prompt-sheet.md`
 - First/last frame dependencies: `references/shot-first-last-frame.md`
 - Ad hoc reference images: `references/shot-reference-images.md`
+- Seedance reference-to-video with a selected `video-prompt-sheet` input:
+  `references/seedance-prompt-sheet-reference-video.md`
 
 For `shot.video-prompt-sheet`, draft an internal prompt-sheet brief from
 `renku take authoring context --take <take-id> --json` before prompting any
@@ -196,6 +198,19 @@ explicitly asks for storyboard, hand-drawn, sketch, animatic, or Storyboard
 Lookbook aesthetics for that generated shot input image. Inspect the image
 against the brief before import, and import only when it preserves shot order,
 continuity, motion, visual references, spoken timing, and readable labels.
+
+For final `shot.video-take` generation with a selected video prompt sheet, do
+not treat Core preflight as creative readiness. Core answers whether the spec is
+mechanically ready. The agent must also confirm prompt-quality readiness:
+provider-token roles, prompt-sheet operating rule, panel artifact suppression,
+hard-constraint transfer, native-audio limits, and post-generation QA.
+
+Final `shot.video-take` import attaches one video to the working take. If the
+working take already has a video and the user is regenerating, Core creates a
+copied regeneration take with the same shot order, selected inputs, model,
+parameters, and authored prompt state, then attaches the new video there. Do not
+write output rows, duplicate take settings manually, or treat multiple videos as
+alternate outputs on one take.
 
 Supported purpose keys:
 

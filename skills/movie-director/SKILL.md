@@ -90,6 +90,11 @@ Use this loop for every request:
   `take:<take-id>` after reading
   `renku take authoring context --take <take-id> --json`; do not send this work
   to `scene-shot-designer`.
+- For "ready to generate?" questions about a Shot Video Take with a selected
+  video prompt sheet, do not stop at Core/preflight readiness. Route to
+  `media-producer` for prompt-quality readiness: provider-token roles,
+  prompt-sheet operating rule, artifact suppression, hard-constraint transfer,
+  native-audio limits, and final-video QA risks.
 
 Not first-class today:
 

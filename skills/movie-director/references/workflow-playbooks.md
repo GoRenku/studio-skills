@@ -40,4 +40,11 @@ For Codex runs, remember that local Studio HTTP notification is network access. 
 2. Create or choose the Shot Video Take for the exact ordered shot ids. If the user says "this take", first read `renku studio current --json` and confirm the focused scene/take candidate before mutation or paid generation.
 3. Dispatch shot-video dependency planning to `media-producer` with the take id. If the user asks for a "multi-shot storyboard" for the take, treat that as `shot.video-prompt-sheet`, not scene shot-list storyboard work.
 4. Use `renku take authoring context --take <take-id> --json`, then have `media-producer` validate and apply a `sceneShotVideoTakeAuthoring` document before creating final specs.
-5. Keep generation behind the media-producer estimate and approval token.
+5. When a selected video prompt sheet is part of the final route, require
+   media-producer to report prompt-quality readiness separately from mechanical
+   readiness before estimate/run.
+6. Keep generation behind the media-producer estimate and approval token.
+7. When regenerating from a take that already has a final video, keep the source
+   take intact. Final `shot.video-take` import creates a copied regeneration
+   take with the same shot order and production settings, then attaches the new
+   video to that copied take.

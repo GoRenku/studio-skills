@@ -195,6 +195,8 @@ Pass:
 - shot-list id and shot ids when relevant;
 - dependency order from director context;
 - approval constraints.
+- for Shot Video Takes with a selected `video-prompt-sheet`, ask for both
+  mechanical readiness and prompt-quality readiness before estimate/run.
 
 Verify:
 
@@ -229,6 +231,10 @@ Approval gate:
 - Never run a paid provider without a Renku estimate and explicit user approval.
 - Treat approval tokens as binding to the estimated spec and provider context.
 - Inspect generated media before importing it.
+- For prompt-sheet-guided final videos, confirm the prompt names provider
+  tokens, treats the sheet as ordered temporal waypoints, forbids sheet
+  artifacts, preserves hard constraints, and describes native audio timing as
+  best-effort unless an exact-sync workflow is selected.
 
 ## Cast And Production Design Fallbacks
 

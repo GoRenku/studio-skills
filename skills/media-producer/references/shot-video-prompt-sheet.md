@@ -183,6 +183,14 @@ Omit brief sections when no reliable context exists, except for negative
 constraints. Always include negative constraints because they prevent common
 image-generation drift.
 
+The brief is also the downstream handoff for final `shot.video-take` prompting.
+Preserve hard constraints in a form the final video prompt can reuse: exact prop
+or vehicle counts, required foreground/background geography, forbidden zones or
+landmarks, line of action, known spoken words, panel-level timing, final frame
+behavior, and "no text overlay" requirements. If the generated prompt-sheet
+spec is available later, read it before drafting the final video prompt instead
+of relying on memory or thumbnails alone.
+
 ## Geography Guidance
 
 Treat geography as a continuity system. For every prompt sheet, identify:
@@ -314,6 +322,10 @@ When a sheet fails, do not import it automatically. Report:
 - why that failure matters for downstream video generation;
 - whether the likely fix is prompt revision, more user direction, or accepting
   the sheet with caveats.
+
+Before using an imported prompt sheet as a final video reference, compare the
+final video prompt against this same brief/spec. A corrected prompt sheet can
+only help if its hard constraints survive into the final provider prompt.
 
 ## Import
 
