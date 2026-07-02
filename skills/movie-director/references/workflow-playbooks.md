@@ -45,6 +45,7 @@ For Codex runs, remember that local Studio HTTP notification is network access. 
    readiness before estimate/run.
 6. Keep generation behind the media-producer estimate and approval token.
 7. When regenerating from a take that already has a final video, keep the source
-   take intact. Final `shot.video-take` import creates a copied regeneration
-   take with the same shot order and production settings, then attaches the new
-   video to that copied take.
+   take intact. Core automatically moves authoring changes to the next active
+   take when needed, and final `shot.video-take` import creates the next take if
+   no settings changed first. Require `media-producer` to continue with the
+   returned `take.takeId` and report that take id to the user.

@@ -205,12 +205,13 @@ mechanically ready. The agent must also confirm prompt-quality readiness:
 provider-token roles, prompt-sheet operating rule, panel artifact suppression,
 hard-constraint transfer, native-audio limits, and post-generation QA.
 
-Final `shot.video-take` import attaches one video to the working take. If the
-working take already has a video and the user is regenerating, Core creates a
-copied regeneration take with the same shot order, selected inputs, model,
-parameters, and authored prompt state, then attaches the new video there. Do not
-write output rows, duplicate take settings manually, or treat multiple videos as
-alternate outputs on one take.
+Final `shot.video-take` import attaches one video to the active take returned by
+Core. If the working take already has a video, Core may have already moved
+authoring to the next active take when settings changed; if no settings changed,
+Core creates the next take during final import and attaches the new video there.
+Always continue later steps with the returned `take.takeId`. Do not look for a
+manual duplicate/regenerate button, write output rows, duplicate take settings
+manually, or treat multiple videos as alternate outputs on one take.
 
 Supported purpose keys:
 

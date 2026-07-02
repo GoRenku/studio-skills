@@ -1,6 +1,6 @@
 # Shot Video Take Media Production
 
-Use this reference for final AI video takes for one Shot Video Take: either a single shot or an ordered multi-shot selection. Core owns take state, context, validation, preflight, spec persistence, provider mapping, runs, imports, reusable dependency relationships, video attachment, and regeneration copies. The skill owns creative dependency analysis and model-specific prompt drafting.
+Use this reference for final AI video takes for one Shot Video Take: either a single shot or an ordered multi-shot selection. Core owns take state, context, validation, preflight, spec persistence, provider mapping, runs, imports, reusable dependency relationships, video attachment, and automatic iteration from already-videoed takes. The skill owns creative dependency analysis and model-specific prompt drafting.
 
 Never write `.renku/project.sqlite` directly. Never override the user-selected input mode, model, parameters, shot ids, reference choices, or take. Take-tab edits must update take-owned state through `renku take authoring apply`; do not use Studio routes or generic state patches. Never submit raw provider payload JSON; submit logical Renku specs and production plans. Never rely on fallback prompts. Paid generation requires an authored prompt and, for ad hoc reference images, an authored title naming the reference intent.
 
@@ -385,16 +385,20 @@ renku media import \
 
 Each take has one attached final video. If the target take has no video, Core
 attaches the imported file to that take. If the target take already has a video,
-Core creates a copied regeneration take from the target, preserves the ordered
-shot ids, selected inputs, model, parameters, and authored prompt state, then
-attaches the imported file to the copied take. The import report identifies
-`sourceTake`, `take`, `createdRegeneratedTake`, and `video`; use those fields in
-the user-facing summary so it is clear whether the original draft was filled or
-a regenerated take was created.
+Core creates the next iteration take, preserves the ordered shot ids, selected
+inputs, model, parameters, and authored prompt state, then attaches the imported
+file to that returned take. If authoring changes were applied after the source
+take already had a video, Core may already have returned the next active
+`takeId`; continue with that returned id for spec creation, generation, and
+final import. The import report identifies `sourceTake`, `take`,
+`createdRegeneratedTake`, and `video`; use those fields in the user-facing
+summary so it is clear whether the original draft was filled or a new take was
+created.
 
 Do not write output rows, add alternate videos to one take, manually copy take
-settings, or import a final video into a generic asset slot. Regeneration is a
-take-level copy with one visible video, not an output-list append.
+settings, use a manual duplicate/regenerate button, or import a final video into
+a generic asset slot. Automatic iteration creates one visible video per take,
+not an output-list append.
 
 Do not call a final video take successful merely because the provider returned
 a file or because import attached it. Inspect or scrub the clip when the
@@ -427,7 +431,7 @@ Scenario: the user creates a take for Shot 3 and Shot 4 and the final generation
 
 1. Read authoring context and model choices for the selected multi-shot input mode.
 2. Read reusable inputs. Reuse a `video-prompt-sheet` only when it matches exactly `shot_003,shot_004` in that order.
-3. If regenerating a dependency input, clear the selected slot. If regenerating a final video from an already-videoed take, keep the source take intact; Core will create the copied regeneration take during final `shot.video-take` import.
+3. If regenerating a dependency input, clear the selected slot. If regenerating a final video from an already-videoed take, keep the source take intact. When authoring changes are applied, Core may return a new active take id; use that id for subsequent spec, generation, and import commands. If no settings changed, Core will create the new take during final `shot.video-take` import.
 4. Create `shot.video-prompt-sheet` from `shot-video-prompt-sheet.md`.
 5. Generate or import the video prompt sheet. If using Codex built-in image generation, prompt `$imagegen`, save the selected sheet inside the project, inspect it, and import without a receipt. If using Renku-managed image generation, validate, create, estimate, approve, run, inspect, and import the prompt sheet.
 6. Write the take production proposal and final prompt into the authoring document as one continuous video while preserving shot boundaries.
