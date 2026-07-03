@@ -1,0 +1,82 @@
+{
+  "kind": "generationPreview",
+  "previewId": "generation_preview_final_video_001",
+  "purpose": "shot.video-take",
+  "project": {
+    "id": "project_example",
+    "name": "example-movie",
+    "title": "Example Movie"
+  },
+  "target": {
+    "kind": "sceneShotVideoTake",
+    "id": "scene_shot_video_take_action_001",
+    "sceneId": "scene_action_001",
+    "takeId": "scene_shot_video_take_action_001",
+    "shotIds": [
+      "shot_action_001"
+    ]
+  },
+  "title": "Final video take preview",
+  "model": {
+    "provider": "fal-ai",
+    "modelId": "fal-ai/bytedance/seedance/v1/pro/image-to-video",
+    "mediaKind": "video",
+    "executionPath": "renku-managed"
+  },
+  "finalPrompt": {
+    "text": "Generate one continuous six-second action take using @Image1 as the video prompt sheet. Follow panel order exactly: run-up, pivot with synchronized camera arc, then push-in to a stable final pose. Treat all written arrows and captions as planning instructions, not on-screen graphics. Suppress sheet artifacts, borders, panel numbers, annotation colors, and text overlays in the final video. Preserve the referenced character identity and warehouse geography. Do not add extra performers, new props, or jump cuts.",
+    "negativePrompt": "No visible captions, no panel borders, no annotation arrows, no extra performers, no jump cuts, no new props."
+  },
+  "references": [
+    {
+      "kind": "image",
+      "role": "video-prompt-sheet",
+      "label": "Selected Motion Prompt Sheet",
+      "providerToken": "@Image1",
+      "assetId": "asset_video_prompt_sheet",
+      "assetFileId": "asset_file_video_prompt_sheet",
+      "sourcePurpose": "shot.video-prompt-sheet",
+      "selected": true
+    },
+    {
+      "kind": "audio",
+      "role": "dialogue-audio",
+      "label": "Selected Dialogue Timing",
+      "providerToken": "@Audio1",
+      "assetId": "asset_dialogue_audio",
+      "assetFileId": "asset_file_dialogue_audio",
+      "dialogueId": "dialogue_action_001",
+      "selected": true
+    }
+  ],
+  "configuration": [
+    {
+      "key": "duration",
+      "label": "Duration",
+      "value": "6s"
+    },
+    {
+      "key": "aspect_ratio",
+      "label": "Aspect ratio",
+      "value": "16:9"
+    },
+    {
+      "key": "resolution",
+      "label": "Resolution",
+      "value": "720p"
+    }
+  ],
+  "providerPreview": {
+    "route": "seedance/image-to-video",
+    "providerTokenOrder": [
+      "@Image1",
+      "@Audio1"
+    ]
+  },
+  "estimate": {
+    "costUsd": 0.38,
+    "currency": "USD",
+    "approvalTokenIssued": true
+  },
+  "diagnostics": []
+}

@@ -18,7 +18,7 @@ prior conversation.
 - `shot.first-frame`: carefully authored opening still for a shot video take.
 - `shot.last-frame`: carefully authored closing still for a first/last-frame workflow.
 - `shot.reference-image`: ad hoc reference image generated only for a named single-shot or multi-shot take need.
-- `shot.video-prompt-sheet`: one readable AI-video prompt sheet for an ordered multi-shot take, built from a prompt-sheet brief and inspected before import.
+- `shot.video-prompt-sheet`: one readable AI-video prompt image for the take, authored with `promptSheetVisualStyleId`, `promptSheetNotationModeId`, logical references, and an opaque prompt. The agent may ask for panels, motion maps, diagrams, captions, timing marks, or other strategies, but Studio does not store or validate sheet internals.
 - `shot.video-take`: final video attached to the take while preserving its ordered shot ids.
 
 For image dependencies, use Codex built-in image generation when the user asks
@@ -36,7 +36,7 @@ generation remains Renku-managed.
 1. Confirm the current project with `renku project current --json` when needed.
 2. Resolve the scene id from Studio focus or screenplay navigation.
 3. Resolve the active or specified Scene Shot List id.
-4. Resolve the selected shot id, or an ordered shot id list for a multi-shot take.
+4. Resolve the selected shot id, or the ordered shot id list for the take.
 5. Create a take when one does not already exist:
 
 ```bash
@@ -200,7 +200,8 @@ If preflight reports `CORE_SHOT_VIDEO_DEPENDENCY_DRAFT_MISSING` or `CORE_SHOT_VI
 
 Mechanical readiness is not prompt-quality readiness. Mechanical readiness
 means Core has the required inputs, model, route, parameters, and prompt field
-needed to estimate or run. Prompt-quality readiness means the final prompt
+needed to run. Cost estimate is a separate pricing-only check and may be
+available before all readiness items are generated. Prompt-quality readiness means the final prompt
 follows the active model/workflow guidance, names provider references, preserves
 selected-input constraints, and passes any route-specific checklist. Report both
 when the user asks whether a take is ready to generate.
@@ -315,17 +316,19 @@ When `providerPreview` includes a `video-prompt-sheet` input, the final prompt
 must pass this gate before estimate or paid generation:
 
 - name the prompt sheet by its actual provider token;
-- say to work through the panels in order;
-- say the panels are temporal waypoints, not a split-screen, collage, panorama,
-  poster, grid, or frozen composite;
-- forbid sheet layout, panel borders, labels, arrows, captions, metadata rows,
-  text boxes, UI, and shot ids from appearing in the final footage;
+- interpret the sheet according to the agent-authored brief and visible content;
+- if the sheet uses ordered panels or beats, say how those panels or beats
+  become temporal waypoints rather than split-screen, collage, panorama, poster,
+  grid, or frozen composite footage;
+- forbid sheet layout artifacts, borders, labels, arrows, captions, metadata
+  rows, text boxes, UI, and shot ids from appearing in the final footage unless
+  the user explicitly wants visible graphic overlays;
 - give every supplied image, video, and audio reference a role;
 - copy known narration or dialogue exactly;
 - describe native-audio timing as best-effort unless an exact-sync workflow is
   selected;
 - preserve hard constraints from the current take, user corrections,
-  prompt-sheet brief/spec, visible sheet, and selected references;
+  prompt-sheet brief, visible sheet, and selected references;
 - check that the final prompt does not contradict visible or documented sheet
   constraints.
 
@@ -403,10 +406,11 @@ not an output-list append.
 Do not call a final video take successful merely because the provider returned
 a file or because import attached it. Inspect or scrub the clip when the
 environment supports it. For prompt-sheet-guided videos, compare the output
-against panel order, artifact suppression, geography, object/character counts,
-camera liveliness, ending behavior, and narration placement. If the generation
-auto-attaches a weak output, say so explicitly in the user-facing summary and
-recommend targeted regeneration rather than presenting it as final.
+against the agent-authored brief, visible sheet strategy, artifact suppression,
+geography, object/character counts, camera liveliness, ending behavior, and
+narration placement. If the generation auto-attaches a weak output, say so
+explicitly in the user-facing summary and recommend targeted regeneration
+rather than presenting it as final.
 
 ## Example: Single Shot, First/Last Frame Take
 
@@ -429,20 +433,25 @@ Expected result: dependency assets are reusable later, one final video is attach
 
 Scenario: the user creates a take for Shot 3 and Shot 4 and the final generation should be one provider call.
 
-1. Read authoring context and model choices for the selected multi-shot input mode.
+1. Read authoring context and model choices for the selected prompt-sheet input mode.
 2. Read reusable inputs. Reuse a `video-prompt-sheet` only when it matches exactly `shot_003,shot_004` in that order.
 3. If regenerating a dependency input, clear the selected slot. If regenerating a final video from an already-videoed take, keep the source take intact. When authoring changes are applied, Core may return a new active take id; use that id for subsequent spec, generation, and import commands. If no settings changed, Core will create the new take during final `shot.video-take` import.
-4. Create `shot.video-prompt-sheet` from `shot-video-prompt-sheet.md`.
-5. Generate or import the video prompt sheet. If using Codex built-in image generation, prompt `$imagegen`, save the selected sheet inside the project, inspect it, and import without a receipt. If using Renku-managed image generation, validate, create, estimate, approve, run, inspect, and import the prompt sheet.
-6. Write the take production proposal and final prompt into the authoring document as one continuous video while preserving shot boundaries.
+4. Create `shot.video-prompt-sheet` from `shot-video-prompt-sheet.md`. Choose `promptSheetVisualStyleId` (`cinematic-realistic` or `handdrawn-storyboard`) and `promptSheetNotationModeId` (`none` or `motion-annotation`), then keep any panel, motion-map, caption, or timing strategy inside the authored prompt and agent brief.
+5. Before generating the prompt sheet, create and show a Generation Preview JSON with `renku generation preview show --file <generation-preview-json> --json`. Update the same `previewId` after feedback and generate only after user approval.
+6. Generate or import the video prompt sheet. If using Codex built-in image generation, prompt `$imagegen`, save the selected sheet inside the project, inspect it, and import without a receipt. If using Renku-managed image generation, validate, create, estimate, approve, run, inspect, and import the prompt sheet.
+7. Write the take production proposal and final prompt into the authoring document as one continuous video while preserving shot boundaries.
    If the selected final route uses a `video-prompt-sheet`, apply the
    prompt-sheet handoff gate before saving the final prompt.
-7. Validate and apply the authoring document. Compare validation `prior` versus
+8. Validate and apply the authoring document. Compare validation `prior` versus
    `current`, then apply `prior` versus `current`. Core maps logical prepared
    inputs to provider fields and returns diagnostics if a selected logical role
    is unsupported.
-8. Re-read authoring context, confirm the final persisted settings still match
-   the prompt, then create, estimate, approve, run, inspect, and import one
-   final `shot.video-take` spec. Do not run separate final videos per shot.
+9. Re-read authoring context, confirm the final persisted settings still match
+   the prompt, then create a final `shot.video-take` Generation Preview JSON
+   with prompt, model, provider token order, logical prompt-sheet/audio/video
+   references, config, estimate when available, and diagnostics. Show it with
+   `renku generation preview show --file <generation-preview-json> --json`.
+   Continue to estimate/run/import only after user approval. Do not run separate
+   final videos per shot.
 
 Expected result: the video prompt sheet is reusable for the same ordered take, visible in the References tab for every included shot, one final video is attached to one take that preserves both ordered shots, and changing model/prompt/parameters/inputs requires a new preflight and estimate.

@@ -154,6 +154,22 @@ Example prompt:
 $scene-shot-designer design a tense, symmetrical shot list for the current scene and save it to the project.
 ```
 
+### Media Producer
+
+```text
+skills/media-producer/
+  SKILL.md
+  references/
+  samples/
+```
+
+Media Producer helps agents create, inspect, and import purpose-specific Renku
+Studio media. For shot video prompt sheets, it authors opaque prompt-sheet
+generation specs with `promptSheetVisualStyleId`,
+`promptSheetNotationModeId`, logical references, and detailed prompts, defaults
+prompt sheets to GPT-Image-2, and shows a Generation Preview Dialog before
+generating prompt sheets or final `shot.video-take` videos.
+
 ## Install In Codex
 
 For local development, add this repository as a Codex plugin marketplace:

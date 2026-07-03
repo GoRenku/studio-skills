@@ -229,7 +229,7 @@ Add `--replace-selected` only for explicit correction flows.
 Approval gate:
 
 - Never run a paid provider without a Renku estimate and explicit user approval.
-- Treat approval tokens as binding to the estimated spec and provider context.
+- Treat `estimate.costApprovalToken` as binding to the estimated pricing facts. Keep provider context transfer as a separate explicit user approval.
 - Inspect generated media before importing it.
 - For prompt-sheet-guided final videos, confirm the prompt names provider
   tokens, treats the sheet as ordered temporal waypoints, forbids sheet

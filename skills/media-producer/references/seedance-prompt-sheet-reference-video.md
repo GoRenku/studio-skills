@@ -99,13 +99,13 @@ A Seedance prompt-sheet final prompt is prompt-quality ready only when:
 
 - the prompt sheet is named by its actual provider token;
 - every supplied image, video, and audio token has a role;
-- the prompt says to work through panels in order;
-- the prompt says panels are temporal waypoints;
-- the prompt forbids sheet layout, borders, labels, arrows, captions, metadata rows, and UI from appearing;
-- panel-level story, motion, camera, and tempo are expressed as video direction;
+- the prompt interprets the sheet according to the agent-authored brief and visible content;
+- when the sheet uses ordered panels or beats, the prompt says those panels or beats are temporal waypoints;
+- the prompt forbids sheet layout, borders, labels, arrows, captions, metadata rows, and UI from appearing unless the user explicitly wants graphic overlays;
+- visible story, motion, camera, and tempo cues are expressed as video direction;
 - known narration or dialogue text is copied exactly;
 - audio timing is described as best-effort unless an exact-sync workflow is selected;
-- hard constraints from the prompt-sheet brief/spec or visible sheet are preserved;
+- hard constraints from the prompt-sheet brief or visible sheet are preserved;
 - the prompt does not contradict the sheet, take context, or user corrections;
 - unsupported fields such as `negativePrompt` are not used when the selected route rejects them, and key negative constraints are instead written into the main prompt.
 
@@ -115,13 +115,13 @@ If any item fails, revise the prompt before cost estimate or paid generation.
 
 Prompt sheet becomes collage, panorama, or split-screen:
 
-- Cause: the prompt names the sheet but does not explain that panels are temporal waypoints.
-- Fix: add a critical storyboard rule that works through panels in order and forbids sheet artifacts.
+- Cause: the prompt names the sheet but does not explain how its visible structure should become temporal motion.
+- Fix: add a critical prompt-sheet rule that interprets visible panels, beats, or motion cues as temporal waypoints and forbids sheet artifacts.
 
 Prompt contradicts the sheet:
 
 - Cause: the final prompt was drafted from memory or a summary.
-- Fix: compare against the prompt-sheet brief/spec and visible sheet before estimate or run.
+- Fix: compare against the prompt-sheet brief and visible sheet before estimate or run.
 
 Video feels like nudged still pictures:
 

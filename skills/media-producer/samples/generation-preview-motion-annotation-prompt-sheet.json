@@ -1,0 +1,84 @@
+{
+  "kind": "generationPreview",
+  "previewId": "generation_preview_prompt_sheet_motion_001",
+  "purpose": "shot.video-prompt-sheet",
+  "project": {
+    "id": "project_example",
+    "name": "example-movie",
+    "title": "Example Movie"
+  },
+  "target": {
+    "kind": "sceneShotVideoTake",
+    "id": "scene_shot_video_take_action_001",
+    "sceneId": "scene_action_001",
+    "takeId": "scene_shot_video_take_action_001",
+    "shotIds": [
+      "shot_action_001"
+    ]
+  },
+  "title": "Motion annotation prompt sheet preview",
+  "model": {
+    "provider": "fal-ai",
+    "modelId": "fal-ai/openai/gpt-image-2",
+    "mediaKind": "image",
+    "executionPath": "renku-managed"
+  },
+  "promptSheetVisualStyleId": "handdrawn-storyboard",
+  "promptSheetNotationModeId": "motion-annotation",
+  "finalPrompt": {
+    "text": "Create a single motion-annotation video prompt image with three numbered panels for one continuous action shot. Use clean hand-drawn storyboard energy, readable captions, red body arrows, blue camera arrows, green framing marks, orange impact marks, and purple timing ticks. Preserve character identity and location geography from the logical references. Do not create a final rendered movie frame or unrelated collage."
+  },
+  "references": [
+    {
+      "kind": "image",
+      "role": "style",
+      "label": "Storyboard Lookbook Sheet",
+      "providerToken": "@Reference1",
+      "assetId": "asset_storyboard_lookbook_sheet",
+      "assetFileId": "asset_file_storyboard_lookbook_sheet",
+      "sourcePurpose": "lookbook.sheet",
+      "selected": true
+    },
+    {
+      "kind": "image",
+      "role": "character-continuity",
+      "label": "Lead Character Sheet",
+      "providerToken": "@Reference2",
+      "assetId": "asset_lead_character_sheet",
+      "assetFileId": "asset_file_lead_character_sheet",
+      "sourcePurpose": "cast.character-sheet",
+      "selected": true
+    },
+    {
+      "kind": "image",
+      "role": "location-continuity",
+      "label": "Warehouse Location Sheet",
+      "providerToken": "@Reference3",
+      "assetId": "asset_warehouse_location_sheet",
+      "assetFileId": "asset_file_warehouse_location_sheet",
+      "sourcePurpose": "location.environment-sheet",
+      "selected": true
+    }
+  ],
+  "configuration": [
+    {
+      "key": "image_size",
+      "label": "Image size",
+      "value": "1536x864"
+    },
+    {
+      "key": "quality",
+      "label": "Quality",
+      "value": "medium"
+    }
+  ],
+  "providerPreview": {
+    "route": "openai/gpt-image-2/edit",
+    "providerTokenOrder": [
+      "@Reference1",
+      "@Reference2",
+      "@Reference3"
+    ]
+  },
+  "diagnostics": []
+}

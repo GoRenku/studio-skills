@@ -50,21 +50,35 @@ renku generation model list --purpose <purpose-key> --target <target> --json
 ```
 
 6. For Renku-managed generation, create a Media Generation Spec JSON with the user's binding choices.
-   - For shot input image specs (`shot.first-frame`, `shot.last-frame`, `shot.reference-image`, and `shot.video-prompt-sheet`), do not put provider `image_urls` in the spec. Use `referenceMode` plus the take target; Core resolves selected reference assets during validation, estimate, and run.
-   - Before telling the user a shot input spec is ready for paid generation, run `renku generation spec validate --file <spec-json> --json` or estimate the persisted spec and check the prepared `providerPayload.image_urls` / input files. If those references are present, explain that the raw spec intentionally stays free of provider paths.
+   - For shot input image specs (`shot.first-frame`, `shot.last-frame`, `shot.reference-image`, and `shot.video-prompt-sheet`), do not put provider `image_urls` in the spec. Use `referenceMode` plus the take target; Core resolves selected reference assets during validation and run. Cost estimate is pricing-only and does not prove reference readiness.
+   - For `shot.video-prompt-sheet`, default to `fal-ai/openai/gpt-image-2` unless the user explicitly chose another model. Include `promptSheetVisualStyleId` (`cinematic-realistic` or `handdrawn-storyboard`) and `promptSheetNotationModeId` (`none` or `motion-annotation`). Motion annotation is a notation mode that can combine with either visual style. Keep panel counts, motion maps, captions, timing notes, and other sheet-structure choices inside the authored prompt and agent inspection brief, not Studio JSON.
+   - Before telling the user a shot input spec is ready for paid generation, run `renku generation spec validate --file <spec-json> --json` and check the prepared `providerPayload.image_urls` / input files. If those references are present, explain that the raw spec intentionally stays free of provider paths. Use `renku generation estimate --spec <spec-id> --json` only for cost state and `estimate.costApprovalToken`.
+   - Before generating a `shot.video-prompt-sheet`, create a Generation Preview JSON and run `renku generation preview show --file <generation-preview-json> --json`. Wait for user feedback in the agent harness, revise the same `previewId` when the prompt, metadata, references, or provider configuration changes, and generate only after the user says the preview is ready.
 7. For Renku-managed generation, persist the spec:
 
 ```bash
 renku generation spec create --file <spec-json> --json
 ```
 
-8. For Renku-managed generation, estimate cost and get the approval token:
+8. For Renku-managed generation, estimate cost and get the cost approval token:
 
 ```bash
 renku generation estimate --spec <spec-id> --json
 ```
 
+Use `estimate.costApprovalToken` from a `state: "priced"` estimate as the
+`--approval-token` value. If the estimate is `missing-pricing-input`, fix the
+required pricing parameter before requesting paid generation approval.
+
 9. For Renku-managed generation, run only after the user has approved the model, cost, and any project-derived prompt/context transfer to the external provider. Because provider-backed generation needs network access, request sandbox/network permission before the first real `renku generation run` attempt instead of waiting for a network failure. Use `--simulate` when validating shape without paid provider calls.
+
+For final `shot.video-take` generation, re-read persisted take authoring
+context immediately before estimate/run approval, build a Generation Preview
+JSON with the final prompt, model, provider token order, logical references,
+configuration, estimate when available, and diagnostics, then run
+`renku generation preview show --file <generation-preview-json> --json`. Do not
+continue to final paid generation until the user has reviewed that dialog and
+approved in the agent harness.
 
 ```bash
 renku generation run --spec <spec-id> --approval-token <approval-token> --json

@@ -1,10 +1,12 @@
 # Shot Video Prompt Sheet
 
 Use this when creating `shot.video-prompt-sheet` for an existing Shot Video
-Take. The output is one readable AI-video planning sheet with one panel per
-ordered take shot. It preserves shot order, spatial continuity, motion
-continuity, visual continuity, and known spoken timing for downstream
-`shot.video-take` prompting.
+Take. The output is one readable AI-video planning sheet image. Studio treats
+the generated image as opaque media: it stores the purpose, take target, model,
+logical references, prompt, and prompt-sheet metadata, but it does not validate
+the image's internal layout. The agent may choose panels, motion maps, diagrams,
+captions, timing marks, or a full-canvas reference strategy when that best
+serves the take.
 
 It is not a Scene Shot List, not a `scene.storyboard-sheet`, not a moodboard,
 and not a generic concept collage.
@@ -56,21 +58,59 @@ selected lookbook references, prepared inputs, production plan, preflight,
 `shotVideoInputReferences`, and readiness. Do not reconstruct those facts from
 filenames, screen copy, old plan files, or sample-project memory.
 
-Default shot input style is the selected Movie Lookbook, not the selected
-Storyboard Lookbook. Use `referenceMode: "movie-lookbook"` unless the user
-explicitly asks for storyboard, hand-drawn, sketch, animatic, or Storyboard
-Lookbook aesthetics for this prompt sheet. A panelled layout does not imply
-storyboard drawing style. Use selected Location Sheets and Character Sheets as
-continuity inputs when Core reports them for the take.
+Default model is GPT-Image-2:
+
+```json
+"modelChoice": "fal-ai/openai/gpt-image-2"
+```
+
+Choose one visual style id for `promptSheetVisualStyleId`:
+
+- `cinematic-realistic` for ordinary cinematic prompt images. Use
+  `referenceMode: "movie-lookbook"`.
+- `handdrawn-storyboard` for explicit sketch, pencil, storyboard, animatic, or
+  previs requests. Use `referenceMode: "storyboard-lookbook"`.
+
+Choose one notation mode for `promptSheetNotationModeId`:
+
+- `none` for plain prompt sheets without explicit motion notation metadata.
+- `motion-annotation` for choreography, stunts, chases, battle, dance, live
+  singing plus movement, complex camera moves, or any prompt sheet that should
+  include arrows, timing marks, path lines, body-motion marks, or camera-motion
+  notation.
+
+Motion annotation is orthogonal to visual style. A cinematic-realistic sheet
+can use motion notation, and a hand-drawn storyboard sheet can use motion
+notation. For hand-drawn and motion-annotated prompts, still use selected
+Character Sheets as continuity references for visible non-voiceover cast when
+Core reports them. Use selected Location Sheets when geography or floor path
+matters.
 
 ## Authoring Flow
 
 1. Read take authoring context.
-2. Build the internal prompt-sheet brief below.
-3. Ask only for missing required continuity that cannot be derived from context.
-4. Prompt the chosen image model with the reusable template.
-5. Inspect the output against the brief.
-6. Import only after inspection.
+2. Choose `promptSheetVisualStyleId`, `promptSheetNotationModeId`, and
+   `referenceMode`.
+3. Draft an agent-owned prompt-sheet brief. Use panels, beats, arrows, maps,
+   captions, or any other structure only as prompt-writing guidance.
+4. Ask only for missing required continuity that cannot be derived from context.
+5. Create a `generationPreview` JSON and run:
+
+```bash
+renku generation preview show --file <generation-preview-json> --json
+```
+
+   The preview JSON is the CLI request contract. Keep references logical
+   (`assetId`, `assetFileId`, role, label, and optional provider token). Do not
+   include `browserUrl`, local paths, or provider upload URLs; Studio resolves
+   display URLs after the request reaches the running server.
+
+6. Wait for user feedback in the agent harness.
+7. Revise the same `previewId` when feedback changes the prompt, metadata,
+   references, or provider configuration.
+8. Generate only after the user says the preview is ready.
+9. Inspect the output against the agent-owned brief and user feedback.
+10. Import only after inspection.
 
 For Codex built-in image generation, stage the selected output under project
 `generated/media/`, inspect it, and import it with `renku media import` without
@@ -85,12 +125,16 @@ before any paid run, inspect the generated image, and import with the receipt
 only after the sheet passes the quality gate.
 
 Renku-managed specs do not store provider `image_urls` or raw asset file paths.
-They store `referenceMode`, the take target, and the authored prompt. Core
-resolves the selected Movie Lookbook sheet, Location Sheets, and Character
-Sheets into provider inputs during validation, estimate, and run. Do not add
-`image_urls`, asset ids, or project file paths to the spec manually. Before
-asking the user to approve a paid run, validate or estimate the spec and verify
-that the prepared provider payload includes the expected reference images.
+They store `referenceMode`, `promptSheetVisualStyleId`,
+`promptSheetNotationModeId`, the take target, and the authored prompt. Core
+resolves the selected Lookbook sheet, Location Sheets, and Character Sheets
+into provider inputs during validation and run. Cost estimate is pricing-only
+and does not prove provider reference readiness. Do not add
+`image_urls`, asset ids, project file paths, panel plans, annotation keys, or
+sheet-layout JSON to the spec manually. Before asking the user to approve a
+paid run, validate the spec and verify that the prepared provider payload
+includes the expected reference images, then estimate the persisted spec for
+cost and `estimate.costApprovalToken`.
 
 Reference check:
 
@@ -101,6 +145,8 @@ renku generation spec validate --file <spec-json> --json
 In the JSON output, confirm:
 
 - `spec.referenceMode` is `movie-lookbook` unless storyboard style was explicitly requested;
+- `spec.promptSheetVisualStyleId` is `cinematic-realistic` or `handdrawn-storyboard`;
+- `spec.promptSheetNotationModeId` is `none` or `motion-annotation`;
 - `providerPayload.image_urls` contains the expected logical `renku-input://...`
   entries;
 - the appended "Reference-conditioning instructions" name the selected Movie
@@ -131,13 +177,18 @@ Take scope
 - ordered shot ids
 - selected input mode and model if already chosen
 
-Panel plan
-- one panel per ordered shot id
-- panel number
-- shot id
+Sheet strategy
+- chosen visual style metadata
+- chosen notation mode metadata
+- whether the prompt asks for panels, a full-canvas motion map, a diagram,
+  sequential beats, captions, timing marks, or another layout
+- source shot ids or take beats the prompt should emphasize
 - story role
 - visual frame
 - action
+- camera type, rig, lens, focal length, and movement when known
+- beat timing and beat purpose
+- annotation intent for body, camera, framing, light/impact, timing/pause
 - model-facing note
 
 Spatial continuity
@@ -165,9 +216,10 @@ Visual continuity
 
 Audio and spoken timing
 - exact narration, dialogue, or voiceover text only when known
-- panel number where each spoken phrase belongs
+- beat, sheet region, or visible cue where each spoken phrase belongs when the
+  prompt uses that structure
 - timing cue such as starts before panel, during panel, after panel, or
-  bridges panels
+  bridges a visible beat
 - explicit unknowns that should not be invented
 
 Negative constraints
@@ -186,10 +238,10 @@ image-generation drift.
 The brief is also the downstream handoff for final `shot.video-take` prompting.
 Preserve hard constraints in a form the final video prompt can reuse: exact prop
 or vehicle counts, required foreground/background geography, forbidden zones or
-landmarks, line of action, known spoken words, panel-level timing, final frame
+landmarks, line of action, known spoken words, visible timing cues, final frame
 behavior, and "no text overlay" requirements. If the generated prompt-sheet
-spec is available later, read it before drafting the final video prompt instead
-of relying on memory or thumbnails alone.
+spec or agent-authored brief is available later, read it before drafting the
+final video prompt instead of relying on memory or thumbnails alone.
 
 ## Geography Guidance
 
@@ -231,7 +283,7 @@ Audio and spoken timing
   shotId: <shot-id>
   kind: narration | dialogue | voiceover | on-screen-text | sound | music
   exactText: <known text, omitted if unknown>
-  timing: before-panel | during-panel | after-panel | bridges-next-panel
+  timing: before-cue | during-cue | after-cue | bridges-next-cue
   source: user-direction | screenplay-dialogue | take-direction | production-notes
   instruction: <short model-facing instruction>
 ```
@@ -248,17 +300,16 @@ Use this provider-neutral template, filled from the brief:
 Create one readable video prompt sheet for this existing Shot Video Take. Use the selected Movie Lookbook sheet as the primary style reference and the selected Location Sheets and Character Sheets as continuity references. Do not render this as a Storyboard Lookbook drawing unless the user explicitly requested storyboard style for this prompt sheet.
 
 Purpose:
-- make one planning panel per selected shot;
+- make one planning image that helps downstream AI video prompting;
 - preserve shot order, spatial continuity, motion continuity, and known spoken
   timing;
 - support downstream AI video prompting.
 
 Layout:
-- <N> panels in exact order: <shot ids>;
-- each panel has one image frame and compact metadata;
-- labels must be large enough to read;
-- include camera arrows or motion marks only where movement is specified;
-- do not make a moodboard or collage.
+- <agent-selected layout: panels, motion map, sequential beats, diagram, or another explicit strategy>;
+- include camera arrows, timing marks, labels, or motion notation only when they help the chosen strategy;
+- if text appears, make it large enough to read;
+- do not make a generic moodboard, poster, or unrelated concept collage.
 
 Take scope:
 <take-scope-brief>
@@ -275,17 +326,17 @@ Visual continuity:
 Audio and spoken timing:
 <audio-and-spoken-timing-brief>
 
-Panel details:
-<one block per panel>
+Sheet details:
+<one block per panel, beat, region, or motion cue when the chosen strategy needs it>
 
 Negative constraints:
 <negative-constraints-brief>
 ```
 
-Panel blocks should be compact and explicit:
+Optional panel, beat, or region blocks should be compact and explicit:
 
 ```text
-Panel <number> / <shot-id>
+<Panel, beat, region, or cue> <label> / <shot-id when relevant>
 - story role:
 - visual frame:
 - action:
@@ -302,9 +353,7 @@ Inspect the generated image and compare it against the brief before importing.
 
 Reject the sheet when:
 
-- the panel count differs from the ordered shot count;
-- panel order differs from the take;
-- the take mode is misrepresented;
+- the sheet contradicts the take order or take mode;
 - motion direction is reversed or missing;
 - spatial geography contradicts the take context;
 - required location, cast, or lookbook references are absent or contradicted;
@@ -312,9 +361,9 @@ Reject the sheet when:
 - invented narration, dialogue, subtitles, music, or sound effects appear;
 - ungrounded landmarks, props, water, weather, signage, vehicles, or characters
   appear;
-- labels are too small to read;
-- the output is a moodboard, poster, or concept collage instead of a prompt
-  sheet.
+- labels are too small to read when the prompt asked for readable labels;
+- the output is a generic moodboard, poster, or concept collage instead of the
+  requested prompt-sheet strategy.
 
 When a sheet fails, do not import it automatically. Report:
 
@@ -324,8 +373,9 @@ When a sheet fails, do not import it automatically. Report:
   the sheet with caveats.
 
 Before using an imported prompt sheet as a final video reference, compare the
-final video prompt against this same brief/spec. A corrected prompt sheet can
-only help if its hard constraints survive into the final provider prompt.
+final video prompt against this same brief and the visible sheet. A corrected
+prompt sheet can only help if its hard constraints survive into the final
+provider prompt.
 
 ## Import
 

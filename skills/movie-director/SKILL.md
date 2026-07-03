@@ -85,11 +85,13 @@ Use this loop for every request:
 - Use `lookbook-designer` for durable Movie Lookbook and Storyboard Lookbook creation, revision, typed selection, and Inspiration source linkage.
 - Use `scene-shot-designer` for Scene Shot Lists and shot-list iteration.
 - Use `media-producer` for all Renku media generation specs, estimates, approved runs, inspection, slicing, and media imports.
-- Treat take-owned "multi-shot storyboard" or video prompt-sheet requests as
+- Treat take-owned "multi-shot storyboard", dense motion-control image, or video prompt-sheet requests as
   `shot.video-prompt-sheet` media work. Route them to `media-producer` with
   `take:<take-id>` after reading
   `renku take authoring context --take <take-id> --json`; do not send this work
-  to `scene-shot-designer`.
+  to `scene-shot-designer`. A prompt sheet is opaque Studio media; the agent
+  may choose panels, motion maps, diagrams, captions, or timing marks in the
+  prompt, but those structures are not Studio JSON.
 - For "ready to generate?" questions about a Shot Video Take with a selected
   video prompt sheet, do not stop at Core/preflight readiness. Route to
   `media-producer` for prompt-quality readiness: provider-token roles,
