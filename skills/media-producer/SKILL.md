@@ -251,10 +251,12 @@ Supported purpose keys:
 
 Location Sheets are full-image reference boards. Import them with `renku media
 import --purpose location.environment-sheet --source ... --summary ...`; do not
-create directional slice files. Location Hero Images are separate display
-assets generated or imported from an explicit source Location Sheet asset. Use
-`sourceLocationSheetAssetId` in `location.hero` specs and `--source-sheet
-<asset-id>` when importing generated hero media.
+create directional slice files. The Location Sheet reference owns prompt and QA
+guidance for choosing useful board sections from the Location type, production
+need, Location Design, and Movie Lookbook. Location Hero Images are separate
+display assets generated or imported from an explicit source Location Sheet
+asset. Use `sourceLocationSheetAssetId` in `location.hero` specs and
+`--source-sheet <asset-id>` when importing generated hero media.
 
 ## Target Resolution
 

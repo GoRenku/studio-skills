@@ -14,7 +14,8 @@ Target format: `location:<location-id>`
 3. For Renku-managed generation, list model choices with `renku generation model list --purpose location.environment-sheet --target location:<location-id> --json` unless the user already chose a model.
 4. Write a persisted spec with a concise `description`. The description is stored on the imported Location Sheet and shown in Studio cards.
 5. Estimate cost and ask for explicit approval before any paid run.
-6. Inspect the returned full image as one production reference board.
+6. Inspect the returned full image as one production reference board using the
+   board-design quality gate.
 7. Import the approved full image with `--source`, `--title`, and `--summary`.
 
 If the user wants Codex built-in image generation for a Location Sheet, use the
@@ -48,6 +49,12 @@ manual upload, or any non-Renku generation source.
 
 ## Location Sheet Prompt Inputs
 
+Before writing or inspecting a Location Sheet prompt, read
+`references/location-sheet-board-design.md`. It explains how to choose adaptive
+board sections from the Location type, scene usage, Location Design, Movie
+Lookbook, and user request. Keep this file for the operational workflow and the
+board-design reference for prompt structure and QA.
+
 Use the returned context:
 
 - screenplay overview, story function, and scene usage;
@@ -59,10 +66,16 @@ Use the returned context:
 - selected location references and anti-references when present;
 - historical basis, dramatized elements, research sources, and assumptions.
 
-Prompt for one useful full-image reference board. It can contain maps,
-elevations, material samples, annotated details, distant establishing context,
-or multiple arranged views when that serves the Location. Keep the prompt tied
-to the Location Design and the current production need.
+Prompt for one useful full-image reference board. Choose the board sections
+that answer the current production need: hero establishing view, alternate
+perspectives, layout/map, materials, palette, lighting studies, landmarks,
+environmental props, scale references, or other sections from the board-design
+reference. Keep the prompt tied to the Location Design and avoid irrelevant
+sections. The result should be more useful than a single pretty image.
+
+Before import, reject or revise weak sheets that are only posters, generic
+mood boards, unrelated collages, corrupted-label boards, or images that omit
+the Location's key spatial and continuity facts.
 
 ## Location Hero Workflow
 

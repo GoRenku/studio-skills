@@ -16,6 +16,17 @@ Before handoff, summarize:
 - Location facts;
 - active Location Design guidance;
 - existing Location Sheets and the specific sheet descriptions that matter for the current production need;
+- the Location type, such as interior, exterior, threshold, landscape, urban,
+  vehicle-like, abstract, or mixed;
+- the production questions a new Location Sheet must answer for shot planning;
+- suggested board sections, such as hero establishing view, reverse angle,
+  high-angle overview, layout map, material swatches, lighting studies, key
+  landmarks, environmental props, and scale references;
+- state or time variants that matter, such as day, night, damaged, intact,
+  crowded, empty, before, after, seasonal, or weather-specific;
+- key landmarks, entrances, windows, sightlines, movement paths, props, scale
+  anchors, materials, palette, lighting behavior, and historical or genre
+  guardrails;
 - whether a Location Hero Image is needed for overview/detail display;
 - active Lookbook dependency;
 - whether the user asked for media generation or only design writing.
