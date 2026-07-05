@@ -2,7 +2,7 @@
   "purpose": "cast.character-sheet",
   "target": { "kind": "castMember", "id": "cast_ada" },
   "modelChoice": "fal-ai/nano-banana-2",
-  "prompt": "A full character sheet for Ada, grounded in the project screenplay, selected Movie Lookbook, and period context. Include full-body reference, face close-up, wardrobe, materials, expression range, posture, and period-specific detail.",
+  "prompt": "Create a clean neutral production character sheet for Ada with five vertical sections: FACE CLOSE UP, FRONT, BACK, LEFT PROFILE, RIGHT PROFILE. The FACE CLOSE UP must be straight-on, centered, and cropped from the top of the head through the neck, ending above the shoulders; no angled portrait and no torso or chest detail in that panel. Show the same person in the same simple travel dress and boots in every full-body view. Height is binding: 5 ft 6 in / 168 cm; include a labeled height ruler with numeric tick marks beside the full-body views and align body proportions to that height. A plain decorative vertical line is not enough. Keep arms relaxed, feet visible, and poses neutral. Below the face close-up, include a compact synopsis block: Name: Ada; Height: 5 ft 6 in / 168 cm; Synopsis: watchful courier in a simple travel dress. Do not invent age, weight, or gender. Identity anchors: auburn bob-length hair, pale freckled skin, narrow face, watchful expression, slight forward tension in posture. Optional accessories: one small brass hair clip shown in a separate accessory cell below the synopsis block. No location shots, no story scenes, no expression range, no extra props, no weapons, no other characters, no long generated notes.",
   "takeCount": 1,
   "seed": null,
   "imageFrame": "project",

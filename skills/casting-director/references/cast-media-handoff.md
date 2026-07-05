@@ -22,20 +22,45 @@ Before handoff, read `renku cast design context --cast <cast-member-id> --json` 
 
 - cast facts that matter;
 - active Cast Design guidance;
+- known or intended height for visible on-screen cast members;
+- one short role or identity synopsis for the block below the face close-up;
+- target wardrobe state for the requested sheet;
+- character-owned accessories that must remain consistent, if any;
 - selected character sheet/profile media;
+- existing same-character sheets that should be used as continuity references;
+- ad hoc user-collected cast reference images that should be offered as
+  optional generation references, such as likeness, accessory, costume, or
+  historical source images;
 - existing Cast Voices and sample assets when voice media is requested;
 - active Lookbook dependency;
 - whether the request asks for media generation or only design writing.
+
+For `cast.character-sheet`, the default handoff is a lean identity turnaround:
+straight-on face close-up cropped above the shoulders, front, back, left
+profile, right profile, labeled height ruler, compact synopsis/metadata block
+below the face close-up, and optional character-owned accessories only. If the
+user wants a reusable final continuity sheet and height is missing, ask for
+height before handoff unless the user explicitly chooses to proceed without it.
+Do not invent height, weight, gender, synopsis facts, or accessories just
+because the visual template can display those fields.
 
 When the user supplies a portrait, uploaded image, or says "in this likeness":
 
 - treat likeness preservation as a binding user constraint;
 - capture the visual identity anchors in Cast Design before media handoff;
-- do not silently downgrade the image to a loose text description when an
-  image-aware route or imported reference asset is available;
-- if current `cast.character-sheet` models cannot use a source image directly,
-  say that plainly and compensate with precise likeness anchors in the prompt;
+- hand off the image as an actual optional cast reference image when it is
+  available in the project. Ask media-producer to attach project files with
+  `renku media import --purpose reference.image --target cast:<cast-member-id> --source <project-relative-path> --json` before creating the
+  character-sheet spec;
+- do not silently downgrade the image to a loose text description when a
+  reference-capable route or imported reference asset is available;
+- do not ask media-producer to combine references into one local collage; Renku
+  can pass multiple references to capable image models;
 - do not import a historical portrait as the final character sheet unless the
   user explicitly wants that source image to be the cast sheet.
 
-Do not run paid generation yourself. Ask `media-producer` to create or update the persisted generation spec and estimate cost. After a voice sample is generated and approved, attach it through `renku cast voice attach`; do not import it with `renku media import`.
+Do not run paid generation yourself. Ask `media-producer` to create or update
+the persisted generation spec, show the saved spec in the generation preview
+dialog, let the user adjust references, and estimate cost only after the
+preview is accepted. After a voice sample is generated and approved, attach it
+through `renku cast voice attach`; do not import it with `renku media import`.

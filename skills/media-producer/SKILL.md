@@ -39,7 +39,7 @@ renku generation context --purpose <purpose-key> --target <target> --json
 ```
 
 3. Choose the execution path from user intent and the returned `agentMedia` policy:
-   - Use **Codex built-in image generation** when the user asks to use Codex, `$imagegen`, built-in image generation, GPT-Image 2 through Codex, or to avoid app-side/fal.ai generation costs for an image purpose, and the agent surface has the image tool available. This includes `scene.storyboard-sheet`; do not route storyboard sheets to fal.ai solely because they are storyboard sheets. If the current image tool cannot accept actual image references, disclose that limitation before generating shot input images that Core says require selected Movie Lookbook, Location Sheet, or Character Sheet references; prefer Renku-managed reference-capable routes when the user wants those references applied as image conditioning. Do not create local composites, recolors, filters, or post-processed derivatives as substitutes for missing model reference conditioning.
+   - Use **Codex built-in image generation** when the user asks to use Codex, `$imagegen`, built-in image generation, GPT-Image 2 through Codex, or to avoid app-side/fal.ai generation costs for an image purpose, and the agent surface has the image tool available. This includes `scene.storyboard-sheet`; do not route storyboard sheets to fal.ai solely because they are storyboard sheets. If actual image references need to condition the model, prefer Renku-managed reference-capable routes unless the available Codex image tool explicitly accepts all required reference images in the current harness. For `cast.character-sheet`, do not use built-in Codex image generation when an existing character sheet or user-supplied reference image should be provided for continuity. Do not create local composites, recolors, filters, contact sheets, or post-processed derivatives as substitutes for missing model reference conditioning.
    - If `agentMedia.imageGeneration.defaultExecutionPath` is `codexBuiltInWhenAvailable`, prefer Codex built-in image generation for eligible image purposes when the tool is available. If it is `renkuManaged`, use the Renku-managed path unless the user explicitly overrides. If it is `ask`, ask when the user has not already chosen.
    - Use **Renku-managed generation** when the user explicitly chooses a Studio/fal.ai/provider model, wants Renku cost tracking or generation records, needs video or audio generation, or asks for an app-side generation run.
 4. For Codex built-in image generation, skip spec creation, estimate, approval token, and `renku generation run`. Use the `$imagegen` skill/tool with a prompt grounded in the Renku context, stage the selected output under project `generated/media/<descriptive-file>.png`, inspect it, and import it with `renku media import --source generated/media/<descriptive-file>.png` without `--receipt`. For `scene.storyboard-sheet`, generate the composite sheet, inspect it, crop the selected shot panels, inspect every crop, and import the cropped shot images with the storyboard import shape. Do not manually copy the output into canonical asset folders such as `cast/`, `locations/`, `visual-language/`, or `shotlist/`; the purpose-specific import command owns those folders and registers the durable Studio attachment.
@@ -51,6 +51,7 @@ renku generation model list --purpose <purpose-key> --target <target> --json
 
 6. For Renku-managed generation, create a Media Generation Spec JSON with the user's binding choices.
    - For shot input image specs (`shot.first-frame`, `shot.last-frame`, `shot.reference-image`, and `shot.video-prompt-sheet`), do not put provider `image_urls` in the spec. Use `referenceMode` plus the take target; Core resolves selected reference assets during validation and run. Cost estimate is pricing-only and does not prove reference readiness.
+   - For `cast.character-sheet`, inspect `context.referenceOptions`. Existing same-character sheet references are continuity anchors and should stay included unless the user excludes them. User-collected cast reference images are optional and can be included through the preview dialog. If the user supplied an arbitrary project image, such as `research/helmet.jpg`, and it is not yet in `referenceOptions`, attach it first with `renku media import --purpose reference.image --target cast:<cast-member-id> --source <project-relative-path> --json`, then re-read context. Do not say arbitrary reference images are unsupported just because they are not already attached to the Cast Member. Do not put provider `image_urls`, local file paths, or combined reference collages in the spec; use `referenceSelections.dependencyInclusions` only when an include/exclude choice needs to be persisted.
    - For `shot.video-prompt-sheet`, default to `fal-ai/openai/gpt-image-2` unless the user explicitly chose another model. Include `promptSheetVisualStyleId` (`cinematic-realistic` or `handdrawn-storyboard`) and `promptSheetNotationModeId` (`none` or `motion-annotation`). Motion annotation is a notation mode that can combine with either visual style. Keep panel counts, motion maps, captions, timing notes, and other sheet-structure choices inside the authored prompt and agent inspection brief, not Studio JSON.
    - Before telling the user a shot input spec is ready for paid generation, run `renku generation spec validate --file <spec-json> --json` and check the prepared `providerPayload.image_urls` / input files. If those references are present, explain that the raw spec intentionally stays free of provider paths. Use `renku generation estimate --spec <spec-id> --json` only for cost state and `estimate.costApprovalToken`.
    - Before generating a `shot.video-prompt-sheet`, create a Generation Preview JSON and run `renku generation preview show --file <generation-preview-json> --json`. Wait for user feedback in the agent harness, revise the same `previewId` when the prompt, metadata, references, or provider configuration changes, and generate only after the user says the preview is ready.
@@ -60,7 +61,22 @@ renku generation model list --purpose <purpose-key> --target <target> --json
 renku generation spec create --file <spec-json> --json
 ```
 
-8. For Renku-managed generation, estimate cost and get the cost approval token:
+8. For Renku-managed `cast.character-sheet`, `shot.video-prompt-sheet`, and
+final `shot.video-take` specs, show the generation preview dialog before
+estimating/running. Prefer saved-spec preview for character sheets:
+
+```bash
+renku generation preview show --spec <spec-id> --json
+```
+
+For cast character sheets, the dialog is where the user can inspect the prompt,
+model route, settings, existing sheet references, and optional ad hoc
+references before a paid run. If the user changes reference choices in Studio,
+re-show or re-read the preview before continuing. Never manually combine
+multiple references into one image to work around a mistaken assumption that
+only one reference is allowed.
+
+9. For Renku-managed generation, estimate cost and get the cost approval token:
 
 ```bash
 renku generation estimate --spec <spec-id> --json
@@ -70,7 +86,7 @@ Use `estimate.costApprovalToken` from a `state: "priced"` estimate as the
 `--approval-token` value. If the estimate is `missing-pricing-input`, fix the
 required pricing parameter before requesting paid generation approval.
 
-9. For Renku-managed generation, run only after the user has approved the model, cost, and any project-derived prompt/context transfer to the external provider. Because provider-backed generation needs network access, request sandbox/network permission before the first real `renku generation run` attempt instead of waiting for a network failure. Use `--simulate` when validating shape without paid provider calls.
+10. For Renku-managed generation, run only after the user has approved the model, cost, and any project-derived prompt/context transfer to the external provider. Because provider-backed generation needs network access, request sandbox/network permission before the first real `renku generation run` attempt instead of waiting for a network failure. Use `--simulate` when validating shape without paid provider calls.
 
 For final `shot.video-take` generation, re-read persisted take authoring
 context immediately before estimate/run approval, build a Generation Preview
@@ -84,8 +100,8 @@ approved in the agent harness.
 renku generation run --spec <spec-id> --approval-token <approval-token> --json
 ```
 
-10. Inspect generated media before import or attachment. For Lookbook images, decide which type-specific Lookbook sections the image actually demonstrates. For Lookbook sheets, verify that the sheet is informative, legible, and summarizes the target Movie or Storyboard Lookbook rather than merely collaging existing images. For cast images, compare against the active Cast Design, the selected Movie Lookbook, any user-supplied likeness/reference constraints, and the strongest existing approved cast sheets in the project. For Location Sheets, inspect the full image as one production reference board and make sure it matches the persisted description; do not crop or slice it. For Location Hero Images, verify that the source Location Sheet is the chosen basis and that the hero works as compact overview/detail display media, not as a shot reference sheet. For scene storyboard sheets, first ensure the selected Storyboard Lookbook and its `lookbook.sheet` are ready, then inspect each composite, use vision to identify the actual storyboard panel image blocks, crop only those selected shot panels, and inspect every slice before import.
-11. Import or attach the finished file for the purpose:
+11. Inspect generated media before import or attachment. For Lookbook images, decide which type-specific Lookbook sections the image actually demonstrates. For Lookbook sheets, verify that the sheet is informative, legible, and summarizes the target Movie or Storyboard Lookbook rather than merely collaging existing images. For cast images, compare against the active Cast Design, the selected Movie Lookbook, any user-supplied likeness/reference constraints, and the strongest existing approved cast sheets in the project. For Location Sheets, inspect the full image as one production reference board and make sure it matches the persisted description; do not crop or slice it. For Location Hero Images, verify that the source Location Sheet is the chosen basis and that the hero works as compact overview/detail display media, not as a shot reference sheet. For scene storyboard sheets, first ensure the selected Storyboard Lookbook and its `lookbook.sheet` are ready, then inspect each composite, use vision to identify the actual storyboard panel image blocks, crop only those selected shot panels, and inspect every slice before import.
+12. Import or attach the finished file for the purpose:
 
 ```bash
 renku media import --purpose <purpose-key> --target <target> --source <project-relative-path> --sections <agent-reviewed-sections> --json
@@ -95,10 +111,15 @@ Use `--sections` only for `lookbook.image`. Lookbook sheet, cast image, and shot
 
 For cast imports, choose production-meaningful relationship metadata:
 
-- `--reference-name` is mandatory. Use a stable, human-readable key that names
-  the character and usage context, not the filename, spec id, run id, or version
-  number. Examples: `mehmed-ii-palace-main`, `mehmed-ii-armored-siege`, or
+- For `cast.character-sheet`, `--reference-name` is mandatory. Use a stable,
+  human-readable key that names the character and usage context, not the
+  filename, spec id, run id, or version number. Examples:
+  `mehmed-ii-palace-main`, `mehmed-ii-armored-siege`, or
   `urban-workshop-main`.
+- For `reference.image`, `--reference-name` is optional but strongly
+  recommended when the reference will be reused or selected in a generation
+  preview. Use names like `mehmed-ii-battlefield-helmet` or
+  `maya-gold-hair-clip`.
 - `--reference-purpose` is optional. Use it when the intended use is clear, and
   make it descriptive rather than generic. Examples: `main palace character
   sheet`, `armored siege costume reference`, or `profile portrait for cast
@@ -178,6 +199,21 @@ generation run.
 
 A `casting-director` pass owns attaching the durable ElevenLabs provider voice
 id and sample file through `renku cast voice attach`.
+
+## Cast Character Sheets
+
+For `cast.character-sheet`, read `references/cast-character-sheet.md` before
+drafting the prompt. Character sheets default to a lean identity turnaround:
+front-facing face close-up cropped above the shoulders, front, back, left
+profile, right profile, labeled height ruler, compact synopsis/metadata block
+below the face close-up, and optional character-owned accessories only when the
+user or Cast Design supplies them.
+
+Do not turn the default character sheet into a concept-art board, Location
+Sheet, storyboard, prop sheet, expression sheet, or costume catalog. Keep sheet
+layout, height handling, accessory scope, and QA judgment in agent-authored
+prompts and inspection notes; do not invent Studio metadata or validation for
+the image contents.
 
 ## Shot Video Take Purposes
 

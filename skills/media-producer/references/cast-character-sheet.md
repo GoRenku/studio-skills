@@ -16,16 +16,24 @@ If the user wants Codex built-in image generation, use the context, Cast Design,
 Movie Lookbook, and quality gate below to prompt `$imagegen`, save the selected
 sheet inside the project, inspect it, and import it without `--receipt`.
 
-Character sheet generation requires an selected Movie Lookbook. The sheet should
-synthesize:
+Character sheet generation requires a selected Movie Lookbook, but the default
+sheet is a lean identity turnaround, not a broad concept-art board. Use the
+Lookbook only for production caliber, palette discipline, lighting softness,
+texture, and realism. Do not translate the Lookbook into extra story panels,
+locations, cinematic frames, or camera-language studies inside the sheet.
 
-- the screenplay and story function;
-- the cast member's description, role, want, need, arc, and voice notes;
-- period and setting signals;
-- the selected Movie Lookbook's palette, lighting, composition, texture, and camera
-  language.
-- active Cast Design `generationGuidance`, `continuity`, likeness anchors,
-  costume variants, and explicit user constraints.
+The default sheet should contain only the reference information needed for
+character continuity:
+
+- front-facing face close-up, cropped above the shoulders;
+- full-body front view;
+- full-body back view;
+- left profile;
+- right profile;
+- labeled height ruler with numeric tick marks beside the full-body views;
+- compact synopsis/metadata block below the face close-up;
+- optional accessory cells below the synopsis block only for character-owned
+  continuity items.
 
 Renku-managed model notes:
 
@@ -39,6 +47,82 @@ Renku-managed model notes:
 - `fal-ai/xai/grok-imagine-image` as a cheaper alternative when its limits are
   acceptable
 
+## Reference-Aware Generation
+
+Character sheet continuity should use actual image references when they exist.
+The generation context may expose `referenceOptions` with two kinds of usable
+references:
+
+- `cast-character-sheet`: previous selected or take character sheets for the
+  same cast member. Include these by default for continuity on subsequent
+  sheets.
+- `cast-reference-image`: ad hoc cast reference images collected by the user,
+  such as portraits, historical likeness images, accessory references, or
+  costume details. Treat these as optional unless the user explicitly asks to
+  include them.
+
+If the user supplies an arbitrary project image that is not yet listed in
+`referenceOptions`, import it first as a cast reference image, then re-read the
+generation context:
+
+```bash
+renku media import --purpose reference.image --target cast:<cast-member-id> --source <project-relative-path> --title "<visible title>" --summary "<why this reference matters>" --reference-name <stable-reference-name> --reference-purpose "<reference use>" --json
+renku generation context --purpose cast.character-sheet --target cast:<cast-member-id> --json
+```
+
+Use the path relative to the Renku project folder, such as
+`research/helmet.jpg`. Do not say arbitrary references are unsupported just
+because they are not already attached to the Cast Member; attach them with
+`reference.image` and then include the resulting `cast-reference-image`
+dependency through the preview/spec selection flow.
+
+If an existing character sheet for the same cast member is already present, use
+Renku-managed reference-capable generation and provide that sheet as a real
+reference input. Do not use built-in Codex image generation for a continuity
+sheet when existing sheets or user-supplied references need to condition the
+model. Do not use ImageMagick, screenshots, contact sheets, or local collage
+construction to combine references into one image. GPT-Image-2, Nano Banana,
+and other reference-capable image models can receive multiple image references;
+let Renku/Core pass multiple `image_urls` / input files.
+
+Keep the distinction clear:
+
+- text-to-image: no image references are selected;
+- reference-to-image: create a new image using one or more reference images;
+- image edit: modify a specific source image in place or preserve it as the
+  main source. Do not collapse reference-to-image into manual image editing.
+
+After creating or updating a Renku-managed `cast.character-sheet` spec, show
+the saved spec in Studio's generation preview dialog before estimating/running:
+
+```bash
+renku generation preview show --spec <spec-id> --json
+```
+
+The dialog shows the prompt, selected references, available optional
+references, settings, and model route. Let the user include or exclude optional
+references there. If the user changes reference selections, re-read or re-show
+the preview before estimating/running so the provider payload reflects the
+chosen reference set.
+
+Reference selections belong in the spec only as dependency inclusion choices:
+
+```json
+{
+  "referenceSelections": {
+    "dependencyInclusions": {
+      "cast-character-sheet:cast_ada:asset_previous_sheet": "include",
+      "cast-reference-image:cast_ada:asset_hair_clip": "include",
+      "cast-reference-image:cast_ada:asset_unwanted_portrait": "exclude"
+    }
+  }
+}
+```
+
+Do not put provider URLs, local file paths, base64 images, or hand-built
+composite reference images in the spec. Core resolves selected project assets
+into provider inputs during validation/run.
+
 Spec shape:
 
 ```json
@@ -46,7 +130,7 @@ Spec shape:
   "purpose": "cast.character-sheet",
   "target": { "kind": "castMember", "id": "cast_ada" },
   "modelChoice": "fal-ai/nano-banana-2",
-  "prompt": "A full character sheet for Ada...",
+  "prompt": "A clean neutral production character sheet for Ada...",
   "takeCount": 1,
   "seed": null,
   "imageFrame": "project",
@@ -56,15 +140,112 @@ Spec shape:
 }
 ```
 
-Prompt for a reusable design reference, not a single glamour portrait. Good
-prompts call out full-body reference, face, wardrobe, materials, expression
-range, posture, grooming, hands, and period-specific visual details.
+Prompt for a reusable physical continuity reference, not a single glamour
+portrait and not a broad design board. Good default prompts use one finished
+image with five vertical sections in this order:
 
-For props, include only character-owned identity props from Cast Design or the
-cast member's role. Do not add scene, location, technical, weapon, or plot props
+```text
+FACE CLOSE UP | FRONT | BACK | LEFT PROFILE | RIGHT PROFILE
+```
+
+The face close-up must be straight-on, centered, and frontal, not an angled
+three-quarter portrait. Crop it as a true face close-up from the top of the head
+through the neck, ending above the shoulders. Do not show chest armor, torso, or
+upper-body costume detail in the face close-up; that belongs in the full-body
+views.
+
+Use the same person, same wardrobe state, same grooming, and same body
+proportions in every view. Keep the full-body poses neutral: standing upright,
+arms relaxed, feet visible, no dramatic acting, no scene action, and no extra
+characters. A neutral studio-like background and simple dividers are preferred.
+
+Height is binding for visible on-screen cast members:
+
+- If an exact height is available, include it in the prompt and ask for a
+  labeled ruler with numeric tick marks, preferably in imperial and metric
+  form.
+- If height is known only as a relationship, such as "shorter than Mehmed" or
+  "towering and broad", use that relationship without inventing a number.
+- If height is missing and the user wants a reusable final continuity sheet,
+  ask for height before generating unless the user explicitly says to proceed.
+- If the user proceeds without height, avoid fake precision and request a
+  neutral proportional scale instead.
+- A decorative vertical line is not enough. The ruler must visibly communicate
+  measurement, with tick marks and labels aligned to the standing figure. Use a
+  labeled ruler in each full-body column when possible, or one clearly shared
+  ruler aligned to all full-body views.
+
+The left column should place the compact synopsis/metadata block directly below
+the face close-up. Use only supplied or project-grounded text. Prefer:
+
+- name;
+- age or age read when known;
+- height;
+- one short role or identity synopsis when available;
+- weight or gender only when explicitly supplied or important to continuity.
+
+Do not invent weight, gender, or biographical facts to fill template lines.
+
+Accessories are optional and scoped. Place accessory cells below the
+synopsis/metadata block only when the user, Cast Design, or cast role makes the
+accessory a character-owned continuity item: eyeglasses, hair clip, ring,
+necklace, cane, signature bag, or a similar worn or carried identity object. Do
+not invent accessories to fill the template. If no accessories were supplied,
+omit the accessory section and let the left column stay quiet below the
+synopsis block. Do not add scene, location, technical, weapon, or plot props
 merely because they are important to the story. If the context tempts you to
-include a prop that belongs to another department, omit it unless the user asked
-for it explicitly.
+include a prop that belongs to another department, omit it unless the user
+explicitly asked for that variant.
+
+Default prompt recipe:
+
+1. Start with the character identity and target wardrobe state.
+2. State the five required sections: face close-up, front, back, left profile,
+   right profile.
+3. State that the face close-up must be straight-on, centered, and cropped
+   above the shoulders.
+4. State exact height or known height relationship.
+5. Ask for a labeled height ruler with numeric tick marks aligned to the
+   full-body views.
+6. Ask for a compact synopsis/metadata block below the face close-up.
+7. Add stable identity anchors: face, hair, build, skin details, silhouette,
+   posture, wardrobe, shoes, and grooming.
+8. Add optional accessory cells only when supplied by the user or Cast Design.
+9. Add concise rendering quality from the active Movie Lookbook.
+10. Exclude location panels, story scenes, expression ranges, random props,
+   weapons, scene objects, text-heavy design notes, UI mockups, and decorative
+   collage elements.
+
+Prompt skeleton:
+
+```text
+Create a clean neutral production character sheet for {name}. Use one finished
+image with five vertical sections: FACE CLOSE UP, FRONT, BACK, LEFT PROFILE,
+RIGHT PROFILE. Show the same person in the same wardrobe state in every view.
+Use a neutral studio background and simple sheet dividers.
+
+The FACE CLOSE UP must be straight-on, centered, and cropped from the top of the
+head through the neck, ending above the shoulders. No angled portrait, no
+three-quarter face, no torso or chest costume detail in the close-up.
+
+Height is binding: {height}. Include a labeled height ruler with numeric tick
+marks beside the full-body views and align body proportions to that height. A
+plain decorative vertical line is not enough. Use neutral standing poses, arms
+relaxed, feet visible, no dramatic acting.
+
+Identity anchors: {face, hair, build, silhouette, grooming, posture}.
+Wardrobe anchors: {wardrobe, shoes, materials}.
+Below the face close-up, include a compact synopsis/metadata block: {name,
+height, age or age read if known, one-line role or identity synopsis if known;
+weight or gender only if supplied}.
+Optional accessories below that block: {only explicit character-owned
+accessories, or omit this section if none are supplied}.
+
+Keep this as an identity reference for video continuity, not a concept-art
+collage. No location shots, no scene panels, no expression range, no extra
+characters, no invented props, no story moments, no technical diagrams, no
+large paragraphs of generated text.
+```
 
 When the user supplies a portrait or says "in this likeness":
 
@@ -79,19 +260,45 @@ When the user supplies a portrait or says "in this likeness":
 Style and quality gate:
 
 - before writing the spec, inspect existing approved character sheets for the
-  project when available and match their production-reference caliber;
+  project when available and match their production-reference caliber while
+  keeping the lean identity-turnaround layout;
 - avoid cartoon, game-character, comic-book, glossy generic concept-art, or
   clean digital illustration styling unless the selected Movie Lookbook explicitly asks
   for it;
-- translate the selected Movie Lookbook into concrete instructions: lighting source,
-  lens/framing behavior, texture, palette, weathering, materials, and historical
-  surface detail;
+- translate the selected Movie Lookbook into concise rendering instructions:
+  light quality, texture, palette, material realism, and photographic finish;
 - after generation, inspect the image before import. If a take is cartoony
-  against a realistic Lookbook, contains garbled dominant labels, misses the
-  likeness, or includes irrelevant props, do not import it automatically. Give
-  the user a concrete QA assessment and recommend whether to accept it with
-  caveats or approve a revised Codex image iteration or Renku-managed paid
-  regeneration.
+  against a realistic Lookbook, contains garbled dominant labels that make the
+  view order or height unclear, misses the likeness, lacks front/back/profile
+  coverage, uses an angled or torso-heavy face close-up, changes wardrobe
+  across views, omits known height, uses only a decorative unlabeled height
+  line, omits the synopsis/metadata block, or includes irrelevant props, do not
+  import it automatically. Give the user a concrete QA assessment and recommend
+  whether to accept it with caveats or approve a revised Codex image iteration
+  or Renku-managed paid regeneration.
+
+Generated labels are helpful but not durable metadata. Do not reject a visually
+useful sheet solely because minor label text is imperfect. Reject or revise when
+missing or garbled text makes the height, view order, or accessory scope unclear.
+
+Common weak outputs and impact:
+
+- Missing back view: downstream video may invent rear hair, clothing closures,
+  capes, bags, or silhouette details.
+- Missing side profiles: downstream video may drift on nose, chin, hair volume,
+  posture, and body depth.
+- Angled or torso-heavy face close-up: downstream video may drift on facial
+  structure because the sheet never gives a clean front identity anchor.
+- No labeled height ruler: multi-character shots may produce inconsistent scale.
+- Missing synopsis/metadata block: agents and reviewers lose the compact
+  identity reminder that should sit under the face close-up.
+- Different outfit across panels: shots may mix wardrobe states.
+- Random location or story panels: useful reference area is wasted and the model
+  may treat scene context as character identity.
+- Invented accessories: downstream shots may preserve objects the character
+  should not own.
+- Text-heavy collage: the image becomes less useful as a visual reference and
+  text artifacts may contaminate shot prompts.
 
 Import the selected take:
 

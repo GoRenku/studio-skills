@@ -28,6 +28,25 @@ Keep the document about casting. Do not store generated media paths or shot-list
 
 Costume variants can be scoped to the whole project, one sequence, or one scene. They are authored design guidance, not standalone media targets yet.
 
+For character-sheet readiness, use the current Cast Design fields to capture
+height and accessory continuity when the user supplies them. Do not invent new
+JSON fields for this skill guidance:
+
+- put exact or intended height in `appearance.build`, `appearance.silhouette`,
+  `continuity.mustRemainConsistent`, or
+  `generationGuidance.characterSheetPositive`;
+- put the one-line role or identity synopsis for the left-column synopsis block
+  in `interpretation.audienceRead`, `interpretation.roleUnderstanding`, or
+  `generationGuidance.characterSheetPositive`;
+- put character-owned accessory continuity in `costume.baseWardrobeLogic`,
+  `costume.variants[].wardrobe`, `continuity.mustRemainConsistent`, or
+  `generationGuidance.characterSheetPositive`;
+- use `generationGuidance.characterSheetNegative` to exclude invented
+  accessories, scene props, location props, weapons, expression sheets, and
+  story panels when needed;
+- do not invent height, weight, gender, synopsis facts, accessories, or visible
+  metadata just because the lean sheet template can display those fields.
+
 ## JSON Contract
 
 Do not guess the Cast Design shape. Validate against this structure before
