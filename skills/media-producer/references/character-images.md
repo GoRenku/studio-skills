@@ -56,6 +56,13 @@ generation context for `referenceOptions`:
 - do not combine multiple references into one ImageMagick/contact-sheet image.
   Reference-capable models can take multiple references through Renku/Core.
 
+Prompts must use provider-visible reference labels. A prompt may say
+`Reference 1 is the previous character sheet` or `Reference 2 is the portrait
+for facial likeness only` only when those images are selected in the preview.
+Do not write prompts that ask the provider to know which asset Studio approved,
+which prior take was selected, or what a project-internal reference name means
+unless the image is attached and the prompt explains the visible traits to use.
+
 The face close-up matters too. It should be centered, front-facing, and cropped
 from the top of the head through the neck, ending above the shoulders. Do not
 use an angled three-quarter portrait or a torso-heavy crop for the face panel.
@@ -67,12 +74,15 @@ facts to fill template lines.
 
 Quality bar:
 
-- match the strongest existing approved character sheets in the project before
-  accepting a new one;
+- compare against the strongest existing user-approved character sheets in the
+  project before accepting a new one. This is agent/user QA language, not
+  provider-facing prompt language;
+- if an existing sheet should condition the new output, include it as a real
+  reference image and name its visible role in the prompt;
 - prefer realistic, tactile production-reference rendering over cartoon,
   game-character, comic-book, clean digital illustration, or generic concept-art
   styling unless the selected Movie Lookbook calls for that;
-- translate the selected Movie Lookbook into concise rendering quality,
+- translate the active Movie Lookbook into concise rendering quality,
   material, texture, palette, and light behavior in the prompt without adding
   Lookbook panels or camera studies;
 - if the generated sheet visibly ignores the selected Movie Lookbook, loses the
@@ -86,6 +96,12 @@ Quality bar:
 Avoid vague phrases such as "cinematic character design" unless they are backed
 by concrete identity, wardrobe, material, height, and rendering details from
 context.
+
+Avoid provider-facing phrases such as `approved sheet`, `selected Movie
+Lookbook`, `same as before`, `Palace version`, or `production-reference caliber`
+unless the prompt immediately translates them into attached reference roles or
+visible traits. The provider sees image files and prompt text, not Renku review
+history.
 
 ## Profile Images
 
@@ -103,5 +119,8 @@ For edit specs:
 - keep the prompt focused on the intended portrait, not a new full design;
 - preserve recognizable identity, period, and wardrobe unless the user asks for
   a deliberate variation.
+- reserve words such as `replace`, `remove`, and `edit the source image` for
+  actual edit models with a real source image. For reference-conditioned new
+  images, say `create a new image using Reference N for...`.
 
 Default profile framing should usually be `1:1`.

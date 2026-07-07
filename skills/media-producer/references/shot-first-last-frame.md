@@ -59,7 +59,17 @@ These are not authored specs and should not be estimated or run.
 ## Acceptable Shape
 
 ```text
-Author the first frame for Shot 3. Composition: medium close-up, low angle, hand-held micro push-in implied. Subject: Elise holds the torn petition at chest height, face half-lit by the market doorway. Action state: she has just decided to speak but has not moved yet. Lens/focus: short telephoto, shallow focus on her eyes and paper edge. Continuity: match the approved Elise character sheet, Greenway Market produce aisle location view, and active lookbook palette. No extra characters beyond the selected crowd silhouettes.
+Author the first frame for Shot 3. Composition: medium close-up, low angle,
+hand-held micro push-in implied. Subject: Elise holds the torn petition at
+chest height, face half-lit by the market doorway. Action state: she has just
+decided to speak but has not moved yet. Lens/focus: short telephoto, shallow
+focus on her eyes and paper edge. References: use Reference 1, the Elise
+character sheet, for facial identity, wardrobe, grooming, and body continuity;
+use Reference 2, the Greenway Market location sheet, for produce-aisle
+geography, material texture, and doorway light direction; use Reference 3, the
+Lookbook sheet, for palette, contrast, and grain only. Do not copy reference
+background artifacts, labels, or unrelated props. No extra characters beyond
+the crowd silhouettes explicitly requested for this shot.
 ```
 
 ## Import

@@ -9,8 +9,8 @@ Target format: `lookbook:<lookbook-id>`
 1. Read context with `renku generation context --purpose lookbook.sheet --target lookbook:<lookbook-id> --json`.
 2. If the user wants Codex built-in image generation, use the context below to prompt `$imagegen`, save the selected sheet inside the project, inspect it, and import it without `--receipt`.
 3. For Renku-managed generation, list model choices with `renku generation model list --purpose lookbook.sheet --target lookbook:<lookbook-id> --json` unless the user already chose one.
-4. For Renku-managed generation, create one persisted spec and estimate cost before any paid run.
-5. For Renku-managed generation, run only after user approval for both cost and sending project-derived prompt/context to the external provider. Request sandbox/network permission before the first real run, because Renku will contact the approved provider.
+4. For Renku-managed generation, create one persisted spec, show it in the Studio generation preview dialog with `renku generation preview show --spec <spec-id> --json`, and wait for user review before estimating or running.
+5. For Renku-managed generation, run only after user approval for both cost and sending the preview-approved project-derived prompt/context to the external provider. If the preview changes the prompt, model, route, parameters, or references, revise the same spec, show the preview again, and re-estimate before paid generation approval. Request sandbox/network permission before the first real run, because Renku will contact the approved provider.
 6. Inspect the returned sheet before import. Import only when it works as a compact model-facing guide for the target Lookbook type.
 
 ## Prompt Inputs

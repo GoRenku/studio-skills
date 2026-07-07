@@ -13,8 +13,8 @@ Target format: `scene:<scene-id>`
 5. For Renku-managed generation, list model choices with `renku generation model list --purpose scene.storyboard-sheet --target scene:<scene-id> --shot-list <shot-list-id> --json` unless the user already chose one.
 6. Verify the target Scene and Shot List exist.
 7. Split the selected shots into batches of at most four shots.
-8. For Renku-managed generation, create one persisted spec per batch and estimate cost before any paid run.
-9. For Renku-managed generation, run only after user approval for both cost and sending project-derived prompt/context to the external provider. Request sandbox/network permission before the first real run, because Renku will contact the approved provider.
+8. For Renku-managed generation, create one persisted spec per batch, show each spec in the Studio generation preview dialog with `renku generation preview show --spec <spec-id> --json`, and wait for user review before estimating or running.
+9. For Renku-managed generation, run only after user approval for both cost and sending the preview-approved project-derived prompt/context to the external provider. If the preview changes the prompt, model, route, parameters, or references, revise the same spec, show the preview again, and re-estimate before paid generation approval. Request sandbox/network permission before the first real run, because Renku will contact the approved provider.
 10. Inspect each returned composite, use vision to identify the actual storyboard panel image blocks, crop those blocks, and inspect every slice.
 11. Import only when the sheets and all slices are clean, useful, and match the resolved shot aspect ratio.
 

@@ -44,8 +44,8 @@ renku studio current --json
 ```
 
 Continue only when Studio current returns the object kind and durable id needed
-for the next command. For existing Shot Video Take prompt-sheet work, it must
-identify an existing take id before routing to `media-producer`. If Studio
+for the next command. For existing Shot Video Take storyboard reference work, it
+must identify an existing take id before routing to `media-producer`. If Studio
 current shows only a scene, shot list, new-take form, unrelated tab, or no take
 id, stop and ask the user to open the take or provide the take id. Do not infer
 a take, scene, shot, cast member, location, lookbook, or dialogue from nearby
@@ -85,17 +85,17 @@ Use this loop for every request:
 - Use `lookbook-designer` for durable Movie Lookbook and Storyboard Lookbook creation, revision, typed selection, and Inspiration source linkage.
 - Use `scene-shot-designer` for Scene Shot Lists and shot-list iteration.
 - Use `media-producer` for all Renku media generation specs, estimates, approved runs, inspection, slicing, and media imports.
-- Treat take-owned "multi-shot storyboard", dense motion-control image, or video prompt-sheet requests as
+- Treat take-owned "multi-shot storyboard", dense motion-control image, or storyboard reference requests as
   `shot.video-prompt-sheet` media work. Route them to `media-producer` with
   `take:<take-id>` after reading
   `renku take authoring context --take <take-id> --json`; do not send this work
-  to `scene-shot-designer`. A prompt sheet is opaque Studio media; the agent
-  may choose panels, motion maps, diagrams, captions, or timing marks in the
-  prompt, but those structures are not Studio JSON.
-- For "ready to generate?" questions about a Shot Video Take with a selected
-  video prompt sheet, do not stop at Core/preflight readiness. Route to
+  to `scene-shot-designer`. The storyboard reference image is opaque Studio
+  media; the agent may choose panels, motion maps, diagrams, captions, or
+  timing marks in the prompt, but those structures are not Studio JSON.
+- For "ready to generate?" questions about a Shot Video Take with a storyboard
+  reference image, do not stop at Core/preflight readiness. Route to
   `media-producer` for prompt-quality readiness: provider-token roles,
-  prompt-sheet operating rule, artifact suppression, hard-constraint transfer,
+  storyboard operating rule, artifact suppression, hard-constraint transfer,
   native-audio limits, and final-video QA risks.
 
 Not first-class today:

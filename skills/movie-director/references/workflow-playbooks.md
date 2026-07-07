@@ -38,12 +38,12 @@ For Codex runs, remember that local Studio HTTP notification is network access. 
 
 1. Confirm active shot list and storyboard readiness through `renku director context --json`.
 2. Create or choose the Shot Video Take for the exact ordered shot ids. If the user says "this take", first read `renku studio current --json` and confirm the focused scene/take candidate before mutation or paid generation.
-3. Dispatch shot-video dependency planning to `media-producer` with the take id. If the user asks for a "multi-shot storyboard", dense motion-control image, choreography sheet, or video prompt sheet for the take, treat that as `shot.video-prompt-sheet`, not scene shot-list storyboard work. The prompt image is opaque Studio media; panels, motion maps, captions, timing marks, or diagrams are agent-authored prompt strategies rather than Studio schema.
+3. Dispatch shot-video dependency planning to `media-producer` with the take id. If the user asks for a "multi-shot storyboard", dense motion-control image, choreography sheet, or storyboard reference image for the take, treat that as `shot.video-prompt-sheet`, not scene shot-list storyboard work. The storyboard reference image is opaque Studio media; panels, motion maps, captions, timing marks, or diagrams are agent-authored prompt strategies rather than Studio schema.
 4. Use `renku take authoring context --take <take-id> --json`, then have `media-producer` validate and apply a `sceneShotVideoTakeAuthoring` document before creating final specs.
-5. When a selected video prompt sheet is part of the final route, require
+5. When a storyboard reference image is part of the final route, require
    media-producer to report prompt-quality readiness separately from mechanical
    readiness before estimate/run.
-6. Require `media-producer` to show the Generation Preview Dialog before prompt-sheet generation and again before final `shot.video-take` generation. Feedback should update the same `previewId` through `renku generation preview show --file <generation-preview-json> --json`.
+6. Require `media-producer` to show the Generation Preview Dialog before prompt-sheet generation and again before final `shot.video-take` generation. Prompt-sheet pre-generation previews may use `renku generation preview show --file <media-generation-spec-json> --json` with a draft media-generation spec; persisted final `shot.video-take` specs must use `renku generation preview show --spec <spec-id> --json` so Core builds the preview contract.
 7. Keep generation behind the media-producer estimate and approval token.
 8. When regenerating from a take that already has a final video, keep the source
    take intact. Core automatically moves authoring changes to the next active

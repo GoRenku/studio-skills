@@ -21,6 +21,10 @@ sheet is a lean identity turnaround, not a broad concept-art board. Use the
 Lookbook only for production caliber, palette discipline, lighting softness,
 texture, and realism. Do not translate the Lookbook into extra story panels,
 locations, cinematic frames, or camera-language studies inside the sheet.
+When writing provider-facing prompt text, translate the Lookbook into visible
+traits such as palette, contrast, light quality, material realism, grain,
+texture, and photographic finish. Do not ask the provider to "match the Movie
+Lookbook" as if it can read Studio state.
 
 The default sheet should contain only the reference information needed for
 character continuity:
@@ -38,12 +42,13 @@ character continuity:
 Renku-managed model notes:
 
 - `fal-ai/openai/gpt-image-2` for realistic, high-caliber, tactile
-  production-reference sheets, especially when matching an existing realistic
-  cast-sheet style.
+  production-reference sheets, especially when a real prior character sheet is
+  attached as a visible continuity reference.
 - `fal-ai/nano-banana-2` when layout control, seed support, or a more
   design-board-like sheet is more important than painterly realism. Do not use
-  it by default when the project's approved sheets are realistic and the user
-  expects that caliber.
+  it by default when the user's QA target is a realistic sheet and the prompt
+  does not yet contain concrete material, lighting, and reference-role
+  instructions.
 - `fal-ai/xai/grok-imagine-image` as a cheaper alternative when its limits are
   acceptable
 
@@ -91,6 +96,34 @@ Keep the distinction clear:
 - reference-to-image: create a new image using one or more reference images;
 - image edit: modify a specific source image in place or preserve it as the
   main source. Do not collapse reference-to-image into manual image editing.
+
+The full media-producer prompting guidance lives in
+`references/reference-visible-image-prompting.md`.
+
+Provider-facing prompts must name only visible references. The preview may show
+an existing Studio asset as selected or approved, but the prompt should describe
+it as a provider-visible role:
+
+```md
+Provider-visible references:
+
+- Reference 1: previous character sheet, role: identity and wardrobe continuity
+  Use for: face shape, body proportions, grooming, wardrobe state, headwear
+  silhouette, sheet layout, and material finish visible in the image
+  Do not copy: background artifacts, filenames, asset ids, or review notes
+- Reference 2: portrait, role: facial likeness only
+  Use for: facial structure, age read, expression restraint, and grooming
+  Do not copy: camera angle, background, modern clothing, or portrait crop
+
+Prompt:
+<provider-facing prompt text using the same Reference 1 / Reference 2 labels>
+```
+
+If the prompt mentions a reference that is not selected in the preview, stop and
+fix the spec or reference selection. If the preview selects a reference and the
+prompt gives it no role, stop and revise the prompt before estimating or
+running. Keep this as agent workflow QA; do not invent Studio metadata or
+runtime prompt validators for visual contents.
 
 After creating or updating a Renku-managed `cast.character-sheet` spec, show
 the saved spec in Studio's generation preview dialog before estimating/running:
@@ -197,7 +230,7 @@ merely because they are important to the story. If the context tempts you to
 include a prop that belongs to another department, omit it unless the user
 explicitly asked for that variant.
 
-Default prompt recipe:
+Default text-to-image prompt recipe:
 
 1. Start with the character identity and target wardrobe state.
 2. State the five required sections: face close-up, front, back, left profile,
@@ -216,7 +249,7 @@ Default prompt recipe:
    weapons, scene objects, text-heavy design notes, UI mockups, and decorative
    collage elements.
 
-Prompt skeleton:
+No-reference text-to-image skeleton:
 
 ```text
 Create a clean neutral production character sheet for {name}. Use one finished
@@ -247,6 +280,88 @@ characters, no invented props, no story moments, no technical diagrams, no
 large paragraphs of generated text.
 ```
 
+Previous-character-sheet reference skeleton:
+
+```text
+Create a new clean neutral production character sheet for {name}. Use one
+finished image with five vertical sections: FACE CLOSE UP, FRONT, BACK, LEFT
+PROFILE, RIGHT PROFILE.
+
+Reference 1 is the previous character sheet. Use it as the identity, body
+proportion, wardrobe state, grooming, headwear, material finish, and sheet
+layout continuity source. Preserve the visible face shape, skin details, hair or
+headwear silhouette, robe or garment layering, shoes, posture, and neutral
+turnaround structure from Reference 1.
+
+Change/add: {requested wardrobe state, height ruler, synopsis block, accessory
+cells, or other current user request}.
+
+Do not copy Reference 1's background artifacts, filename text, asset ids, review
+notes, or any accidental image flaws. Create a new character sheet; do not alter
+Reference 1 itself.
+```
+
+Previous character sheet plus portrait skeleton:
+
+```text
+Create a new clean neutral production character sheet for {name}.
+
+Reference 1 is the previous character sheet. Use it for body proportions,
+wardrobe continuity, grooming state, sheet structure, and production-reference
+material finish.
+
+Reference 2 is a portrait. Use it only for facial likeness: face shape, age
+read, eyes, nose, mouth, beard or hairline, skin details, and restrained neutral
+expression. Do not copy Reference 2's background, camera angle, modern clothing,
+portrait crop, lighting mismatch, or pose.
+
+Preserve: {identity anchors, wardrobe anchors, height, posture}.
+Change/add: the required five-section turnaround layout, labeled height ruler,
+and compact synopsis block.
+Exclude: extra characters, scene locations, unrelated props, expression ranges,
+and text-heavy design notes.
+```
+
+Costume, headwear, or accessory reference skeleton:
+
+```text
+Create a new clean neutral production character sheet for {name}.
+
+Reference 1 is the previous character sheet. Use it for the same person, body
+proportions, existing wardrobe state, sheet layout, and material realism.
+
+Reference 2 is a {costume/headwear/accessory} reference. Use it only for
+{specific visible trait: construction, silhouette, fabric folds, metal finish,
+scale, color, wear pattern}. Do not copy Reference 2's face, background, camera
+angle, body pose, unrelated garments, or scene context.
+
+Preserve: {face, grooming, build, posture, height, continuity wardrobe traits}.
+Change/add: integrate the {costume/headwear/accessory} trait into the new sheet
+without changing the character's identity.
+Exclude: any reference backgrounds, non-character props, extra figures, UI text,
+or production annotations inside the sheet image.
+```
+
+Actual source-image edit skeleton:
+
+```text
+Edit the source image into a production-ready {profile image or revised
+character sheet} for {name}.
+
+Source image: preserve the same character identity, face, body proportions,
+wardrobe state, grooming, pose discipline, lighting family, and sheet or
+portrait continuity.
+
+Reference 1 is a {costume/headwear/accessory/style} reference. Use only
+{specific visible trait} from Reference 1.
+
+Change: {specific edit request}. Replace only {trait} if the request is truly
+an image edit.
+Do not change: {source identity, face, body, wardrobe areas, layout, lighting}.
+Exclude: Reference 1's background, face, camera angle, unrelated clothing,
+logos, watermarks, and artifacts.
+```
+
 When the user supplies a portrait or says "in this likeness":
 
 - preserve the supplied likeness as a binding constraint;
@@ -259,13 +374,14 @@ When the user supplies a portrait or says "in this likeness":
 
 Style and quality gate:
 
-- before writing the spec, inspect existing approved character sheets for the
-  project when available and match their production-reference caliber while
-  keeping the lean identity-turnaround layout;
+- before writing the spec, inspect existing user-approved character sheets for
+  the project when available as agent-side QA examples. If one should condition
+  the provider output, include it as an actual reference and name its visible
+  role in the prompt;
 - avoid cartoon, game-character, comic-book, glossy generic concept-art, or
-  clean digital illustration styling unless the selected Movie Lookbook explicitly asks
-  for it;
-- translate the selected Movie Lookbook into concise rendering instructions:
+  clean digital illustration styling unless the user-facing Lookbook direction
+  explicitly asks for it;
+- translate the active Movie Lookbook into concise rendering instructions:
   light quality, texture, palette, material realism, and photographic finish;
 - after generation, inspect the image before import. If a take is cartoony
   against a realistic Lookbook, contains garbled dominant labels that make the

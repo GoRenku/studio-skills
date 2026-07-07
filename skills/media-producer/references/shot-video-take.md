@@ -18,7 +18,12 @@ prior conversation.
 - `shot.first-frame`: carefully authored opening still for a shot video take.
 - `shot.last-frame`: carefully authored closing still for a first/last-frame workflow.
 - `shot.reference-image`: ad hoc reference image generated only for a named single-shot or multi-shot take need.
-- `shot.video-prompt-sheet`: one readable AI-video prompt image for the take, authored with `promptSheetVisualStyleId`, `promptSheetNotationModeId`, logical references, and an opaque prompt. The agent may ask for panels, motion maps, diagrams, captions, timing marks, or other strategies, but Studio does not store or validate sheet internals.
+- `shot.video-prompt-sheet`: one readable storyboard/reference image for the
+  take, authored with `promptSheetVisualStyleId`,
+  `promptSheetNotationModeId`, logical references, and an opaque prompt. The
+  Renku purpose name is internal. Provider-facing final video prompts should call
+  this image a storyboard and describe its visible panels; do not ask the video
+  model to understand the phrase "video prompt sheet."
 - `shot.video-take`: final video attached to the take while preserving its ordered shot ids.
 
 For image dependencies, use Codex built-in image generation when the user asks
@@ -192,7 +197,7 @@ renku take authoring context --take <take-id> --json
 
 Final generation uses the persisted take state, not memory from an earlier
 apply response. If the final persisted model, input mode, route parameters,
-selected references, composition, motion, or prompt draft no longer match your
+reference choices, composition, motion, or prompt draft no longer match your
 prompt assumptions, warn the user and revise the prompt or authoring document
 before paid generation.
 
@@ -203,7 +208,7 @@ means Core has the required inputs, model, route, parameters, and prompt field
 needed to run. Cost estimate is a separate pricing-only check and may be
 available before all readiness items are generated. Prompt-quality readiness means the final prompt
 follows the active model/workflow guidance, names provider references, preserves
-selected-input constraints, and passes any route-specific checklist. Report both
+input constraints, and passes any route-specific checklist. Report both
 when the user asks whether a take is ready to generate.
 
 ## Dependency Authoring
@@ -211,33 +216,51 @@ when the user asks whether a take is ready to generate.
 Use the specific references for dependency prompts:
 
 - First/last frames: `shot-first-last-frame.md`
-- Video prompt sheets: `shot-video-prompt-sheet.md`
+- Storyboard reference images (`shot.video-prompt-sheet`): `shot-video-prompt-sheet.md`
 - Ad hoc reference images: `shot-reference-images.md`
 
-For ordinary shot input images, author specs with `referenceMode: "movie-lookbook"`. Core will attach the selected Movie Lookbook sheet as the
-primary style reference and selected Location Sheets and Character Sheets as
+For ordinary shot input images, author specs with `referenceMode: "movie-lookbook"`. Core will attach the configured Movie Lookbook sheet as the
+primary style reference and configured Location Sheets and Character Sheets as
 continuity references. Use `referenceMode: "storyboard-lookbook"` only when
 the user explicitly asks for storyboard, hand-drawn, sketch, animatic, or
 Storyboard Lookbook aesthetics for that generated shot input image. Do not infer
 storyboard mode from the existence of a Storyboard Lookbook or scene storyboard
 sheet.
 
-For `shot.video-prompt-sheet`, build the internal prompt-sheet brief from
+For `shot.video-prompt-sheet`, build the internal storyboard brief from
 `renku take authoring context --take <take-id> --json` before prompting any
 image model. The brief must preserve the ordered shot ids, take structure mode,
-spatial continuity, motion continuity, selected visual references, and known
+spatial continuity, motion continuity, configured visual references, and known
 spoken timing. Inspect the resulting sheet against that brief before import.
 Do not import moodboards, reordered panels, reversed movement, invented
 geography, misplaced spoken text, or unreadable labels.
 
-Keep the prompt-sheet brief or generation spec available for downstream final
-video prompting whenever possible. Final `shot.video-take` prompts must preserve
-hard constraints from the current take, user corrections, the prompt-sheet
-brief/spec, the visible prompt sheet, and selected continuity references. If the
-final prompt contradicts a hard constraint, stop and resolve the contradiction
-before estimating or running.
+For `shot.video-prompt-sheet`, choose the storyboard reference strategy in the
+prompt instead of treating it as app validation:
 
-When a shot input image must use selected Movie Lookbook, Location Sheet, or
+- `cinematic-realistic`: the realistic storyboard panels should become the real
+  look and location reference for the final video. When the generation path lets
+  the agent choose references, do not ask for extra Movie Lookbook, Location
+  Sheet, or Character Sheet boards by default. If extra boards are already
+  present in the provider preview, omit them from the wording when they add
+  nothing concrete, or give them a narrow secondary role only.
+- `handdrawn-storyboard`: hand-drawn, sketch, pencil, animatic, or previs
+  panels intentionally abstract the look. Include available Lookbook, Location
+  Sheet, and Character Sheet references by default when the generation path
+  supports them, and make the prompt say they are references only, not source
+  frames, first frames, layouts, collages, or content to copy.
+
+If the user wants a different reference mix, follow the user. These are
+authoring defaults, not restrictions.
+
+Keep the storyboard brief or generation spec available for downstream final
+video prompting whenever possible. Final `shot.video-take` prompts must preserve
+hard constraints from the current take, user corrections, the storyboard
+brief/spec, the visible storyboard panels, and configured continuity references.
+If the final prompt contradicts a hard constraint, stop and resolve the
+contradiction before estimating or running.
+
+When a shot input image must use configured Movie Lookbook, Location Sheet, or
 Character Sheet files as actual image references, use a model path that can
 receive those references. If the active Codex image tool cannot pass actual
 image references, disclose the limitation and choose Renku-managed generation
@@ -283,7 +306,7 @@ Example Seedance final prompt:
 Example Kling final prompt:
 
 ```text
-@Element1 enters from frame left and says softly, "We keep moving." Keep the voice calm and close-mic, matching the selected dialogue audio reference.
+@Element1 enters from frame left and says softly, "We keep moving." Keep the voice calm and close-mic, matching @Audio1 as the dialogue audio reference.
 ```
 
 When the user needs exact generated dialogue audio synchronized to video, route
@@ -308,31 +331,50 @@ These prompt-token and audio/voice rules were reviewed on June 14, 2026 from:
 
 Maintenance check: if a prompt contains `@Audio`, `@Image`, `@Element`, or
 `@Video`, confirm the corresponding Renku input exists in preflight and that the
-selected route supports that provider field before estimating or running.
+active route supports that provider field before estimating or running.
 
-## Prompt-Sheet Handoff Gate
+## Storyboard Handoff Gate
 
-When `providerPreview` includes a `video-prompt-sheet` input, the final prompt
-must pass this gate before estimate or paid generation:
+When `providerPreview` includes a `video-prompt-sheet` input, use this agent
+review before estimate or paid generation:
 
-- name the prompt sheet by its actual provider token;
-- interpret the sheet according to the agent-authored brief and visible content;
-- if the sheet uses ordered panels or beats, say how those panels or beats
-  become temporal waypoints rather than split-screen, collage, panorama, poster,
-  grid, or frozen composite footage;
-- forbid sheet layout artifacts, borders, labels, arrows, captions, metadata
-  rows, text boxes, UI, and shot ids from appearing in the final footage unless
-  the user explicitly wants visible graphic overlays;
+- name the storyboard reference image by its actual provider token;
+- call it a storyboard in the provider-facing prompt, not a "video prompt
+  sheet";
+- say that the storyboard is an ordered sequence of video beats, not the first
+  frame and not a graphic layout to copy;
+- inspect the visible storyboard and describe each panel by position and content
+  in the prompt, for example `Panel 1, upper left: ...`, `Panel 2, upper right:
+  ...`;
+- translate each panel into action, framing, camera movement, subject motion,
+  geography, and narration/dialogue timing;
+- say how the video moves continuously between panels instead of only listing
+  panel titles;
+- forbid storyboard layout artifacts, borders, labels, arrows, captions,
+  metadata rows, text boxes, UI, and shot ids from appearing in the final footage
+  unless the user explicitly wants visible graphic overlays;
 - give every supplied image, video, and audio reference a role;
+- keep Location Sheet and Lookbook Sheet roles narrow when those references are
+  actually present. A Location Sheet is geography/material continuity only, not
+  a source first frame. A Lookbook Sheet is style only, and can be omitted from
+  the wording when it adds no concrete instruction beyond the storyboard. For
+  realistic storyboard panels, let the storyboard itself carry the look and
+  place. For hand-drawn storyboard panels, supporting boards can help with
+  continuity, but they remain references only;
 - copy known narration or dialogue exactly;
-- describe native-audio timing as best-effort unless an exact-sync workflow is
-  selected;
+- describe native-audio timing as best-effort unless the work is using an
+  exact-sync workflow;
 - preserve hard constraints from the current take, user corrections,
-  prompt-sheet brief, visible sheet, and selected references;
-- check that the final prompt does not contradict visible or documented sheet
-  constraints.
+  storyboard brief, visible storyboard, and reference images actually sent to
+  the provider;
+- check that the final prompt does not contradict visible or documented
+  storyboard constraints.
 
-For Seedance reference-to-video with a prompt sheet, also read
+If the user intentionally wants a strange or experimental use of the references,
+name the caveat and follow the user's choice. This review is prompt guidance,
+not app-side validation.
+
+For Seedance reference-to-video with a storyboard reference image, also read
 `seedance-prompt-sheet-reference-video.md`. Keep that guidance route-specific;
 do not load it for unrelated models or non-reference Seedance routes.
 
@@ -342,11 +384,13 @@ For every Renku-managed dependency and final video spec:
 
 1. Validate: `renku generation spec validate --file <spec-json> --json`.
 2. Persist: `renku generation spec create --file <spec-json> --json`.
-3. Estimate: `renku generation estimate --spec <spec-id> --json`.
-4. Ask the user to approve cost and provider context transfer.
-5. Run only after approval: `renku generation run --spec <spec-id> --approval-token <approval-token> --json`.
-6. Inspect generated media before import.
-7. Import with the concrete purpose.
+3. Preview: show the Studio generation preview dialog with `renku generation preview show --spec <spec-id> --json`. Use this saved-spec path for image dependency specs and final `shot.video-take` specs.
+4. Wait for user review. If the user changes the prompt, model, route, parameters, source image, or references, revise the same spec or preview, show the preview again, and continue only after the user approves the updated preview.
+5. Estimate: `renku generation estimate --spec <spec-id> --json`.
+6. Ask the user to approve cost and sending the preview-approved provider context transfer.
+7. Run only after approval: `renku generation run --spec <spec-id> --approval-token <approval-token> --json`.
+8. Inspect generated media before import.
+9. Import with the concrete purpose.
 
 If validation, estimate, or run fails because the provider rejects an
 unsupported field such as `negative_prompt`, do not only remove the field and
@@ -367,7 +411,7 @@ renku media import \
   --json
 ```
 
-Use the matching concrete purpose for `shot.last-frame`, `shot.reference-image`, and `shot.video-prompt-sheet`. The Studio References tab shows imported/generated first frames, last frames, ad hoc reference images, and video prompt sheets for the relevant take.
+Use the matching concrete purpose for `shot.last-frame`, `shot.reference-image`, and `shot.video-prompt-sheet`. The Studio References tab shows imported/generated first frames, last frames, ad hoc reference images, and storyboard reference images for the relevant take.
 
 Omit `--receipt` when an image dependency came from Codex built-in image
 generation or another non-Renku source. For Codex outputs, stage the selected file under project `generated/media/`
@@ -418,40 +462,40 @@ Scenario: the user asks for a take for Shot 3, input mode is `first-last-frame`,
 
 1. Read authoring context, model choices, and reusable inputs.
 2. Author `shot.first-frame` and `shot.last-frame` dependency drafts from the selected shot design and references.
-3. Generate or import each dependency. If using Codex built-in image generation, prompt `$imagegen`, save the selected stills inside the project, inspect them, and import without receipts. If using Renku-managed image generation, validate, create, estimate, approve, run, inspect, and import each dependency.
+3. Generate or import each dependency. If using Codex built-in image generation, prompt `$imagegen`, save the selected stills inside the project, inspect them, and import without receipts. If using Renku-managed image generation, validate, create, preview with the user, estimate, approve, run, inspect, and import each dependency.
 4. Update the authoring document with `inputModeId`, video model, parameters, selected inputs, dependency drafts, and final prompt draft.
 5. Validate and apply the authoring document. Compare validation `prior` versus
    `current`, then apply `prior` versus `current`. The returned preflight must
    show no missing first/last-frame inputs.
 6. Re-read authoring context, confirm the final persisted settings still match
-   the prompt, then create, estimate, approve, run, inspect, and import the
-   final `shot.video-take`.
+   the prompt, then create the final video preview, estimate, approve, run,
+   inspect, and import the final `shot.video-take`.
 
 Expected result: dependency assets are reusable later, one final video is attached to the Shot 3 take, and final video approval binds to the exact prompt, parameters, first frame, and last frame files.
 
-## Example: Multi-Shot Group With Video Prompt Sheet
+## Example: Multi-Shot Group With Storyboard Reference
 
 Scenario: the user creates a take for Shot 3 and Shot 4 and the final generation should be one provider call.
 
-1. Read authoring context and model choices for the selected prompt-sheet input mode.
-2. Read reusable inputs. Reuse a `video-prompt-sheet` only when it matches exactly `shot_003,shot_004` in that order.
+1. Read authoring context and model choices for the storyboard/reference input mode.
+2. Read reusable inputs. Reuse a storyboard reference image only when it matches exactly `shot_003,shot_004` in that order.
 3. If regenerating a dependency input, clear the selected slot. If regenerating a final video from an already-videoed take, keep the source take intact. When authoring changes are applied, Core may return a new active take id; use that id for subsequent spec, generation, and import commands. If no settings changed, Core will create the new take during final `shot.video-take` import.
 4. Create `shot.video-prompt-sheet` from `shot-video-prompt-sheet.md`. Choose `promptSheetVisualStyleId` (`cinematic-realistic` or `handdrawn-storyboard`) and `promptSheetNotationModeId` (`none` or `motion-annotation`), then keep any panel, motion-map, caption, or timing strategy inside the authored prompt and agent brief.
-5. Before generating the prompt sheet, create and show a Generation Preview JSON with `renku generation preview show --file <generation-preview-json> --json`. Update the same `previewId` after feedback and generate only after user approval.
-6. Generate or import the video prompt sheet. If using Codex built-in image generation, prompt `$imagegen`, save the selected sheet inside the project, inspect it, and import without a receipt. If using Renku-managed image generation, validate, create, estimate, approve, run, inspect, and import the prompt sheet.
+5. Before generating the storyboard sheet, create the draft `shot.video-prompt-sheet` Media Generation Spec JSON and show it with `renku generation preview show --file <media-generation-spec-json> --json`. Revise the same draft spec after feedback, rerun the preview command, and generate only after user approval.
+6. Generate or import the storyboard sheet. If using Codex built-in image generation, prompt `$imagegen`, save the generated sheet inside the project, inspect it, and import without a receipt. If using Renku-managed image generation, validate, create, preview with the user, estimate, approve, run, inspect, and import the sheet.
 7. Write the take production proposal and final prompt into the authoring document as one continuous video while preserving shot boundaries.
-   If the selected final route uses a `video-prompt-sheet`, apply the
-   prompt-sheet handoff gate before saving the final prompt.
+   If the final route uses a `video-prompt-sheet`, apply the
+   storyboard handoff gate before saving the final prompt.
 8. Validate and apply the authoring document. Compare validation `prior` versus
    `current`, then apply `prior` versus `current`. Core maps logical prepared
    inputs to provider fields and returns diagnostics if a selected logical role
    is unsupported.
 9. Re-read authoring context, confirm the final persisted settings still match
-   the prompt, then create a final `shot.video-take` Generation Preview JSON
-   with prompt, model, provider token order, logical prompt-sheet/audio/video
-   references, config, estimate when available, and diagnostics. Show it with
-   `renku generation preview show --file <generation-preview-json> --json`.
+   the prompt, then show the saved final `shot.video-take` spec with
+   `renku generation preview show --spec <spec-id> --json`. Core builds the
+   preview prompt, model, provider token order, logical prompt-sheet/audio/video
+   references, config, and diagnostics from the persisted spec and take context.
    Continue to estimate/run/import only after user approval. Do not run separate
    final videos per shot.
 
-Expected result: the video prompt sheet is reusable for the same ordered take, visible in the References tab for every included shot, one final video is attached to one take that preserves both ordered shots, and changing model/prompt/parameters/inputs requires a new preflight and estimate.
+Expected result: the storyboard reference image is reusable for the same ordered take, visible in the References tab for every included shot, one final video is attached to one take that preserves both ordered shots, and changing model/prompt/parameters/inputs requires a new preflight and estimate.

@@ -32,12 +32,12 @@ If the reference need is vague, ask the user to name what the image is for. Do n
 If the user wants Codex built-in image generation, use the same authored
 reference intent to prompt `$imagegen`, save the selected image inside the
 project, inspect it, and import it without `--receipt`. If the current image
-tool cannot accept actual image references, disclose that selected Movie
+tool cannot accept actual image references, disclose that the project Movie
 Lookbook, Location Sheet, and Character Sheet files cannot be used as image
 conditioning through that path; prefer Renku-managed reference-capable
-generation when the reference image must use those selected sheets directly. Do
-not imitate those references through local compositing, recoloring, filters, or
-other post-processing.
+generation when the reference image must use those project reference files
+directly. Do not imitate those references through local compositing, recoloring,
+filters, or other post-processing.
 
 ## Multiple References
 

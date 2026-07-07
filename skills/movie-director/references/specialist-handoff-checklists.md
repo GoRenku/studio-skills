@@ -209,11 +209,13 @@ renku director context --json
 
 Use the purpose-specific import command documented by `media-producer`; import
 flags differ between single-file project-relative sources and grouped import
-JSON. For shot-video prompt sheets, tell media-producer that the default visual
-style is the selected Movie Lookbook, not the Storyboard Lookbook; Storyboard
-Lookbook mode is only for explicit hand-drawn/storyboard requests. For
-Codex-generated shot-video prompt sheets, stage the file under project
-`generated/media/` and import it with:
+JSON. For shot-video storyboard references, tell media-producer whether the user
+wants realistic panels or hand-drawn/sketch panels. Realistic storyboard panels
+should carry the look, location, lighting, and continuity themselves by default.
+Hand-drawn/sketch storyboard panels should include available Lookbook, Location
+Sheet, and Character Sheet references as supporting context by default, clearly
+scoped as references only. For Codex-generated storyboard references, stage the
+file under project `generated/media/` and import it with:
 
 ```bash
 renku media import \

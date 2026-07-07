@@ -41,12 +41,17 @@ For Renku-managed generation, persist a spec before estimating or running:
 
 ```bash
 renku generation spec create --file lookbook-image-spec.json --json
+renku generation preview show --spec <spec-id> --json
 renku generation estimate --spec <spec-id> --json
 renku generation run --spec <spec-id> --approval-token <approval-token> --json
 ```
 
-Run only after the user explicitly approves both the estimated cost and sending
-project-derived prompt/context to the provider.
+Run only after the user reviews the Studio generation preview dialog and
+explicitly approves both the estimated cost and sending the preview-approved
+project-derived prompt/context to the provider. If the user changes the prompt,
+model, route, parameters, or references in the preview, revise the same spec,
+show the preview again, and re-estimate before asking for paid generation
+approval.
 
 For the real `renku generation run`, request sandbox/network permission before
 the first attempt. The permission request should say that Renku will contact the

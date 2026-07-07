@@ -13,7 +13,7 @@ Target format: `location:<location-id>`
 2. Verify the target Location exists in the screenplay location list.
 3. For Renku-managed generation, list model choices with `renku generation model list --purpose location.environment-sheet --target location:<location-id> --json` unless the user already chose a model.
 4. Write a persisted spec with a concise `description`. The description is stored on the imported Location Sheet and shown in Studio cards.
-5. Estimate cost and ask for explicit approval before any paid run.
+5. For Renku-managed generation, show the Studio generation preview dialog with `renku generation preview show --spec <spec-id> --json`, wait for user review, then estimate cost and ask for explicit approval before any paid run. If the preview changes the prompt, model, route, parameters, or references, revise the same spec, show the preview again, and re-estimate before paid generation approval.
 6. Inspect the returned full image as one production reference board using the
    board-design quality gate.
 7. Import the approved full image with `--source`, `--title`, and `--summary`.
@@ -86,7 +86,7 @@ explicit source Location Sheet asset owned by the same Location.
 1. Choose the source Location Sheet asset with the user or from the current
    task brief.
 2. Create a `location.hero` spec with `sourceLocationSheetAssetId`.
-3. Estimate and run only after approval.
+3. Show the Studio generation preview dialog with `renku generation preview show --spec <spec-id> --json`, wait for user review, then estimate and run only after approval for the preview-approved source image, prompt, model/route, parameters, cost, and provider context transfer.
 4. Inspect the hero image as display media.
 5. Import generated hero media with `--source-sheet`.
 
