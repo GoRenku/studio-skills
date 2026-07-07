@@ -151,6 +151,35 @@ review and user approval.
 For Codex built-in image generation, stage the generated output under project
 `generated/media/`, inspect it, and import it without `--receipt`.
 
+## Localized Correction Flow
+
+When the user wants to fix only part of an already selected storyboard/reference
+image, do not regenerate `shot.video-prompt-sheet` with `referenceMode`. That
+would send the Movie Lookbook, Location Sheet, and Character Sheet references
+again and may change panels that were already accepted.
+
+Use the selected prompt-sheet asset as a generic image edit source:
+
+```bash
+renku generation input list --purpose shot.video-take --target take:<take-id> --json
+renku generation preview show --file image-edit-spec.json --json
+renku generation spec create --file image-edit-spec.json --json
+renku generation estimate --spec <spec-id> --json
+renku generation run --spec <spec-id> --approval-token <approval-token> --json
+renku generation run show --run <run-id> --json
+```
+
+Inspect the generated edited image. Import it only after the correction is
+accepted:
+
+```bash
+renku media import --purpose shot.video-prompt-sheet --target take:<take-id> --source <edited-output-project-relative-path> --receipt image-edit-run.json --selection select --replace-selected --json
+```
+
+The `image.edit` prompt may name panels, unchanged regions, labels, timing
+strips, or continuity expectations as agent/user guidance. Studio runtime must
+not parse or validate those creative claims.
+
 Renku-managed specs do not store provider `image_urls` or raw asset file paths.
 They store the take target, supported reference settings for the route,
 `promptSheetVisualStyleId`, `promptSheetNotationModeId`, and the authored

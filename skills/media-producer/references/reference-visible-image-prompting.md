@@ -128,6 +128,29 @@ Do not change: [source traits that must remain stable].
 Exclude: [unwanted copied reference traits or generated artifacts].
 ```
 
+For generic source-image corrections, use the Renku `image.edit` purpose. The
+target is the registered source asset:
+
+```json
+{
+  "purpose": "image.edit",
+  "target": { "kind": "asset", "id": "asset_source_image" },
+  "modelChoice": "fal-ai/openai/gpt-image-2/edit",
+  "prompt": "Edit this exact source image. Preserve the accepted regions, style, layout, lighting, and material detail. Change only the requested area: [specific user correction].",
+  "parameterValues": {
+    "image_size": { "width": 1024, "height": 768 },
+    "quality": "high",
+    "output_format": "png",
+    "num_images": 1
+  }
+}
+```
+
+Do not resend Movie Lookbook, Location Sheet, or Character Sheet references for
+a localized edit unless the user asks for a new reference-conditioned image.
+The source image is the visible continuity anchor. Inspect the result before
+import, and attach it only through the destination purpose's import command.
+
 ## Provider-Visible Reference Roles
 
 Every attached reference should have a provider-facing role before prompt
@@ -194,6 +217,11 @@ Scene storyboard sheets and shot input images should keep reference roles
 shot-facing: character reference, location reference, Lookbook/style reference,
 previous storyboard reference, first-frame source, last-frame source, or custom
 shot reference.
+
+For a localized correction to an already selected `shot.video-prompt-sheet`,
+do not regenerate the prompt sheet with `referenceMode`. Use `image.edit`
+against the selected prompt-sheet asset, then import the accepted edited output
+as `shot.video-prompt-sheet` with `--replace-selected`.
 
 ## Bad And Better Examples
 

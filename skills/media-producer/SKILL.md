@@ -57,6 +57,16 @@ renku generation model list --purpose <purpose-key> --target <target> --json
 ```
 
 6. For Renku-managed generation, create a Media Generation Spec JSON with the user's binding choices.
+   - Use `image.edit` when the user asks to edit, revise, fix only part of,
+     preserve most of, or keep everything else the same in an existing project
+     image asset. The target is `asset:<asset-id>` and the source must be a
+     registered project image asset, not a local path. Preview the edit spec
+     before any paid run, inspect the generated edited file, then attach it
+     through the destination-owned import command only after acceptance.
+   - Do not use `shot.video-prompt-sheet` regeneration with `referenceMode` for
+     localized corrections of an already selected prompt sheet. In that case,
+     find the selected prompt-sheet input asset, edit it with `image.edit`, and
+     import the accepted output with `--replace-selected`.
    - For shot input image specs (`shot.first-frame`, `shot.last-frame`, `shot.reference-image`, and `shot.video-prompt-sheet`), do not put provider `image_urls` in the spec. Use `referenceMode` plus the take target; Core resolves configured reference assets during validation and run. Cost estimate is pricing-only and does not prove reference readiness.
    - For `cast.character-sheet`, inspect `context.referenceOptions`. Existing same-character sheet references are continuity anchors and should stay included unless the user excludes them. User-collected cast reference images are optional and can be included through the preview dialog. If the user supplied an arbitrary project image, such as `research/helmet.jpg`, and it is not yet in `referenceOptions`, attach it first with `renku media import --purpose reference.image --target cast:<cast-member-id> --source <project-relative-path> --json`, then re-read context. Do not say arbitrary reference images are unsupported just because they are not already attached to the Cast Member. Do not put provider `image_urls`, local file paths, or combined reference collages in the spec; use `referenceSelections.dependencyInclusions` only when an include/exclude choice needs to be persisted.
    - For `shot.video-prompt-sheet`, default to `fal-ai/openai/gpt-image-2` unless the user explicitly chose another model. Include `promptSheetVisualStyleId` (`cinematic-realistic` or `handdrawn-storyboard`) and `promptSheetNotationModeId` (`none` or `motion-annotation`). Motion annotation is a notation mode that can combine with either visual style. Keep panel counts, motion maps, captions, timing notes, and other sheet-structure choices inside the authored prompt and agent inspection brief, not Studio JSON.
@@ -138,6 +148,10 @@ renku media import --purpose <purpose-key> --target <target> --source <project-r
 ```
 
 Use `--sections` only for `lookbook.image`. Lookbook sheet, cast image, and shot input imports do not use section tags. Omit `--receipt` when the file came from Codex built-in image generation, a manual upload, or any other non-Renku generation source; never fabricate a Renku receipt. Use `--replace-selected` only when the user is correcting a previously selected shot-video take input and the old selected input should be discarded. Cast Voice samples are attached with `renku cast voice attach`, not `renku media import`. Kling voice-control `voice_id` values are transient shot-video run artifacts: select or generate the needed dialogue audio as a logical shot-video input, then let Core convert it through Kling `create-voice` during `shot.video-take` estimate/run.
+
+When a Renku-managed edit or generation run receipt is needed later, recover it
+with `renku generation run show --run <run-id> --json`. Do not hand-write a
+receipt from memory, a spec id, or a provider output path.
 
 For cast imports, choose production-meaningful relationship metadata:
 
