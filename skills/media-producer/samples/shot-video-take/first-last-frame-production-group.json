@@ -31,7 +31,7 @@
         "dependencyKind": "first-frame",
         "outputInputKind": "first-frame",
         "modelChoice": "fal-ai/openai/gpt-image-2",
-        "prompt": "Author the exact first frame for Shot 3 from the selected composition, motion, cast, location, lookbook, and prop references. Elise holds the torn petition at chest height in the market doorway before movement begins.",
+        "prompt": "Author the exact first frame for Shot 3 from the take composition, motion, cast, location, lookbook, and prop references. Elise holds the torn petition at chest height in the market doorway before movement begins.",
         "parameterValues": {
           "image_size": { "width": 1024, "height": 768 },
           "quality": "medium"
@@ -52,10 +52,10 @@
       }
     ],
     "finalPromptDraft": {
-      "prompt": "Generate Shot 3 as one cinematic take using the selected first and last frames. Begin with Elise holding the petition; end with the petition raised into the doorway light after one subtle hand-held push-in. Preserve all selected references exactly.",
+      "prompt": "Generate Shot 3 as one cinematic take using @Image1 as the first frame and @Image2 as the last frame. Begin with Elise holding the petition; end with the petition raised into the doorway light after one subtle hand-held push-in. Preserve cast, prop, location, and lookbook continuity exactly.",
       "negativePrompt": "No text overlays, no new characters, no changed prop design.",
       "title": "Shot 3 video take"
     }
   },
-  "customPromptNote": "Honor the selected first and last frame dependencies. Do not generate without authored dependency drafts and finalPromptDraft."
+  "customPromptNote": "Honor the first and last frame dependencies. Do not generate without authored dependency drafts and finalPromptDraft."
 }

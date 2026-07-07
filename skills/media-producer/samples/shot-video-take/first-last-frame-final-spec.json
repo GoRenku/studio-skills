@@ -11,7 +11,7 @@
   },
   "inputModeId": "first-last-frame",
   "modelChoice": "fal-ai/veo3.1/first-last-frame-to-video",
-  "prompt": "Generate Shot 3 as one restrained cinematic take using the selected first and last frames. Begin on Elise holding the torn petition at chest height in the market doorway; complete one subtle hand-held push-in as she raises the petition into the light. Preserve cast, prop, location, and lookbook continuity exactly. No new characters, no text overlays, no invented action beyond the described movement endpoint.",
+  "prompt": "Generate Shot 3 as one restrained cinematic take using @Image1 as the first frame and @Image2 as the last frame. Begin on Elise holding the torn petition at chest height in the market doorway; complete one subtle hand-held push-in as she raises the petition into the light. Preserve cast, prop, location, and lookbook continuity exactly. No new characters, no text overlays, no invented action beyond the described movement endpoint.",
   "negativePrompt": "No extra characters, no text overlays, no changed wardrobe, no changed prop design.",
   "parameterValues": {
     "duration": "6s",

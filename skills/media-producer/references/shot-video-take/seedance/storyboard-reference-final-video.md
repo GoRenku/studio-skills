@@ -1,0 +1,332 @@
+# Seedance Storyboard Reference Final Video
+
+Use this only for final `shot.video-take` prompting when all are true:
+
+- model family is Seedance;
+- active route is reference-to-video;
+- provider preview includes a storyboard/reference image input, internally often
+  `video-prompt-sheet`;
+- the agent is drafting, reviewing, estimating, or running the final video
+  prompt.
+
+Do not load this for ordinary text-to-video, first-frame, first/last-frame, or
+non-Seedance routes.
+
+## Required Inputs
+
+Before drafting the final prompt:
+
+1. Read persisted take authoring context.
+2. Read provider preview and use it as token-order source of truth.
+3. Inspect the actual storyboard/reference image, not only its title or
+   thumbnail.
+4. Read the storyboard dependency handoff brief or generation spec if available.
+
+Do not infer tokens from filenames, memory, card order, visible thumbnails, or
+old run payloads.
+
+Map references by provider preview. If the preview exposes standard media
+fields, use modality-local order:
+
+- first `image_urls` entry: `@Image1`;
+- second `image_urls` entry: `@Image2`;
+- first `audio_urls` entry: `@Audio1`;
+- first `video_urls` entry: `@Video1`.
+
+Every supplied image, video, or audio token needs a plain provider-facing role.
+Use terms the model can act on: storyboard, character reference, location
+reference, style reference, prop reference, motion reference, narrator voice,
+ambience, or sound reference.
+
+Do not call the storyboard image a "video prompt sheet" in the provider prompt.
+That is a Renku purpose name, not useful model-facing language.
+
+## Pre-Draft Storyboard Audit
+
+Before writing the final prompt, audit the visible storyboard:
+
+- count panels or beats and read them in intended order;
+- classify the structure:
+  - continuous-take waypoints;
+  - edited multi-shot sequence;
+  - hand-drawn / pencil / previs;
+  - realistic / final-style panels;
+  - motion-annotated with arrows or timing rows;
+  - text-heavy shot plan or script-board;
+- note visible camera scale, angle, screen direction, foreground/background,
+  action, geography, and audio/timing cue per panel;
+- list artifacts that must not render;
+- list hard constraints and contradictions with project context;
+- decide whether visible panel errors should be copied or corrected.
+
+If the storyboard is not actually panelled, treat it as a shot plan, motion map,
+or geography diagram and describe the visible regions or cues in order.
+
+## Storyboard Operating Rule
+
+When the storyboard is a provider image input, name it by token and tell
+Seedance how to read it. The prompt must describe the visible storyboard
+directly, not only say "follow the sheet."
+
+Core wording:
+
+```text
+@Image1 is the storyboard blueprint for this video. Read it as ordered video
+beats, not as the first frame and not as a page layout to copy. Each panel
+controls camera angle, shot scale, framing, staging, screen direction, motion
+direction, and rhythm. Turn the panels into footage in order.
+```
+
+Adjust token and panel count to match provider preview and visible image.
+
+## Continuous-Take Storyboards
+
+For continuous-take storyboards, use panels as physical waypoints in one
+uninterrupted camera path:
+
+```text
+Use the panels as physical waypoints in one uninterrupted camera path. Do not
+blend panels into one composite image, do not morph geography between panels,
+and do not show the storyboard page. The camera must travel through a coherent
+3D space from Panel 1 to Panel 2 to Panel 3 to Panel 4.
+```
+
+In each waypoint, state:
+
+- where the camera is;
+- what the camera is moving toward;
+- what remains behind, ahead, left, and right when relevant;
+- what the subject/action is doing;
+- how narration/dialogue/sound maps to the beat, if known.
+
+Do not use edited-shot labels in a way that implies cuts unless the take is
+actually edited. If labels help, call them `Waypoint 1`, `Waypoint 2`, etc.
+
+## Edited Multi-Shot Storyboards
+
+For edited multi-shot storyboards, use explicit shot labels:
+
+```text
+Shot 1 / Panel 1: ...
+Shot 2 / Panel 2: ...
+Shot 3 / Panel 3: ...
+```
+
+Do not use "no cuts" for edited sequences. Tell Seedance whether cuts are
+allowed or expected. Preserve the panel order and do not merge panels into a
+single panorama.
+
+## Hand-Drawn Versus Realistic Storyboards
+
+Hand-drawn, pencil, clay, mannequin, animatic, or previs storyboard:
+
+- use for staging, camera, shot scale, screen direction, action, timing, and
+  rhythm;
+- do not render sketch lines, blank mannequins, clay material, borders, arrows,
+  labels, or page layout;
+- use Movie Lookbook, Character Sheets, Location Sheets, or written prompt for
+  final appearance only when those references are actually attached or visible
+  to the provider.
+
+Realistic or final-style storyboard:
+
+- use for staging, camera, shot scale, screen direction, action, timing, and
+  rhythm;
+- it may also carry final look, location, lighting, and composition if it is
+  period-correct and visually aligned;
+- still forbid page layout, borders, arrows, labels, captions, metadata rows,
+  and UI;
+- if the realistic storyboard contains known errors, explicitly say which errors
+  not to reproduce.
+
+## Reference Precedence
+
+When multiple references are attached, keep roles narrow:
+
+```text
+@Image1 is the storyboard. It controls sequence, staging, camera, movement, and
+timing.
+@Image2 is only [location / character / look / prop] continuity. Do not use it
+as an alternate storyboard, first frame, page layout, or different geography.
+@Audio1 is [narrator voice / ambience / sound-character] reference. Timing is
+best-effort inside native Seedance audio.
+```
+
+The storyboard must not compete with location or lookbook boards. Supporting
+references should be narrow and concrete.
+
+## Required Prompt Content
+
+Use the shortest set of sections that preserves the controls the take needs.
+The information below must be present even if headings are renamed or omitted:
+
+- `REFERENCES`: name every supplied token and its role.
+- `CRITICAL STORYBOARD RULE`: say the storyboard is ordered temporal control,
+  not a first frame or layout to copy.
+- `STORYBOARD PANELS AS VIDEO BEATS`: describe each visible panel/beat by
+  position and content, then translate it into video direction.
+- `MOTION AND CAMERA`: specify camera path, framing, subject motion, parallax,
+  and rhythm.
+- `GEOGRAPHY / PERIOD CONTINUITY`: preserve spatial relationships and period
+  constraints.
+- `NARRATION AND AUDIO`: include exact words and best-effort timing when known.
+- `LOOK AND RENDER TRANSLATION`: explain final visual style when storyboard is
+  hand-drawn or abstract.
+- `ON-SCREEN TEXT AND STORYBOARD ARTIFACTS`: forbid page artifacts.
+- `NEGATIVE CONSTRAINTS`: put critical exclusions in the main prompt when the
+  route lacks a separate negative field.
+
+Avoid padding with irrelevant boilerplate. Overlong prompts with unrelated
+sections can reduce generation quality.
+
+## Artifact Suppression
+
+The final video must be one cinematic video, never a split-screen, collage,
+grid, poster, panorama, or still image of the storyboard page.
+
+Do not render:
+
+- storyboard borders;
+- arrows;
+- labels;
+- captions;
+- metadata rows;
+- UI;
+- shot ids;
+- text boxes;
+- panel grid;
+- notation marks;
+- page layout.
+
+Arrows and labels describe motion only; they must not appear as visible marks in
+the footage.
+
+## Geography And Period Continuity
+
+For each panel/beat, state where the camera is, where it goes, and what must not
+swap sides.
+
+Include period/era constraints when period drift would damage the shot. If the
+storyboard contains useful geometry but visible historical or visual errors,
+state which facts to use and which errors not to reproduce.
+
+For the Bombardment failure mode, a prompt-quality pass should preserve
+project/user-supplied constraints such as:
+
+- use Byzantine Constantinople as a pre-Ottoman Christian imperial city, when
+  that is the project context;
+- do not add Ottoman mosque silhouettes, minarets, or later Ottoman skyline
+  features unless the screenplay calls for them;
+- treat Hagia Sophia as a Byzantine church form when visible for this period;
+- keep cannon, siege field, wall, and city spatial relationships coherent.
+
+Do not hard-code those specifics into other projects. Convert the current
+project's own context into visible constraints.
+
+## Narration And Audio
+
+Seedance audio references are conditioning, not exact editorial tracks.
+
+- Use `@AudioN` as narrator voice/style, speaker character, ambience, or
+  sound-character reference.
+- Put exact spoken text in the final prompt when the text is known.
+- Treat native audio timing as best-effort.
+- For best-effort native audio, place narration or dialogue inside storyboard
+  panel beats so Seedance has timing intent.
+
+Recommended wording:
+
+```text
+Use @Audio1 as the narrator voice/style reference. The narrator says exactly:
+"..."
+
+Timing is best-effort inside this native audio generation: the line should begin
+during storyboard Panel 2, continue through Panel 3, and complete during Panel
+4.
+```
+
+If exact waveform, word timing, or editorial sync is required, route to a
+composition, lipsync, or talking-head workflow.
+
+## Hard-Constraint Transfer
+
+Before estimate or run, compare the final prompt against hard constraints from:
+
+1. current take authoring context and shot data;
+2. user corrections;
+3. storyboard generation spec or brief, if available;
+4. visible storyboard panels, notes, and imagery;
+5. Location Sheet, Character Sheet, Lookbook, video, and audio references only
+   when actually sent to the provider and needed for this take.
+
+Preserve exact prop or vehicle counts, required foreground/background geography,
+forbidden landmarks or zones, side of frame, line of action, exact spoken words,
+final frame behavior, and no-text-overlay rules.
+
+If the final prompt contradicts a hard constraint, stop and resolve the
+contradiction before estimating or running.
+
+## Prompt-Quality Gate
+
+A Seedance storyboard-reference final prompt is ready only when:
+
+- the storyboard is named by its actual provider token;
+- the provider prompt calls it a storyboard, not a "video prompt sheet";
+- every supplied image, video, and audio token has a role;
+- every role is scoped narrowly enough that extra board images do not compete
+  with the storyboard or become accidental first frames;
+- the prompt interprets the storyboard according to the agent-authored brief and
+  visible content;
+- each visible storyboard panel/beat is described by position and translated
+  into video direction;
+- the prompt distinguishes continuous-waypoint structure from edited-shot
+  structure;
+- the prompt forbids storyboard layout, borders, labels, arrows, captions,
+  metadata rows, UI, shot ids, and page layout from appearing unless the user
+  explicitly wants graphic overlays;
+- visible story, motion, camera, geography, and tempo cues are expressed as
+  video direction;
+- known narration or dialogue text is copied exactly;
+- audio timing is described as best-effort unless using exact-sync workflow;
+- hard constraints from the storyboard brief or visible storyboard are
+  preserved;
+- the prompt does not contradict storyboard, take context, or user corrections;
+- unsupported fields such as `negativePrompt` are not used when the active route
+  rejects them, and key negative constraints are instead written into the main
+  prompt.
+
+## Common Failure Fixes
+
+Storyboard becomes collage, panorama, split-screen, or visible page:
+
+- Cause: prompt names the storyboard but does not describe each visible panel
+  and convert panels into video beats.
+- Fix: rewrite around ordered panels/beats, camera/action movement between them,
+  and explicit page-artifact suppression.
+
+Prompt contradicts the storyboard:
+
+- Cause: final prompt was drafted from memory or summary.
+- Fix: inspect storyboard image and compare against handoff brief before
+  estimate or run.
+
+Location or lookbook board takes over the video:
+
+- Cause: prompt gives a Location Sheet or Lookbook Sheet the same weight as the
+  storyboard, or describes it as a source frame.
+- Fix: scope those references narrowly. Location Sheet means place continuity
+  only. Lookbook means style only. Do not call either a first frame unless the
+  active route explicitly uses a first-frame input.
+
+Video feels like nudged still pictures:
+
+- Cause: panel content is present, but motion, camera, tempo, and environmental
+  movement are weak.
+- Fix: add concrete camera motion, subject movement, parallax, atmosphere,
+  secondary motion, and final motion state.
+
+Narration misses timing:
+
+- Cause: native audio was treated as exact sync.
+- Fix: keep exact words, place them in panel sequence, and call timing
+  best-effort; use post/composition for exact sync.

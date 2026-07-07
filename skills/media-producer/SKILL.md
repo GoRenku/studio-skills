@@ -1,6 +1,6 @@
 ---
 name: media-producer
-description: Generate or import purpose-specific media for Renku Studio projects by reading Renku context, using either Renku persisted generation specs or Codex built-in image generation when requested, and attaching finished files through Renku import commands.
+description: Generate or import purpose-specific media for Renku Studio projects by reading Renku context, using either Renku persisted generation specs or Codex built-in image generation when requested, showing or replaying Studio generation preview dialogs, estimating approved specs, running approved generations, and attaching finished files through Renku import commands.
 ---
 
 # Media Producer
@@ -82,9 +82,17 @@ source image or attached references, and project-derived context before a paid
 run sends anything to the model provider. If the user changes the prompt,
 model, route, parameters, source image, or reference choices in Studio, revise
 the same spec or preview, show the preview again, and continue only after the
-user approves the updated preview. Never manually combine multiple references
-into one image to work around a mistaken assumption that only one reference is
-allowed.
+user approves the updated preview. If the user accidentally dismisses the
+dialog or says "present me the generation preview again", rerun the same
+`renku generation preview show` command; preview display is repeatable and does
+not estimate, run, or mutate durable media. Never manually combine multiple
+references into one image to work around a mistaken assumption that only one
+reference is allowed.
+
+If the last preview command is unknown, resolve the exact spec from the current
+purpose/target with `renku generation spec list ... --json` and show the single
+unambiguous matching spec. If multiple specs could match, ask which one to
+preview. Do not guess.
 
 Before any paid reference-aware image run, compare the provider-facing prompt to
 the reference images shown in the preview:
@@ -241,52 +249,36 @@ the image contents.
 
 For shot video take work, use the detailed operational reference:
 
-- `references/shot-video-take.md`
+- `references/shot-video-take/index.md`
 
-For shot-video work, establish the working Shot Video Take before drafting
-prompts, dependency inputs, estimates, final specs, generation runs, or final
-media imports. If the user gives a durable take id, use it. If the user says
-"this take", "current", "selected", "open", or gives no explicit take
-reference, read `renku studio current --json` and verify that Studio current
-identifies an existing Shot Video Take id before continuing. If it does not,
-stop and ask the user to open the take or provide the take id. Do not infer the
-take from a scene, shot list, newest take, filenames, or prior conversation.
+That index is the only required first Shot Video Take reference. It resolves the
+working take, reads authoring context, decides whether the task is dependency
+creation/import or final video prompting, and names the exact next files to
+load for the active route.
 
-Load the more specific shot references when needed:
+Use the folder structure for progressive disclosure:
 
-- Storyboard reference images (`shot.video-prompt-sheet`): `references/shot-video-prompt-sheet.md`
-- First/last frame dependencies: `references/shot-first-last-frame.md`
-- Ad hoc reference images: `references/shot-reference-images.md`
-- Seedance reference-to-video with a storyboard reference image input:
-  `references/seedance-prompt-sheet-reference-video.md`
+- final video lifecycle: `references/shot-video-take/renku-workflow.md`
+- provider-visible prompt rules:
+  `references/shot-video-take/provider-visible-prompting.md`
+- shared prompt-quality gate:
+  `references/shot-video-take/prompt-quality-checklist.md`
+- dependency router: `references/shot-video-take/input-dependencies.md`
+- storyboard/reference image dependency:
+  `references/shot-video-take/storyboard-reference-image.md`
+- first/last frame dependencies:
+  `references/shot-video-take/first-last-frame-dependencies.md`
+- generic reference inputs:
+  `references/shot-video-take/generic-reference-inputs.md`
+- Seedance final video routes:
+  `references/shot-video-take/seedance/index.md`
+- Kling final video token and voice-control rules:
+  `references/shot-video-take/kling/index.md`
 
-For `shot.video-prompt-sheet`, draft an internal storyboard brief from
-`renku take authoring context --take <take-id> --json` before prompting any
-image model. Choose the storyboard reference strategy in the prompt, not through
-extra app validation. For `cinematic-realistic` storyboard references, make the
-realistic panels themselves carry the final look, location, lighting,
-composition, and continuity; do not ask for or emphasize extra Lookbook,
-Location Sheet, or Character Sheet boards by default when the generation path
-lets you choose. For `handdrawn-storyboard` references, include available
-Lookbook, Location Sheet, and Character Sheet references by default when the
-generation path supports them, and identify those boards as references only,
-never source frames, first frames, layouts, collages, or content to copy.
-Inspect the image against the brief before import, explain weak results, and
-respect the user's choice if they want to keep a non-standard storyboard anyway.
-
-For final `shot.video-take` generation with a storyboard reference image, do
-not treat Core preflight as creative readiness. Core answers whether the spec is
-mechanically ready. The agent must also confirm prompt-quality readiness:
-provider-token roles, storyboard operating rule, panel artifact suppression,
-hard-constraint transfer, native-audio limits, and post-generation QA.
-
-Final `shot.video-take` import attaches one video to the active take returned by
-Core. If the working take already has a video, Core may have already moved
-authoring to the next active take when settings changed; if no settings changed,
-Core creates the next take during final import and attaches the new video there.
-Always continue later steps with the returned `take.takeId`. Do not look for a
-manual duplicate/regenerate button, write output rows, duplicate take settings
-manually, or treat multiple videos as alternate outputs on one take.
+For `shot.video-prompt-sheet`, use "storyboard/reference image" as the
+agent-facing concept. The internal purpose key stays `shot.video-prompt-sheet`,
+but provider-facing final video prompts should call the image a storyboard,
+storyboard reference, or shot plan according to its visible content.
 
 Supported purpose keys:
 

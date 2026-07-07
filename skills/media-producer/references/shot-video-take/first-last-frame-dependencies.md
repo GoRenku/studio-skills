@@ -1,31 +1,47 @@
-# Shot First And Last Frames
+# Shot First And Last Frame Dependencies
 
-Use this when creating `shot.first-frame` or `shot.last-frame` dependencies. These are expensive, binding video inputs. They are not exploratory images.
+Use this when creating `shot.first-frame` or `shot.last-frame` dependencies for
+a Shot Video Take. These are expensive, binding video inputs. They are not
+exploratory images.
 
 ## Required Context
 
-Read `renku take authoring context --take <take-id> --json` before drafting.
+Read before drafting:
+
+```bash
+renku take authoring context --take <take-id> --json
+```
+
 Use `document.structure.sharedDirection` for continuous takes and
 `document.structure.directionsByShotId[shotId]` for multi-cut takes as binding
-creative context for selected Composition and Motion values. Use take-owned
-Cast, Location, Lookbook, and custom reference choices as continuity context.
+creative context. Use take-owned Cast, Location, Lookbook, and custom reference
+choices as continuity context.
+
 Use `referenceMode: "movie-lookbook"` by default so Core applies the selected
 Movie Lookbook sheet as the primary style reference and selected Location
-Sheets and Character Sheets as continuity inputs. Use `referenceMode: "storyboard-lookbook"` only when the user explicitly wants the first/last
-frame itself, and likely the resulting video, to have storyboard or hand-drawn
-aesthetics.
+Sheets and Character Sheets as continuity inputs.
 
-If a required character sheet, location sheet, lookbook sheet, custom reference image, first frame, or last frame is missing, let preflight report the missing dependency. Do not create loosely described first/last frames to paper over missing references.
+Use `referenceMode: "storyboard-lookbook"` only when the user explicitly wants
+the first/last frame itself, and likely the resulting video, to have storyboard
+or hand-drawn aesthetics.
 
-If the user wants Codex built-in image generation, use this same authored
-context to prompt `$imagegen`, save the selected still inside the project,
-inspect it, and import it without `--receipt`. If the current image tool cannot
-accept actual image references, disclose that the selected Movie Lookbook,
-Location Sheet, and Character Sheet files cannot be applied as image
-conditioning through that path; prefer Renku-managed reference-capable
-generation when those references must be applied directly. Do not imitate those
-references through local compositing, recoloring, filters, or other
-post-processing.
+If a required character sheet, location sheet, lookbook sheet, custom reference
+image, first frame, or last frame is missing, let preflight report the missing
+dependency. Do not create loosely described first/last frames to paper over
+missing references.
+
+## Codex Built-In Image Generation
+
+If the user wants Codex built-in image generation, use the same authored context
+to prompt `$imagegen`, save the selected still inside the project, inspect it,
+and import it without `--receipt`.
+
+If the current image tool cannot accept actual image references, disclose that
+the selected Movie Lookbook, Location Sheet, and Character Sheet files cannot be
+applied as image conditioning through that path. Prefer Renku-managed
+reference-capable generation when those references must be applied directly.
+Do not imitate references through local compositing, recoloring, filters, or
+other post-processing.
 
 ## First Frame Prompt Must Specify
 
@@ -72,10 +88,26 @@ background artifacts, labels, or unrelated props. No extra characters beyond
 the crowd silhouettes explicitly requested for this shot.
 ```
 
+## Handoff
+
+After generation/import, preserve a handoff note for final video prompting:
+
+- first frame start state and required stability;
+- last frame destination state, if present;
+- camera movement implied between endpoints;
+- cast, location, prop, wardrobe, period, and geography constraints;
+- visible errors or caveats to correct in the final video prompt.
+
 ## Import
 
 ```bash
-renku media import --purpose shot.first-frame --target scene:<scene-id> --take <take-id> --source generated/media/<first-frame>.png --selection select --receipt <run-json> --json
+renku media import \
+  --purpose shot.first-frame \
+  --target take:<take-id> \
+  --source generated/media/<first-frame>.png \
+  --selection select \
+  --receipt <run-json> \
+  --json
 ```
 
 Omit `--receipt` when the still came from Codex built-in image generation or

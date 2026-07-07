@@ -12,7 +12,7 @@
   "dependencyKind": "reference-image",
   "outputInputKind": "reference-image",
   "modelChoice": "fal-ai/openai/gpt-image-2",
-  "prompt": "Create a specific prop reference image for Shot 3: Elise's torn petition held at chest height, rough paper fibers visible, one red wax seal broken at the corner, market doorway light grazing the page. This is only a prop and hand-pose continuity reference for the approved first and last frames; do not turn it into a storyboard sheet or add background action.",
+  "prompt": "Create a specific prop reference image for Shot 3: Elise's torn petition held at chest height, rough paper fibers visible, one red wax seal broken at the corner, market doorway light grazing the page. This is only a prop and hand-pose continuity reference for the first and last frame dependencies; do not turn it into a storyboard sheet or add background action.",
   "parameterValues": {
     "image_size": {
       "width": 1024,
