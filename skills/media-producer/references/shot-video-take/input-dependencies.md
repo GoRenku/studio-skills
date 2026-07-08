@@ -9,11 +9,10 @@ This is a router, not a final video prompt guide.
 
 Load the matching file:
 
-- `storyboard-reference-image.md` for `shot.video-prompt-sheet`, the
+- `storyboard-reference-image.md` for the `video-prompt-sheet`
   storyboard/reference image dependency.
-- `first-last-frame-dependencies.md` for `shot.first-frame` and
-  `shot.last-frame`.
-- `generic-reference-inputs.md` for `shot.reference-image` and other
+- `first-last-frame-dependencies.md` for `first-frame` and `last-frame`.
+- `generic-reference-inputs.md` for `reference-image` and other
   non-storyboard image/video/audio references.
 
 ## Reusable Inputs

@@ -38,7 +38,7 @@ For Codex runs, remember that local Studio HTTP notification is network access. 
 
 1. Confirm active shot list and storyboard readiness through `renku director context --json`.
 2. Create or choose the Shot Video Take for the exact ordered shot ids. If the user says "this take", first read `renku studio current --json` and confirm the focused scene/take candidate before mutation or paid generation.
-3. Dispatch shot-video dependency planning to `media-producer` with the take id. If the user asks for a "multi-shot storyboard", dense motion-control image, choreography sheet, or storyboard reference image for the take, treat that as `shot.video-prompt-sheet`, not scene shot-list storyboard work. The storyboard reference image is opaque Studio media; panels, motion maps, captions, timing marks, or diagrams are agent-authored prompt strategies rather than Studio schema.
+3. Dispatch shot-video dependency planning to `media-producer` with the take id. If the user asks for a "multi-shot storyboard", dense motion-control image, choreography sheet, or storyboard reference image for the take, treat that as Shot Video Take `video-prompt-sheet` input work, not scene shot-list storyboard work. The storyboard reference image is opaque Studio media; panels, motion maps, captions, timing marks, or diagrams are agent-authored prompt strategies rather than Studio schema.
 4. Use `renku take authoring context --take <take-id> --json`, then have `media-producer` validate and apply a `sceneShotVideoTakeAuthoring` document before creating final specs.
 5. When a storyboard reference image is part of the final route, require
    media-producer to report prompt-quality readiness separately from mechanical

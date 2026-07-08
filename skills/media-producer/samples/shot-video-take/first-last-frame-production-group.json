@@ -27,10 +27,10 @@
     "basedOnShotIds": ["shot_003"],
     "dependencyDrafts": [
       {
-        "purpose": "shot.first-frame",
         "dependencyKind": "first-frame",
         "outputInputKind": "first-frame",
         "modelChoice": "fal-ai/openai/gpt-image-2",
+        "referenceMode": "movie-lookbook",
         "prompt": "Author the exact first frame for Shot 3 from the take composition, motion, cast, location, lookbook, and prop references. Elise holds the torn petition at chest height in the market doorway before movement begins.",
         "parameterValues": {
           "image_size": { "width": 1024, "height": 768 },
@@ -39,10 +39,10 @@
         "title": "Shot 3 first frame - Elise decides"
       },
       {
-        "purpose": "shot.last-frame",
         "dependencyKind": "last-frame",
         "outputInputKind": "last-frame",
         "modelChoice": "fal-ai/openai/gpt-image-2",
+        "referenceMode": "movie-lookbook",
         "prompt": "Author the exact last frame for Shot 3. Preserve continuity from the first frame while showing Elise half a pace forward with the torn petition raised into the doorway light.",
         "parameterValues": {
           "image_size": { "width": 1024, "height": 768 },

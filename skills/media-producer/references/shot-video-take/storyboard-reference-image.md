@@ -1,13 +1,14 @@
 # Shot Video Storyboard/Reference Image
 
 Use this when creating, importing, replacing, inspecting, or reading the handoff
-brief for a `shot.video-prompt-sheet` dependency for an existing Shot Video
+brief for a `video-prompt-sheet` dependency for an existing Shot Video
 Take.
 
-The internal Renku purpose key is still `shot.video-prompt-sheet`. The
-agent-facing artifact is a storyboard/reference image. Provider-facing final
-video prompts should call it a storyboard, storyboard reference, or shot plan
-according to its visible content.
+The generation purpose is `image.create`; the Shot Video Take destination is
+`shot.input --kind video-prompt-sheet`. The agent-facing artifact is a
+storyboard/reference image. Provider-facing final video prompts should call it
+a storyboard, storyboard reference, or shot plan according to its visible
+content.
 
 Studio stores the image as opaque media: purpose, take target, model, logical
 references, prompt, and metadata. Studio does not validate the image's internal
@@ -43,8 +44,8 @@ remove, reorder, or merge shots.
 When needed for purpose-specific model or policy context, read:
 
 ```bash
-renku generation context --purpose shot.video-prompt-sheet --target take:<take-id> --json
-renku generation model list --purpose shot.video-prompt-sheet --target take:<take-id> --json
+renku generation context --purpose image.create --target project --json
+renku generation model list --purpose image.create --target project --json
 ```
 
 The take authoring context is the source of truth for take id, scene id, source
@@ -154,7 +155,7 @@ For Codex built-in image generation, stage the generated output under project
 ## Localized Correction Flow
 
 When the user wants to fix only part of an already selected storyboard/reference
-image, do not regenerate `shot.video-prompt-sheet` with `referenceMode`. That
+image, do not regenerate it as a fresh `image.create` request with references. That
 would send the Movie Lookbook, Location Sheet, and Character Sheet references
 again and may change panels that were already accepted.
 
@@ -173,7 +174,7 @@ Inspect the generated edited image. Import it only after the correction is
 accepted:
 
 ```bash
-renku media import --purpose shot.video-prompt-sheet --target take:<take-id> --source <edited-output-project-relative-path> --receipt image-edit-run.json --selection select --replace-selected --json
+renku media import --purpose shot.input --kind video-prompt-sheet --target take:<take-id> --source <edited-output-project-relative-path> --receipt image-edit-run.json --selection select --replace-selected --json
 ```
 
 The `image.edit` prompt may name panels, unchanged regions, labels, timing
@@ -402,7 +403,8 @@ Import only after inspection:
 
 ```bash
 renku media import \
-  --purpose shot.video-prompt-sheet \
+  --purpose shot.input \
+  --kind video-prompt-sheet \
   --target take:<take-id> \
   --source generated/media/<sheet>.png \
   --selection select \

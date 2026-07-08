@@ -105,10 +105,7 @@ renku generation spec list --purpose cast.profile --target cast:<id> --json
 renku generation spec list --purpose location.environment-sheet --target location:<id> --json
 renku generation spec list --purpose location.hero --target location:<id> --json
 renku generation spec list --purpose scene.storyboard-sheet --target scene:<id> --shot-list <shot-list-id> --json
-renku generation spec list --purpose shot.first-frame --target scene:<id> --take <take-id> --json
-renku generation spec list --purpose shot.last-frame --target scene:<id> --take <take-id> --json
-renku generation spec list --purpose shot.reference-image --target scene:<id> --take <take-id> --json
-renku generation spec list --purpose shot.video-prompt-sheet --target take:<take-id> --json
+renku generation spec list --purpose image.create --target project --json
 renku generation spec list --purpose shot.video-take --target scene:<id> --take <take-id> --json
 ```
 

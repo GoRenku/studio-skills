@@ -86,8 +86,8 @@ Use this loop for every request:
 - Use `scene-shot-designer` for Scene Shot Lists and shot-list iteration.
 - Use `media-producer` for all Renku media generation specs, estimates, approved runs, inspection, slicing, and media imports.
 - Treat take-owned "multi-shot storyboard", dense motion-control image, or storyboard reference requests as
-  `shot.video-prompt-sheet` media work. Route them to `media-producer` with
-  `take:<take-id>` after reading
+  Shot Video Take `video-prompt-sheet` input work. Route them to
+  `media-producer` with `take:<take-id>` after reading
   `renku take authoring context --take <take-id> --json`; do not send this work
   to `scene-shot-designer`. The storyboard reference image is opaque Studio
   media; the agent may choose panels, motion maps, diagrams, captions, or

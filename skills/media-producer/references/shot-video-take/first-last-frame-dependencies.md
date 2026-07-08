@@ -1,6 +1,6 @@
 # Shot First And Last Frame Dependencies
 
-Use this when creating `shot.first-frame` or `shot.last-frame` dependencies for
+Use this when creating `first-frame` or `last-frame` dependencies for
 a Shot Video Take. These are expensive, binding video inputs. They are not
 exploratory images.
 
@@ -102,7 +102,8 @@ After generation/import, preserve a handoff note for final video prompting:
 
 ```bash
 renku media import \
-  --purpose shot.first-frame \
+  --purpose shot.input \
+  --kind first-frame \
   --target take:<take-id> \
   --source generated/media/<first-frame>.png \
   --selection select \
@@ -113,4 +114,4 @@ renku media import \
 Omit `--receipt` when the still came from Codex built-in image generation or
 another non-Renku source.
 
-Use `shot.last-frame` for the closing image.
+Use `--kind last-frame` for the closing image.

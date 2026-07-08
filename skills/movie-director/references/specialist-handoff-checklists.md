@@ -219,7 +219,8 @@ file under project `generated/media/` and import it with:
 
 ```bash
 renku media import \
-  --purpose shot.video-prompt-sheet \
+  --purpose image.create \
+  --target project \
   --target take:<take-id> \
   --source generated/media/<sheet>.png \
   --selection select \

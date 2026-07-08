@@ -5,7 +5,7 @@ description: Generate or import purpose-specific media for Renku Studio projects
 
 # Media Producer
 
-Use this skill when the user wants to create or attach media for a Renku Studio purpose, such as a Lookbook demonstration image, Lookbook sheet (`lookbook.sheet`), cast character sheet, cast profile image, voice-over profile image, location environment sheet, scene storyboard sheet, shot first frame (`shot.first-frame`), shot last frame (`shot.last-frame`), ad hoc shot reference image (`shot.reference-image`), shot storyboard reference image (`shot.video-prompt-sheet`), final shot video take (`shot.video-take`), future scene mood frame, or cast voice sample (`cast.voice-sample`).
+Use this skill when the user wants to create or attach media for a Renku Studio purpose, such as a generic image (`image.create`), Lookbook demonstration image, Lookbook sheet (`lookbook.sheet`), cast character sheet, cast profile image, voice-over profile image, location environment sheet, scene storyboard sheet, Shot Video Take first frame, Shot Video Take last frame, ad hoc Shot Video Take reference image, Shot Video Take video prompt sheet, final shot video take (`shot.video-take`), future scene mood frame, or cast voice sample (`cast.voice-sample`).
 
 This is not a generic image prompt skill. Renku is the context engine and the project metadata boundary: first ask Renku what the media is for, then choose the correct execution path. For Renku-managed paid generation, create or update a persisted spec that captures the user's binding choices. For Codex built-in image generation, generate the image with the system `$imagegen` path, stage the finished file under `generated/media/`, and attach it with the same purpose-specific Renku import command.
 
@@ -63,15 +63,15 @@ renku generation model list --purpose <purpose-key> --target <target> --json
      registered project image asset, not a local path. Preview the edit spec
      before any paid run, inspect the generated edited file, then attach it
      through the destination-owned import command only after acceptance.
-   - Do not use `shot.video-prompt-sheet` regeneration with `referenceMode` for
+   - Do not use `image.create` regeneration with project references for
      localized corrections of an already selected prompt sheet. In that case,
      find the selected prompt-sheet input asset, edit it with `image.edit`, and
-     import the accepted output with `--replace-selected`.
-   - For shot input image specs (`shot.first-frame`, `shot.last-frame`, `shot.reference-image`, and `shot.video-prompt-sheet`), do not put provider `image_urls` in the spec. Use `referenceMode` plus the take target; Core resolves configured reference assets during validation and run. Cost estimate is pricing-only and does not prove reference readiness.
+     import the accepted output with `renku media import --purpose shot.input --kind video-prompt-sheet --replace-selected`.
+   - For new Shot Video Take input images, use `image.create` specs. The Shot role is carried by dependency draft fields (`dependencyKind` and `outputInputKind`) before generation, and by `renku media import --purpose shot.input --kind first-frame|last-frame|reference-image|video-prompt-sheet` after generation. Do not use retired Shot image generation purpose names.
    - For `cast.character-sheet`, inspect `context.referenceOptions`. Existing same-character sheet references are continuity anchors and should stay included unless the user excludes them. User-collected cast reference images are optional and can be included through the preview dialog. If the user supplied an arbitrary project image, such as `research/helmet.jpg`, and it is not yet in `referenceOptions`, attach it first with `renku media import --purpose reference.image --target cast:<cast-member-id> --source <project-relative-path> --json`, then re-read context. Do not say arbitrary reference images are unsupported just because they are not already attached to the Cast Member. Do not put provider `image_urls`, local file paths, or combined reference collages in the spec; use `referenceSelections.dependencyInclusions` only when an include/exclude choice needs to be persisted.
-   - For `shot.video-prompt-sheet`, default to `fal-ai/openai/gpt-image-2` unless the user explicitly chose another model. Include `promptSheetVisualStyleId` (`cinematic-realistic` or `handdrawn-storyboard`) and `promptSheetNotationModeId` (`none` or `motion-annotation`). Motion annotation is a notation mode that can combine with either visual style. Keep panel counts, motion maps, captions, timing notes, and other sheet-structure choices inside the authored prompt and agent inspection brief, not Studio JSON.
+   - For a `video-prompt-sheet` Shot input, default the `image.create` model to `fal-ai/openai/gpt-image-2` unless the user explicitly chose another model. Keep panel counts, motion maps, captions, timing notes, and other sheet-structure choices inside the authored prompt and agent inspection brief, not Studio JSON.
    - Before telling the user a shot input spec is ready for paid generation, run `renku generation spec validate --file <spec-json> --json` and check the prepared `providerPayload.image_urls` / input files. If those references are present, explain that the raw spec intentionally stays free of provider paths. Use `renku generation estimate --spec <spec-id> --json` only for cost state and `estimate.costApprovalToken`.
-   - Before generating a `shot.video-prompt-sheet`, create the draft Media Generation Spec JSON and run `renku generation preview show --file <media-generation-spec-json> --json`. Core validates the draft spec and builds the preview envelope for Studio. Wait for user feedback in the agent harness, revise the same draft spec when the prompt, metadata, references, or provider configuration changes, rerun the preview command, and generate only after the user says the preview is ready.
+   - Before generating a Shot input image with `image.create`, create the draft Media Generation Spec JSON and run `renku generation preview show --file <media-generation-spec-json> --json`. Core validates the draft spec and builds the preview envelope for Studio. Wait for user feedback in the agent harness, revise the same draft spec when the prompt, references, or provider configuration changes, rerun the preview command, and generate only after the user says the preview is ready.
 7. For Renku-managed generation, persist the spec:
 
 ```bash
@@ -289,20 +289,17 @@ Use the folder structure for progressive disclosure:
 - Kling final video token and voice-control rules:
   `references/shot-video-take/kling/index.md`
 
-For `shot.video-prompt-sheet`, use "storyboard/reference image" as the
-agent-facing concept. The internal purpose key stays `shot.video-prompt-sheet`,
-but provider-facing final video prompts should call the image a storyboard,
-storyboard reference, or shot plan according to its visible content.
+For a `video-prompt-sheet` Shot input, use "storyboard/reference image" as the
+agent-facing concept. The generation purpose is `image.create`; the Shot
+destination is `shot.input --kind video-prompt-sheet`.
 
 Supported purpose keys:
 
-- `shot.first-frame`
-- `shot.last-frame`
-- `shot.reference-image`
-- `shot.video-prompt-sheet`
+- `image.create` for generated Shot input images
+- `shot.input --kind first-frame|last-frame|reference-image|video-prompt-sheet` for imports
 - `shot.video-take`
 
-Use these concrete purposes directly. Do not use or invent a generic shot video input purpose. Always honor user-selected shot ids, input mode, model choice, and parameters exactly.
+Use these concrete purposes directly. Do not use the retired Shot image generation purposes. Always honor user-selected shot ids, input mode, model choice, and parameters exactly.
 
 ## Location Sheet And Hero Purposes
 

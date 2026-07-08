@@ -218,10 +218,10 @@ shot-facing: character reference, location reference, Lookbook/style reference,
 previous storyboard reference, first-frame source, last-frame source, or custom
 shot reference.
 
-For a localized correction to an already selected `shot.video-prompt-sheet`,
+For a localized correction to an already selected `video-prompt-sheet`,
 do not regenerate the prompt sheet with `referenceMode`. Use `image.edit`
 against the selected prompt-sheet asset, then import the accepted edited output
-as `shot.video-prompt-sheet` with `--replace-selected`.
+with `renku media import --purpose shot.input --kind video-prompt-sheet --replace-selected`.
 
 ## Bad And Better Examples
 

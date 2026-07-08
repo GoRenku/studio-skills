@@ -2,17 +2,17 @@
 
 Use this for non-storyboard reference inputs prepared for a Shot Video Take:
 
-- `shot.reference-image`;
+- `reference-image`;
 - imported or selected image references;
 - imported or selected video references;
 - imported or selected audio references.
 
 Do not use this for storyboard/reference image dependencies. Use
-`storyboard-reference-image.md` for `shot.video-prompt-sheet`.
+`storyboard-reference-image.md` for `video-prompt-sheet`.
 
 ## Ad Hoc Reference Images
 
-Use `shot.reference-image` when the user or agent explicitly names an ad hoc
+Use `reference-image` when the user or agent explicitly names an ad hoc
 reference need during the agent flow. The input kind is `reference-image`.
 
 Ad hoc reference images are not a reference sheet format. They are specific
@@ -24,9 +24,10 @@ reusable visual dependencies, such as:
 - camera-facing environment detail;
 - visual effects state that first/last frames must honor.
 
-Every generated `shot.reference-image` spec must include:
+Every generated ad hoc reference image should be an `image.create` spec, then
+be imported as `shot.input --kind reference-image`. The dependency draft should
+include:
 
-- `purpose`: `shot.reference-image`;
 - `dependencyKind`: `reference-image`;
 - `outputInputKind`: `reference-image`;
 - `referenceMode`: normally `movie-lookbook`;
@@ -94,7 +95,8 @@ After generation/import/selection, preserve a handoff note:
 
 ```bash
 renku media import \
-  --purpose shot.reference-image \
+  --purpose shot.input \
+  --kind reference-image \
   --target take:<take-id> \
   --source generated/media/<reference>.png \
   --title <reference-intent-title> \

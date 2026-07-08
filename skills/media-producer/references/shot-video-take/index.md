@@ -123,14 +123,12 @@ Use the common provider-visible and prompt-quality files with Kling too.
 
 ## Supported Purpose Keys
 
-- `shot.first-frame`
-- `shot.last-frame`
-- `shot.reference-image`
-- `shot.video-prompt-sheet`
+- `image.create` for generated first-frame, last-frame, reference-image, and video-prompt-sheet inputs
+- `shot.input --kind first-frame|last-frame|reference-image|video-prompt-sheet` for imports
 - `shot.video-take`
 
-Use these concrete purpose keys directly. Do not invent a generic shot video
-input purpose.
+Use these concrete purpose/import keys directly. Do not use the retired Shot
+image generation purpose names.
 
 ## Architecture Boundary
 
