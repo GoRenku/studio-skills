@@ -33,7 +33,8 @@ ambience, or audio references matter.
 - Avoid relying on a separate negative field unless the active route supports
   it; put critical negatives into the main prompt.
 - Match selected duration to shot count and action density.
-- Treat native audio timing as best-effort unless using an exact-sync workflow.
+- Tie native audio timing to concrete shots, panels, or beats unless using an
+  exact-sync workflow.
 
 ## Current Priority
 

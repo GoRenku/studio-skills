@@ -12,6 +12,15 @@ Use this only for final `shot.video-take` prompting when all are true:
 Do not load this for ordinary text-to-video, first-frame, first/last-frame, or
 non-Seedance routes.
 
+For full prompt shapes, read
+`../../../samples/shot-video-take/seedance-golden-prompts.md` when drafting or
+reviewing a storyboard-reference final prompt for any of these cases:
+
+- realistic continuous waypoint storyboard with narration/audio;
+- hand-drawn or abstract action storyboard with supporting appearance
+  references;
+- dialogue storyboard with speaker audio references.
+
 ## Required Inputs
 
 Before drafting the final prompt:
@@ -41,6 +50,20 @@ ambience, or sound reference.
 Do not call the storyboard image a "video prompt sheet" in the provider prompt.
 That is a Renku purpose name, not useful model-facing language.
 
+Do not include an image token in the provider prompt just because that image was
+used upstream to generate the storyboard. A realistic or final-style storyboard
+often already contains the location, look, composition, and character continuity
+from those upstream references. In that case, the final prompt should usually
+name only the storyboard image plus any supplied audio/video references. Add
+`@Image2`, `@Image3`, or later image tokens only when the final provider preview
+actually includes them and they supply a necessary role that the storyboard does
+not already carry.
+
+If the preview unexpectedly contains redundant upstream location/look/character
+images for a realistic storyboard, stop before prompt approval and revise the
+final input selection or spec. Do not try to rescue redundant image inputs by
+describing them as extra references.
+
 ## Pre-Draft Storyboard Audit
 
 Before writing the final prompt, audit the visible storyboard:
@@ -55,6 +78,9 @@ Before writing the final prompt, audit the visible storyboard:
   - text-heavy shot plan or script-board;
 - note visible camera scale, angle, screen direction, foreground/background,
   action, geography, and audio/timing cue per panel;
+- write a motion plan for every panel: camera movement, subject/action
+  movement, environmental movement, speed, rhythm, and the transition into the
+  next panel;
 - list artifacts that must not render;
 - list hard constraints and contradictions with project context;
 - decide whether visible panel errors should be copied or corrected.
@@ -73,8 +99,9 @@ Core wording:
 ```text
 @Image1 is the storyboard blueprint for this video. Read it as ordered video
 beats, not as the first frame and not as a page layout to copy. Each panel
-controls camera angle, shot scale, framing, staging, screen direction, motion
-direction, and rhythm. Turn the panels into footage in order.
+controls camera angle, shot scale, framing, staging, screen direction, camera
+movement, subject movement, pace, rhythm, and audio timing. Turn the panels into
+footage in order.
 ```
 
 Adjust token and panel count to match provider preview and visible image.
@@ -97,10 +124,18 @@ In each waypoint, state:
 - what the camera is moving toward;
 - what remains behind, ahead, left, and right when relevant;
 - what the subject/action is doing;
+- how fast the camera and subject move;
+- how the rhythm changes or holds;
+- what secondary motion carries the beat, such as smoke, cloth, dust, crowd
+  drift, breath, water, light, or debris;
 - how narration/dialogue/sound maps to the beat, if known.
 
 Do not use edited-shot labels in a way that implies cuts unless the take is
 actually edited. If labels help, call them `Waypoint 1`, `Waypoint 2`, etc.
+
+Panel content summaries are not enough. A prompt that says only what appears in
+each panel, without camera motion, subject motion, pace, rhythm, and sound, is
+not ready for preview approval.
 
 ## Edited Multi-Shot Storyboards
 
@@ -148,12 +183,18 @@ When multiple references are attached, keep roles narrow:
 timing.
 @Image2 is only [location / character / look / prop] continuity. Do not use it
 as an alternate storyboard, first frame, page layout, or different geography.
-@Audio1 is [narrator voice / ambience / sound-character] reference. Timing is
-best-effort inside native Seedance audio.
+@Audio1 is the [narrator voice / ambience / sound-character] reference. Use it
+for voice or sound character while following the beat timing written below.
 ```
 
 The storyboard must not compete with location or lookbook boards. Supporting
 references should be narrow and concrete.
+
+For a realistic/final-style storyboard, do not add upstream location/look
+references unless the provider preview truly includes them and the storyboard is
+missing information they must supply. For a hand-drawn, clay, or abstract
+storyboard, supporting character/location/look references are often necessary
+because the storyboard controls motion and staging only.
 
 ## Required Prompt Content
 
@@ -166,10 +207,11 @@ The information below must be present even if headings are renamed or omitted:
 - `STORYBOARD PANELS AS VIDEO BEATS`: describe each visible panel/beat by
   position and content, then translate it into video direction.
 - `MOTION AND CAMERA`: specify camera path, framing, subject motion, parallax,
-  and rhythm.
+  movement pace, transitions between beats, secondary motion, and rhythm.
 - `GEOGRAPHY / PERIOD CONTINUITY`: preserve spatial relationships and period
   constraints.
-- `NARRATION AND AUDIO`: include exact words and best-effort timing when known.
+- `NARRATION AND AUDIO`: include every supplied audio token, exact words, voice
+  role, sound bed, and beat-level timing target when known.
 - `LOOK AND RENDER TRANSLATION`: explain final visual style when storyboard is
   hand-drawn or abstract.
 - `ON-SCREEN TEXT AND STORYBOARD ARTIFACTS`: forbid page artifacts.
@@ -225,14 +267,17 @@ project's own context into visible constraints.
 
 ## Narration And Audio
 
-Seedance audio references are conditioning, not exact editorial tracks.
+Seedance audio references are conditioning references, not exact editorial
+tracks. Do not omit `@AudioN` when the final provider preview includes an audio
+input and narration, dialogue, voice character, ambience, or sound matters.
 
 - Use `@AudioN` as narrator voice/style, speaker character, ambience, or
   sound-character reference.
 - Put exact spoken text in the final prompt when the text is known.
-- Treat native audio timing as best-effort.
-- For best-effort native audio, place narration or dialogue inside storyboard
-  panel beats so Seedance has timing intent.
+- Place narration or dialogue inside storyboard panel beats so Seedance has
+  timing intent.
+- Do not write vague provider-facing audio caveats. Give concrete timing
+  targets instead.
 
 Recommended wording:
 
@@ -240,9 +285,8 @@ Recommended wording:
 Use @Audio1 as the narrator voice/style reference. The narrator says exactly:
 "..."
 
-Timing is best-effort inside this native audio generation: the line should begin
-during storyboard Panel 2, continue through Panel 3, and complete during Panel
-4.
+Audio timing target: begin the line during storyboard Panel 2, carry it through
+Panel 3, and complete it during Panel 4.
 ```
 
 If exact waveform, word timing, or editorial sync is required, route to a
@@ -287,7 +331,7 @@ A Seedance storyboard-reference final prompt is ready only when:
 - visible story, motion, camera, geography, and tempo cues are expressed as
   video direction;
 - known narration or dialogue text is copied exactly;
-- audio timing is described as best-effort unless using exact-sync workflow;
+- audio timing is tied to storyboard beats unless using an exact-sync workflow;
 - hard constraints from the storyboard brief or visible storyboard are
   preserved;
 - the prompt does not contradict storyboard, take context, or user corrections;
@@ -328,5 +372,13 @@ Video feels like nudged still pictures:
 Narration misses timing:
 
 - Cause: native audio was treated as exact sync.
-- Fix: keep exact words, place them in panel sequence, and call timing
-  best-effort; use post/composition for exact sync.
+- Fix: keep exact words, place them inside the panel or waypoint sequence, and
+  use post/composition for exact sync.
+
+Audio reference is ignored or an arbitrary voice appears:
+
+- Cause: the prompt includes narration/dialogue but does not name the supplied
+  `@AudioN` token and its voice or sound role.
+- Fix: add the audio token to the `REFERENCES` and `NARRATION AND AUDIO`
+  sections, copy exact spoken words, and attach the line timing to the relevant
+  storyboard beats.

@@ -112,12 +112,18 @@ When multiple references are attached, make their roles non-competing:
 timing.
 @Image2 is only the location continuity reference for architecture, materials,
 scale, and geography. Do not use it as an alternate storyboard or first frame.
-@Audio1 is the narrator voice reference. Timing is best-effort inside native
-video generation.
+@Audio1 is the narrator voice reference. Follow the beat-level narration timing
+written in the prompt.
 ```
 
 Storyboard references should not compete with location, lookbook, or character
 boards. Supporting references should be narrow and concrete.
+
+Do not include upstream storyboard-generation references as final video tokens
+unless the final provider preview actually includes them and the storyboard
+still needs their narrow role. If a realistic storyboard already contains the
+location, look, and composition from those upstream references, do not add
+`@Image2` or `@Image3` just because they existed earlier in the workflow.
 
 ## Negative Constraints
 

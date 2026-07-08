@@ -25,11 +25,13 @@ Raw facts:
 Pass criteria:
 
 - prompt names `@Image1` as storyboard;
+- prompt does not invent or include `@Image2` / `@Image3` when the final
+  preview supplies only the realistic storyboard and audio reference;
 - prompt does not call it a video prompt sheet;
 - prompt uses physical waypoints, not edited shot labels;
 - prompt forbids panel blending, page layout, labels, arrows, text, and UI;
 - prompt preserves coherent geography and period constraints;
-- narration timing is best-effort.
+- prompt names every supplied audio token and maps narration to waypoints.
 
 ## Hand-Drawn Edited Action Storyboard
 
@@ -52,7 +54,7 @@ Pass criteria:
 
 - prompt assigns narrow roles to image and audio references;
 - exact dialogue is copied only when known;
-- native audio timing is best-effort;
+- native audio timing is mapped to concrete beats without promising exact sync;
 - prompt does not promise exact lipsync.
 
 ## First/Last-Frame Reveal

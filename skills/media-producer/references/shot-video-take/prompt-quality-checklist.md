@@ -13,6 +13,8 @@ run, or rerun. If any relevant answer is "no", revise the prompt first.
   actual provider input?
 - Does every provider input have a narrow role in the prompt?
 - Does the prompt match the active model, route, duration, and input mode?
+- Does the prompt avoid adding upstream reference images that are not final
+  provider inputs or that the storyboard already absorbed?
 
 ## Provider-Visible Language
 
@@ -40,7 +42,8 @@ run, or rerun. If any relevant answer is "no", revise the prompt first.
 - Does the prompt describe every visible panel or beat in order when panels are
   present?
 - Does each panel/beat include camera/framing, action, subject motion,
-  geography, and timing/audio cues when present?
+  geography, movement pace, rhythm, secondary motion, and timing/audio cues
+  when present?
 - Does the prompt distinguish continuous-waypoint structure from edited-shot
   structure?
 - Does it forbid panel blending, composite starts, panoramas, morphing
@@ -63,8 +66,10 @@ run, or rerun. If any relevant answer is "no", revise the prompt first.
 ## Audio
 
 - Is exact narration or dialogue copied exactly when known?
-- Is timing described as best-effort for native model audio unless using an
-  exact-sync workflow?
+- Is every supplied audio token named with a narrator, speaker, ambience, or
+  sound-character role?
+- Is narration/dialogue timing attached to concrete shots, panels, or beats
+  unless using an exact-sync workflow?
 - Are key sound events and ambient bed stated concretely when audio matters?
 - If exact waveform, word timing, or lip sync is required, has the work been
   routed to a composition, lipsync, or talking-head workflow instead?
