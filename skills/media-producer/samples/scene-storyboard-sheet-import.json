@@ -5,22 +5,22 @@
   "shots": [
     {
       "shotId": "shot_001",
-      "source": "generated/media/foundry-storyboard-sheet-1-shot-001.png",
+      "source": "tmp/media/foundry-storyboard-sheet-1-shot-001.png",
       "sourcePurpose": "scene.storyboard-sheet"
     },
     {
       "shotId": "shot_002",
-      "source": "generated/media/foundry-storyboard-sheet-1-shot-002.png",
+      "source": "tmp/media/foundry-storyboard-sheet-1-shot-002.png",
       "sourcePurpose": "scene.storyboard-sheet"
     },
     {
       "shotId": "shot_005",
-      "source": "generated/media/foundry-storyboard-sheet-2-shot-005.png",
+      "source": "tmp/media/foundry-storyboard-sheet-2-shot-005.png",
       "sourcePurpose": "scene.storyboard-sheet"
     },
     {
       "shotId": "shot_006",
-      "source": "generated/media/foundry-storyboard-sheet-2-shot-006.png",
+      "source": "tmp/media/foundry-storyboard-sheet-2-shot-006.png",
       "sourcePurpose": "scene.storyboard-sheet"
     }
   ]

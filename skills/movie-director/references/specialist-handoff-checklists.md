@@ -215,14 +215,14 @@ should carry the look, location, lighting, and continuity themselves by default.
 Hand-drawn/sketch storyboard panels should include available Lookbook, Location
 Sheet, and Character Sheet references as supporting context by default, clearly
 scoped as references only. For Codex-generated storyboard references, stage the
-file under project `generated/media/` and import it with:
+file under project `tmp/media/` and import it with:
 
 ```bash
 renku media import \
   --purpose image.create \
   --target project \
   --target take:<take-id> \
-  --source generated/media/<sheet>.png \
+  --source tmp/media/<sheet>.png \
   --selection select \
   --json
 ```

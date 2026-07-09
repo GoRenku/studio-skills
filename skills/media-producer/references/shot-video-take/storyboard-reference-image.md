@@ -150,7 +150,7 @@ paid run, inspect the generated image, and import with the receipt after agent
 review and user approval.
 
 For Codex built-in image generation, stage the generated output under project
-`generated/media/`, inspect it, and import it without `--receipt`.
+`tmp/media/`, inspect it, and import it without `--receipt`.
 
 ## Localized Correction Flow
 
@@ -406,7 +406,7 @@ renku media import \
   --purpose shot.input \
   --kind video-prompt-sheet \
   --target take:<take-id> \
-  --source generated/media/<sheet>.png \
+  --source tmp/media/<sheet>.png \
   --selection select \
   --json
 ```

@@ -20,7 +20,7 @@ Target format: `location:<location-id>`
 
 If the user wants Codex built-in image generation for a Location Sheet, use the
 same context and prompt inputs, generate with `$imagegen`, save the selected
-image as `generated/media/<location-handle>-sheet.png`, inspect it, and import
+image as `tmp/media/<location-handle>-sheet.png`, inspect it, and import
 it with the same `location.environment-sheet` command without `--receipt`. Do
 not copy the file directly into `locations/<handle>/environment-sheets/`; the
 CLI/Core import copies the staging file into that canonical folder and registers
@@ -37,7 +37,7 @@ Example import:
 renku media import \
   --purpose location.environment-sheet \
   --target location:<location-id> \
-  --source generated/media/theodosian-walls-sheet.png \
+  --source tmp/media/theodosian-walls-sheet.png \
   --title "Theodosian Walls Location Sheet" \
   --summary "Siege-facing wall, Ottoman field, gate damage, and city-edge context." \
   --receipt generation-run.json \
@@ -109,13 +109,13 @@ detail display image, not a multi-panel sheet, contact sheet, labels, captions,
 diagram, shot frame, or new Location Sheet.
 
 Save the chosen Codex output as
-`generated/media/<location-handle>-hero.png`, then import it:
+`tmp/media/<location-handle>-hero.png`, then import it:
 
 ```bash
 renku media import \
   --purpose location.hero \
   --target location:<location-id> \
-  --source generated/media/<location-handle>-hero.png \
+  --source tmp/media/<location-handle>-hero.png \
   --source-sheet <location-sheet-asset-id> \
   --title "<Location Name> hero" \
   --summary "<one-line hero summary>" \
@@ -151,7 +151,7 @@ Example import:
 renku media import \
   --purpose location.hero \
   --target location:<location-id> \
-  --source generated/media/theodosian-walls-hero.png \
+  --source tmp/media/theodosian-walls-hero.png \
   --source-sheet asset_theodosian_walls_siege_sheet \
   --title "Theodosian Walls hero" \
   --summary "Wide display image grounded in the siege-facing Location Sheet." \

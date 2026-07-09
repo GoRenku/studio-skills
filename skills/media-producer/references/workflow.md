@@ -6,7 +6,7 @@
    - Use Codex built-in image generation when the user asks for Codex, `$imagegen`, built-in image generation, GPT-Image 2 through Codex, or no-extra-cost image generation, and the image tool is available.
    - If `agentMedia.imageGeneration.defaultExecutionPath` is `codexBuiltInWhenAvailable`, prefer Codex built-in image generation for eligible image purposes when available. If it is `renkuManaged`, use Renku-managed generation unless the user explicitly overrides. If it is `ask`, ask when the user has not already chosen.
    - Use Renku-managed generation when the user chooses a Studio/fal.ai/provider model, wants a Renku generation record or cost estimate, or requests video/audio generation.
-4. For Codex built-in image generation, use the system `$imagegen` workflow, stage the selected output inside the project under `generated/media/`, inspect it, and import it with `renku media import` without `--receipt`.
+4. For Codex built-in image generation, use the system `$imagegen` workflow, stage the selected output inside the project under `tmp/media/`, inspect it, and import it with `renku media import` without `--receipt`.
 5. For Renku-managed generation, inspect purpose-specific model choices and honor any user-selected model.
 6. For Renku-managed generation, write a binding Media Generation Spec.
    - For source-image corrections, write an `image.edit` spec targeting
@@ -32,7 +32,7 @@ When the user asks for Codex, `$imagegen`, built-in image generation, GPT-Image
 
 1. Generate with the system imagegen tool or skill. Do not create a Renku
    generation spec, estimate, approval token, run, or receipt.
-2. Save the selected generated image under `generated/media/<descriptive-file>.png`
+2. Save the selected generated image under `tmp/media/<descriptive-file>.png`
    inside the Renku project. This project-relative path is the import source,
    not the durable asset location.
 3. Import with the same purpose-specific Renku media command used for
@@ -45,7 +45,7 @@ When the user asks for Codex, `$imagegen`, built-in image generation, GPT-Image
 5. Read the import JSON and use the returned imported asset/file path as the
    attached project media. For location media, this should be under
    `locations/<handle>/environment-sheets/...` or
-   `locations/<handle>/heroes/...`, not only under `generated/media/`.
+   `locations/<handle>/heroes/...`, not only under `tmp/media/`.
 6. In the final response, make the image visible to the user with a Markdown
    image preview using the absolute path to the imported asset when available,
    and also report the imported asset id and project-relative path. If the
@@ -53,7 +53,7 @@ When the user asks for Codex, `$imagegen`, built-in image generation, GPT-Image
    attach the same imported file as well.
 
 Saved, imported, and shown are separate requirements. A generated file sitting
-in `generated/media/` is only staged. The media is not a real Studio attachment
+in `tmp/media/` is only staged. The media is not a real Studio attachment
 until `renku media import` succeeds, and the user has not actually been shown
 the result until the final response includes a visible preview or attachment.
 

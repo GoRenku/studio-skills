@@ -23,7 +23,7 @@
       "assetFileId": "asset_file_video_prompt_sheet",
       "role": "storyboard-reference",
       "mediaKind": "image",
-      "projectRelativePath": "generated/media/storyboard-reference.png"
+      "projectRelativePath": "tmp/media/storyboard-reference.png"
     },
     {
       "kind": "dialogue-audio",
@@ -31,7 +31,7 @@
       "assetFileId": "asset_file_dialogue_audio",
       "role": "dialogue-audio",
       "mediaKind": "audio",
-      "projectRelativePath": "generated/media/dialogue-action-001.mp3"
+      "projectRelativePath": "tmp/media/dialogue-action-001.mp3"
     }
   ],
   "title": "Final video take"

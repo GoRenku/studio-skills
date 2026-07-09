@@ -419,7 +419,7 @@ Common weak outputs and impact:
 Import the selected take:
 
 ```bash
-renku media import --purpose cast.character-sheet --target cast:<cast-member-id> --source generated/media/<file> --reference-name <stable-reference-name> --reference-purpose "<descriptive purpose>" --title "<visible card title>" --json
+renku media import --purpose cast.character-sheet --target cast:<cast-member-id> --source tmp/media/<file> --reference-name <stable-reference-name> --reference-purpose "<descriptive purpose>" --title "<visible card title>" --json
 ```
 
 Reference metadata rules:

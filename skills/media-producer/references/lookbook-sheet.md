@@ -117,7 +117,7 @@ not regenerate automatically. Do not crop or slice Lookbook sheets.
 Use source-only import:
 
 ```bash
-renku media import --purpose lookbook.sheet --target lookbook:<lookbook-id> --source generated/media/<file> --json
+renku media import --purpose lookbook.sheet --target lookbook:<lookbook-id> --source tmp/media/<file> --json
 ```
 
 Do not pass `--sections`; section tags belong only to `lookbook.image`.

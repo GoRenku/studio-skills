@@ -25,7 +25,7 @@
       "assetFileId": "asset_file_first_frame",
       "role": "first-frame",
       "mediaKind": "image",
-      "projectRelativePath": "generated/media/shot-003-first-frame.png"
+      "projectRelativePath": "tmp/media/shot-003-first-frame.png"
     },
     {
       "kind": "last-frame",
@@ -33,7 +33,7 @@
       "assetFileId": "asset_file_last_frame",
       "role": "last-frame",
       "mediaKind": "image",
-      "projectRelativePath": "generated/media/shot-003-last-frame.png"
+      "projectRelativePath": "tmp/media/shot-003-last-frame.png"
     }
   ],
   "title": "Shot 3 video take"

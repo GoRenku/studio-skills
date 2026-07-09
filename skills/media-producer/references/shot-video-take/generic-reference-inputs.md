@@ -98,7 +98,7 @@ renku media import \
   --purpose shot.input \
   --kind reference-image \
   --target take:<take-id> \
-  --source generated/media/<reference>.png \
+  --source tmp/media/<reference>.png \
   --title <reference-intent-title> \
   --selection select \
   --receipt <run-json> \

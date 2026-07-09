@@ -179,7 +179,7 @@ shot rows:
 renku media import \
   --purpose shot.video-take \
   --target take:<take-id> \
-  --source generated/media/<shot-video-output>.mp4 \
+  --source tmp/media/<shot-video-output>.mp4 \
   --receipt <run-json> \
   --json
 ```

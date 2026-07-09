@@ -62,11 +62,11 @@ Inspect each generated image before import. Compare the visible image against th
 Import finished media with the agent-reviewed section tags:
 
 ```bash
-renku media import --purpose lookbook.image --target lookbook:<movie-lookbook-id> --source generated/media/<file> --sections thesis --json
-renku media import --purpose lookbook.image --target lookbook:<movie-lookbook-id> --source generated/media/<file> --sections palette --json
-renku media import --purpose lookbook.image --target lookbook:<movie-lookbook-id> --source generated/media/<file> --sections composition --anchor composition-clinical-symmetry --json
-renku media import --purpose lookbook.image --target lookbook:<movie-lookbook-id> --source generated/media/<file> --sections thesis,texture --anchor texture-cannon-material-states --json
-renku media import --purpose lookbook.image --target lookbook:<storyboard-lookbook-id> --source generated/media/<file> --sections lineAndFinish --json
+renku media import --purpose lookbook.image --target lookbook:<movie-lookbook-id> --source tmp/media/<file> --sections thesis --json
+renku media import --purpose lookbook.image --target lookbook:<movie-lookbook-id> --source tmp/media/<file> --sections palette --json
+renku media import --purpose lookbook.image --target lookbook:<movie-lookbook-id> --source tmp/media/<file> --sections composition --anchor composition-clinical-symmetry --json
+renku media import --purpose lookbook.image --target lookbook:<movie-lookbook-id> --source tmp/media/<file> --sections thesis,texture --anchor texture-cannon-material-states --json
+renku media import --purpose lookbook.image --target lookbook:<storyboard-lookbook-id> --source tmp/media/<file> --sections lineAndFinish --json
 ```
 
 Use Movie Lookbook section tags only for Movie Lookbooks and Storyboard Lookbook section tags only for Storyboard Lookbooks. For Movie Lookbooks, `--sections thesis` is how a thesis hero/evidence image appears under The Thesis, and Thesis is single-image placement: importing a new Thesis image replaces the previous Thesis placement without discarding that previous image or removing its other placements. `toneMood` is also section-level only. For Storyboard Lookbooks, tag exactly one style aspect per image so it appears next to the matching style widget, and set the `styleBrief` image as the card image / hero. For Movie Lookbooks, prefer one to three sections. When a Movie Lookbook image clearly demonstrates one specific `composition`/`lighting`/`camera` pattern or `palette`/`texture` observation, anchor it to that point's `id` with `--anchor <point-id>` and include the point-owning section in `--sections`; any additional sections remain section-level placements. For example, `--sections thesis,texture --anchor texture-cannon-material-states` shows one image under The Thesis and beside that Texture point. Other Movie section and point placements append until the slot has 10 images. Read available point ids from `renku lookbook show`. Do not tag all sections unless the image visibly and specifically demonstrates every section. If no section is clear, do not import automatically; explain why and ask whether to import it unsectioned, revise the prompt/spec, or approve another Codex image iteration or Renku-managed paid generation.

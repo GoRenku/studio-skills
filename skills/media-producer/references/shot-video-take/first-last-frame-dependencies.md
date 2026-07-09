@@ -105,7 +105,7 @@ renku media import \
   --purpose shot.input \
   --kind first-frame \
   --target take:<take-id> \
-  --source generated/media/<first-frame>.png \
+  --source tmp/media/<first-frame>.png \
   --selection select \
   --receipt <run-json> \
   --json

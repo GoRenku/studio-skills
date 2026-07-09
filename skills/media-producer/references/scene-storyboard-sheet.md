@@ -115,12 +115,12 @@ Preferred import shape:
   "shots": [
     {
       "shotId": "shot_001",
-      "source": "generated/media/foundry-storyboard-sheet-1-shot-001.png",
+      "source": "tmp/media/foundry-storyboard-sheet-1-shot-001.png",
       "sourcePurpose": "scene.storyboard-sheet"
     },
     {
       "shotId": "shot_005",
-      "source": "generated/media/foundry-storyboard-sheet-2-shot-005.png",
+      "source": "tmp/media/foundry-storyboard-sheet-2-shot-005.png",
       "sourcePurpose": "scene.storyboard-sheet"
     }
   ]

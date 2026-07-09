@@ -76,5 +76,5 @@ member with the `character_sheet` role.
 Import the selected take:
 
 ```bash
-renku media import --purpose cast.profile --target cast:<cast-member-id> --source generated/media/<file> --json
+renku media import --purpose cast.profile --target cast:<cast-member-id> --source tmp/media/<file> --json
 ```
