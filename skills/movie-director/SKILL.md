@@ -107,7 +107,7 @@ Not first-class today:
 
 - Do not write directly to `.renku/project.sqlite`.
 - Do not invent project, scene, shot, cast, location, asset, shot-list, Lookbook, or generation ids.
-- Do not run paid generation without a Renku estimate and explicit approval token.
+- Do not run paid generation without Renku estimate review and explicit live provider approval.
 - Preserve explicit user choices for models, parameters, selected assets, shot ids, input modes, costs, and approvals.
 - Do not use obsolete command aliases or compatibility paths.
 - Do not hide missing prerequisites with guesses or fallbacks.

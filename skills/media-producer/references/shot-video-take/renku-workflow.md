@@ -123,7 +123,7 @@ renku generation estimate --spec <spec-id> --json
 8. Run only after approval:
 
 ```bash
-renku generation run --spec <spec-id> --approval-token <approval-token> --json
+renku generation run --spec <spec-id> --approve-live-provider-run --json
 ```
 
 9. Inspect generated media before final import.

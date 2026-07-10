@@ -43,7 +43,7 @@ For Renku-managed generation, persist a spec before estimating or running:
 renku generation spec create --file lookbook-image-spec.json --json
 renku generation preview show --spec <spec-id> --json
 renku generation estimate --spec <spec-id> --json
-renku generation run --spec <spec-id> --approval-token <approval-token> --json
+renku generation run --spec <spec-id> --approve-live-provider-run --json
 ```
 
 Run only after the user reviews the Studio generation preview dialog and

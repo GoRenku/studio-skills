@@ -166,7 +166,7 @@ renku generation input list --purpose shot.video-take --target take:<take-id> --
 renku generation preview show --file image-edit-spec.json --json
 renku generation spec create --file image-edit-spec.json --json
 renku generation estimate --spec <spec-id> --json
-renku generation run --spec <spec-id> --approval-token <approval-token> --json
+renku generation run --spec <spec-id> --approve-live-provider-run --json
 renku generation run show --run <run-id> --json
 ```
 

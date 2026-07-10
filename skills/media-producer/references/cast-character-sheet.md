@@ -41,16 +41,13 @@ character continuity:
 
 Renku-managed model notes:
 
-- `fal-ai/openai/gpt-image-2` for realistic, high-caliber, tactile
+- Default new Renku-managed character-sheet generations to
+  `fal-ai/openai/gpt-image-2` for realistic, high-caliber, tactile
   production-reference sheets, especially when a real prior character sheet is
   attached as a visible continuity reference.
-- `fal-ai/nano-banana-2` when layout control, seed support, or a more
-  design-board-like sheet is more important than painterly realism. Do not use
-  it by default when the user's QA target is a realistic sheet and the prompt
-  does not yet contain concrete material, lighting, and reference-role
-  instructions.
 - `fal-ai/xai/grok-imagine-image` as a cheaper alternative when its limits are
-  acceptable
+  acceptable and the user explicitly chooses it.
+- Use other model-list alternatives only when the user explicitly chooses them.
 
 ## Reference-Aware Generation
 
@@ -86,9 +83,9 @@ Renku-managed reference-capable generation and provide that sheet as a real
 reference input. Do not use built-in Codex image generation for a continuity
 sheet when existing sheets or user-supplied references need to condition the
 model. Do not use ImageMagick, screenshots, contact sheets, or local collage
-construction to combine references into one image. GPT-Image-2, Nano Banana,
-and other reference-capable image models can receive multiple image references;
-let Renku/Core pass multiple `image_urls` / input files.
+construction to combine references into one image. GPT-Image-2 and other
+reference-capable image models can receive multiple image references; let
+Renku/Core pass multiple `image_urls` / input files.
 
 Keep the distinction clear:
 
@@ -162,7 +159,7 @@ Spec shape:
 {
   "purpose": "cast.character-sheet",
   "target": { "kind": "castMember", "id": "cast_ada" },
-  "modelChoice": "fal-ai/nano-banana-2",
+  "modelChoice": "fal-ai/openai/gpt-image-2",
   "prompt": "A clean neutral production character sheet for Ada...",
   "takeCount": 1,
   "seed": null,

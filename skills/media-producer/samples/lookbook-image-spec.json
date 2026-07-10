@@ -4,7 +4,7 @@
     "kind": "lookbook",
     "id": "lookbook_abc"
   },
-  "modelChoice": "fal-ai/nano-banana-2",
+  "modelChoice": "fal-ai/openai/gpt-image-2",
   "prompt": "A horror hallway showing the Lookbook palette under dread lighting.",
   "focusSections": ["palette", "lighting", "texture"],
   "takeCount": 1,

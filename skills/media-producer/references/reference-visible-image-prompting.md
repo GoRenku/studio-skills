@@ -24,17 +24,14 @@ that are not attached to the request.
 
 ## Source Summary
 
-Current Studio image purposes expose these model families:
+These instructions default Renku-managed image generation to:
 
 - `fal-ai/openai/gpt-image-2`
 - `fal-ai/openai/gpt-image-2/edit`
-- `fal-ai/nano-banana-2`
-- `fal-ai/nano-banana-2/edit`
-- `fal-ai/xai/grok-imagine-image`
-- `fal-ai/xai/grok-imagine-image/edit`
-- `fal-ai/xai/grok-imagine-image/quality/edit`
-- `fal-ai/bytedance/seedream/v5/lite/text-to-image`
-- `fal-ai/bytedance/seedream/v5/lite/edit`
+
+Purpose model-list reports may expose additional alternatives. Use those only
+when the user explicitly chooses them or a purpose-specific workflow says to use
+that model.
 
 Provider and platform sources reviewed:
 
@@ -44,12 +41,6 @@ Provider and platform sources reviewed:
 - OpenAI's image guide documents image inputs, editing, reference-image
   workflows, and high-fidelity image input handling for GPT Image 2:
   https://developers.openai.com/api/docs/guides/image-generation
-- fal describes Nano Banana 2 as Gemini 3.1 Flash Image, with natural-language
-  control, character consistency, text rendering, and up to 14 reference images
-  for editing: https://fal.ai/models/fal-ai/nano-banana-2
-- Google Gemini image guidance recommends specific prompts, context and intent,
-  step-by-step instructions, and conversational multi-turn editing:
-  https://ai.google.dev/gemini-api/docs/image-generation
 - xAI documents Grok Imagine text-to-image and image editing, including
   natural-language editing with up to 3 reference images:
   https://docs.x.ai/developers/model-capabilities/imagine
@@ -169,17 +160,14 @@ the spec or reference selections before running.
 
 ## Model Heuristics
 
-Use GPT Image 2 when polished realism, material fidelity, text rendering, or a
-high-fidelity edit matters more than fast iteration. Good prompts name concrete
-materials, light, skin texture, cloth weight, age read, posture, lens/finish,
-and exact layout.
+Use GPT Image 2 by default for Renku-managed image generation. Good prompts name
+concrete materials, light, skin texture, cloth weight, age read, posture,
+lens/finish, exact layout, and the provider-visible role of every attached
+reference.
 
-Use Nano Banana 2 when fast natural-language iteration, character consistency,
-storyboards, layout-heavy sheets, or larger reference sets matter. Prompts can
-be conversational, but reference roles must still be explicit.
-
-Use Grok Imagine when the reference count is small and the output benefits from
-compact cinematic subject, setting, lighting, material, mood, and camera
+Use another model-list alternative only when the user explicitly chooses it. For
+Grok Imagine, the reference count must be small and the output should benefit
+from compact cinematic subject, setting, lighting, material, mood, and camera
 language. Enforce the 3-reference limit before prompt writing.
 
 Use Seedream v5 Lite for high-resolution Lookbook and Location composition,

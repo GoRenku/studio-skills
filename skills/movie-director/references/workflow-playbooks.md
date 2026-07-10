@@ -1,6 +1,6 @@
 # Workflow Playbooks
 
-Use these playbooks when a user asks for an outcome rather than naming a single department. Always preserve explicit user choices and avoid paid generation until `media-producer` has produced an estimate and approval token.
+Use these playbooks when a user asks for an outcome rather than naming a single department. Always preserve explicit user choices and avoid paid generation until `media-producer` has produced an estimate and collected explicit live provider approval.
 
 For Codex runs, remember that local Studio HTTP notification is network access. Before dispatching any specialist step that will mutate Renku state while Studio is running, make sure the mutating CLI command is run with sandbox/network permission. If `CLI026` appears, do not rerun non-idempotent mutations just to notify Studio.
 
@@ -44,7 +44,7 @@ For Codex runs, remember that local Studio HTTP notification is network access. 
    media-producer to report prompt-quality readiness separately from mechanical
    readiness before estimate/run.
 6. Require `media-producer` to show the Generation Preview Dialog before prompt-sheet generation and again before final `shot.video-take` generation. Prompt-sheet pre-generation previews may use `renku generation preview show --file <media-generation-spec-json> --json` with a draft media-generation spec; persisted final `shot.video-take` specs must use `renku generation preview show --spec <spec-id> --json` so Core builds the preview contract.
-7. Keep generation behind the media-producer estimate and approval token.
+7. Keep generation behind the media-producer estimate review and explicit live provider approval.
 8. When regenerating from a take that already has a final video, keep the source
    take intact. Core automatically moves authoring changes to the next active
    take when needed, and final `shot.video-take` import creates the next take if

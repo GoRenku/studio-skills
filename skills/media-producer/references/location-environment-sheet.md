@@ -134,7 +134,7 @@ Example spec:
   "purpose": "location.hero",
   "target": { "kind": "location", "id": "location_theodosian_walls" },
   "sourceLocationSheetAssetId": "asset_theodosian_walls_siege_sheet",
-  "modelChoice": "fal-ai/nano-banana-2/edit",
+  "modelChoice": "fal-ai/openai/gpt-image-2/edit",
   "prompt": "Create a wide representative hero image for the Theodosian Walls from the supplied Location Sheet. Preserve the wall massing, field direction, gate damage, and late medieval siege atmosphere.",
   "description": "Wide hero image grounded in the siege-facing Location Sheet.",
   "takeCount": 1,

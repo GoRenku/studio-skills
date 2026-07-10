@@ -10,7 +10,7 @@ renku generation model list --purpose cast.voice-sample --target cast:<cast-memb
 renku generation spec validate --file <cast-voice-sample-spec-json> --json
 renku generation spec create --file <cast-voice-sample-spec-json> --json
 renku generation estimate --spec <spec-id> --json
-renku generation run --spec <spec-id> --approval-token <approval-token> --json
+renku generation run --spec <spec-id> --approve-live-provider-run --json
 ```
 
 ## Workflow
@@ -18,8 +18,8 @@ renku generation run --spec <spec-id> --approval-token <approval-token> --json
 1. Read generation context for the Cast Member.
 2. Confirm the desired Cast Voice reference name, purpose, ElevenLabs provider voice id, model, language, and sample text with the user.
 3. Create a persisted spec using only direct ElevenLabs models returned by `generation model list`.
-4. Estimate before paid generation and get the approval token.
-5. Run generation only after approval.
+4. Estimate before paid generation.
+5. Run generation only after explicit live provider approval.
 6. Inspect or play the generated audio enough to confirm it is the intended sample.
 7. Hand the generated file path and generation receipt to `casting-director` for `renku cast voice attach`.
 

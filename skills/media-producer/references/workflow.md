@@ -16,7 +16,7 @@
 8. For every Renku-managed image-generation spec, show the Studio generation preview dialog with `renku generation preview show --spec <spec-id> --json` and ask the user to review the prompt, model/route, settings, source image or attached references, and project-derived context before estimating or running. If anything changes, revise the same spec or preview, show the preview again, and continue only after the user approves the updated preview. If the user accidentally dismisses the dialog or asks to see the generation preview again, rerun the same preview command; showing the preview is repeatable and does not estimate, run, or mutate durable media.
 9. For Renku-managed generation, estimate cost from the persisted spec. The estimate is pricing-only; validate separately when you need provider payload/reference readiness.
 10. For Renku-managed generation, before any paid provider-backed run, get explicit user approval for both the estimated cost and sending the preview-approved project-derived prompt/context to the provider.
-11. For Renku-managed generation, run with `--simulate` for dry checks or with `estimate.costApprovalToken` as the approval token for paid generation. For a real provider-backed run, request sandbox/network permission before the first `renku generation run` attempt, because generation needs outbound network access. If Codex uses named permission profiles, confirm the active session is actually using the provider-enabled profile; defining the profile in config is not enough if the session remains on a workspace-only profile.
+11. For Renku-managed generation, run with `--simulate` for dry checks or with `--approve-live-provider-run` after the user explicitly approves the estimated cost or unknown-cost state and sending the preview-approved project-derived prompt/context to the provider. If the prompt, model/route, parameters, selected inputs, provider payload shape, or output count changes, show the preview again, estimate again, and get a fresh live-run approval gesture. For a real provider-backed run, request sandbox/network permission before the first `renku generation run` attempt, because generation needs outbound network access. If Codex uses named permission profiles, confirm the active session is actually using the provider-enabled profile; defining the profile in config is not enough if the session remains on a workspace-only profile.
 12. Inspect finished media before import. For Location Sheets, inspect the full image as one production reference board, confirm it matches the required description, and do not crop or slice it. For storyboard sheets, follow the storyboard-specific slicing reference.
 13. Import finished media with `renku media import`.
 14. When a later import needs the Renku run receipt, recover it with
@@ -31,7 +31,7 @@ When the user asks for Codex, `$imagegen`, built-in image generation, GPT-Image
 2 through Codex, or no-extra-cost image generation for an image purpose:
 
 1. Generate with the system imagegen tool or skill. Do not create a Renku
-   generation spec, estimate, approval token, run, or receipt.
+   generation spec, estimate, live provider approval, run, or receipt.
 2. Save the selected generated image under `tmp/media/<descriptive-file>.png`
    inside the Renku project. This project-relative path is the import source,
    not the durable asset location.

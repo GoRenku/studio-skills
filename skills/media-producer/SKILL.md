@@ -49,7 +49,7 @@ renku generation context --purpose <purpose-key> --target <target> --json
    - Use **Codex built-in image generation** when the user asks to use Codex, `$imagegen`, built-in image generation, GPT-Image 2 through Codex, or to avoid app-side/fal.ai generation costs for an image purpose, and the agent surface has the image tool available. This includes `scene.storyboard-sheet`; do not route storyboard sheets to fal.ai solely because they are storyboard sheets. If actual image references need to condition the model, prefer Renku-managed reference-capable routes unless the available Codex image tool explicitly accepts all required reference images in the current harness. For `cast.character-sheet`, do not use built-in Codex image generation when an existing character sheet or user-supplied reference image should be provided for continuity. Do not create local composites, recolors, filters, contact sheets, or post-processed derivatives as substitutes for missing model reference conditioning.
    - If `agentMedia.imageGeneration.defaultExecutionPath` is `codexBuiltInWhenAvailable`, prefer Codex built-in image generation for eligible image purposes when the tool is available. If it is `renkuManaged`, use the Renku-managed path unless the user explicitly overrides. If it is `ask`, ask when the user has not already chosen.
    - Use **Renku-managed generation** when the user explicitly chooses a Studio/fal.ai/provider model, wants Renku cost tracking or generation records, needs video or audio generation, or asks for an app-side generation run.
-4. For Codex built-in image generation, skip spec creation, estimate, approval token, and `renku generation run`. Use the `$imagegen` skill/tool with a prompt grounded in the Renku context, stage the selected output under project `tmp/media/<descriptive-file>.png`, inspect it, and import it with `renku media import --source tmp/media/<descriptive-file>.png` without `--receipt`. For `scene.storyboard-sheet`, generate the composite sheet, inspect it, crop the selected shot panels, inspect every crop, and import the cropped shot images with the storyboard import shape. Do not manually copy the output into canonical asset folders such as `cast/`, `locations/`, `visual-language/`, or `shotlist/`; the purpose-specific import command owns those folders and registers the durable Studio attachment.
+4. For Codex built-in image generation, skip spec creation, estimate, live provider approval, and `renku generation run`. Use the `$imagegen` skill/tool with a prompt grounded in the Renku context, stage the selected output under project `tmp/media/<descriptive-file>.png`, inspect it, and import it with `renku media import --source tmp/media/<descriptive-file>.png` without `--receipt`. For `scene.storyboard-sheet`, generate the composite sheet, inspect it, crop the selected shot panels, inspect every crop, and import the cropped shot images with the storyboard import shape. Do not manually copy the output into canonical asset folders such as `cast/`, `locations/`, `visual-language/`, or `shotlist/`; the purpose-specific import command owns those folders and registers the durable Studio attachment.
 5. For Renku-managed generation, inspect purpose-specific model choices if the user has not already chosen one:
 
 ```bash
@@ -70,7 +70,7 @@ renku generation model list --purpose <purpose-key> --target <target> --json
    - For new Shot Video Take input images, use `image.create` specs. The Shot role is carried by dependency draft fields (`dependencyKind` and `outputInputKind`) before generation, and by `renku media import --purpose shot.input --kind first-frame|last-frame|reference-image|video-prompt-sheet` after generation. Do not use retired Shot image generation purpose names.
    - For `cast.character-sheet`, inspect `context.referenceOptions`. Existing same-character sheet references are continuity anchors and should stay included unless the user excludes them. User-collected cast reference images are optional and can be included through the preview dialog. If the user supplied an arbitrary project image, such as `research/helmet.jpg`, and it is not yet in `referenceOptions`, attach it first with `renku media import --purpose reference.image --target cast:<cast-member-id> --source <project-relative-path> --json`, then re-read context. Do not say arbitrary reference images are unsupported just because they are not already attached to the Cast Member. Do not put provider `image_urls`, local file paths, or combined reference collages in the spec; use `referenceSelections.dependencyInclusions` only when an include/exclude choice needs to be persisted.
    - For a `video-prompt-sheet` Shot input, default the `image.create` model to `fal-ai/openai/gpt-image-2` unless the user explicitly chose another model. Keep panel counts, motion maps, captions, timing notes, and other sheet-structure choices inside the authored prompt and agent inspection brief, not Studio JSON.
-   - Before telling the user a shot input spec is ready for paid generation, run `renku generation spec validate --file <spec-json> --json` and check the prepared `providerPayload.image_urls` / input files. If those references are present, explain that the raw spec intentionally stays free of provider paths. Use `renku generation estimate --spec <spec-id> --json` only for cost state and `estimate.costApprovalToken`.
+   - Before telling the user a shot input spec is ready for paid generation, run `renku generation spec validate --file <spec-json> --json` and check the prepared `providerPayload.image_urls` / input files. If those references are present, explain that the raw spec intentionally stays free of provider paths. Use `renku generation estimate --spec <spec-id> --json` only for pricing display.
    - Before generating a Shot input image with `image.create`, create the draft Media Generation Spec JSON and run `renku generation preview show --file <media-generation-spec-json> --json`. Core validates the draft spec and builds the preview envelope for Studio. Wait for user feedback in the agent harness, revise the same draft spec when the prompt, references, or provider configuration changes, rerun the preview command, and generate only after the user says the preview is ready.
 7. For Renku-managed generation, persist the spec:
 
@@ -116,15 +116,20 @@ the reference images shown in the preview:
 - revise the same spec or preview rather than relying on Core to parse or grade
   creative prompt contents.
 
-9. For Renku-managed generation, estimate cost and get the cost approval token:
+9. For Renku-managed generation, estimate cost for display:
 
 ```bash
 renku generation estimate --spec <spec-id> --json
 ```
 
-Use `estimate.costApprovalToken` from a `state: "priced"` estimate as the
-`--approval-token` value. If the estimate is `missing-pricing-input`, fix the
-required pricing parameter before requesting paid generation approval.
+Estimates are pricing-only and do not approve provider runs. Before a real
+provider-backed run, ask the user to approve the estimated cost or unknown-cost
+state and approve sending the current project-derived prompt/context to the
+selected provider. Do not rewrite, compress, expand, or otherwise change the
+prompt or request after that approval. If anything in the request changes, show
+the preview again, estimate again, and get a fresh live-run approval gesture.
+If the estimate is `missing-pricing-input`, fix the required pricing parameter
+before requesting paid generation approval.
 
 10. For Renku-managed generation, run only after the user has approved the model, cost, and any project-derived prompt/context transfer to the external provider. Because provider-backed generation needs network access, request sandbox/network permission before the first real `renku generation run` attempt instead of waiting for a network failure. Use `--simulate` when validating shape without paid provider calls.
 
@@ -137,7 +142,7 @@ preview JSON, and do not continue to final paid generation until the user has
 reviewed that dialog and approved in the agent harness.
 
 ```bash
-renku generation run --spec <spec-id> --approval-token <approval-token> --json
+renku generation run --spec <spec-id> --approve-live-provider-run --json
 ```
 
 11. Inspect generated media before import or attachment. For Lookbook images, decide which type-specific Lookbook sections the image actually demonstrates. For Lookbook sheets, verify that the sheet is informative, legible, and summarizes the target Movie or Storyboard Lookbook rather than merely collaging existing images. For cast images, compare against the active Cast Design, the configured Movie Lookbook, any user-supplied likeness/reference constraints, and the strongest existing approved cast sheets in the project. For Location Sheets, inspect the full image as one production reference board and make sure it matches the persisted description; do not crop or slice it. For Location Hero Images, verify that the source Location Sheet is the chosen basis and that the hero works as compact overview/detail display media, not as a shot reference sheet. For scene storyboard sheets, first ensure the active Storyboard Lookbook and its `lookbook.sheet` are ready, then inspect each composite, use vision to identify the actual storyboard panel image blocks, crop only the intended shot panels, and inspect every crop before import.
@@ -210,9 +215,9 @@ automatically. The user decides whether the artifact is acceptable, should be
 imported with caveats, needs a Codex image iteration, or is worth another
 Renku-managed paid attempt.
 
-For Codex built-in image generation, there is no Renku estimate, approval token,
-generation run id, or provider receipt. Still inspect the image before import,
-but treat revisions as Codex image iterations rather than Renku paid
+For Codex built-in image generation, there is no Renku estimate, live provider
+approval, generation run id, or provider receipt. Still inspect the image before
+import, but treat revisions as Codex image iterations rather than Renku paid
 regeneration unless the user explicitly switches to a Renku-managed provider
 run.
 
@@ -238,8 +243,8 @@ new spoken audio from text. It is not needed when the user wants to attach an
 existing ElevenLabs provider-owned sample for a known `voiceId`. Route existing
 provider sample requests back to `casting-director`; that workflow uses
 `kind: "castVoiceElevenLabsSampleAttachment"` with `renku cast voice attach`
-and does not create a media generation spec, estimate, approval token, or media
-generation run.
+and does not create a media generation spec, estimate, live provider approval,
+or media generation run.
 
 A `casting-director` pass owns attaching the durable ElevenLabs provider voice
 id and sample file through `renku cast voice attach`.

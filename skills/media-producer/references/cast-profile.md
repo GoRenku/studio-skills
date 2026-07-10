@@ -29,11 +29,12 @@ other physical character substitute.
 
 Renku-managed model notes:
 
-- `fal-ai/openai/gpt-image-2`
-- `fal-ai/nano-banana-2`
+- Default new Renku-managed profile generations to `fal-ai/openai/gpt-image-2`.
+- Use `fal-ai/openai/gpt-image-2/edit` when `sourceAssetId` is available and
+  the profile should derive from an existing character sheet.
 - `fal-ai/xai/grok-imagine-image` as a cheaper alternative when its limits are
-  acceptable
-- edit variants of those models when `sourceAssetId` is available
+  acceptable and the user explicitly chooses it.
+- Use other model-list alternatives only when the user explicitly chooses them.
 
 Text-to-image spec:
 
@@ -41,7 +42,7 @@ Text-to-image spec:
 {
   "purpose": "cast.profile",
   "target": { "kind": "castMember", "id": "cast_ada" },
-  "modelChoice": "fal-ai/nano-banana-2",
+  "modelChoice": "fal-ai/openai/gpt-image-2",
   "prompt": "A square profile portrait of Ada...",
   "takeCount": 1,
   "seed": null,
@@ -58,7 +59,7 @@ Edit spec:
 {
   "purpose": "cast.profile",
   "target": { "kind": "castMember", "id": "cast_ada" },
-  "modelChoice": "fal-ai/nano-banana-2/edit",
+  "modelChoice": "fal-ai/openai/gpt-image-2/edit",
   "sourceAssetId": "asset_character_sheet",
   "prompt": "Create a square profile portrait derived from the attached character sheet...",
   "takeCount": 1,
