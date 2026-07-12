@@ -338,8 +338,8 @@ Renku Studio or the Renku skills themselves:
 ```toml
 [permissions.renku-studio.workspace_roots]
 "~/renku-movies" = true
-"~/Projects/aitinkerbox/studio" = true
-"~/Projects/aitinkerbox/studio-skills" = true
+"/path/to/your/renku-projects" = true
+"/path/to/your/installed/renku-skills" = true
 ```
 
 ## Optional: Unix Sockets
