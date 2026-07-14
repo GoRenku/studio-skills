@@ -84,7 +84,7 @@ Select sections from the Location's actual production need. If missing user
 intent would materially change the sheet, such as choosing between an empty
 staging board, a damaged-state board, a night-lighting board, or a geography
 overview, ask before writing the final spec. Otherwise infer a focused board
-from the Location Design, scene usage, Movie Lookbook, and existing references.
+from the Location Design, scene usage, Production Lookbook, and existing references.
 
 State variants matter. A Location may need a separate sheet for day, night,
 damaged, intact, crowded, empty, before, after, seasonal, or weather-specific
@@ -141,7 +141,7 @@ Build Location Sheet prompts in this order:
 3. Define the largest hero section first.
 4. Select 4 to 8 supporting sections from the taxonomy.
 5. Explain why each supporting section matters for continuity.
-6. Bind materials, palette, lighting, and atmosphere to the active Movie
+6. Bind materials, palette, lighting, and atmosphere to the Production
    Lookbook and active Location Design.
 7. Add historical, genre, or story guardrails only when grounded in context.
 8. Keep any labels in margins or captions, never over important visual content.
@@ -160,7 +160,7 @@ Make the largest panel a <hero establishing view>. Add supporting panels for
 <selected sections>. Keep all panels consistent with the same place, period,
 materials, palette, lighting behavior, landmarks, and scale anchors.
 
-Use the selected Movie Lookbook for palette, texture, lens feel, lighting, and
+Use the Production Lookbook for palette, texture, lens feel, lighting, and
 atmosphere. Preserve these concrete Location Design facts: <facts>.
 
 Exclude <grounded exclusions>. Keep any labels small and outside important
@@ -177,7 +177,7 @@ Before import, inspect the generated full image as one production board:
 - Do the supporting sections answer the intended production questions?
 - Are multiple views consistent with one geography?
 - Are materials, palette, and lighting grounded in the Location Design and
-  Movie Lookbook?
+  Production Lookbook?
 - Are scale, landmarks, entrances, props, and movement paths readable when they
   matter?
 - Is the sheet useful as one full image without slicing?

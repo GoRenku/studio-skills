@@ -1,13 +1,13 @@
 # Lookbook JSON Contract
 
-Lookbook input is a tagged JSON document. Use one of the current Lookbook kinds: `movieLookbook` or `storyboardLookbook`.
+Lookbook input is a tagged JSON document. Use one of the current Lookbook kinds: `productionLookbook` or `storyboardLookbook`.
 
-## Movie Lookbook
+## Production Lookbook
 
 ```json
 {
-  "kind": "movieLookbook",
-  "movieLookbook": {
+  "kind": "productionLookbook",
+  "productionLookbook": {
     "name": "Cold Civic Glow",
     "thesis": {
       "statement": "Project visual-language thesis.",
@@ -52,9 +52,9 @@ Lookbook input is a tagged JSON document. Use one of the current Lookbook kinds:
 }
 ```
 
-Valid Movie Lookbook image sections are `thesis`, `palette`, `toneMood`, `composition`, `lighting`, `texture`, and `camera`.
+Valid Production Lookbook image sections are `thesis`, `palette`, `toneMood`, `composition`, `lighting`, `texture`, and `camera`.
 
-### Point ids (Movie Lookbooks)
+### Point ids (Production Lookbooks)
 
 Every `pattern` (in `composition`, `lighting`, and `camera.movement`/`motion`/`framing`) and every `observation` (in `palette` and `texture`) carries a stable `id` that is unique within the Lookbook. Use a readable `<section>-<slug>` form, e.g. `composition-clinical-symmetry`, `palette-biological-green`, `camera-controlled-drift`.
 
@@ -63,14 +63,14 @@ demonstrates after import. First import the file and read `ownerRecord.id` from
 the JSON report, then set its placement:
 
 ```bash
-renku media import --purpose lookbook.image --target lookbook:<movie-lookbook-id> --source <file> --json
+renku media import --purpose lookbook.image --target lookbook:<production-lookbook-id> --source <file> --json
 renku lookbook image set-placement --image <ownerRecord.id> --sections composition --anchor composition-clinical-symmetry --json
 renku lookbook image set-placement --image <ownerRecord.id> --sections thesis,texture --anchor texture-cannon-material-states --json
 ```
 
-`--anchor` requires `--sections` to include the section that owns the point. That owning section becomes point-level evidence; any additional `--sections` values stay section-level evidence. For example, `--sections thesis,texture --anchor texture-cannon-material-states` makes one image appear under the Movie thesis and beside the texture point. An image placed without `--anchor` stays section-level evidence. `thesis` and `toneMood` have no sub-points, so place them with `--sections` only unless they are an additional broad placement alongside some other anchored point. Storyboard Lookbook sections are single-point and never use point ids or `--anchor`.
+`--anchor` requires `--sections` to include the section that owns the point. That owning section becomes point-level evidence; any additional `--sections` values stay section-level evidence. For example, `--sections thesis,texture --anchor texture-cannon-material-states` makes one image appear under the Production thesis and beside the texture point. An image placed without `--anchor` stays section-level evidence. `thesis` and `toneMood` have no sub-points, so place them with `--sections` only unless they are an additional broad placement alongside some other anchored point. Storyboard Lookbook sections are single-point and never use point ids or `--anchor`.
 
-Movie `thesis` is single-image placement. A new Thesis placement replaces the previous Thesis placement without discarding that previous image or stripping its other placements. Other Movie section and point placements can hold up to 10 images.
+Production `thesis` is single-image placement. A new Thesis placement replaces the previous Thesis placement without discarding that previous image or stripping its other placements. Other Production section and point placements can hold up to 10 images.
 
 ## Storyboard Lookbook
 
@@ -145,15 +145,14 @@ Rules:
 - Unknown fields are errors.
 - Missing required sections are errors.
 - Arrays required by the schema must not be empty.
-- `name` is required for create and update documents.
+- `name` is required for both role documents.
 - `sourceInspirationFolderIds` is optional.
-- If `sourceInspirationFolderIds` is present on update, it replaces existing source relationships.
-- If `sourceInspirationFolderIds` is omitted on update, existing source relationships are preserved.
+- Applying a document replaces the current role definition and its source relationships.
 - If `sourceInspirationFolderIds` is `[]`, existing source relationships are cleared.
 - Do not include `imageFiles` anywhere.
-- Give every Movie Lookbook `pattern` and `observation` a stable, Lookbook-unique `id` (see "Point ids" above). Storyboard sections are single-point and take no `id`.
+- Give every Production Lookbook `pattern` and `observation` a stable, Lookbook-unique `id` (see "Point ids" above). Storyboard sections are single-point and take no `id`.
 - Attach generated examples with `renku media import --purpose lookbook.image
   ...`, then use its returned `ownerRecord.id` with `renku lookbook image
-  set-placement`. Use `--sections thesis` for Movie thesis hero evidence and
+  set-placement`. Use `--sections thesis` for Production thesis hero evidence and
   `--anchor <point-id>` to pin an image to a specific pattern or observation
   when the point-owning section is included in `--sections`.

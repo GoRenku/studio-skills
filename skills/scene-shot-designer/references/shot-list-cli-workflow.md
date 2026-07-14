@@ -47,7 +47,7 @@ Read:
 - setting, story function, and ordered blocks;
 - dialogue blocks and speakers;
 - referenced cast and locations;
-- selected Movie Lookbook text when available;
+- Production Lookbook text when available;
 - active shot-list summary when present.
 
 Use visual references only when the user asks:
@@ -93,7 +93,7 @@ renku screenplay shot-list storyboard status --scene <scene-id> --shot-list <sho
 ```
 
 Use the status report to identify missing or stale storyboard images for
-media-producer handoff. If the user did not explicitly request text-only/no-media work, continue to that handoff instead of merely reporting that storyboard images are missing. The media-producer pass is responsible for selected Storyboard Lookbook and Storyboard Lookbook sheet readiness.
+media-producer handoff. If the user did not explicitly request text-only/no-media work, continue to that handoff instead of merely reporting that storyboard images are missing. The media-producer pass is responsible for Storyboard Lookbook and Storyboard Lookbook sheet readiness.
 
 ## Write And Confirm
 

@@ -27,7 +27,7 @@ renku generation context --purpose cast.profile --target cast:<cast-member-id> -
 Use the context to ground the prompt in:
 
 - project title, genre, tone, logline, and summary;
-- active Movie Lookbook visual language when present;
+- active Production Lookbook visual language when present;
 - Cast Member role, description, and voice notes;
 - active Cast Design voice/performance/generation guidance when present.
 

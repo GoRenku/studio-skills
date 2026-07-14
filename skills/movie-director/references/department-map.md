@@ -9,7 +9,7 @@ Use this map to classify user intent and choose the next specialist. When a requ
 | Create/revise Cast Member facts, appearance, performance, costume, voice casting notes | Casting | `casting-director` | `renku cast design context --cast <cast-member-id> --json` |
 | Create/revise Location facts, spatial design, set dressing, props, atmosphere | Production Design | `production-designer` | `renku production-design location context --location <location-id> --json` |
 | Analyze reference folders, extract visual principles from images | Cinematography / Visual Language | `inspiration-analyzer` | `renku inspiration show --folder <folder-id> --json` |
-| Create, revise, select, or connect a Movie Lookbook or Storyboard Lookbook to Inspiration folders | Cinematography / Visual Language | `lookbook-designer` | `renku lookbook list --json` |
+| Create, revise, or connect the project's Production Lookbook or Storyboard Lookbook to Inspiration folders | Cinematography / Visual Language | `lookbook-designer` | `renku lookbook show --kind <production\|storyboard> --json` |
 | Design or revise scene coverage and shot composition/movement/cast/location intent | Directing / Shot Design | `scene-shot-designer` | `renku screenplay shot-list context --scene <scene-id> --json` |
 | Generate or import media | Media Production | `media-producer` | `renku generation context --purpose <purpose> --target <target> --json` |
 
@@ -20,8 +20,8 @@ Use this map to classify user intent and choose the next specialist. When a requ
 3. Screenplay draft.
 4. Screenplay analysis and targeted revision.
 5. Inspiration folders and Inspiration Analysis.
-6. Selected Movie Lookbook.
-7. Selected Storyboard Lookbook, with its `lookbook.storyboard-sheet` available
+6. Project Production Lookbook.
+7. Project Storyboard Lookbook, with its `lookbook.storyboard-sheet` available
    as non-blocking guidance when one exists.
 8. Cast Design and Location Design.
 9. Cast Character Sheets, Cast Profiles, and Location Sheets.

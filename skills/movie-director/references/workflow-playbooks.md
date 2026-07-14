@@ -28,9 +28,9 @@ For Codex runs, remember that local Studio HTTP notification is network access. 
 ## Scene To Shot List To Storyboard Images
 
 1. Read director context, preferably with a selected scene.
-2. If no selected Movie Lookbook exists, dispatch to `lookbook-designer` first unless the user explicitly wants text-only shot work.
-3. If no selected Storyboard Lookbook exists and storyboard images are requested or implied by a saved shot-list revision, dispatch to `lookbook-designer` to create/select one unless the user explicitly asked for text-only/no-media work.
-4. If the selected Storyboard Lookbook has a `lookbook.storyboard-sheet`, pass
+2. If no Production Lookbook exists, dispatch to `lookbook-designer` first unless the user explicitly wants text-only shot work.
+3. If no Storyboard Lookbook exists and storyboard images are requested or implied by a saved shot-list revision, dispatch to `lookbook-designer` to create one unless the user explicitly asked for text-only/no-media work.
+4. If the Storyboard Lookbook has a `lookbook.storyboard-sheet`, pass
    that exact candidate to `media-producer` as non-blocking guidance. Do not
    require a sheet before Scene Storyboard generation.
 5. If no active Scene Shot List exists or the user asks to revise coverage, dispatch to `scene-shot-designer`.

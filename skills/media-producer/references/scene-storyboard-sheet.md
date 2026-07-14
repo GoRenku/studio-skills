@@ -28,12 +28,12 @@ Use generation context plus the exact Shot List context:
 - each selected shot's subject, framing, camera angle, movement, action, and story purpose;
 - referenced cast and locations for the selected shots;
 - the exact selected Cast and Location reference files for those owners;
-- selected Movie Lookbook palette, texture, lighting, composition, camera, and tone notes when available;
-- selected Storyboard Lookbook style brief, line/finish, value/accent, panel/notation, continuity/clarity, and guardrails;
-- selected Storyboard Lookbook Sheet as the preferred exact visual-style reference;
+- Production Lookbook palette, texture, lighting, composition, camera, and tone notes when available;
+- Storyboard Lookbook style brief, line/finish, value/accent, panel/notation, continuity/clarity, and guardrails;
+- Storyboard Lookbook Sheet as the preferred exact visual-style reference;
 - the resolved per-shot aspect ratio.
 
-The scene and shot list decide what to draw. The selected Storyboard Lookbook definition and sheet decide how the storyboard drawing should look. The selected Movie Lookbook may inform cinematic intent, but it is not the storyboard style source of truth.
+The scene and shot list decide what to draw. The Storyboard Lookbook definition and sheet decide how the storyboard drawing should look. The Production Lookbook may inform cinematic intent, but it is not the storyboard style source of truth.
 
 ## Sheet Layout
 
@@ -50,16 +50,16 @@ contact sheet.
 Example prompt instruction:
 
 ```text
-Create one 4:3 storyboard sheet as a single finished image. Arrange up to four clean 16:9 landscape storyboard panels in shot-list order. Match the selected Storyboard Lookbook sheet for line quality, finish level, value range, accent behavior, panel gutters, margin notation, and clarity rules. Preserve the scene's shot intent and cinematic visual language, but render the frames as storyboard drawings rather than final film stills. Keep labels in the margin or sheet header; do not place labels, debug marks, crop marks, or decorative text inside the shot image content.
+Create one 4:3 storyboard sheet as a single finished image. Arrange up to four clean 16:9 landscape storyboard panels in shot-list order. Match the Storyboard Lookbook sheet for line quality, finish level, value range, accent behavior, panel gutters, margin notation, and clarity rules. Preserve the scene's shot intent and cinematic visual language, but render the frames as storyboard drawings rather than final film stills. Keep labels in the margin or sheet header; do not place labels, debug marks, crop marks, or decorative text inside the shot image content.
 ```
 
 Avoid photorealism, final film still polish, heavy charcoal/noir contrast unless the Storyboard Lookbook requires it, labels inside panel image content, crop marks, red dots, debug overlays, and template artifacts.
 
 ## Storyboard Lookbook Guidance
 
-The `visual-language/storyboard-lookbook-sheet` slot initializes the selected Storyboard Lookbook Sheet. Cast and Location slots expose all relevant candidates while initializing only exact domain-selected files. These are creative guidance, not generic execution requirements. If a needed slot is empty, ask for direction or create/select the continuity media through the owning workflow. Do not substitute a Movie Lookbook sheet, generic Lookbook image, unselected Cast/Location Take, or first alphabetic file.
+The `visual-language/storyboard-lookbook-sheet` slot initializes the project Storyboard Lookbook Sheet. Cast and Location slots expose all relevant candidates while initializing only exact domain-selected files. These are creative guidance, not generic execution requirements. If a needed slot is empty, ask for direction or create the continuity media through the owning workflow. Do not substitute a Production Lookbook sheet, generic Lookbook image, unselected Cast/Location Take, or first alphabetic file.
 
-Reference-capable endpoints receive the selected Storyboard Lookbook Sheet only
+Reference-capable endpoints receive the Storyboard Lookbook Sheet only
 when the spec assigns it to a current media field. If the selected endpoint
 cannot use that reference, do not pretend it is applied; choose another
 endpoint or explain the limitation.

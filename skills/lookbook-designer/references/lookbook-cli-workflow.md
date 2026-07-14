@@ -9,16 +9,17 @@ renku project open <project-name> --json
 renku project current --json
 ```
 
-2. Read current Lookbooks:
+2. Read both project roles:
 
 ```bash
-renku lookbook list --json
+renku lookbook show --kind production --json
+renku lookbook show --kind storyboard --json
 ```
 
-3. Read a target Lookbook before updating:
+3. Read an authored role before revising it:
 
 ```bash
-renku lookbook show --lookbook <lookbook-id> --json
+renku lookbook show --kind <production|storyboard> --json
 ```
 
 4. Validate before writing:
@@ -27,46 +28,37 @@ renku lookbook show --lookbook <lookbook-id> --json
 renku lookbook validate --file lookbook.json --json
 ```
 
-5. Create or update. The JSON document carries the Lookbook type and name:
+5. Apply. The document carries the Lookbook role and authored name. Apply creates an unauthored role or updates the current role in place:
 
 ```bash
-renku lookbook create --file lookbook.json --json
-renku lookbook update --lookbook <lookbook-id> --file lookbook.json --json
+renku lookbook apply --file lookbook.json --json
 ```
 
-6. Select the Lookbook for its type only when intended:
+6. Read the role back:
 
 ```bash
-renku lookbook select --type movie --lookbook <lookbook-id> --json
-renku lookbook select --type storyboard --lookbook <lookbook-id> --json
-```
-
-Clear one typed selection only when intended:
-
-```bash
-renku lookbook clear-selection --type movie --json
-renku lookbook clear-selection --type storyboard --json
+renku lookbook show --kind <production|storyboard> --json
 ```
 
 7. Import example images after files exist in the project. Import and placement
    are separate operations: `media import` creates the Lookbook Image, then
    `lookbook image set-placement` uses the returned `ownerRecord.id`. Tag each
    image with the single style aspect it demonstrates so Studio can show it next
-   to the right widget. Movie aspects are `thesis`, `palette`, `toneMood`,
+   to the right widget. Production aspects are `thesis`, `palette`, `toneMood`,
    `composition`, `lighting`, `texture`, `camera`. Storyboard aspects are
    `styleBrief`, `lineAndFinish`, `valueAndAccent`, `guardrails`. Prefer one
-   aspect per image; do not tag every aspect on one image. When a Movie Lookbook
+   aspect per image; do not tag every aspect on one image. When a Production Lookbook
    image clearly demonstrates one specific pattern or observation, anchor it to
    that point with `--anchor <point-id>` and include the point-owning section in
    `--sections` so it renders beside that point. Additional `--sections` values
-   remain broad section placements. Use `--sections thesis` for a Movie thesis
+   remain broad section placements. Use `--sections thesis` for a Production thesis
    hero image; when the same image is also exact point evidence, use a mixed
    placement such as `--sections thesis,texture --anchor
    texture-cannon-material-states`. Set the `styleBrief` image (the overall
    look) as the Storyboard card image so it becomes the detail-page hero.
 
 ```bash
-renku media import --purpose lookbook.image --target lookbook:<movie-lookbook-id> --source <project-relative-path> --json
+renku media import --purpose lookbook.image --target lookbook:<production-lookbook-id> --source <project-relative-path> --json
 # Read ownerRecord.id from the JSON report, then choose the intended placement:
 renku lookbook image set-placement --image <ownerRecord.id> --sections thesis --json
 renku lookbook image set-placement --image <ownerRecord.id> --sections composition --anchor composition-clinical-symmetry --json
@@ -82,7 +74,7 @@ Use `--image` for Lookbook image IDs. Use `--file` only for JSON input files. Us
 
 For an existing Lookbook image, use `renku lookbook image set-placement` to change section tags or point anchors. This command replaces the image placement set, so include every section and optional point anchor the image should keep. Do not use `renku lookbook image discard` plus `renku media import` as a retagging workflow. If `set-placement` is unavailable, stop and report the missing CLI support instead of creating duplicate media.
 
-Movie `thesis` is a single-image slot: placing a new image with `--sections thesis` replaces the previous Thesis placement without discarding that previous image or removing its other placements. Other Movie section and point placements append until the slot has 10 images. When a multi-image slot is full, move or discard an existing Lookbook image before adding another one.
+Production `thesis` is a single-image slot: placing a new image with `--sections thesis` replaces the previous Thesis placement without discarding that previous image or removing its other placements. Other Production section and point placements append until the slot has 10 images. When a multi-image slot is full, move or discard an existing Lookbook image before adding another one.
 
 Source Inspiration relationships:
 

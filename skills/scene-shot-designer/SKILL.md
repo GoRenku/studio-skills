@@ -1,6 +1,6 @@
 ---
 name: scene-shot-designer
-description: Design and persist Renku Studio Scene Shot Lists by reading scene screenplay context, referenced cast and locations, selected Movie Lookbook guidance, and user direction.
+description: Design and persist Renku Studio Scene Shot Lists by reading scene screenplay context, referenced cast and locations, project Production Lookbook guidance, and user direction.
 ---
 
 # Scene Shot Designer
@@ -14,7 +14,7 @@ A Scene Shot List is a scene-owned coverage plan. It is not the final edit timel
 1. Resolve the current Renku project and target scene. If the user says "current", "selected", or points at Studio, run `renku studio current --json` and use the returned scene context instead of guessing from prose.
 2. Read shot-list context with the Renku CLI.
 3. Decide whether the user wants brainstorming only, a first saved shot list, an extension/revision of an existing shot list, a restore of an older active row, or storyboard maintenance.
-4. Translate user direction and selected Movie Lookbook guidance into concrete framing, movement, blocking, light, texture, subject, and editorial coverage choices.
+4. Translate user direction and Production Lookbook guidance into concrete framing, movement, blocking, light, texture, subject, and editorial coverage choices.
 5. For a scene with no active shot list, write a complete `kind: "sceneShotList"` JSON document when the user wants project state saved. For revisions or extensions of an existing shot list, use `kind: "sceneShotListOperations"` against an explicit `baseShotListId`. Use a full replacement document over an existing list only when intentionally replacing the full list, and include `baseShotListId` so unchanged storyboard links can be preserved.
 6. Validate through the Renku CLI.
 7. Write or apply through the Renku CLI.
@@ -49,7 +49,7 @@ If the user explicitly asks to use visual references, rerun context with:
 renku screenplay shot-list context --scene <scene-id> --include-visual-references --json
 ```
 
-Default shot-list work should stay text-first: screenplay blocks, referenced cast, referenced locations, project aspect ratio, selected Movie Lookbook text when available, and previous shot-list summary.
+Default shot-list work should stay text-first: screenplay blocks, referenced cast, referenced locations, project aspect ratio, Production Lookbook text when available, and previous shot-list summary.
 
 ## Validate And Persist
 
@@ -117,5 +117,5 @@ slice images, or import storyboard files in this skill.
 - Do not add setup minutes, equipment checkout, crew assignments, call-sheet timing, company moves, or other analog shooting logistics.
 - Use the project aspect ratio by default. Write shot-level `aspectRatio` only for a deliberate effect.
 - Validate before write.
-- Use the selected Movie Lookbook when present unless the user overrides it.
+- Use the Production Lookbook when present unless the user overrides it.
 - After saved shot-list revisions, read storyboard status and hand off missing or stale storyboard images unless the user explicitly asked for text-only/no-media output. Do not store generated image paths or take-owned shot design values in Scene Shot List JSON.

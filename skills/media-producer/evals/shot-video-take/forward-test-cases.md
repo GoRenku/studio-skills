@@ -32,7 +32,7 @@ Pass criteria:
 
 Raw task:
 
-> Create the missing Storyboard Lookbook Sheet for the selected Lookbook. Then
+> Create the missing Storyboard Lookbook Sheet for the project Storyboard Lookbook. Then
 > use it to create storyboard images for these four saved Shots in the current
 > Scene Shot List. Review and split the generated sheet, import the four crops,
 > and do not run anything without my generation approval.

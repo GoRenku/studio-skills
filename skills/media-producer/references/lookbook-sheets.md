@@ -2,6 +2,15 @@
 
 Use `lookbook.video-sheet` for final-video visual language and `lookbook.storyboard-sheet` for storyboard drawing language. Both target `lookbook:<lookbook-id>`, allow multiple attached sheets, and currently recommend 4:3, high quality, and GPT Image 2 through context.
 
+Resolve target ids by role. There is no Lookbook collection or selection state:
+
+```bash
+renku lookbook show --kind production --json
+renku lookbook show --kind storyboard --json
+```
+
+`lookbook.video-sheet` requires the returned Production id. `lookbook.storyboard-sheet` requires the returned Storyboard id.
+
 ```bash
 renku generation context --purpose lookbook.video-sheet --target lookbook:<lookbook-id> --json
 renku generation context --purpose lookbook.storyboard-sheet --target lookbook:<lookbook-id> --json

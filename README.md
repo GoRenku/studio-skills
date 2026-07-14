@@ -98,10 +98,10 @@ folder images, named references, screenplay context, or existing Lookbooks.
 
 It uses:
 
-- the Renku CLI to list, validate, create, update, and read Lookbooks;
+- the Renku CLI to show, validate, apply, discard, and read the two project Lookbook roles;
 - Inspiration commands to discover source folders and analyses;
 - normal shell commands inside returned folder paths to inspect grabs;
-- schema-validated `kind: "lookbook"` JSON documents;
+- schema-validated Production and Storyboard Lookbook JSON documents;
 - Lookbook image commands for generated example placement.
 
 Invoke it in Codex with:
@@ -113,7 +113,7 @@ $lookbook-designer
 Example prompt:
 
 ```text
-$lookbook-designer create a new lookbook from the Substance Inspiration folder, but use acid green to mean tenderness becoming contamination.
+$lookbook-designer create the Production Lookbook from the Substance Inspiration folder, but use acid green to mean tenderness becoming contamination.
 ```
 
 

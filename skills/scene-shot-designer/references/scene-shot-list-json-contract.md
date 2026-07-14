@@ -11,7 +11,7 @@ Scene Shot Lists are validated JSON documents persisted through `renku screenpla
   "title": "Ada confronts the empty control room",
   "summary": "A concise coverage summary.",
   "coverageStrategy": "How the shots build the scene.",
-  "lookbookInfluence": "How the selected Movie Lookbook is translated into coverage.",
+  "lookbookInfluence": "How the Production Lookbook is translated into coverage.",
   "shots": [],
   "openQuestions": []
 }
@@ -77,8 +77,8 @@ Each shot:
 - Call-sheet timing.
 - Company moves.
 
-Storyboard images are attached later through `renku media import --purpose scene.storyboard-sheet` after media-producer prepares generation. An exact selected
-Storyboard Lookbook `lookbook.storyboard-sheet` may be included as
+Storyboard images are attached later through `renku media import --purpose scene.storyboard-sheet` after media-producer prepares generation. The project
+Storyboard Lookbook's exact `lookbook.storyboard-sheet` may be included as
 non-blocking guidance when available; its absence does not block generation.
 
 ## Operation Documents

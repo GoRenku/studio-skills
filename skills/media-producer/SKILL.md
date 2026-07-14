@@ -66,6 +66,15 @@ Read `references/workflow.md` for exact reference, output reuse, Preview, and at
 
 ## Purpose routing
 
+Before authoring Lookbook media, resolve the role id directly:
+
+```bash
+renku lookbook show --kind production --json
+renku lookbook show --kind storyboard --json
+```
+
+Use the returned current role id. Do not list alternatives or look for selection state. `lookbook.video-sheet` accepts only the Production role and `lookbook.storyboard-sheet` accepts only the Storyboard role.
+
 - `image.create` -> `project`
 - `image.edit` -> `asset:<asset-id>`
 - `lookbook.image`, `lookbook.video-sheet`, `lookbook.storyboard-sheet` -> `lookbook:<lookbook-id>`

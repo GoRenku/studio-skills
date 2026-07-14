@@ -18,7 +18,7 @@ Provider-visible inputs are:
 - the provider payload order shown by the generated Preview.
 
 Provider-invisible Studio state includes approval state, database selection
-state, department names, review history, asset ids, file names, Movie Lookbook
+state, department names, review history, asset ids, file names, Production Lookbook
 names, Cast Design names, Location Design names, and prior generated images
 that are not attached to the request.
 
@@ -141,7 +141,7 @@ target is the registered source asset:
 }
 ```
 
-Do not resend Movie Lookbook, Location Sheet, or Character Sheet references for
+Do not resend Production Lookbook, Location Sheet, or Character Sheet references for
 a localized edit unless the user asks for a new reference-conditioned image.
 The source image is the visible continuity anchor. Inspect the result before
 import, and attach it only through the destination purpose's import command.

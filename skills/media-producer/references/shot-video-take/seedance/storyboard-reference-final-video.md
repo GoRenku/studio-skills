@@ -164,7 +164,7 @@ Hand-drawn, pencil, clay, mannequin, animatic, or previs storyboard:
   rhythm;
 - do not render sketch lines, blank mannequins, clay material, borders, arrows,
   labels, or page layout;
-- use Movie Lookbook, Character Sheets, Location Sheets, or written prompt for
+- use Production Lookbook, Character Sheets, Location Sheets, or written prompt for
   final appearance only when those references are actually attached or visible
   to the provider.
 

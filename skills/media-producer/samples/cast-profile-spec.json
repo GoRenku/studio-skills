@@ -3,7 +3,7 @@
   "target": { "kind": "castMember", "id": "cast_ada" },
   "model": { "provider": "fal-ai", "model": "openai/gpt-image-2/edit" },
   "values": {
-    "prompt": "Create a square profile portrait derived from the attached character sheet. Preserve the character's recognizable identity, wardrobe logic, period cues, and selected Movie Lookbook visual language."
+    "prompt": "Create a square profile portrait derived from the attached character sheet. Preserve the character's recognizable identity, wardrobe logic, period cues, and Production Lookbook visual language."
   },
   "references": [
     {

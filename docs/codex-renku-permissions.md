@@ -533,7 +533,7 @@ provider-enabled permission profile. Defining `[permissions.renku-studio]` in
 `:workspace` or another profile with network disabled.
 
 For fal.ai image generations that use project references, the first provider
-network request may be a file upload for selected Lookbook, Location Sheet, or
+network request may be a file upload for a project Lookbook, Location Sheet, or
 Character Sheet images, before the model request itself starts. That path needs
 the fal.ai API domains and the storage/upload/download domains listed above.
 
