@@ -13,7 +13,7 @@ Use this reference when:
 - the user explicitly says a character sheet or physical portrait does not make
   sense.
 
-Do not generate `cast.video-character-sheet` for voice-over Cast Members unless the
+Do not generate `cast.character-sheet` for voice-over Cast Members unless the
 user changes the Cast Member into a visible on-screen role first.
 
 ## Required Context

@@ -22,12 +22,15 @@ Context is the source of truth for fixed and recommended product settings, selec
 - Recommendations are editable guidance. Author them only when explicitly chosen.
 - Provider defaults stay absent unless the user or agent deliberately authors them.
 - One spec, estimate, and run cover one current provider request only.
+- `facts.contextText`, when present, is opaque authored source context. Read it; do not parse it into a parallel domain model or treat it as a runtime validation contract.
 
 ## Exact references
 
 Copy exact selections from context rather than rebuilding placement ids. Preserve section, slot, optional Shot scope, and subject ids. Additional references use `{ "kind": "additional" }`.
 
 Every included reference must also name an actual media `providerField` from the selected model descriptor. Placement expresses the reference's product role; `providerField` expresses where that exact file enters the provider request. These are separate decisions.
+
+Inspect every selected reference before generation. A candidate is not a selected relationship, and filesystem presence is not selection. If a continuity-critical exact selection is missing, stop and ask for explicit user direction rather than substituting the first candidate.
 
 Use:
 
@@ -41,6 +44,15 @@ Do not infer creative dependencies, manufacture missing media, walk provenance, 
 ## Preview and price approval
 
 Use `preview show --file` for an unsaved draft and `preview show --spec` for the saved request. Showing Preview does not execute generation.
+
+Use repeated flags to review several complete, independent requests together while preserving order:
+
+```bash
+renku generation preview show --file tmp/request-1.json --file tmp/request-2.json --json
+renku generation preview show --spec media_generation_spec_1 --spec media_generation_spec_2 --json
+```
+
+Do not mix input kinds. The combined display does not combine estimates, approvals, runs, outputs, or attachments.
 
 If prompt, endpoint, authored values, reference order, inclusion, provider-field assignment, or referenced file contents change:
 
@@ -63,8 +75,7 @@ Supported single-file focused imports are:
 lookbook.image
 lookbook.video-sheet
 lookbook.storyboard-sheet
-cast.video-character-sheet
-cast.storyboard-character-sheet
+cast.character-sheet
 cast.profile
 location.sheet
 location.hero

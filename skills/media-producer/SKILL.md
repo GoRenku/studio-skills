@@ -22,7 +22,7 @@ renku generation context --purpose <purpose> --target <target> --json
 renku generation model list --purpose <purpose> --json
 ```
 
-4. Author one generic `GenerationSpec` from current context. Preserve stable guide placement ids. Assign every included reference to an actual media `providerField` from the selected model descriptor. Use `{ "kind": "additional" }` only for an extra exact reference.
+4. Author one generic `GenerationSpec` from current context. Preserve stable guide placement ids. Inspect every reference before use. Assign every included Renku reference to an actual media `providerField` from the selected model descriptor. Use `{ "kind": "additional" }` only for an extra exact reference.
 5. Keep Core-fixed settings out of agent policy. Treat recommendations as editable guidance and author them only when explicitly chosen. Leave untouched provider defaults absent.
 6. Validate and show Preview before paid work:
 
@@ -32,6 +32,15 @@ renku generation preview show --file <spec.json> --json
 renku generation spec create --file <spec.json> --json
 renku generation preview show --spec <spec-id> --json
 ```
+
+When several independent requests should be reviewed together, show them in one ordered Preview interaction:
+
+```bash
+renku generation preview show --file <first-spec.json> --file <second-spec.json> --json
+renku generation preview show --spec <first-spec-id> --spec <second-spec-id> --json
+```
+
+Do not mix `--file` and `--spec`. Each entry remains an independent spec, estimate, approval, and run.
 
 7. Update the same saved spec when the request changes, then validate and show it again.
 8. Estimate the exact saved request. Ask for explicit approval of the cost and provider transfer, then pass the returned token unchanged:
@@ -60,7 +69,7 @@ Read `references/workflow.md` for exact reference, output reuse, Preview, and at
 - `image.create` -> `project`
 - `image.edit` -> `asset:<asset-id>`
 - `lookbook.image`, `lookbook.video-sheet`, `lookbook.storyboard-sheet` -> `lookbook:<lookbook-id>`
-- `cast.video-character-sheet`, `cast.storyboard-character-sheet`, `cast.profile`, `cast.voice-sample` -> `cast:<cast-member-id>`
+- `cast.character-sheet`, `cast.profile`, `cast.voice-sample` -> `cast:<cast-member-id>`
 - `location.sheet`, `location.hero` -> `location:<location-id>`
 - `scene.storyboard-sheet` -> `scene:<scene-id>`
 - `scene.dialogue-audio` -> `scene:<scene-id>:dialogue:<scene-dialogue-id>`
@@ -86,7 +95,7 @@ mapping in the skill. One spec is one explicit provider request.
 
 ## Scene Storyboard Sheet
 
-Keep splitting agent-owned. Generate the accepted 2x2, at-most-four-panel composite, inspect the returned image with vision, choose crop boxes for that exact image, inspect every crop, and attach only accepted shot images. Never add fixed-coordinate, OCR, border-detection, grid-slicing, or runtime auto-split behavior.
+Keep splitting agent-owned. Read the exact Scene Shot List and use `facts.contextText` only as opaque authored narrative context. For each one-to-four-Shot request, choose the relevant Cast and Location owners, inspect their exact references, and include them with the style reference. Stop for explicit user direction when needed continuity media is unavailable; do not silently proceed with weaker context. Generate the accepted 2x2, at-most-four-panel composite, inspect the returned image with vision, choose crop boxes for that exact image, inspect every crop, and attach only accepted shot images. Never add fixed-coordinate, OCR, border-detection, grid-slicing, or runtime auto-split behavior.
 
 ## Safety and permissions
 

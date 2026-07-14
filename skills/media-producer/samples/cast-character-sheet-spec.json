@@ -1,5 +1,5 @@
 {
-  "purpose": "cast.video-character-sheet",
+  "purpose": "cast.character-sheet",
   "target": { "kind": "castMember", "id": "cast_ada" },
   "model": { "provider": "fal-ai", "model": "openai/gpt-image-2" },
   "values": {

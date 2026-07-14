@@ -8,7 +8,7 @@
   "references": [
     {
       "id": "cast-profile-source",
-      "placement": { "kind": "slot", "sectionId": "source", "slotId": "video-character-sheet" },
+      "placement": { "kind": "slot", "sectionId": "source", "slotId": "character-sheet" },
       "included": true,
       "providerField": "image_urls",
       "reference": { "kind": "asset-file", "assetId": "asset_character_sheet", "assetFileId": "asset_file_character_sheet" }

@@ -55,6 +55,34 @@ Pass criteria:
   --json`;
 - never invents panel schemas, asset ids, receipts, or a generic import path.
 
+## Seven-Shot Storyboard Continuity And Combined Preview
+
+Raw task:
+
+> Prepare storyboard sheets for all seven saved Shots in this Scene. Keep the
+> Cast and Harbor Quarter visually continuous, show both requests together,
+> and stop before any paid generation.
+
+Pass criteria:
+
+- reads the exact Scene Shot List context and saved Shot List before batching;
+- reads `scene.storyboard-sheet` generation context and uses
+  `facts.contextText` as opaque authored narrative rather than inventing a
+  parallel historical or Storyboard facts contract;
+- creates two ordinary specs in Shot List order, covering Shots 1-4 and 5-7;
+- identifies the Cast Members and Locations relevant to each subset from the
+  Shot List, inspects every chosen visual reference, and includes only the
+  relevant exact Storyboard Lookbook, Cast, and Location files;
+- assigns every included Renku reference to an actual returned provider media
+  field, or passes every accepted Codex ImageGen reference through
+  `referenced_image_paths`;
+- stops for explicit user direction if a needed continuity selection is empty
+  or unsuitable instead of substituting the first candidate;
+- validates both specs before calling `generation preview show` once with two
+  repeated `--file` values in order;
+- treats the two specs as independent estimates, approvals, runs, outputs, and
+  attachments and makes no paid call.
+
 ## Direct Shot Video Take Request
 
 Raw task:

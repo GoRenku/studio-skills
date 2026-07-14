@@ -12,6 +12,20 @@
       "included": true,
       "providerField": "image_urls",
       "reference": { "kind": "asset-file", "assetId": "asset_storyboard_lookbook_sheet", "assetFileId": "asset_file_storyboard_lookbook_sheet" }
+    },
+    {
+      "id": "cast-mara-character-sheet",
+      "placement": { "kind": "slot", "sectionId": "cast", "slotId": "character-sheet", "subject": { "kind": "castMember", "id": "cast_mara" } },
+      "included": true,
+      "providerField": "image_urls",
+      "reference": { "kind": "asset-file", "assetId": "asset_mara_character_sheet", "assetFileId": "asset_file_mara_character_sheet" }
+    },
+    {
+      "id": "foundry-location-sheet",
+      "placement": { "kind": "slot", "sectionId": "location", "slotId": "location-sheet", "subject": { "kind": "location", "id": "location_foundry" } },
+      "included": true,
+      "providerField": "image_urls",
+      "reference": { "kind": "asset-file", "assetId": "asset_foundry_location_sheet", "assetFileId": "asset_file_foundry_location_sheet" }
     }
   ],
   "title": "Foundry storyboard sheet 1"

@@ -47,8 +47,8 @@ Screenplay commands do not mutate Cast Members or Locations.
 Use `media-producer` for generation specs, estimates, approved runs,
 inspection, slicing, and supported focused attachment.
 
-Current media purposes include Lookbook images and typed sheets, split Video and
-Storyboard Character Sheets, cast profiles and voice samples, Location Sheets
+Current media purposes include Lookbook images and typed sheets, Cast Character
+Sheets, cast profiles and voice samples, Location Sheets
 and heroes, Scene Storyboard Sheets, dialogue audio, general image creation and
 editing, and Shot Video Takes. Read current purpose context and model
 descriptors through `media-producer`; do not reconstruct removed route, input,

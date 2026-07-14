@@ -16,7 +16,7 @@ For Codex runs, remember that local Studio HTTP notification is network access. 
 
 1. Dispatch Cast Member fact and Cast Design work to `casting-director`.
 2. Read back `renku cast design context --cast <cast-member-id> --json`.
-3. If the user wants new imagery, dispatch `cast.video-character-sheet` or `cast.profile` work to `media-producer`.
+3. If the user wants new imagery, dispatch `cast.character-sheet` or `cast.profile` work to `media-producer`.
 4. Read back director context to confirm readiness changed.
 
 ## Location Production Design Prompt

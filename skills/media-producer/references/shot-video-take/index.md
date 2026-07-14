@@ -17,7 +17,7 @@ selecting exact files. Its stable placements are:
 | `shot` | `video-prompt-sheet` | preserve returned Shot scope when present |
 | `shot` | `general-reference` | preserve returned Shot scope when present |
 | `lookbook` | `video-lookbook-sheet` | preserve returned Shot scope when present |
-| `cast` | `video-character-sheet` | preserve returned Shot scope and Cast Member subject |
+| `cast` | `character-sheet` | preserve returned Shot scope and Cast Member subject |
 | `location` | `location-sheet` | preserve returned Shot scope and Location subject |
 | `dialogue` | `dialogue-audio` | preserve returned Shot scope and Scene Dialogue subject |
 

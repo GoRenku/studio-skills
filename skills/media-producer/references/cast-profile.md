@@ -7,7 +7,7 @@ renku generation context --purpose cast.profile --target cast:<cast-member-id> -
 renku generation model list --purpose cast.profile --json
 ```
 
-Core fixes the profile aspect ratio to 1:1, currently recommends medium quality and Nano Banana 2, and initializes `source/video-character-sheet` with the first matching Video Character Sheet when available. Recommendations remain guidance until explicitly chosen.
+Core fixes the profile aspect ratio to 1:1, currently recommends medium quality and Nano Banana 2, and initializes `source/character-sheet` with the first matching Character Sheet when available. Recommendations remain guidance until explicitly chosen.
 
 When the source slot is included:
 
