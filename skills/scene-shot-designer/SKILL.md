@@ -87,9 +87,16 @@ Storyboard maintenance is part of saved shot-list revision work unless the user 
 4. After a saved write/apply, read `renku screenplay shot-list storyboard status --scene <scene-id> --shot-list <shot-list-id> --json`.
 5. If any selected or changed shots are missing or stale, hand off to `media-producer` with purpose `scene.storyboard-sheet`, target `scene:<scene-id>`, and the chosen `shotListId`.
 
-The media-producer skill owns checking the selected Storyboard Lookbook, ensuring its `lookbook.sheet` dependency exists, choosing supported routes, drafting prompts, slicing outputs, and importing storyboard images.
+The media-producer skill owns reading current generation context, using an exact
+`lookbook.storyboard-sheet` candidate as non-blocking guidance when available,
+choosing a current provider/model, drafting prompts, slicing outputs, and
+importing storyboard images. A missing Storyboard Lookbook Sheet does not block
+`scene.storyboard-sheet` generation.
 
-This skill does not handle `video-prompt-sheet` input work for an existing Shot Video Take. If the user says "multi-shot storyboard" while focused on, or referring to, a take, route that work to `media-producer` with target `take:<take-id>`.
+This skill does not handle prompt-sheet guidance for an existing Shot Video
+Take. If the user says "multi-shot storyboard" while focused on, or referring
+to a take, route that work to `media-producer` with purpose
+`shot.video-take` and target `take:<take-id>`.
 
 Do not choose media models, create generation specs, write storyboard prompts,
 slice images, or import storyboard files in this skill.

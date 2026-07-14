@@ -1,36 +1,26 @@
-# Cast Voice Sample Generation
+# Cast Voice Sample
 
-Use this reference for `cast.voice-sample`, the purpose that generates playable Cast Voice sample audio for a Cast Member.
-
-## Commands
+Use `cast.voice-sample` to generate playable sample audio for a Cast Member.
 
 ```bash
 renku generation context --purpose cast.voice-sample --target cast:<cast-member-id> --json
-renku generation model list --purpose cast.voice-sample --target cast:<cast-member-id> --json
-renku generation spec validate --file <cast-voice-sample-spec-json> --json
-renku generation spec create --file <cast-voice-sample-spec-json> --json
+renku generation model list --purpose cast.voice-sample --json
+renku generation validate --file <spec.json> --json
+renku generation preview show --file <spec.json> --json
+renku generation spec create --file <spec.json> --json
 renku generation estimate --spec <spec-id> --json
-renku generation run --spec <spec-id> --approve-live-provider-run --json
+renku generation run --spec <spec-id> --approval-token <approval-token> --json
 ```
 
-## Workflow
+Choose only a direct audio endpoint returned by current context/model descriptors. Confirm the exact sample text, provider voice handle, language, and editable voice settings with the user. Keep provider field names in `values` exactly as returned; do not translate them into skill-owned names.
 
-1. Read generation context for the Cast Member.
-2. Confirm the desired Cast Voice reference name, purpose, ElevenLabs provider voice id, model, language, and sample text with the user.
-3. Create a persisted spec using only direct ElevenLabs models returned by `generation model list`.
-4. Estimate before paid generation.
-5. Run generation only after explicit live provider approval.
-6. Inspect or play the generated audio enough to confirm it is the intended sample.
-7. Hand the generated file path and generation receipt to `casting-director` for `renku cast voice attach`.
+After generation:
 
-Do not attach voice samples with `renku media import`. Do not store generated audio paths in Cast Design JSON.
+1. inspect or play the output enough to confirm it is the intended sample;
+2. read the exact run receipt with `generation run show`;
+3. hand the accepted output and receipt to `casting-director`;
+4. validate and attach a current `castVoiceAttachment` document with `renku cast voice attach`.
 
-## Current Direct Models
+Do not use `renku media import` for Cast Voice samples. Do not store sample paths or provider registrations in Cast Design JSON.
 
-- `elevenlabs/eleven_v3`
-- `elevenlabs/eleven_multilingual_v2`
-- `elevenlabs/eleven_turbo_v2_5`
-
-## Sample
-
-See `samples/cast-voice-sample-spec.json`.
+See `samples/cast-voice-sample-spec.json` for the generic spec shape, but always derive current endpoint fields from `generation model list`.

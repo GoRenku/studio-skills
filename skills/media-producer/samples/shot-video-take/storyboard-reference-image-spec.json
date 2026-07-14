@@ -1,27 +1,20 @@
 {
   "purpose": "image.create",
-  "target": {
-    "kind": "project",
-    "id": "project_001"
+  "target": { "kind": "project", "id": "project" },
+  "model": { "provider": "fal-ai", "model": "openai/gpt-image-2/edit" },
+  "values": {
+    "prompt": "Create one readable cinematic-realistic storyboard reference image for this exact ordered shot group. The storyboard panels themselves should establish the real look, location, lighting, composition, and continuity for later video generation. If any Lookbook, Location Sheet, or Character Sheet references are provided, treat them only as secondary continuity references; do not copy their board layouts, labels, or text. Layout: two storyboard panels in order, each with a clear cinematic image frame and compact notes below. Panel 1 / Shot 3: medium close-up, low angle, hand-held micro push-in; Elise raises the torn petition at the market doorway; short telephoto, shallow focus; audio note: crowd chant softens under her breath. Panel 2 / Shot 4: over-the-shoulder from Lucas toward Elise, slight hand-held sway; Lucas listens as the crowd compresses behind him; normal lens, natural focus falloff; audio note: ambient street sound drops. Include camera arrows for the push-in and sway. Do not add shots, durations, dialogue, music, or transitions not listed here. Keep all notes legible.",
+    "image_size": { "width": 1024, "height": 768 },
+    "quality": "medium"
   },
-  "mode": "reference-to-image",
-  "modelChoice": "fal-ai/openai/gpt-image-2",
-  "referenceImages": [
+  "references": [
     {
-      "assetId": "asset_movie_lookbook_sheet",
-      "assetFileId": "asset_file_movie_lookbook_sheet",
-      "role": "movie-lookbook-sheet"
+      "id": "movie-lookbook-reference",
+      "placement": { "kind": "additional" },
+      "included": true,
+      "providerField": "image_urls",
+      "reference": { "kind": "asset-file", "assetId": "asset_movie_lookbook_sheet", "assetFileId": "asset_file_movie_lookbook_sheet" }
     }
   ],
-  "prompt": "Create one readable cinematic-realistic storyboard reference image for this exact ordered shot group. The storyboard panels themselves should establish the real look, location, lighting, composition, and continuity for later video generation. If any Lookbook, Location Sheet, or Character Sheet references are provided, treat them only as secondary continuity references; do not copy their board layouts, labels, or text. Layout: two storyboard panels in order, each with a clear cinematic image frame and compact notes below. Panel 1 / Shot 3: medium close-up, low angle, hand-held micro push-in; Elise raises the torn petition at the market doorway; short telephoto, shallow focus; audio note: crowd chant softens under her breath. Panel 2 / Shot 4: over-the-shoulder from Lucas toward Elise, slight hand-held sway; Lucas listens as the crowd compresses behind him; normal lens, natural focus falloff; audio note: ambient street sound drops. Include camera arrows for the push-in and sway. Do not add shots, durations, dialogue, music, or transitions not listed here. Keep all notes legible.",
-  "parameterValues": {
-    "image_size": {
-      "width": 1024,
-      "height": 768
-    },
-    "quality": "medium",
-    "output_format": "png",
-    "num_images": 1
-  },
   "title": "Shots 3-4 ordered storyboard reference"
 }

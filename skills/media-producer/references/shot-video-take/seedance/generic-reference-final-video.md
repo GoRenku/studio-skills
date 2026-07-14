@@ -1,7 +1,8 @@
 # Seedance Generic Reference-To-Video
 
-Use this for Seedance reference-to-video when references are attached but none
-is a storyboard/reference image.
+Use this for a selected direct Seedance reference-to-video endpoint when exact
+references are assigned to its declared `image_urls`, `video_urls`, or
+`audio_urls` fields, but none is a storyboard/reference image.
 
 Do not use this when a storyboard/reference image is attached. Use
 `storyboard-reference-final-video.md`.
@@ -9,12 +10,13 @@ Do not use this when a storyboard/reference image is attached. Use
 ## Prompt Contract
 
 - Name every supplied token and its role.
+- Derive `@ImageN`, `@VideoN`, and `@AudioN` from the generated provider
+  payload's modality-local array order.
 - Keep each role narrow.
 - Compose one coherent result.
 - Do not let references compete as alternate first frames, alternate
   geographies, or alternate character designs.
-- Put critical exclusions in the main prompt when the route lacks a negative
-  field.
+- Put critical exclusions in the main prompt.
 
 ## Template
 

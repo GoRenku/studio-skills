@@ -77,7 +77,9 @@ Each shot:
 - Call-sheet timing.
 - Company moves.
 
-Storyboard images are attached later through `renku media import --purpose scene.storyboard-sheet` after media-producer prepares generation with the selected Storyboard Lookbook and its `lookbook.sheet` dependency.
+Storyboard images are attached later through `renku media import --purpose scene.storyboard-sheet` after media-producer prepares generation. An exact selected
+Storyboard Lookbook `lookbook.storyboard-sheet` may be included as
+non-blocking guidance when available; its absence does not block generation.
 
 ## Operation Documents
 

@@ -1,13 +1,18 @@
 {
   "purpose": "cast.profile",
   "target": { "kind": "castMember", "id": "cast_ada" },
-  "modelChoice": "fal-ai/openai/gpt-image-2/edit",
-  "sourceAssetId": "asset_character_sheet",
-  "prompt": "Create a square profile portrait derived from the attached character sheet. Preserve the character's recognizable identity, wardrobe logic, period cues, and selected Movie Lookbook visual language.",
-  "takeCount": 1,
-  "seed": null,
-  "imageFrame": "1:1",
-  "detail": "standard",
-  "outputFormat": "png",
+  "model": { "provider": "fal-ai", "model": "openai/gpt-image-2/edit" },
+  "values": {
+    "prompt": "Create a square profile portrait derived from the attached character sheet. Preserve the character's recognizable identity, wardrobe logic, period cues, and selected Movie Lookbook visual language."
+  },
+  "references": [
+    {
+      "id": "cast-profile-source",
+      "placement": { "kind": "slot", "sectionId": "source", "slotId": "video-character-sheet" },
+      "included": true,
+      "providerField": "image_urls",
+      "reference": { "kind": "asset-file", "assetId": "asset_character_sheet", "assetFileId": "asset_file_character_sheet" }
+    }
+  ],
   "title": "Ada profile from sheet"
 }

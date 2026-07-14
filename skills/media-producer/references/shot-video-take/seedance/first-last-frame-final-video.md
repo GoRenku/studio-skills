@@ -1,6 +1,9 @@
 # Seedance First-And-Last-Frame Final Video
 
-Use this when both start and end images are binding.
+Use this only when the selected direct Seedance image-to-video descriptor
+exposes `image_url` and `end_image_url`, and both endpoints are binding. Assign
+the exact First Frame to `providerField: "image_url"` and the exact Last Frame
+to `providerField: "end_image_url"`.
 
 ## Prompt Contract
 
@@ -14,10 +17,12 @@ Use this when both start and end images are binding.
 ## Template
 
 ```text
-@Image1 is the first frame. Start from its exact subject identity, composition,
-location layout, light direction, props, and period details.
+The supplied opening image is the first frame. Start from its exact subject
+identity, composition, location layout, light direction, props, and period
+details.
 
-@Image2 is the required final frame. End at its composition and action state.
+The supplied ending image is the required final frame. End at its composition
+and action state.
 
 Transition: [physical action path from start to end]. Keep [identity, props,
 geography, line of action] continuous. The change should happen through real

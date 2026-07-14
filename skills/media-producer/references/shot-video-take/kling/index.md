@@ -2,59 +2,56 @@
 
 Use this when the final `shot.video-take` model family is Kling.
 
-This file preserves Kling-specific token and transient voice-control guidance.
-Keep common take workflow, dependency handling, and provider-visible prompt
-rules in the parent `shot-video-take/` files.
+Keep the common exact-spec workflow, reference placement, and provider-visible
+prompt rules in the parent `shot-video-take/` files. Apply the guidance below
+only when the selected direct Kling endpoint descriptor exposes the named
+field.
 
-## Token Rules
+## Endpoint And Field Rules
 
-Core maps logical Renku inputs to provider payload fields. Prompt drafts must
-match that logical mapping.
+- Assign a first frame only to a descriptor field such as `start_image_url` or
+  `image_url`; assign a last frame only to `end_image_url` when present.
+- Kling O3 reference-to-video endpoints expose `image_urls`. Assign each exact
+  reference image to that field, then use its `providerPayload` array order for
+  `@ImageN` numbering.
+- Kling O3 video-to-video/reference endpoints expose the singular `video_url`
+  source field and document it as `@Video1`. They may also expose `image_urls`
+  for optional `@ImageN` references.
+- Use `negative_prompt` only for an endpoint whose current descriptor includes
+  it, such as Kling V3 image-to-video. Otherwise keep critical exclusions in
+  the main prompt.
+- Current direct Kling descriptors do not expose file-backed audio or element
+  media fields. Do not assign Dialogue Audio to Kling, invent `@AudioN` or
+  `@ElementN`, or fabricate nested provider media values. Choose another
+  endpoint when exact audio/reference support is required.
 
-- Determine actual token order from `providerPreview`, especially prepared
-  provider inputs or payload fields.
-- Do not infer numbering from filenames, memory, UI card order, or old run
-  payloads.
-- Kling V3 image/video element prompts reference element-bound media with
-  `@ElementN`.
-- Kling native voice control uses a transient provider `voice_id` created by
-  Core from selected scene dialogue audio during `shot.video-take` estimate/run.
-  Write the words to be spoken in the final prompt; select the dialogue audio as
-  a logical input instead of creating or storing a durable Cast Voice Provider
-  Registration.
-- Kling O3 top-level image references use `@ImageN`.
-- Kling O3 video-to-video source-video routes use `@Video1` for the source
-  video, then optional `@ImageN` and `@ElementN` only when those logical inputs
-  exist.
-- Video-backed Kling elements may bind selected scene dialogue audio for
-  transient voice control. Image-set elements may not use voice control.
+Validate and inspect `generation preview show` before using any token. The
+generated `providerPayload`, not guide order or filenames, is the evidence for
+the request the provider will receive.
 
 Example:
 
 ```text
-@Element1 enters from frame left and says softly, "We keep moving." Keep the
-voice calm and close-mic, matching @Audio1 as the dialogue audio reference.
+@Video1 supplies only the source performance and camera rhythm. @Image1 supplies
+only wardrobe and face continuity. Keep one coherent scene.
 ```
 
-When the user needs exact generated dialogue audio synchronized to video, route
-the work to a lipsync, talking-head, or composition workflow instead of relying
-on transient Kling voice control.
+When the user needs exact generated dialogue audio synchronized to video, use a
+lipsync, talking-head, or composition workflow instead.
 
 ## Maintenance Provenance
 
-These prompt-token and audio/voice rules were reviewed on June 14, 2026 from:
+These prompt-token rules were reviewed on June 14, 2026 from:
 
 - `https://fal.ai/models/fal-ai/kling-video/v3/standard/image-to-video/llms.txt`
 - `https://fal.ai/models/fal-ai/kling-video/v3/pro/image-to-video/llms.txt`
 - `https://fal.ai/models/fal-ai/kling-video/o3/standard/reference-to-video/llms.txt`
 - `https://fal.ai/models/fal-ai/kling-video/o3/pro/reference-to-video/llms.txt`
 - `https://fal.ai/models/fal-ai/kling-video/o3/standard/video-to-video/reference/llms.txt`
-- `https://fal.ai/models/fal-ai/kling-video/o3/standard/video-to-video/edit/llms.txt`
-- `https://fal.ai/models/fal-ai/kling-video/o3/pro/video-to-video/edit/llms.txt`
-- `https://fal.ai/models/fal-ai/kling-video/create-voice/llms.txt`
 - `https://kling.ai/quickstart/klingai-video-3-model-user-guide`
 - `https://kling.ai/quickstart/klingai-video-3-omni-model-user-guide`
 
-Maintenance check: if a prompt contains `@Audio`, `@Image`, `@Element`, or
-`@Video`, confirm the corresponding Renku input exists in preflight and that the
-active route supports that provider field before estimating or running.
+Maintenance check: if a prompt contains `@Image` or `@Video`, confirm the
+corresponding exact reference appears in the validated provider payload and the
+selected endpoint descriptor exposes its assigned provider field before
+estimating or running.

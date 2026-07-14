@@ -1,114 +1,78 @@
-# Media Producer Workflow
+# Context-First Generation Workflow
 
-1. Read purpose context from Renku.
-2. Clarify the creative intent only when it materially changes the output.
-3. Choose the execution path from user intent and the returned `agentMedia` policy:
-   - Use Codex built-in image generation when the user asks for Codex, `$imagegen`, built-in image generation, GPT-Image 2 through Codex, or no-extra-cost image generation, and the image tool is available.
-   - If `agentMedia.imageGeneration.defaultExecutionPath` is `codexBuiltInWhenAvailable`, prefer Codex built-in image generation for eligible image purposes when available. If it is `renkuManaged`, use Renku-managed generation unless the user explicitly overrides. If it is `ask`, ask when the user has not already chosen.
-   - Use Renku-managed generation when the user chooses a Studio/fal.ai/provider model, wants a Renku generation record or cost estimate, or requests video/audio generation.
-4. For Codex built-in image generation, use the system `$imagegen` workflow, stage the selected output inside the project under `tmp/media/`, inspect it, and import it with `renku media import` without `--receipt`.
-5. For Renku-managed generation, inspect purpose-specific model choices and honor any user-selected model.
-6. For Renku-managed generation, write a binding Media Generation Spec.
-   - For source-image corrections, write an `image.edit` spec targeting
-     `asset:<asset-id>`. Use this when the user asks to revise part of an
-     existing image while preserving the rest.
-7. For Renku-managed generation, persist the spec with `renku generation spec create`.
-8. For every Renku-managed image-generation spec, show the Studio generation preview dialog with `renku generation preview show --spec <spec-id> --json` and ask the user to review the prompt, model/route, settings, source image or attached references, and project-derived context before estimating or running. If anything changes, revise the same spec or preview, show the preview again, and continue only after the user approves the updated preview. If the user accidentally dismisses the dialog or asks to see the generation preview again, rerun the same preview command; showing the preview is repeatable and does not estimate, run, or mutate durable media.
-9. For Renku-managed generation, estimate cost from the persisted spec. The estimate is pricing-only; validate separately when you need provider payload/reference readiness.
-10. For Renku-managed generation, before any paid provider-backed run, get explicit user approval for both the estimated cost and sending the preview-approved project-derived prompt/context to the provider.
-11. For Renku-managed generation, run with `--simulate` for dry checks or with `--approve-live-provider-run` after the user explicitly approves the estimated cost or unknown-cost state and sending the preview-approved project-derived prompt/context to the provider. If the prompt, model/route, parameters, selected inputs, provider payload shape, or output count changes, show the preview again, estimate again, and get a fresh live-run approval gesture. For a real provider-backed run, request sandbox/network permission before the first `renku generation run` attempt, because generation needs outbound network access. If Codex uses named permission profiles, confirm the active session is actually using the provider-enabled profile; defining the profile in config is not enough if the session remains on a workspace-only profile.
-12. Inspect finished media before import. For Location Sheets, inspect the full image as one production reference board, confirm it matches the required description, and do not crop or slice it. For storyboard sheets, follow the storyboard-specific slicing reference.
-13. Import finished media with `renku media import`.
-14. When a later import needs the Renku run receipt, recover it with
-    `renku generation run show --run <run-id> --json`. Never fabricate a
-    receipt.
-
-Do not use provider CLIs or third-party generation tools as shortcuts around Renku-managed generation. The only approved non-Renku image path is Codex built-in image generation through `$imagegen`; treat its outputs as imported media and keep Renku as the attachment/metadata boundary.
-
-## Codex Built-In Image Generation Contract
-
-When the user asks for Codex, `$imagegen`, built-in image generation, GPT-Image
-2 through Codex, or no-extra-cost image generation for an image purpose:
-
-1. Generate with the system imagegen tool or skill. Do not create a Renku
-   generation spec, estimate, live provider approval, run, or receipt.
-2. Save the selected generated image under `tmp/media/<descriptive-file>.png`
-   inside the Renku project. This project-relative path is the import source,
-   not the durable asset location.
-3. Import with the same purpose-specific Renku media command used for
-   Renku-managed outputs. Do not manually copy files into canonical folders
-   such as `cast/`, `locations/`, `visual-language/`, or `shotlist/`; Core owns
-   those folders during import.
-4. Omit `--receipt`. Never fabricate a Renku receipt for Codex-generated or
-   manually supplied media. Use `--replace-selected` only for correction flows
-   where the previous selected shot-video take input should be discarded.
-5. Read the import JSON and use the returned imported asset/file path as the
-   attached project media. For location media, this should be under
-   `locations/<handle>/environment-sheets/...` or
-   `locations/<handle>/heroes/...`, not only under `tmp/media/`.
-6. In the final response, make the image visible to the user with a Markdown
-   image preview using the absolute path to the imported asset when available,
-   and also report the imported asset id and project-relative path. If the
-   platform supports a real attachment API in addition to Markdown previews,
-   attach the same imported file as well.
-
-Saved, imported, and shown are separate requirements. A generated file sitting
-in `tmp/media/` is only staged. The media is not a real Studio attachment
-until `renku media import` succeeds, and the user has not actually been shown
-the result until the final response includes a visible preview or attachment.
-
-When requesting permission for a real run, make the reason explicit: the command will contact the approved generation provider and send project-derived prompt/context that the user already approved for that run.
-
-If a real run fails with only `fetch failed`, treat it as a network/permission
-diagnostic first. Do not rewrite a validated spec, remove reference settings,
-manually add provider URLs, or create local image-processing substitutes. Check
-the active Codex permission profile and provider host reachability, especially
-for reference-image runs where Renku uploads selected project images before the
-provider model invocation.
-
-## Generation Preview Replay
-
-Always show the Studio generation preview before estimate or paid generation for
-Renku-managed specs. Dismissing the dialog is not approval and is not a blocker.
-If the user says "show the generation preview again", "present me the generation
-preview again", "I dismissed the preview", or similar, show the same preview
-again.
-
-Use the exact same command when you know it:
+Use this sequence for every Renku-managed generation purpose:
 
 ```bash
+renku generation context --purpose <purpose> --target <target> --json
+renku generation model list --purpose <purpose> --json
+renku generation validate --file <spec.json> --json
+renku generation preview show --file <spec.json> --json
+renku generation spec create --file <spec.json> --json
 renku generation preview show --spec <spec-id> --json
+renku generation estimate --spec <spec-id> --json
+renku generation run --spec <spec-id> --approval-token <approval-token> --json
+renku generation run show --run <run-id> --json
 ```
 
-For draft previews that were shown before a spec was persisted, rerun the draft
-file preview:
+Use `generation spec update --spec <spec-id> --file <spec.json>` for revisions and `generation run --spec <spec-id> --approval-token <approval-token> --simulate --json` for a non-paid execution check.
 
-```bash
-renku generation preview show --file <media-generation-spec-json> --json
+Context is the source of truth for fixed and recommended product settings, selectable models, stable guide placements, exact candidates, initialized selections, and non-blocking notices. Do not duplicate those rules in the skill.
+
+- Fixed settings are Core-owned. Do not turn them into agent choices.
+- Recommendations are editable guidance. Author them only when explicitly chosen.
+- Provider defaults stay absent unless the user or agent deliberately authors them.
+- One spec, estimate, and run cover one current provider request only.
+
+## Exact references
+
+Copy exact selections from context rather than rebuilding placement ids. Preserve section, slot, optional Shot scope, and subject ids. Additional references use `{ "kind": "additional" }`.
+
+Every included reference must also name an actual media `providerField` from the selected model descriptor. Placement expresses the reference's product role; `providerField` expresses where that exact file enters the provider request. These are separate decisions.
+
+Use:
+
+- `{ "kind": "asset-file", "assetId": "...", "assetFileId": "..." }` for an exact registered asset file;
+- `{ "kind": "project-file", "projectRelativePath": "tmp/media/reference.png" }` for a normalized safe project file that is not registered as an asset.
+
+Use `renku generation reference list --media-kind <image|audio|video> --json` to search registered reusable files. It does not invent registrations for project files.
+
+Do not infer creative dependencies, manufacture missing media, walk provenance, or estimate future work.
+
+## Preview and price approval
+
+Use `preview show --file` for an unsaved draft and `preview show --spec` for the saved request. Showing Preview does not execute generation.
+
+If prompt, endpoint, authored values, reference order, inclusion, provider-field assignment, or referenced file contents change:
+
+1. update and validate the spec;
+2. show Preview again;
+3. estimate again;
+4. obtain a fresh explicit live-run confirmation.
+
+The returned token approves provider/model pricing facts, not the creative payload. A pricing-input change can produce a different token; a prompt or reference change can leave the token unchanged. Always pass the token returned by the latest estimate review, and never treat token equality as proof that execution inputs are unchanged or ready.
+
+## Outputs and focused attachment
+
+A successful run creates output files and provenance. It does not automatically attach them to the target domain relationship.
+
+Use the exact output path directly as a `project-file` reference when it only needs to guide a later request. Import it only when a current focused destination exists.
+
+Supported single-file focused imports are:
+
+```text
+lookbook.image
+lookbook.video-sheet
+lookbook.storyboard-sheet
+cast.video-character-sheet
+cast.storyboard-character-sheet
+cast.profile
+location.sheet
+location.hero
+shot.video-take
 ```
 
-If the user asks for the preview again but does not give a spec id:
+Scene Storyboard images use the dedicated grouped or single-shot import form. Cast Voice samples use the Cast Voice attachment workflow.
 
-1. Use the last preview command from the current agent work if available.
-2. If the current target and purpose are known, list specs for that exact
-   purpose/target and choose the single relevant current spec only when there is
-   no ambiguity.
-3. If multiple specs could match, ask which spec to preview instead of guessing.
+Pass `--receipt` only for an exact output from a matching Renku purpose and target. Omit it for Codex-generated, uploaded, manually produced, or other external media. Never fabricate provenance.
 
-Useful list commands include:
-
-```bash
-renku generation spec list --purpose lookbook.image --target lookbook:<id> --json
-renku generation spec list --purpose lookbook.sheet --target lookbook:<id> --json
-renku generation spec list --purpose cast.character-sheet --target cast:<id> --json
-renku generation spec list --purpose cast.profile --target cast:<id> --json
-renku generation spec list --purpose location.environment-sheet --target location:<id> --json
-renku generation spec list --purpose location.hero --target location:<id> --json
-renku generation spec list --purpose scene.storyboard-sheet --target scene:<id> --shot-list <shot-list-id> --json
-renku generation spec list --purpose image.create --target project --json
-renku generation spec list --purpose shot.video-take --target scene:<id> --take <take-id> --json
-```
-
-After replaying the preview, continue from the same review gate. Do not estimate
-or run until the user explicitly approves the preview and then separately
-approves the estimate/cost and provider context transfer.
+When the requested durable destination has no current focused command, report the gap. Do not invent a generic attachment command, use ignored flags, write the database directly, or manually copy files into canonical media folders.

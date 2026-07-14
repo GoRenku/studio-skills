@@ -1,81 +1,29 @@
-# Cast Profile Purpose
+# Cast Profile
 
-Purpose key: `cast.profile`
-
-Target format: `cast:<cast-member-id>`
-
-Read Renku context first. For Renku-managed generation, also read model
-choices:
+Use `cast.profile` with target `cast:<cast-member-id>` for the compact Cast navigation image.
 
 ```bash
 renku generation context --purpose cast.profile --target cast:<cast-member-id> --json
-renku generation model list --purpose cast.profile --target cast:<cast-member-id> --json
+renku generation model list --purpose cast.profile --json
 ```
 
-If the user wants Codex built-in image generation, use the context and
-continuity guidance below to prompt `$imagegen`, save the selected profile image
-inside the project, inspect it, and import it without `--receipt`.
+Core fixes the profile aspect ratio to 1:1, currently recommends medium quality and Nano Banana 2, and initializes `source/video-character-sheet` with the first matching Video Character Sheet when available. Recommendations remain guidance until explicitly chosen.
 
-Profile images should ideally derive from a character sheet first. Use
-text-to-image when no source sheet exists or the user wants a looser
-interpretation. Use edit models when the user wants continuity with a selected
-character sheet.
+When the source slot is included:
 
-For Cast Members with `isVoiceOver: true`, do not require or generate a
-character sheet first. Use `cast.profile` for a symbolic navigation/display
-image and read `voice-over-profile-image.md` before drafting the prompt. The
-image must not show a face, body, silhouette, avatar, stock microphone scene, or
-other physical character substitute.
+- preserve the exact placement returned by context;
+- use its exact asset/file identity;
+- choose an endpoint that accepts image media;
+- assign the selection to the endpoint's actual media `providerField`.
 
-Renku-managed model notes:
+Use a create endpoint when no source sheet is selected. Use an edit/reference endpoint when continuity with an exact sheet matters. Do not keep a model allowlist in this reference.
 
-- Default new Renku-managed profile generations to `fal-ai/openai/gpt-image-2`.
-- Use `fal-ai/openai/gpt-image-2/edit` when `sourceAssetId` is available and
-  the profile should derive from an existing character sheet.
-- `fal-ai/xai/grok-imagine-image` as a cheaper alternative when its limits are
-  acceptable and the user explicitly chooses it.
-- Use other model-list alternatives only when the user explicitly chooses them.
+For Cast Members with `isVoiceOver: true`, do not require a Character Sheet. Read `voice-over-profile-image.md` and create a symbolic display image rather than a physical likeness.
 
-Text-to-image spec:
-
-```json
-{
-  "purpose": "cast.profile",
-  "target": { "kind": "castMember", "id": "cast_ada" },
-  "modelChoice": "fal-ai/openai/gpt-image-2",
-  "prompt": "A square profile portrait of Ada...",
-  "takeCount": 1,
-  "seed": null,
-  "imageFrame": "1:1",
-  "detail": "standard",
-  "outputFormat": "png",
-  "title": "Ada profile"
-}
-```
-
-Edit spec:
-
-```json
-{
-  "purpose": "cast.profile",
-  "target": { "kind": "castMember", "id": "cast_ada" },
-  "modelChoice": "fal-ai/openai/gpt-image-2/edit",
-  "sourceAssetId": "asset_character_sheet",
-  "prompt": "Create a square profile portrait derived from the attached character sheet...",
-  "takeCount": 1,
-  "seed": null,
-  "imageFrame": "1:1",
-  "detail": "standard",
-  "outputFormat": "png",
-  "title": "Ada profile from sheet"
-}
-```
-
-For edit specs, `sourceAssetId` must point to an image attached to the cast
-member with the `character_sheet` role.
-
-Import the selected take:
+For Codex image generation, save the accepted file inside the project, inspect it, and import it without a receipt. For Renku generation, follow `workflow.md` and attach the exact accepted run output:
 
 ```bash
-renku media import --purpose cast.profile --target cast:<cast-member-id> --source tmp/media/<file> --json
+renku media import --purpose cast.profile --target cast:<cast-member-id> --source <project-relative-path> --title <title> --receipt <run-json> --json
 ```
+
+Omit `--receipt` for external or Codex-generated files.

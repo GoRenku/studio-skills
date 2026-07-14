@@ -1,10 +1,15 @@
 # Seedance Image-To-Video / First-Frame Final Video
 
-Use this when a starting image anchors the video.
+Use this when the selected direct Seedance image-to-video descriptor exposes
+required `image_url` and an opening image anchors the video. Assign the exact
+First Frame selection to `providerField: "image_url"`. If the descriptor also
+exposes `end_image_url`, assign an exact Last Frame only when it is binding.
 
 ## Prompt Contract
 
-- Name the starting image token if the provider preview exposes one.
+- Use an opening-image token only if the selected endpoint documentation or
+  generated provider payload establishes one. Otherwise describe the opening
+  frame without inventing `@Image1`.
 - Treat the image as the opening state, not as loose inspiration.
 - Do not re-describe the image as a new scene to create.
 - Say what moves, what the camera does, how sound evolves, and what must remain
@@ -14,8 +19,9 @@ Use this when a starting image anchors the video.
 ## Template
 
 ```text
-@Image1 is the opening frame. Begin from its exact composition, subject
-identity, wardrobe, props, location layout, light direction, and period details.
+The supplied opening image is the first frame. Begin from its exact composition,
+subject identity, wardrobe, props, location layout, light direction, and period
+details.
 
 Animate only the intended motion: [subject motion, environmental motion, camera
 movement].
@@ -31,5 +37,4 @@ Do not include: [critical exclusions].
 - Does the prompt tell Seedance to preserve the source image layout?
 - Does it avoid asking for a different scene?
 - Are moving and non-moving elements separated clearly?
-- Are critical negatives in the main prompt when the route lacks a negative
-  field?
+- Are critical negatives in the main prompt?

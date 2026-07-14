@@ -1,6 +1,6 @@
 # Department Map
 
-Use this map to classify user intent and choose the next specialist. When a request spans departments, choose the earliest missing dependency unless the user explicitly asks to jump to a later department.
+Use this map to classify user intent and choose the next specialist. When a request spans departments, choose the earliest missing prerequisite unless the user explicitly asks to jump to a later department.
 
 | User intent | Department | Specialist | First CLI read |
 | --- | --- | --- | --- |
@@ -13,7 +13,7 @@ Use this map to classify user intent and choose the next specialist. When a requ
 | Design or revise scene coverage and shot composition/movement/cast/location intent | Directing / Shot Design | `scene-shot-designer` | `renku screenplay shot-list context --scene <scene-id> --json` |
 | Generate or import media | Media Production | `media-producer` | `renku generation context --purpose <purpose> --target <target> --json` |
 
-## Default Dependency Order
+## Default Production Order
 
 1. Project brief and constraints.
 2. Cast Member and Location facts when scenes will reference them.
@@ -21,12 +21,13 @@ Use this map to classify user intent and choose the next specialist. When a requ
 4. Screenplay analysis and targeted revision.
 5. Inspiration folders and Inspiration Analysis.
 6. Selected Movie Lookbook.
-7. Selected Storyboard Lookbook and its `lookbook.sheet` when storyboard generation is needed.
+7. Selected Storyboard Lookbook, with its `lookbook.storyboard-sheet` available
+   as non-blocking guidance when one exists.
 8. Cast Design and Location Design.
-9. Cast character sheets, cast profiles, and location environment sheets.
+9. Cast Character Sheets, Cast Profiles, and Location Sheets.
 10. Scene Shot Lists.
 11. Per-shot storyboard images.
-12. Shot reference images, first/last frames, and video prompt sheet inputs.
+12. Exact Shot Video Take references and guide media.
 13. Shot video takes.
 14. Selects, production export, and future post/editorial work.
 

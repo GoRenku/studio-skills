@@ -2,13 +2,14 @@
 
 `production-designer` prepares Location Design. Other skills own downstream work:
 
-- `media-producer` owns `location.environment-sheet` generation specs, estimates, approved runs, inspection, and imports.
+- `media-producer` owns `location.sheet` generation specs, estimates, approved
+  runs, inspection, and focused attachment.
 - `media-producer` also owns `location.hero` generation/import when a Location needs a compact overview/detail image derived from an approved Location Sheet.
 
-Environment-sheet context:
+Location Sheet context:
 
 ```bash
-renku generation context --purpose location.environment-sheet --target location:<location-id> --json
+renku generation context --purpose location.sheet --target location:<location-id> --json
 ```
 
 Before handoff, summarize:
@@ -28,7 +29,7 @@ Before handoff, summarize:
   anchors, materials, palette, lighting behavior, and historical or genre
   guardrails;
 - whether a Location Hero Image is needed for overview/detail display;
-- active Lookbook dependency;
+- active Lookbook context;
 - whether the user asked for media generation or only design writing.
 
 Do not run paid generation yourself. Do not store generated media paths in Location Design. When shot guidance needs environment references, name the exact full Location Sheets by description instead of asking for front/right/back/left slices.

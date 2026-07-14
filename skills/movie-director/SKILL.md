@@ -5,7 +5,7 @@ description: Coordinate Renku Studio movie-making workflows across screenplay, a
 
 # Movie Director
 
-Use this skill as the top-level Renku Studio coordinator for making a movie. It routes work to specialist skills, keeps dependencies visible, and helps the user advance without pretending unsupported departments are complete.
+Use this skill as the top-level Renku Studio coordinator for making a movie. It routes work to specialist skills, keeps prerequisites visible, and helps the user advance without pretending unsupported departments are complete.
 
 This skill should coordinate. It should not replace specialist skills or write their durable artifacts directly.
 
@@ -73,7 +73,7 @@ Use this loop for every request:
 2. **Diagnose**: decide whether the next step is screenplay, analysis, visual language, casting, production design, shot design, media generation, or production readiness.
 3. **Dispatch**: use the specialist skill that owns the artifact. Do not directly write screenplay, analysis, Lookbook, Scene Shot List, or media generation JSON when the specialist skill owns that workflow.
 4. **Verify**: read back the durable state with the CLI.
-5. **Advance**: name the next supported step and any unresolved dependency.
+5. **Advance**: name the next supported step and any unresolved prerequisite.
 
 ## Specialist Ownership
 
@@ -84,19 +84,21 @@ Use this loop for every request:
 - Use `inspiration-analyzer` for Visual Language Inspiration folder analysis.
 - Use `lookbook-designer` for durable Movie Lookbook and Storyboard Lookbook creation, revision, typed selection, and Inspiration source linkage.
 - Use `scene-shot-designer` for Scene Shot Lists and shot-list iteration.
-- Use `media-producer` for all Renku media generation specs, estimates, approved runs, inspection, slicing, and media imports.
-- Treat take-owned "multi-shot storyboard", dense motion-control image, or storyboard reference requests as
-  Shot Video Take `video-prompt-sheet` input work. Route them to
-  `media-producer` with `take:<take-id>` after reading
-  `renku take authoring context --take <take-id> --json`; do not send this work
-  to `scene-shot-designer`. The storyboard reference image is opaque Studio
-  media; the agent may choose panels, motion maps, diagrams, captions, or
-  timing marks in the prompt, but those structures are not Studio JSON.
+- Use `media-producer` for all Renku media generation specs, estimates,
+  approved runs, inspection, slicing, and supported focused attachments.
+- Treat take-owned "multi-shot storyboard", dense motion-control image, or
+  storyboard reference requests as Shot Video Take generation guidance. Route
+  them to `media-producer` with purpose `shot.video-take`, exact target
+  `take:<take-id>`, the current generation context, and the user's intent; do
+  not send this work to `scene-shot-designer`. The reference image is opaque
+  Studio media; the agent may choose panels, motion maps, diagrams, captions,
+  or timing marks in the prompt, but those structures are not Studio JSON.
 - For "ready to generate?" questions about a Shot Video Take with a storyboard
-  reference image, do not stop at Core/preflight readiness. Route to
-  `media-producer` for prompt-quality readiness: provider-token roles,
-  storyboard operating rule, artifact suppression, hard-constraint transfer,
-  native-audio limits, and final-video QA risks.
+  reference image, do not stop at context readiness. Route to
+  `media-producer` for prompt-quality readiness based on the selected endpoint
+  and generated provider preview: provider-token roles, storyboard operating
+  rule, artifact suppression, hard-constraint transfer, native-audio limits,
+  and final-video QA risks.
 
 Not first-class today:
 
@@ -108,6 +110,7 @@ Not first-class today:
 - Do not write directly to `.renku/project.sqlite`.
 - Do not invent project, scene, shot, cast, location, asset, shot-list, Lookbook, or generation ids.
 - Do not run paid generation without Renku estimate review and explicit live provider approval.
-- Preserve explicit user choices for models, parameters, selected assets, shot ids, input modes, costs, and approvals.
+- Preserve explicit user choices for provider/model, authored values, exact
+  references, shot ids, costs, and approvals.
 - Do not use obsolete command aliases or compatibility paths.
 - Do not hide missing prerequisites with guesses or fallbacks.

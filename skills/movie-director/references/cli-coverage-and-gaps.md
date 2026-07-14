@@ -44,9 +44,15 @@ Screenplay commands do not mutate Cast Members or Locations.
 
 ## Media Generation
 
-Use `media-producer` for generation specs, estimates, approved runs, inspection, slicing, and import.
+Use `media-producer` for generation specs, estimates, approved runs,
+inspection, slicing, and supported focused attachment.
 
-Current media purposes include Lookbook images/sheets, cast character sheets, cast profiles, location environment sheets, scene storyboard sheets, shot reference inputs, shot video prompt sheets, and shot video takes.
+Current media purposes include Lookbook images and typed sheets, split Video and
+Storyboard Character Sheets, cast profiles and voice samples, Location Sheets
+and heroes, Scene Storyboard Sheets, dialogue audio, general image creation and
+editing, and Shot Video Takes. Read current purpose context and model
+descriptors through `media-producer`; do not reconstruct removed route, input,
+or request-planning contracts here.
 
 ## Lookbook Image Placement
 
@@ -62,6 +68,8 @@ Do not use discard plus media import to retag or re-anchor an existing Lookbook 
 
 ## Hard Gaps
 
-- Costume-variant media and voice sample media are not first-class purposes.
+- Costume-variant media is not a first-class purpose. Cast voice samples use
+  `cast.voice-sample`, but durable attachment remains owned by the Cast Voice
+  command rather than generic media import.
 - Prop media and set-dressing media are not first-class purposes.
 - Sound, music, editorial, and final assembly workflows are incomplete.

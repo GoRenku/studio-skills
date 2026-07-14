@@ -1,0 +1,4 @@
+interface:
+  display_name: "Media Producer"
+  short_description: "Generate and attach Renku Studio media"
+  default_prompt: "Use $media-producer to generate, preview, inspect, and attach media for the current Renku Studio project."

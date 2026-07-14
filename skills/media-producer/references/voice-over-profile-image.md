@@ -3,7 +3,7 @@
 Voice-over Cast Members can use `cast.profile` for cast navigation and overview
 cards. This media is a symbolic display asset only. It must not be treated as a
 physical character reference, character sheet substitute, shot-video character
-dependency, costume reference, or likeness anchor.
+reference, costume reference, or likeness anchor.
 
 Use this reference when:
 
@@ -13,7 +13,7 @@ Use this reference when:
 - the user explicitly says a character sheet or physical portrait does not make
   sense.
 
-Do not generate `cast.character-sheet` for voice-over Cast Members unless the
+Do not generate `cast.video-character-sheet` for voice-over Cast Members unless the
 user changes the Cast Member into a visible on-screen role first.
 
 ## Required Context
@@ -70,6 +70,6 @@ renku media import --purpose cast.profile --target cast:<cast-member-id> --sourc
 ```
 
 Use a human-readable title such as `{Cast Member Name} voice-over profile`. If
-relationship metadata is requested, use a stable reference name such as
-`narrator-voice-over-profile` and a purpose such as
-`symbolic profile image for voice-only cast navigation`.
+the user also wants a durable Cast Voice, handle that separately through the
+Cast Voice attachment workflow; profile import does not accept reference-name
+or reference-purpose metadata.

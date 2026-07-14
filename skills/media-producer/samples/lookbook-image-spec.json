@@ -1,16 +1,10 @@
 {
   "purpose": "lookbook.image",
-  "target": {
-    "kind": "lookbook",
-    "id": "lookbook_abc"
+  "target": { "kind": "lookbook", "id": "lookbook_abc" },
+  "model": { "provider": "fal-ai", "model": "openai/gpt-image-2" },
+  "values": {
+    "prompt": "A horror hallway showing the Lookbook palette under dread lighting."
   },
-  "modelChoice": "fal-ai/openai/gpt-image-2",
-  "prompt": "A horror hallway showing the Lookbook palette under dread lighting.",
-  "focusSections": ["palette", "lighting", "texture"],
-  "takeCount": 1,
-  "seed": null,
-  "imageFrame": "project",
-  "detail": "standard",
-  "outputFormat": "png",
+  "references": [],
   "title": "Horror palette hallway"
 }

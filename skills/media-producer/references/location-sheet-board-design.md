@@ -2,7 +2,7 @@
 
 ## When To Read
 
-Read this file when writing or inspecting a `location.environment-sheet` prompt.
+Read this file when writing or inspecting a `location.sheet` prompt.
 Use it to choose the board sections that make the Location Sheet useful for
 shot planning. Do not read it for `location.hero`, final shot video prompting,
 or scene storyboard slicing.
@@ -146,12 +146,14 @@ Build Location Sheet prompts in this order:
 7. Add historical, genre, or story guardrails only when grounded in context.
 8. Keep any labels in margins or captions, never over important visual content.
 9. Ask for a clean, readable board with clear hierarchy, not a chaotic collage.
-10. Write a concise `description` that names the board's production purpose.
+10. Give the saved spec a concise title that names the board's production
+    purpose.
 
 Adapt this skeleton instead of pasting it unchanged:
 
 ```text
-Create one polished 4:3 Location Sheet for <location>. The sheet is a
+Create one polished <context-selected aspect ratio> Location Sheet for
+<location>. The sheet is a
 production reference board for <scene usage / production job>, not a poster.
 
 Make the largest panel a <hero establishing view>. Add supporting panels for

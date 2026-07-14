@@ -10,7 +10,8 @@ Pass:
 - relevant Renku ids, not guessed names;
 - user goal and explicit constraints;
 - current director readiness blockers;
-- any user-selected model, cost, asset, shot, input mode, or approval choices.
+- any user-selected provider/model, authored value, exact reference, cost,
+  asset, shot, or approval choices.
 
 After completion, read back durable state through the CLI. Do not trust a specialist's prose summary alone when a Renku command can verify the result.
 
@@ -173,7 +174,10 @@ renku screenplay shot-list storyboard status --scene <scene-id> --shot-list <sho
 Storyboard media handoff:
 
 - scene-shot-designer supplies or revises the Scene Shot List.
-- media-producer owns selected Storyboard Lookbook sheet readiness, `scene.storyboard-sheet` generation, inspection, slicing, and import.
+- media-producer owns `scene.storyboard-sheet` generation, inspection, slicing,
+  and import. A selected Storyboard Lookbook's exact
+  `lookbook.storyboard-sheet` is useful non-blocking guidance when available;
+  its absence does not block generation.
 
 ## `media-producer`
 
@@ -185,17 +189,18 @@ Use for:
 - approved generation runs;
 - media inspection;
 - slicing composite outputs;
-- media imports and selections.
+- supported focused media attachments.
 
 Pass:
 
 - purpose key;
-- target id, using `take:<take-id>` for shot-video take inputs when available;
-- exact user-selected generation controls and any `agentMedia` execution policy from context;
+- target id, using exact `take:<take-id>` for Shot Video Take generation;
+- current generation context plus the user's provider/model choice, authored
+  values, and exact references;
 - shot-list id and shot ids when relevant;
-- dependency order from director context;
-- approval constraints.
-- for Shot Video Takes with a selected `video-prompt-sheet`, ask for both
+- any upstream creative work the user explicitly chose to complete first;
+- approval constraints;
+- for Shot Video Takes with an included prompt-sheet reference, ask for both
   mechanical readiness and prompt-quality readiness before estimate/run.
 
 Verify:
@@ -207,27 +212,18 @@ renku generation estimate --spec <spec-id> --json
 renku director context --json
 ```
 
-Use the purpose-specific import command documented by `media-producer`; import
-flags differ between single-file project-relative sources and grouped import
-JSON. For shot-video storyboard references, tell media-producer whether the user
+Use the purpose-specific focused attachment command documented by
+`media-producer`; attachment flags differ between single-file project-relative
+sources and grouped Scene Storyboard JSON. For Shot Video Take storyboard
+references, tell media-producer whether the user
 wants realistic panels or hand-drawn/sketch panels. Realistic storyboard panels
 should carry the look, location, lighting, and continuity themselves by default.
 Hand-drawn/sketch storyboard panels should include available Lookbook, Location
 Sheet, and Character Sheet references as supporting context by default, clearly
 scoped as references only. For Codex-generated storyboard references, stage the
-file under project `tmp/media/` and import it with:
-
-```bash
-renku media import \
-  --purpose image.create \
-  --target project \
-  --target take:<take-id> \
-  --source tmp/media/<sheet>.png \
-  --selection select \
-  --json
-```
-
-Add `--replace-selected` only for explicit correction flows.
+file under project `tmp/media/` and let `media-producer` include that exact path
+as a `project-file` reference in the `shot.video-take` spec. Do not invent an
+asset id, receipt, or attachment merely to use the file as generation guidance.
 
 Approval gate:
 

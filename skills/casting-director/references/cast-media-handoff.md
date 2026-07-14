@@ -1,11 +1,13 @@
 # Cast Media Handoff
 
-`casting-director` prepares facts and Cast Design. `media-producer` owns generation specs, estimates, approved runs, inspection, and imports.
+`casting-director` prepares facts and Cast Design. `media-producer` owns
+generation specs, estimates, approved runs, inspection, and supported focused
+attachments.
 
 Current cast media purposes:
 
 ```bash
-renku generation context --purpose cast.character-sheet --target cast:<cast-member-id> --json
+renku generation context --purpose cast.video-character-sheet --target cast:<cast-member-id> --json
 renku generation context --purpose cast.profile --target cast:<cast-member-id> --json
 renku generation context --purpose cast.voice-sample --target cast:<cast-member-id> --json
 ```
@@ -13,7 +15,7 @@ renku generation context --purpose cast.voice-sample --target cast:<cast-member-
 For Cast Members with `isVoiceOver: true`, hand off profile image requests to
 `media-producer` as `cast.profile` only. The profile image is a symbolic
 navigation/display asset, not a character sheet or physical character
-reference. Do not request `cast.character-sheet` for a voice-over Cast Member
+reference. Do not request `cast.video-character-sheet` for a voice-over Cast Member
 unless the user first changes that Cast Member into a visible on-screen role.
 Voice identity and sample audio remain separate Cast Voice / `cast.voice-sample`
 work.
@@ -32,10 +34,10 @@ Before handoff, read `renku cast design context --cast <cast-member-id> --json` 
   optional generation references, such as likeness, accessory, costume, or
   historical source images;
 - existing Cast Voices and sample assets when voice media is requested;
-- active Lookbook dependency;
+- active Lookbook context;
 - whether the request asks for media generation or only design writing.
 
-For `cast.character-sheet`, the default handoff is a lean identity turnaround:
+For `cast.video-character-sheet`, the default handoff is a lean identity turnaround:
 straight-on face close-up cropped above the shoulders, front, back, left
 profile, right profile, labeled height ruler, compact synopsis/metadata block
 below the face close-up, and optional character-owned accessories only. If the
@@ -48,16 +50,21 @@ When the user supplies a portrait, uploaded image, or says "in this likeness":
 
 - treat likeness preservation as a binding user constraint;
 - capture the visual identity anchors in Cast Design before media handoff;
-- hand off the image as an actual optional cast reference image when it is
-  available in the project. Ask media-producer to attach project files with
-  `renku media import --purpose reference.image --target cast:<cast-member-id> --source <project-relative-path> --json` before creating the
-  character-sheet spec;
+- hand off the image as an exact `asset-file` reference when it is already a
+  registered project asset, or as an exact `project-file` reference when it is
+  only an available project-relative file. Ask `media-producer` to assign it to
+  an actual media field returned by the selected model descriptor;
 - do not silently downgrade the image to a loose text description when a
-  reference-capable route or imported reference asset is available;
+  selected endpoint accepts the exact reference;
 - do not ask media-producer to combine references into one local collage; Renku
   can pass multiple references to capable image models;
 - do not import a historical portrait as the final character sheet unless the
   user explicitly wants that source image to be the cast sheet.
+
+There is no focused attachment purpose for a durable generic Cast reference
+image. If the user asks to register one independently of a generation request,
+report that capability gap. Do not disguise the file as a character
+sheet/profile or invent provenance.
 
 Do not run paid generation yourself. Ask `media-producer` to create or update
 the persisted generation spec, show the saved spec in the generation preview

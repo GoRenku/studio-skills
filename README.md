@@ -164,11 +164,12 @@ skills/media-producer/
 ```
 
 Media Producer helps agents create, inspect, and import purpose-specific Renku
-Studio media. For shot video prompt sheets, it authors opaque prompt-sheet
-generation specs with `promptSheetVisualStyleId`,
-`promptSheetNotationModeId`, logical references, and detailed prompts, defaults
-prompt sheets to GPT-Image-2, and shows a Generation Preview Dialog before
-generating prompt sheets or final `shot.video-take` videos.
+Studio media. It reads the Core-owned purpose context and current model
+descriptors, authors one generic `GenerationSpec`, assigns every exact
+reference through `providerField`, validates and previews the exact request, and
+estimates it before asking for paid-run approval. After generation, it inspects
+the output and uses only the focused attachment command for the requested
+purpose; generation never implies attachment.
 
 ## Install In Codex
 

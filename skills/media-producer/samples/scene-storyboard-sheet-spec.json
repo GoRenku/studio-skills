@@ -1,18 +1,18 @@
 {
   "purpose": "scene.storyboard-sheet",
-  "target": {
-    "kind": "scene",
-    "id": "scene_foundry"
+  "target": { "kind": "scene", "id": "scene_foundry" },
+  "model": { "provider": "fal-ai", "model": "openai/gpt-image-2/edit" },
+  "values": {
+    "prompt": "Create a hand-drawn production storyboard sheet for the selected foundry shots. Use the supplied Storyboard Lookbook Sheet only for drawing language, value grouping, and notation behavior. Keep the four ordered panels clear, warm, and practical for shot planning."
   },
-  "shotListId": "scene_shot_list_foundry",
-  "shotIds": ["shot_001", "shot_002", "shot_003", "shot_004"],
-  "modelChoice": "fal-ai/openai/gpt-image-2",
-  "prompt": "Create a hand-drawn production storyboard sheet for the selected foundry shots. Keep the panels clear, warm, and practical for shot planning.",
-  "takeCount": 1,
-  "seed": null,
-  "sheetFrame": "4:3",
-  "shotFrame": "project",
-  "detail": "standard",
-  "outputFormat": "png",
+  "references": [
+    {
+      "id": "storyboard-lookbook-sheet",
+      "placement": { "kind": "slot", "sectionId": "visual-language", "slotId": "storyboard-lookbook-sheet" },
+      "included": true,
+      "providerField": "image_urls",
+      "reference": { "kind": "asset-file", "assetId": "asset_storyboard_lookbook_sheet", "assetFileId": "asset_file_storyboard_lookbook_sheet" }
+    }
+  ],
   "title": "Foundry storyboard sheet 1"
 }

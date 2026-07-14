@@ -1,0 +1,12 @@
+{
+  "purpose": "lookbook.storyboard-sheet",
+  "target": { "kind": "lookbook", "id": "lookbook_c7g2k6w8" },
+  "model": { "provider": "fal-ai", "model": "openai/gpt-image-2" },
+  "values": {
+    "prompt": "Create one polished 4:3 Storyboard Lookbook Sheet for Imperial Wound. Establish the project's storyboard drawing language with clear monochrome line weight, restrained imperial-gold emphasis, readable value grouping, simple depth cues, consistent character silhouettes, camera arrows, and compact motion notation. Include a small set of storyboard examples covering an ordered council room, siege field, foundry close study, and wall-crossing aerial composition. Keep annotations brief and legible. This is a storyboard visual-language guide, not a cinematic Video Lookbook Sheet, a marketing poster, or a collage of finished frames.",
+    "image_size": "landscape_4_3",
+    "quality": "high"
+  },
+  "references": [],
+  "title": "Imperial Wound Storyboard Lookbook Sheet"
+}

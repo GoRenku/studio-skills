@@ -1,27 +1,20 @@
 {
   "purpose": "image.create",
-  "target": {
-    "kind": "project",
-    "id": "project_001"
+  "target": { "kind": "project", "id": "project" },
+  "model": { "provider": "fal-ai", "model": "openai/gpt-image-2/edit" },
+  "values": {
+    "prompt": "Author the exact first frame for Shot 3. Composition: medium close-up, low angle, hand-held micro push-in implied. Subject: Elise holds the torn petition at chest height, face half-lit by the market doorway. Action state: she has decided to speak but has not moved yet. Lens/focus: short telephoto, shallow focus on her eyes and paper edge. Use the supplied external Elise reference only for facial identity, wardrobe, grooming, and body continuity. Do not copy its background, crop, labels, or unrelated props. No extra characters beyond the crowd silhouettes explicitly requested for this shot.",
+    "image_size": { "width": 1024, "height": 768 },
+    "quality": "medium"
   },
-  "mode": "reference-to-image",
-  "modelChoice": "fal-ai/openai/gpt-image-2",
-  "referenceImages": [
+  "references": [
     {
-      "assetId": "asset_lookbook_sheet",
-      "assetFileId": "asset_file_lookbook_sheet",
-      "role": "movie-lookbook-sheet"
+      "id": "external-elise-reference",
+      "placement": { "kind": "additional" },
+      "included": true,
+      "providerField": "image_urls",
+      "reference": { "kind": "project-file", "projectRelativePath": "tmp/media/external-elise-reference.png" }
     }
   ],
-  "prompt": "Author the exact first frame for Shot 3. Composition: medium close-up, low angle, hand-held micro push-in implied. Subject: Elise holds the torn petition at chest height, face half-lit by the market doorway. Action state: she has decided to speak but has not moved yet. Lens/focus: short telephoto, shallow focus on her eyes and paper edge. References: use Reference 1, the Elise character sheet, for facial identity, wardrobe, grooming, and body continuity; use Reference 2, the Greenway Market location sheet, for produce-aisle geography, material texture, and doorway light direction; use Reference 3, the Lookbook sheet, for palette, contrast, and grain only. Do not copy reference background artifacts, labels, or unrelated props. No extra characters beyond the crowd silhouettes explicitly requested for this shot.",
-  "parameterValues": {
-    "image_size": {
-      "width": 1024,
-      "height": 768
-    },
-    "quality": "medium",
-    "output_format": "png",
-    "num_images": 1
-  },
   "title": "Shot 3 first frame - Elise decides"
 }

@@ -1,6 +1,8 @@
 # Seedance Text-Only Final Video
 
-Use this when no image, video, or audio reference controls the final video.
+Use this when the selected direct Seedance text-to-video endpoint has no
+file-backed media fields and no exact media reference should control the final
+video.
 
 ## Prompt Contract
 

@@ -13,9 +13,9 @@ provider can see in that request.
 Provider-visible inputs are:
 
 - prompt text;
-- selected model and route parameters;
-- source images for edit routes;
-- attached reference images, in provider order.
+- selected provider endpoint and authored values;
+- exact source or reference images assigned to provider media fields;
+- the provider payload order shown by the generated Preview.
 
 Provider-invisible Studio state includes approval state, database selection
 state, department names, review history, asset ids, file names, Movie Lookbook
@@ -24,14 +24,9 @@ that are not attached to the request.
 
 ## Source Summary
 
-These instructions default Renku-managed image generation to:
-
-- `fal-ai/openai/gpt-image-2`
-- `fal-ai/openai/gpt-image-2/edit`
-
-Purpose model-list reports may expose additional alternatives. Use those only
-when the user explicitly chooses them or a purpose-specific workflow says to use
-that model.
+Read current purpose context and model descriptors before choosing an endpoint.
+Use the recommended model only when the user or agent explicitly accepts that
+recommendation. Do not keep a second model allowlist in this guide.
 
 Provider and platform sources reviewed:
 
@@ -71,7 +66,7 @@ Research sources reviewed:
   contract still decide which inputs are visible:
   https://arxiv.org/abs/2509.20427
 
-## Prompt Grammar By Route
+## Prompt Grammar By Endpoint Shape
 
 Text-to-image has no image inputs. Use only textual project facts and concrete
 visual direction.
@@ -87,9 +82,9 @@ Style and light: [palette, contrast, texture, lens/finish, atmosphere].
 Do not include: [internal labels, UI text, unrelated props, extra characters].
 ```
 
-Reference-to-image creates a new image while conditioning the model with
-attached references. Do not use edit words such as "replace" unless the route
-is editing a source image.
+Reference-to-image creates a new image while conditioning the model with exact
+references. Do not use edit words such as "replace" unless the selected
+endpoint edits a source image.
 
 ```text
 Create a new [output type] for [subject].
@@ -126,14 +121,23 @@ target is the registered source asset:
 {
   "purpose": "image.edit",
   "target": { "kind": "asset", "id": "asset_source_image" },
-  "modelChoice": "fal-ai/openai/gpt-image-2/edit",
-  "prompt": "Edit this exact source image. Preserve the accepted regions, style, layout, lighting, and material detail. Change only the requested area: [specific user correction].",
-  "parameterValues": {
+  "model": { "provider": "fal-ai", "model": "openai/gpt-image-2/edit" },
+  "values": {
+    "prompt": "Edit this exact source image. Preserve the accepted regions, style, layout, lighting, and material detail. Change only the requested area: [specific user correction].",
     "image_size": { "width": 1024, "height": 768 },
     "quality": "high",
     "output_format": "png",
     "num_images": 1
-  }
+  },
+  "references": [
+    {
+      "id": "image-edit-source",
+      "placement": { "kind": "slot", "sectionId": "source", "slotId": "source-image" },
+      "included": true,
+      "providerField": "image_urls",
+      "reference": { "kind": "asset-file", "assetId": "asset_source_image", "assetFileId": "asset_file_source_image" }
+    }
+  ]
 }
 ```
 
@@ -160,20 +164,15 @@ the spec or reference selections before running.
 
 ## Model Heuristics
 
-Use GPT Image 2 by default for Renku-managed image generation. Good prompts name
-concrete materials, light, skin texture, cloth weight, age read, posture,
-lens/finish, exact layout, and the provider-visible role of every attached
-reference.
+Choose an endpoint from `generation model list` and inspect its current field
+descriptors. Good prompts name concrete materials, light, skin texture, cloth
+weight, age read, posture, lens/finish, exact layout, and the provider-visible
+role of every attached reference.
 
-Use another model-list alternative only when the user explicitly chooses it. For
-Grok Imagine, the reference count must be small and the output should benefit
-from compact cinematic subject, setting, lighting, material, mood, and camera
-language. Enforce the 3-reference limit before prompt writing.
-
-Use Seedream v5 Lite for high-resolution Lookbook and Location composition,
-domain-specific visual reasoning, architecture, geography, cultural detail,
-material specificity, and text-to-image iteration. For the current text-to-image
-route, do not pretend reference images are attached.
+Respect the selected descriptor's media cardinality. If it exposes no media
+field, do not pretend references are visible. If the user wants an endpoint
+with different capabilities, return to model selection rather than inventing a
+field or silently dropping a reference.
 
 ## Purpose Guidance
 
@@ -188,7 +187,7 @@ source asset is selected. Preserve the source face, wardrobe, period cues,
 palette, and material detail. When no source image exists, use text-to-image
 language and do not imply that a prior sheet is visible.
 
-Location environment sheets should translate Location Design into visible
+Location Sheets should translate Location Design into visible
 architecture, geography, surfaces, materials, lighting, atmosphere, continuity
 views, scale cues, period, and cultural constraints.
 
@@ -201,15 +200,15 @@ prompts should convert Lookbook concepts into palette, contrast, exposure,
 texture, grain, lens/finish, set feeling, costume/material tendencies, and
 composition constraints.
 
-Scene storyboard sheets and shot input images should keep reference roles
+Scene Storyboard Sheets and ad hoc Shot reference images should keep roles
 shot-facing: character reference, location reference, Lookbook/style reference,
 previous storyboard reference, first-frame source, last-frame source, or custom
 shot reference.
 
-For a localized correction to an already selected `video-prompt-sheet`,
-do not regenerate the prompt sheet with `referenceMode`. Use `image.edit`
-against the selected prompt-sheet asset, then import the accepted edited output
-with `renku media import --purpose shot.input --kind video-prompt-sheet --replace-selected`.
+For a localized correction to a registered `video-prompt-sheet`, use
+`image.edit` against the exact source asset. Reuse the accepted output as a
+`project-file` reference, or attach it through a current focused destination
+when one exists. Do not invent a generic Shot-input attachment path.
 
 ## Bad And Better Examples
 
@@ -254,7 +253,7 @@ and sheet layout.
 ## Runtime Boundary
 
 Studio runtime may validate the envelope it owns: purpose, target, model,
-provider route, selected/source references, model parameter shape, file ids,
+provider fields, selected/source references, model parameter shape, file ids,
 MIME types, cost, provenance, and preview safety.
 
 Studio runtime must not validate whether generated images contain the expected

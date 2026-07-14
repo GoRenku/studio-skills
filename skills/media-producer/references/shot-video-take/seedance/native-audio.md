@@ -1,7 +1,10 @@
 # Seedance Native Audio
 
 Use this when native Seedance audio, narration, dialogue, ambience, or audio
-references matter.
+references matter. Author `generate_audio` only when the selected descriptor
+exposes it. Assign an exact audio reference to `providerField: "audio_urls"`
+only for a selected reference-to-video descriptor that exposes that media
+field.
 
 Seedance audio references are conditioning references, not exact editorial
 tracks.
@@ -18,7 +21,7 @@ tracks.
   targets tied to panels, shots, or beats.
 
 If exact waveform, word timing, editorial sync, or precise lip sync is required,
-route to a composition, lipsync, or talking-head workflow instead of relying on
+use a composition, lipsync, or talking-head workflow instead of relying on
 native Seedance audio.
 
 ## Wording
@@ -43,4 +46,4 @@ space, and texture of the sound, but do not treat it as exact editorial sync.
 - Are exact words copied exactly when known?
 - Does the prompt give timing targets without promising frame-accurate sync?
 - Are audio references scoped narrowly?
-- Is exact sync routed away from native Seedance when required?
+- Is a more exact synchronization workflow used when required?

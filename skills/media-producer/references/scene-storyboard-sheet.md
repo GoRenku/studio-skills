@@ -6,21 +6,20 @@ Target format: `scene:<scene-id>`
 
 ## Required Workflow
 
-1. Read context with `renku generation context --purpose scene.storyboard-sheet --target scene:<scene-id> --shot-list <shot-list-id> --json`.
-2. If context fails because there is no selected Storyboard Lookbook, stop and dispatch to `lookbook-designer` to create/select one. Do not substitute the selected Movie Lookbook.
-3. If dependency planning reports a missing `lookbook-sheet` for the selected Storyboard Lookbook, generate or import `lookbook.sheet` for that Storyboard Lookbook first.
-4. If the user wants Codex built-in image generation, use the context below to prompt `$imagegen`, save each selected composite inside the project, inspect it, crop the storyboard panel image blocks, and import the cropped shot images without receipts. Codex built-in image generation is a first-class alternative for this purpose; use fal.ai/Renku-managed generation only when the user chooses a provider model, wants app-side cost tracking, or asks for a Renku-managed run.
-5. For Renku-managed generation, list model choices with `renku generation model list --purpose scene.storyboard-sheet --target scene:<scene-id> --shot-list <shot-list-id> --json` unless the user already chose one.
-6. Verify the target Scene and Shot List exist.
-7. Split the selected shots into batches of at most four shots.
-8. For Renku-managed generation, create one persisted spec per batch, show each spec in the Studio generation preview dialog with `renku generation preview show --spec <spec-id> --json`, and wait for user review before estimating or running.
-9. For Renku-managed generation, run only after user approval for both cost and sending the preview-approved project-derived prompt/context to the external provider. If the preview changes the prompt, model, route, parameters, or references, revise the same spec, show the preview again, and re-estimate before paid generation approval. Request sandbox/network permission before the first real run, because Renku will contact the approved provider.
-10. Inspect each returned composite, use vision to identify the actual storyboard panel image blocks, crop those blocks, and inspect every slice.
-11. Import only when the sheets and all slices are clean, useful, and match the resolved shot aspect ratio.
+1. Read context with `renku generation context --purpose scene.storyboard-sheet --target scene:<scene-id> --json`.
+2. Read `renku screenplay shot-list context --scene <scene-id> --include-visual-references --json` and the exact saved Shot List being illustrated. Generation context supplies the provider-facing guide; Shot List context supplies authored Shot direction.
+3. Include an exact `lookbook.storyboard-sheet` candidate when one is available and useful. If the guide notice says none is available, treat that as non-blocking guidance: offer a `lookbook-designer`/`media-producer` handoff to create one, but continue without it when the user wants to proceed. Do not substitute the selected Movie Lookbook.
+4. Verify the target Scene and Shot List exist and split selected Shots into batches of at most four.
+5. If the user chooses Codex image generation, use `$imagegen`, save each accepted composite inside the project, inspect it, crop only the storyboard image blocks, and import the accepted crops without receipts.
+6. For Renku generation, read `renku generation model list --purpose scene.storyboard-sheet --json`, assign the exact Storyboard Lookbook Sheet to a real provider media field when included, and author one generic spec per batch.
+7. Show the draft or saved spec in Preview and wait for user review before estimate or run.
+8. Run only after approval of the current estimate and provider transfer. If prompt, endpoint, authored values, reference order, provider fields, or referenced files change, update the same spec, validate, show Preview again, re-estimate, and obtain fresh live-run confirmation. The price token may remain unchanged when pricing facts are unchanged.
+9. Inspect each returned composite, use vision to identify the actual storyboard panel image blocks, crop those blocks, and inspect every crop.
+10. Import only when the composite and all crops are clean, useful, and match the resolved Shot aspect ratio.
 
 ## Prompt Inputs
 
-Use the returned context:
+Use generation context plus the exact Shot List context:
 
 - screenplay overview, scene function, and relevant scene blocks;
 - selected shot ids and shot titles for this sheet only;
@@ -28,7 +27,7 @@ Use the returned context:
 - referenced cast and locations for the selected shots;
 - selected Movie Lookbook palette, texture, lighting, composition, camera, and tone notes when available;
 - selected Storyboard Lookbook style brief, line/finish, value/accent, panel/notation, continuity/clarity, and guardrails;
-- selected Storyboard Lookbook sheet as the required visual style reference dependency;
+- selected Storyboard Lookbook Sheet as the preferred exact visual-style reference;
 - the resolved per-shot aspect ratio.
 
 The scene and shot list decide what to draw. The selected Storyboard Lookbook definition and sheet decide how the storyboard drawing should look. The selected Movie Lookbook may inform cinematic intent, but it is not the storyboard style source of truth.
@@ -53,13 +52,14 @@ Create one 4:3 storyboard sheet as a single finished image. Arrange up to four c
 
 Avoid photorealism, final film still polish, heavy charcoal/noir contrast unless the Storyboard Lookbook requires it, labels inside panel image content, crop marks, red dots, debug overlays, and template artifacts.
 
-## Dependency Planning
+## Storyboard Lookbook Guidance
 
-`scene.storyboard-sheet` has a required `lookbook-sheet` dependency whose subject is the selected Storyboard Lookbook id.
+The `visual-language/storyboard-lookbook-sheet` slot initializes the first available Storyboard Lookbook Sheet. It is non-blocking guidance, not an execution requirement. If it is empty, create or attach `lookbook.storyboard-sheet` for the selected Storyboard Lookbook when the user wants stronger consistency. Do not substitute a Movie Lookbook sheet, generic Lookbook image, or unselected Storyboard Lookbook sheet.
 
-If the selected Storyboard Lookbook has no sheet, use `lookbook.sheet` for that Storyboard Lookbook before creating the final scene storyboard spec. Do not satisfy the dependency with a Movie Lookbook sheet, a generic Lookbook image, or an unselected Storyboard Lookbook sheet.
-
-Supported reference-capable routes receive the selected Storyboard Lookbook sheet as an image/reference input. If a route cannot use the reference sheet, do not pretend the sheet is applied; choose a supported route or explain the limitation.
+Reference-capable endpoints receive the selected Storyboard Lookbook Sheet only
+when the spec assigns it to a current media field. If the selected endpoint
+cannot use that reference, do not pretend it is applied; choose another
+endpoint or explain the limitation.
 
 ## Historical Guardrails
 

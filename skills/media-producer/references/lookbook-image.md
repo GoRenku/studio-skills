@@ -1,76 +1,19 @@
-# Lookbook Image Purpose
+# Lookbook Image
 
-Purpose key: `lookbook.image`
+Use `lookbook.image` with target `lookbook:<lookbook-id>`. Context recommends the project aspect ratio, medium quality, and Nano Banana 2.
 
-Target format: `lookbook:<lookbook-id>`
+For Renku-managed work, author a generic spec, validate it, show Preview,
+persist it, estimate, obtain approval, and run with the returned approval token.
+For Codex/manual/external images, attach without a spec or receipt.
 
-The image demonstrates how the target Lookbook's visual language behaves in a concrete situation.
-
-For Movie Lookbooks, examples include:
-
-- a horror scene using the Lookbook palette;
-- a happy opening scene using the same texture and lighting rules;
-- a camera-angle study for intimacy or distance;
-- a texture and exposure sheet for rain, smoke, glass, skin, cloth, or architecture.
-
-For Storyboard Lookbooks, the image demonstrates a single **style** aspect. The
-storyboard aspects are `styleBrief`, `lineAndFinish`, `valueAndAccent`, and
-`guardrails` (camera, panel notation, and continuity are not part of the style
-Lookbook). Examples include:
-
-- an overall-style frame for `styleBrief` (the best candidate for the card image
-  / detail-page hero);
-- a focused frame showing line weight and finish for `lineAndFinish`;
-- a value/accent test that keeps the silhouette readable for `valueAndAccent`;
-- a guardrail example that demonstrates what to avoid, only when the prompt can
-  keep the output useful.
-
-Read Renku context first. For Renku-managed generation, also read model
-choices:
+After visual review, import the image first:
 
 ```bash
-renku generation context --purpose lookbook.image --target lookbook:<lookbook-id> --json
-renku generation model list --purpose lookbook.image --target lookbook:<lookbook-id> --json
+renku media import --purpose lookbook.image --target lookbook:<lookbook-id> --source <project-relative-path> --title <title> --receipt <run-json> --json
 ```
 
-If the user wants Codex built-in image generation, use the context and section
-intent below to prompt `$imagegen`, save the selected image inside the project,
-inspect it, and import it without `--receipt`.
-
-For Renku-managed generation, persist a spec before estimating or running:
-
-```bash
-renku generation spec create --file lookbook-image-spec.json --json
-renku generation preview show --spec <spec-id> --json
-renku generation estimate --spec <spec-id> --json
-renku generation run --spec <spec-id> --approve-live-provider-run --json
-```
-
-Run only after the user reviews the Studio generation preview dialog and
-explicitly approves both the estimated cost and sending the preview-approved
-project-derived prompt/context to the provider. If the user changes the prompt,
-model, route, parameters, or references in the preview, revise the same spec,
-show the preview again, and re-estimate before asking for paid generation
-approval.
-
-For the real `renku generation run`, request sandbox/network permission before
-the first attempt. The permission request should say that Renku will contact the
-approved provider and send the approved project-derived prompt/context.
-
-Inspect each generated image before import. Compare the visible image against the Lookbook type and sections, then choose only the sections it clearly demonstrates. Treat `focusSections` as generation intent, not placement truth.
-
-Import finished media with the agent-reviewed section tags:
-
-```bash
-renku media import --purpose lookbook.image --target lookbook:<movie-lookbook-id> --source tmp/media/<file> --sections thesis --json
-renku media import --purpose lookbook.image --target lookbook:<movie-lookbook-id> --source tmp/media/<file> --sections palette --json
-renku media import --purpose lookbook.image --target lookbook:<movie-lookbook-id> --source tmp/media/<file> --sections composition --anchor composition-clinical-symmetry --json
-renku media import --purpose lookbook.image --target lookbook:<movie-lookbook-id> --source tmp/media/<file> --sections thesis,texture --anchor texture-cannon-material-states --json
-renku media import --purpose lookbook.image --target lookbook:<storyboard-lookbook-id> --source tmp/media/<file> --sections lineAndFinish --json
-```
-
-Use Movie Lookbook section tags only for Movie Lookbooks and Storyboard Lookbook section tags only for Storyboard Lookbooks. For Movie Lookbooks, `--sections thesis` is how a thesis hero/evidence image appears under The Thesis, and Thesis is single-image placement: importing a new Thesis image replaces the previous Thesis placement without discarding that previous image or removing its other placements. `toneMood` is also section-level only. For Storyboard Lookbooks, tag exactly one style aspect per image so it appears next to the matching style widget, and set the `styleBrief` image as the card image / hero. For Movie Lookbooks, prefer one to three sections. When a Movie Lookbook image clearly demonstrates one specific `composition`/`lighting`/`camera` pattern or `palette`/`texture` observation, anchor it to that point's `id` with `--anchor <point-id>` and include the point-owning section in `--sections`; any additional sections remain section-level placements. For example, `--sections thesis,texture --anchor texture-cannon-material-states` shows one image under The Thesis and beside that Texture point. Other Movie section and point placements append until the slot has 10 images. Read available point ids from `renku lookbook show`. Do not tag all sections unless the image visibly and specifically demonstrates every section. If no section is clear, do not import automatically; explain why and ask whether to import it unsectioned, revise the prompt/spec, or approve another Codex image iteration or Renku-managed paid generation.
-
-If the file is already attached as a Lookbook image, do not import it again. Change section tags or point anchors in place with `renku lookbook image set-placement --image <lookbook-image-id> --sections <section>[,<section>] [--anchor <point-id>] --json`; include every placement the image should keep because the command replaces the placement set. Use `discard` only for user-requested removal.
-
-A good Storyboard Lookbook sample image should be useful later as visual evidence for drawing style. It should not be a final film still, marketing poster, or generic mood image.
+Use the returned `ownerRecord.id` with
+`renku lookbook image set-placement --image <lookbook-image-id> --sections ...`
+when section or point placement is intended. Import and placement are separate
+commands. Section placement is agent/user judgment; do not infer it during
+runtime generation validation. Omit `--receipt` for external or Codex files.

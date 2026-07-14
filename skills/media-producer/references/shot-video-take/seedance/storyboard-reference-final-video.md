@@ -3,14 +3,16 @@
 Use this only for final `shot.video-take` prompting when all are true:
 
 - model family is Seedance;
-- active route is reference-to-video;
-- provider preview includes a storyboard/reference image input, internally often
-  `video-prompt-sheet`;
+- selected direct endpoint is reference-to-video and its descriptor exposes
+  `image_urls`;
+- an exact storyboard/reference image keeps its context-returned
+  `shot` / `video-prompt-sheet` placement and is assigned
+  `providerField: "image_urls"`;
 - the agent is drafting, reviewing, estimating, or running the final video
   prompt.
 
 Do not load this for ordinary text-to-video, first-frame, first/last-frame, or
-non-Seedance routes.
+non-Seedance endpoints.
 
 For full prompt shapes, read
 `../../../samples/shot-video-take/seedance-golden-prompts.md` when drafting or
@@ -25,17 +27,19 @@ reviewing a storyboard-reference final prompt for any of these cases:
 
 Before drafting the final prompt:
 
-1. Read persisted take authoring context.
-2. Read provider preview and use it as token-order source of truth.
+1. Run `generation context --purpose shot.video-take --target take:<take-id>
+   --json` and read current facts, guide placements, and model descriptors.
+2. Validate the exact spec, run `generation preview show`, and use its
+   `providerPayload` as the field-assignment and token-order source of truth.
 3. Inspect the actual storyboard/reference image, not only its title or
    thumbnail.
-4. Read the storyboard dependency handoff brief or generation spec if available.
+4. Read the earlier creative storyboard brief or generation spec if available.
 
 Do not infer tokens from filenames, memory, card order, visible thumbnails, or
 old run payloads.
 
-Map references by provider preview. If the preview exposes standard media
-fields, use modality-local order:
+Map references by the generated provider payload. For Seedance
+reference-to-video, use modality-local array order:
 
 - first `image_urls` entry: `@Image1`;
 - second `image_urls` entry: `@Image2`;
@@ -55,14 +59,14 @@ used upstream to generate the storyboard. A realistic or final-style storyboard
 often already contains the location, look, composition, and character continuity
 from those upstream references. In that case, the final prompt should usually
 name only the storyboard image plus any supplied audio/video references. Add
-`@Image2`, `@Image3`, or later image tokens only when the final provider preview
+`@Image2`, `@Image3`, or later image tokens only when the final provider payload
 actually includes them and they supply a necessary role that the storyboard does
 not already carry.
 
-If the preview unexpectedly contains redundant upstream location/look/character
-images for a realistic storyboard, stop before prompt approval and revise the
-final input selection or spec. Do not try to rescue redundant image inputs by
-describing them as extra references.
+If the provider payload unexpectedly contains redundant upstream
+location/look/character images for a realistic storyboard, stop before prompt
+approval and revise the final input selection or spec. Do not try to rescue
+redundant image inputs by describing them as extra references.
 
 ## Pre-Draft Storyboard Audit
 
@@ -104,7 +108,8 @@ movement, subject movement, pace, rhythm, and audio timing. Turn the panels into
 footage in order.
 ```
 
-Adjust token and panel count to match provider preview and visible image.
+Adjust token and panel count to match the generated provider payload and visible
+image.
 
 ## Continuous-Take Storyboards
 
@@ -191,10 +196,10 @@ The storyboard must not compete with location or lookbook boards. Supporting
 references should be narrow and concrete.
 
 For a realistic/final-style storyboard, do not add upstream location/look
-references unless the provider preview truly includes them and the storyboard is
-missing information they must supply. For a hand-drawn, clay, or abstract
-storyboard, supporting character/location/look references are often necessary
-because the storyboard controls motion and staging only.
+references unless the generated provider payload truly includes them and the
+storyboard is missing information they must supply. For a hand-drawn, clay, or
+abstract storyboard, supporting character/location/look references are often
+necessary because the storyboard controls motion and staging only.
 
 ## Required Prompt Content
 
@@ -215,8 +220,9 @@ The information below must be present even if headings are renamed or omitted:
 - `LOOK AND RENDER TRANSLATION`: explain final visual style when storyboard is
   hand-drawn or abstract.
 - `ON-SCREEN TEXT AND STORYBOARD ARTIFACTS`: forbid page artifacts.
-- `NEGATIVE CONSTRAINTS`: put critical exclusions in the main prompt when the
-  route lacks a separate negative field.
+- `NEGATIVE CONSTRAINTS`: put critical exclusions in the main prompt because
+  current Seedance 2.0 reference-to-video descriptors do not expose a separate
+  negative-prompt field.
 
 Avoid padding with irrelevant boilerplate. Overlong prompts with unrelated
 sections can reduce generation quality.
@@ -268,8 +274,9 @@ project's own context into visible constraints.
 ## Narration And Audio
 
 Seedance audio references are conditioning references, not exact editorial
-tracks. Do not omit `@AudioN` when the final provider preview includes an audio
-input and narration, dialogue, voice character, ambience, or sound matters.
+tracks. Assign an exact audio file to `audio_urls`, and do not omit its
+`@AudioN` token when the generated provider payload includes it and narration,
+dialogue, voice character, ambience, or sound matters.
 
 - Use `@AudioN` as narrator voice/style, speaker character, ambience, or
   sound-character reference.
@@ -289,14 +296,14 @@ Audio timing target: begin the line during storyboard Panel 2, carry it through
 Panel 3, and complete it during Panel 4.
 ```
 
-If exact waveform, word timing, or editorial sync is required, route to a
+If exact waveform, word timing, or editorial sync is required, use a
 composition, lipsync, or talking-head workflow.
 
 ## Hard-Constraint Transfer
 
 Before estimate or run, compare the final prompt against hard constraints from:
 
-1. current take authoring context and shot data;
+1. current generation context facts and Shot data;
 2. user corrections;
 3. storyboard generation spec or brief, if available;
 4. visible storyboard panels, notes, and imagery;
@@ -334,10 +341,10 @@ A Seedance storyboard-reference final prompt is ready only when:
 - audio timing is tied to storyboard beats unless using an exact-sync workflow;
 - hard constraints from the storyboard brief or visible storyboard are
   preserved;
-- the prompt does not contradict storyboard, take context, or user corrections;
-- unsupported fields such as `negativePrompt` are not used when the active route
-  rejects them, and key negative constraints are instead written into the main
-  prompt.
+- the prompt does not contradict storyboard, current context facts, or user
+  corrections;
+- fields absent from the selected endpoint descriptor are not authored, and key
+  negative constraints are written into the main prompt.
 
 ## Common Failure Fixes
 
@@ -360,7 +367,7 @@ Location or lookbook board takes over the video:
   storyboard, or describes it as a source frame.
 - Fix: scope those references narrowly. Location Sheet means place continuity
   only. Lookbook means style only. Do not call either a first frame unless the
-  active route explicitly uses a first-frame input.
+  selected endpoint explicitly receives it through a first-frame media field.
 
 Video feels like nudged still pictures:
 
