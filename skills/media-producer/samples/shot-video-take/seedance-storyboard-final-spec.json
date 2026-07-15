@@ -8,8 +8,8 @@
   },
   "references": [
     {
-      "id": "video-prompt-sheet",
-      "placement": { "kind": "slot", "sectionId": "shot", "slotId": "video-prompt-sheet" },
+      "id": "video-prompt",
+      "placement": { "kind": "slot", "sectionId": "take-media", "slotId": "video-prompt" },
       "included": true,
       "providerField": "image_urls",
       "reference": { "kind": "project-file", "projectRelativePath": "generated/images/motion-annotation-storyboard-reference.png" }

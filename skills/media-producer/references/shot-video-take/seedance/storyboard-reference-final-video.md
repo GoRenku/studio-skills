@@ -6,7 +6,7 @@ Use this only for final `shot.video-take` prompting when all are true:
 - selected direct endpoint is reference-to-video and its descriptor exposes
   `image_urls`;
 - an exact storyboard/reference image keeps its context-returned
-  `shot` / `video-prompt-sheet` placement and is assigned
+  `take-media` / `video-prompt` placement and is assigned
   `providerField: "image_urls"`;
 - the agent is drafting, reviewing, estimating, or running the final video
   prompt.

@@ -16,7 +16,7 @@ When the source slot is included:
 - choose an endpoint that accepts image media;
 - assign the selection to the endpoint's actual media `providerField`.
 
-Use a create endpoint when no source sheet is selected. Use an edit/reference endpoint when continuity with an exact sheet matters. Do not keep a model allowlist in this reference.
+Use a create endpoint when no source sheet is chosen for this request. Use an edit/reference endpoint when continuity with an exact candidate matters. Inspect every current same-Cast Character Sheet candidate and author one exact choice or none into the spec. Do not keep a model allowlist in this reference.
 
 For Cast Members with `isVoiceOver: true`, do not require a Character Sheet. Read `voice-over-profile-image.md` and create a symbolic display image rather than a physical likeness.
 

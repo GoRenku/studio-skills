@@ -57,7 +57,7 @@ Avoid photorealism, final film still polish, heavy charcoal/noir contrast unless
 
 ## Storyboard Lookbook Guidance
 
-The `visual-language/storyboard-lookbook-sheet` slot initializes the project Storyboard Lookbook Sheet. Cast and Location slots expose all relevant candidates while initializing only exact domain-selected files. These are creative guidance, not generic execution requirements. If a needed slot is empty, ask for direction or create the continuity media through the owning workflow. Do not substitute a Production Lookbook sheet, generic Lookbook image, unselected Cast/Location Take, or first alphabetic file.
+The `visual-language/storyboard-lookbook-sheet` slot exposes the project Storyboard Lookbook Sheet. Cast and Location slots expose all relevant current candidates. Inspect them and author the exact creative choices into the spec; Core does not initialize a choice. These are creative guidance, not generic execution requirements. If a needed slot is empty, ask for direction or create continuity media through the owning workflow. Do not substitute a Production Lookbook sheet, generic Lookbook image, or first alphabetic file.
 
 Reference-capable endpoints receive the Storyboard Lookbook Sheet only
 when the spec assigns it to a current media field. If the selected endpoint

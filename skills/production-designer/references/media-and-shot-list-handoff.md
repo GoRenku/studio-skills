@@ -17,6 +17,7 @@ Before handoff, summarize:
 - Location facts;
 - active Location Design guidance;
 - existing Location Sheets and the specific sheet descriptions that matter for the current production need;
+- every current same-Location Sheet candidate, with an explicit request-scoped choice or none for continuity rather than an origin-level selection;
 - the Location type, such as interior, exterior, threshold, landscape, urban,
   vehicle-like, abstract, or mixed;
 - the production questions a new Location Sheet must answer for shot planning;

@@ -93,10 +93,10 @@ choosing a current provider/model, drafting prompts, slicing outputs, and
 importing storyboard images. A missing Storyboard Lookbook Sheet does not block
 `scene.storyboard-sheet` generation.
 
-This skill does not handle prompt-sheet guidance for an existing Shot Video
+This skill does not handle Video Prompt image guidance for an existing Shot Video
 Take. If the user says "multi-shot storyboard" while focused on, or referring
 to a take, route that work to `media-producer` with purpose
-`shot.video-take` and target `take:<take-id>`.
+`shot.video-prompt` and target `take:<take-id>`.
 
 Do not choose media models, create generation specs, write storyboard prompts,
 slice images, or import storyboard files in this skill.

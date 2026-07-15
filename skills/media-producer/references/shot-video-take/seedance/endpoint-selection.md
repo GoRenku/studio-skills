@@ -26,10 +26,10 @@ suffixes, but always use the exact provider/model id returned by context.
 - Do not include a guide selection that has no valid provider field on the
   selected endpoint.
 
-For example, a Video Prompt Sheet retains its context-returned
-`shot` / `video-prompt-sheet` placement while receiving
+For example, a Video Prompt image retains its context-returned
+`take-media` / `video-prompt` placement while receiving
 `"providerField": "image_urls"` for a selected reference-to-video endpoint.
-A First Frame retains `shot` / `first-frame` while receiving
+A First Frame retains `take-media` / `first-frame` while receiving
 `"providerField": "image_url"` for image-to-video. Placement communicates the
 file's product role; `providerField` determines where the exact file enters the
 provider request.

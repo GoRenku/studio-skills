@@ -28,7 +28,7 @@ Before handoff, read `renku cast design context --cast <cast-member-id> --json` 
 - one short role or identity synopsis for the block below the face close-up;
 - target wardrobe state for the requested sheet;
 - character-owned accessories that must remain consistent, if any;
-- selected character sheet/profile media;
+- current character sheet/profile candidates and the exact request-scoped continuity choice, when any;
 - existing same-character sheets that should be used as continuity references;
 - ad hoc user-collected cast reference images that should be offered as
   optional generation references, such as likeness, accessory, costume, or

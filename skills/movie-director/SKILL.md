@@ -88,7 +88,7 @@ Use this loop for every request:
   approved runs, inspection, slicing, and supported focused attachments.
 - Treat take-owned "multi-shot storyboard", dense motion-control image, or
   storyboard reference requests as Shot Video Take generation guidance. Route
-  them to `media-producer` with purpose `shot.video-take`, exact target
+  them to `media-producer` with purpose `shot.video-prompt`, exact target
   `take:<take-id>`, the current generation context, and the user's intent; do
   not send this work to `scene-shot-designer`. The reference image is opaque
   Studio media; the agent may choose panels, motion maps, diagrams, captions,

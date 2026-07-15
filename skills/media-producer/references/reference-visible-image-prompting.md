@@ -205,7 +205,7 @@ shot-facing: character reference, location reference, Lookbook/style reference,
 previous storyboard reference, first-frame source, last-frame source, or custom
 shot reference.
 
-For a localized correction to a registered `video-prompt-sheet`, use
+For a localized correction to a registered Take `video-prompt` image, use
 `image.edit` against the exact source asset. Reuse the accepted output as a
 `project-file` reference, or attach it through a current focused destination
 when one exists. Do not invent a generic Shot-input attachment path.
@@ -221,7 +221,7 @@ Match the approved Palace character sheet.
 Better:
 
 ```text
-Use Reference 1, the previous selected character sheet, as the identity and
+Use Reference 1, the exact prior character sheet chosen in this request, as the identity and
 wardrobe continuity source. Preserve the face shape, beard line, headwear
 silhouette, robe layering, fabric weight, and neutral turnaround layout visible
 in that reference. Create a new clean character sheet; do not alter the

@@ -1,6 +1,6 @@
 {
-  "purpose": "image.create",
-  "target": { "kind": "project", "id": "project" },
+  "purpose": "shot.video-prompt",
+  "target": { "kind": "sceneShotVideoTake", "id": "scene_shot_video_take_action_001" },
   "model": { "provider": "fal-ai", "model": "openai/gpt-image-2/edit" },
   "values": {
     "prompt": "Create a single motion-annotation storyboard/reference image with three numbered panels for one continuous action shot. Use clean hand-drawn storyboard energy, readable captions, red body arrows, blue camera arrows, green framing marks, orange impact marks, and purple timing ticks. Preserve character identity and location geography from the configured project references. Do not create a final rendered movie frame or unrelated collage.",
