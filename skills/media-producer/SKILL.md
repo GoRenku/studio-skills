@@ -22,7 +22,7 @@ renku generation context --purpose <purpose> --target <target> --json
 renku generation model list --purpose <purpose> --json
 ```
 
-4. Inspect every candidate in every relevant guide slot, including the underlying image files when the choice is visual. Choose the exact candidate that best serves the request, or choose none. Author only that choice in one generic `GenerationSpec`; the guide never chooses for you. Preserve stable guide placement ids, assign every included Renku reference to an actual media `providerField` from the selected model descriptor, and use `{ "kind": "additional" }` only for an extra exact opaque reference.
+4. Inspect every candidate in every relevant guide slot, including the underlying image files when the choice is visual. Choose the exact candidate that best serves the request, or choose none. Author only that choice in one generic `GenerationSpec`; the guide never chooses for you. Presence means inclusion. Preserve stable guide placement ids, set `providerField` only when deliberately routing the exact file to a real media field from the selected model descriptor, and use `{ "kind": "additional" }` only for an extra exact opaque reference.
 5. Keep Core-fixed settings out of agent policy. Treat recommendations as editable guidance and author them only when explicitly chosen. Leave untouched provider defaults absent.
 6. Validate and show Preview before paid work:
 
@@ -98,9 +98,9 @@ Load only the relevant reference:
 
 ## Shot Video Takes
 
-Read `shot.video-take` context for the exact Take. Use the returned Shot, Lookbook, repeated Cast, repeated Location, dialogue, and Additional Reference placements. Provider requirements—not guide occupancy—decide which inputs are required.
+Read `shot.video-take` context for the exact Take. Use the returned Take media, Production Lookbook, complete Scene Cast, complete Scene Location, dialogue, and Additional Reference placements. Every typed slot is optional and a sole candidate remains unselected. Provider requirements—not guide occupancy—decide which inputs are required.
 
-Author `shot.first-frame`, `shot.last-frame`, and `shot.video-prompt` as direct Take-targeted image requests before attaching any generated media to that Take. Once Take-owned media exists, create a new Take for revised authoring. A Video Prompt image may use any agent-chosen visual organization; Studio validates only its purpose, owner, exact references, and provider envelope.
+Author `shot.first-frame`, `shot.last-frame`, and `shot.video-prompt` as direct Take-targeted image requests. Supporting images and failed attempts do not freeze the Draft. The first successful final-video attachment freezes it; use **New Take** for every revision after that. A Video Prompt image may use any agent-chosen visual organization; Studio validates only its purpose, owner, exact references, and provider envelope.
 
 For `cast.character-sheet` and `location.sheet`, inspect all same-owner prior sheet candidates as optional continuity references. Choose a useful prior sheet only when it supports the current creative direction; no prior sheet is required, and the first candidate has no special status.
 

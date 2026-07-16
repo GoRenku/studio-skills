@@ -20,16 +20,24 @@ selecting exact files. Its stable placements are:
 | `location` | `location-sheet` | preserve Location subject |
 | `dialogue` | `dialogue-audio` | preserve Scene Dialogue subject |
 
-Additional References use `{ "kind": "additional" }`. Never reconstruct section, slot, scope, or subject
-ids from labels.
+Additional References use `{ "kind": "additional" }`. Never reconstruct section, slot, or subject
+ids from labels. Draft Cast and Location slots cover complete Scene membership. Every slot is optional,
+and a candidate—even the sole candidate—remains unselected until deliberately chosen.
 
-Guide placement and provider assignment are separate. For every included exact
-file, copy its placement from context and set `providerField` to a real
-file-backed media field from the selected model descriptor. For example, a
-Video Prompt media keeps the `take-media` / `video-prompt` placement while
-using `"providerField": "image_urls"` for a selected Seedance reference-to-video
-endpoint. The selected endpoint, not the guide slot, determines whether the
-field is valid or required.
+Guide placement and provider assignment are separate. Copy placement from context.
+Set `providerField` only when deliberately routing that file to a real file-backed
+media field from the selected model descriptor. An absent field remains absent;
+Studio never guesses it. The selected endpoint, not the guide slot, determines
+whether a field is valid or required at execution.
+
+Keep generic references in their separate collection. Registering a reusable
+Shot-owned generic asset is an explicit focused workflow; it does not turn the
+asset into a Cast, Location, or Lookbook choice and does not add it to a spec.
+
+Failed attempts leave the Draft editable. The first successful final-video
+attachment freezes the source Take. For revisions, use **New Take** so Studio
+clones only Take-owned supporting images and copies reusable selections without
+copying the final video, runs, receipts, payloads, or provenance.
 
 Select one direct provider/model endpoint from the current descriptors, author
 only its explicit non-media values, validate the exact spec, and inspect the

@@ -16,7 +16,7 @@ renku generation run show --run <run-id> --json
 
 Use `generation spec update --spec <spec-id> --file <spec.json>` for revisions and `generation run --spec <spec-id> --approval-token <approval-token> --simulate --json` for a non-paid execution check.
 
-Context is the source of truth for fixed and recommended product settings, selectable models, stable guide placements, exact candidates, initialized selections, and non-blocking notices. Do not duplicate those rules in the skill.
+Context is the source of truth for fixed product settings, selectable models, stable guide placements, exact current selections, and eligible UI candidates. Candidates are never initialized selections, and Core emits no creative readiness notices. Do not duplicate provider readiness rules in the skill.
 
 - Fixed settings are Core-owned. Do not turn them into agent choices.
 - Recommendations are editable guidance. Author them only when explicitly chosen.
@@ -26,9 +26,9 @@ Context is the source of truth for fixed and recommended product settings, selec
 
 ## Exact references
 
-Copy exact selections from context rather than rebuilding placement ids. Preserve section, slot, optional Shot scope, and subject ids. Additional references use `{ "kind": "additional" }`.
+Copy exact selections from context rather than rebuilding placement ids. Preserve section, slot, and subject ids. Additional references use `{ "kind": "additional" }`.
 
-Every included reference must also name an actual media `providerField` from the selected model descriptor. Placement expresses the reference's product role; `providerField` expresses where that exact file enters the provider request. These are separate decisions.
+Presence means inclusion; omit an unselected reference instead of persisting an `included` flag. `providerField` is optional authored intent. When present, it must name an actual media field from the selected model descriptor. Placement expresses product role while `providerField` expresses provider routing; neither implies the other.
 
 Inspect every selected reference before generation. A candidate is not a selected relationship, and filesystem presence is not selection. If a continuity-critical exact selection is missing, stop and ask for explicit user direction rather than substituting the first candidate.
 
@@ -54,7 +54,7 @@ renku generation preview show --spec media_generation_spec_1 --spec media_genera
 
 Do not mix input kinds. The combined display does not combine estimates, approvals, runs, outputs, or attachments.
 
-If prompt, endpoint, authored values, reference order, inclusion, provider-field assignment, or referenced file contents change:
+If prompt, endpoint, authored values, reference order or presence, provider-field assignment, or referenced file contents change:
 
 1. update and validate the spec;
 2. show Preview again;
@@ -65,7 +65,7 @@ The returned token approves provider/model pricing facts, not the creative paylo
 
 ## Outputs and focused attachment
 
-A successful run creates output files and provenance. It does not automatically attach them to the target domain relationship.
+A successful run creates output files and provenance. For `shot.video-take`, the final focused attachment atomically materializes the Take and freezes authoring. Other purposes do not automatically attach outputs to a target relationship.
 
 Use the exact output path directly as a `project-file` reference when it only needs to guide a later request. Import it only when a current focused destination exists.
 
