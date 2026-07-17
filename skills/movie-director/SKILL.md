@@ -1,6 +1,6 @@
 ---
 name: movie-director
-description: Coordinate Renku Studio movie-making workflows across screenplay, analysis, visual language, casting, locations, scene shot design, media generation, and production readiness. Use when the user wants a top-level filmmaking sidekick, asks what to do next, wants to make or revise a movie across multiple departments, needs help choosing which Renku Studio skill to use, or asks for director-like guidance that dispatches to specialist skills such as screenplay-drafter, screenplay-analyst, inspiration-analyzer, lookbook-designer, casting-director, production-designer, scene-shot-designer, and media-producer.
+description: Coordinate Renku Studio movie-making workflows across screenplay, analysis, visual language, casting, locations, scene Beat design, media generation, and production readiness. Use when the user wants a top-level filmmaking sidekick, asks what to do next, wants to make or revise a movie across multiple departments, needs help choosing which Renku Studio skill to use, or asks for director-like guidance that dispatches to specialist skills such as screenplay-drafter, screenplay-analyst, inspiration-analyzer, lookbook-designer, casting-director, production-designer, scene-beat-designer, and media-producer.
 ---
 
 # Movie Director
@@ -44,19 +44,15 @@ renku studio current --json
 ```
 
 Continue only when Studio current returns the object kind and durable id needed
-for the next command. For existing Shot Video Take storyboard reference work, it
-must identify an existing take id before routing to `media-producer`. If Studio
-current shows only a scene, shot list, new-take form, unrelated tab, or no take
-id, stop and ask the user to open the take or provide the take id. Do not infer
-a take, scene, shot, cast member, location, lookbook, or dialogue from nearby
-project data.
+for the next command. Do not infer a scene, Beat, Cast Member, Location,
+Lookbook, or dialogue from nearby project data.
 
 
 ## Codex Sandbox And Studio Notifications
 
-Renku CLI mutations notify the running Studio app through local HTTP at the Studio server URL, normally `http://localhost:5173`. In Codex, localhost HTTP is still network access. When Studio is running and a workflow will mutate project state, import media, apply shot-list operations, set active rows, or run generation/import commands that should refresh Studio, request sandbox/network permission before the first mutating command.
+Renku CLI mutations notify the running Studio app through local HTTP at the Studio server URL, normally `http://localhost:5173`. In Codex, localhost HTTP is still network access. When Studio is running and a workflow will mutate project state, import media, apply Beat Sheet operations, set active rows, or run generation/import commands that should refresh Studio, request sandbox/network permission before the first mutating command.
 
-If a command reports `CLI026`, the mutation already succeeded but Studio was not notified. Do not blindly rerun non-idempotent mutations such as shot-list apply/write or media import. Instead, report the warning, refresh/read back state, and use a separate Studio notification/recovery step if one is available with local network permission.
+If a command reports `CLI026`, the mutation already succeeded but Studio was not notified. Do not blindly rerun non-idempotent mutations such as Beat Sheet apply/write or media import. Instead, report the warning, refresh/read back state, and use a separate Studio notification/recovery step if one is available with local network permission.
 
 ## Reference Files
 
@@ -70,8 +66,8 @@ If a command reports `CLI026`, the mutation already succeeded but Studio was not
 Use this loop for every request:
 
 1. **Orient**: identify the open project, current Studio selection, and the minimum state needed for the request.
-2. **Diagnose**: decide whether the next step is screenplay, analysis, visual language, casting, production design, shot design, media generation, or production readiness.
-3. **Dispatch**: use the specialist skill that owns the artifact. Do not directly write screenplay, analysis, Lookbook, Scene Shot List, or media generation JSON when the specialist skill owns that workflow.
+2. **Diagnose**: decide whether the next step is screenplay, analysis, visual language, casting, production design, Beat design, media generation, or production readiness.
+3. **Dispatch**: use the specialist skill that owns the artifact. Do not directly write screenplay, analysis, Lookbook, Scene Beat Sheet, or media generation JSON when the specialist skill owns that workflow.
 4. **Verify**: read back the durable state with the CLI.
 5. **Advance**: name the next supported step and any unresolved prerequisite.
 
@@ -83,34 +79,25 @@ Use this loop for every request:
 - Use `production-designer` for Location facts, Location Design, props, set dressing, atmosphere, and production-design media readiness.
 - Use `inspiration-analyzer` for Visual Language Inspiration folder analysis.
 - Use `lookbook-designer` for durable Production Lookbook and Storyboard Lookbook creation, revision, and Inspiration source linkage.
-- Use `scene-shot-designer` for Scene Shot Lists and shot-list iteration.
+- Use `scene-beat-designer` for Scene Beat Sheets and Beat iteration.
 - Use `media-producer` for all Renku media generation specs, estimates,
   approved runs, inspection, slicing, and supported focused attachments.
-- Treat take-owned "multi-shot storyboard", dense motion-control image, or
-  storyboard reference requests as Shot Video Take generation guidance. Route
-  them to `media-producer` with purpose `shot.video-prompt`, exact target
-  `take:<take-id>`, the current generation context, and the user's intent; do
-  not send this work to `scene-shot-designer`. The reference image is opaque
-  Studio media; the agent may choose panels, motion maps, diagrams, captions,
-  or timing marks in the prompt, but those structures are not Studio JSON.
-- For "ready to generate?" questions about a Shot Video Take with a storyboard
-  reference image, do not stop at context readiness. Route to
-  `media-producer` for prompt-quality readiness based on the selected endpoint
-  and generated provider preview: provider-token roles, storyboard operating
-  rule, artifact suppression, hard-constraint transfer, native-audio limits,
-  and final-video QA risks.
 
 Not first-class today:
 
+- Shot Video authoring and its First Frame, Last Frame, and Video Prompt image
+  inputs. Do not route to `shot.first-frame`, `shot.last-frame`,
+  `shot.video-prompt`, or `shot.video-take`, and do not infer replacement
+  commands.
 - Costume-variant media and voice media. Keep their design notes in Cast Design and hand off only existing cast media purposes to `media-producer`.
 - Prop media, set-dressing media, sound, music, editorial, and final assembly skills.
 
 ## Non-Negotiables
 
 - Do not write directly to `.renku/project.sqlite`.
-- Do not invent project, scene, shot, cast, location, asset, shot-list, Lookbook, or generation ids.
+- Do not invent project, scene, Beat, Cast Member, Location, asset, Beat Sheet, Lookbook, or generation ids.
 - Do not run paid generation without Renku estimate review and explicit live provider approval.
 - Preserve explicit user choices for provider/model, authored values, exact
-  references, shot ids, costs, and approvals.
+  references, Beat ids, costs, and approvals.
 - Do not use obsolete command aliases or compatibility paths.
 - Do not hide missing prerequisites with guesses or fallbacks.

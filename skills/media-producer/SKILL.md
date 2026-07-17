@@ -1,6 +1,6 @@
 ---
 name: media-producer
-description: Generate, revise, preview, estimate, run, inspect, and attach purpose-specific Renku Studio image, audio, and video media through the context-first GenerationSpec contract. Use for generic image creation or editing, Lookbook assets, Cast sheets/profiles/voice samples, Location sheets/heroes, Scene Storyboard Sheets, dialogue audio, Shot Video Takes, external media attachment, and generation approval workflows.
+description: Generate, revise, preview, estimate, run, inspect, and attach purpose-specific Renku Studio image and audio media through the context-first GenerationSpec contract. Use for generic image creation or editing, Lookbook assets, Cast sheets/profiles/voice samples, Location sheets/heroes, Scene Storyboard Sheets, dialogue audio, external media attachment, and generation approval workflows.
 ---
 
 # Media Producer
@@ -33,6 +33,11 @@ renku generation spec create --file <spec.json> --json
 renku generation preview show --spec <spec-id> --json
 ```
 
+Before authoring a spec, open the relevant file in `samples/` and preserve the
+current envelope exactly: `purpose`, `target`, `model`, `values`, `references`,
+and optional `title`. Model-specific inputs belong under `values`. Do not
+reconstruct the contract from memory or from an earlier Renku project.
+
 When several independent requests should be reviewed together, show them in one ordered Preview interaction:
 
 ```bash
@@ -61,10 +66,18 @@ Read `references/workflow.md` for exact reference, output reuse, Preview, and at
 - Use a normalized project-relative `project-file` reference for an unattached Renku output, Codex-generated image, uploaded file, or other safe project file that only needs to guide the next request.
 - Never invent an asset/file id, receipt, or provenance record.
 - Import finished media only through a currently supported focused purpose. Pass `--receipt` only for an exact output of a matching Renku run.
-- Never copy files manually into canonical Cast, Location, Lookbook, Scene, or Take folders. Core owns durable paths and relationships.
+- Never copy files manually into canonical Cast, Location, Lookbook, or Scene folders. Core owns durable paths and relationships.
 - Inspect generated media before attachment. Paid regeneration requires a revised Preview, estimate, and explicit approval.
 
 ## Purpose routing
+
+Shot Video authoring is temporarily unavailable. Do not issue or route to
+`shot.first-frame`, `shot.last-frame`, `shot.video-prompt`, or
+`shot.video-take`, and do not infer replacement commands. The material under
+`references/shot-video-take/`, `samples/shot-video-take/`, and
+`evals/shot-video-take/` is retained only for the next workflow design. Do not
+load it as an executable current workflow; revalidate its purpose keys, target
+shape, commands, and JSON contracts before reactivation.
 
 Before authoring Lookbook media, resolve the role id directly:
 
@@ -82,8 +95,6 @@ Use the returned current role id. Do not list alternatives or look for selection
 - `location.sheet`, `location.hero` -> `location:<location-id>`
 - `scene.storyboard-sheet` -> `scene:<scene-id>`
 - `scene.dialogue-audio` -> `scene:<scene-id>:dialogue:<scene-dialogue-id>`
-- `shot.first-frame`, `shot.last-frame`, `shot.video-prompt` -> `take:<take-id>`
-- `shot.video-take` -> `take:<take-id>`
 
 Load only the relevant reference:
 
@@ -93,14 +104,7 @@ Load only the relevant reference:
 - Location media: `references/location-sheet.md`
 - Lookbook media: `references/lookbook-image.md` or `references/lookbook-sheets.md`
 - Scene Storyboard generation and agent-owned splitting: `references/scene-storyboard-sheet.md`
-- Shot Video Takes: `references/shot-video-take/index.md`
 - Reference-aware image prompting: `references/reference-visible-image-prompting.md`
-
-## Shot Video Takes
-
-Read `shot.video-take` context for the exact Take. Use the returned Take media, Production Lookbook, complete Scene Cast, complete Scene Location, dialogue, and Additional Reference placements. Every typed slot is optional and a sole candidate remains unselected. Provider requirements—not guide occupancy—decide which inputs are required.
-
-Author `shot.first-frame`, `shot.last-frame`, and `shot.video-prompt` as direct Take-targeted image requests. Supporting images and failed attempts do not freeze the Draft. The first successful final-video attachment freezes it; use **New Take** for every revision after that. A Video Prompt image may use any agent-chosen visual organization; Studio validates only its purpose, owner, exact references, and provider envelope.
 
 For `cast.character-sheet` and `location.sheet`, inspect all same-owner prior sheet candidates as optional continuity references. Choose a useful prior sheet only when it supports the current creative direction; no prior sheet is required, and the first candidate has no special status.
 
@@ -109,7 +113,7 @@ mapping in the skill. One spec is one explicit provider request.
 
 ## Scene Storyboard Sheet
 
-Keep splitting agent-owned. Read the exact Scene Shot List and use `facts.contextText` only as opaque authored narrative context. For each one-to-four-Shot request, choose the relevant Cast and Location owners, inspect their exact references, and include them with the style reference. Stop for explicit user direction when needed continuity media is unavailable; do not silently proceed with weaker context. Generate the accepted 2x2, at-most-four-panel composite, inspect the returned image with vision, choose crop boxes for that exact image, inspect every crop, and attach only accepted shot images. Never add fixed-coordinate, OCR, border-detection, grid-slicing, or runtime auto-split behavior.
+Keep splitting agent-owned. Read the exact Scene Beat Sheet and use `facts.contextText` only as opaque authored narrative context. For each one-to-four-Beat request, choose the relevant Cast and Location owners, inspect their exact references, and include them with the style reference. Stop for explicit user direction when needed continuity media is unavailable; do not silently proceed with weaker context. Generate the accepted 2x2, at-most-four-panel composite, inspect the returned image with vision, choose crop boxes for that exact image, inspect every crop, and attach only accepted Beat images. Never add fixed-coordinate, OCR, border-detection, grid-slicing, or runtime auto-split behavior.
 
 ## Safety and permissions
 

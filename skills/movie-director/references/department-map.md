@@ -10,7 +10,7 @@ Use this map to classify user intent and choose the next specialist. When a requ
 | Create/revise Location facts, spatial design, set dressing, props, atmosphere | Production Design | `production-designer` | `renku production-design location context --location <location-id> --json` |
 | Analyze reference folders, extract visual principles from images | Cinematography / Visual Language | `inspiration-analyzer` | `renku inspiration show --folder <folder-id> --json` |
 | Create, revise, or connect the project's Production Lookbook or Storyboard Lookbook to Inspiration folders | Cinematography / Visual Language | `lookbook-designer` | `renku lookbook show --kind <production\|storyboard> --json` |
-| Design or revise scene coverage and shot composition/movement/cast/location intent | Directing / Shot Design | `scene-shot-designer` | `renku screenplay shot-list context --scene <scene-id> --json` |
+| Design or revise scene narrative Beats and their illustration context | Directing / Beat Design | `scene-beat-designer` | `renku screenplay beat-sheet context --scene <scene-id> --json` |
 | Generate or import media | Media Production | `media-producer` | `renku generation context --purpose <purpose> --target <target> --json` |
 
 ## Default Production Order
@@ -25,11 +25,9 @@ Use this map to classify user intent and choose the next specialist. When a requ
    as non-blocking guidance when one exists.
 8. Cast Design and Location Design.
 9. Cast Character Sheets, Cast Profiles, and Location Sheets.
-10. Scene Shot Lists.
-11. Per-shot storyboard images.
-12. Exact Shot Video Take references and guide media.
-13. Shot video takes.
-14. Selects, production export, and future post/editorial work.
+10. Scene Beat Sheets.
+11. Per-Beat storyboard images.
+12. Future Shot authoring and post/editorial work.
 
 ## Current Gaps
 

@@ -117,41 +117,38 @@ $lookbook-designer create the Production Lookbook from the Substance Inspiration
 ```
 
 
-### Scene Shot Designer
+### Scene Beat Designer
 
 ```text
-skills/scene-shot-designer/
+skills/scene-beat-designer/
   SKILL.md
   agents/openai.yaml
-  references/shot-list-cli-workflow.md
-  references/scene-shot-list-json-contract.md
-  references/shot-design-guidelines.md
-  references/storyboard-sheet-generation-workflow.md
-  scripts/slice_storyboard_grid.py
-  samples/scene-shot-list.json
-  samples/storyboard-sheet-spec.json
-  samples/storyboard-sheet-import.json
+  references/beat-sheet-cli-workflow.md
+  references/scene-beat-sheet-json-contract.md
+  references/beat-design-guidelines.md
+  samples/scene-beat-sheet.json
+  samples/scene-beat-sheet-operations.json
 ```
 
-Scene Shot Designer helps agents create durable Renku Studio Scene Shot Lists for screenplay scenes and optionally generate one storyboard sheet for the full shot list.
+Scene Beat Designer helps agents create durable Renku Studio Scene Beat Sheets and hand missing or stale Beat storyboard images to Media Producer.
 
 It uses:
 
-- the Renku CLI to read scene shot-list context, validate shot-list JSON, write history entries, and set the active shot list;
-- active Lookbook text, referenced cast, referenced locations, and user direction to design practical coverage;
-- schema-validated `kind: "sceneShotList"` JSON documents;
-- `scene.storyboard-sheet` media generation plus local slicing for optional storyboard images.
+- the Renku CLI to read Beat Sheet context, validate Beat JSON, write history entries, and set the active Beat Sheet;
+- active Lookbook text, referenced Cast Members, referenced Locations, and user direction to design narrative Beats;
+- schema-validated `kind: "sceneBeatSheet"` JSON documents;
+- `scene.storyboard-sheet` handoff for optional Beat storyboard images.
 
 Invoke it in Codex with:
 
 ```text
-$scene-shot-designer
+$scene-beat-designer
 ```
 
 Example prompt:
 
 ```text
-$scene-shot-designer design a tense, symmetrical shot list for the current scene and save it to the project.
+$scene-beat-designer design the narrative Beats for the current scene and save them to the project.
 ```
 
 ### Media Producer

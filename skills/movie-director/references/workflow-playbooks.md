@@ -25,29 +25,13 @@ For Codex runs, remember that local Studio HTTP notification is network access. 
 2. If the user wants new imagery, dispatch `location.sheet` to `media-producer`.
 3. Read back director context to confirm readiness changed.
 
-## Scene To Shot List To Storyboard Images
+## Scene To Beat Sheet To Storyboard Images
 
 1. Read director context, preferably with a selected scene.
-2. If no Production Lookbook exists, dispatch to `lookbook-designer` first unless the user explicitly wants text-only shot work.
-3. If no Storyboard Lookbook exists and storyboard images are requested or implied by a saved shot-list revision, dispatch to `lookbook-designer` to create one unless the user explicitly asked for text-only/no-media work.
+2. If no Production Lookbook exists, dispatch to `lookbook-designer` first unless the user explicitly wants text-only Beat work.
+3. If no Storyboard Lookbook exists and storyboard images are requested or implied by a saved Beat Sheet revision, dispatch to `lookbook-designer` to create one unless the user explicitly asked for text-only/no-media work.
 4. If the Storyboard Lookbook has a `lookbook.storyboard-sheet`, pass
    that exact candidate to `media-producer` as non-blocking guidance. Do not
    require a sheet before Scene Storyboard generation.
-5. If no active Scene Shot List exists or the user asks to revise coverage, dispatch to `scene-shot-designer`.
-6. If storyboard images are missing or stale after the shot-list pass, dispatch to `media-producer` with `scene.storyboard-sheet` unless the user explicitly asked for text-only/no-media work.
-
-## Storyboard References To Shot Video Take
-
-1. Confirm active shot list and storyboard readiness through `renku director context --json`.
-2. Create or choose the Shot Video Take for the exact ordered shot ids. If the user says "this take", first read `renku studio current --json` and confirm the focused scene/take candidate before mutation or paid generation.
-3. Dispatch Shot Video Take generation to `media-producer` with `take:<take-id>`. If the user asks for a "multi-shot storyboard", dense motion-control image, choreography sheet, or storyboard reference image for the take, author it through `shot.video-prompt`, not Scene Shot List storyboard work. The image remains opaque Studio media; panels, motion maps, captions, timing marks, or diagrams are agent-authored prompt strategies rather than Studio schema.
-4. Have `media-producer` read `renku generation context --purpose shot.video-take --target take:<take-id> --json`, choose a current direct provider/model endpoint, and author one exact `GenerationSpec` from the user's intent and selected references.
-5. When a storyboard reference image is included in the final request, require
-   media-producer to report prompt-quality readiness separately from mechanical
-   readiness before estimate/run.
-6. Require `media-producer` to preview the exact request before estimate. A
-   draft may use `renku generation preview show --file <generation-spec-json>
-   --json`; after persistence, use `renku generation preview show --spec
-   <spec-id> --json` so Core builds the provider preview for the saved
-   `shot.video-take` request.
-7. Keep generation behind the media-producer estimate review and explicit live provider approval.
+5. If no active Scene Beat Sheet exists or the user asks to revise Beats, dispatch to `scene-beat-designer`.
+6. If storyboard images are missing or stale after the Beat Sheet pass, dispatch to `media-producer` with `scene.storyboard-sheet` unless the user explicitly asked for text-only/no-media work.

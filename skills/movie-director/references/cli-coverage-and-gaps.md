@@ -9,7 +9,7 @@ renku director context --json
 renku director context --selection '<studio-selection-json>' --json
 ```
 
-The report includes screenplay, analysis, Inspiration, Lookbook, cast design/media readiness, production-design/media readiness, shot-list, storyboard, and shot-video readiness.
+The report includes screenplay, analysis, Inspiration, Lookbook, cast design/media readiness, production-design/media readiness, Scene Beat Sheet, and storyboard readiness.
 
 ## Department Authoring
 
@@ -49,8 +49,8 @@ inspection, slicing, and supported focused attachment.
 
 Current media purposes include Lookbook images and typed sheets, Cast Character
 Sheets, cast profiles and voice samples, Location Sheets
-and heroes, Scene Storyboard Sheets, dialogue audio, general image creation and
-editing, and Shot Video Takes. Read current purpose context and model
+and heroes, Scene Storyboard Sheets, dialogue audio, and general image creation
+and editing. Read current purpose context and model
 descriptors through `media-producer`; do not reconstruct removed route, input,
 or request-planning contracts here.
 

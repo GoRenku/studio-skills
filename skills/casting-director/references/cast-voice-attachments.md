@@ -34,11 +34,9 @@ Use `validate` before `attach`. After attachment, run `list` to verify the Cast 
 - `sample.sourceProjectRelativePath` must point at an existing project-relative audio file.
 - Supported sample file extensions are `.mp3`, `.wav`, and `.m4a`.
 - If the sample came from Renku generation, include the generation receipt so provider/model mismatches fail early.
-- Kling voice-control ids are not Cast Voice Provider Registrations. For Kling
-  shot video takes, select or generate the desired scene dialogue audio through
-  the shot-video workflow; Core converts it to a transient Kling `voice_id`
-  during `shot.video-take` estimate/run and caches it for short-term reuse.
-- Seedance audio references are not Cast Voice Provider Registrations. Shot-video workflows may select clean Cast Voice samples as per-generation `audio_urls` style/voice references.
+- Kling and Seedance video voice controls are not Cast Voice Provider
+  Registrations. A future Shot workflow must define any transient provider
+  voice ids or per-generation audio reference behavior.
 - Cast Voice sample deletion happens by removing the Cast Voice, not by deleting the asset directly.
 
 ## Sample

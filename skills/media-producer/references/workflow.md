@@ -16,6 +16,29 @@ renku generation run show --run <run-id> --json
 
 Use `generation spec update --spec <spec-id> --file <spec.json>` for revisions and `generation run --spec <spec-id> --approval-token <approval-token> --simulate --json` for a non-paid execution check.
 
+## Current GenerationSpec envelope
+
+Start from the relevant checked-in sample and keep this exact top-level shape:
+
+```json
+{
+  "purpose": "cast.character-sheet",
+  "target": { "kind": "castMember", "id": "cast_..." },
+  "model": { "provider": "fal-ai", "model": "openai/gpt-image-2" },
+  "values": {
+    "prompt": "Provider-facing prompt text.",
+    "image_size": "landscape_16_9",
+    "quality": "high"
+  },
+  "references": [],
+  "title": "Character sheet"
+}
+```
+
+Read the selected model descriptor before naming fields under `values`. Validate
+the first draft immediately. Never infer a different spec envelope from old
+project files, prior task memory, UI labels, or model marketing names.
+
 Context is the source of truth for fixed product settings, selectable models, stable guide placements, exact current selections, and eligible UI candidates. Candidates are never initialized selections, and Core emits no creative readiness notices. Do not duplicate provider readiness rules in the skill.
 
 - Fixed settings are Core-owned. Do not turn them into agent choices.
@@ -65,7 +88,7 @@ The returned token approves provider/model pricing facts, not the creative paylo
 
 ## Outputs and focused attachment
 
-A successful run creates output files and provenance. For `shot.video-take`, the final focused attachment atomically materializes the Take and freezes authoring. Other purposes do not automatically attach outputs to a target relationship.
+A successful run creates output files and provenance. Generation does not automatically attach outputs to a target relationship.
 
 Use the exact output path directly as a `project-file` reference when it only needs to guide a later request. Import it only when a current focused destination exists.
 
@@ -79,10 +102,9 @@ cast.character-sheet
 cast.profile
 location.sheet
 location.hero
-shot.video-take
 ```
 
-Scene Storyboard images use the dedicated grouped or single-shot import form. Cast Voice samples use the Cast Voice attachment workflow.
+Scene Storyboard images use the dedicated grouped or single-Beat import form. Cast Voice samples use the Cast Voice attachment workflow.
 
 Pass `--receipt` only for an exact output from a matching Renku purpose and target. Omit it for Codex-generated, uploaded, manually produced, or other external media. Never fabricate provenance.
 

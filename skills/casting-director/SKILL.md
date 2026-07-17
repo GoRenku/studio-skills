@@ -91,4 +91,4 @@ sample because that command calls ElevenLabs and writes the fetched MP3 under
 - Cast Design can describe costume variants, but costume-variant media is not first-class yet.
 - Cast Design can describe voice casting and locale notes, but durable ElevenLabs provider voice ids and sample audio belong in Cast Voice records. Kling `voice_id` values are transient shot-video run artifacts.
 - Generated files, asset ids, durable provider voice ids, transient Kling `voice_id` values, and media paths do not belong in Cast Design JSON.
-- When casting changes affect coverage, report the need for a `scene-shot-designer` pass instead of editing shot-list documents directly.
+- When casting changes affect Scene Beats, report the need for a `scene-beat-designer` pass instead of editing Beat Sheet documents directly.

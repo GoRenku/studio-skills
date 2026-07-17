@@ -1,6 +1,14 @@
 # Shot Video Take
 
-Use `shot.video-take` with target `take:<take-id>`.
+> **Status: retained design reference.** Shot Video authoring is temporarily
+> unavailable. Do not use these files to issue current Renku commands or create
+> `shot.first-frame`, `shot.last-frame`, `shot.video-prompt`, or
+> `shot.video-take` specs. Before reactivation, verify every purpose key, target
+> shape, reference placement, provider field, CLI command, and JSON example
+> against the current Core and CLI contracts.
+
+The last supported workflow used `shot.video-take` with target
+`take:<take-id>`:
 
 ```bash
 renku generation context --purpose shot.video-take --target take:<take-id> --json
@@ -42,7 +50,7 @@ copying the final video, runs, receipts, payloads, or provenance.
 Select one direct provider/model endpoint from the current descriptors, author
 only its explicit non-media values, validate the exact spec, and inspect the
 generated provider payload with `generation preview show`. Then follow
-`../workflow.md`.
+`renku-workflow.md`.
 
 For a new Video Prompt image, use a separate `shot.video-prompt` spec for the
 same Take. For a genuinely ad hoc extra reference, use `image.create` and later
@@ -53,3 +61,9 @@ spec, or receipt.
 Read `prompt-quality-checklist.md` for agent-owned creative review. Read a
 provider reference only after choosing that provider; provider guidance may
 shape prompts but must not redefine Core reference slots or validation.
+
+Read `director-handoff.md` for the retained orchestration and Studio-selection
+workflow. Read `audio-and-voice.md` for the retained Kling and Seedance voice
+and audio distinctions. The examples under `../../samples/shot-video-take/`
+and forward tests under `../../evals/shot-video-take/` have the same dormant
+status as this reference.

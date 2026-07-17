@@ -133,7 +133,6 @@ target is the registered source asset:
     {
       "id": "image-edit-source",
       "placement": { "kind": "slot", "sectionId": "source", "slotId": "source-image" },
-      "included": true,
       "providerField": "image_urls",
       "reference": { "kind": "asset-file", "assetId": "asset_source_image", "assetFileId": "asset_file_source_image" }
     }
@@ -179,8 +178,11 @@ field or silently dropping a reference.
 Cast character sheets should describe a lean identity turnaround or physical
 continuity sheet. Reference-aware prompts must name previous character sheets,
 portraits, wardrobe or accessory references, and Lookbook/style references by
-visible role. Do not say "approved sheet" or "same as before" unless that image
-is attached and named as a reference.
+visible role. Never use a Lookbook's internal project title in provider-facing
+text. Say “the provided style reference” and describe the visible palette,
+light, texture, composition, or material traits it supplies. Do not say
+"approved sheet" or "same as before" unless that image is attached and named as
+a reference.
 
 Cast profile edits should use the character sheet as the source image when a
 source asset is selected. Preserve the source face, wardrobe, period cues,

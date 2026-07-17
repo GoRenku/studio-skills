@@ -24,7 +24,7 @@ renku cast design write --file <cast-design-json> --json
 renku cast design set-active --cast <cast-member-id> --design <cast-design-id> --json
 ```
 
-Keep the document about casting. Do not store generated media paths or shot-list directions in Cast Design.
+Keep the document about casting. Do not store generated media paths or Beat Sheet directions in Cast Design.
 
 Costume variants can be scoped to the whole project, one sequence, or one scene. They are authored design guidance, not standalone media targets yet.
 

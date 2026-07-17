@@ -39,7 +39,7 @@ renku location apply --file <location-operations-json> --json
 
 - Read `references/location-authoring.md` for Location fact commands.
 - Read `references/location-design.md` before writing Location Design JSON.
-- Read `references/media-and-shot-list-handoff.md` before asking for environment sheets.
+- Read `references/media-and-beat-sheet-handoff.md` before asking for environment sheets.
 
 ## Boundaries
 

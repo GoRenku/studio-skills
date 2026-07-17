@@ -1,0 +1,4 @@
+interface:
+  display_name: "Scene Beat Designer"
+  short_description: "Design Scene Beat Sheets through the Renku CLI."
+  default_prompt: "Design a Scene Beat Sheet for a Renku Studio scene and save it to the project."

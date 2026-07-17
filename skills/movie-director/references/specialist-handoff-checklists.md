@@ -37,7 +37,7 @@ renku screenplay status --json
 renku screenplay show --json
 ```
 
-For scene revisions, inspect command output for shot-list impact.
+For scene revisions, inspect command output for Beat Sheet impact.
 
 ## `screenplay-analyst`
 
@@ -147,13 +147,13 @@ Verify:
 renku production-design location show --active --location <location-id> --json
 ```
 
-## `scene-shot-designer`
+## `scene-beat-designer`
 
 Use for:
 
-- Scene Shot List creation;
-- shot-list revisions;
-- coverage changes driven by scene rewrite, user direction, or visual-language changes.
+- Scene Beat Sheet creation;
+- Beat Sheet revisions;
+- narrative Beat changes driven by scene rewrite, user direction, or visual-language changes.
 
 Pass:
 
@@ -161,18 +161,18 @@ Pass:
 - Production Lookbook state;
 - relevant cast and location ids;
 - screenplay critique or user direction;
-- whether the user wants saved shot-list state or only brainstorming.
+- whether the user wants saved Beat Sheet state or only brainstorming.
 
 Verify:
 
 ```bash
-renku screenplay shot-list show --active --scene <scene-id> --json
-renku screenplay shot-list storyboard status --scene <scene-id> --shot-list <shot-list-id> --json
+renku screenplay beat-sheet show --active --scene <scene-id> --json
+renku screenplay beat-sheet storyboard status --scene <scene-id> --beat-sheet <beat-sheet-id> --json
 ```
 
 Storyboard media handoff:
 
-- scene-shot-designer supplies or revises the Scene Shot List.
+- scene-beat-designer supplies or revises the Scene Beat Sheet.
 - media-producer owns `scene.storyboard-sheet` generation, inspection, slicing,
   and import. The project Storyboard Lookbook's exact
   `lookbook.storyboard-sheet` is useful non-blocking guidance when available;
@@ -193,14 +193,12 @@ Use for:
 Pass:
 
 - purpose key;
-- target id, using exact `take:<take-id>` for Shot Video Take generation;
+- exact target id from generation context;
 - current generation context plus the user's provider/model choice, authored
   values, and exact references;
-- shot-list id and shot ids when relevant;
+- Beat Sheet id and Beat ids for Scene Storyboard imports;
 - any upstream creative work the user explicitly chose to complete first;
 - approval constraints;
-- for Shot Video Takes with an included prompt-sheet reference, ask for both
-  mechanical readiness and prompt-quality readiness before estimate/run.
 
 Verify:
 
@@ -213,16 +211,7 @@ renku director context --json
 
 Use the purpose-specific focused attachment command documented by
 `media-producer`; attachment flags differ between single-file project-relative
-sources and grouped Scene Storyboard JSON. For Shot Video Take storyboard
-references, tell media-producer whether the user
-wants realistic panels or hand-drawn/sketch panels. Realistic storyboard panels
-should carry the look, location, lighting, and continuity themselves by default.
-Hand-drawn/sketch storyboard panels should include available Lookbook, Location
-Sheet, and Character Sheet references as supporting context by default, clearly
-scoped as references only. For Codex-generated storyboard references, stage the
-file under project `tmp/media/` and let `media-producer` include that exact path
-as a `project-file` reference in the `shot.video-take` spec. Do not invent an
-asset id, receipt, or attachment merely to use the file as generation guidance.
+sources and grouped Scene Storyboard JSON.
 
 Approval gate:
 
@@ -233,10 +222,6 @@ Approval gate:
   the agent changes any part of that request, show the preview again, estimate
   again, and get a fresh live-run approval gesture.
 - Inspect generated media before importing it.
-- For prompt-sheet-guided final videos, confirm the prompt names provider
-  tokens, treats the sheet as ordered temporal waypoints, forbids sheet
-  artifacts, preserves hard constraints, and describes native audio timing as
-  best-effort unless an exact-sync workflow is selected.
 
 ## Cast And Production Design Fallbacks
 
@@ -246,6 +231,6 @@ When the request is cast or production-design authoring:
 2. Split durable facts from generated media.
 3. Use `screenplay-drafter` only for supported cast/location fact changes.
 4. Use `media-producer` for cast/location visual media.
-5. Use `scene-shot-designer` when shot coverage needs to change.
+5. Use `scene-beat-designer` when Scene Beats need to change.
 
 Do not create fake department JSON or sidecar files to fill the gap.

@@ -20,7 +20,7 @@ Before handoff, summarize:
 - every current same-Location Sheet candidate, with an explicit request-scoped choice or none for continuity rather than an origin-level selection;
 - the Location type, such as interior, exterior, threshold, landscape, urban,
   vehicle-like, abstract, or mixed;
-- the production questions a new Location Sheet must answer for shot planning;
+- the production questions a new Location Sheet must answer for Scene Beat illustration and future Shot planning;
 - suggested board sections, such as hero establishing view, reverse angle,
   high-angle overview, layout map, material swatches, lighting studies, key
   landmarks, environmental props, and scale references;
@@ -33,4 +33,4 @@ Before handoff, summarize:
 - active Lookbook context;
 - whether the user asked for media generation or only design writing.
 
-Do not run paid generation yourself. Do not store generated media paths in Location Design. When shot guidance needs environment references, name the exact full Location Sheets by description instead of asking for front/right/back/left slices.
+Do not run paid generation yourself. Do not store generated media paths in Location Design. When Scene Beat illustration needs environment references, name the exact full Location Sheets by description instead of asking for front/right/back/left slices.

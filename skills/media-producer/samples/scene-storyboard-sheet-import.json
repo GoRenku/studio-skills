@@ -1,26 +1,26 @@
 {
   "kind": "sceneStoryboardImagesImport",
-  "shotListId": "scene_shot_list_foundry_v1",
+  "beatSheetId": "scene_beat_sheet_foundry_v1",
   "title": "Foundry storyboard package",
-  "shots": [
+  "beats": [
     {
-      "shotId": "shot_001",
-      "source": "tmp/media/foundry-storyboard-sheet-1-shot-001.png",
+      "beatId": "beat_001",
+      "source": "tmp/media/foundry-storyboard-sheet-1-beat-001.png",
       "sourcePurpose": "scene.storyboard-sheet"
     },
     {
-      "shotId": "shot_002",
-      "source": "tmp/media/foundry-storyboard-sheet-1-shot-002.png",
+      "beatId": "beat_002",
+      "source": "tmp/media/foundry-storyboard-sheet-1-beat-002.png",
       "sourcePurpose": "scene.storyboard-sheet"
     },
     {
-      "shotId": "shot_005",
-      "source": "tmp/media/foundry-storyboard-sheet-2-shot-005.png",
+      "beatId": "beat_005",
+      "source": "tmp/media/foundry-storyboard-sheet-2-beat-005.png",
       "sourcePurpose": "scene.storyboard-sheet"
     },
     {
-      "shotId": "shot_006",
-      "source": "tmp/media/foundry-storyboard-sheet-2-shot-006.png",
+      "beatId": "beat_006",
+      "source": "tmp/media/foundry-storyboard-sheet-2-beat-006.png",
       "sourcePurpose": "scene.storyboard-sheet"
     }
   ]

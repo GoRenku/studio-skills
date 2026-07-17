@@ -27,9 +27,7 @@ Use the provider-registration split deliberately:
 
 - ElevenLabs TTS registrations carry capability `dialogue-audio-tts` and are
   used by scene dialogue audio generation.
-- Kling voice control is not a durable Cast Voice Provider Registration. For
-  shot-video generation, Media Producer selects scene dialogue audio or a clean
-  Cast Voice sample as an exact generation reference; Core creates and caches the transient
-  Kling `voice_id` during `shot.video-take` estimate/run.
-- Seedance audio references are not provider registrations. They are
-  per-generation clean voice/style references selected by shot-video workflows.
+- Kling voice control is not a durable Cast Voice Provider Registration. A
+  future Shot workflow must define any transient provider voice-id behavior.
+- Seedance audio references are not provider registrations. A future Shot
+  workflow must define any per-generation voice/style reference behavior.
