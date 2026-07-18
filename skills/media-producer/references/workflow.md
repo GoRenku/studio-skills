@@ -70,19 +70,19 @@ Use this path only when the user explicitly asks for Codex built-in image
 generation. Do not select it merely because the requested output is an image.
 Before invoking Codex image generation, save the exact request as a normal
 GenerationSpec. Use `"executionKind": "agent-external"`, record the provider and
-model actually used by the current Codex image tool, and put the exact prompt and
-every concrete chosen or executed property under `values`. For image generation,
-that includes aspect ratio, resolution or size, quality, output format, and image
-count when those values are known. Keep them as separate values even when the
-Codex tool also receives the same direction in prompt prose. Do not invent an
-unknown value or hardcode a model name in the workflow.
+model actually used by the current Codex image tool, and use exactly
+`values: { "prompt": "..." }`. The prompt is the complete, exact instruction
+sent to Codex. Preserve every reviewed requirement there, including `16:9`,
+composition, visual quality, format direction, and creative constraints. Store
+selected image inputs only as logical `references`.
 
 If the user switches an already-saved request from Renku execution to Codex,
 start from that saved request. Preserve `values.prompt` exactly, preserve the
-title and selected references, and carry every model-independent chosen value.
-Change only `executionKind`, the actual provider/model, and provider-only routing
-fields. Never synthesize a replacement prompt or add request-description labels
-such as `Use case`, `Asset type`, `Input image`, or `Primary request`.
+title and selected references, and remove provider-specific structured values
+so the current Codex request has exactly `values: { prompt }`. Change only
+`executionKind` and the actual provider/model. Never synthesize a replacement
+prompt or add request-description labels such as `Use case`, `Asset type`,
+`Input image`, or `Primary request`.
 
 ```json
 {
@@ -91,12 +91,7 @@ such as `Use case`, `Asset type`, `Input image`, or `Primary request`.
   "target": { "kind": "castMember", "id": "cast_..." },
   "model": { "provider": "codex", "model": "<actual-model>" },
   "values": {
-    "prompt": "Exact prompt sent to Codex.",
-    "aspect_ratio": "<actual-value>",
-    "resolution": { "width": 1536, "height": 864 },
-    "quality": "<actual-value>",
-    "output_format": "png",
-    "image_count": 1
+    "prompt": "Create one polished 16:9 profile image with the reviewed composition, visual quality, format direction, and creative constraints."
   },
   "references": [],
   "title": "Profile image"
@@ -112,11 +107,18 @@ renku generation preview show --spec <returned-spec-id> --json
 
 Stop after Preview and wait for explicit user approval. The Preview opening is
 not approval. After approval, read the saved spec again so any prompt or
-reference changes made with the Update button are used by Codex:
+reference changes made with the Update button are included. Then freeze that
+exact saved revision immediately before invoking Codex:
 
 ```bash
 renku generation spec show --spec <returned-spec-id> --json
+renku generation spec freeze --spec <returned-spec-id> --json
 ```
+
+Pass the frozen record's `spec.values.prompt` to Codex unchanged and pass each
+accepted logical image reference through the image-generation tool's reference
+input. A failed Codex call does not unfreeze the request; retry that exact frozen
+request or author and review a new spec for any change.
 
 After inspecting and accepting the generated file, attach it through the normal
 focused import and link the saved request:
@@ -172,6 +174,6 @@ location.hero
 
 Scene Storyboard images use the dedicated grouped or single-Beat import form. Cast Voice samples use the Cast Voice attachment workflow.
 
-Pass `--receipt` only for an exact output from a matching Renku purpose and target. For a Codex-generated image, pass the saved request with `--source-spec`. Omit both flags for uploaded, manually produced, or other external media with no saved generation request. Never fabricate provenance.
+Pass `--receipt` only for an exact output from a matching Renku purpose and target. For a Codex-generated image, pass the frozen saved request with `--source-spec`. Attachment rejects a mutable source request. Omit both flags for uploaded, manually produced, or other external media with no saved generation request. Never fabricate provenance.
 
 When the requested durable destination has no current focused command, report the gap. Do not invent a generic attachment command, use ignored flags, write the database directly, or manually copy files into canonical media folders.

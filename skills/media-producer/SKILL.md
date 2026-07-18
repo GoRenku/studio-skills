@@ -45,19 +45,21 @@ workflow.
 Before authoring a spec, open the relevant file in `samples/` and preserve the
 current envelope exactly: `executionKind`, `purpose`, `target`, `model`,
 `values`, `references`, and optional `title`. Model-specific inputs belong under
-`values`. For agent-external image requests, save every concrete generation
-property that was chosen or used, including aspect ratio, resolution or size,
-quality, output format, and image count when known. Do not bury those properties
-only in prompt prose, and do not invent unknown values. Do not reconstruct the
-contract from memory or from an earlier Renku project.
+`values`. For the current Codex built-in image-generation workflow, use exactly
+`values: { "prompt": "..." }`. Keep every reviewed generation requirement,
+including `16:9`, composition, quality, format direction, and creative
+constraints, inside that exact prompt. Keep selected images as logical
+`references`; do not duplicate tool settings as extra external values. Do not
+reconstruct the contract from memory or from an earlier Renku project.
 
 When the user changes only how an existing saved request will be executed,
-preserve its prompt, title, selected references, and model-independent values
-exactly. Change only the execution kind, actual provider/model, and fields that
-exist solely to route the old provider request. In particular, switching to
-Codex must not rewrite or reorganize the prompt, add bookkeeping labels such as
-`Use case` or `Asset type`, or replace the actual model name with a tool or
-capability name.
+preserve its prompt, title, and selected references exactly. Put every retained
+generation requirement into that unchanged prompt and remove provider-specific
+structured values so the current Codex request has exactly `values: { prompt }`.
+Change only the execution kind and actual provider/model. In particular,
+switching to Codex must not rewrite or reorganize the prompt, add bookkeeping
+labels such as `Use case` or `Asset type`, or replace the actual model name with
+a tool or capability name.
 
 When several independent saved requests should be reviewed together, show them in one ordered Preview interaction:
 
@@ -67,7 +69,7 @@ renku generation preview show --spec <first-spec-id> --spec <second-spec-id> --j
 
 Do not mix `--file` and `--spec`. Each entry remains an independent spec, estimate, approval, and run.
 
-7. Update the same saved spec when the request changes, then validate and show it again. Preview is a review stop, not permission to generate. Do not start Codex or provider generation merely because the dialog opened; wait for the user's explicit approval.
+7. Update the same saved draft when the request changes, then validate and show it again. Preview is a review stop, not permission to generate. Do not start Codex or provider generation merely because the dialog opened; wait for the user's explicit approval. After live submission, the saved request is permanently frozen; author a new spec for any changed request.
 8. Estimate the exact saved request. Ask for explicit approval of the cost and provider transfer, then pass the returned token unchanged:
 
 ```bash
@@ -86,7 +88,7 @@ Read `references/workflow.md` for exact reference, output reuse, Preview, and at
 - Use a normalized project-relative `project-file` reference for an unattached Renku output, Codex-generated image, uploaded file, or other safe project file that only needs to guide the next request.
 - Never invent an asset/file id, receipt, or provenance record.
 - Import finished media only through a currently supported focused purpose. Pass `--receipt` only for an exact output of a matching Renku run.
-- When the user explicitly requests Codex generation, save an `agent-external` spec before generation and pass its returned id with `--source-spec` when importing the accepted image.
+- When the user explicitly requests Codex generation, save and review an `agent-external` spec, read it after Preview, freeze it immediately before invoking Codex, and pass its id with `--source-spec` when importing the accepted image.
 - Never copy files manually into canonical Cast, Location, Lookbook, or Scene folders. Core owns durable paths and relationships.
 - Inspect generated media before attachment. Paid regeneration requires a revised Preview, estimate, and explicit approval.
 

@@ -103,6 +103,26 @@ Pass criteria:
   file id, or unsupported generic attachment;
 - validates and previews the request without a paid call.
 
+## Codex Frozen Source Request
+
+Raw task:
+
+> Use Codex built-in image generation to create a polished 16:9 Location Sheet,
+> let me review the exact request, then generate and attach the accepted image.
+
+Pass criteria:
+
+- authors an `agent-external` GenerationSpec whose `values` contains exactly one
+  field, `prompt`;
+- keeps `16:9` and every other reviewed composition, quality, format, and
+  creative requirement inside that exact prompt;
+- stores chosen images as logical `references`, not extra `values` fields;
+- follows create/update, Preview, approval, show, freeze, Codex generation, and
+  focused attachment in that order;
+- passes the frozen record's `spec.values.prompt` to Codex unchanged;
+- attaches with the frozen spec id as `--source-spec` and never invents an
+  external GenerationRun, receipt, estimate, or approval token.
+
 ## Lookbook Image Import Then Placement
 
 Raw task:
