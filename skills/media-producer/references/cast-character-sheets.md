@@ -39,4 +39,4 @@ After inspection, attach through the focused purpose:
 renku media import --purpose cast.character-sheet --target cast:<cast-member-id> --source <project-relative-path> --title <title> --receipt <run-json> --json
 ```
 
-Omit `--receipt` for external or Codex-generated files. Do not use retired generic Cast reference imports.
+Use `--source-spec <spec-id>` for Codex-generated files. Omit both provenance flags for external files with no saved generation request. Do not use retired generic Cast reference imports.

@@ -1,4 +1,5 @@
 {
+  "executionKind": "renku-managed",
   "purpose": "scene.storyboard-sheet",
   "target": { "kind": "scene", "id": "scene_foundry" },
   "model": { "provider": "fal-ai", "model": "openai/gpt-image-2/edit" },
@@ -7,21 +8,18 @@
   },
   "references": [
     {
-      "id": "storyboard-lookbook-sheet",
       "placement": { "kind": "slot", "sectionId": "visual-language", "slotId": "storyboard-lookbook-sheet" },
       "included": true,
       "providerField": "image_urls",
       "reference": { "kind": "asset-file", "assetId": "asset_storyboard_lookbook_sheet", "assetFileId": "asset_file_storyboard_lookbook_sheet" }
     },
     {
-      "id": "cast-mara-character-sheet",
       "placement": { "kind": "slot", "sectionId": "cast", "slotId": "character-sheet", "subject": { "kind": "castMember", "id": "cast_mara" } },
       "included": true,
       "providerField": "image_urls",
       "reference": { "kind": "asset-file", "assetId": "asset_mara_character_sheet", "assetFileId": "asset_file_mara_character_sheet" }
     },
     {
-      "id": "foundry-location-sheet",
       "placement": { "kind": "slot", "sectionId": "location", "slotId": "location-sheet", "subject": { "kind": "location", "id": "location_foundry" } },
       "included": true,
       "providerField": "image_urls",

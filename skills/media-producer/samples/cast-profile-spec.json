@@ -1,4 +1,5 @@
 {
+  "executionKind": "renku-managed",
   "purpose": "cast.profile",
   "target": { "kind": "castMember", "id": "cast_ada" },
   "model": { "provider": "fal-ai", "model": "openai/gpt-image-2/edit" },
@@ -7,7 +8,6 @@
   },
   "references": [
     {
-      "id": "cast-profile-source",
       "placement": { "kind": "slot", "sectionId": "source", "slotId": "character-sheet" },
       "included": true,
       "providerField": "image_urls",

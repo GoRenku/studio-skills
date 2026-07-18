@@ -1,4 +1,5 @@
 {
+  "executionKind": "renku-managed",
   "purpose": "lookbook.image",
   "target": { "kind": "lookbook", "id": "lookbook_abc" },
   "model": { "provider": "fal-ai", "model": "openai/gpt-image-2" },

@@ -68,6 +68,11 @@ Research sources reviewed:
 
 ## Prompt Grammar By Endpoint Shape
 
+Write the saved prompt as readable natural-language paragraphs or simple
+Markdown headings and bullets. Do not prefix the user-visible prompt with
+internal bookkeeping labels such as `Use case`, `Asset type`, or `Primary
+request`.
+
 Text-to-image has no image inputs. Use only textual project facts and concrete
 visual direction.
 
@@ -131,7 +136,6 @@ target is the registered source asset:
   },
   "references": [
     {
-      "id": "image-edit-source",
       "placement": { "kind": "slot", "sectionId": "source", "slotId": "source-image" },
       "providerField": "image_urls",
       "reference": { "kind": "asset-file", "assetId": "asset_source_image", "assetFileId": "asset_file_source_image" }

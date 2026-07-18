@@ -6,7 +6,6 @@ Use this sequence for every Renku-managed generation purpose:
 renku generation context --purpose <purpose> --target <target> --json
 renku generation model list --purpose <purpose> --json
 renku generation validate --file <spec.json> --json
-renku generation preview show --file <spec.json> --json
 renku generation spec create --file <spec.json> --json
 renku generation preview show --spec <spec-id> --json
 renku generation estimate --spec <spec-id> --json
@@ -22,6 +21,7 @@ Start from the relevant checked-in sample and keep this exact top-level shape:
 
 ```json
 {
+  "executionKind": "renku-managed",
   "purpose": "cast.character-sheet",
   "target": { "kind": "castMember", "id": "cast_..." },
   "model": { "provider": "fal-ai", "model": "openai/gpt-image-2" },
@@ -64,14 +64,80 @@ Use `renku generation reference list --media-kind <image|audio|video> --json` to
 
 Do not infer creative dependencies, manufacture missing media, walk provenance, or estimate future work.
 
+## Explicit Codex image generation
+
+Use this path only when the user explicitly asks for Codex built-in image
+generation. Do not select it merely because the requested output is an image.
+Before invoking Codex image generation, save the exact request as a normal
+GenerationSpec. Use `"executionKind": "agent-external"`, record the provider and
+model actually used by the current Codex image tool, and put the exact prompt and
+every concrete chosen or executed property under `values`. For image generation,
+that includes aspect ratio, resolution or size, quality, output format, and image
+count when those values are known. Keep them as separate values even when the
+Codex tool also receives the same direction in prompt prose. Do not invent an
+unknown value or hardcode a model name in the workflow.
+
+If the user switches an already-saved request from Renku execution to Codex,
+start from that saved request. Preserve `values.prompt` exactly, preserve the
+title and selected references, and carry every model-independent chosen value.
+Change only `executionKind`, the actual provider/model, and provider-only routing
+fields. Never synthesize a replacement prompt or add request-description labels
+such as `Use case`, `Asset type`, `Input image`, or `Primary request`.
+
+```json
+{
+  "executionKind": "agent-external",
+  "purpose": "cast.profile",
+  "target": { "kind": "castMember", "id": "cast_..." },
+  "model": { "provider": "codex", "model": "<actual-model>" },
+  "values": {
+    "prompt": "Exact prompt sent to Codex.",
+    "aspect_ratio": "<actual-value>",
+    "resolution": { "width": 1536, "height": 864 },
+    "quality": "<actual-value>",
+    "output_format": "png",
+    "image_count": 1
+  },
+  "references": [],
+  "title": "Profile image"
+}
+```
+
+Save first, then generate:
+
+```bash
+renku generation spec create --file <external-spec.json> --json
+renku generation preview show --spec <returned-spec-id> --json
+```
+
+Stop after Preview and wait for explicit user approval. The Preview opening is
+not approval. After approval, read the saved spec again so any prompt or
+reference changes made with the Update button are used by Codex:
+
+```bash
+renku generation spec show --spec <returned-spec-id> --json
+```
+
+After inspecting and accepting the generated file, attach it through the normal
+focused import and link the saved request:
+
+```bash
+renku media import --purpose <purpose> --target <target> --source <project-relative-path> --title <title> --source-spec <returned-spec-id> --json
+```
+
+Do not create a GenerationRun or receipt for Codex execution. Do not call Renku
+estimate or run for an `agent-external` spec.
+
 ## Preview and price approval
 
-Use `preview show --file` for an unsaved draft and `preview show --spec` for the saved request. Showing Preview does not execute generation.
+Open Studio Preview only for the saved request with `preview show --spec`. This
+keeps the prompt, reference cards, model settings, and Update action connected
+to the same saved request. Showing Preview does not execute generation and does
+not authorize it.
 
 Use repeated flags to review several complete, independent requests together while preserving order:
 
 ```bash
-renku generation preview show --file tmp/request-1.json --file tmp/request-2.json --json
 renku generation preview show --spec media_generation_spec_1 --spec media_generation_spec_2 --json
 ```
 
@@ -106,6 +172,6 @@ location.hero
 
 Scene Storyboard images use the dedicated grouped or single-Beat import form. Cast Voice samples use the Cast Voice attachment workflow.
 
-Pass `--receipt` only for an exact output from a matching Renku purpose and target. Omit it for Codex-generated, uploaded, manually produced, or other external media. Never fabricate provenance.
+Pass `--receipt` only for an exact output from a matching Renku purpose and target. For a Codex-generated image, pass the saved request with `--source-spec`. Omit both flags for uploaded, manually produced, or other external media with no saved generation request. Never fabricate provenance.
 
 When the requested durable destination has no current focused command, report the gap. Do not invent a generic attachment command, use ignored flags, write the database directly, or manually copy files into canonical media folders.

@@ -1,4 +1,5 @@
 {
+  "executionKind": "renku-managed",
   "purpose": "lookbook.storyboard-sheet",
   "target": { "kind": "lookbook", "id": "lookbook_c7g2k6w8" },
   "model": { "provider": "fal-ai", "model": "openai/gpt-image-2" },

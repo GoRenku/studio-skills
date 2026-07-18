@@ -20,10 +20,10 @@ Use a create endpoint when no source sheet is chosen for this request. Use an ed
 
 For Cast Members with `isVoiceOver: true`, do not require a Character Sheet. Read `voice-over-profile-image.md` and create a symbolic display image rather than a physical likeness.
 
-For Codex image generation, save the accepted file inside the project, inspect it, and import it without a receipt. For Renku generation, follow `workflow.md` and attach the exact accepted run output:
+For Codex image generation, follow the external-spec sequence in `workflow.md`, save the accepted file inside the project, inspect it, and import it with `--source-spec <spec-id>`. For Renku generation, follow `workflow.md` and attach the exact accepted run output:
 
 ```bash
 renku media import --purpose cast.profile --target cast:<cast-member-id> --source <project-relative-path> --title <title> --receipt <run-json> --json
 ```
 
-Omit `--receipt` for external or Codex-generated files.
+Use `--source-spec` instead of `--receipt` for Codex-generated files. Omit both for external files with no saved generation request.

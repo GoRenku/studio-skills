@@ -1,4 +1,5 @@
 {
+  "executionKind": "renku-managed",
   "purpose": "cast.voice-sample",
   "target": { "kind": "castMember", "id": "cast_ada" },
   "model": { "provider": "fal-ai", "model": "elevenlabs/tts/eleven-v3" },

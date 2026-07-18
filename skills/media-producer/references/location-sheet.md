@@ -21,4 +21,4 @@ renku media import --purpose location.sheet --target location:<location-id> --so
 renku media import --purpose location.hero --target location:<location-id> --source <project-relative-path> --title <title> --receipt <run-json> --json
 ```
 
-Omit `--receipt` for external or Codex-generated files. Do not crop a Location Sheet into runtime-owned directional slices.
+Use `--source-spec <spec-id>` for Codex-generated files. Omit both provenance flags for external files with no saved generation request. Do not crop a Location Sheet into runtime-owned directional slices.

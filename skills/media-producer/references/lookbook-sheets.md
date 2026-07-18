@@ -28,4 +28,4 @@ renku media import --purpose lookbook.video-sheet --target lookbook:<lookbook-id
 renku media import --purpose lookbook.storyboard-sheet --target lookbook:<lookbook-id> --source <project-relative-path> --title <title> --receipt <run-json> --json
 ```
 
-Omit `--receipt` for external or Codex-generated files.
+Use `--source-spec <spec-id>` for Codex-generated files. Omit both provenance flags for external files with no saved generation request.

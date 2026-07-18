@@ -1,4 +1,5 @@
 {
+  "executionKind": "renku-managed",
   "purpose": "location.sheet",
   "target": { "kind": "location", "id": "location_sea_walls" },
   "model": { "provider": "fal-ai", "model": "openai/gpt-image-2" },
