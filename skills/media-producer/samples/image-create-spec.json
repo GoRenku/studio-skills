@@ -1,0 +1,13 @@
+{
+  "executionKind": "renku-managed",
+  "purpose": "image.create",
+  "target": { "kind": "project" },
+  "model": { "provider": "fal-ai", "model": "nano-banana-2" },
+  "values": {
+    "prompt": "Create a wide cinematic still of rain moving across an empty stone arcade at blue hour.",
+    "aspect_ratio": "16:9",
+    "resolution": "2K"
+  },
+  "references": [],
+  "title": "Rain-soaked arcade"
+}

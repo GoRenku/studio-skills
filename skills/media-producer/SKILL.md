@@ -26,9 +26,15 @@ renku generation context --purpose <purpose> --target <target> --json
 renku generation model list --purpose <purpose> --json
 ```
 
-4. Inspect every candidate in every relevant guide slot, including the underlying image files when the choice is visual. Choose the exact candidate that best serves the request, or choose none. Author only that choice in one generic `GenerationSpec`; the guide never chooses for you. Presence means inclusion. Preserve the exact section, slot, and optional subject from the guide, set `providerField` only when deliberately routing the exact file to a real media field from the selected model descriptor, and use `{ "kind": "additional" }` only for an extra exact opaque reference.
-5. Keep Core-fixed settings out of agent policy. Treat recommendations as editable guidance and author them only when explicitly chosen. Leave untouched provider defaults absent.
-6. Validate and show Preview before paid work:
+4. For an image purpose, read `references/image-prompt-authoring.md`. Load one
+   exact route guide through `references/image-model-guide-registry.json` and
+   the relevant purpose guide below before writing the prompt. Fail before
+   authoring when the selected exact route has no guide. Use generation guidance
+   for every image purpose except `image.edit`; use revise-source guidance for
+   `image.edit`, including a regenerated edit request.
+5. Inspect every candidate in every relevant guide slot, including the underlying image files when the choice is visual. Choose the exact candidate that best serves the request, or choose none. Author only that choice in one generic `GenerationSpec`; the guide never chooses for you. Presence means inclusion. Preserve the exact section, slot, and optional subject from the guide, set `providerField` only when deliberately routing the exact file to a real media field from the selected model descriptor, assign exact stable `promptMention` values to image references used by the prompt, and use `{ "kind": "additional" }` only for an extra exact opaque reference.
+6. Keep Core-fixed settings out of agent policy. Treat recommendations as editable guidance and author them only when explicitly chosen. Leave untouched provider defaults absent.
+7. Validate and show Preview before paid work:
 
 ```bash
 renku generation validate --file <spec.json> --json
@@ -69,8 +75,8 @@ renku generation preview show --spec <first-spec-id> --spec <second-spec-id> --j
 
 Do not mix `--file` and `--spec`. Each entry remains an independent spec, estimate, approval, and run.
 
-7. Update the same saved draft when the request changes, then validate and show it again. Preview is a review stop, not permission to generate. Do not start Codex or provider generation merely because the dialog opened; wait for the user's explicit approval. After live submission, the saved request is permanently frozen; author a new spec for any changed request.
-8. Estimate the exact saved request. Ask for explicit approval of the cost and provider transfer, then pass the returned token unchanged:
+8. Update the same saved draft when the request changes, then validate and show it again. Preview is a review stop, not permission to generate. Do not start Codex or provider generation merely because the dialog opened; wait for the user's explicit approval. After live submission, the saved request is permanently frozen; author a new spec for any changed request.
+9. Estimate the exact saved request. Ask for explicit approval of the cost and provider transfer, then pass the returned token unchanged:
 
 ```bash
 renku generation estimate --spec <spec-id> --json
@@ -128,6 +134,18 @@ Load only the relevant reference:
 - Lookbook media: `references/lookbook-image.md` or `references/lookbook-sheets.md`
 - Scene Storyboard generation and agent-owned splitting: `references/scene-storyboard-sheet.md`
 - Reference-aware image prompting: `references/reference-visible-image-prompting.md`
+
+Validate exact image-route guide and sample coverage after changing an image
+route, guide, purpose sample, or prompt-authoring instruction:
+
+```bash
+node skills/media-producer/scripts/validate-image-prompt-guides.mjs \
+  --project urban-basilica
+```
+
+The command compares the guide registry with the current image routes reported
+by the installed Renku CLI. The registry maps identities to guide paths only;
+it does not own model families, media capability, or configurable fields.
 
 For `cast.character-sheet` and `location.sheet`, inspect all same-owner prior sheet candidates as optional continuity references. Choose a useful prior sheet only when it supports the current creative direction; no prior sheet is required, and the first candidate has no special status.
 

@@ -4,17 +4,18 @@
   "target": { "kind": "asset", "id": "asset_current_prompt_sheet" },
   "model": { "provider": "fal-ai", "model": "openai/gpt-image-2/edit" },
   "values": {
-    "prompt": "Edit this exact storyboard/reference image. Preserve Panels 1, 2, 5, and 6 exactly. Change only Panels 3 and 4. Panel 3 must continue from the city over the walls toward the battlefield. Panel 4 must show the battlefield after the wall crossing, with no wall visible, and the Ottoman encampment far in the distance. Preserve the sheet layout, panel borders, style, period look, labels, timing strip, and all unchanged panels.",
+    "prompt": "Edit @Reference1 only. Preserve Panels 1, 2, 5, and 6 exactly. Change only Panels 3 and 4. Panel 3 must continue from the city over the walls toward the battlefield. Panel 4 must show the battlefield after the wall crossing, with no wall visible, and the Ottoman encampment far in the distance. Preserve the sheet layout, panel borders, style, period look, labels, timing strip, and all unchanged panels.",
     "image_size": { "width": 1024, "height": 768 },
     "quality": "high"
   },
   "references": [
     {
       "placement": { "kind": "slot", "sectionId": "source", "slotId": "source-image" },
-      "included": true,
       "providerField": "image_urls",
+      "promptMention": "@Reference1",
       "reference": { "kind": "asset-file", "assetId": "asset_current_prompt_sheet", "assetFileId": "asset_file_current_prompt_sheet" }
     }
   ],
+  "nextPromptMentionNumber": 2,
   "title": "Bombardment prompt sheet Panels 3 and 4 correction"
 }

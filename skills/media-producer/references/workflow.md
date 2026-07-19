@@ -53,6 +53,14 @@ Copy exact selections from context rather than rebuilding placement ids. Preserv
 
 Presence means inclusion; omit an unselected reference instead of persisting an `included` flag. `providerField` is optional authored intent. When present, it must name an actual media field from the selected model descriptor. Placement expresses product role while `providerField` expresses provider routing; neither implies the other.
 
+For selected image references used by the prompt, author a unique exact
+`promptMention` such as `@Reference1`. Allocate monotonically from the request's
+`nextPromptMentionNumber`; never reuse a cleared mention or scan prompt text to
+recover allocation state. A prompt mention names an image in human-readable
+prompt text and is independent from `providerField`. Replacing the exact
+reference in the same placement preserves the mention. Clearing it does not
+rewrite the prompt.
+
 Inspect every selected reference before generation. A candidate is not a selected relationship, and filesystem presence is not selection. If a continuity-critical exact selection is missing, stop and ask for explicit user direction rather than substituting the first candidate.
 
 Use:

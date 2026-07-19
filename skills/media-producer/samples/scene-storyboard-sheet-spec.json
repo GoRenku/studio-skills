@@ -4,27 +4,28 @@
   "target": { "kind": "scene", "id": "scene_foundry" },
   "model": { "provider": "fal-ai", "model": "openai/gpt-image-2/edit" },
   "values": {
-    "prompt": "Create a hand-drawn production storyboard sheet for the selected foundry shots. Use the supplied Storyboard Lookbook Sheet only for drawing language, value grouping, and notation behavior. Keep the four ordered panels clear, warm, and practical for shot planning."
+    "prompt": "Create a hand-drawn production storyboard sheet for the selected foundry shots. Use @Reference1 for drawing language, value grouping, and notation behavior. Preserve the Cast identity from @Reference2 and the foundry environment from @Reference3. Keep the four ordered panels clear, warm, and practical for shot planning."
   },
   "references": [
     {
       "placement": { "kind": "slot", "sectionId": "visual-language", "slotId": "storyboard-lookbook-sheet" },
-      "included": true,
       "providerField": "image_urls",
+      "promptMention": "@Reference1",
       "reference": { "kind": "asset-file", "assetId": "asset_storyboard_lookbook_sheet", "assetFileId": "asset_file_storyboard_lookbook_sheet" }
     },
     {
       "placement": { "kind": "slot", "sectionId": "cast", "slotId": "character-sheet", "subject": { "kind": "castMember", "id": "cast_mara" } },
-      "included": true,
       "providerField": "image_urls",
+      "promptMention": "@Reference2",
       "reference": { "kind": "asset-file", "assetId": "asset_mara_character_sheet", "assetFileId": "asset_file_mara_character_sheet" }
     },
     {
       "placement": { "kind": "slot", "sectionId": "location", "slotId": "location-sheet", "subject": { "kind": "location", "id": "location_foundry" } },
-      "included": true,
       "providerField": "image_urls",
+      "promptMention": "@Reference3",
       "reference": { "kind": "asset-file", "assetId": "asset_foundry_location_sheet", "assetFileId": "asset_file_foundry_location_sheet" }
     }
   ],
+  "nextPromptMentionNumber": 4,
   "title": "Foundry storyboard sheet 1"
 }

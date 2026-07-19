@@ -1,0 +1,44 @@
+{
+  "routes": [
+    {
+      "provider": "fal-ai",
+      "model": "openai/gpt-image-2",
+      "guide": "references/image-models/gpt-image-2.md"
+    },
+    {
+      "provider": "fal-ai",
+      "model": "openai/gpt-image-2/edit",
+      "guide": "references/image-models/gpt-image-2.md"
+    },
+    {
+      "provider": "fal-ai",
+      "model": "nano-banana-2",
+      "guide": "references/image-models/nano-banana.md"
+    },
+    {
+      "provider": "fal-ai",
+      "model": "nano-banana-2/edit",
+      "guide": "references/image-models/nano-banana.md"
+    },
+    {
+      "provider": "fal-ai",
+      "model": "nano-banana-pro",
+      "guide": "references/image-models/nano-banana.md"
+    },
+    {
+      "provider": "fal-ai",
+      "model": "nano-banana-pro/edit",
+      "guide": "references/image-models/nano-banana.md"
+    },
+    {
+      "provider": "fal-ai",
+      "model": "xai/grok-imagine-image",
+      "guide": "references/image-models/grok-imagine-image.md"
+    },
+    {
+      "provider": "fal-ai",
+      "model": "xai/grok-imagine-image/edit",
+      "guide": "references/image-models/grok-imagine-image.md"
+    }
+  ]
+}

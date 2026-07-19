@@ -1,0 +1,11 @@
+{
+  "executionKind": "agent-external",
+  "purpose": "location.sheet",
+  "target": { "kind": "location", "id": "location_sea_walls" },
+  "model": { "provider": "codex", "model": "gpt-image-2" },
+  "values": {
+    "prompt": "Create one polished 16:9 Location Sheet for the Constantinople sea walls as a wide production reference for siege planning."
+  },
+  "references": [],
+  "title": "Sea walls Location Sheet via Codex"
+}
