@@ -120,7 +120,8 @@ Exclude: [unwanted copied reference traits or generated artifacts].
 ```
 
 For generic source-image corrections, use the Renku `image.edit` purpose. The
-target is the registered source asset:
+target is the registered source Asset and `source/source-image` selects the
+exact source AssetFile:
 
 ```json
 {
@@ -147,7 +148,9 @@ target is the registered source asset:
 Do not resend Production Lookbook, Location Sheet, or Character Sheet references for
 a localized edit unless the user asks for a new reference-conditioned image.
 The source image is the visible continuity anchor. Inspect the result before
-import, and attach it only through the destination purpose's import command.
+import, separately ask the user to accept the output, and attach it only through
+the source owner's real destination purpose and target with its matching receipt
+or frozen source spec.
 
 ## Provider-Visible Reference Roles
 

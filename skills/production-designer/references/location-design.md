@@ -11,7 +11,7 @@ Use it for:
 - atmosphere;
 - props and recurring objects;
 - continuity;
-- environment-sheet guidance;
+- Location Sheet guidance in `locationSheetGuidance`;
 - generation guidance.
 
 Commands:

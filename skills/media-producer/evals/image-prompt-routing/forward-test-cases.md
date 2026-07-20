@@ -21,19 +21,33 @@ The prompt stays concise and uses generation guidance.
 The exact selected references receive stable `promptMention` values, and the
 prompt names their distinct roles without inferring roles from input order.
 
-## Revise source
+## Agent-owned image-edit workflow
 
 > Edit the current image so only the brass door becomes oxidized green.
 
-The request keeps `image.edit`, identifies the locked source by its exact
-mention, states the focused change, and preserves the rest of the image.
+Run this focused group for both a Renku-managed route and Codex external
+generation:
 
-## Regenerate an edit
+- Resolve the exact source Asset and AssetFile, target the Asset with
+  `image.edit`, and lock that exact file in `source/source-image`.
+- Save the request and show Preview. The prompt identifies the locked source by
+  its exact mention, states the focused change, and preserves the rest.
+- Treat Preview as request review only and wait for explicit approval.
+- For the managed branch, execute after estimate approval, display the output,
+  ask separately whether to attach it, and import an accepted output through
+  the source owner's real focused purpose/target with the exact receipt.
+- For the Codex branch, use `agent-external` with the actual
+  `codex/gpt-image-2` identity, read and freeze the reviewed spec, display the
+  output, ask separately whether to attach it, and import an accepted output
+  through the real focused purpose/target with `--source-spec`.
+- Reject one output and verify it remains unattached.
+- In both accepted branches, verify the new output is a separate unselected
+  Asset and the original Asset, AssetFile, ownership, and selection/display
+  state remain unchanged.
 
-> Regenerate this earlier edit with a different supported model family.
-
-The new request remains `image.edit`; Regenerate does not convert it to a
-general creation prompt.
+If the external provider/model or a non-prompt value changes, update the saved
+spec through the CLI and show Preview again before approval. Never use the
+read-only Studio Generation Request inspector as an editing surface.
 
 ## Codex external
 

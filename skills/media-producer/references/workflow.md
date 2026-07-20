@@ -162,6 +162,39 @@ If prompt, endpoint, authored values, reference order or presence, provider-fiel
 
 The returned token approves provider/model pricing facts, not the creative payload. A pricing-input change can produce a different token; a prompt or reference change can leave the token unchanged. Always pass the token returned by the latest estimate review, and never treat token equality as proof that execution inputs are unchanged or ready.
 
+## Agent-owned image editing
+
+Studio's Generation Request inspector is read-only. To edit an existing image,
+the agent owns this complete workflow:
+
+1. Resolve the exact source Asset and AssetFile from current project context.
+2. Author a new `image.edit` GenerationSpec targeting that source Asset. Put
+   the exact source AssetFile in the locked `source/source-image` slot, write
+   the user's edit prompt, and add only deliberately selected references.
+3. Select a supported Renku-managed image-edit route, or use the external
+   `codex/gpt-image-2` identity only when the user requests Codex generation.
+4. Save the draft and open Preview for that saved spec. Managed requests keep
+   their normal Preview editing behavior. For `agent-external`, Preview may
+   update only prompt and reference slots. Change its provider, model, or any
+   non-prompt saved value with `renku generation spec update --spec <id>
+   --file <spec.json>`, then open Preview again.
+5. Treat Preview as request review, not execution approval. Wait for explicit
+   approval, read the saved revision again, and freeze it at the existing live
+   managed or external execution boundary. Any changed request requires a new
+   reviewed spec; never mutate a frozen request.
+6. Execute the approved request through Renku or Codex.
+7. Display the generated image in Codex and separately ask whether the user
+   accepts this output for attachment.
+8. Only after output acceptance, call `renku media import` with the real
+   destination purpose and target. Pass the matching managed `--receipt` or the
+   frozen external `--source-spec`.
+9. Report the newly attached generated Asset. The source Asset, source
+   AssetFile, owner relationship or Lookbook membership, and selected/display
+   state remain unchanged. The new result is not automatically selected.
+
+Closing Preview or the Generation Request inspector does not approve either the
+request or its output. Rejected output remains unattached.
+
 ## Outputs and focused attachment
 
 A successful run creates output files and provenance. Generation does not automatically attach outputs to a target relationship.
@@ -182,6 +215,6 @@ location.hero
 
 Scene Storyboard images use the dedicated grouped or single-Beat import form. Cast Voice samples use the Cast Voice attachment workflow.
 
-Pass `--receipt` only for an exact output from a matching Renku purpose and target. For a Codex-generated image, pass the frozen saved request with `--source-spec`. Attachment rejects a mutable source request. Omit both flags for uploaded, manually produced, or other external media with no saved generation request. Never fabricate provenance.
+Pass `--receipt` only for an exact output from a matching Renku purpose and target. For an accepted `image.edit`, import through the source owner's real focused destination rather than through a generic edit destination; Core verifies that the request's locked source AssetFile belongs to that exact Cast Member, Location, or Lookbook. For a Codex-generated image, pass the frozen saved request with `--source-spec`. Attachment rejects a mutable source request. Omit both flags for uploaded, manually produced, or other external media with no saved generation request. Never fabricate provenance.
 
 When the requested durable destination has no current focused command, report the gap. Do not invent a generic attachment command, use ignored flags, write the database directly, or manually copy files into canonical media folders.

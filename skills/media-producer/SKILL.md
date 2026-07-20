@@ -31,7 +31,7 @@ renku generation model list --purpose <purpose> --json
    the relevant purpose guide below before writing the prompt. Fail before
    authoring when the selected exact route has no guide. Use generation guidance
    for every image purpose except `image.edit`; use revise-source guidance for
-   `image.edit`, including a regenerated edit request.
+   every new `image.edit` request.
 5. Inspect every candidate in every relevant guide slot, including the underlying image files when the choice is visual. Choose the exact candidate that best serves the request, or choose none. Author only that choice in one generic `GenerationSpec`; the guide never chooses for you. Presence means inclusion. Preserve the exact section, slot, and optional subject from the guide, set `providerField` only when deliberately routing the exact file to a real media field from the selected model descriptor, assign exact stable `promptMention` values to image references used by the prompt, and use `{ "kind": "additional" }` only for an extra exact opaque reference.
 6. Keep Core-fixed settings out of agent policy. Treat recommendations as editable guidance and author them only when explicitly chosen. Leave untouched provider defaults absent.
 7. Validate and show Preview before paid work:
@@ -87,6 +87,10 @@ renku generation run show --run <run-id> --json
 Use `--simulate` with the run command for a non-paid execution check. The token approves the current provider/model price from pricing inputs; changing a pricing input requires a new estimate and may produce a new token. Creative or reference changes still require validation, a new Preview, a fresh estimate review, and explicit live-run confirmation even when the price token stays the same.
 
 Read `references/workflow.md` for exact reference, output reuse, Preview, and attachment rules.
+For `image.edit`, follow its complete source-resolution, request-review,
+execution, separate output-acceptance, and destination-import sequence. Studio's
+Generation Request dialog is inspection only; it never starts or approves an
+edit.
 
 ## Exact files and attachment
 

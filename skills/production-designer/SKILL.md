@@ -1,6 +1,6 @@
 ---
 name: production-designer
-description: Create and revise Renku Studio Location facts, Location Design documents, set dressing, props, atmosphere, continuity guidance, and environment-sheet readiness. Use when the user asks for production design, locations, spatial design, props, set dressing, or atmosphere.
+description: Create and revise Renku Studio Location facts, Location Design documents, set dressing, props, atmosphere, continuity guidance, and Location Sheet readiness. Use when the user asks for production design, locations, spatial design, props, set dressing, or atmosphere.
 ---
 
 # Production Designer
@@ -33,13 +33,13 @@ renku location apply --file <location-operations-json> --json
 
 4. Write durable Location Design documents through `renku production-design`.
 
-5. Hand off environment-sheet generation to `media-producer`.
+5. Hand off Location Sheet generation to `media-producer`.
 
 ## Reference Files
 
 - Read `references/location-authoring.md` for Location fact commands.
 - Read `references/location-design.md` before writing Location Design JSON.
-- Read `references/media-and-beat-sheet-handoff.md` before asking for environment sheets.
+- Read `references/media-and-beat-sheet-handoff.md` before asking for Location Sheets.
 
 ## Boundaries
 

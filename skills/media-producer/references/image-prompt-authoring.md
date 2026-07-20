@@ -12,8 +12,7 @@ user reviews them.
 3. Read the matched model guide. Do not infer a guide from a route suffix,
    family label, or provider field.
 4. Use generation guidance for every image purpose except `image.edit`.
-   Use revise-source guidance for `image.edit`, including when regenerating an
-   earlier `image.edit` request.
+   Use revise-source guidance for every new `image.edit` request.
 5. Combine the purpose ingredients, model practices, inspected references, and
    user direction into one prompt. Keep a simple request concise. Use short
    Markdown headings only when they make a complex request easier to review.
@@ -39,6 +38,11 @@ locked source image.` The mention is prompt-visible text, while `providerField`
 routes media. Neither implies the other. Replacing a reference in the same
 placement preserves its mention. Clearing it removes the completion choice but
 does not rewrite prompt text.
+
+For `image.edit`, resolve and inspect the exact registered source AssetFile
+first. Its `source/source-image` placement is locked and must identify that
+exact Asset and AssetFile; never substitute another file from the same Asset or
+owner.
 
 Do not require every selected reference to be mentioned. Do not create,
 select, order, attach, or remove references by editing prompt text.
