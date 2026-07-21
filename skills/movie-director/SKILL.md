@@ -47,6 +47,17 @@ Continue only when Studio current returns the object kind and durable id needed
 for the next command. Do not infer a scene, Beat, Cast Member, Location,
 Lookbook, or dialogue from nearby project data.
 
+When the user addresses a scene as `Scene 22`, `22A`, or another production
+number, resolve it before specialist dispatch:
+
+```bash
+renku screenplay scene-number resolve --number <production-number> --json
+```
+
+Pass the returned durable `sceneId` to the specialist. The production number may
+remain in human-facing handoff prose, but must not become duplicate persisted
+artifact metadata.
+
 
 ## Codex Sandbox And Studio Notifications
 

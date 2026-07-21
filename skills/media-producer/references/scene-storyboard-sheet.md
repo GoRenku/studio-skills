@@ -6,6 +6,16 @@ Target: `scene:<scene-id>`
 
 ## Required Workflow
 
+If the user names a production reference such as `Scene 22` or `22A`, resolve it
+before building the target:
+
+```bash
+renku screenplay scene-number resolve --number <production-number> --json
+```
+
+Use the returned durable `sceneId` in the generation target, Beat Sheet reads,
+and persisted Generation Spec. Do not add a duplicate production-number field.
+
 1. Read generation context:
 
    ```bash

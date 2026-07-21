@@ -2,6 +2,7 @@
 
 ```bash
 renku project open <project-name> --json
+renku screenplay scene-number resolve --number <production-number> --json
 renku screenplay beat-sheet context --scene <scene-id> --json
 renku screenplay beat-sheet list --scene <scene-id> --json
 renku screenplay beat-sheet show --active --scene <scene-id> --json
@@ -41,3 +42,5 @@ renku screenplay beat-sheet storyboard status \
 ```
 
 Use durable Beat ids from the active document. Do not resolve display labels by guessing.
+Production numbers are transient addressing references; persisted Beat Sheet
+documents continue to contain only durable `sceneId` values.

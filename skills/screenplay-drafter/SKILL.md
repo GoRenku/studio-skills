@@ -114,6 +114,17 @@ not run `renku project open` again after a successful create.
 renku screenplay status --json
 ```
 
+If the user identifies an existing scene by production number, such as
+`Scene 22` or `22A`, resolve it before reading or authoring the mutation:
+
+```bash
+renku screenplay scene-number resolve --number <production-number> --json
+```
+
+Use the returned durable `sceneId` in screenplay operation JSON and `--scene`
+flags. Do not add `productionNumber` to screenplay JSON or infer an id from Act,
+Sequence, title, or current array position.
+
 Use the status result to choose the command path:
 
 - `exists: false`: create the first screenplay with `screenplayCreate` and `renku screenplay create`.

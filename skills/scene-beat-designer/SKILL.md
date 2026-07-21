@@ -11,7 +11,14 @@ A Beat is a narrative unit, not a camera Shot. It records what meaning develops,
 
 ## Workflow
 
-1. Resolve the current project and exact scene. If the user refers to the current Studio selection, run `renku studio current --json`.
+1. Resolve the current project and exact scene. If the user refers to the current Studio selection, run `renku studio current --json`. If the user names a production reference such as `Scene 22` or `22A`, run:
+
+   ```bash
+   renku screenplay scene-number resolve --number <production-number> --json
+   ```
+
+   Use only the returned durable `sceneId` in Beat Sheet JSON and `--scene`
+   flags.
 2. Read Beat Sheet context:
 
    ```bash

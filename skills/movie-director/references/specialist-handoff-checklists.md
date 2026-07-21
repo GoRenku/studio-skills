@@ -8,12 +8,23 @@ Pass:
 
 - current project name and title;
 - relevant Renku ids, not guessed names;
+- resolved production scene number and its durable `sceneId` when the user
+  addressed the work as `Scene 22` or `22A`;
 - user goal and explicit constraints;
 - current director readiness blockers;
 - any user-selected provider/model, authored value, exact reference, cost,
   asset, shot, or approval choices.
 
 After completion, read back durable state through the CLI. Do not trust a specialist's prose summary alone when a Renku command can verify the result.
+
+Resolve a production scene reference before dispatch:
+
+```bash
+renku screenplay scene-number resolve --number <production-number> --json
+```
+
+Persist only the durable `sceneId` in screenplay, analysis, Cast Design, Beat
+Sheet, and generation JSON.
 
 ## `screenplay-drafter`
 

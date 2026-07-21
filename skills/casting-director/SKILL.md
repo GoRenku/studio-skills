@@ -17,6 +17,16 @@ Do not route Cast Member changes through screenplay operations. The canonical mu
 renku project current --json
 ```
 
+If a costume or continuity request is scoped to a production reference such as
+`Scene 22` or `22A`, resolve it before authoring Cast Design:
+
+```bash
+renku screenplay scene-number resolve --number <production-number> --json
+```
+
+Use the returned durable `sceneId` in the costume scope. Do not add a duplicate
+production-number field to Cast Design JSON.
+
 2. For a specific Cast Member, read department context:
 
 ```bash

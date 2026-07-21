@@ -120,3 +120,7 @@ For scoped costume variants, use exactly one scope shape:
 - `{ "kind": "project" }`
 - `{ "kind": "sequence", "sequenceId": "sequence_..." }`
 - `{ "kind": "scene", "sceneId": "scene_..." }`
+
+When the user supplies a production scene number, resolve it first with
+`renku screenplay scene-number resolve --number <production-number> --json` and
+put only the returned durable `sceneId` in this scope.

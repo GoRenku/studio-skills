@@ -12,6 +12,16 @@ renku project open <project-name> --json
 
 If the project is already current, continue.
 
+If the requested focus is a production scene number, resolve it before reading
+the analysis context:
+
+```bash
+renku screenplay scene-number resolve --number <production-number> --json
+```
+
+Use the returned `sceneId` for persisted evidence references. Do not add a
+duplicate production-number field to Screenplay Analysis JSON.
+
 ## 2. Read Analysis Context
 
 ```bash

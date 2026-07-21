@@ -2,6 +2,15 @@
 
 Use this map to classify user intent and choose the next specialist. When a request spans departments, choose the earliest missing prerequisite unless the user explicitly asks to jump to a later department.
 
+Before using any scene-scoped row below, resolve user-facing `Scene 22` / `22A`
+references with:
+
+```bash
+renku screenplay scene-number resolve --number <production-number> --json
+```
+
+Then pass the returned durable `sceneId` to the owning specialist.
+
 | User intent | Department | Specialist | First CLI read |
 | --- | --- | --- | --- |
 | Create or revise story, screenplay, scene, dialogue, narration, scene settings, action lines | Screenwriting | `screenplay-drafter` | `renku screenplay status --json` |

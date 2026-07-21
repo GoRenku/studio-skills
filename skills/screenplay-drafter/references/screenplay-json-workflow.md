@@ -72,6 +72,14 @@ renku screenplay show --json
 
 Use durable IDs from that output in update, delete, move, parent, placement, Cast Member reference, and Location reference fields.
 
+When the user names a production scene number, resolve it first:
+
+```bash
+renku screenplay scene-number resolve --number <production-number> --json
+```
+
+Carry only the returned durable `sceneId` into persisted screenplay JSON.
+
 ```bash
 renku screenplay validate --file samples/urban-basilica/updates/update-scene-full-replacement.json --json
 renku screenplay apply --file samples/urban-basilica/updates/update-scene-full-replacement.json --json
@@ -95,6 +103,8 @@ renku location show <location-id> --json
 renku screenplay act list --json
 renku screenplay sequence list --act <act-id> --json
 renku screenplay scene list --sequence <sequence-id> --json
+renku screenplay scene-number list --json
+renku screenplay scene-number resolve --number <production-number> --json
 ```
 
 ## Handling Reports
