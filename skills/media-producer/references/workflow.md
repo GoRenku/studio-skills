@@ -35,6 +35,12 @@ Start from the relevant checked-in sample and keep this exact top-level shape:
 }
 ```
 
+For a project video authored from a Shot Plan, start from
+`samples/video-create-spec.json`. Keep the target as Project and use the
+optional exact `authoredFrom` value only as information-only origin context.
+Never resolve it into a Shot Plan snapshot, Asset owner, execution requirement,
+or attachment destination.
+
 Read the selected model descriptor before naming fields under `values`. Validate
 the first draft immediately. Never infer a different spec envelope from old
 project files, prior task memory, UI labels, or model marketing names.
@@ -46,6 +52,10 @@ Context is the source of truth for fixed product settings, selectable models, st
 - Provider defaults stay absent unless the user or agent deliberately authors them.
 - One spec, estimate, and run cover one current provider request only.
 - `facts.contextText`, when present, is opaque authored source context. Read it; do not parse it into a parallel domain model or treat it as a runtime validation contract.
+- For Shot Plan authoring, `lastGenerationSpec` means the configuration to
+  continue from, not the latest success. Run and Asset events never move it.
+  Retry a frozen Spec unchanged; copy it into a new mutable Spec before changing
+  the request.
 
 ## Exact references
 
@@ -132,11 +142,17 @@ After inspecting and accepting the generated file, attach it through the normal
 focused import and link the saved request:
 
 ```bash
-renku media import --purpose <purpose> --target <target> --source <project-relative-path> --title <title> --source-spec <returned-spec-id> --json
+renku media import --purpose <purpose> --target <target> --source <project-relative-path> --title <title> --source-spec <returned-spec-id> [--select] --json
 ```
 
 Do not create a GenerationRun or receipt for Codex execution. Do not call Renku
 estimate or run for an `agent-external` spec.
+
+Pass `--select` only when the accepted output is a canonical Cast Profile,
+Location Hero, Lookbook Image, Shot Image, or Scene Beat Storyboard Image and
+selection is part of the current user intent. Import and selection then remain
+one atomic mutation. Character Sheets, Location Sheets, Lookbook Sheets, and
+Dialogue Audio Takes are request-scoped references and never use this flag.
 
 ## Preview and price approval
 
@@ -189,15 +205,16 @@ the agent owns this complete workflow:
    destination purpose and target. Pass the matching managed `--receipt` or the
    frozen external `--source-spec`.
 9. Report the newly attached generated Asset. The source Asset, source
-   AssetFile, owner relationship or Lookbook membership, and selected/display
-   state remain unchanged. The new result is not automatically selected.
+   AssetFile, owner membership, and selection remain unchanged unless the
+   accepted destination import explicitly used `--select`.
 
 Closing Preview or the Generation Request inspector does not approve either the
 request or its output. Rejected output remains unattached.
 
 ## Outputs and focused attachment
 
-A successful run creates output files and provenance. Generation does not automatically attach outputs to a target relationship.
+A successful run creates output files and provenance. Generation does not
+automatically attach outputs to an Asset owner.
 
 Use the exact output path directly as a `project-file` reference when it only needs to guide a later request. Import it only when a current focused destination exists.
 
@@ -213,7 +230,13 @@ location.sheet
 location.hero
 ```
 
-Scene Storyboard images use the dedicated grouped or single-Beat import form. Cast Voice samples use the Cast Voice attachment workflow.
+Scene Storyboard images use the dedicated grouped or single-Beat import form.
+Cast Voice samples use the Cast Voice attachment workflow.
+
+For canonical imports, `--select` combines accepted attachment and selection.
+Use `renku asset select` only for an existing candidate. Never add global
+selection to Character Sheets, Location Sheets, Lookbook Sheets, or Dialogue
+Audio Takes; author those exact files only in a consuming GenerationSpec.
 
 Pass `--receipt` only for an exact output from a matching Renku purpose and target. For an accepted `image.edit`, import through the source owner's real focused destination rather than through a generic edit destination; Core verifies that the request's locked source AssetFile belongs to that exact Cast Member, Location, or Lookbook. For a Codex-generated image, pass the frozen saved request with `--source-spec`. Attachment rejects a mutable source request. Omit both flags for uploaded, manually produced, or other external media with no saved generation request. Never fabricate provenance.
 

@@ -63,7 +63,7 @@ demonstrates after import. First import the file and read `ownerRecord.id` from
 the JSON report, then set its placement:
 
 ```bash
-renku media import --purpose lookbook.image --target lookbook:<production-lookbook-id> --source <file> --json
+renku media import --purpose lookbook.image --target lookbook:<production-lookbook-id> --source <file> --select --json
 renku lookbook image set-placement --image <ownerRecord.id> --sections composition --anchor composition-clinical-symmetry --json
 renku lookbook image set-placement --image <ownerRecord.id> --sections thesis,texture --anchor texture-cannon-material-states --json
 ```
@@ -152,7 +152,9 @@ Rules:
 - Do not include `imageFiles` anywhere.
 - Give every Production Lookbook `pattern` and `observation` a stable, Lookbook-unique `id` (see "Point ids" above). Storyboard sections are single-point and take no `id`.
 - Attach generated examples with `renku media import --purpose lookbook.image
-  ...`, then use its returned `ownerRecord.id` with `renku lookbook image
-  set-placement`. Use `--sections thesis` for Production thesis hero evidence and
+  ... --select` when canonical card selection is part of the accepted intent,
+  then use its returned `ownerRecord.id` with `renku lookbook image
+  set-placement`. Use the common `asset.id` only for a later `renku asset
+  select`. Use `--sections thesis` for Production thesis hero evidence and
   `--anchor <point-id>` to pin an image to a specific pattern or observation
   when the point-owning section is included in `--sections`.

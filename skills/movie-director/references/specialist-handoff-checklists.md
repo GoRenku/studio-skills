@@ -220,6 +220,21 @@ renku generation estimate --spec <spec-id> --json
 renku director context --json
 ```
 
+## `shot-planner`
+
+Use for Scene Shot Plans, individual Shot writing and order, Beat coverage, and
+selected-image coordination.
+
+Pass the exact Scene id, optional selected Shot Plan/Shot ids, current active
+Beat Sheet, relevant Cast/Location/Lookbook ids, and user constraints.
+
+Verify:
+
+```bash
+renku shot-plan list --scene <scene-id> --json
+renku shot-plan show --shot-plan <shot-plan-id> --json
+```
+
 Use the purpose-specific focused attachment command documented by
 `media-producer`; attachment flags differ between single-file project-relative
 sources and grouped Scene Storyboard JSON.

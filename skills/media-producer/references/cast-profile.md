@@ -23,7 +23,9 @@ For Cast Members with `isVoiceOver: true`, do not require a Character Sheet. Rea
 For Codex image generation, follow the external-spec sequence in `workflow.md`, save the accepted file inside the project, inspect it, and import it with `--source-spec <spec-id>`. For Renku generation, follow `workflow.md` and attach the exact accepted run output:
 
 ```bash
-renku media import --purpose cast.profile --target cast:<cast-member-id> --source <project-relative-path> --title <title> --receipt <run-json> --json
+renku media import --purpose cast.profile --target cast:<cast-member-id> --source <project-relative-path> --title <title> --receipt <run-json> --select --json
 ```
 
-Use `--source-spec` instead of `--receipt` for Codex-generated files. Omit both for external files with no saved generation request.
+Use `--source-spec` instead of `--receipt` for Codex-generated files. Omit
+both for external files with no saved generation request. Omit `--select` only
+when the user explicitly wants an additional unselected Profile candidate.

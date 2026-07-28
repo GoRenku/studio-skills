@@ -40,9 +40,10 @@ renku lookbook apply --file lookbook.json --json
 renku lookbook show --kind <production|storyboard> --json
 ```
 
-7. Import example images after files exist in the project. Import and placement
-   are separate operations: `media import` creates the Lookbook Image, then
-   `lookbook image set-placement` uses the returned `ownerRecord.id`. Tag each
+7. Import example images after files exist in the project. Selection may be
+   atomic with import; placement remains separate. `media import` returns
+   `asset.id` for common selection and `ownerRecord.id` for Lookbook placement.
+   Tag each
    image with the single style aspect it demonstrates so Studio can show it next
    to the right widget. Production aspects are `thesis`, `palette`, `toneMood`,
    `composition`, `lighting`, `texture`, `camera`. Storyboard aspects are
@@ -58,17 +59,27 @@ renku lookbook show --kind <production|storyboard> --json
    look) as the Storyboard card image so it becomes the detail-page hero.
 
 ```bash
-renku media import --purpose lookbook.image --target lookbook:<production-lookbook-id> --source <project-relative-path> --json
+renku media import --purpose lookbook.image --target lookbook:<production-lookbook-id> --source <project-relative-path> --select --json
 # Read ownerRecord.id from the JSON report, then choose the intended placement:
 renku lookbook image set-placement --image <ownerRecord.id> --sections thesis --json
 renku lookbook image set-placement --image <ownerRecord.id> --sections composition --anchor composition-clinical-symmetry --json
 renku lookbook image set-placement --image <ownerRecord.id> --sections thesis,texture --anchor texture-cannon-material-states --json
 
-renku media import --purpose lookbook.image --target lookbook:<storyboard-lookbook-id> --source <project-relative-path> --json
-# Read ownerRecord.id from this import report before placement/card selection:
+renku media import --purpose lookbook.image --target lookbook:<storyboard-lookbook-id> --source <project-relative-path> --select --json
+# Read ownerRecord.id from this import report before placement:
 renku lookbook image set-placement --image <ownerRecord.id> --sections styleBrief --json
-renku lookbook card-image set --lookbook <storyboard-lookbook-id> --image <ownerRecord.id> --json
 ```
+
+Keep `--select` only when the imported image should become the Lookbook's
+canonical card image. For an existing candidate, use its common Asset id:
+
+```bash
+renku asset select --project <project-name> --target lookbook:<lookbook-id> --asset <asset-id> --json
+renku asset clear-selection --project <project-name> --target lookbook:<lookbook-id> --json
+```
+
+Do not use `ownerRecord.id` for common selection, and do not add a
+Lookbook-specific selection command.
 
 Use `--image` for Lookbook image IDs. Use `--file` only for JSON input files. Use `--source` for project-relative media source files.
 

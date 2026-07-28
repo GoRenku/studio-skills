@@ -12,7 +12,7 @@ nor a receipt.
 After visual review, import the image first:
 
 ```bash
-renku media import --purpose lookbook.image --target lookbook:<lookbook-id> --source <project-relative-path> --title <title> --receipt <run-json> --json
+renku media import --purpose lookbook.image --target lookbook:<lookbook-id> --source <project-relative-path> --title <title> --receipt <run-json> --select --json
 ```
 
 Use the returned `ownerRecord.id` with
@@ -20,3 +20,9 @@ Use the returned `ownerRecord.id` with
 when section or point placement is intended. Import and placement are separate
 commands. Section placement is agent/user judgment; do not infer it during
 runtime generation validation. Use `--source-spec <spec-id>` for Codex-generated files. Omit both provenance flags for external files with no saved generation request.
+
+Keep `--select` when the image should become the Lookbook's canonical card
+image. Omit it for an unselected example. To choose an existing Lookbook Image,
+use `renku asset select --project <project> --target lookbook:<lookbook-id>
+--asset <asset-id> --json`; use the separate `ownerRecord.id` only for
+placement.

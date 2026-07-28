@@ -33,4 +33,9 @@ Before handoff, summarize:
 - active Lookbook context;
 - whether the user asked for media generation or only design writing.
 
+When an accepted `location.hero` output should become the Location's current
+Hero, ask `media-producer` to import it with `--select` in the same mutation.
+Location Sheets remain request-scoped candidates: never create a global
+Location Sheet selection.
+
 Do not run paid generation yourself. Do not store generated media paths in Location Design. When Scene Beat illustration needs environment references, name the exact full Location Sheets by description instead of asking for front/right/back/left slices.

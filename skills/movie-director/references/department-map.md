@@ -20,6 +20,7 @@ Then pass the returned durable `sceneId` to the owning specialist.
 | Analyze reference folders, extract visual principles from images | Cinematography / Visual Language | `inspiration-analyzer` | `renku inspiration show --folder <folder-id> --json` |
 | Create, revise, or connect the project's Production Lookbook or Storyboard Lookbook to Inspiration folders | Cinematography / Visual Language | `lookbook-designer` | `renku lookbook show --kind <production\|storyboard> --json` |
 | Design or revise scene narrative Beats and their illustration context | Directing / Beat Design | `scene-beat-designer` | `renku screenplay beat-sheet context --scene <scene-id> --json` |
+| Create or iteratively revise a Scene Shot Plan, individual Shots, coverage, order, or selected Shot imagery | Directing / Shot Planning | `shot-planner` | `renku shot-plan list --scene <scene-id> --json` |
 | Generate or import media | Media Production | `media-producer` | `renku generation context --purpose <purpose> --target <target> --json` |
 
 ## Default Production Order
@@ -36,7 +37,8 @@ Then pass the returned durable `sceneId` to the owning specialist.
 9. Cast Character Sheets, Cast Profiles, and Location Sheets.
 10. Scene Beat Sheets.
 11. Per-Beat storyboard images.
-12. Future Shot authoring and post/editorial work.
+12. Scene Shot Plans and selected Shot images when useful.
+13. Future Shot video authoring and post/editorial work.
 
 ## Current Gaps
 

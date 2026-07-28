@@ -1,6 +1,6 @@
 ---
 name: movie-director
-description: Coordinate Renku Studio movie-making workflows across screenplay, analysis, visual language, casting, locations, scene Beat design, media generation, and production readiness. Use when the user wants a top-level filmmaking sidekick, asks what to do next, wants to make or revise a movie across multiple departments, needs help choosing which Renku Studio skill to use, or asks for director-like guidance that dispatches to specialist skills such as screenplay-drafter, screenplay-analyst, inspiration-analyzer, lookbook-designer, casting-director, production-designer, scene-beat-designer, and media-producer.
+description: Coordinate Renku Studio movie-making workflows across screenplay, analysis, visual language, casting, locations, scene Beat design, Shot planning, media generation, and production readiness. Use when the user wants a top-level filmmaking sidekick, asks what to do next, wants to make or revise a movie across multiple departments, needs help choosing which Renku Studio skill to use, or asks for director-like guidance that dispatches to specialist skills such as screenplay-drafter, screenplay-analyst, inspiration-analyzer, lookbook-designer, casting-director, production-designer, scene-beat-designer, shot-planner, and media-producer.
 ---
 
 # Movie Director
@@ -91,6 +91,8 @@ Use this loop for every request:
 - Use `inspiration-analyzer` for Visual Language Inspiration folder analysis.
 - Use `lookbook-designer` for durable Production Lookbook and Storyboard Lookbook creation, revision, and Inspiration source linkage.
 - Use `scene-beat-designer` for Scene Beat Sheets and Beat iteration.
+- Use `shot-planner` for Scene Shot Plans, individual Shot iteration, order,
+  Beat coverage, and selected-image coordination.
 - Use `media-producer` for all Renku media generation specs, estimates,
   approved runs, inspection, slicing, and supported focused attachments.
 

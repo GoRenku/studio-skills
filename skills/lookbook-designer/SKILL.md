@@ -116,7 +116,11 @@ renku lookbook show --kind <production|storyboard> --json
 - Give every Production Lookbook `pattern` and `observation` a stable, Lookbook-unique `id` (e.g. `composition-clinical-symmetry`) so example images can be anchored to the exact point. Storyboard sections are single-point and take no `id`.
 - Do not attach example images by editing Lookbook JSON.
 - Use `media-producer` for generating purpose-specific Lookbook images and sheets.
-- Use `renku media import --purpose lookbook.image --target lookbook:<lookbook-id>` only when attaching a file that is not already a Lookbook image. Capture `ownerRecord.id` from the import report, then apply placement through `renku lookbook image set-placement --image <ownerRecord.id> ...`.
+- Use `renku media import --purpose lookbook.image --target
+  lookbook:<lookbook-id> --select` when attaching an accepted file that should
+  also become the canonical card image. Omit `--select` for an unselected
+  example. Capture `ownerRecord.id` from the import report for placement; use
+  common `asset.id` only for later `renku asset select`.
 - For Production Lookbook point evidence, pass `--anchor <point-id>` to `lookbook image set-placement` and include the point-owning section in `--sections`. Additional sections remain section-level placements, e.g. `--sections thesis,texture --anchor texture-cannon-material-states` shows the image under Thesis and beside that Texture point.
 - Production `thesis` is a single-image slot. Placing an image with `--sections thesis` replaces the previous Thesis placement without discarding that previous image or removing its other placements. Other Production section and point placements append until the slot has 10 images.
 - Use `renku lookbook image set-placement --image <lookbook-image-id> --sections <section>[,<section>] [--anchor <point-id>] --json` to retag or re-anchor an existing Lookbook image with the same placement rules.

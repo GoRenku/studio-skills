@@ -71,6 +71,7 @@ Do not use fixed crop coordinates, OCR, marker detection, border detection, or r
   "kind": "sceneStoryboardImagesImport",
   "beatSheetId": "scene_beat_sheet_foundry_v1",
   "title": "Foundry storyboard package",
+  "select": true,
   "beats": [
     {
       "beatId": "beat_001",
@@ -99,4 +100,13 @@ renku media import \
 
 For one source file, pass exactly one `--beats <beat-id>`.
 
-Every Beat id must belong to the target Beat Sheet. Files must be project-relative. Do not persist crop boxes, extraction confidence, grid layout, composite sheet files, or other agent-side mechanics.
+The grouped document must state one explicit `select` choice. Use `true` when
+these accepted crops should become the current images for their Beats. Use
+`false` when deliberately importing additional candidates without changing
+existing selections. Do not import and then issue one selection command per
+Beat.
+
+Every Beat id must belong to the target Beat Sheet. Files must be
+project-relative. Each imported crop becomes an ordinary Asset owned by its
+logical Scene Beat. Do not persist crop boxes, extraction confidence, grid
+layout, composite sheet files, or other agent-side mechanics.

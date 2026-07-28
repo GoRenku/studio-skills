@@ -19,6 +19,10 @@ renku generation model list --purpose <purpose> --json
 
 The sheet contents are opaque. Panel count, labels, layout, notation, and coverage remain prompt and agent/user review choices, not Studio schema.
 
+Lookbook Sheets are request-scoped candidates. Never pass `--select` and never
+create a global selected Lookbook Sheet. Put the exact chosen AssetFile only in
+the consuming GenerationSpec reference.
+
 A `lookbook.storyboard-sheet` is the preferred candidate for the `visual-language/storyboard-lookbook-sheet` slot in `scene.storyboard-sheet` context. If none is available, context returns non-blocking guidance. Create or attach one when the user wants stronger storyboard consistency, then re-read Scene context. Do not call it a dependency or substitute a Video Lookbook Sheet.
 
 After inspection, attach through the matching focused purpose:

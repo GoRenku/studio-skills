@@ -21,6 +21,18 @@ The prompt stays concise and uses generation guidance.
 The exact selected references receive stable `promptMention` values, and the
 prompt names their distinct roles without inferring roles from input order.
 
+## Shot image candidate
+
+> Create a selected image candidate for this authored Shot.
+
+The agent targets the exact Shot with `shot.image`, preserves the authored
+title, description, brief, Scene context, and storyboard reference as opaque
+context, and authors the default external request with
+`agent-external`/`codex/gpt-image-2`. After the user accepts the output, the
+agent attaches and selects it atomically with `renku media import --purpose
+shot.image --target shot:<id> --select`. It does not add a second selection
+call.
+
 ## Agent-owned image-edit workflow
 
 > Edit the current image so only the brass door becomes oxidized green.

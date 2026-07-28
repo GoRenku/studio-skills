@@ -1,0 +1,4 @@
+interface:
+  display_name: "Shot Planner"
+  short_description: "Author iterative scene Shot Plans"
+  default_prompt: "Use $shot-planner to create or revise the selected Scene Shot Plan."

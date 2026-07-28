@@ -2,6 +2,7 @@
   "kind": "sceneStoryboardImagesImport",
   "beatSheetId": "scene_beat_sheet_foundry_v1",
   "title": "Foundry storyboard package",
+  "select": true,
   "beats": [
     {
       "beatId": "beat_001",

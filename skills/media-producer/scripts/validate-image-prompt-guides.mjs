@@ -17,6 +17,7 @@ const expectedPurposes = new Set([
   'location.sheet',
   'location.hero',
   'scene.storyboard-sheet',
+  'shot.image',
 ]);
 const hiddenManagedFields = new Set([
   'num_images',

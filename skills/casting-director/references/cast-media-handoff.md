@@ -14,7 +14,7 @@ renku generation context --purpose cast.voice-sample --target cast:<cast-member-
 
 For Cast Members with `isVoiceOver: true`, hand off profile image requests to
 `media-producer` as `cast.profile` only. The profile image is a symbolic
-navigation/display asset, not a character sheet or physical character
+navigation Profile Asset, not a Character Sheet or physical character
 reference. Do not request `cast.character-sheet` for a voice-over Cast Member
 unless the user first changes that Cast Member into a visible on-screen role.
 Voice identity and sample audio remain separate Cast Voice / `cast.voice-sample`
@@ -36,6 +36,11 @@ Before handoff, read `renku cast design context --cast <cast-member-id> --json` 
 - existing Cast Voices and sample assets when voice media is requested;
 - active Lookbook context;
 - whether the request asks for media generation or only design writing.
+
+When an accepted `cast.profile` output should become the Cast Member's current
+Profile, ask `media-producer` to import with `--select` in the same mutation.
+Character Sheets remain request-scoped candidates: never create a global
+Character Sheet selection.
 
 For `cast.character-sheet`, the default handoff is a lean identity turnaround:
 straight-on face close-up cropped above the shoulders, front, back, left

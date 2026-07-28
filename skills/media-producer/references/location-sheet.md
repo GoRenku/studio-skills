@@ -18,7 +18,11 @@ After inspection, attach through the matching focused purpose:
 
 ```bash
 renku media import --purpose location.sheet --target location:<location-id> --source <project-relative-path> --title <title> --receipt <run-json> --json
-renku media import --purpose location.hero --target location:<location-id> --source <project-relative-path> --title <title> --receipt <run-json> --json
+renku media import --purpose location.hero --target location:<location-id> --source <project-relative-path> --title <title> --receipt <run-json> --select --json
 ```
 
-Use `--source-spec <spec-id>` for Codex-generated files. Omit both provenance flags for external files with no saved generation request. Do not crop a Location Sheet into runtime-owned directional slices.
+Use `--source-spec <spec-id>` for Codex-generated files. Omit both provenance
+flags for external files with no saved generation request. Location Sheets are
+request-scoped candidates and never use global selection. Omit Hero
+`--select` only when the user explicitly wants an additional unselected Hero
+candidate. Do not crop a Location Sheet into runtime-owned directional slices.

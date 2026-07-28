@@ -35,3 +35,5 @@ For Codex runs, remember that local Studio HTTP notification is network access. 
    require a sheet before Scene Storyboard generation.
 5. If no active Scene Beat Sheet exists or the user asks to revise Beats, dispatch to `scene-beat-designer`.
 6. If storyboard images are missing or stale after the Beat Sheet pass, dispatch to `media-producer` with `scene.storyboard-sheet` unless the user explicitly asked for text-only/no-media work.
+7. When the user wants cinematic coverage, dispatch the current Scene, Beat
+   Sheet, and deliberately chosen visual context to `shot-planner`.

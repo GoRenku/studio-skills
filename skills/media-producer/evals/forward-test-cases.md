@@ -8,6 +8,25 @@ preview, and attachment commands—not only its prose answer.
 Never allow a forward test to make a paid provider call or mutate the user's
 real project.
 
+## Shot Plan Video Continuation
+
+Raw task:
+
+> Use this Shot Plan to prepare another video attempt. The last provider run
+> failed after submission. Keep the request the same for a retry, show me the
+> saved request, and stop before another paid call.
+
+Pass criteria:
+
+- uses `video.create` with target `project`, never a Shot Plan generation
+  target;
+- preserves `authoredFrom: { kind: "shotPlan", id }` only as information;
+- keeps the failed frozen `lastGenerationSpec` as the current pointer and
+  retries that exact Spec rather than copying or reauthoring it;
+- does not inspect Run success to select another last Spec;
+- does not attach output to, freeze, snapshot, or reconstruct the Shot Plan;
+- stops before a paid call.
+
 ## Context-Driven Location Sheet
 
 Raw task:
@@ -50,7 +69,7 @@ Pass criteria:
 - treats the Scene Storyboard sheet as a fixed 4:3, high-quality composite and
   uses agent vision to review the whole sheet and each crop;
 - keeps the grouped attachment document kind exactly
-  `sceneStoryboardImagesImport` and calls `media import --purpose
+  `sceneStoryboardImagesImport` with `"select": true` and calls `media import --purpose
   scene.storyboard-sheet --target scene:<id> --beat-sheet <id> --file <json>
   --json`;
 - never invents panel schemas, asset ids, receipts, or a generic import path.
@@ -142,3 +161,25 @@ Pass criteria:
   --image <ownerRecord.id> --sections thesis,texture --anchor <point-id>
   --json`;
 - does not guess the Lookbook Image id or mutate project files directly.
+
+## Selection Scope And Call Economy
+
+Raw task:
+
+> Accept this new Cast Profile and Shot image as the current choices, keep
+> these Character and Location Sheets available for two different generation
+> requests, and import this four-Beat storyboard as the current storyboard.
+
+Pass criteria:
+
+- imports the accepted Profile and Shot Image with `--select` in their
+  respective import calls and does not issue a second selection command;
+- writes `"select": true` once in the grouped Storyboard import and does not
+  issue one mutation per Beat;
+- keeps Character Sheet and Location Sheet choices only as exact AssetFile
+  references in each consuming GenerationSpec;
+- permits the two GenerationSpecs to choose different sheet candidates;
+- does not call `renku asset select` for Character Sheets, Location Sheets,
+  Lookbook Sheets, or Dialogue Audio Takes;
+- uses `renku asset select` only when the user chooses an already imported
+  canonical candidate.

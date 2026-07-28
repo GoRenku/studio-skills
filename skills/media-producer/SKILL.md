@@ -1,6 +1,6 @@
 ---
 name: media-producer
-description: Generate, revise, preview, estimate, run, inspect, and attach purpose-specific Renku Studio image and audio media through the context-first GenerationSpec contract. Use for generic image creation or editing, Lookbook assets, Cast sheets/profiles/voice samples, Location sheets/heroes, Scene Storyboard Sheets, dialogue audio, external media attachment, and generation approval workflows.
+description: Generate, revise, preview, estimate, run, inspect, and attach purpose-specific Renku Studio image, audio, and video media through the context-first GenerationSpec contract. Use for generic image creation or editing, project videos authored from Shot Plans, Lookbook assets, Cast sheets/profiles/voice samples, Location sheets/heroes, Scene Storyboard Sheets, dialogue audio, external media attachment, and generation approval workflows.
 ---
 
 # Media Producer
@@ -9,7 +9,10 @@ Use Renku as the project metadata and attachment boundary. Treat prompts and med
 
 Use the normal Renku-managed generation workflow unless the user explicitly
 asks for Codex built-in image generation. A request to create an image does not
-by itself authorize or select Codex generation.
+by itself authorize or select Codex generation. The accepted `shot.image`
+workflow is the narrow exception: when the user has not selected an execution
+path, propose Codex built-in GPT-Image-2 while still stopping at saved Preview
+for approval.
 
 ## Core workflow
 
@@ -50,8 +53,9 @@ workflow.
 
 Before authoring a spec, open the relevant file in `samples/` and preserve the
 current envelope exactly: `executionKind`, `purpose`, `target`, `model`,
-`values`, `references`, and optional `title`. Model-specific inputs belong under
-`values`. For the current Codex built-in image-generation workflow, use exactly
+`values`, `references`, optional `authoredFrom`, and optional `title`.
+Model-specific inputs belong under `values`. For the current Codex built-in
+image-generation workflow, use exactly
 `values: { "prompt": "..." }`. Keep every reviewed generation requirement,
 including `16:9`, composition, quality, format direction, and creative
 constraints, inside that exact prompt. Keep selected images as logical
@@ -99,18 +103,45 @@ edit.
 - Never invent an asset/file id, receipt, or provenance record.
 - Import finished media only through a currently supported focused purpose. Pass `--receipt` only for an exact output of a matching Renku run.
 - When the user explicitly requests Codex generation, save and review an `agent-external` spec, read it after Preview, freeze it immediately before invoking Codex, and pass its id with `--source-spec` when importing the accepted image.
-- Never copy files manually into canonical Cast, Location, Lookbook, or Scene folders. Core owns durable paths and relationships.
+- Never copy files manually into canonical Cast, Location, Lookbook, or Scene
+  folders. Core owns durable paths and exclusive Asset membership.
+- When an accepted Profile, Hero, Lookbook Image, Shot Image, or grouped
+  Storyboard import should become canonical immediately, pass `--select` on
+  that import. Use `renku asset select` only to choose an already imported
+  candidate.
+- Never create global selection for Character Sheets, Location Sheets,
+  Lookbook Sheets, or Dialogue Audio Takes. Their exact choices belong only in
+  the consuming GenerationSpec references.
 - Inspect generated media before attachment. Paid regeneration requires a revised Preview, estimate, and explicit approval.
 
 ## Purpose routing
 
-Shot Video authoring is temporarily unavailable. Do not issue or route to
-`shot.first-frame`, `shot.last-frame`, `shot.video-prompt`, or
-`shot.video-take`, and do not infer replacement commands. The material under
+Use `video.create` with target `project` for video generation. When the request
+is authored from a Shot Plan, read that mutable plan separately and include
+only:
+
+```json
+"authoredFrom": { "kind": "shotPlan", "id": "<exact-shot-plan-id>" }
+```
+
+This is information-only context. It does not target or snapshot the plan,
+attach the result to it, or make the plan immutable. Keep the plan's one
+`lastGenerationSpec` as the request configuration to continue from regardless
+of failed or successful Runs. Edit it while mutable, retry it unchanged after
+freezing, and use the focused Shot Plan continuation operation to copy a frozen
+last Spec before changing the request. Never move the pointer in response to a
+Run or Asset event.
+
+Import an accepted `video.create` output only with an exact matching managed
+receipt or frozen agent-external source Spec. It becomes an independent Project
+Asset under `videos/`; manual video import without generation provenance is not
+this purpose.
+
+Do not issue or route to retired `shot.first-frame`, `shot.last-frame`,
+`shot.video-prompt`, or `shot.video-take` purposes. The material under
 `references/shot-video-take/`, `samples/shot-video-take/`, and
-`evals/shot-video-take/` is retained only for the next workflow design. Do not
-load it as an executable current workflow; revalidate its purpose keys, target
-shape, commands, and JSON contracts before reactivation.
+`evals/shot-video-take/` is historical design material and is not an executable
+current workflow.
 
 Before authoring Lookbook media, resolve the role id directly:
 
@@ -123,10 +154,12 @@ Use the returned current role id. Do not list alternatives or look for selection
 
 - `image.create` -> `project`
 - `image.edit` -> `asset:<asset-id>`
+- `video.create` -> `project`
 - `lookbook.image`, `lookbook.video-sheet`, `lookbook.storyboard-sheet` -> `lookbook:<lookbook-id>`
 - `cast.character-sheet`, `cast.profile`, `cast.voice-sample` -> `cast:<cast-member-id>`
 - `location.sheet`, `location.hero` -> `location:<location-id>`
 - `scene.storyboard-sheet` -> `scene:<scene-id>`
+- `shot.image` -> `shot:<shot-id>`
 - `scene.dialogue-audio` -> `scene:<scene-id>:dialogue:<scene-dialogue-id>`
 
 Load only the relevant reference:
@@ -137,6 +170,7 @@ Load only the relevant reference:
 - Location media: `references/location-sheet.md`
 - Lookbook media: `references/lookbook-image.md` or `references/lookbook-sheets.md`
 - Scene Storyboard generation and agent-owned splitting: `references/scene-storyboard-sheet.md`
+- Shot images: `references/shot-image.md`
 - Reference-aware image prompting: `references/reference-visible-image-prompting.md`
 
 Validate exact image-route guide and sample coverage after changing an image

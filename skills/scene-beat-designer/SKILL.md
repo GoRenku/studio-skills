@@ -52,7 +52,9 @@ A Beat is a narrative unit, not a camera Shot. It records what meaning develops,
      --json
    ```
 
-9. If saved changes leave missing or stale Beat storyboard images and the user did not request text-only work, hand off to `media-producer` with purpose `scene.storyboard-sheet`.
+9. If saved changes leave Beats without a selected Storyboard image and the
+   user did not request text-only work, hand off to `media-producer` with
+   purpose `scene.storyboard-sheet`.
 
 ## Studio Notifications
 
@@ -65,7 +67,15 @@ This skill owns Beat design, not media generation. Give `media-producer`:
 - purpose `scene.storyboard-sheet`;
 - target `scene:<scene-id>`;
 - the exact `beatSheetId`;
-- the missing or stale Beat ids from storyboard status.
+- the `missingBeatIds` from Storyboard status;
+- whether accepted imported crops should be selected. The normal missing-image
+  handoff uses one grouped import document with `"select": true`; an explicit
+  additional-candidate request uses `false`.
+
+Each crop becomes an ordinary Asset owned by its logical Scene Beat. Do not ask
+`media-producer` to issue one selection mutation per Beat, and do not
+carry Storyboard images forward when a Beat Sheet revision preserves the same
+logical Beat id.
 
 Storyboard panels illustrate Beats. They may make agent-chosen visual decisions for a specific generated image, but the Beat Sheet must remain free of camera and Shot execution fields.
 

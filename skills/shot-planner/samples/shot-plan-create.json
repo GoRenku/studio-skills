@@ -1,0 +1,28 @@
+{
+  "kind": "shotPlanCreate",
+  "sceneId": "scene_example",
+  "title": "Bombardment",
+  "coverage": {
+    "beatSheetId": "scene_beat_sheet_example",
+    "beatIds": ["beat_opening", "beat_impact"]
+  },
+  "shots": [
+    {
+      "title": "First impact",
+      "description": "The frame holds the nave in a Wide Shot as the first impact drives dust from the ceiling. The camera remains Static until the congregation turns toward the shattered windows. Hard side light from the breach catches the airborne dust.",
+      "brief": {
+        "durationSeconds": 4,
+        "framing": { "start": "wide-shot", "end": "wide-shot" },
+        "camera": { "angle": "eye-level" },
+        "motion": { "movement": "static" },
+        "optics": {
+          "intent": "Deep spatial clarity across the nave",
+          "focalLengthMm": 24,
+          "depthOfField": "Deep",
+          "focusTarget": "The nave and congregation"
+        },
+        "lighting": { "intent": "Hard side light through dust from the breach" }
+      }
+    }
+  ]
+}

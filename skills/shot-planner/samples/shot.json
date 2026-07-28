@@ -1,0 +1,18 @@
+{
+  "kind": "shot",
+  "title": "Window shockwave",
+  "description": "A Medium Close-Up isolates the witness as the shockwave reaches the window behind them. The camera Pushes In with their held breath and ends when the glass gives way. Shallow focus keeps the fracture as a luminous threat behind the performance.",
+  "brief": {
+    "durationSeconds": 3.5,
+    "framing": { "start": "medium-close-up", "end": "close-up" },
+    "camera": { "angle": "eye-level" },
+    "motion": { "movement": "push-in" },
+    "optics": {
+      "intent": "Compress the witness against the threatened window",
+      "focalLengthMm": 85,
+      "depthOfField": "Shallow Focus",
+      "focusTarget": "Witness"
+    },
+    "lighting": { "intent": "Cold window light outlining the fracture" }
+  }
+}

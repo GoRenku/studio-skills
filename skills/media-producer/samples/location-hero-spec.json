@@ -4,7 +4,7 @@
   "target": { "kind": "location", "id": "location_theodosian_walls" },
   "model": { "provider": "fal-ai", "model": "openai/gpt-image-2/edit" },
   "values": {
-    "prompt": "Create a single wide representative Location Hero Image for the Theodosian Walls from @Reference1. Preserve the siege-facing wall massing, Ottoman field direction, gate damage, scale, weathered stone, smoke behavior, and late medieval atmosphere. Do not create a multi-panel sheet, labels, captions, diagrams, borders, or production annotations."
+    "prompt": "Create a single wide Location Hero Image for the Theodosian Walls from @Reference1. Preserve the siege-facing wall massing, Ottoman field direction, gate damage, scale, weathered stone, smoke behavior, and late medieval atmosphere. Do not create a multi-panel sheet, labels, captions, diagrams, borders, or production annotations."
   },
   "references": [
     {

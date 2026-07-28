@@ -1,0 +1,17 @@
+{
+  "purpose": "shot.image",
+  "target": {
+    "kind": "shot",
+    "id": "shot_example"
+  },
+  "executionKind": "agent-external",
+  "model": {
+    "provider": "codex",
+    "model": "gpt-image-2"
+  },
+  "values": {
+    "prompt": "Create one cinematic selected-image candidate for the exact authored Shot at the project's aspect ratio."
+  },
+  "references": [],
+  "title": "Shot image candidate"
+}
