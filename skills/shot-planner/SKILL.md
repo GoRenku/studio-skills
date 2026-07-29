@@ -31,7 +31,8 @@ renku shot-plan show --shot-plan <shot-plan-id> --json
 
 Read `references/shot-plan-cli-workflow.md` for create and iteration commands.
 Read Cast, Location, Lookbook, nearby Scene, and exact visual assets only when
-the creative choice requires them.
+the creative choice requires them. Read exact Cast Member and Location handles
+from current context before using `@handle` references.
 
 3. Read `references/shot-writing-guidelines.md` before authoring prose and
 `references/shot-brief-vocabulary.md` before authoring a brief. Use
@@ -60,7 +61,13 @@ import it with `--select` as one intent.
 ## Boundaries
 
 - Keep Markdown, brief intent, prompts, and images opaque to Studio runtime.
+- Use relevant Shot description sections, exact context-provided `@handle`
+  references, and deliberate strong Markdown as described in the writing
+  guidelines. Omit empty sections.
 - Do not invent technical optics, lighting, timing, or movement choices.
+- Use `optics.focusTarget` for one primary optical subject, plane, or distance,
+  never as a list of everyone or everything that should remain legible. Put
+  shared spatial legibility and deep-focus intent in `optics.intent`.
 - When the Shot planning choice is known, persist it in the matching brief
   field instead of leaving the glanceable Camera or Optics group empty while
   mentioning the same choice only in the description.

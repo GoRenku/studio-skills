@@ -9,7 +9,7 @@
   "shots": [
     {
       "title": "First impact",
-      "description": "The frame holds the nave in a Wide Shot as the first impact drives dust from the ceiling. The camera remains Static until the congregation turns toward the shattered windows. Hard side light from the breach catches the airborne dust.",
+      "description": "## Intent\n\nMake the first impact turn @basilica-nave from sanctuary into exposed structure.\n\n## Composition & Blocking\n\nHold @congregation across the nave as dust falls from the ceiling and everyone turns toward the shattered windows.\n\n## Camera & Optics\n\nKeep a **Wide Shot** at **Eye-Level** on a **24mm lens** with **Deep Focus**. The camera remains **Static** through the turn.\n\n## Lighting\n\nHard side light from the breach catches the airborne dust.\n\n## End Condition\n\nEnd when @congregation faces the shattered windows.",
       "brief": {
         "durationSeconds": 4,
         "framing": { "start": "wide-shot", "end": "wide-shot" },
@@ -18,8 +18,8 @@
         "optics": {
           "intent": "Deep spatial clarity across the nave",
           "focalLengthMm": 24,
-          "depthOfField": "Deep",
-          "focusTarget": "The nave and congregation"
+          "depthOfField": "deep",
+          "focusTarget": "@congregation"
         },
         "lighting": { "intent": "Hard side light through dust from the breach" }
       }

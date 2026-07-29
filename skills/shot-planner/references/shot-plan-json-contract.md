@@ -34,10 +34,17 @@ is an authoring input, not durable browser state.
 {
   "kind": "shot",
   "title": "Window shockwave",
-  "description": "Opaque Markdown description.",
-  "brief": {}
+  "description": "## Intent\n\nIsolate @witness as the blast reaches them.\n\n## Camera & Optics\n\nUse a **Medium Close-Up** with **Shallow Focus**.\n\n## End Condition\n\nEnd when the glass gives way.",
+  "brief": {
+    "optics": {
+      "focalLengthMm": 85,
+      "depthOfField": "shallow",
+      "focusTarget": "@witness"
+    }
+  }
 }
 ```
 
 Do not add ids, positions, status, image paths, selected image ids, prompts, or
 model settings to these documents. Command flags own durable targets.
+`optics.depthOfField` accepts only `"shallow"` or `"deep"`.

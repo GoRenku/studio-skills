@@ -6,8 +6,13 @@
 - Reordering uses one-based CLI position; removing is recoverable.
 - Descriptions remain coherent opaque Markdown and briefs use the five subjects
   without inventing unknown technical facts.
+- A complex Shot uses only relevant `##` sections, exact context-provided
+  handles, and deliberate strong Markdown for material cinematography terms.
+- A simple later revision omits irrelevant sections instead of filling all six.
 - Known Camera and Optics choices appear in their brief fields instead of only
   in description prose.
+- `focalLengthMm` remains numeric and `depthOfField` uses only `shallow` or
+  `deep`; `rack-focus` remains a Motion choice.
 - Plan and Shot titles remain concise and do not repeat Scene titles, Beat
   numbers, coverage labels, or technical brief values.
 - No case expects a final, ready, approved, or done state.
