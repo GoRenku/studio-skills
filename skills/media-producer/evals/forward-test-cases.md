@@ -99,6 +99,10 @@ Pass criteria:
   or unsuitable instead of substituting the first candidate;
 - validates both specs before calling `generation preview show` once with two
   repeated `--file` values in order;
+- sends exactly one Preview command and never falls back to one Preview command
+  per file or spec when the combined delivery fails;
+- reports a failed combined Preview handoff and stops before estimating or
+  asking for paid execution approval;
 - treats the two specs as independent estimates, approvals, runs, outputs, and
   attachments and makes no paid call.
 

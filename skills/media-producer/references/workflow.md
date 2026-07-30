@@ -169,6 +169,11 @@ renku generation preview show --spec media_generation_spec_1 --spec media_genera
 ```
 
 Do not mix input kinds. The combined display does not combine estimates, approvals, runs, outputs, or attachments.
+Treat a failed combined Preview command as a failed review handoff. Report the
+failure and stop; do not send separate Preview commands for individual files or
+specs, because each later notification replaces the current dialog session.
+Do not estimate or request paid execution approval until the combined Preview
+has succeeded.
 
 If prompt, endpoint, authored values, reference order or presence, provider-field assignment, or referenced file contents change:
 

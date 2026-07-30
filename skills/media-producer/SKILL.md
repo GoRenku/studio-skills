@@ -78,6 +78,11 @@ renku generation preview show --spec <first-spec-id> --spec <second-spec-id> --j
 ```
 
 Do not mix `--file` and `--spec`. Each entry remains an independent spec, estimate, approval, and run.
+If the combined Preview command fails, report that the complete review handoff
+could not be opened and stop. Never substitute one Preview command per request:
+later single-request notifications replace the earlier dialog session. Do not
+estimate or ask for paid execution approval until the combined Preview
+succeeds.
 
 8. Update the same saved draft when the request changes, then validate and show it again. Preview is a review stop, not permission to generate. Do not start Codex or provider generation merely because the dialog opened; wait for the user's explicit approval. After live submission, the saved request is permanently frozen; author a new spec for any changed request.
 9. Estimate the exact saved request. Ask for explicit approval of the cost and provider transfer, then pass the returned token unchanged:
