@@ -1,0 +1,30 @@
+{
+  "executionKind": "renku-managed",
+  "purpose": "shot-plan.video-generation",
+  "target": { "kind": "project", "id": "project" },
+  "authoredFrom": { "kind": "shotPlan", "id": "shot_plan_001" },
+  "shotPlanVideoInputMode": "first-last-frame",
+  "model": { "provider": "fal-ai", "model": "bytedance/seedance-2.0/image-to-video" },
+  "values": {
+    "prompt": "Generate Shot 3 as one restrained cinematic take using @Image1 as the first frame and @Image2 as the last frame. Begin on Elise holding the torn petition at chest height in the market doorway; complete one subtle hand-held push-in as she raises the petition into the light. Preserve cast, prop, location, and lookbook continuity exactly. No new characters, no text overlays, no invented action beyond the described movement endpoint.",
+    "duration": "6",
+    "aspect_ratio": "16:9",
+    "resolution": "480p",
+    "generate_audio": true
+  },
+  "references": [
+    {
+      "placement": { "kind": "slot", "sectionId": "method", "slotId": "first-frame" },
+      "providerField": "image_url",
+      "promptMention": "@Image1",
+      "reference": { "kind": "project-file", "projectRelativePath": "generated/images/shot-003-first-frame.png" }
+    },
+    {
+      "placement": { "kind": "slot", "sectionId": "method", "slotId": "last-frame" },
+      "providerField": "end_image_url",
+      "promptMention": "@Image2",
+      "reference": { "kind": "project-file", "projectRelativePath": "generated/images/shot-003-last-frame.png" }
+    }
+  ],
+  "title": "Shot 3 video"
+}

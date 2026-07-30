@@ -1,4 +1,4 @@
-# Seedance First-And-Last-Frame Final Video
+# Seedance First-And-Last-Frame Video
 
 Use this only when the selected direct Seedance image-to-video descriptor
 exposes `image_url` and `end_image_url`, and both endpoints are binding. Assign

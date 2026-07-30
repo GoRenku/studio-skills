@@ -1,6 +1,8 @@
 {
-  "purpose": "image.create",
+  "executionKind": "renku-managed",
+  "purpose": "shot-plan.video-first-frame",
   "target": { "kind": "project", "id": "project" },
+  "authoredFrom": { "kind": "shotPlan", "id": "shot_plan_001" },
   "model": { "provider": "fal-ai", "model": "openai/gpt-image-2" },
   "values": {
     "prompt": "Create a specific prop reference image for Shot 3: Elise's torn petition held at chest height, rough paper fibers visible, one red wax seal broken at the corner, market doorway light grazing the page. This is only a prop and hand-pose continuity reference for the first and last frames; do not turn it into a storyboard sheet or add background action.",

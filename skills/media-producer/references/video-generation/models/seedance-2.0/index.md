@@ -1,11 +1,11 @@
-# Seedance Shot Video Take
+# Seedance 2.0 Video Generation
 
-Use this when the final `shot.video-take` model family is Seedance.
+Use this when the final `shot-plan.video-generation` model family is Seedance.
 
 Read:
 
-- `../provider-visible-prompting.md`;
-- `../prompt-quality-checklist.md`;
+- `../../provider-visible-prompting.md`;
+- `../../prompt-quality-checklist.md`;
 - `endpoint-selection.md`;
 - exactly one prompt guide matching the selected endpoint's actual media
   fields.
@@ -15,12 +15,12 @@ ambience, or audio references matter.
 
 ## Endpoint Prompt Guides
 
-- text-only: `text-only-final-video.md`
-- image-to-video / opening frame: `image-to-video-final-video.md`
-- first-and-last-frame: `first-last-frame-final-video.md`
-- storyboard/reference image input: `storyboard-reference-final-video.md`
+- text-only: `text-only.md`
+- image-to-video / opening frame: `first-frame.md`
+- first-and-last-frame: `first-last-frame.md`
+- storyboard/reference image input: `storyboard-reference.md`
 - generic reference-to-video without storyboard:
-  `generic-reference-final-video.md`
+  `reference.md`
 - native audio: `native-audio.md`
 
 ## Universal Seedance Rules

@@ -1,4 +1,4 @@
-# Seedance Image-To-Video / First-Frame Final Video
+# Seedance First-Frame Video
 
 Use this when the selected direct Seedance image-to-video descriptor exposes
 required `image_url` and an opening image anchors the video. Assign the exact

@@ -1,7 +1,7 @@
-# Seedance Endpoint Selection
+# Seedance 2.0 Endpoint Selection
 
 Choose one direct provider/model endpoint from the current
-`shot.video-take` context. Confirm every field against that exact model
+`shot-plan.video-generation` context. Confirm every field against that exact model
 descriptor; do not infer that another Seedance tier or version has the same
 contract.
 
@@ -9,9 +9,9 @@ Current fal.ai Seedance 2.0 endpoint shapes include:
 
 | Endpoint suffix | File-backed media fields | Prompt guide |
 | --- | --- | --- |
-| `text-to-video` | none | `text-only-final-video.md` |
-| `image-to-video` | required `image_url`; optional `end_image_url` | `image-to-video-final-video.md`, plus `first-last-frame-final-video.md` when both are assigned |
-| `reference-to-video` | `image_urls`, `video_urls`, `audio_urls` | `generic-reference-final-video.md` or `storyboard-reference-final-video.md` |
+| `text-to-video` | none | `text-only.md` |
+| `image-to-video` | required `image_url`; optional `end_image_url` | `first-frame.md`, plus `first-last-frame.md` when both are assigned |
+| `reference-to-video` | `image_urls`, `video_urls`, `audio_urls` | `reference.md` or `storyboard-reference.md` |
 
 The full, Mini, and Fast Seedance 2.0 families currently offer these endpoint
 suffixes, but always use the exact provider/model id returned by context.

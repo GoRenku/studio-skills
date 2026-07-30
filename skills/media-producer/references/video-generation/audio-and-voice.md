@@ -1,4 +1,4 @@
-# Retained Audio And Voice Routing
+# Audio And Voice Routing
 
 > **Status: retained design reference.** Do not execute this workflow while
 > Shot Video authoring is unavailable. Revalidate provider capabilities,
@@ -14,7 +14,7 @@ not become durable Cast Voice Provider Registrations.
 
 The last supported Shot Video workflow selected or generated the desired Scene
 Dialogue Audio through the Shot Video flow. Core converted it to a transient
-Kling `voice_id` during `shot.video-take` estimate or run and cached that id for
+Kling `voice_id` during a future Kling video estimate or run and cached that id for
 short-term reuse. The transient id did not belong in Cast Design or a durable
 Cast Voice Provider Registration.
 

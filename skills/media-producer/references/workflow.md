@@ -36,8 +36,10 @@ Start from the relevant checked-in sample and keep this exact top-level shape:
 ```
 
 For a project video authored from a Shot Plan, start from
-`samples/video-create-spec.json`. Keep the target as Project and use the
-optional exact `authoredFrom` value only as information-only origin context.
+`samples/shot-plan-video/first-last-frame-video-spec.json` or the other
+current Shot Plan video sample for the chosen method. Keep the target as
+Project and carry the required exact `authoredFrom` value only as
+information-only origin context.
 Never resolve it into a Shot Plan snapshot, Asset owner, execution requirement,
 or attachment destination.
 
@@ -52,10 +54,10 @@ Context is the source of truth for fixed product settings, selectable models, st
 - Provider defaults stay absent unless the user or agent deliberately authors them.
 - One spec, estimate, and run cover one current provider request only.
 - `facts.contextText`, when present, is opaque authored source context. Read it; do not parse it into a parallel domain model or treat it as a runtime validation contract.
-- For Shot Plan authoring, `lastGenerationSpec` means the configuration to
-  continue from, not the latest success. Run and Asset events never move it.
-  Retry a frozen Spec unchanged; copy it into a new mutable Spec before changing
-  the request.
+- For Shot Plan video authoring, carry the exact weak `authoredFrom` id and an
+  explicit input mode. The Shot Plan does not own request or completion state.
+  Retry a supplied frozen Spec unchanged; create a new mutable Spec before
+  changing the request.
 
 ## Exact references
 
@@ -63,11 +65,10 @@ Copy exact selections from context rather than rebuilding placement ids. Preserv
 
 Presence means inclusion; omit an unselected reference instead of persisting an `included` flag. `providerField` is optional authored intent. When present, it must name an actual media field from the selected model descriptor. Placement expresses product role while `providerField` expresses provider routing; neither implies the other.
 
-For selected image references used by the prompt, author a unique exact
-`promptMention` such as `@Reference1`. Allocate monotonically from the request's
-`nextPromptMentionNumber`; never reuse a cleared mention or scan prompt text to
-recover allocation state. A prompt mention names an image in human-readable
-prompt text and is independent from `providerField`. Replacing the exact
+For selected references used by the prompt, author the exact provider-visible
+`promptMention`, such as `@Reference1`, `@Image1`, `@Video1`, or `@Audio1`.
+Never scan prompt text to recover allocation state. A prompt mention is
+independent from `providerField`. Replacing the exact
 reference in the same placement preserves the mention. Clearing it does not
 rewrite the prompt.
 

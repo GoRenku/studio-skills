@@ -1,6 +1,9 @@
 {
-  "purpose": "shot.video-take",
-  "target": { "kind": "sceneShotVideoTake", "id": "scene_shot_video_take_action_001" },
+  "executionKind": "renku-managed",
+  "purpose": "shot-plan.video-generation",
+  "target": { "kind": "project", "id": "project" },
+  "authoredFrom": { "kind": "shotPlan", "id": "shot_plan_action_001" },
+  "shotPlanVideoInputMode": "reference",
   "model": { "provider": "fal-ai", "model": "bytedance/seedance-2.0/reference-to-video" },
   "values": {
     "prompt": "Generate one continuous six-second action take using @Image1 as the storyboard reference. @Image1 is an ordered storyboard, not the opening frame and not a page layout to copy. Storyboard Panel 1, left: the performer begins the run-up through the warehouse aisle, framed low and moving fast. Storyboard Panel 2, center: the performer pivots while the camera arcs with the body turn. Storyboard Panel 3, right: the camera pushes in to a stable final pose. Use the panels as physical waypoints in one uninterrupted camera path through a coherent warehouse aisle. Do not blend panels into one composite image, do not morph geography between panels, and do not show the storyboard page. Do not render storyboard borders, arrows, labels, captions, panel numbers, annotation colors, or text as on-screen graphics. Preserve the referenced character identity and warehouse geography. Do not add extra performers, new props, or jump cuts.",
@@ -8,24 +11,22 @@
   },
   "references": [
     {
-      "id": "video-prompt",
-      "placement": { "kind": "slot", "sectionId": "take-media", "slotId": "video-prompt" },
-      "included": true,
+      "placement": { "kind": "slot", "sectionId": "method", "slotId": "video-storyboard" },
       "providerField": "image_urls",
+      "promptMention": "@Image1",
       "reference": { "kind": "project-file", "projectRelativePath": "generated/images/motion-annotation-storyboard-reference.png" }
     },
     {
-      "id": "dialogue-audio",
       "placement": {
         "kind": "slot",
-        "sectionId": "dialogue",
+        "sectionId": "dialogue-audio",
         "slotId": "dialogue-audio",
         "subject": { "kind": "sceneDialogue", "id": "scene_dialogue_action_001" }
       },
-      "included": true,
       "providerField": "audio_urls",
+      "promptMention": "@Audio1",
       "reference": { "kind": "asset-file", "assetId": "asset_dialogue_audio", "assetFileId": "asset_file_dialogue_audio" }
     }
   ],
-  "title": "Final video take"
+  "title": "Action shot video"
 }

@@ -18,12 +18,11 @@ Raw task:
 
 Pass criteria:
 
-- uses `video.create` with target `project`, never a Shot Plan generation
-  target;
+- uses `shot-plan.video-generation` with target `project` and an explicit
+  input mode;
 - preserves `authoredFrom: { kind: "shotPlan", id }` only as information;
-- keeps the failed frozen `lastGenerationSpec` as the current pointer and
-  retries that exact Spec rather than copying or reauthoring it;
-- does not inspect Run success to select another last Spec;
+- retries the exact frozen Spec supplied by the user rather than copying or
+  reauthoring it;
 - does not attach output to, freeze, snapshot, or reconstruct the Shot Plan;
 - stops before a paid call.
 

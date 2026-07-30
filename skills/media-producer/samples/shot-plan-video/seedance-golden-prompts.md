@@ -1,6 +1,6 @@
 # Seedance Golden Prompt Samples
 
-Use these as shape examples for final `shot.video-take` prompts. Adapt to the
+Use these as shape examples for final `shot-plan.video-generation` prompts. Adapt to the
 actual take context, provider preview, route, duration, and user direction. Do
 not copy names, places, actions, or reference tokens blindly.
 

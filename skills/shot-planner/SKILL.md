@@ -50,6 +50,12 @@ done state.
 `media-producer`. When the accepted output should become the selected image,
 import it with `--select` as one intent.
 
+7. When the user asks to generate video from the current plan, hand off the
+   exact Shot Plan id to `media-producer`. Do not create video state on the
+   plan. The media workflow reads context with
+   `--authored-from-shot-plan <shot-plan-id>` and attaches accepted outputs as
+   independent Project video Assets.
+
 ## Identity Rules
 
 - Use exact ids from CLI or Studio selection.

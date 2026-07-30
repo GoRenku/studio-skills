@@ -116,32 +116,40 @@ edit.
 
 ## Purpose routing
 
-Use `video.create` with target `project` for video generation. When the request
-is authored from a Shot Plan, read that mutable plan separately and include
-only:
+Use `shot-plan.video-generation` with target `project` for a video authored
+from a Shot Plan. Read the current context through:
+
+```bash
+renku generation context \
+  --purpose shot-plan.video-generation \
+  --target project \
+  --authored-from-shot-plan <exact-shot-plan-id> \
+  --json
+```
+
+Include the same weak association in the request:
 
 ```json
 "authoredFrom": { "kind": "shotPlan", "id": "<exact-shot-plan-id>" }
 ```
 
 This is information-only context. It does not target or snapshot the plan,
-attach the result to it, or make the plan immutable. Keep the plan's one
-`lastGenerationSpec` as the request configuration to continue from regardless
-of failed or successful Runs. Edit it while mutable, retry it unchanged after
-freezing, and use the focused Shot Plan continuation operation to copy a frozen
-last Spec before changing the request. Never move the pointer in response to a
-Run or Asset event.
+attach the result to it, or make the plan immutable. Set exactly one
+`shotPlanVideoInputMode`: `text-only`, `first-frame`, `first-last-frame`, or
+`reference`. Read `references/shot-plan-video/index.md` and
+`references/shot-plan-video/workflow.md`, then load the exact selected Seedance
+route guide through `references/video-model-guide-registry.json`.
 
-Import an accepted `video.create` output only with an exact matching managed
+Import an accepted `shot-plan.video-generation` output only with an exact matching managed
 receipt or frozen agent-external source Spec. It becomes an independent Project
 Asset under `videos/`; manual video import without generation provenance is not
 this purpose.
 
-Do not issue or route to retired `shot.first-frame`, `shot.last-frame`,
-`shot.video-prompt`, or `shot.video-take` purposes. The material under
-`references/shot-video-take/`, `samples/shot-video-take/`, and
-`evals/shot-video-take/` is historical design material and is not an executable
-current workflow.
+Use `shot-plan.video-first-frame`, `shot-plan.video-last-frame`, and
+`shot-plan.video-storyboard` for optional Project-owned auxiliary images. These
+purposes require the same Shot Plan association. They are ordinary opaque image
+generation requests; Core owns their purpose, candidate envelope, attachment
+destination, and provenance, while the agent owns the creative prompt.
 
 Before authoring Lookbook media, resolve the role id directly:
 
@@ -154,7 +162,8 @@ Use the returned current role id. Do not list alternatives or look for selection
 
 - `image.create` -> `project`
 - `image.edit` -> `asset:<asset-id>`
-- `video.create` -> `project`
+- `shot-plan.video-generation`, `shot-plan.video-first-frame`,
+  `shot-plan.video-last-frame`, `shot-plan.video-storyboard` -> `project`
 - `lookbook.image`, `lookbook.video-sheet`, `lookbook.storyboard-sheet` -> `lookbook:<lookbook-id>`
 - `cast.character-sheet`, `cast.profile`, `cast.voice-sample` -> `cast:<cast-member-id>`
 - `location.sheet`, `location.hero` -> `location:<location-id>`
@@ -172,12 +181,25 @@ Load only the relevant reference:
 - Scene Storyboard generation and agent-owned splitting: `references/scene-storyboard-sheet.md`
 - Shot images: `references/shot-image.md`
 - Reference-aware image prompting: `references/reference-visible-image-prompting.md`
+- Shot Plan video workflow: `references/shot-plan-video/index.md`
+- Provider-visible video prompting:
+  `references/video-generation/provider-visible-prompting.md`
+- Video prompt review:
+  `references/video-generation/prompt-quality-checklist.md`
 
 Validate exact image-route guide and sample coverage after changing an image
 route, guide, purpose sample, or prompt-authoring instruction:
 
 ```bash
 node skills/media-producer/scripts/validate-image-prompt-guides.mjs \
+  --project urban-basilica
+```
+
+Validate exact video-route guide and sample coverage after changing the video
+catalog, guides, samples, or workflow:
+
+```bash
+node skills/media-producer/scripts/validate-video-prompt-guides.mjs \
   --project urban-basilica
 ```
 

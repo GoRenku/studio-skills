@@ -1,11 +1,11 @@
-# Seedance Generic Reference-To-Video
+# Seedance Reference-To-Video
 
 Use this for a selected direct Seedance reference-to-video endpoint when exact
 references are assigned to its declared `image_urls`, `video_urls`, or
 `audio_urls` fields, but none is a storyboard/reference image.
 
 Do not use this when a storyboard/reference image is attached. Use
-`storyboard-reference-final-video.md`.
+`storyboard-reference.md`.
 
 ## Prompt Contract
 

@@ -1,4 +1,4 @@
-# Seedance Native Audio
+# Seedance 2.0 Native Audio
 
 Use this when native Seedance audio, narration, dialogue, ambience, or audio
 references matter. Author `generate_audio` only when the selected descriptor

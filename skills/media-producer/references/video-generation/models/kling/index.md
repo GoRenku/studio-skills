@@ -1,9 +1,10 @@
-# Kling Shot Video Take
+# Kling Video Generation Research
 
-Use this when the final `shot.video-take` model family is Kling.
+This file preserves Kling provider research. Kling is not active in the
+current Studio video catalog.
 
 Keep the common exact-spec workflow, reference placement, and provider-visible
-prompt rules in the parent `shot-video-take/` files. Apply the guidance below
+prompt rules in the shared video-generation files. Apply the guidance below
 only when the selected direct Kling endpoint descriptor exposes the named
 field.
 

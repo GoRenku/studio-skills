@@ -1,13 +1,15 @@
-# Final Video Prompt-Quality Checklist
+# Video Prompt-Quality Checklist
 
-Use this before any final `shot.video-take` preview approval, estimate, paid
+Use this before any final `shot-plan.video-generation` Preview approval, estimate, paid
 run, or rerun. If any relevant answer is "no", revise the prompt first.
 
 ## Mechanical Grounding
 
-- Did the agent rerun `generation context --purpose shot.video-take --target
-  take:<take-id> --json` immediately before final prompt/spec work?
-- Does the spec target the exact returned `sceneShotVideoTake` id?
+- Did the agent rerun `generation context --purpose
+  shot-plan.video-generation --target project
+  --authored-from-shot-plan <shot-plan-id> --json` immediately before final
+  prompt/spec work?
+- Does the spec target Project and preserve the exact Shot Plan association?
 - Does every included reference preserve its context-returned guide placement,
   including Shot scope and subject where present?
 - Does every included reference assign `providerField` to a file-backed media

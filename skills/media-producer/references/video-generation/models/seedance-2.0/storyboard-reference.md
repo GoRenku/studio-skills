@@ -1,12 +1,12 @@
-# Seedance Storyboard Reference Final Video
+# Seedance Storyboard Reference Video
 
-Use this only for final `shot.video-take` prompting when all are true:
+Use this only for final `shot-plan.video-generation` prompting when all are true:
 
 - model family is Seedance;
 - selected direct endpoint is reference-to-video and its descriptor exposes
   `image_urls`;
 - an exact storyboard/reference image keeps its context-returned
-  `take-media` / `video-prompt` placement and is assigned
+  `method` / `video-storyboard` placement and is assigned
   `providerField: "image_urls"`;
 - the agent is drafting, reviewing, estimating, or running the final video
   prompt.
@@ -15,7 +15,7 @@ Do not load this for ordinary text-to-video, first-frame, first/last-frame, or
 non-Seedance endpoints.
 
 For full prompt shapes, read
-`../../../samples/shot-video-take/seedance-golden-prompts.md` when drafting or
+`../../../../samples/shot-plan-video/seedance-golden-prompts.md` when drafting or
 reviewing a storyboard-reference final prompt for any of these cases:
 
 - realistic continuous waypoint storyboard with narration/audio;
@@ -27,8 +27,9 @@ reviewing a storyboard-reference final prompt for any of these cases:
 
 Before drafting the final prompt:
 
-1. Run `generation context --purpose shot.video-take --target take:<take-id>
-   --json` and read current facts, guide placements, and model descriptors.
+1. Run `generation context --purpose shot-plan.video-generation --target
+   project --authored-from-shot-plan <shot-plan-id> --json` and read current
+   facts, guide placements, and model descriptors.
 2. Validate the exact spec, run `generation preview show`, and use its
    `providerPayload` as the field-assignment and token-order source of truth.
 3. Inspect the actual storyboard/reference image, not only its title or

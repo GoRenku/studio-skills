@@ -1,0 +1,49 @@
+{
+  "routes": [
+    {
+      "provider": "fal-ai",
+      "model": "bytedance/seedance-2.0/text-to-video",
+      "guide": "references/video-generation/models/seedance-2.0/text-only.md"
+    },
+    {
+      "provider": "fal-ai",
+      "model": "bytedance/seedance-2.0/image-to-video",
+      "guide": "references/video-generation/models/seedance-2.0/first-frame.md"
+    },
+    {
+      "provider": "fal-ai",
+      "model": "bytedance/seedance-2.0/reference-to-video",
+      "guide": "references/video-generation/models/seedance-2.0/reference.md"
+    },
+    {
+      "provider": "fal-ai",
+      "model": "bytedance/seedance-2.0/mini/text-to-video",
+      "guide": "references/video-generation/models/seedance-2.0/text-only.md"
+    },
+    {
+      "provider": "fal-ai",
+      "model": "bytedance/seedance-2.0/mini/image-to-video",
+      "guide": "references/video-generation/models/seedance-2.0/first-frame.md"
+    },
+    {
+      "provider": "fal-ai",
+      "model": "bytedance/seedance-2.0/mini/reference-to-video",
+      "guide": "references/video-generation/models/seedance-2.0/reference.md"
+    },
+    {
+      "provider": "fal-ai",
+      "model": "bytedance/seedance-2.0/fast/text-to-video",
+      "guide": "references/video-generation/models/seedance-2.0/text-only.md"
+    },
+    {
+      "provider": "fal-ai",
+      "model": "bytedance/seedance-2.0/fast/image-to-video",
+      "guide": "references/video-generation/models/seedance-2.0/first-frame.md"
+    },
+    {
+      "provider": "fal-ai",
+      "model": "bytedance/seedance-2.0/fast/reference-to-video",
+      "guide": "references/video-generation/models/seedance-2.0/reference.md"
+    }
+  ]
+}

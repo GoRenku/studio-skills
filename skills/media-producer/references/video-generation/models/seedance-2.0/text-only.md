@@ -1,4 +1,4 @@
-# Seedance Text-Only Final Video
+# Seedance Text-Only Video
 
 Use this when the selected direct Seedance text-to-video endpoint has no
 file-backed media fields and no exact media reference should control the final
