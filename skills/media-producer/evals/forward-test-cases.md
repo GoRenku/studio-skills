@@ -8,6 +8,39 @@ preview, and attachment commands—not only its prose answer.
 Never allow a forward test to make a paid provider call or mutate the user's
 real project.
 
+## Cannon Prop Sheet With Explicit Continuity Choice
+
+Raw task:
+
+> Prepare a new Prop Sheet request for the cannon. There are two prior sheets;
+> use the one whose wear state matches the current Prop Design. Show Preview
+> and stop before paid generation.
+
+Pass criteria:
+
+- resolves the exact Prop id and reads `prop.sheet` context;
+- inspects both same-Prop candidates and selects by visual/design evidence,
+  never list order;
+- preserves the exact `prop/prop-sheet` placement;
+- saves and shows Preview before estimate or generation;
+- does not globally select a Prop Sheet or automatically promote output.
+
+## Helmet Prop Hero Without Automatic Promotion
+
+Raw task:
+
+> Prepare a compact Hero image for the ceremonial helmet from its approved
+> Prop Sheet. Let me review the request, but do not make it the current Hero
+> yet.
+
+Pass criteria:
+
+- uses `prop.hero` targeting the exact helmet Prop;
+- explicitly selects and inspects the approved Prop Sheet reference;
+- stops at saved Preview;
+- does not import with `--select`, mutate canonical selection, or reparent
+  existing media.
+
 ## Shot Plan Video Continuation
 
 Raw task:

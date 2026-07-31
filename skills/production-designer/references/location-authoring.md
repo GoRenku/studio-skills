@@ -35,6 +35,7 @@ Rules:
 
 - New Locations use `key`, not `id`.
 - Existing Locations use durable `id`.
-- Handles are lower-case, stable, and unique across Cast Members and Locations.
+- Handles are lower-case, stable, and unique across Cast Members, Locations,
+  and Props.
 - Delete operations fail when the Location is still referenced by screenplay scenes.
 - Screenplay scenes reference Locations by durable id; do not create Locations through screenplay JSON.

@@ -1,0 +1,13 @@
+{
+  "executionKind": "renku-managed",
+  "purpose": "prop.sheet",
+  "target": { "kind": "prop", "id": "prop_field_cannon" },
+  "model": { "provider": "fal-ai", "model": "openai/gpt-image-2" },
+  "values": {
+    "prompt": "Create one polished 16:9 Prop Sheet for the monumental bronze field cannon. Make the dominant view a full three-quarter silhouette on its timber carriage. Include supporting studies for muzzle and cascabel construction, carriage joinery, dark bronze patina, worn iron fittings, human scale, loading interaction, and the continuity-critical maker mark. Keep one physically consistent cannon across all studies. No battlefield scene, extra weapons, modern hardware, UI, crop marks, or poster typography.",
+    "image_size": "landscape_16_9",
+    "quality": "high"
+  },
+  "references": [],
+  "title": "Field Cannon Prop Sheet"
+}

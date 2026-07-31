@@ -2,7 +2,10 @@
 
 Use `location.sheet` with `location:<location-id>` for one or more production reference boards. Read current context rather than hard-coding settings; it currently recommends 16:9, high quality, and GPT Image 2.
 
-Use `location.hero` for the compact Location overview image. Core fixes 16:9, currently recommends medium quality and Nano Banana 2, and initializes `source/location-sheet` with the first matching Location Sheet when available.
+Use `location.hero` for the compact Location overview image. Core fixes 16:9
+and currently recommends medium quality and Nano Banana 2. Inspect every
+eligible `source/location-sheet` candidate and choose the exact source
+explicitly, or choose none. The first candidate has no special status.
 
 ```bash
 renku generation context --purpose location.sheet --target location:<location-id> --json

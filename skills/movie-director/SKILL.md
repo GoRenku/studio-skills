@@ -87,7 +87,8 @@ Use this loop for every request:
 - Use `screenplay-drafter` for screenplay creation and screenplay revisions.
 - Use `screenplay-analyst` for critique, three-act analysis, structure notes, and revision guidance.
 - Use `casting-director` for Cast Member facts, Cast Design, costume continuity, voice casting notes, and cast media readiness.
-- Use `production-designer` for Location facts, Location Design, props, set dressing, atmosphere, and production-design media readiness.
+- Use `production-designer` for Location and Prop facts, Location Design, Prop
+  Design, set dressing, atmosphere, and production-design media readiness.
 - Use `inspiration-analyzer` for Visual Language Inspiration folder analysis.
 - Use `lookbook-designer` for durable Production Lookbook and Storyboard Lookbook creation, revision, and Inspiration source linkage.
 - Use `scene-beat-designer` for Scene Beat Sheets and Beat iteration.
@@ -103,12 +104,12 @@ Not first-class today:
   `shot.video-prompt`, or `shot.video-take`, and do not infer replacement
   commands.
 - Costume-variant media and voice media. Keep their design notes in Cast Design and hand off only existing cast media purposes to `media-producer`.
-- Prop media, set-dressing media, sound, music, editorial, and final assembly skills.
+- Set-dressing media, sound, music, editorial, and final assembly skills.
 
 ## Non-Negotiables
 
 - Do not write directly to `.renku/project.sqlite`.
-- Do not invent project, scene, Beat, Cast Member, Location, asset, Beat Sheet, Lookbook, or generation ids.
+- Do not invent project, scene, Beat, Cast Member, Location, Prop, asset, Beat Sheet, Lookbook, or generation ids.
 - Do not run paid generation without Renku estimate review and explicit live provider approval.
 - Preserve explicit user choices for provider/model, authored values, exact
   references, Beat ids, costs, and approvals.

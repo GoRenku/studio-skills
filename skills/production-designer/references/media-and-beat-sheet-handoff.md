@@ -5,6 +5,7 @@
 - `media-producer` owns `location.sheet` generation specs, estimates, approved
   runs, inspection, and focused attachment.
 - `media-producer` also owns `location.hero` generation/import when a Location needs a compact overview/detail image derived from an approved Location Sheet.
+- `media-producer` owns `prop.sheet` and `prop.hero` for durable Props.
 
 Location Sheet context:
 
@@ -37,5 +38,10 @@ When an accepted `location.hero` output should become the Location's current
 Hero, ask `media-producer` to import it with `--select` in the same mutation.
 Location Sheets remain request-scoped candidates: never create a global
 Location Sheet selection.
+
+For a Prop handoff, provide the exact Prop id, active Prop Design, every
+same-Prop Sheet candidate, an explicit reference choice or none, and whether
+the user wants a Hero selected. Never reparent Location media or infer a Prop
+from `recurringObjects`.
 
 Do not run paid generation yourself. Do not store generated media paths in Location Design. When Scene Beat illustration needs environment references, name the exact full Location Sheets by description instead of asking for front/right/back/left slices.

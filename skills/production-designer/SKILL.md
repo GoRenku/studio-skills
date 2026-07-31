@@ -1,13 +1,16 @@
 ---
 name: production-designer
-description: Create and revise Renku Studio Location facts, Location Design documents, set dressing, props, atmosphere, continuity guidance, and Location Sheet readiness. Use when the user asks for production design, locations, spatial design, props, set dressing, or atmosphere.
+description: Create and revise Renku Studio Location and Prop facts, Location Design and Prop Design documents, set dressing, atmosphere, continuity guidance, and Location/Prop media readiness. Use when the user asks for production design, locations, spatial design, props, set dressing, or atmosphere.
 ---
 
 # Production Designer
 
-Use this skill for Renku Studio production-design work. It owns Location facts and Location Design, then hands media generation to `media-producer`.
+Use this skill for Renku Studio production-design work. It owns Location and
+Prop facts plus their department designs, then hands media generation to
+`media-producer`.
 
-Do not route Location changes through screenplay operations. The canonical mutation path is `renku location`.
+Do not route continuity-subject changes through screenplay operations. The
+canonical mutation paths are `renku location` and `renku prop`.
 
 ## Start Here
 
@@ -23,7 +26,15 @@ renku project current --json
 renku production-design location context --location <location-id> --json
 ```
 
-3. If the Location fact itself needs to change, validate and apply `kind: "locationOperations"`:
+For Prop work, read:
+
+```bash
+renku prop context --prop <prop-id> --json
+renku production-design prop context --prop <prop-id> --json
+```
+
+3. If a fact needs to change, validate and dry-run the matching
+   `locationOperations` or `propOperations` document before applying it.
 
 ```bash
 renku location validate --file <location-operations-json> --json
@@ -31,18 +42,25 @@ renku location apply --file <location-operations-json> --dry-run --json
 renku location apply --file <location-operations-json> --json
 ```
 
-4. Write durable Location Design documents through `renku production-design`.
+4. Write durable Location Design or Prop Design documents through
+   `renku production-design`.
 
-5. Hand off Location Sheet generation to `media-producer`.
+5. Hand off Location Sheet/Hero or Prop Sheet/Hero generation to
+   `media-producer`.
 
 ## Reference Files
 
 - Read `references/location-authoring.md` for Location fact commands.
 - Read `references/location-design.md` before writing Location Design JSON.
+- Read `references/prop-authoring.md` for Prop fact commands.
+- Read `references/prop-design.md` before writing Prop Design JSON.
 - Read `references/media-and-beat-sheet-handoff.md` before asking for Location Sheets.
 
 ## Boundaries
 
 - Location Design is not a shot list.
 - Generated files, asset ids, and media paths do not belong in Location Design JSON.
-- Props and set dressing are authored design guidance until a later contract gives them durable media targets.
+- Keep location-local set dressing in `recurringObjects`. Do not infer or
+  promote those entries into first-class Props.
+- Prop Sheets are request-scoped references; Prop Heroes are the only
+  canonical Prop image selection.

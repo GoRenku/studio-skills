@@ -1,6 +1,6 @@
 ---
 name: media-producer
-description: Generate, revise, preview, estimate, run, inspect, and attach purpose-specific Renku Studio image, audio, and video media through the context-first GenerationSpec contract. Use for generic image creation or editing, project videos authored from Shot Plans, Lookbook assets, Cast sheets/profiles/voice samples, Location sheets/heroes, Scene Storyboard Sheets, dialogue audio, external media attachment, and generation approval workflows.
+description: Generate, revise, preview, estimate, run, inspect, and attach purpose-specific Renku Studio image, audio, and video media through the context-first GenerationSpec contract. Use for generic image creation or editing, project videos authored from Shot Plans, Lookbook assets, Cast sheets/profiles/voice samples, Location sheets/heroes, Prop sheets/heroes, Scene Storyboard Sheets, dialogue audio, external media attachment, and generation approval workflows.
 ---
 
 # Media Producer
@@ -108,13 +108,13 @@ edit.
 - Never invent an asset/file id, receipt, or provenance record.
 - Import finished media only through a currently supported focused purpose. Pass `--receipt` only for an exact output of a matching Renku run.
 - When the user explicitly requests Codex generation, save and review an `agent-external` spec, read it after Preview, freeze it immediately before invoking Codex, and pass its id with `--source-spec` when importing the accepted image.
-- Never copy files manually into canonical Cast, Location, Lookbook, or Scene
+- Never copy files manually into canonical Cast, Location, Prop, Lookbook, or Scene
   folders. Core owns durable paths and exclusive Asset membership.
-- When an accepted Profile, Hero, Lookbook Image, Shot Image, or grouped
+- When an accepted Profile, Location/Prop Hero, Lookbook Image, Shot Image, or grouped
   Storyboard import should become canonical immediately, pass `--select` on
   that import. Use `renku asset select` only to choose an already imported
   candidate.
-- Never create global selection for Character Sheets, Location Sheets,
+- Never create global selection for Character Sheets, Location Sheets, Prop Sheets,
   Lookbook Sheets, or Dialogue Audio Takes. Their exact choices belong only in
   the consuming GenerationSpec references.
 - Inspect generated media before attachment. Paid regeneration requires a revised Preview, estimate, and explicit approval.
@@ -172,6 +172,7 @@ Use the returned current role id. Do not list alternatives or look for selection
 - `lookbook.image`, `lookbook.video-sheet`, `lookbook.storyboard-sheet` -> `lookbook:<lookbook-id>`
 - `cast.character-sheet`, `cast.profile`, `cast.voice-sample` -> `cast:<cast-member-id>`
 - `location.sheet`, `location.hero` -> `location:<location-id>`
+- `prop.sheet`, `prop.hero` -> `prop:<prop-id>`
 - `scene.storyboard-sheet` -> `scene:<scene-id>`
 - `shot.image` -> `shot:<shot-id>`
 - `scene.dialogue-audio` -> `scene:<scene-id>:dialogue:<scene-dialogue-id>`
@@ -182,6 +183,7 @@ Load only the relevant reference:
 - Cast profiles: `references/cast-profile.md` or `references/voice-over-profile-image.md`
 - Cast voice samples: `references/cast-voice-sample.md`
 - Location media: `references/location-sheet.md`
+- Prop media: `references/prop-sheet.md`
 - Lookbook media: `references/lookbook-image.md` or `references/lookbook-sheets.md`
 - Scene Storyboard generation and agent-owned splitting: `references/scene-storyboard-sheet.md`
 - Shot images: `references/shot-image.md`
@@ -212,7 +214,10 @@ The command compares the guide registry with the current image routes reported
 by the installed Renku CLI. The registry maps identities to guide paths only;
 it does not own model families, media capability, or configurable fields.
 
-For `cast.character-sheet` and `location.sheet`, inspect all same-owner prior sheet candidates as optional continuity references. Choose a useful prior sheet only when it supports the current creative direction; no prior sheet is required, and the first candidate has no special status.
+For `cast.character-sheet`, `location.sheet`, and `prop.sheet`, inspect all
+same-owner prior sheet candidates as optional continuity references. Choose a
+useful prior sheet only when it supports the current creative direction; no
+prior sheet is required, and the first candidate has no special status.
 
 Do not reconstruct a second request-planning system or automatic provider
 mapping in the skill. One spec is one explicit provider request.

@@ -17,6 +17,7 @@ Then pass the returned durable `sceneId` to the owning specialist.
 | Critique structure, diagnose pacing, plan revisions, analyze acts/sequences/scenes | Screenplay Analysis | `screenplay-analyst` | `renku screenplay analyze context --json` |
 | Create/revise Cast Member facts, appearance, performance, costume, voice casting notes | Casting | `casting-director` | `renku cast design context --cast <cast-member-id> --json` |
 | Create/revise Location facts, spatial design, set dressing, props, atmosphere | Production Design | `production-designer` | `renku production-design location context --location <location-id> --json` |
+| Create/revise durable Prop facts, Prop Design, or Prop media readiness | Production Design | `production-designer` | `renku production-design prop context --prop <prop-id> --json` |
 | Analyze reference folders, extract visual principles from images | Cinematography / Visual Language | `inspiration-analyzer` | `renku inspiration show --folder <folder-id> --json` |
 | Create, revise, or connect the project's Production Lookbook or Storyboard Lookbook to Inspiration folders | Cinematography / Visual Language | `lookbook-designer` | `renku lookbook show --kind <production\|storyboard> --json` |
 | Design or revise scene narrative Beats and their illustration context | Directing / Beat Design | `scene-beat-designer` | `renku screenplay beat-sheet context --scene <scene-id> --json` |
@@ -33,8 +34,8 @@ Then pass the returned durable `sceneId` to the owning specialist.
 6. Project Production Lookbook.
 7. Project Storyboard Lookbook, with its `lookbook.storyboard-sheet` available
    as non-blocking guidance when one exists.
-8. Cast Design and Location Design.
-9. Cast Character Sheets, Cast Profiles, and Location Sheets.
+8. Cast Design, Location Design, and Prop Design.
+9. Cast Character Sheets, Cast Profiles, Location Sheets, and Prop Sheets.
 10. Scene Beat Sheets.
 11. Per-Beat storyboard images.
 12. Scene Shot Plans and selected Shot images when useful.
@@ -43,5 +44,6 @@ Then pass the returned durable `sceneId` to the owning specialist.
 ## Current Gaps
 
 - Costume-variant media and voice media are not first-class. Keep their notes in Cast Design.
-- Prop media and set-dressing media are not first-class. Keep their notes in Location Design.
+- Location-local set-dressing media is not first-class. Keep its notes in
+  Location Design unless the object is deliberately authored as a Prop.
 - Sound, music, editorial, and final assembly do not have complete specialist workflows yet.

@@ -16,6 +16,8 @@ const expectedPurposes = new Set([
   'cast.profile',
   'location.sheet',
   'location.hero',
+  'prop.sheet',
+  'prop.hero',
   'scene.storyboard-sheet',
   'shot.image',
 ]);

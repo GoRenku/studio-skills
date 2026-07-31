@@ -144,6 +144,8 @@ Use for:
 - Location fact creation or revision;
 - Location Design creation or revision;
 - props, set dressing, atmosphere, and continuity risks.
+- durable Prop id and active Prop Design when the object needs independent
+  continuity media.
 
 Pass:
 
@@ -156,6 +158,7 @@ Verify:
 
 ```bash
 renku production-design location show --active --location <location-id> --json
+renku production-design prop show --active --prop <prop-id> --json
 ```
 
 ## `scene-beat-designer`

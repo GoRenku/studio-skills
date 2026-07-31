@@ -38,9 +38,16 @@ renku location apply --file <location-operations-json> --json
 renku production-design location context --location <location-id> --json
 renku production-design location validate --file <location-design-json> --json
 renku production-design location write --file <location-design-json> --json
+renku prop list --json
+renku prop context --prop <prop-id> --json
+renku prop validate --file <prop-operations-json> --json
+renku prop apply --file <prop-operations-json> --json
+renku production-design prop context --prop <prop-id> --json
+renku production-design prop validate --file <prop-design-json> --json
+renku production-design prop write --file <prop-design-json> --json
 ```
 
-Screenplay commands do not mutate Cast Members or Locations.
+Screenplay commands do not mutate Cast Members, Locations, or Props.
 
 ## Media Generation
 
@@ -48,8 +55,8 @@ Use `media-producer` for generation specs, estimates, approved runs,
 inspection, slicing, and supported focused attachment.
 
 Current media purposes include Lookbook images and typed sheets, Cast Character
-Sheets, cast profiles and voice samples, Location Sheets
-and heroes, Scene Storyboard Sheets, dialogue audio, and general image creation
+Sheets, cast profiles and voice samples, Location Sheets and heroes, Prop
+Sheets and heroes, Scene Storyboard Sheets, dialogue audio, and general image creation
 and editing. Read current purpose context and model
 descriptors through `media-producer`; do not reconstruct removed route, input,
 or request-planning contracts here.
@@ -79,5 +86,5 @@ Do not use discard plus media import to retag or re-anchor an existing Lookbook 
 - Costume-variant media is not a first-class purpose. Cast voice samples use
   `cast.voice-sample`, but durable attachment remains owned by the Cast Voice
   command rather than generic media import.
-- Prop media and set-dressing media are not first-class purposes.
+- Location-local set-dressing media is not a first-class purpose.
 - Sound, music, editorial, and final assembly workflows are incomplete.

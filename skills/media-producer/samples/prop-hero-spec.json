@@ -1,0 +1,19 @@
+{
+  "executionKind": "renku-managed",
+  "purpose": "prop.hero",
+  "target": { "kind": "prop", "id": "prop_ceremonial_helmet" },
+  "model": { "provider": "fal-ai", "model": "openai/gpt-image-2/edit" },
+  "values": {
+    "prompt": "Create one wide Prop Hero image from @Reference1. Preserve the exact helmet silhouette, darkened steel, worn gilt brow band, rivet pattern, cheek pieces, and scale. Isolate the helmet as a single production object in controlled neutral light. No multi-panel sheet, labels, captions, diagrams, mannequin face, hands, UI, or watermark."
+  },
+  "references": [
+    {
+      "placement": { "kind": "slot", "sectionId": "prop", "slotId": "prop-sheet", "subject": { "kind": "prop", "id": "prop_ceremonial_helmet" } },
+      "providerField": "image_urls",
+      "promptMention": "@Reference1",
+      "reference": { "kind": "asset-file", "assetId": "asset_helmet_prop_sheet", "assetFileId": "asset_file_helmet_prop_sheet" }
+    }
+  ],
+  "nextPromptMentionNumber": 2,
+  "title": "Ceremonial Helmet Prop Hero"
+}

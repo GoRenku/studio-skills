@@ -9,7 +9,7 @@ Use it for:
 - set dressing;
 - materials and surfaces;
 - atmosphere;
-- props and recurring objects;
+- location-local recurring objects;
 - continuity;
 - Location Sheet guidance in `locationSheetGuidance`;
 - generation guidance.
