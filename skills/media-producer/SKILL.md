@@ -142,7 +142,7 @@ This is information-only context. It does not target or snapshot the plan,
 attach the result to it, or make the plan immutable. Set exactly one
 `shotPlanVideoInputMode`: `text-only`, `first-frame`, `first-last-frame`, or
 `reference`. Read `references/shot-plan-video/index.md` and
-`references/shot-plan-video/workflow.md`, then load the exact selected Seedance
+`references/shot-plan-video/workflow.md`, then load the exact selected video
 route guide through `references/video-model-guide-registry.json`.
 
 Import an accepted `shot-plan.video-generation` output only with an exact matching managed

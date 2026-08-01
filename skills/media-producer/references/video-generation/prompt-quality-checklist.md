@@ -16,8 +16,9 @@ run, or rerun. If any relevant answer is "no", revise the prompt first.
   field in the selected model descriptor?
 - Did validation pass, and did the agent inspect the generated
   `providerPayload` for actual field assignment and token order?
-- Does every `@ImageN`, `@VideoN`, and `@AudioN` in the prompt correspond to an
-  actual provider input?
+- Does every provider-specific image, video, and audio mention in the prompt
+  correspond to an actual provider input and use the selected route's exact
+  syntax, such as `@Image1` or `Image 1`?
 - Does every provider input have a narrow role in the prompt?
 - Does the prompt match the selected direct endpoint and authored values such
   as duration?

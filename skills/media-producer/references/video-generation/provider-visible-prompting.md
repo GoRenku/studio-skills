@@ -11,9 +11,9 @@ receives:
 
 - prompt text;
 - authored values accepted by the selected endpoint;
-- attached image tokens such as `@Image1`;
-- attached video tokens such as `@Video1`;
-- attached audio tokens such as `@Audio1`;
+- attached image mentions such as `@Image1` or `Image 1`;
+- attached video mentions such as `@Video1` or `Video 1`;
+- attached audio mentions such as `@Audio1` or `Audio 1`;
 - source/first/last frame inputs when the selected endpoint exposes them.
 
 Do not ask the provider to understand hidden Studio state.
@@ -50,13 +50,14 @@ Use the resulting `providerPayload` as evidence of which inputs the provider
 will receive and in what order. Do not infer numbering from filenames, memory,
 guide order, UI card order, or prior run payloads.
 
-For provider fields that document modality-local tokens, map the array order
-shown in `providerPayload`:
+Use the exact mention syntax documented for the selected route. For provider
+fields that document modality-local mentions, map the array order shown in
+`providerPayload`. For example:
 
-- first `image_urls` entry: `@Image1`;
-- second `image_urls` entry: `@Image2`;
-- first `video_urls` entry: `@Video1`;
-- first `audio_urls` entry: `@Audio1`.
+- first Seedance `image_urls` entry: `@Image1`;
+- second MiniMax H3 `reference_image_urls` entry: `Image 2`;
+- first H3 `reference_video_urls` entry: `Video 1`;
+- first H3 `reference_audio_urls` entry: `Audio 1`.
 
 Do not invent a token for a singular field unless the endpoint documentation or
 generated preview establishes that token. Every supplied image, video, or audio

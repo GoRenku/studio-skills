@@ -44,6 +44,21 @@
       "provider": "fal-ai",
       "model": "bytedance/seedance-2.0/fast/reference-to-video",
       "guide": "references/video-generation/models/seedance-2.0/reference.md"
+    },
+    {
+      "provider": "fal-ai",
+      "model": "minimax/h3/text-to-video",
+      "guide": "references/video-generation/models/minimax-h3/text-only.md"
+    },
+    {
+      "provider": "fal-ai",
+      "model": "minimax/h3/image-to-video",
+      "guide": "references/video-generation/models/minimax-h3/image-to-video.md"
+    },
+    {
+      "provider": "fal-ai",
+      "model": "minimax/h3/reference-to-video",
+      "guide": "references/video-generation/models/minimax-h3/reference.md"
     }
   ]
 }
