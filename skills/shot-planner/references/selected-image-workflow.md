@@ -15,8 +15,10 @@ route overrides the preference.
 Keep the sequence explicit:
 
 1. save and show Generation Preview;
-2. wait for request approval;
-3. execute;
+2. for Renku-managed execution, estimate and wait for explicit cost/provider
+   approval; for Codex execution, continue without a separate generation
+   approval stop;
+3. execute through the selected path;
 4. inspect the exact output;
 5. wait for output acceptance;
 6. when the accepted image should become the Shot's current image, import and

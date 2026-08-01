@@ -244,8 +244,10 @@ sources and grouped Scene Storyboard JSON.
 
 Approval gate:
 
-- Never run a paid provider without a Renku estimate and explicit user approval.
-- Treat estimates as pricing-only. Before a real provider-backed run, require
+- Never run a Renku-managed paid provider without a Renku estimate and explicit
+  user approval. Do not apply this approval gate to Codex built-in image
+  generation.
+- Treat estimates as pricing-only. Before a real Renku-managed provider run, require
   explicit approval for the estimated cost or unknown-cost state and sending the
   preview-approved project-derived prompt/context to the selected provider. If
   the agent changes any part of that request, show the preview again, estimate

@@ -1,6 +1,10 @@
 # Workflow Playbooks
 
-Use these playbooks when a user asks for an outcome rather than naming a single department. Always preserve explicit user choices and avoid paid generation until `media-producer` has produced an estimate and collected explicit live provider approval.
+Use these playbooks when a user asks for an outcome rather than naming a single
+department. Always preserve explicit user choices. Renku-managed paid
+generation waits until `media-producer` has produced an estimate and collected
+explicit live provider approval; Codex built-in image generation does not add
+that approval gate.
 
 For Codex runs, remember that local Studio HTTP notification is network access. Before dispatching any specialist step that will mutate Renku state while Studio is running, make sure the mutating CLI command is run with sandbox/network permission. If `CLI026` appears, do not rerun non-idempotent mutations just to notify Studio.
 

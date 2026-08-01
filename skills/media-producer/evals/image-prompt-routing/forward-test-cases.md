@@ -44,7 +44,9 @@ generation:
   `image.edit`, and lock that exact file in `source/source-image`.
 - Save the request and show Preview. The prompt identifies the locked source by
   its exact mention, states the focused change, and preserves the rest.
-- Treat Preview as request review only and wait for explicit approval.
+- Treat Preview as request review. Wait for explicit cost/provider approval
+  only on the managed branch; continue through Codex without a separate
+  generation-approval question.
 - For the managed branch, execute after estimate approval, display the output,
   ask separately whether to attach it, and import an accepted output through
   the source owner's real focused purpose/target with the exact receipt.
@@ -58,7 +60,7 @@ generation:
   state remain unchanged.
 
 If the external provider/model or a non-prompt value changes, update the saved
-spec through the CLI and show Preview again before approval. Never use the
+spec through the CLI and show Preview again before execution. Never use the
 read-only Studio Generation Request inspector as an editing surface.
 
 ## Codex external
@@ -67,7 +69,8 @@ read-only Studio Generation Request inspector as an editing surface.
 
 The agent uses the GPT Image 2 guide, preserves the external execution
 envelope, sends the frozen prompt unchanged, and does not author managed
-provider settings.
+provider settings. It invokes Codex without asking for Renku estimate approval
+or a separate generation-approval gesture.
 
 ## Missing guide
 

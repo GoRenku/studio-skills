@@ -94,8 +94,9 @@ Use this loop for every request:
 - Use `scene-beat-designer` for Scene Beat Sheets and Beat iteration.
 - Use `shot-planner` for Scene Shot Plans, individual Shot iteration, order,
   Beat coverage, and selected-image coordination.
-- Use `media-producer` for all Renku media generation specs, estimates,
-  approved runs, inspection, slicing, and supported focused attachments.
+- Use `media-producer` for all Renku media generation specs, managed estimates
+  and approved runs, Codex external generation, inspection, slicing, and
+  supported focused attachments.
 
 Not first-class today:
 
@@ -110,7 +111,9 @@ Not first-class today:
 
 - Do not write directly to `.renku/project.sqlite`.
 - Do not invent project, scene, Beat, Cast Member, Location, Prop, asset, Beat Sheet, Lookbook, or generation ids.
-- Do not run paid generation without Renku estimate review and explicit live provider approval.
+- Do not run Renku-managed paid generation without Renku estimate review and
+  explicit live provider approval. Codex built-in image generation follows the
+  media-producer external workflow without an additional approval question.
 - Preserve explicit user choices for provider/model, authored values, exact
   references, Beat ids, costs, and approvals.
 - Do not use obsolete command aliases or compatibility paths.

@@ -164,9 +164,11 @@ Media Producer helps agents create, inspect, and import purpose-specific Renku
 Studio media. It reads the Core-owned purpose context and current model
 descriptors, authors one generic `GenerationSpec`, assigns every exact
 reference through `providerField`, validates and previews the exact request, and
-estimates it before asking for paid-run approval. After generation, it inspects
-the output and uses only the focused attachment command for the requested
-purpose; generation never implies attachment.
+estimates Renku-managed work before asking for paid-run approval. Codex
+built-in image generation uses the saved external request without an additional
+approval stop. After generation, it inspects the output and uses only the
+focused attachment command for the requested purpose; generation never implies
+attachment.
 
 ## Install In Codex
 

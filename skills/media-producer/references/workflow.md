@@ -124,9 +124,10 @@ renku generation spec create --file <external-spec.json> --json
 renku generation preview show --spec <returned-spec-id> --json
 ```
 
-Stop after Preview and wait for explicit user approval. The Preview opening is
-not approval. After approval, read the saved spec again so any prompt or
-reference changes made with the Update button are included. Then freeze that
+Do not treat Preview as a Codex generation-approval gate and do not ask for a
+second approval. The user's explicit Codex execution choice authorizes the
+built-in image tool. After Preview is delivered, read the saved spec again so
+any already-applied prompt or reference changes are included, then freeze that
 exact saved revision immediately before invoking Codex:
 
 ```bash
@@ -155,12 +156,15 @@ selection is part of the current user intent. Import and selection then remain
 one atomic mutation. Character Sheets, Location Sheets, Lookbook Sheets, and
 Dialogue Audio Takes are request-scoped references and never use this flag.
 
-## Preview and price approval
+## Preview and managed price approval
 
 Open Studio Preview only for the saved request with `preview show --spec`. This
 keeps the prompt, reference cards, model settings, and Update action connected
-to the same saved request. Showing Preview does not execute generation and does
-not authorize it.
+to the same saved request. Showing Preview does not execute generation.
+Renku-managed execution still requires a later estimate and explicit
+price/provider approval. Codex external execution has no additional approval
+gate after the user selects Codex; the agent continues through the built-in
+image tool after saving and showing the request.
 
 Use repeated flags to review several complete, independent requests together while preserving order:
 
@@ -172,10 +176,13 @@ Do not mix input kinds. The combined display does not combine estimates, approva
 Treat a failed combined Preview command as a failed review handoff. Report the
 failure and stop; do not send separate Preview commands for individual files or
 specs, because each later notification replaces the current dialog session.
-Do not estimate or request paid execution approval until the combined Preview
-has succeeded.
+Do not estimate or request managed-provider approval until the combined Preview
+has succeeded. Codex external entries never receive a Renku estimate, approval
+token, or GenerationRun.
 
-If prompt, endpoint, authored values, reference order or presence, provider-field assignment, or referenced file contents change:
+For a Renku-managed request, if prompt, endpoint, authored values, reference
+order or presence, provider-field assignment, or referenced file contents
+change:
 
 1. update and validate the spec;
 2. show Preview again;
@@ -200,11 +207,13 @@ the agent owns this complete workflow:
    update only prompt and reference slots. Change its provider, model, or any
    non-prompt saved value with `renku generation spec update --spec <id>
    --file <spec.json>`, then open Preview again.
-5. Treat Preview as request review, not execution approval. Wait for explicit
-   approval, read the saved revision again, and freeze it at the existing live
-   managed or external execution boundary. Any changed request requires a new
-   reviewed spec; never mutate a frozen request.
-6. Execute the approved request through Renku or Codex.
+5. For Renku-managed execution, treat Preview as request review and wait for
+   explicit cost/provider approval before running. For Codex external
+   execution, do not ask for separate generation approval: after Preview is
+   delivered, read the saved revision, freeze it, and invoke the built-in image
+   tool. Any changed request requires a new reviewed spec; never mutate a
+   frozen request.
+6. Execute the request through Renku or Codex as selected.
 7. Display the generated image in Codex and separately ask whether the user
    accepts this output for attachment.
 8. Only after output acceptance, call `renku media import` with the real
@@ -214,8 +223,9 @@ the agent owns this complete workflow:
    AssetFile, owner membership, and selection remain unchanged unless the
    accepted destination import explicitly used `--select`.
 
-Closing Preview or the Generation Request inspector does not approve either the
-request or its output. Rejected output remains unattached.
+Closing Preview or the Generation Request inspector does not approve a
+Renku-managed run or accept generated output. Codex external execution does not
+use Preview as an approval gate. Rejected output remains unattached.
 
 ## Outputs and focused attachment
 

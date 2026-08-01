@@ -11,8 +11,9 @@ Use the normal Renku-managed generation workflow unless the user explicitly
 asks for Codex built-in image generation. A request to create an image does not
 by itself authorize or select Codex generation. The accepted `shot.image`
 workflow is the narrow exception: when the user has not selected an execution
-path, propose Codex built-in GPT-Image-2 while still stopping at saved Preview
-for approval.
+path, propose Codex built-in GPT-Image-2. Once the user selects that execution
+path, show the saved Preview for visibility and continue without a separate
+generation-approval stop.
 
 ## Core workflow
 
@@ -37,7 +38,7 @@ renku generation model list --purpose <purpose> --json
    every new `image.edit` request.
 5. Inspect every candidate in every relevant guide slot, including the underlying image files when the choice is visual. Choose the exact candidate that best serves the request, or choose none. Author only that choice in one generic `GenerationSpec`; the guide never chooses for you. Presence means inclusion. Preserve the exact section, slot, and optional subject from the guide, set `providerField` only when deliberately routing the exact file to a real media field from the selected model descriptor, assign exact stable `promptMention` values to image references used by the prompt, and use `{ "kind": "additional" }` only for an extra exact opaque reference.
 6. Keep Core-fixed settings out of agent policy. Treat recommendations as editable guidance and author them only when explicitly chosen. Leave untouched provider defaults absent.
-7. Validate and show Preview before paid work:
+7. Validate and show Preview before generation:
 
 ```bash
 renku generation validate --file <spec.json> --json
@@ -77,15 +78,28 @@ When several independent saved requests should be reviewed together, show them i
 renku generation preview show --spec <first-spec-id> --spec <second-spec-id> --json
 ```
 
-Do not mix `--file` and `--spec`. Each entry remains an independent spec, estimate, approval, and run.
+Do not mix `--file` and `--spec`. Each entry remains an independent spec and
+execution. Estimates, approval tokens, and GenerationRuns apply only to
+Renku-managed entries.
 If the combined Preview command fails, report that the complete review handoff
 could not be opened and stop. Never substitute one Preview command per request:
 later single-request notifications replace the earlier dialog session. Do not
-estimate or ask for paid execution approval until the combined Preview
+estimate or ask for managed-provider approval until the combined Preview
 succeeds.
 
-8. Update the same saved draft when the request changes, then validate and show it again. Preview is a review stop, not permission to generate. Do not start Codex or provider generation merely because the dialog opened; wait for the user's explicit approval. After live submission, the saved request is permanently frozen; author a new spec for any changed request.
-9. Estimate the exact saved request. Ask for explicit approval of the cost and provider transfer, then pass the returned token unchanged:
+8. Update the same saved draft when the request changes, then validate and show
+   it again. For Renku-managed execution, Preview remains a review stop and the
+   live provider run still requires explicit cost/provider approval. For
+   Codex `agent-external` image generation, the user's Codex execution choice
+   already authorizes use of the built-in image tool: after Preview is
+   delivered, read the saved request, freeze it, and invoke Codex without
+   asking for separate generation approval. If the user changes or steers the
+   request before invocation, update and show Preview again. After live
+   submission, the saved request is permanently frozen; author a new spec for
+   any changed request.
+9. For Renku-managed execution only, estimate the exact saved request. Ask for
+   explicit approval of the cost and provider transfer, then pass the returned
+   token unchanged:
 
 ```bash
 renku generation estimate --spec <spec-id> --json
@@ -107,7 +121,10 @@ edit.
 - Use a normalized project-relative `project-file` reference for an unattached Renku output, Codex-generated image, uploaded file, or other safe project file that only needs to guide the next request.
 - Never invent an asset/file id, receipt, or provenance record.
 - Import finished media only through a currently supported focused purpose. Pass `--receipt` only for an exact output of a matching Renku run.
-- When the user explicitly requests Codex generation, save and review an `agent-external` spec, read it after Preview, freeze it immediately before invoking Codex, and pass its id with `--source-spec` when importing the accepted image.
+- When the user selects Codex generation, save and show an `agent-external`
+  spec, read it after Preview, freeze it immediately before invoking Codex
+  without a separate approval stop, and pass its id with `--source-spec` when
+  importing the accepted image.
 - Never copy files manually into canonical Cast, Location, Prop, Lookbook, or Scene
   folders. Core owns durable paths and exclusive Asset membership.
 - When an accepted Profile, Location/Prop Hero, Lookbook Image, Shot Image, or grouped
@@ -117,7 +134,10 @@ edit.
 - Never create global selection for Character Sheets, Location Sheets, Prop Sheets,
   Lookbook Sheets, or Dialogue Audio Takes. Their exact choices belong only in
   the consuming GenerationSpec references.
-- Inspect generated media before attachment. Paid regeneration requires a revised Preview, estimate, and explicit approval.
+- Inspect generated media before attachment. A Renku-managed paid regeneration
+  requires a revised Preview, estimate, and explicit approval. A Codex
+  regeneration follows the built-in tool workflow without a Renku approval
+  token or an extra approval question.
 
 ## Purpose routing
 
@@ -228,4 +248,9 @@ Keep splitting agent-owned. Read the exact Scene Beat Sheet and use `facts.conte
 
 ## Safety and permissions
 
-Provider-backed generation needs explicit user approval and network permission. Local Studio notifications may also require localhost network permission. If notification fails after a successful mutation, read durable state and refresh Studio; do not rerun a non-idempotent import.
+Renku-managed provider generation needs explicit user approval and network
+permission. Codex built-in image generation uses Codex's own tool execution and
+permissions; do not add a Renku price/provider approval question. Local Studio
+notifications may also require localhost network permission. If notification
+fails after a successful mutation, read durable state and refresh Studio; do
+not rerun a non-idempotent import.

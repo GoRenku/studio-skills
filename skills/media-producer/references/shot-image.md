@@ -7,8 +7,11 @@ project aspect ratio as the recommended request setting.
 When no execution path was chosen, propose Codex built-in GPT-Image-2. A user
 choice of a current Renku image route overrides it.
 
-Use the standard saved Preview and approval workflow. After execution, inspect
-the exact output and wait for output acceptance. Then import:
+Use the standard saved Preview workflow. For Codex execution, continue after
+Preview without asking for separate generation approval. For Renku-managed
+execution, estimate and obtain explicit cost/provider approval before the run.
+After execution, inspect the exact output and wait for output acceptance. Then
+import:
 
 ```bash
 renku media import \

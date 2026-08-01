@@ -172,8 +172,8 @@ Pass criteria:
 - keeps `16:9` and every other reviewed composition, quality, format, and
   creative requirement inside that exact prompt;
 - stores chosen images as logical `references`, not extra `values` fields;
-- follows create/update, Preview, approval, show, freeze, Codex generation, and
-  focused attachment in that order;
+- follows create/update, Preview, show, freeze, Codex generation, and focused
+  attachment in that order, without asking for separate generation approval;
 - passes the frozen record's `spec.values.prompt` to Codex unchanged;
 - attaches with the frozen spec id as `--source-spec` and never invents an
   external GenerationRun, receipt, estimate, or approval token.
