@@ -13,8 +13,8 @@ Then pass the returned durable `sceneId` to the owning specialist.
 
 | User intent | Department | Specialist | First CLI read |
 | --- | --- | --- | --- |
-| Create or revise story, screenplay, scene, dialogue, narration, scene settings, action lines | Screenwriting | `screenplay-drafter` | `renku screenplay status --json` |
-| Critique structure, diagnose pacing, plan revisions, analyze acts/sequences/scenes | Screenplay Analysis | `screenplay-analyst` | `renku screenplay analyze context --json` |
+| Import Final Draft FDX, or create/revise story, screenplay, scene, dialogue, narration, scene settings, action lines | Screenwriting | `screenplay-drafter` | `renku screenplay status --json` |
+| Critique structure, diagnose pacing, plan revisions, derive analytical Act segments or Scene groups | Screenplay Analysis | `screenplay-analyst` | `renku screenplay analyze context --json` |
 | Create/revise Cast Member facts, appearance, performance, costume, voice casting notes | Casting | `casting-director` | `renku cast design context --cast <cast-member-id> --json` |
 | Create/revise Location facts, spatial design, set dressing, props, atmosphere | Production Design | `production-designer` | `renku production-design location context --location <location-id> --json` |
 | Create/revise durable Prop facts, Prop Design, or Prop media readiness | Production Design | `production-designer` | `renku production-design prop context --prop <prop-id> --json` |
@@ -26,9 +26,9 @@ Then pass the returned durable `sceneId` to the owning specialist.
 
 ## Default Production Order
 
-1. Project brief and constraints.
-2. Cast Member and Location facts when scenes will reference them.
-3. Screenplay draft.
+1. Direct Project brief, story metadata, and constraints.
+2. Cast Member, Location, and Prop facts when Scenes will reference them.
+3. Screenplay import or draft, followed by collaborative fact/reference binding.
 4. Screenplay analysis and targeted revision.
 5. Inspiration folders and Inspiration Analysis.
 6. Project Production Lookbook.

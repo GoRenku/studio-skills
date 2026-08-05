@@ -16,6 +16,23 @@ For Codex runs, remember that local Studio HTTP notification is network access. 
 4. Read back `renku screenplay status --json`.
 5. Recommend screenplay analysis before visual production.
 
+## Final Draft FDX To Enriched Project
+
+1. Confirm the current Screenplay is empty and dispatch the absolute `.fdx`
+   path to `screenplay-drafter`.
+2. Read back the canonical Screenplay and import candidates.
+3. Compare candidate cues/headings/tags with existing Project facts. Ask the
+   user about aliases, composite settings, indirect Props, and other ambiguous
+   identity; do not auto-match.
+4. Dispatch accepted Cast facts to `casting-director` and Location/Prop facts
+   to `production-designer`.
+5. Dispatch focused reference bindings back to `screenplay-drafter` after the
+   durable subject ids exist.
+6. Verify the canonical Screenplay and facts, then recommend analysis.
+
+Never report ScriptNotes or formatting as missing content, and never attempt a
+second import, merge, or overwrite.
+
 ## Cast Refinement Prompt
 
 1. Dispatch Cast Member fact and Cast Design work to `casting-director`.

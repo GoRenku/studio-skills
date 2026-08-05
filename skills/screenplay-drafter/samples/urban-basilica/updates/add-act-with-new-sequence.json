@@ -1,50 +1,58 @@
 {
-  "kind": "screenplayOperations",
   "operations": [
     {
-      "operation": "act.add",
-      "placement": {
-        "afterId": "act_act-3"
-      },
-      "act": {
+      "operation": "section.add",
+      "section": {
         "key": "act-epilogue",
+        "type": "act",
         "title": "The Echo",
-        "purpose": "Add a short aftermath act if the project expands beyond the ten-minute ending.",
-        "sequences": [
+        "description": "A short aftermath act."
+      },
+      "structureEntryKey": "act-epilogue-entry",
+      "placement": {
+        "afterEntry": { "id": "screenplay_structure_entry_act_3" }
+      }
+    },
+    {
+      "operation": "section.add",
+      "section": {
+        "key": "sequence-echo",
+        "type": "sequence",
+        "title": "The City Remembers"
+      },
+      "structureEntryKey": "sequence-echo-entry",
+      "placement": {
+        "parentSection": { "key": "act-epilogue" },
+        "at": "end"
+      }
+    },
+    {
+      "operation": "scene.add",
+      "scene": {
+        "key": "scene-echo",
+        "heading": "EXT. THEODOSIAN WALLS - DAWN",
+        "title": "The Last Sound Carries",
+        "blocks": [
           {
-            "key": "sequence-echo",
-            "title": "The City Remembers",
-            "purpose": "Let the consequence of Urban's invention echo beyond his death.",
-            "scenes": [
-              {
-                "key": "scene-echo",
-                "title": "The Last Sound Carries",
-                "setting": {
-                  "locationReferences": [
-                    {
-                      "id": "location_theodosian-walls"
-                    }
-                  ]
-                },
-                "storyFunction": [
-                  "resolution",
-                  "aftermath"
-                ],
-                "blocks": [
-                  {
-                    "type": "action",
-                    "text": "Smoke thins over @theodosian-walls as the city waits for the next impossible sound.",
-                    "locationReferences": [
-                      {
-                        "id": "location_theodosian-walls"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
+            "key": "echo-action",
+            "type": "action",
+            "text": "Smoke thins over the walls as the city waits for the next impossible sound."
           }
         ]
+      },
+      "structureEntryKey": "scene-echo-entry",
+      "placement": {
+        "parentSection": { "key": "sequence-echo" },
+        "at": "end"
+      }
+    },
+    {
+      "operation": "reference.add",
+      "reference": {
+        "key": "echo-setting",
+        "subject": { "type": "location", "id": "location_theodosian_walls" },
+        "target": { "type": "scene", "scene": { "key": "scene-echo" } },
+        "role": "setting"
       }
     }
   ]

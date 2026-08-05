@@ -30,9 +30,11 @@ renku shot-plan show --shot-plan <shot-plan-id> --json
 ```
 
 Read `references/shot-plan-cli-workflow.md` for create and iteration commands.
-Read Cast, Location, Lookbook, nearby Scene, and exact visual assets only when
-the creative choice requires them. Read exact Cast Member and Location handles
-from current context before using `@handle` references.
+Use the active Beat Sheet's stable `screenplayBlockIds` and its referenced Cast
+Member, Location, and Prop ids. Read those Project subjects, the Lookbook,
+nearby Scenes, and exact visual assets only when the creative choice requires
+them. Read exact subject handles from current context before using `@handle`
+references in Shot prose.
 
 3. Read `references/shot-writing-guidelines.md` before authoring prose and
 `references/shot-brief-vocabulary.md` before authoring a brief. Use

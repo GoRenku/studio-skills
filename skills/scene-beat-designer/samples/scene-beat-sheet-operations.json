@@ -1,5 +1,4 @@
 {
-  "kind": "sceneBeatSheetOperations",
   "sceneId": "scene_control_room",
   "baseBeatSheetId": "scene_beat_sheet_control_room_v1",
   "activate": true,
@@ -14,7 +13,8 @@
         "narrativePurpose": "Transform unease into suspicion.",
         "castMemberIds": ["cast_ada"],
         "locationIds": ["location_control_room"],
-        "screenplayBlockIndexes": [0, 1, 2]
+        "propIds": ["prop_status_key"],
+        "screenplayBlockIds": ["screenplay_block_entry", "screenplay_block_silence"]
       }
     }
   ]

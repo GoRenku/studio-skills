@@ -1,6 +1,6 @@
 ---
 name: scene-beat-designer
-description: Design and persist Renku Studio Scene Beat Sheets by reading scene screenplay context, referenced cast and locations, selected Movie Lookbook guidance, and user direction.
+description: Design and persist Renku Studio Scene Beat Sheets by reading Scene screenplay context, referenced Cast Members, Locations, Props, selected Movie Lookbook guidance, and user direction.
 ---
 
 # Scene Beat Designer
@@ -91,8 +91,11 @@ Storyboard panels illustrate Beats. They may make agent-chosen visual decisions 
 
 - Do not write directly to `.renku/project.sqlite`.
 - Do not mutate screenplay scenes while designing Beats.
-- Do not invent scene, Cast Member, Location, Beat Sheet, or Beat ids.
-- Each Beat has exactly the eight contract fields documented in the JSON contract.
+- Do not invent Scene, Screenplay Block, Cast Member, Location, Prop, Beat Sheet,
+  or Beat ids.
+- Each Beat has exactly the nine contract fields documented in the JSON contract.
+- Use stable `screenplayBlockIds`, never array indexes. Include `propIds` for
+  referenced Props relevant to the Beat, even when the array is empty.
 - Do not add subject, action, dialogue coverage, audio notes, production notes, camera fields, or generated media paths.
 - Preserve prompts and creative artifact contents as opaque values.
 - Validate before write or apply.

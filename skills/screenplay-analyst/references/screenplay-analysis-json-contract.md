@@ -1,19 +1,18 @@
 # Screenplay Analysis JSON Contract
 
-The document is a tagged JSON object:
+The document is a closed hierarchy-independent JSON object:
 
 ```json
 {
-  "kind": "screenplayAnalysis",
   "structureModel": "threeAct",
   "title": "Three-act screenplay analysis",
   "summary": "A concise critique summary.",
   "criteria": [],
-  "acts": [],
+  "actSegments": [],
   "keyBeats": [],
-  "sequences": [],
-  "scenes": [],
-  "suggestedSceneAdditions": []
+  "sceneGroups": [],
+  "sceneAnalyses": [],
+  "suggestedScenes": []
 }
 ```
 
@@ -29,16 +28,16 @@ Additional criteria are allowed when useful, but every score key must be declare
 
 Scores are integers from `0` to `100`.
 
-## Act Analysis
+## Analytical Act Segments
 
 Each act entry has:
 
 ```json
 {
-  "actId": "act_...",
-  "actRole": "actOne",
+  "role": "actOne",
   "title": "The Offer",
   "synopsis": "What the act currently does.",
+  "sceneIds": ["scene_..."],
   "scoreByCriterion": {
     "dramaticEnergy": 54,
     "stakes": 60,
@@ -54,7 +53,10 @@ Each act entry has:
 }
 ```
 
-For `threeAct`, include exactly three act analyses in screenplay order with roles `actOne`, `actTwo`, and `actThree`.
+For `threeAct`, include exactly three segments in screenplay order with roles
+`actOne`, `actTwo`, and `actThree`. Their `sceneIds` must partition all current
+Scenes exactly once and preserve canonical order. They do not reference
+screenplay Section ids.
 
 ## Key Beats
 
@@ -70,15 +72,23 @@ Use the v1 beat keys when they apply:
 - `climax`
 - `resolution`
 
-A key beat may reference an act, sequence, and scene.
+A key beat requires `key`, `label`, `synopsis`, `scoreByCriterion`, and
+`critique`. Include exactly one entry for every v1 key. `sceneId` is optional;
+omit it when the beat is absent or not embodied clearly enough to place.
 
-## Sequence And Scene Analysis
+## Scene Groups And Scene Analysis
 
-Sequence entries require `sequenceId`, `actId`, `title`, `synopsis`, `scoreByCriterion`, and `critique`.
+`sceneGroups` are optional analysis-owned groupings. Each group requires
+`title`, `synopsis`, `sceneIds`, `scoreByCriterion`, and `critique`, with an
+optional `beatRole`. When present, groups partition every current Scene exactly
+once in canonical order.
 
-Scene entries require `sceneId`, `sequenceId`, `actId`, `title`, `synopsis`, `scoreByCriterion`, and `critique`.
+`sceneAnalyses` require `sceneId`, `synopsis`, `scoreByCriterion`, and
+`critique`, with an optional `beatRole`. Include exactly one entry per current
+Scene in canonical order.
 
-References must match the current screenplay graph from `renku screenplay analyze context --json`.
+Scene references must match the current canonical ordered Scene list from
+`renku screenplay analyze context --json`.
 
 ## Suggested Scene Additions
 
@@ -86,8 +96,6 @@ Suggestions are not mutations:
 
 ```json
 {
-  "targetActId": "act_...",
-  "targetSequenceId": "sequence_...",
   "placement": { "afterSceneId": "scene_..." },
   "title": "The Maker Calculates",
   "purpose": "Give Urban an active choice.",
@@ -103,8 +111,12 @@ Suggestions are not mutations:
 }
 ```
 
-Use either `beforeSceneId` or `afterSceneId`, not both. Placement scene ids must belong to the target sequence.
+Use either `beforeSceneId` or `afterSceneId`, not both. The anchor must be a
+current Scene id.
 
 ## Rejections
 
-Validation rejects unknown fields, duplicate criteria, undeclared score keys, invalid scores, missing default criteria, unknown references, and act/sequence/scene mismatches.
+Validation rejects unknown fields, duplicate criteria, undeclared score keys,
+invalid scores, missing default criteria, unknown Scene references, incomplete
+or out-of-order partitions, duplicate/missing key-beat roles, and suggestions
+without exactly one valid Scene anchor.

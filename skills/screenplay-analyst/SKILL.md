@@ -16,8 +16,9 @@ A Screenplay Analysis is critique, evidence, scoring, and suggested improvements
    resolve it with `renku screenplay scene-number resolve --number
    <production-number> --json` before focusing the critique.
 2. Read the current analysis context.
-3. Analyze the screenplay structure, acts, sequences, scenes, and scene text.
-4. Author a complete `kind: "screenplayAnalysis"` JSON document.
+3. Analyze the canonical ordered Scenes and their text. Derive three analytical
+   Act segments and optional Scene groups independently of screenplay Sections.
+4. Author a complete Screenplay Analysis JSON document.
 5. Validate through the Renku CLI.
 6. Fix validation issues until valid.
 7. Write through the Renku CLI.
@@ -79,6 +80,12 @@ renku screenplay analyze show --active --json
 - Do not write directly to `.renku/project.sqlite`.
 - Do not mutate screenplay scenes while analyzing.
 - Do not create scene rows for suggested additions.
+- Do not use screenplay Act or Sequence Section ids in analysis JSON. Sections
+  are optional organization and never own the analytical structure.
+- Partition every current Scene exactly once, in canonical order, across the
+  three `actSegments`; do the same across `sceneGroups` when groups are present.
+- Include every accepted key-beat role exactly once. Omit `sceneId` when the
+  screenplay does not yet embody a beat instead of inventing a placement.
 - Do not invent timings, runtime, page counts, or post-production metadata.
 - Cite scene ids and evidence when making critique claims.
 - Use production numbers in transient user-facing prose when helpful, but keep

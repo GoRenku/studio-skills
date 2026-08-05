@@ -3,9 +3,15 @@
 ## Read
 
 ```bash
+renku screenplay beat-sheet context --scene <scene-id> --json
+renku screenplay beat-sheet show --active --scene <scene-id> --json
 renku shot-plan list --scene <scene-id> --json
 renku shot-plan show --shot-plan <shot-plan-id> --json
 ```
+
+Carry Beat coverage by durable Beat id. When grounding Shot prose, use the
+Beat's stable `screenplayBlockIds` and referenced Cast Member, Location, and
+Prop ids from current context; never reconstruct Block identity from an index.
 
 ## Validate And Create
 

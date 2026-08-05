@@ -1,11 +1,9 @@
 {
-  "kind": "sceneBeatSheet",
   "sceneId": "scene_control_room",
   "title": "Ada confronts the empty control room",
   "summary": "Absence turns expectation into suspicion.",
   "narrativeProgression": "Ada enters confidently, recognizes deliberate abandonment, and chooses to investigate.",
   "lookbookInfluence": "Cold institutional surfaces and restrained practical light.",
-  "openQuestions": [],
   "beats": [
     {
       "id": "beat_001",
@@ -15,7 +13,8 @@
       "narrativePurpose": "Turn anticipation into unease and establish the absence as meaningful.",
       "castMemberIds": ["cast_ada"],
       "locationIds": ["location_control_room"],
-      "screenplayBlockIndexes": [0, 1, 2]
+      "propIds": ["prop_status_key"],
+      "screenplayBlockIds": ["screenplay_block_entry", "screenplay_block_silence"]
     }
   ]
 }

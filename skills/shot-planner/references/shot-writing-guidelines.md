@@ -35,10 +35,10 @@ need only Intent, Composition & Blocking, Camera & Optics, and End Condition.
 Omit empty or irrelevant sections. Do not repeat one sentence across sections
 or invent a choice to fill the structure.
 
-Read exact current Cast Member and Location handles from CLI context before
-authoring. Refer to those entities with their canonical source tokens, such as
-`@urban` or `@imperial-council-chamber`; never derive a handle from a display
-name or title.
+Read exact current Cast Member, Location, and Prop handles from CLI context
+before authoring. Refer to those entities with their canonical source tokens,
+such as `@urban`, `@imperial-council-chamber`, or `@great-bombard`; never derive
+a handle from a display name or title.
 
 Wrap only material known cinematography choices in strong Markdown, such as
 `**Establishing Shot**`, `**Eye-Level**`, `**24mm lens**`,

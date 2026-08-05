@@ -1,5 +1,4 @@
 {
-  "kind": "screenplayAnalysis",
   "structureModel": "threeAct",
   "title": "Three-act screenplay analysis",
   "summary": "Urban has a strong moral engine, but the opening can make his active choice clearer.",
@@ -20,12 +19,12 @@
       "description": "How clearly a character's choice drives the story."
     }
   ],
-  "acts": [
+  "actSegments": [
     {
-      "actId": "act_example1",
-      "actRole": "actOne",
+      "role": "actOne",
       "title": "The Offer",
       "synopsis": "Urban is introduced through need, skill, and the first failed patronage attempt.",
+      "sceneIds": ["scene_example1"],
       "scoreByCriterion": {
         "dramaticEnergy": 62,
         "stakes": 58,
@@ -45,10 +44,10 @@
       }
     },
     {
-      "actId": "act_example2",
-      "actRole": "actTwo",
+      "role": "actTwo",
       "title": "The Patron",
       "synopsis": "Urban enters a world that can fund his ambition and shrink his moral distance.",
+      "sceneIds": ["scene_example2"],
       "scoreByCriterion": {
         "dramaticEnergy": 68,
         "stakes": 72,
@@ -68,10 +67,10 @@
       }
     },
     {
-      "actId": "act_example3",
-      "actRole": "actThree",
+      "role": "actThree",
       "title": "The Sound",
       "synopsis": "The weapon works, and Urban must face the meaning of success.",
+      "sceneIds": ["scene_example3"],
       "scoreByCriterion": {
         "dramaticEnergy": 80,
         "stakes": 84,
@@ -95,8 +94,6 @@
     {
       "key": "hook",
       "label": "Hook",
-      "actId": "act_example1",
-      "sequenceId": "sequence_example1",
       "sceneId": "scene_example1",
       "synopsis": "The story opens on pressure created by Urban's craft.",
       "scoreByCriterion": {
@@ -114,14 +111,107 @@
         ],
         "suggestions": ["Tie the opening image to a question about Urban's responsibility."]
       }
+    },
+    {
+      "key": "incitingIncident",
+      "label": "Inciting Incident",
+      "synopsis": "The patronage offer makes the old path impossible.",
+      "scoreByCriterion": { "dramaticEnergy": 68, "stakes": 65, "characterAgency": 55 },
+      "critique": {
+        "summary": "The disruption is legible but not yet bound to a Scene strongly enough.",
+        "evidence": [{ "sceneId": "scene_example1", "text": "The opening establishes the pressure that makes the offer consequential." }],
+        "suggestions": ["Make the offer's arrival a visible break from Urban's prior path."]
+      }
+    },
+    {
+      "key": "firstPlotPoint",
+      "label": "First Plot Point",
+      "sceneId": "scene_example1",
+      "synopsis": "Urban commits his craft to the patronage path.",
+      "scoreByCriterion": { "dramaticEnergy": 70, "stakes": 70, "characterAgency": 62 },
+      "critique": {
+        "summary": "The commitment is present and can become more explicitly chosen.",
+        "evidence": [{ "sceneId": "scene_example1", "text": "Urban moves from pressure toward the bargain." }],
+        "suggestions": ["Stage the commitment as a choice among real alternatives."]
+      }
+    },
+    {
+      "key": "firstPinchPoint",
+      "label": "First Pinch Point",
+      "sceneId": "scene_example2",
+      "synopsis": "The patron demonstrates the cost of refusing power.",
+      "scoreByCriterion": { "dramaticEnergy": 72, "stakes": 74, "characterAgency": 60 },
+      "critique": {
+        "summary": "Opposition becomes concrete through the patron relationship.",
+        "evidence": [{ "sceneId": "scene_example2", "text": "The patron turns resources into leverage over Urban." }],
+        "suggestions": ["Let the pressure threaten something Urban has already chosen to protect."]
+      }
+    },
+    {
+      "key": "midpoint",
+      "label": "Midpoint",
+      "sceneId": "scene_example2",
+      "synopsis": "Urban's apparent success reveals the scale of his compromise.",
+      "scoreByCriterion": { "dramaticEnergy": 76, "stakes": 78, "characterAgency": 64 },
+      "critique": {
+        "summary": "The reversal connects ambition to human cost.",
+        "evidence": [{ "sceneId": "scene_example2", "text": "The bargain expands from personal survival to political consequence." }],
+        "suggestions": ["Make the new cost impossible for Urban to dismiss as abstract."]
+      }
+    },
+    {
+      "key": "secondPinchPoint",
+      "label": "Second Pinch Point",
+      "sceneId": "scene_example2",
+      "synopsis": "The patron closes off retreat as the weapon nears use.",
+      "scoreByCriterion": { "dramaticEnergy": 78, "stakes": 82, "characterAgency": 61 },
+      "critique": {
+        "summary": "Pressure rises while Urban's available choices narrow.",
+        "evidence": [{ "sceneId": "scene_example2", "text": "The patron relationship now carries irreversible consequence." }],
+        "suggestions": ["Show the last viable exit before it disappears."]
+      }
+    },
+    {
+      "key": "secondPlotPoint",
+      "label": "Second Plot Point",
+      "sceneId": "scene_example3",
+      "synopsis": "Urban confronts the final use of his work.",
+      "scoreByCriterion": { "dramaticEnergy": 82, "stakes": 86, "characterAgency": 66 },
+      "critique": {
+        "summary": "The story moves cleanly into consequence.",
+        "evidence": [{ "sceneId": "scene_example3", "text": "The weapon reaches the wall and makes the moral question immediate." }],
+        "suggestions": ["Give Urban one final action that reveals his answer."]
+      }
+    },
+    {
+      "key": "climax",
+      "label": "Climax",
+      "sceneId": "scene_example3",
+      "synopsis": "The weapon succeeds and forces recognition.",
+      "scoreByCriterion": { "dramaticEnergy": 90, "stakes": 92, "characterAgency": 70 },
+      "critique": {
+        "summary": "The external climax lands; Urban's decisive agency can be sharper.",
+        "evidence": [{ "sceneId": "scene_example3", "text": "The wall sequence makes success and harm inseparable." }],
+        "suggestions": ["Make Urban's response alter the immediate outcome or relationship."]
+      }
+    },
+    {
+      "key": "resolution",
+      "label": "Resolution",
+      "synopsis": "The screenplay has not yet separated aftermath from climax.",
+      "scoreByCriterion": { "dramaticEnergy": 62, "stakes": 80, "characterAgency": 64 },
+      "critique": {
+        "summary": "A distinct aftermath is not yet embodied by a current Scene.",
+        "evidence": [{ "sceneId": "scene_example3", "text": "The available ending Scene still carries the decisive action rather than a new state." }],
+        "suggestions": ["Add or revise an aftermath Scene that shows what Urban now understands and chooses."]
+      }
     }
   ],
-  "sequences": [
+  "sceneGroups": [
     {
-      "sequenceId": "sequence_example1",
-      "actId": "act_example1",
       "title": "The Sound That Opens Stone",
       "synopsis": "The sequence frames the cost of the weapon before the bargain.",
+      "sceneIds": ["scene_example1", "scene_example2", "scene_example3"],
       "beatRole": "hook",
       "scoreByCriterion": {
         "dramaticEnergy": 70,
@@ -142,12 +232,9 @@
       }
     }
   ],
-  "scenes": [
+  "sceneAnalyses": [
     {
       "sceneId": "scene_example1",
-      "sequenceId": "sequence_example1",
-      "actId": "act_example1",
-      "title": "Bombardment",
       "synopsis": "The cannon's impact establishes the cost of Urban's craft.",
       "beatRole": "hook",
       "scoreByCriterion": {
@@ -167,12 +254,32 @@
         ],
         "suggestions": ["Add or revise a beat so Urban actively confronts what his craft enables."]
       }
+    },
+    {
+      "sceneId": "scene_example2",
+      "synopsis": "The patron turns Urban's ambition into an enforceable bargain.",
+      "beatRole": "midpoint",
+      "scoreByCriterion": { "dramaticEnergy": 76, "stakes": 78, "characterAgency": 64 },
+      "critique": {
+        "summary": "The bargain raises scale and moral pressure.",
+        "evidence": [{ "sceneId": "scene_example2", "text": "Resources and leverage arrive together." }],
+        "suggestions": ["Force Urban to name what he is accepting."]
+      }
+    },
+    {
+      "sceneId": "scene_example3",
+      "synopsis": "The weapon's success makes Urban's responsibility visible.",
+      "beatRole": "climax",
+      "scoreByCriterion": { "dramaticEnergy": 90, "stakes": 92, "characterAgency": 70 },
+      "critique": {
+        "summary": "The consequence is powerful and needs a distinct aftermath.",
+        "evidence": [{ "sceneId": "scene_example3", "text": "The wall sequence joins achievement to harm." }],
+        "suggestions": ["Separate the final decision from the state that follows it."]
+      }
     }
   ],
-  "suggestedSceneAdditions": [
+  "suggestedScenes": [
     {
-      "targetActId": "act_example1",
-      "targetSequenceId": "sequence_example1",
       "placement": {
         "afterSceneId": "scene_example1"
       },

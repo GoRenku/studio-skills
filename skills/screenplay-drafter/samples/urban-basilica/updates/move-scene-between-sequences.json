@@ -1,13 +1,11 @@
 {
-  "kind": "screenplayOperations",
   "operations": [
     {
       "operation": "scene.move",
-      "sceneId": "scene_scene-007",
-      "fromSequenceId": "sequence_seq-004",
-      "toSequenceId": "sequence_seq-005",
+      "scene": { "id": "scene_scene_007" },
       "placement": {
-        "beforeId": "scene_scene-008"
+        "parentSection": { "id": "screenplay_section_seq_005" },
+        "beforeEntry": { "id": "screenplay_structure_entry_scene_008" }
       }
     }
   ]

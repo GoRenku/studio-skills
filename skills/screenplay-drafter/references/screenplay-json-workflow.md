@@ -27,11 +27,13 @@ renku create <project-name> --title <title> --json
 
 ## Required Fact Preflight
 
-Before screenplay create/apply, make sure referenced Cast Members and Locations exist:
+Before Screenplay create/apply, make sure referenced Cast Members, Locations,
+and Props exist:
 
 ```bash
 renku cast list --json
 renku location list --json
+renku prop list --json
 ```
 
 Create or revise missing facts through the owning command families:
@@ -41,36 +43,57 @@ renku cast validate --file <cast-operations-json> --json
 renku cast apply --file <cast-operations-json> --json
 renku location validate --file <location-operations-json> --json
 renku location apply --file <location-operations-json> --json
+renku prop validate --file <prop-operations-json> --json
+renku prop apply --file <prop-operations-json> --json
 ```
 
-Then use the durable ids in screenplay scene settings and dialogue blocks.
+Then use durable subject ids in separate Screenplay references. Keep the exact
+authored screenplay text free of `@handle` tokens.
+
+For FDX import, reverse the order: import the deterministic screenplay first,
+then use its candidate evidence alongside existing facts. Do not pre-create
+facts by guessing from cue or heading strings.
+
+## Import Final Draft FDX
+
+Use only when Screenplay status is entirely empty:
+
+```bash
+renku screenplay import-fdx --file /absolute/path/to/script.fdx --json
+```
+
+The JSON report returns exact source provenance, counts, character-cue and
+Scene-heading candidates, and optional tagged-subject evidence. It creates no
+Cast Member, Location, Prop, or Screenplay reference. Resolve ambiguous
+identity with the user, author facts through their owning command families,
+then add focused references with `renku screenplay apply`.
+
+Do not describe ScriptNotes, formatting, or editor state as warnings. Do not
+retry the command as overwrite/merge; a Project can retain only one FDX import
+in the current workflow.
 
 ## Create A First Screenplay
 
-Use this path only when `renku screenplay status --json` reports `exists: false`.
-Author a `kind: "screenplayCreate"` document with `cast: []` and `locations: []`.
+Use this path only when Screenplay status reports zero opening elements,
+Sections, Scenes, Blocks, and references. Author the complete `opening`,
+`scenes`, `sections`, `structure`, and `references` object without a `kind`.
 
 ```bash
-renku screenplay validate --file samples/urban-basilica/create-screenplay.json --json
 renku screenplay create --file samples/urban-basilica/create-screenplay.json --json
-```
-
-For a cautious pass:
-
-```bash
-renku screenplay create --file samples/urban-basilica/create-screenplay.json --dry-run --json
 ```
 
 ## Revise An Existing Screenplay
 
-Use this path whenever `renku screenplay status --json` reports `exists: true`.
+Use this path whenever Screenplay status reports any authored content.
 Read the current canonical state first:
 
 ```bash
 renku screenplay show --json
 ```
 
-Use durable IDs from that output in update, delete, move, parent, placement, Cast Member reference, and Location reference fields.
+Use durable IDs from that output in update, delete, move, parent, placement,
+and reference fields. Use request-local keys only for new values in the same
+atomic request.
 
 When the user names a production scene number, resolve it first:
 
@@ -81,14 +104,7 @@ renku screenplay scene-number resolve --number <production-number> --json
 Carry only the returned durable `sceneId` into persisted screenplay JSON.
 
 ```bash
-renku screenplay validate --file samples/urban-basilica/updates/update-scene-full-replacement.json --json
 renku screenplay apply --file samples/urban-basilica/updates/update-scene-full-replacement.json --json
-```
-
-Use `--dry-run` for broad edits:
-
-```bash
-renku screenplay apply --file <operations-json> --dry-run --json
 ```
 
 ## Read Helpers
@@ -100,13 +116,17 @@ renku cast list --json
 renku cast show <cast-member-id> --json
 renku location list --json
 renku location show <location-id> --json
-renku screenplay act list --json
-renku screenplay sequence list --act <act-id> --json
-renku screenplay scene list --sequence <sequence-id> --json
+renku prop list --json
+renku screenplay structure --json
+renku screenplay section show <section-id> --json
+renku screenplay scene show <scene-id> --json
 renku screenplay scene-number list --json
 renku screenplay scene-number resolve --number <production-number> --json
 ```
 
 ## Handling Reports
 
-Successful mutation reports include `valid`, `warnings`, `changes`, `generatedIds`, and `resourceKeys`. Warnings do not block the command. Errors do block the command and are written as structured diagnostics.
+Successful mutation reports include `valid`, `warnings`,
+`screenplayRevisionId`, `generatedIdentities`, and `resourceKeys`. Warnings do
+not block the command. Errors block the command and are written as structured
+diagnostics.

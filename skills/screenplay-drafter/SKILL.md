@@ -1,6 +1,6 @@
 ---
 name: screenplay-drafter
-description: Create and revise Renku Studio screenplay JSON as the persisted screenplay source of truth. Use when a user wants help figuring out a story, gathering the needed brief, developing a script, screenplay, short film, feature, story arc, dialogue, narration, scene settings, action lines, or Renku screenplay create/apply JSON for the screenplay CLI.
+description: Create, import, and revise Renku Studio screenplays as the persisted screenplay source of truth. Use when a user wants to import a Final Draft .fdx file, develop a script, screenplay, short film, feature, story arc, dialogue, narration, scene settings, action lines, or author Renku screenplay create/apply JSON.
 ---
 
 # Screenplay Drafter
@@ -15,10 +15,11 @@ Screenplay craft and Renku persistence go hand in hand. Think like a screenwrite
 
    - New screenplay from a rough idea.
    - New screenplay from a detailed brief.
+   - Deterministic import of an existing Final Draft `.fdx` screenplay.
    - Revision of an existing screenplay.
    - Focused craft help, such as scene structure, dialogue, cast, locations, narration, or story arc.
 
-   For focused craft help, still keep Renku as the target artifact. Diagnose the story problem, decide the craft change, then express the accepted change as `screenplayCreate` or `screenplayOperations` JSON. If the user is choosing between alternatives, describe the options briefly and make clear which Renku change each option would become.
+   For focused craft help, still keep Renku as the target artifact. Diagnose the story problem, decide the craft change, then express the accepted change as a complete Screenplay input or a focused `operations` batch. If the user is choosing between alternatives, describe the options briefly and make clear which Renku change each option would become.
 
 2. Gather or infer the story brief before writing JSON.
 
@@ -34,15 +35,16 @@ Screenplay craft and Renku persistence go hand in hand. Think like a screenwrite
    - Main conflict, stakes, dramatic question, and consequences.
    - Required moments, themes, research constraints, or production constraints.
 
-   Ask only for missing choices that materially change the story. If the user wants momentum or asks you to proceed, make clear assumptions and record them in `screenplay.assumptionsMade`.
+   Ask only for missing choices that materially change the story. If the user wants momentum or asks you to proceed, make clear assumptions and record them in direct Project information fields through `renku info set`.
 
 3. Gather supporting information when the premise depends on facts.
 
    - Use the user's supplied material first.
    - For historical, biographical, technical, legal, cultural, or place-specific stories, identify what must be true for the script to work.
    - Keep sourced facts separate from dramatized inventions.
-   - Put sources or source notes in `screenplay.researchSources` when available.
-   - Put invented bridges, unresolved facts, and creative guesses in `screenplay.assumptionsMade`.
+   - Put sources or source notes in Project `researchSources` when available.
+   - Put invented bridges, unresolved facts, and creative guesses in Project
+     `assumptions`, `openQuestions`, and `nextSteps`.
 
 4. Shape the story before writing pages.
 
@@ -73,11 +75,13 @@ Screenplay craft and Renku persistence go hand in hand. Think like a screenwrite
 
 6. Use screenplay conventions, even though the final artifact is JSON.
 
-   - Treat each scene setting as the source for a rendered slugline, such as `INT. DINER - NIGHT`, `EXT. ROOFTOP - DAWN`, or a special heading such as `OVER BLACK.`
+   - Author the exact Scene `heading`, such as `INT. DINER - NIGHT`, `EXT. ROOFTOP - DAWN`, or `OVER BLACK.`
    - Use action blocks for visible or audible screen action. Keep them lean, present tense, and free of unfilmable internal thoughts.
-   - Use dialogue blocks for spoken lines only. The speaker comes from `castMemberReference`; use `extension` for `V.O.`, `O.S.`, or similar delivery notes.
+   - Use Dialogue blocks with an authored `characterName`, ordered `parts`, and
+     `extensions` such as `V.O.` or `O.S.`. Bind the cue to a Cast Member with
+     a separate `speaker` reference.
    - Use parentheticals sparingly for playable behavior or delivery that is not already clear from the line.
-   - Use `shot`, `super`, `title_card`, `special_heading`, and `transition` blocks when the script needs those formal elements.
+   - Use `shot`, `super`, `titleCard`, `specialHeading`, and `transition` blocks when the script needs those formal elements.
    - Avoid camera-direction clutter unless a shot instruction is essential to the story, rhythm, or later generation workflow.
 
 7. Express the authored screenplay or revision as Renku Studio screenplay JSON and validate it.
@@ -121,63 +125,72 @@ If the user identifies an existing scene by production number, such as
 renku screenplay scene-number resolve --number <production-number> --json
 ```
 
-Use the returned durable `sceneId` in screenplay operation JSON and `--scene`
-flags. Do not add `productionNumber` to screenplay JSON or infer an id from Act,
-Sequence, title, or current array position.
+Use the returned durable `sceneId` in Screenplay operation JSON and `--scene`
+flags. A Scene may carry an exact authored `productionNumber`, but that value
+is not identity or canonical order. Do not infer an id from a Section, title,
+or array position.
 
 Use the status result to choose the command path:
 
-- `exists: false`: create the first screenplay with `screenplayCreate` and `renku screenplay create`.
-- `exists: true`: revise the existing screenplay with `screenplayOperations` and `renku screenplay apply`.
-- `exists: true` and only one existing scene changes: use
-  `screenplaySceneRevision` with `renku screenplay scene revise --scene <scene-id>`.
+- all counts are zero and the user supplied an `.fdx`: import it with
+  `renku screenplay import-fdx --file <absolute-fdx-path> --json`.
+- all counts are zero and the screenplay will be authored in Renku: create it
+  with `renku screenplay create`.
+- any count is nonzero: revise the existing Screenplay with a focused
+  `operations` batch and `renku screenplay apply`.
 
 Use `renku screenplay revision list`, `renku screenplay revision show`, and
 `renku screenplay revision restore` when the user asks to inspect or restore
 screenplay history.
 
+## Import A Final Draft Screenplay
+
+Use this path only for a readable absolute `.fdx` path and an empty Screenplay:
+
+```bash
+renku screenplay import-fdx --file /absolute/path/to/script.fdx --json
+```
+
+Treat the returned character cues, Scene Headings, and tagged subjects as
+evidence, not Project identities. After import:
+
+1. Read the canonical Screenplay plus existing Cast Members, Locations, and
+   Props.
+2. Ask the user when a cue alias, composite setting, or mentioned object is
+   ambiguous.
+3. Use `casting-director` and `production-designer` to create or update facts.
+4. Add focused Screenplay `reference.*` operations only after the durable fact
+   ids exist.
+
+Do not ask the importer to create or match facts. Do not report formatting or
+ScriptNotes as omissions; they remain only in the retained source. There is no
+re-import, merge, overwrite, or provenance-deletion workflow in this iteration.
+
 ## Create A First Screenplay
 
-Use this path only after `renku screenplay status --json` reports `exists: false`.
+Use this path only after `renku screenplay status --json` reports zero opening
+elements, Sections, Scenes, Blocks, and references.
 
-1. Build a `screenplayCreate` JSON document from the developed brief.
-2. Include the creative development in the top-level `screenplay` object:
-
-   - `title`
-   - `intendedAudience`
-   - `targetLengthLabel`
-   - `estimatedMinutes`
-   - `genrePrimary` and `genreSecondary`
-   - `tone`
-   - `ratingIntent`
-   - `boundaries`
-   - `logline`
-   - `summary`
-   - `premiseOverview`
-   - `centralConflict`
-   - `dramaticQuestion`
-   - `themes`
-   - `historicalBasis`
-   - `dramatizedElements`
-   - `researchSources`
-   - `assumptionsMade`
-
-3. Ensure Cast Members and Locations already exist through `casting-director`/`renku cast` and `production-designer`/`renku location`, then add acts, sequences, scenes, and blocks that reference those durable ids.
+1. Store story and development metadata on Project through `renku info set`.
+2. Build a complete Screenplay JSON object with `opening`, `scenes`, optional
+   `sections`, `structure`, and `references`. The command context supplies the
+   create intent; do not add a `kind` envelope.
+3. Ensure Cast Members, Locations, and Props already exist through their owning
+   specialist/CLI commands. Author plain screenplay text, then bind those
+   Project subjects through separate Screenplay references. Do not put
+   `@handle` tokens into screenplay prose.
 
    For a short piece, draft the full requested scope when feasible. For a feature, pilot, or broad long-form idea, do not attempt a full draft unless the user explicitly asks; create the developed arc plus the opening pages, requested scene sequence, or next useful writing unit.
 
-4. Validate and create:
+4. Create through Core validation:
 
 ```bash
-renku screenplay validate --file <screenplay-json> --json
 renku screenplay create --file <screenplay-json> --json
 ```
 
-5. Use `--dry-run` before create when the edit is broad or risky.
-
 ## Revise An Existing Screenplay
 
-Use this path whenever `renku screenplay status --json` reports `exists: true`.
+Use this path whenever Screenplay status contains any authored content.
 
 1. Read the current state first:
 
@@ -188,20 +201,18 @@ renku screenplay show --json
 2. Understand the requested story change before choosing operations:
 
    - What story problem is being solved?
-   - Which cast, locations, acts, sequences, scenes, or blocks are affected?
+   - Which Project subjects, Sections, Scenes, Blocks, dialogue parts, or references are affected?
    - Does the revision change continuity, structure, tone, audience promise, or running time?
-   - Do `summary`, `centralConflict`, `dramaticQuestion`, `themes`, or `assumptionsMade` need to change too?
+   - Do Project `synopsis`, `centralConflict`, `dramaticQuestion`, `themes`, or `assumptions` need to change too?
 
-3. Draft a focused `screenplayOperations` JSON document.
-4. Validate and apply:
+3. Draft a focused `{ "operations": [...] }` JSON document.
+4. Apply through Core validation:
 
 ```bash
-renku screenplay validate --file <operations-json> --json
 renku screenplay apply --file <operations-json> --json
 ```
 
-5. Use `--dry-run` before apply when the edit is broad or risky.
-6. Preserve the user's story intent. Ask only for missing choices that materially change the story, scope, or command shape.
+5. Preserve the user's story intent. Ask only for missing choices that materially change the story, scope, or command shape.
 
 ## Reference Files
 
@@ -210,28 +221,29 @@ renku screenplay apply --file <operations-json> --json
 - Read `references/screenplay-json-contract.md` before writing JSON. It defines create documents, operation documents, references, placement, and canonical output.
 - Read `references/screenplay-json-workflow.md` when you need project preflight, command order, validation, dry-run, or output handling.
 - Use `samples/urban-basilica/create-screenplay.json` as the full create example.
-- Use `samples/urban-basilica/updates/*.json` for focused update examples. Replace placeholder IDs with IDs from `generatedIds` or `renku screenplay show --json`.
+- Use `samples/urban-basilica/updates/*.json` for focused update examples. Replace placeholder IDs with IDs from `generatedIdentities` or `renku screenplay show --json`.
 
 ## Non-Negotiables
 
-- Do not create, update, delete, or move Cast Members or Locations through screenplay JSON. Use `casting-director`/`renku cast` and `production-designer`/`renku location` first.
+- Do not create, update, delete, or move Cast Members, Locations, or Props through Screenplay JSON. Use the owning specialist/CLI commands first.
 - Use `key`, not `localKey`, for new records in create/add input.
-- Do not provide `id` for a new act, sequence, or scene. Renku generates those screenplay ids. Cast Members and Locations are created separately before screenplay authoring.
+- Do not provide `id` for a new Opening Element, Scene, nested Block/dialogue value, Section, structure entry, or reference. Renku generates those ids.
 - Use durable `id` values for existing records, update targets, delete targets, move targets, parent targets, and placement targets.
 - Run project preflight and `renku screenplay status --json` before any screenplay create/apply.
-- Do not run `renku screenplay create` when status reports `exists: true`; use `renku screenplay apply`.
+- Run project preflight and confirm an empty Screenplay before FDX import.
+- Never re-run FDX import for a Project that already has an import record.
+- Do not run `renku screenplay create` when any Screenplay content exists; use `renku screenplay apply`.
 - Do not replace an existing screenplay with a fresh full create document. Read the current screenplay and apply focused operations.
 - Reference objects contain exactly one of `id` or `key`.
-- Represent the initial three-act structure through real `acts`, `sequences`, `scenes`, `purpose`, and `storyFunction` fields.
-- Use `locationReferences`, `castMemberReferences`, and `castMemberReference` with durable `id` values for existing Locations and Cast Members.
-- Expect canonical `renku screenplay show --json` output to use durable `id`, `locationIds`, and `castMemberId`, without authoring keys or reference objects.
-- `screenplay.update` replaces the top-level `screenplay` object. Include every screenplay field you want to keep.
-- Do not invent block IDs. Scene updates replace the scene's full `blocks` array.
+- Treat Scenes as canonical. Acts and Sequences are optional non-owning Sections; a flat ordered Scene list is valid.
+- Author plain text and use separate references whose subjects are durable Cast Member, Location, or Prop ids and whose targets use Scene/Block/dialogue ids or request-local keys.
+- Expect canonical reads to contain durable IDs only. Mutation reports return `generatedIdentities`.
+- Existing nested IDs preserve identity during `scene.update`; keys create new nested values, and omitted nested values are deleted after final-state dependency validation.
 
 ## Quality Bar
 
 - Make the story playable: clear wants, obstacles, stakes, turns, and consequences.
 - Keep action visual, present tense, and production-readable.
 - Use dialogue for behavior, pressure, and subtext, not exposition that can be shown.
-- Keep cast and location handles stable, lower-case, and unique across cast and locations.
-- Record important assumptions in `screenplay.assumptionsMade` when the user asks you to proceed with incomplete information.
+- Keep Cast Member, Location, and Prop handles stable in their owning Project fact commands; do not embed them in screenplay prose.
+- Record important assumptions in direct Project fields when the user asks you to proceed with incomplete information.

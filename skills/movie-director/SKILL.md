@@ -84,7 +84,8 @@ Use this loop for every request:
 
 ## Specialist Ownership
 
-- Use `screenplay-drafter` for screenplay creation and screenplay revisions.
+- Use `screenplay-drafter` for deterministic FDX import, screenplay creation,
+  and screenplay revisions.
 - Use `screenplay-analyst` for critique, three-act analysis, structure notes, and revision guidance.
 - Use `casting-director` for Cast Member facts, Cast Design, costume continuity, voice casting notes, and cast media readiness.
 - Use `production-designer` for Location and Prop facts, Location Design, Prop

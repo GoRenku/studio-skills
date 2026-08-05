@@ -15,7 +15,7 @@ For a new screenplay, gather or infer:
 - audience expectation;
 - tone, genre, and hard constraints.
 
-Ask only for missing high-impact inputs. If the user wants momentum, make clear assumptions and record them in `screenplay.assumptionsMade`.
+Ask only for missing high-impact inputs. If the user wants momentum, make clear assumptions and record them in direct Project `assumptions`.
 
 ## Gather Facts When They Matter
 
@@ -28,8 +28,9 @@ When the story depends on real-world material, gather enough context before inve
 
 Keep fact-based material separate from dramatic invention:
 
-- record sources or source notes in `screenplay.researchSources` when available;
-- record unresolved facts, invented bridges, and creative assumptions in `screenplay.assumptionsMade`;
+- record sources or source notes in Project `researchSources` when available;
+- record unresolved facts, invented bridges, and creative assumptions in
+  Project `assumptions`, `openQuestions`, and `nextSteps`;
 - use `historicalBasis` for known factual grounding and `dramatizedElements` for intentional fictionalization.
 
 ## Shape Before Pages
@@ -60,7 +61,7 @@ Length guidance:
 - Let dialogue carry behavior and conflict, not only information.
 - Use narration or voice-over when it adds framing that images cannot carry alone.
 - Avoid novelistic interiority unless expressed through action, dialogue, or voice-over.
-- Use `shot`, `super`, `title_card`, and `transition` blocks only when they serve the script.
+- Use `shot`, `super`, `titleCard`, and `transition` blocks only when they serve the script.
 
 For each drafted scene, know:
 
@@ -74,26 +75,31 @@ For each drafted scene, know:
 
 Renku stores screenplay form as structured JSON, but the writing should still follow screenplay conventions:
 
-- scene settings should imply clear sluglines such as `INT. DINER - NIGHT`, `EXT. ROOFTOP - DAWN`, or special headings such as `OVER BLACK.`;
+- author exact Scene headings such as `INT. DINER - NIGHT`, `EXT. ROOFTOP - DAWN`, or `OVER BLACK.`;
 - action blocks should describe what the audience can see or hear, in present tense;
-- dialogue blocks should contain spoken lines, with the speaker represented by `castMemberReference`;
-- use dialogue `extension` values such as `V.O.` and `O.S.` when the speaker is voice-over or off-screen;
+- Dialogue blocks should contain `characterName`, `extensions`, and ordered
+  speech/parenthetical `parts`; bind speakers with separate references;
 - use parentheticals only for brief playable delivery, not to explain the line;
-- use `special_heading`, `shot`, `super`, `title_card`, and `transition` for formal script elements when they are intentional;
+- use `specialHeading`, `shot`, `super`, `titleCard`, and `transition` for formal script elements when they are intentional;
 - avoid dense camera direction unless a specific shot is essential to story rhythm, visual meaning, or downstream generation.
 
-## Cast And Locations
+## Project Subjects And References
 
 - Give cast members clear wants, needs, arcs, and voice notes when known.
 - Keep cast names and handles stable once Renku has generated durable IDs.
 - Give locations enough description and visual notes to support later visual development.
-- Use `@handle` mentions in non-dialogue text when a cast member or location should be explicit to later generation context.
+- Give Props independent facts when they require continuity.
+- Keep screenplay text plain and exact. Bind Cast Members, Locations, and Props
+  through separate Screenplay references, using exact ranges only when the
+  referenced text itself should be highlighted.
 
 ## Drafting Scope
 
 - For very short scripts and requested scene sequences, draft the full requested unit when feasible.
 - For features, pilots, or broad long-form concepts, create a strong story arc plus the opening pages or requested sequence unless the user explicitly asks for a full draft.
-- When the user asks for brainstorming, notes, punch-up, or structure help, keep the discussion tied to the Renku screenplay model: identify the affected screenplay fields, cast, locations, acts, sequences, scenes, or blocks.
+- When the user asks for brainstorming, notes, punch-up, or structure help,
+  identify the affected Project fields, subjects, optional Sections, Scenes,
+  Blocks, dialogue parts, or references.
 - After the craft direction is chosen, persist it as Renku create/apply JSON so Studio can reflect the updated screenplay.
 - When the user wants production-ready material, prefer fewer sharper scenes over a broad outline with no pages.
 

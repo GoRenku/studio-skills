@@ -7,6 +7,10 @@ For each Beat:
 - `narrativeDevelopment` says what changes, is discovered, is decided, or becomes emotionally legible.
 - `narrativePurpose` says why that development matters to the scene, sequence, character arc, or audience understanding.
 - `description` gives enough visual context to illustrate the Beat: setting, meaningful placements, spatial relationships, important objects or environmental elements, and atmosphere.
+- `castMemberIds`, `locationIds`, and `propIds` select only the Project subjects
+  that materially belong to the Beat.
+- `screenplayBlockIds` binds the Beat to stable current Block identities. Never
+  derive or persist array indexes.
 
 Good description:
 

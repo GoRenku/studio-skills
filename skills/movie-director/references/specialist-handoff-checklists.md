@@ -36,10 +36,14 @@ Use for:
 
 Pass:
 
-- project brief, format, runtime, genre, tone, and user boundaries;
+- direct Project brief fields, format, runtime, genre, tones, and user boundaries;
 - current screenplay status or relevant screenplay excerpt;
-- target act, sequence, scene, cast member, or location ids;
+- target optional Section, Scene, Cast Member, Location, or Prop ids;
 - any active analysis critique that should drive revision.
+- for FDX work, the absolute source path and confirmation that Screenplay
+  status is empty;
+- after import, exact candidate evidence and the identity questions that still
+  require user judgment.
 
 Verify:
 
@@ -47,6 +51,10 @@ Verify:
 renku screenplay status --json
 renku screenplay show --json
 ```
+
+For FDX import, also confirm the report's source hash/counts and that later fact
+creation/binding used focused specialist and Screenplay commands. Do not ask a
+specialist to expose ScriptNotes or to re-import over existing provenance.
 
 For scene revisions, inspect command output for Beat Sheet impact.
 
@@ -127,8 +135,10 @@ Pass:
 
 - cast member id when one exists;
 - user casting goal and constraints;
-- relevant scene or sequence ids for costume scope;
+- relevant Scene ids for costume scope;
 - whether the user wants media generation or only design writing.
+- imported cue candidates and their Dialogue Turn ids when casting follows an
+  FDX import; preserve ambiguity for user confirmation.
 
 Verify:
 
@@ -153,6 +163,8 @@ Pass:
 - user production-design goal and constraints;
 - Production Lookbook state when known;
 - whether the user wants media generation or only design writing.
+- imported Scene-heading/tag/text evidence when production design follows an
+  FDX import; do not treat evidence as an already-authored fact.
 
 Verify:
 
@@ -173,7 +185,7 @@ Pass:
 
 - scene id;
 - Production Lookbook state;
-- relevant cast and location ids;
+- relevant Cast Member, Location, and Prop ids plus stable Screenplay Block ids;
 - screenplay critique or user direction;
 - whether the user wants saved Beat Sheet state or only brainstorming.
 
@@ -229,7 +241,8 @@ Use for Scene Shot Plans, individual Shot writing and order, Beat coverage, and
 selected-image coordination.
 
 Pass the exact Scene id, optional selected Shot Plan/Shot ids, current active
-Beat Sheet, relevant Cast/Location/Lookbook ids, and user constraints.
+Beat Sheet, relevant Cast Member/Location/Prop/Lookbook ids, stable Screenplay
+Block ids, and user constraints.
 
 Verify:
 
@@ -254,14 +267,10 @@ Approval gate:
   again, and get a fresh live-run approval gesture.
 - Inspect generated media before importing it.
 
-## Cast And Production Design Fallbacks
+## Cast And Production Design Boundaries
 
-When the request is cast or production-design authoring:
-
-1. Explain the first-class department gap plainly.
-2. Split durable facts from generated media.
-3. Use `screenplay-drafter` only for supported cast/location fact changes.
-4. Use `media-producer` for cast/location visual media.
-5. Use `scene-beat-designer` when Scene Beats need to change.
-
-Do not create fake department JSON or sidecar files to fill the gap.
+Route Cast Member facts and designs to `casting-director`; route Location and
+Prop facts and designs to `production-designer`. Use `screenplay-drafter` only
+to bind those existing Project subjects into plain screenplay text through
+focused Screenplay references. Use `media-producer` for supported visual media
+and `scene-beat-designer` when Scene Beats need to change.

@@ -41,6 +41,12 @@ renku cast apply --file <cast-operations-json> --dry-run --json
 renku cast apply --file <cast-operations-json> --json
 ```
 
+When this work follows FDX import, compare each exact character-cue candidate
+and Dialogue Turn id with existing Cast facts. Ask the user before treating
+aliases such as `YOUNG MARA` and `MARA` as one person. Create/update the accepted
+Cast facts through `renku cast`, then hand their durable ids back for focused
+Screenplay speaker references. Never make the importer own that judgment.
+
 4. If interpretation, appearance, performance, costume, voice casting, continuity, or generation guidance needs to change, validate and write a `kind: "castDesign"` document:
 
 ```bash
@@ -102,3 +108,5 @@ sample because that command calls ElevenLabs and writes the fetched MP3 under
 - Cast Design can describe voice casting and locale notes, but durable ElevenLabs provider voice ids and sample audio belong in Cast Voice records. Kling `voice_id` values are transient shot-video run artifacts.
 - Generated files, asset ids, durable provider voice ids, transient Kling `voice_id` values, and media paths do not belong in Cast Design JSON.
 - When casting changes affect Scene Beats, report the need for a `scene-beat-designer` pass instead of editing Beat Sheet documents directly.
+- FDX cue candidates are evidence only. Do not infer identity from spelling
+  alone and do not report ScriptNotes or formatting exclusions.

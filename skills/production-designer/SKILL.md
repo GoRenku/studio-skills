@@ -42,6 +42,13 @@ renku location apply --file <location-operations-json> --dry-run --json
 renku location apply --file <location-operations-json> --json
 ```
 
+When this work follows FDX import, use exact Scene-heading, tag, and screenplay
+text candidates as evidence. Ask the user before splitting or merging composite
+settings, or promoting a mentioned object into a durable Prop. Author accepted
+facts through `renku location`/`renku prop`, then hand their durable ids back
+for focused Screenplay setting, mention, or presence references. Never ask the
+importer to create or bind those facts.
+
 4. Write durable Location Design or Prop Design documents through
    `renku production-design`.
 
@@ -64,3 +71,5 @@ renku location apply --file <location-operations-json> --json
   promote those entries into first-class Props.
 - Prop Sheets are request-scoped references; Prop Heroes are the only
   canonical Prop image selection.
+- FDX candidates are non-authoritative evidence. Do not infer facts from them
+  automatically and do not report ScriptNotes or formatting exclusions.

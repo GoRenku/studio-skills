@@ -1,40 +1,41 @@
 {
-  "kind": "screenplayOperations",
   "operations": [
     {
       "operation": "scene.update",
       "scene": {
-        "id": "scene_scene-003",
-        "sequenceId": "sequence_seq-004",
-        "title": "The galata shore transfer",
-        "setting": {
-          "interiorExterior": "EXT",
-          "timeOfDay": "DAWN",
-          "locationReferences": [
-            {
-              "id": "location_galata_shore"
-            }
-          ]
-        },
-        "storyFunction": [
-          "escalation"
-        ],
+        "id": "scene_scene_003",
+        "productionNumber": "3",
+        "heading": "EXT. GALATA SHORE - DAWN",
+        "title": "The Galata Shore Transfer",
         "blocks": [
           {
+            "id": "screenplay_block_scene_003_action",
             "type": "action",
-            "text": "@urban watches the convoy form along @galata-shore.",
-            "castMemberReferences": [
-              {
-                "id": "cast_urban"
-              }
-            ],
-            "locationReferences": [
-              {
-                "id": "location_galata_shore"
-              }
-            ]
+            "text": "Urban watches the convoy form along the shore."
           }
         ]
+      }
+    },
+    {
+      "operation": "reference.delete",
+      "reference": { "id": "screenplay_reference_scene_003_setting" }
+    },
+    {
+      "operation": "reference.add",
+      "reference": {
+        "key": "galata-setting",
+        "subject": { "type": "location", "id": "location_galata_shore" },
+        "target": { "type": "scene", "scene": { "id": "scene_scene_003" } },
+        "role": "setting"
+      }
+    },
+    {
+      "operation": "reference.add",
+      "reference": {
+        "key": "urban-shore-presence",
+        "subject": { "type": "castMember", "id": "cast_urban" },
+        "target": { "type": "scene", "scene": { "id": "scene_scene_003" } },
+        "role": "presence"
       }
     }
   ]

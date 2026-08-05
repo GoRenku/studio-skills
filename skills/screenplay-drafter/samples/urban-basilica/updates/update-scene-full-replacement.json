@@ -1,65 +1,85 @@
 {
-  "kind": "screenplayOperations",
   "operations": [
     {
       "operation": "scene.update",
       "scene": {
-        "id": "scene_scene-003",
+        "id": "scene_scene_003",
+        "productionNumber": "3",
+        "heading": "EXT. HARBOR QUARTER - EVENING",
         "title": "The Harbor Argument",
-        "setting": {
-          "interiorExterior": "EXT",
-          "timeOfDay": "EVENING",
-          "locationReferences": [
-            {
-              "id": "location_harbor-quarter"
-            }
-          ]
-        },
-        "storyFunction": [
-          "moral pressure",
-          "choice"
-        ],
         "blocks": [
           {
+            "id": "screenplay_block_scene_003_action_1",
             "type": "action",
-            "text": "@urban and @mara pass refugees mending nets, soldiers mending shields, monks mending hope.",
-            "castMemberReferences": [
-              {
-                "id": "cast_urban"
-              },
-              {
-                "id": "cast_mara"
-              }
-            ],
-            "locationReferences": [
-              {
-                "id": "location_harbor-quarter"
-              }
-            ]
+            "text": "Urban and Mara pass refugees mending nets, soldiers mending shields, monks mending hope."
           },
           {
+            "key": "mara-dialogue",
             "type": "dialogue",
-            "castMemberReference": {
-              "id": "cast_mara"
-            },
-            "lines": [
-              "They are afraid of your gun."
+            "characterName": "MARA",
+            "extensions": [],
+            "parts": [
+              {
+                "key": "mara-speech",
+                "type": "speech",
+                "text": "They are afraid of your gun."
+              }
             ]
           },
           {
+            "key": "urban-dialogue",
             "type": "dialogue",
-            "castMemberReference": {
-              "id": "cast_urban"
-            },
-            "lines": [
-              "They are afraid of the man who can afford it."
+            "characterName": "URBAN",
+            "extensions": [],
+            "parts": [
+              {
+                "key": "urban-speech",
+                "type": "speech",
+                "text": "They are afraid of the man who can afford it."
+              }
             ]
           },
           {
+            "id": "screenplay_block_scene_003_action_2",
             "type": "action",
             "text": "Across the water, Ottoman watchfires mark the dark like a second coastline."
           }
         ]
+      }
+    },
+    {
+      "operation": "reference.add",
+      "reference": {
+        "key": "harbor-setting",
+        "subject": { "type": "location", "id": "location_harbor_quarter" },
+        "target": { "type": "scene", "scene": { "id": "scene_scene_003" } },
+        "role": "setting"
+      }
+    },
+    {
+      "operation": "reference.add",
+      "reference": {
+        "key": "mara-speaker",
+        "subject": { "type": "castMember", "id": "cast_mara" },
+        "target": {
+          "type": "dialogueCue",
+          "scene": { "id": "scene_scene_003" },
+          "turn": { "key": "mara-dialogue" }
+        },
+        "role": "speaker"
+      }
+    },
+    {
+      "operation": "reference.add",
+      "reference": {
+        "key": "urban-speaker",
+        "subject": { "type": "castMember", "id": "cast_urban" },
+        "target": {
+          "type": "dialogueCue",
+          "scene": { "id": "scene_scene_003" },
+          "turn": { "key": "urban-dialogue" }
+        },
+        "role": "speaker"
       }
     }
   ]

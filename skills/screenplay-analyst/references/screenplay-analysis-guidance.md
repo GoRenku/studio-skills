@@ -24,14 +24,19 @@ gap between measured and ideal is meaningful.
 
 ## Beat Placement
 
-Place each key beat on the single scene that best embodies it, and keep distinct
-beats on **distinct scenes**. In particular, do not co-locate `climax` and
-`resolution` (or other separate beats) on the same scene unless the screenplay
-genuinely collapses them — the chart flags shared-scene beats as an anomaly. If
-a beat is missing or weak, omit it and explain in the critique rather than
-forcing it onto a neighbouring scene.
+Include all nine key-beat roles. Place a beat on the single Scene that best
+embodies it, and keep distinct beats on **distinct Scenes** when the screenplay
+supports that distinction. If a beat is missing or weak, omit its optional
+`sceneId` and explain the gap in the critique rather than forcing it onto a
+neighbouring Scene.
 
 ## Three-Act Lens
+
+Derive three analytical Act segments from canonical Scene order. These are
+analysis-owned partitions, not references to optional screenplay Act Sections.
+Each current Scene appears exactly once across the three segments, in order.
+Optional `sceneGroups` provide a second analysis-owned partition for sequences
+of dramatic development; they likewise cover each Scene exactly once in order.
 
 Use these common pressure points when they are visible in the script:
 
@@ -73,5 +78,6 @@ Suggested scene additions should include purpose, synopsis, rationale, and expec
 
 - Do not invent runtime, page numbers, shot timings, edit pacing, or post-production facts.
 - Do not rewrite scenes inside the analysis document.
-- Do not create new cast, location, act, sequence, or scene ids.
+- Do not create new Cast Member, Location, Prop, Section, or Scene ids.
+- Do not use screenplay Act/Sequence Section ids as analytical ownership.
 - Do not claim a beat exists when the screenplay only implies it weakly.

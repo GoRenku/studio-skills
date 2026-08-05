@@ -28,13 +28,17 @@ duplicate production-number field to Screenplay Analysis JSON.
 renku screenplay analyze context --json
 ```
 
-The context includes project identity, screenplay metadata, ordered acts, sequences, scenes, blocks, cast labels, location labels, default criteria, and active analysis summary.
+The context includes direct Project story metadata, opening content, canonical
+ordered Scenes and stable Block ids, screenplay references for Cast Members,
+Locations, and Props, default criteria, and the active analysis summary.
 
 Do not scrape the Studio UI for analysis data.
 
 ## 3. Author JSON
 
-Write a complete `kind: "screenplayAnalysis"` document using `screenplay-analysis-json-contract.md`.
+Write a complete hierarchy-independent document using
+`screenplay-analysis-json-contract.md`. Do not copy screenplay Section ids into
+the analysis.
 
 ## 4. Validate
 

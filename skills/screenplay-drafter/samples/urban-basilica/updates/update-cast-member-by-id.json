@@ -1,11 +1,12 @@
 {
-  "kind": "screenplayOperations",
   "operations": [
     {
-      "operation": "screenplay.update",
-      "screenplay": {
-        "title": "Basilica",
-        "summary": "Urban follows the cannon from promise to consequence."
+      "operation": "reference.add",
+      "reference": {
+        "key": "urban-scene-presence",
+        "subject": { "type": "castMember", "id": "cast_urban" },
+        "target": { "type": "scene", "scene": { "id": "scene_scene_003" } },
+        "role": "presence"
       }
     }
   ]

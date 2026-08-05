@@ -44,3 +44,6 @@ renku screenplay beat-sheet storyboard status \
 Use durable Beat ids from the active document. Do not resolve display labels by guessing.
 Production numbers are transient addressing references; persisted Beat Sheet
 documents continue to contain only durable `sceneId` values.
+
+Use the exact stable Block ids and referenced Cast Member, Location, and Prop
+ids returned by Beat Sheet context. Do not translate Block order into indexes.
