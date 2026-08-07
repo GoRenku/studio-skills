@@ -113,8 +113,9 @@ Not first-class today:
 - Do not write directly to `.renku/project.sqlite`.
 - Do not invent project, scene, Beat, Cast Member, Location, Prop, asset, Beat Sheet, Lookbook, or generation ids.
 - Do not run Renku-managed paid generation without Renku estimate review and
-  explicit live provider approval. Codex built-in image generation follows the
-  media-producer external workflow without an additional approval question.
+  the exact returned approval token. Use Generation Context `workflowPolicy`
+  to decide whether either execution lane also needs a conversational
+  confirmation; do not impose a separate skill-owned default.
 - Preserve explicit user choices for provider/model, authored values, exact
   references, Beat ids, costs, and approvals.
 - Do not use obsolete command aliases or compatibility paths.

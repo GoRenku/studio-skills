@@ -1,10 +1,11 @@
 # Workflow Playbooks
 
 Use these playbooks when a user asks for an outcome rather than naming a single
-department. Always preserve explicit user choices. Renku-managed paid
-generation waits until `media-producer` has produced an estimate and collected
-explicit live provider approval; Codex built-in image generation does not add
-that approval gate.
+department. Always preserve explicit user choices. Pass Generation Context
+`workflowPolicy` to `media-producer`; do not recreate path, Preview,
+confirmation, or concurrency defaults in this coordinator. Every Renku-managed
+run still uses its exact estimate token regardless of the conversational
+confirmation preference.
 
 For Codex runs, remember that local Studio HTTP notification is network access. Before dispatching any specialist step that will mutate Renku state while Studio is running, make sure the mutating CLI command is run with sandbox/network permission. If `CLI026` appears, do not rerun non-idempotent mutations just to notify Studio.
 
@@ -18,17 +19,34 @@ For Codex runs, remember that local Studio HTTP notification is network access. 
 
 ## Final Draft FDX To Enriched Project
 
-1. Confirm the current Screenplay is empty and dispatch the absolute `.fdx`
+1. Read `renku director context --json` and retain
+   `projectSettings.screenplayImport` for follow-up dispatch.
+2. Confirm the current Screenplay is empty and dispatch the absolute `.fdx`
    path to `screenplay-drafter`.
-2. Read back the canonical Screenplay and import candidates.
-3. Compare candidate cues/headings/tags with existing Project facts. Ask the
-   user about aliases, composite settings, indirect Props, and other ambiguous
-   identity; do not auto-match.
-4. Dispatch accepted Cast facts to `casting-director` and Location/Prop facts
-   to `production-designer`.
-5. Dispatch focused reference bindings back to `screenplay-drafter` after the
-   durable subject ids exist.
-6. Verify the canonical Screenplay and facts, then recommend analysis.
+3. Read back the canonical Screenplay and import candidates. The deterministic
+   importer stops here and returns evidence to this coordinator.
+4. If `createContinuitySubjects` is enabled, compare candidate
+   cues/headings/tags with existing Project facts, resolve ambiguity with the
+   user, dispatch accepted facts to `casting-director` and
+   `production-designer`, then dispatch exact reference bindings back to
+   `screenplay-drafter`. Never match by name alone.
+5. If `generateContinuityImages` is enabled, dispatch `cast.profile`,
+   `location.hero`, or `prop.hero` only after each accepted subject is ready.
+6. If `runScreenplayAnalysis` is enabled, dispatch `screenplay-analyst` after
+   import and accepted bindings settle.
+7. If `generateSceneBeatSheets` is enabled, dispatch `scene-beat-designer` for
+   each Scene after its required project context is ready.
+8. If `generateBeatStoryboardImages` is enabled, dispatch
+   `scene.storyboard-sheet` only for Scenes that already have an active Beat
+   Sheet.
+
+Enabled stages continue without another “start this stage?” question after the
+user requested import. Disabled stages are not proactively dispatched. Explicit
+task direction may override a stage for the current request without changing
+Project Settings. Analysis and continuity media may overlap after their own
+prerequisites; storyboard work never starts before its Scene has an active Beat
+Sheet. A missing prerequisite stops only the dependent stage and is reported
+clearly.
 
 Never report ScriptNotes or formatting as missing content, and never attempt a
 second import, merge, or overwrite.

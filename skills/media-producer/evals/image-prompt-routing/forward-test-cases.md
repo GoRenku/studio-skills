@@ -27,8 +27,9 @@ prompt names their distinct roles without inferring roles from input order.
 
 The agent targets the exact Shot with `shot.image`, preserves the authored
 title, description, brief, Scene context, and storyboard reference as opaque
-context, and authors the default external request with
-`agent-external`/`codex/gpt-image-2`. After the user accepts the output, the
+context, and selects the path from explicit direction, saved spec, then
+Generation Context `workflowPolicy`. It does not apply a Shot-specific default.
+After the user accepts the output, the
 agent attaches and selects it atomically with `renku media import --purpose
 shot.image --target shot:<id> --select`. It does not add a second selection
 call.
@@ -44,9 +45,8 @@ generation:
   `image.edit`, and lock that exact file in `source/source-image`.
 - Save the request and show Preview. The prompt identifies the locked source by
   its exact mention, states the focused change, and preserves the rest.
-- Treat Preview as request review. Wait for explicit cost/provider approval
-  only on the managed branch; continue through Codex without a separate
-  generation-approval question.
+- Apply the Preview and per-lane confirmation values from `workflowPolicy`.
+  The managed branch always retains its exact estimate-token gate.
 - For the managed branch, execute after estimate approval, display the output,
   ask separately whether to attach it, and import an accepted output through
   the source owner's real focused purpose/target with the exact receipt.
@@ -69,8 +69,9 @@ read-only Studio Generation Request inspector as an editing surface.
 
 The agent uses the GPT Image 2 guide, preserves the external execution
 envelope, sends the frozen prompt unchanged, and does not author managed
-provider settings. It invokes Codex without asking for Renku estimate approval
-or a separate generation-approval gesture.
+provider settings. It invokes Codex without Renku estimate approval and asks an
+additional conversational confirmation only when the Codex lane policy says
+to do so.
 
 ## Missing guide
 

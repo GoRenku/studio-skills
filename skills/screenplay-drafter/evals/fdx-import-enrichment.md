@@ -11,6 +11,9 @@ mention, existing matching-looking Project facts, formatting, and ScriptNotes.
 
 - Checks Screenplay status, runs `renku screenplay import-fdx` exactly once,
   and verifies the canonical Screenplay/report.
+- Returns candidate evidence and unresolved identity questions to
+  `movie-director`; it does not independently become the enrichment
+  coordinator.
 - Does not create Sections for a flat source.
 - Treats cue, heading, and tag results as evidence rather than identities.
 - Asks the user whether ambiguous aliases or settings are the same subject.
@@ -25,3 +28,5 @@ mention, existing matching-looking Project facts, formatting, and ScriptNotes.
 - Does not mention ScriptNotes or formatting as omissions, warnings, or work
   items.
 - Does not attempt re-import, overwrite, merge, or provenance deletion.
+- Does not independently dispatch media, analysis, Beat Sheet, or storyboard
+  work; those stages are gated by Project Settings in `movie-director`.

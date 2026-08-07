@@ -64,9 +64,11 @@ renku screenplay import-fdx --file /absolute/path/to/script.fdx --json
 
 The JSON report returns exact source provenance, counts, character-cue and
 Scene-heading candidates, and optional tagged-subject evidence. It creates no
-Cast Member, Location, Prop, or Screenplay reference. Resolve ambiguous
-identity with the user, author facts through their owning command families,
-then add focused references with `renku screenplay apply`.
+Cast Member, Location, Prop, or Screenplay reference. Return this evidence to
+`movie-director`, which consumes `projectSettings.screenplayImport`, resolves
+ambiguous identity with the user, and dispatches only enabled follow-up stages.
+Add focused references with `renku screenplay apply` only after the coordinator
+returns accepted durable ids.
 
 Do not describe ScriptNotes, formatting, or editor state as warnings. Do not
 retry the command as overwrite/merge; a Project can retain only one FDX import

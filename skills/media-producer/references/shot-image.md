@@ -4,12 +4,15 @@ Use `shot.image` only for one candidate image owned by the exact Shot. Read the
 current Shot Plan and Shot from the `shot-planner` handoff and preserve the
 project aspect ratio as the recommended request setting.
 
-When no execution path was chosen, propose Codex built-in GPT-Image-2. A user
-choice of a current Renku image route overrides it.
+Choose the path through explicit current user direction, an already-authored
+saved-spec path, then Generation Context `workflowPolicy`. Do not add a Shot
+Image-specific Codex default. If policy prefers Codex but the harness lacks
+`codex.gpt-image-2`, ask rather than falling back to paid Renku execution.
 
-Use the standard saved Preview workflow. For Codex execution, continue after
-Preview without asking for separate generation approval. For Renku-managed
-execution, estimate and obtain explicit cost/provider approval before the run.
+Use the standard saved-spec workflow. Display Preview when policy enables it or
+the user explicitly asks. Honor the selected lane's confirmation value. For
+Renku-managed execution, always obtain the exact current estimate token before
+the run, even when conversational confirmation is off.
 After execution, inspect the exact output and wait for output acceptance. Then
 import:
 

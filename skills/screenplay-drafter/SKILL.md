@@ -158,13 +158,19 @@ evidence, not Project identities. After import:
    Props.
 2. Ask the user when a cue alias, composite setting, or mentioned object is
    ambiguous.
-3. Use `casting-director` and `production-designer` to create or update facts.
-4. Add focused Screenplay `reference.*` operations only after the durable fact
-   ids exist.
+3. Return the exact evidence and unresolved identity questions to
+   `movie-director`. That coordinator reads
+   `projectSettings.screenplayImport` and decides which enabled follow-up
+   stages to dispatch.
+4. When the coordinator returns accepted durable subject ids, add focused
+   Screenplay `reference.*` operations without re-running the import.
 
 Do not ask the importer to create or match facts. Do not report formatting or
 ScriptNotes as omissions; they remain only in the retained source. There is no
 re-import, merge, overwrite, or provenance-deletion workflow in this iteration.
+Do not independently dispatch casting, production design, media, analysis,
+Beat Sheet, or storyboard work from this skill; `movie-director` owns that
+cross-department sequence.
 
 ## Create A First Screenplay
 

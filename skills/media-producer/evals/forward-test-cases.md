@@ -172,11 +172,55 @@ Pass criteria:
 - keeps `16:9` and every other reviewed composition, quality, format, and
   creative requirement inside that exact prompt;
 - stores chosen images as logical `references`, not extra `values` fields;
-- follows create/update, Preview, show, freeze, Codex generation, and focused
-  attachment in that order, without asking for separate generation approval;
+- follows create/update, the policy-driven Preview decision, show, freeze,
+  Codex generation, and focused attachment in that order;
+- asks for conversational confirmation only when
+  `workflowPolicy.codexBuiltIn.requirePerRunConfirmation` is true;
 - passes the frozen record's `spec.values.prompt` to Codex unchanged;
 - attaches with the frozen spec id as `--source-spec` and never invents an
   external GenerationRun, receipt, estimate, or approval token.
+
+## Project Policy, Explicit Override, And Unavailable Codex
+
+Run three image requests: default policy prefers Codex, explicit user direction
+selects Renku, and policy prefers Codex while the harness lacks
+`codex.gpt-image-2`.
+
+Pass criteria:
+
+- reads Generation Context `workflowPolicy` before choosing an unselected path;
+- follows explicit direction before saved-spec path and Project policy;
+- preserves an already-authored saved-spec path when no explicit override is
+  given;
+- asks for a path when Codex capability is unavailable and never silently
+  falls back to a paid Renku run.
+
+## Preview And Confirmation Policy
+
+Use a Project with automatic Preview off and Renku conversational confirmation
+off. First ask for normal generation, then explicitly ask to see Preview.
+
+Pass criteria:
+
+- does not open Preview automatically on the first request;
+- opens the saved Preview for the explicit request even though policy is off;
+- validates and estimates the exact Renku spec, then passes the returned token
+  unchanged without adding the disabled conversational pause;
+- still inspects output and requires attachment intent.
+
+## Effective Concurrency Limits
+
+Prepare several independent Renku and Codex image requests with different lane
+limits and with concurrency disabled for one lane.
+
+Pass criteria:
+
+- overlaps no more requests than each lane's `concurrencyLimit`;
+- treats a disabled lane's effective limit of `1` as sequential without
+  rewriting the stored maximum;
+- keeps each spec, Preview decision, estimate/token or freeze, execution,
+  inspection, and attachment independent;
+- never overlaps dependent requests or invents a durable queue/scheduler.
 
 ## Lookbook Image Import Then Placement
 

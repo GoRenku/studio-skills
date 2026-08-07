@@ -14,6 +14,8 @@ Pass:
 - current director readiness blockers;
 - any user-selected provider/model, authored value, exact reference, cost,
   asset, shot, or approval choices.
+- the Core-produced `projectSettings` or Generation Context `workflowPolicy`
+  when the handoff depends on import automation or generation workflow policy.
 
 After completion, read back durable state through the CLI. Do not trust a specialist's prose summary alone when a Renku command can verify the result.
 
@@ -225,6 +227,8 @@ Pass:
 - Beat Sheet id and Beat ids for Scene Storyboard imports;
 - any upstream creative work the user explicitly chose to complete first;
 - approval constraints;
+- the exact Generation Context `workflowPolicy`, unless the user explicitly
+  overrode a path or workflow choice for this request;
 
 Verify:
 
