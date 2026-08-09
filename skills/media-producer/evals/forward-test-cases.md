@@ -85,7 +85,7 @@ Raw task:
 
 > Create the missing Storyboard Lookbook Sheet for the project Storyboard
 > Lookbook. Then use it to create storyboard images for these four saved Beats
-> in the current Scene Beat Sheet. Review and split the generated sheet, import
+> in the current Scene Beats. Review and split the generated sheet, import
 > the four crops, and do not run anything without my generation approval.
 
 Pass criteria:
@@ -100,9 +100,9 @@ Pass criteria:
   such as `image_urls` for the selected edit endpoint;
 - treats the Scene Storyboard sheet as a fixed 4:3, high-quality composite and
   uses agent vision to review the whole sheet and each crop;
-- keeps the grouped attachment document kind exactly
-  `sceneStoryboardImagesImport` with `"select": true` and calls `media import --purpose
-  scene.storyboard-sheet --target scene:<id> --beat-sheet <id> --file <json>
+- keeps the grouped attachment document on the exact current contract with
+  `sceneBeatsRevisionId` and `"select": true`, and calls `media import --purpose
+  scene.storyboard-sheet --target scene:<id> --revision <id> --file <json>
   --json`;
 - never invents panel schemas, asset ids, receipts, or a generic import path.
 
@@ -116,14 +116,15 @@ Raw task:
 
 Pass criteria:
 
-- reads the exact Scene Beat Sheet context and active Beat Sheet before
-  batching;
+- reads the exact Scene Beats revision named by the handoff before batching;
+- passes that same revision id through Storyboard status and import, and never
+  moves or flattens Core-owned Scene-local iteration folders;
 - reads `scene.storyboard-sheet` generation context and uses
   `facts.contextText` as opaque authored narrative rather than inventing a
   parallel historical or Storyboard facts contract;
-- creates two ordinary specs in Beat Sheet order, covering Beats 1-4 and 5-7;
+- creates two ordinary specs in Scene Beats revision order, covering Beats 1-4 and 5-7;
 - identifies the Cast Members and Locations relevant to each subset from the
-  Beat Sheet, inspects every chosen visual reference, and includes only the
+  Scene Beats revision, inspects every chosen visual reference, and includes only the
   relevant exact Storyboard Lookbook, Cast, and Location files;
 - assigns every included Renku reference to an actual returned provider media
   field, or passes every accepted Codex ImageGen reference through

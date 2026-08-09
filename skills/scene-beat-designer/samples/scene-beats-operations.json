@@ -1,20 +1,20 @@
 {
   "sceneId": "scene_control_room",
-  "baseBeatSheetId": "scene_beat_sheet_control_room_v1",
+  "baseRevisionId": "scene_beats_revision_control_room_v1",
   "activate": true,
   "operations": [
     {
       "operation": "beat.update",
+      "beatId": "beat_001",
       "beat": {
-        "id": "beat_001",
         "title": "The room answers with absence",
         "description": "Ada stands among dormant consoles while the sealed far doorway remains dark.",
-        "narrativeDevelopment": "Ada recognizes that the room was deliberately abandoned.",
+        "narrativeDevelopment": "Ada recognizes deliberate abandonment.",
         "narrativePurpose": "Transform unease into suspicion.",
         "castMemberIds": ["cast_ada"],
         "locationIds": ["location_control_room"],
         "propIds": ["prop_status_key"],
-        "screenplayBlockIds": ["screenplay_block_entry", "screenplay_block_silence"]
+        "screenplayBlockIds": ["screenplay_block_entry"]
       }
     }
   ]

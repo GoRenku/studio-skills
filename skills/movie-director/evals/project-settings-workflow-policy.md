@@ -13,7 +13,7 @@ Pass criteria:
 - coordinates only unambiguous Cast, Location, and Prop facts plus exact
   bindings without another “start this stage?” question;
 - asks about ambiguous identity and never matches by name alone;
-- does not proactively generate media, analysis, Beat Sheets, or storyboards.
+- does not proactively generate media, analysis, Scene Beats, or storyboards.
 
 ## Every Import Stage Enabled
 
@@ -24,8 +24,8 @@ Pass criteria:
 - facts and bindings settle before their dependent media or analysis work;
 - continuity images and analysis may overlap once their own prerequisites are
   ready;
-- each Scene Beat Sheet waits for required project context;
-- each storyboard waits for that Scene's active Beat Sheet;
+- each Scene Beats waits for required project context;
+- each storyboard waits for that Scene's active Scene Beats revision;
 - a missing prerequisite stops only its dependent stage and is reported.
 
 ## Explicit Current-Task Override

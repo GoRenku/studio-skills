@@ -176,16 +176,20 @@ attach the result to it, or make the plan immutable. Set exactly one
 `references/shot-plan-video/workflow.md`, then load the exact selected video
 route guide through `references/video-model-guide-registry.json`.
 
-Import an accepted `shot-plan.video-generation` output only with an exact matching managed
-receipt or frozen agent-external source Spec. It becomes an independent Project
-Asset under `videos/`; manual video import without generation provenance is not
-this purpose.
+Import an accepted `shot-plan.video-generation` output only with an exact
+matching managed receipt or frozen agent-external source Spec. It becomes an
+independent Project Asset whose file Core places in the exact Scene/Shot Plan
+folder derived from that frozen provenance. Manual video import without
+generation provenance is not this purpose.
 
-Use `shot-plan.video-first-frame`, `shot-plan.video-last-frame`, and
-`shot-plan.video-storyboard` for optional Project-owned auxiliary images. These
-purposes require the same Shot Plan association. They are ordinary opaque image
-generation requests; Core owns their purpose, candidate envelope, attachment
-destination, and provenance, while the agent owns the creative prompt.
+Use `shot-plan.video-first-frame`, `shot-plan.video-last-frame`,
+`shot-plan.video-storyboard`, and `shot-plan.video-reference` for optional
+Project-owned auxiliary images. These purposes require the same exact Shot Plan
+association. `shot-plan.video-reference` creates a deliberately authored Plan
+reference; do not copy an ordinary dependency merely because it was used as an
+input. They are ordinary opaque image generation requests: Core owns the
+purpose, candidate envelope, attachment destination, and provenance, while the
+agent owns the creative prompt.
 
 Before authoring Lookbook media, resolve the role id directly:
 
@@ -199,7 +203,8 @@ Use the returned current role id. Do not list alternatives or look for selection
 - `image.create` -> `project`
 - `image.edit` -> `asset:<asset-id>`
 - `shot-plan.video-generation`, `shot-plan.video-first-frame`,
-  `shot-plan.video-last-frame`, `shot-plan.video-storyboard` -> `project`
+  `shot-plan.video-last-frame`, `shot-plan.video-storyboard`,
+  `shot-plan.video-reference` -> `project`
 - `lookbook.image`, `lookbook.video-sheet`, `lookbook.storyboard-sheet` -> `lookbook:<lookbook-id>`
 - `cast.character-sheet`, `cast.profile`, `cast.voice-sample` -> `cast:<cast-member-id>`
 - `location.sheet`, `location.hero` -> `location:<location-id>`
@@ -253,9 +258,15 @@ prior sheet is required, and the first candidate has no special status.
 Do not reconstruct a second request-planning system or automatic provider
 mapping in the skill. One spec is one explicit provider request.
 
+For generated Cast, Location, Prop, Lookbook, or sheet media, use the existing
+request `title` as a concise semantic variation name when the purpose requires
+one. Describe the variation for a person (for example, `winter campaign`), not
+a version such as `v2` or a calculated filename. Core normalizes the name,
+adds fixed role words, allocates the `gxxx` token, and chooses the durable path.
+
 ## Scene Storyboard Sheet
 
-Keep splitting agent-owned. Read the exact Scene Beat Sheet and use `facts.contextText` only as opaque authored narrative context. For each one-to-four-Beat request, choose the relevant Cast and Location owners, inspect their exact references, and include them with the style reference. Stop for explicit user direction when needed continuity media is unavailable; do not silently proceed with weaker context. Generate the accepted 2x2, at-most-four-panel composite, inspect the returned image with vision, choose crop boxes for that exact image, inspect every crop, and attach only accepted Beat images. Never add fixed-coordinate, OCR, border-detection, grid-slicing, or runtime auto-split behavior.
+Keep splitting agent-owned. Read the exact Scene Beats revision named by the handoff, pass that same `sceneBeatsRevisionId` to Storyboard status and import, and use authored narrative context only as opaque text. Preserve Core-owned Scene-local Storyboard iteration folders. For each one-to-four-Beat request, choose the relevant Cast and Location owners, inspect their exact references, and include them with the style reference. Stop for explicit user direction when needed continuity media is unavailable; do not silently proceed with weaker context. Generate the accepted 2x2, at-most-four-panel composite, inspect the returned image with vision, choose crop boxes for that exact image, inspect every crop, and attach only accepted Beat images. Never add fixed-coordinate, OCR, border-detection, grid-slicing, or runtime auto-split behavior.
 
 ## Safety and permissions
 

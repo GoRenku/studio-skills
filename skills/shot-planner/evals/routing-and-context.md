@@ -5,5 +5,7 @@
   current Shot Plans.
 - A production scene number resolves to a durable Scene id before Shot Plan
   reads.
+- Stable Plan and Shot numbers are read from Core reports, never calculated
+  from array position or authored by the skill.
 - Several plans without an exact selection cause a clarification; the agent
   does not choose by title similarity.

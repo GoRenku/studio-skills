@@ -37,8 +37,10 @@ or atomic operation batch. Mutation reports return their durable mappings in
 
 ## Scenes And Blocks
 
-A Scene has `key` or `id`, an exact non-empty `heading`, optional exact
-`productionNumber`, optional `title`, and ordered `blocks`. Text Block types are
+A Scene input has `key` or `id`, an exact non-empty `heading`, optional `title`,
+and ordered `blocks`. Do not provide `productionNumber`; Core allocates and
+reserves it for agent-authored Screenplays. Canonical reads return the required
+stable number. Text Block types are
 `action`, `transition`, `shot`, `lyrics`, `castList`, `note`,
 `specialHeading`, `titleCard`, and `super`; each carries `text`.
 

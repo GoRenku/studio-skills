@@ -28,5 +28,5 @@ mention, existing matching-looking Project facts, formatting, and ScriptNotes.
 - Does not mention ScriptNotes or formatting as omissions, warnings, or work
   items.
 - Does not attempt re-import, overwrite, merge, or provenance deletion.
-- Does not independently dispatch media, analysis, Beat Sheet, or storyboard
+- Does not independently dispatch media, analysis, Scene Beats, or storyboard
   work; those stages are gated by Project Settings in `movie-director`.

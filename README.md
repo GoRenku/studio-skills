@@ -123,20 +123,20 @@ $lookbook-designer create the Production Lookbook from the Substance Inspiration
 skills/scene-beat-designer/
   SKILL.md
   agents/openai.yaml
-  references/beat-sheet-cli-workflow.md
-  references/scene-beat-sheet-json-contract.md
+  references/scene-beats-cli-workflow.md
+  references/scene-beats-json-contract.md
   references/beat-design-guidelines.md
-  samples/scene-beat-sheet.json
-  samples/scene-beat-sheet-operations.json
+  samples/scene-beats.json
+  samples/scene-beats-operations.json
 ```
 
-Scene Beat Designer helps agents create durable Renku Studio Scene Beat Sheets and hand missing or stale Beat storyboard images to Media Producer.
+Scene Beat Designer helps agents create and revise durable Renku Studio Scene Beats and hand missing Beat storyboard images to Media Producer.
 
 It uses:
 
-- the Renku CLI to read Beat Sheet context, validate Beat JSON, write history entries, and set the active Beat Sheet;
+- the Renku CLI to read Scene Beats context, validate creative Beat input, create/reset immutable revisions, and select an active revision;
 - active Lookbook text, referenced Cast Members, referenced Locations, and user direction to design narrative Beats;
-- schema-validated `kind: "sceneBeatSheet"` JSON documents;
+- schema-validated Scene Beats and focused operations JSON documents;
 - `scene.storyboard-sheet` handoff for optional Beat storyboard images.
 
 Invoke it in Codex with:

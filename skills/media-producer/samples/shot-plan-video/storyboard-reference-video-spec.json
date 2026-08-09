@@ -14,7 +14,7 @@
       "placement": { "kind": "slot", "sectionId": "method", "slotId": "video-storyboard" },
       "providerField": "image_urls",
       "promptMention": "@Image1",
-      "reference": { "kind": "project-file", "projectRelativePath": "generated/images/motion-annotation-storyboard-reference.png" }
+      "reference": { "kind": "project-file", "projectRelativePath": "tmp/media/motion-annotation-storyboard-reference.png" }
     },
     {
       "placement": {

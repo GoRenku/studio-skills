@@ -23,14 +23,14 @@ If the user names a production scene number, resolve it with
 2. Read only the context needed:
 
 ```bash
-renku screenplay beat-sheet context --scene <scene-id> --json
-renku screenplay beat-sheet show --active --scene <scene-id> --json
+renku screenplay beats context --scene <scene-id> --json
+renku screenplay beats show --active --scene <scene-id> --json
 renku shot-plan list --scene <scene-id> --json
 renku shot-plan show --shot-plan <shot-plan-id> --json
 ```
 
 Read `references/shot-plan-cli-workflow.md` for create and iteration commands.
-Use the active Beat Sheet's stable `screenplayBlockIds` and its referenced Cast
+Use the active Scene Beats revision's stable `screenplayBlockIds` and its referenced Cast
 Member, Location, and Prop ids. Read those Project subjects, the Lookbook,
 nearby Scenes, and exact visual assets only when the creative choice requires
 them. Read exact subject handles from current context before using `@handle`
@@ -56,13 +56,17 @@ import it with `--select` as one intent.
    exact Shot Plan id to `media-producer`. Do not create video state on the
    plan. The media workflow reads context with
    `--authored-from-shot-plan <shot-plan-id>` and attaches accepted outputs as
-   independent Project video Assets.
+   independent Project video Assets. Exact frozen provenance lets Core place
+   the accepted file in the corresponding human-readable Scene/Plan folder;
+   never calculate that folder from a displayed number.
 
 ## Identity Rules
 
 - Use exact ids from CLI or Studio selection.
-- Resolve a user-facing one-based Shot number against the current ordered
-  report. Never persist that number as identity.
+- Resolve a user-facing Plan or Shot number by exact match against the Core
+  report, then use the returned durable id. Never derive a Shot label from
+  `position + 1`; moves preserve stable Shot numbers.
+- Never author or choose Plan or Shot numbers. Core allocates and reserves them.
 - Never guess a Shot Plan or Shot from a title fragment.
 - Ask which plan is intended when several plans exist and selection is absent.
 
@@ -80,7 +84,7 @@ import it with `--select` as one intent.
   field instead of leaving the glanceable Camera or Optics group empty while
   mentioning the same choice only in the description.
 - Keep plan and Shot titles concise. Coverage already owns Beat relationships,
-  so do not append Scene titles, Beat numbers, coverage labels, framing, or
+  so do not append Scene titles, coverage labels, framing, or
   other technical qualifiers to a title.
 - Keep duration approximate; do not create a timeline.
 - Do not author video-generation state or a completion status.

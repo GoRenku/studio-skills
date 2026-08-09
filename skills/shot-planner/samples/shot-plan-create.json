@@ -3,7 +3,7 @@
   "sceneId": "scene_example",
   "title": "Bombardment",
   "coverage": {
-    "beatSheetId": "scene_beat_sheet_example",
+    "sceneBeatsRevisionId": "scene_beats_revision_example",
     "beatIds": ["beat_opening", "beat_impact"]
   },
   "shots": [

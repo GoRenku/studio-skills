@@ -89,8 +89,9 @@ Example provider sample attachment:
 
 Validate before live attachment. When the environment requires network
 approval, ask before running `renku cast voice attach` for an ElevenLabs provider
-sample because that command calls ElevenLabs and writes the fetched MP3 under
-`cast/<handle>/voice-samples/`.
+sample because that command calls ElevenLabs and attaches the fetched MP3 to
+the Cast Member. Core allocates the durable filename directly under
+`cast/<handle>/`; never construct that path in the skill.
 
 6. Hand off character-sheet/profile/voice-sample generation to `media-producer` only when the user wants media work.
 
@@ -107,6 +108,6 @@ sample because that command calls ElevenLabs and writes the fetched MP3 under
 - Cast Design can describe costume variants, but costume-variant media is not first-class yet.
 - Cast Design can describe voice casting and locale notes, but durable ElevenLabs provider voice ids and sample audio belong in Cast Voice records. Kling `voice_id` values are transient shot-video run artifacts.
 - Generated files, asset ids, durable provider voice ids, transient Kling `voice_id` values, and media paths do not belong in Cast Design JSON.
-- When casting changes affect Scene Beats, report the need for a `scene-beat-designer` pass instead of editing Beat Sheet documents directly.
+- When casting changes affect Scene Beats, report the need for a `scene-beat-designer` pass instead of editing Scene Beats revisions directly.
 - FDX cue candidates are evidence only. Do not infer identity from spelling
   alone and do not report ScriptNotes or formatting exclusions.

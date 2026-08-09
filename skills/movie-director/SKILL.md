@@ -61,9 +61,9 @@ artifact metadata.
 
 ## Codex Sandbox And Studio Notifications
 
-Renku CLI mutations notify the running Studio app through local HTTP at the Studio server URL, normally `http://localhost:5173`. In Codex, localhost HTTP is still network access. When Studio is running and a workflow will mutate project state, import media, apply Beat Sheet operations, set active rows, or run generation/import commands that should refresh Studio, request sandbox/network permission before the first mutating command.
+Renku CLI mutations notify the running Studio app through local HTTP at the Studio server URL, normally `http://localhost:5173`. In Codex, localhost HTTP is still network access. When Studio is running and a workflow will mutate project state, import media, apply Scene Beats revision operations, set active rows, or run generation/import commands that should refresh Studio, request sandbox/network permission before the first mutating command.
 
-If a command reports `CLI026`, the mutation already succeeded but Studio was not notified. Do not blindly rerun non-idempotent mutations such as Beat Sheet apply/write or media import. Instead, report the warning, refresh/read back state, and use a separate Studio notification/recovery step if one is available with local network permission.
+If a command reports `CLI026`, the mutation already succeeded but Studio was not notified. Do not blindly rerun non-idempotent mutations such as Scene Beats apply/create/reset or media import. Instead, report the warning, refresh/read back state, and use a separate Studio notification/recovery step if one is available with local network permission.
 
 ## Reference Files
 
@@ -78,7 +78,7 @@ Use this loop for every request:
 
 1. **Orient**: identify the open project, current Studio selection, and the minimum state needed for the request.
 2. **Diagnose**: decide whether the next step is screenplay, analysis, visual language, casting, production design, Beat design, media generation, or production readiness.
-3. **Dispatch**: use the specialist skill that owns the artifact. Do not directly write screenplay, analysis, Lookbook, Scene Beat Sheet, or media generation JSON when the specialist skill owns that workflow.
+3. **Dispatch**: use the specialist skill that owns the artifact. Do not directly write screenplay, analysis, Lookbook, Scene Beats, or media generation JSON when the specialist skill owns that workflow.
 4. **Verify**: read back the durable state with the CLI.
 5. **Advance**: name the next supported step and any unresolved prerequisite.
 
@@ -92,7 +92,7 @@ Use this loop for every request:
   Design, set dressing, atmosphere, and production-design media readiness.
 - Use `inspiration-analyzer` for Visual Language Inspiration folder analysis.
 - Use `lookbook-designer` for durable Production Lookbook and Storyboard Lookbook creation, revision, and Inspiration source linkage.
-- Use `scene-beat-designer` for Scene Beat Sheets and Beat iteration.
+- Use `scene-beat-designer` for Scene Beats and Beat iteration.
 - Use `shot-planner` for Scene Shot Plans, individual Shot iteration, order,
   Beat coverage, and selected-image coordination.
 - Use `media-producer` for all Renku media generation specs, managed estimates
@@ -111,7 +111,7 @@ Not first-class today:
 ## Non-Negotiables
 
 - Do not write directly to `.renku/project.sqlite`.
-- Do not invent project, scene, Beat, Cast Member, Location, Prop, asset, Beat Sheet, Lookbook, or generation ids.
+- Do not invent project, scene, Beat, Cast Member, Location, Prop, asset, Scene Beats revision, Lookbook, or generation ids or numbers.
 - Do not run Renku-managed paid generation without Renku estimate review and
   the exact returned approval token. Use Generation Context `workflowPolicy`
   to decide whether either execution lane also needs a conversational

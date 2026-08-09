@@ -17,13 +17,13 @@
       "placement": { "kind": "slot", "sectionId": "method", "slotId": "first-frame" },
       "providerField": "image_url",
       "promptMention": "@Image1",
-      "reference": { "kind": "project-file", "projectRelativePath": "generated/images/shot-003-first-frame.png" }
+      "reference": { "kind": "project-file", "projectRelativePath": "tmp/media/shot-003-first-frame.png" }
     },
     {
       "placement": { "kind": "slot", "sectionId": "method", "slotId": "last-frame" },
       "providerField": "end_image_url",
       "promptMention": "@Image2",
-      "reference": { "kind": "project-file", "projectRelativePath": "generated/images/shot-003-last-frame.png" }
+      "reference": { "kind": "project-file", "projectRelativePath": "tmp/media/shot-003-last-frame.png" }
     }
   ],
   "title": "Shot 3 video"

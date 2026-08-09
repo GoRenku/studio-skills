@@ -34,18 +34,18 @@ For Codex runs, remember that local Studio HTTP notification is network access. 
    `location.hero`, or `prop.hero` only after each accepted subject is ready.
 6. If `runScreenplayAnalysis` is enabled, dispatch `screenplay-analyst` after
    import and accepted bindings settle.
-7. If `generateSceneBeatSheets` is enabled, dispatch `scene-beat-designer` for
+7. If `generateSceneBeats` is enabled, dispatch `scene-beat-designer` for
    each Scene after its required project context is ready.
 8. If `generateBeatStoryboardImages` is enabled, dispatch
-   `scene.storyboard-sheet` only for Scenes that already have an active Beat
-   Sheet.
+   `scene.storyboard-sheet` only for Scenes that already have an active Scene
+   Beats revision.
 
 Enabled stages continue without another “start this stage?” question after the
 user requested import. Disabled stages are not proactively dispatched. Explicit
 task direction may override a stage for the current request without changing
 Project Settings. Analysis and continuity media may overlap after their own
-prerequisites; storyboard work never starts before its Scene has an active Beat
-Sheet. A missing prerequisite stops only the dependent stage and is reported
+prerequisites; storyboard work never starts before its Scene has an active
+Scene Beats revision. A missing prerequisite stops only the dependent stage and is reported
 clearly.
 
 Never report ScriptNotes or formatting as missing content, and never attempt a
@@ -64,15 +64,15 @@ second import, merge, or overwrite.
 2. If the user wants new imagery, dispatch `location.sheet` to `media-producer`.
 3. Read back director context to confirm readiness changed.
 
-## Scene To Beat Sheet To Storyboard Images
+## Scene To Scene Beats To Storyboard Images
 
 1. Read director context, preferably with a selected scene.
 2. If no Production Lookbook exists, dispatch to `lookbook-designer` first unless the user explicitly wants text-only Beat work.
-3. If no Storyboard Lookbook exists and storyboard images are requested or implied by a saved Beat Sheet revision, dispatch to `lookbook-designer` to create one unless the user explicitly asked for text-only/no-media work.
+3. If no Storyboard Lookbook exists and storyboard images are requested or implied by a saved Scene Beats revision, dispatch to `lookbook-designer` to create one unless the user explicitly asked for text-only/no-media work.
 4. If the Storyboard Lookbook has a `lookbook.storyboard-sheet`, pass
    that exact candidate to `media-producer` as non-blocking guidance. Do not
    require a sheet before Scene Storyboard generation.
-5. If no active Scene Beat Sheet exists or the user asks to revise Beats, dispatch to `scene-beat-designer`.
-6. If storyboard images are missing or stale after the Beat Sheet pass, dispatch to `media-producer` with `scene.storyboard-sheet` unless the user explicitly asked for text-only/no-media work.
+5. If no active Scene Beats exists or the user asks to revise Beats, dispatch to `scene-beat-designer`.
+6. If storyboard images are missing after the Scene Beats pass, dispatch to `media-producer` with the exact revision id and `scene.storyboard-sheet` unless the user explicitly asked for text-only/no-media work.
 7. When the user wants cinematic coverage, dispatch the current Scene, Beat
-   Sheet, and deliberately chosen visual context to `shot-planner`.
+   revision, and deliberately chosen visual context to `shot-planner`.

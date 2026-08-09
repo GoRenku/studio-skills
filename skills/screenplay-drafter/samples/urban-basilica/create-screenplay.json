@@ -9,7 +9,6 @@
   "scenes": [
     {
       "key": "foundry-scene",
-      "productionNumber": "1",
       "heading": "INT. EDIRNE FOUNDRY - NIGHT",
       "title": "The First Pour",
       "blocks": [
@@ -40,7 +39,6 @@
     },
     {
       "key": "wall-scene",
-      "productionNumber": "2",
       "heading": "EXT. THEODOSIAN WALLS - DAWN",
       "title": "The Wall Waits",
       "blocks": [

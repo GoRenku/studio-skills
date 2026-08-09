@@ -1,101 +1,94 @@
 ---
 name: scene-beat-designer
-description: Design and persist Renku Studio Scene Beat Sheets by reading Scene screenplay context, referenced Cast Members, Locations, Props, selected Movie Lookbook guidance, and user direction.
+description: Design and persist Renku Studio Scene Beats by reading Scene screenplay context, referenced Cast Members, Locations, Props, selected Movie Lookbook guidance, and user direction. Use for first Beat creation, focused Beat revisions, full reset, history inspection, or active-revision restoration.
 ---
 
 # Scene Beat Designer
 
-Use this skill to design durable Scene Beat Sheets for individual Renku Studio screenplay scenes.
-
-A Beat is a narrative unit, not a camera Shot. It records what meaning develops, why that development matters, and the visual setting, meaningful placement, spatial relationships, important elements, and atmosphere needed to illustrate it. It does not prescribe framing, lenses, camera movement, edit coverage, or other Shot execution.
+Design durable Scene Beats for one Renku Studio screenplay Scene. A Beat is a
+narrative unit, not a camera Shot. Keep framing, lenses, camera movement, edit
+coverage, and production execution out of Beat content.
 
 ## Workflow
 
-1. Resolve the current project and exact scene. If the user refers to the current Studio selection, run `renku studio current --json`. If the user names a production reference such as `Scene 22` or `22A`, run:
+1. Resolve the current Project and exact Scene. For Studio focus, run
+   `renku studio current --json`. For `Scene 22` or `22A`, run:
 
    ```bash
    renku screenplay scene-number resolve --number <production-number> --json
    ```
 
-   Use only the returned durable `sceneId` in Beat Sheet JSON and `--scene`
-   flags.
-2. Read Beat Sheet context:
+   Use only the returned durable `sceneId` in JSON and `--scene` flags.
+
+2. Read current context and history:
 
    ```bash
-   renku screenplay beat-sheet context --scene <scene-id> --json
+   renku screenplay beats context --scene <scene-id> --json
+   renku screenplay beats list --scene <scene-id> --json
+   renku screenplay beats show --active --scene <scene-id> --json
    ```
 
-3. Decide whether the user wants brainstorming, a first saved Beat Sheet, a revision against an explicit base, or restoration of an earlier history row.
-4. Read `references/beat-design-guidelines.md` and `references/scene-beat-sheet-json-contract.md`.
-5. Use a full `sceneBeatSheet` document for a first sheet or an intentional full replacement. Use `sceneBeatSheetOperations` for focused edits against an explicit `baseBeatSheetId`.
-6. Validate before mutation:
+3. Choose one intent:
+
+   - Brainstorm without persistence.
+   - `create` the first Scene Beats revision.
+   - `apply` focused insert/update/delete operations against an exact
+     `baseRevisionId`.
+   - `reset` the full Beat set when the user explicitly wants a new version.
+   - Restore retained work with `set-active`; never rewrite or delete history.
+
+4. Read `references/beat-design-guidelines.md`,
+   `references/scene-beats-json-contract.md`, and
+   `references/scene-beats-cli-workflow.md` as needed.
+
+5. Validate before mutation, execute the chosen intent, then read back the
+   exact revision. If a command reports `CLI026`, the mutation already
+   succeeded; read durable state and refresh Studio separately instead of
+   rerunning the mutation.
+
+6. Read Storyboard status for the exact saved revision:
 
    ```bash
-   renku screenplay beat-sheet validate --file <beat-sheet-json> --json
-   renku screenplay beat-sheet validate-operations --file <operations-json> --json
-   ```
-
-7. Write or apply:
-
-   ```bash
-   renku screenplay beat-sheet write --file <beat-sheet-json> --json
-   renku screenplay beat-sheet apply --file <operations-json> --json
-   ```
-
-8. Read back the active sheet and storyboard status:
-
-   ```bash
-   renku screenplay beat-sheet show --active --scene <scene-id> --json
-   renku screenplay beat-sheet storyboard status \
+   renku screenplay beats storyboard status \
      --scene <scene-id> \
-     --beat-sheet <beat-sheet-id> \
+     --revision <scene-beats-revision-id> \
      --json
    ```
 
-9. If saved changes leave Beats without a selected Storyboard image and the
-   user did not request text-only work, hand off to `media-producer` with
-   purpose `scene.storyboard-sheet`.
+7. If Beats lack selected Storyboard images and the user did not request
+   text-only work, hand off to `media-producer` with purpose
+   `scene.storyboard-sheet`, `scene:<scene-id>`, the exact
+   `sceneBeatsRevisionId`, and returned `missingBeatIds`.
 
-## Studio Notifications
+## Number And Identity Ownership
 
-Beat Sheet mutations and storyboard imports should refresh an open Studio app through its local notification endpoint. When localhost access needs approval, obtain it before the first mutation. If a command reports `CLI026`, the mutation already succeeded; do not rerun it merely to refresh Studio. Read back state and use a separate refresh step.
+Author only creative `BeatInput` fields. Core creates Beat ids and numbers for
+`create`, `reset`, and insert operations. Updates and deletes target a durable
+`beatId`; updates preserve its number. Do not guess ids or numbers, derive them
+from array position, or reuse a retired number.
 
-## Storyboard Handoff
-
-This skill owns Beat design, not media generation. Give `media-producer`:
-
-- purpose `scene.storyboard-sheet`;
-- target `scene:<scene-id>`;
-- the exact `beatSheetId`;
-- the `missingBeatIds` from Storyboard status;
-- whether accepted imported crops should be selected. The normal missing-image
-  handoff uses one grouped import document with `"select": true`; an explicit
-  additional-candidate request uses `false`.
-
-Each crop becomes an ordinary Asset owned by its logical Scene Beat. Do not ask
-`media-producer` to issue one selection mutation per Beat, and do not
-carry Storyboard images forward when a Beat Sheet revision preserves the same
-logical Beat id.
-
-Storyboard panels illustrate Beats. They may make agent-chosen visual decisions for a specific generated image, but the Beat Sheet must remain free of camera and Shot execution fields.
+Reset creates and activates a new revision with fresh Beat ids and `1..N`
+numbers. It retains the prior revision and records it as `baseRevisionId`.
+Restore means `set-active` on an exact retained revision. Because Storyboard
+Assets remain owned by `{ sceneId, beatId }`, reactivating a revision reconnects
+its retained Beat images; do not copy image paths into Scene Beats JSON.
 
 ## References
 
-- `references/beat-sheet-cli-workflow.md`
-- `references/scene-beat-sheet-json-contract.md`
+- `references/scene-beats-cli-workflow.md`
+- `references/scene-beats-json-contract.md`
 - `references/beat-design-guidelines.md`
-- `samples/scene-beat-sheet.json`
-- `samples/scene-beat-sheet-operations.json`
+- `samples/scene-beats.json`
+- `samples/scene-beats-operations.json`
 
 ## Non-Negotiables
 
 - Do not write directly to `.renku/project.sqlite`.
-- Do not mutate screenplay scenes while designing Beats.
-- Do not invent Scene, Screenplay Block, Cast Member, Location, Prop, Beat Sheet,
+- Do not mutate screenplay content while designing Beats.
+- Do not invent Scene, Screenplay Block, Cast Member, Location, Prop, revision,
   or Beat ids.
-- Each Beat has exactly the nine contract fields documented in the JSON contract.
-- Use stable `screenplayBlockIds`, never array indexes. Include `propIds` for
-  referenced Props relevant to the Beat, even when the array is empty.
-- Do not add subject, action, dialogue coverage, audio notes, production notes, camera fields, or generated media paths.
-- Preserve prompts and creative artifact contents as opaque values.
-- Validate before write or apply.
+- Do not put `id` or `number` in a Beat input.
+- Use stable `screenplayBlockIds`, never array indexes.
+- Preserve creative contents as opaque authored values.
+- Validate before create, reset, or apply.
+- Add no camera fields, generated-media paths, or production-logistics fields.

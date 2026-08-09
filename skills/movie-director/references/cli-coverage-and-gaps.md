@@ -9,7 +9,7 @@ renku director context --json
 renku director context --selection '<studio-selection-json>' --json
 ```
 
-The report includes screenplay, analysis, Inspiration, Lookbook, cast design/media readiness, production-design/media readiness, Scene Beat Sheet, and storyboard readiness.
+The report includes screenplay, analysis, Inspiration, Lookbook, cast design/media readiness, production-design/media readiness, Scene Beats, and storyboard readiness.
 
 ## Department Authoring
 

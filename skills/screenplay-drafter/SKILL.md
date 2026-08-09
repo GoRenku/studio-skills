@@ -126,11 +126,12 @@ renku screenplay scene-number resolve --number <production-number> --json
 ```
 
 Use the returned durable `sceneId` in Screenplay operation JSON and `--scene`
-flags. A Scene may carry an exact authored `productionNumber`, but that value
-is not identity or canonical order. Do not infer an id from a Section, title,
-or array position.
+flags. Renku-authored Scenes receive Core-owned production numbers, while FDX
+imports preserve exact optional authored numbers. A production number is not
+identity or canonical order. Do not author it in agent Scene input or infer an
+id from a Section, title, or array position.
 
-Use the status result to choose the command path:
+Use the status counts to choose the command path:
 
 - all counts are zero and the user supplied an `.fdx`: import it with
   `renku screenplay import-fdx --file <absolute-fdx-path> --json`.
@@ -169,7 +170,7 @@ Do not ask the importer to create or match facts. Do not report formatting or
 ScriptNotes as omissions; they remain only in the retained source. There is no
 re-import, merge, overwrite, or provenance-deletion workflow in this iteration.
 Do not independently dispatch casting, production design, media, analysis,
-Beat Sheet, or storyboard work from this skill; `movie-director` owns that
+Scene Beats, or storyboard work from this skill; `movie-director` owns that
 cross-department sequence.
 
 ## Create A First Screenplay
@@ -180,7 +181,8 @@ elements, Sections, Scenes, Blocks, and references.
 1. Store story and development metadata on Project through `renku info set`.
 2. Build a complete Screenplay JSON object with `opening`, `scenes`, optional
    `sections`, `structure`, and `references`. The command context supplies the
-   create intent; do not add a `kind` envelope.
+   create intent; do not add a `kind` envelope or caller-authored Scene
+   production numbers. Core numbers new agent-authored Scenes.
 3. Ensure Cast Members, Locations, and Props already exist through their owning
    specialist/CLI commands. Author plain screenplay text, then bind those
    Project subjects through separate Screenplay references. Do not put
@@ -234,6 +236,8 @@ renku screenplay apply --file <operations-json> --json
 - Do not create, update, delete, or move Cast Members, Locations, or Props through Screenplay JSON. Use the owning specialist/CLI commands first.
 - Use `key`, not `localKey`, for new records in create/add input.
 - Do not provide `id` for a new Opening Element, Scene, nested Block/dialogue value, Section, structure entry, or reference. Renku generates those ids.
+- Do not provide `productionNumber` for a new agent-authored Scene. Renku
+  allocates and reserves it.
 - Use durable `id` values for existing records, update targets, delete targets, move targets, parent targets, and placement targets.
 - Run project preflight and `renku screenplay status --json` before any screenplay create/apply.
 - Run project preflight and confirm an empty Screenplay before FDX import.

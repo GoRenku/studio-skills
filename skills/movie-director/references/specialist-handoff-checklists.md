@@ -58,7 +58,7 @@ For FDX import, also confirm the report's source hash/counts and that later fact
 creation/binding used focused specialist and Screenplay commands. Do not ask a
 specialist to expose ScriptNotes or to re-import over existing provenance.
 
-For scene revisions, inspect command output for Beat Sheet impact.
+For scene revisions, inspect command output for Scene Beats revision impact.
 
 ## `screenplay-analyst`
 
@@ -179,8 +179,8 @@ renku production-design prop show --active --prop <prop-id> --json
 
 Use for:
 
-- Scene Beat Sheet creation;
-- Beat Sheet revisions;
+- Scene Beats creation;
+- focused Scene Beats revisions and explicit full resets;
 - narrative Beat changes driven by scene rewrite, user direction, or visual-language changes.
 
 Pass:
@@ -189,18 +189,19 @@ Pass:
 - Production Lookbook state;
 - relevant Cast Member, Location, and Prop ids plus stable Screenplay Block ids;
 - screenplay critique or user direction;
-- whether the user wants saved Beat Sheet state or only brainstorming.
+- whether the user wants brainstorming, first creation, focused revision, full
+  reset, or restoration through active-revision selection.
 
 Verify:
 
 ```bash
-renku screenplay beat-sheet show --active --scene <scene-id> --json
-renku screenplay beat-sheet storyboard status --scene <scene-id> --beat-sheet <beat-sheet-id> --json
+renku screenplay beats show --active --scene <scene-id> --json
+renku screenplay beats storyboard status --scene <scene-id> --revision <revision-id> --json
 ```
 
 Storyboard media handoff:
 
-- scene-beat-designer supplies or revises the Scene Beat Sheet.
+- scene-beat-designer supplies or revises the Scene Beats.
 - media-producer owns `scene.storyboard-sheet` generation, inspection, slicing,
   and import. The project Storyboard Lookbook's exact
   `lookbook.storyboard-sheet` is useful non-blocking guidance when available;
@@ -224,7 +225,7 @@ Pass:
 - exact target id from generation context;
 - current generation context plus the user's provider/model choice, authored
   values, and exact references;
-- Beat Sheet id and Beat ids for Scene Storyboard imports;
+- Scene Beats revision id and Beat ids for Scene Storyboard imports;
 - any upstream creative work the user explicitly chose to complete first;
 - approval constraints;
 - the exact Generation Context `workflowPolicy`, unless the user explicitly
@@ -245,7 +246,7 @@ Use for Scene Shot Plans, individual Shot writing and order, Beat coverage, and
 selected-image coordination.
 
 Pass the exact Scene id, optional selected Shot Plan/Shot ids, current active
-Beat Sheet, relevant Cast Member/Location/Prop/Lookbook ids, stable Screenplay
+Scene Beats revision, relevant Cast Member/Location/Prop/Lookbook ids, stable Screenplay
 Block ids, and user constraints.
 
 Verify:

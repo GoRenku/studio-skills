@@ -24,8 +24,9 @@ renku generation model list \
 9. Run only with the returned approval token. Inspect the output before
    attachment.
 10. Attach with exact managed receipt provenance or a frozen external source
-    spec. The accepted result is a Project-owned `shot_plan_video` Asset under
-    `videos/`.
+    spec. The accepted result is a Project-owned `shot_plan_video` Asset whose
+    file Core places in the exact Scene/Shot Plan folder derived from frozen
+    provenance.
 
-Never manually copy media into the durable video folders. Never create a
+Never manually copy media into the durable Shot Plan folder. Never create a
 reverse video pointer or completion state on the Shot Plan.

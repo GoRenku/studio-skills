@@ -61,7 +61,7 @@ importer to create or bind those facts.
 - Read `references/location-design.md` before writing Location Design JSON.
 - Read `references/prop-authoring.md` for Prop fact commands.
 - Read `references/prop-design.md` before writing Prop Design JSON.
-- Read `references/media-and-beat-sheet-handoff.md` before asking for Location Sheets.
+- Read `references/media-and-scene-beats-handoff.md` before asking for Location Sheets.
 
 ## Boundaries
 

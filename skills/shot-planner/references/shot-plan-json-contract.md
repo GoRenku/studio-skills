@@ -11,7 +11,7 @@ is an authoring input, not durable browser state.
   "sceneId": "scene_exact",
   "title": "Bombardment",
   "coverage": {
-    "beatSheetId": "scene_beat_sheet_exact",
+    "sceneBeatsRevisionId": "scene_beats_revision_exact",
     "beatIds": ["beat_1", "beat_2"]
   },
   "shots": []
@@ -45,6 +45,7 @@ is an authoring input, not durable browser state.
 }
 ```
 
-Do not add ids, positions, status, image paths, selected image ids, prompts, or
-model settings to these documents. Command flags own durable targets.
+Do not add ids, numbers, positions, status, image paths, selected image ids,
+prompts, or model settings to these documents. Command flags own durable
+targets, and Core owns Plan/Shot numbering.
 `optics.depthOfField` accepts only `"shallow"` or `"deep"`.

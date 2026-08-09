@@ -1,0 +1,15 @@
+{
+  "sceneId": "scene_control_room",
+  "beats": [
+    {
+      "title": "The room answers with absence",
+      "description": "Ada stands just inside the empty control room while dormant consoles surround her.",
+      "narrativeDevelopment": "Ada realizes the room has been abandoned.",
+      "narrativePurpose": "Turn anticipation into unease.",
+      "castMemberIds": ["cast_ada"],
+      "locationIds": ["location_control_room"],
+      "propIds": ["prop_status_key"],
+      "screenplayBlockIds": ["screenplay_block_entry"]
+    }
+  ]
+}
