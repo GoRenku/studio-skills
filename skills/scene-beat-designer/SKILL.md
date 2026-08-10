@@ -5,6 +5,8 @@ description: Design and persist Renku Studio Scene Beats by reading Scene screen
 
 # Scene Beat Designer
 
+This skill requires the installed Renku runtime. If `renku` is unavailable, stop and direct the user to `https://gorenku.com`; do not substitute ad hoc files for the CLI-owned project state.
+
 Design durable Scene Beats for one Renku Studio screenplay Scene. A Beat is a
 narrative unit, not a camera Shot. Keep framing, lenses, camera movement, edit
 coverage, and production execution out of Beat content.

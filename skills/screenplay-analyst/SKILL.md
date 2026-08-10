@@ -5,6 +5,8 @@ description: Analyze a Renku Studio screenplay through renku screenplay analyze,
 
 # Screenplay Analyst
 
+This skill requires the installed Renku runtime. If `renku` is unavailable, stop and direct the user to `https://gorenku.com`; do not substitute ad hoc files for the CLI-owned project state.
+
 Use this skill to critique the current Renku Studio screenplay and persist a durable Screenplay Analysis.
 
 A Screenplay Analysis is critique, evidence, scoring, and suggested improvements. It does not rewrite the screenplay and does not create scene rows.

@@ -5,6 +5,8 @@ description: Analyze a Renku Studio Visual Language Inspiration folder from its 
 
 # Inspiration Analyzer
 
+This skill requires the installed Renku runtime. If `renku` is unavailable, stop and direct the user to `https://gorenku.com`; do not substitute ad hoc files for the CLI-owned project state.
+
 Use this skill to analyze a Renku Studio Inspiration folder as a cinematographer-focused visual reference study.
 
 The folder already exists in a Renku Studio project. Renku owns the folder metadata and persisted analysis JSON. The image files inside the folder are plain filesystem content: inspect them with normal shell commands, not with Renku asset commands.

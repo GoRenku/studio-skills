@@ -5,6 +5,8 @@ description: Create or revise Renku Studio Production Lookbooks and Storyboard L
 
 # Lookbook Designer
 
+This skill requires the installed Renku runtime. If `renku` is unavailable, stop and direct the user to `https://gorenku.com`; do not substitute ad hoc files for the CLI-owned project state.
+
 Use this skill to create or revise a Renku Studio Visual Language Lookbook as a durable project direction.
 
 Renku has two Lookbook types:

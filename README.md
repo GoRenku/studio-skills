@@ -1,6 +1,8 @@
 # Renku
 
-Renku is a Codex and Claude Code plugin library for movie-making workflows.
+Renku is an agent-first movie-making product for Codex and Claude Code. This repository contains
+the agent plugin; the separately installed Renku runtime supplies the required CLI and local
+browser Studio.
 
 This repo is meant to grow into a collection of filmmaking skills for writing, development, pre-production, production planning, and related creative workflows.
 
@@ -172,13 +174,22 @@ attachment.
 
 ## Install In Codex
 
-For local development, add this repository as a Codex plugin marketplace:
+Install the Renku runtime first:
 
 ```bash
-codex plugin marketplace add GoRenku/renku --ref main
+curl -fsSL https://downloads.gorenku.com/install.sh | sh
 ```
 
-Then open Codex's plugin directory and install `renku` from the `Renku` marketplace.
+On Windows PowerShell:
+
+```powershell
+irm https://downloads.gorenku.com/install.ps1 | iex
+```
+
+Then add `https://github.com/GoRenku/studio-skills` as a local/repository marketplace and
+install `renku` from Codex's Plugins directory. Codex desktop and Codex CLI run the skills with
+their normal local shell tools, which invoke the installed `renku` command. Restart the app after
+installation so it inherits the updated PATH.
 
 For reliable Studio refreshes, media imports, temporary file work, and optional
 live generation providers, configure a Renku Codex permission profile:
@@ -187,12 +198,14 @@ live generation providers, configure a Renku Codex permission profile:
 
 ## Install In Claude Code
 
-From Claude Code:
+Install the same Renku runtime first, then from Claude Code:
 
 ```text
-/plugin marketplace add GoRenku/renku
+/plugin marketplace add GoRenku/studio-skills
 /plugin install renku@renku
 /reload-plugins
 ```
 
-Then ask Claude Code to use the relevant Renku skill, such as Screenplay Drafter.
+Then ask Claude Code to use the relevant Renku skill, such as Screenplay Drafter. Claude Code
+in the desktop app and terminal harness runs the skill's `renku` commands through its normal
+local shell tools. Restart the desktop app after installation so it inherits the updated PATH.

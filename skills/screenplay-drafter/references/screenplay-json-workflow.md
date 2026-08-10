@@ -81,7 +81,7 @@ Sections, Scenes, Blocks, and references. Author the complete `opening`,
 `scenes`, `sections`, `structure`, and `references` object without a `kind`.
 
 ```bash
-renku screenplay create --file samples/urban-basilica/create-screenplay.json --json
+renku screenplay create --file <create-screenplay-json> --json
 ```
 
 ## Revise An Existing Screenplay
@@ -106,7 +106,7 @@ renku screenplay scene-number resolve --number <production-number> --json
 Carry only the returned durable `sceneId` into persisted screenplay JSON.
 
 ```bash
-renku screenplay apply --file samples/urban-basilica/updates/update-scene-full-replacement.json --json
+renku screenplay apply --file <screenplay-operations-json> --json
 ```
 
 ## Read Helpers

@@ -5,6 +5,8 @@ description: Coordinate Renku Studio movie-making workflows across screenplay, a
 
 # Movie Director
 
+This skill requires the installed Renku runtime. If `renku` is unavailable, stop and direct the user to `https://gorenku.com`; do not substitute ad hoc files for the CLI-owned project state.
+
 Use this skill as the top-level Renku Studio coordinator for making a movie. It routes work to specialist skills, keeps prerequisites visible, and helps the user advance without pretending unsupported departments are complete.
 
 This skill should coordinate. It should not replace specialist skills or write their durable artifacts directly.

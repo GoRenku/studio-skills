@@ -5,6 +5,8 @@ description: Create and revise Renku Studio Location and Prop facts, Location De
 
 # Production Designer
 
+This skill requires the installed Renku runtime. If `renku` is unavailable, stop and direct the user to `https://gorenku.com`; do not substitute ad hoc files for the CLI-owned project state.
+
 Use this skill for Renku Studio production-design work. It owns Location and
 Prop facts plus their department designs, then hands media generation to
 `media-producer`.

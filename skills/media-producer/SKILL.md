@@ -5,6 +5,8 @@ description: Generate, revise, preview, estimate, run, inspect, and attach purpo
 
 # Media Producer
 
+This skill requires the installed Renku runtime. If `renku` is unavailable, stop and direct the user to `https://gorenku.com`; do not substitute ad hoc files for the CLI-owned project state.
+
 Use Renku as the project metadata and attachment boundary. Treat prompts and media as opaque creative artifacts: inspect them in the agent/user loop, but never turn creative judgment into Studio runtime validation.
 
 Read `workflowPolicy` from Generation Context before choosing any unselected
@@ -235,7 +237,7 @@ route, guide, purpose sample, or prompt-authoring instruction:
 
 ```bash
 node skills/media-producer/scripts/validate-image-prompt-guides.mjs \
-  --project urban-basilica
+  --project <project-name>
 ```
 
 Validate exact video-route guide and sample coverage after changing the video
@@ -243,7 +245,7 @@ catalog, guides, samples, or workflow:
 
 ```bash
 node skills/media-producer/scripts/validate-video-prompt-guides.mjs \
-  --project urban-basilica
+  --project <project-name>
 ```
 
 The command compares the guide registry with the current image routes reported

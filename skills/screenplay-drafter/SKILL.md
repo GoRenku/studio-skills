@@ -5,6 +5,8 @@ description: Create, import, and revise Renku Studio screenplays as the persiste
 
 # Screenplay Drafter
 
+This skill requires the installed Renku runtime. If `renku` is unavailable, stop and direct the user to `https://gorenku.com`; do not substitute ad hoc files for the CLI-owned project state.
+
 Use this skill to help a user move from story idea or revision request to a playable screenplay authored as Renku Studio screenplay JSON, so Renku Studio can render and visualize the screenplay.
 
 Screenplay craft and Renku persistence go hand in hand. Think like a screenwriter, then encode the result in valid Renku screenplay data so the authored project stays current.
@@ -228,8 +230,7 @@ renku screenplay apply --file <operations-json> --json
 - Read `references/screenplay-writing-guidelines.md` before creating a new screenplay, giving focused craft help, or making a substantial story, scene, cast, location, dialogue, tone, or structure revision.
 - Read `references/screenplay-json-contract.md` before writing JSON. It defines create documents, operation documents, references, placement, and canonical output.
 - Read `references/screenplay-json-workflow.md` when you need project preflight, command order, validation, dry-run, or output handling.
-- Use `samples/urban-basilica/create-screenplay.json` as the full create example.
-- Use `samples/urban-basilica/updates/*.json` for focused update examples. Replace placeholder IDs with IDs from `generatedIdentities` or `renku screenplay show --json`.
+- Use `references/screenplay-json-contract.md` for complete create and operation shapes. Replace placeholder IDs with IDs from `generatedIdentities` or `renku screenplay show --json`.
 
 ## Non-Negotiables
 

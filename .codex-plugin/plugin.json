@@ -1,6 +1,6 @@
 {
   "name": "renku",
-  "version": "0.1.0+codex.20260716161911",
+  "version": "0.1.0",
   "description": "Renku filmmaking skills for screenplay development, and movie-making workflows.",
   "author": {
     "name": "Kerem Karatal"

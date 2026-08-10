@@ -5,6 +5,8 @@ description: Create, inspect, and iteratively revise Renku Studio Scene Shot Pla
 
 # Shot Planner
 
+This skill requires the installed Renku runtime. If `renku` is unavailable, stop and direct the user to `https://gorenku.com`; do not substitute ad hoc files for the CLI-owned project state.
+
 Author the mutable Scene-owned Shot Plan. Keep durable state behind Renku CLI
 commands and keep creative interpretation in the agent/user loop.
 
