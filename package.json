@@ -1,0 +1,14 @@
+{
+  "name": "renku-studio-skills-release-tools",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.7.0",
+  "scripts": {
+    "release": "node scripts/release/ship.mjs patch",
+    "release:minor": "node scripts/release/ship.mjs minor",
+    "release:major": "node scripts/release/ship.mjs major",
+    "release:prepare": "node scripts/release/prepare.mjs",
+    "release:publish": "node scripts/release/publish.mjs",
+    "release:test": "node --test scripts/release/*.test.mjs"
+  }
+}

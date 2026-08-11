@@ -1,6 +1,6 @@
 # Renku
 
-Renku is an agent-first movie-making product for Codex and Claude Code. This repository contains
+Renku is an agent-first movie-making product for Codex. This repository contains
 the agent plugin; the separately installed Renku runtime supplies the required CLI and local
 browser Studio.
 
@@ -186,26 +186,35 @@ On Windows PowerShell:
 irm https://downloads.gorenku.com/install.ps1 | iex
 ```
 
-Then add `https://github.com/GoRenku/studio-skills` as a local/repository marketplace and
-install `renku` from Codex's Plugins directory. Codex desktop and Codex CLI run the skills with
-their normal local shell tools, which invoke the installed `renku` command. Restart the app after
-installation so it inherits the updated PATH.
+Add the released Renku marketplace channel once:
+
+```bash
+codex plugin marketplace add GoRenku/studio-skills --ref beta
+```
+
+Install Renku through either supported Codex host:
+
+- In Codex CLI, enter `/plugins`, select the `renku` marketplace, open Renku,
+  and install it. The equivalent direct command is
+  `codex plugin add renku@renku`.
+- In Codex in the ChatGPT desktop app, open the Plugins tab, select the
+  personal `renku` marketplace, open Renku, and install it.
+
+Start a new task or CLI session after installation so the Renku skills are
+loaded. The skills invoke the separately installed `renku` command through the
+host's normal local shell capability.
+
+To refresh the released marketplace snapshot later, run:
+
+```bash
+codex plugin marketplace upgrade renku
+```
+
+After a marketplace refresh, inspect the installed Renku version in the plugin
+browser. Reinstall Renku there if the installed version did not advance, then
+start a new task or CLI session.
 
 For reliable Studio refreshes, media imports, temporary file work, and optional
 live generation providers, configure a Renku Codex permission profile:
 
 - [Codex Permissions For Renku Skills](docs/codex-renku-permissions.md)
-
-## Install In Claude Code
-
-Install the same Renku runtime first, then from Claude Code:
-
-```text
-/plugin marketplace add GoRenku/studio-skills
-/plugin install renku@renku
-/reload-plugins
-```
-
-Then ask Claude Code to use the relevant Renku skill, such as Screenplay Drafter. Claude Code
-in the desktop app and terminal harness runs the skill's `renku` commands through its normal
-local shell tools. Restart the desktop app after installation so it inherits the updated PATH.
