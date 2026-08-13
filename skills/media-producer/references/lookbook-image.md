@@ -2,6 +2,35 @@
 
 Use `lookbook.image` with target `lookbook:<lookbook-id>`. Context recommends the project aspect ratio, medium quality, and Nano Banana 2.
 
+Read the target Lookbook and its existing images before deciding to generate.
+If an accepted image already demonstrates the requested section property, reuse
+it with `renku lookbook image set-placement` instead of creating a filler image.
+
+For the first example, generate from the user's direction and visible source
+references. For every later example that the user expects to match the accepted
+set:
+
+1. Inspect all candidates in the exact `visual-language` /
+   `lookbook-style-reference` slot.
+2. Choose an accepted image from that target Lookbook as the visual style
+   anchor; never choose by list order.
+3. Route that exact file to a real provider image field and allocate its
+   `promptMention`. For Codex ImageGen, pass the same accepted file through
+   `referenced_image_paths`.
+4. State what remains locked and what may change. For example: `Use @Reference1
+   as the locked visual style anchor. Preserve its medium, contour treatment,
+   finish, facial simplification, background treatment, and tonal restraint.
+   Change only the subject and the requested section property.`
+5. Inspect the result beside the anchor before import. Reject a technically
+   relevant image when its medium or rendering style drifts.
+
+Do not claim that a request will match an approved image unless that image is
+visible to the provider. Descriptive modifiers are not a substitute for the
+reference. Treat Storyboard Lookbook sections as properties of one drawing
+system: a `valueAndAccent` request may alter value allocation, but must not add
+wash, hatching, roughness, modeled lighting, or a new finish unless those
+properties already belong to the accepted style.
+
 For Renku-managed work, author a generic spec, validate it, persist it, show
 the saved Preview, estimate, obtain approval, and run with the returned approval
 token. Use Codex only when the user explicitly requests it; save its external

@@ -43,12 +43,14 @@ renku lookbook show --kind <production|storyboard> --json
 7. Import example images after files exist in the project. Selection may be
    atomic with import; placement remains separate. `media import` returns
    `asset.id` for common selection and `ownerRecord.id` for Lookbook placement.
-   Tag each
-   image with the single style aspect it demonstrates so Studio can show it next
-   to the right widget. Production aspects are `thesis`, `palette`, `toneMood`,
+   Tag each image with the clearest style aspect it demonstrates so Studio can
+   show it next to the right widget. Production aspects are `thesis`, `palette`, `toneMood`,
    `composition`, `lighting`, `texture`, `camera`. Storyboard aspects are
    `styleBrief`, `lineAndFinish`, `valueAndAccent`, `guardrails`. Prefer one
-   aspect per image; do not tag every aspect on one image. When a Production Lookbook
+   aspect for a dedicated evidence image, but reuse and place the same accepted
+   image in multiple sections when it genuinely demonstrates them. Section
+   placement does not authorize a different visual style, and a Lookbook does
+   not need a separate generated image for every section. When a Production Lookbook
    image clearly demonstrates one specific pattern or observation, anchor it to
    that point with `--anchor <point-id>` and include the point-owning section in
    `--sections` so it renders beside that point. Additional `--sections` values
@@ -57,6 +59,15 @@ renku lookbook show --kind <production|storyboard> --json
    placement such as `--sections thesis,texture --anchor
    texture-cannon-material-states`. Set the `styleBrief` image (the overall
    look) as the Storyboard card image so it becomes the detail-page hero.
+
+For a Storyboard Lookbook image series, establish and accept the `styleBrief`
+image first. When generating later examples that must match it, use an accepted
+image from that exact Lookbook as a visible style reference through
+`media-producer`; prose alone is not a continuity mechanism. Preserve its
+medium, line quality, finish, simplification, and tonal restraint while changing
+only the subject or section property being demonstrated. If no suitable visual
+anchor can be attached, stop or label the result as exploration rather than
+claiming it belongs to the matching set.
 
 ```bash
 renku media import --purpose lookbook.image --target lookbook:<production-lookbook-id> --source <project-relative-path> --select --json

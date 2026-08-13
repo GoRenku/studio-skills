@@ -253,9 +253,12 @@ by the installed Renku CLI. The registry maps identities to guide paths only;
 it does not own model families, media capability, or configurable fields.
 
 For `cast.character-sheet`, `location.sheet`, and `prop.sheet`, inspect all
-same-owner prior sheet candidates as optional continuity references. Choose a
-useful prior sheet only when it supports the current creative direction; no
-prior sheet is required, and the first candidate has no special status.
+same-owner prior sheet candidates as optional continuity references. For
+`lookbook.image`, inspect all existing images from that exact Lookbook and use
+an accepted one when the requested addition must match the established style.
+Choose a useful candidate by visual evidence, never list order; the first
+candidate has no special status. A first sheet or first Lookbook image requires
+no prior same-owner reference.
 
 Do not reconstruct a second request-planning system or automatic provider
 mapping in the skill. One spec is one explicit provider request.

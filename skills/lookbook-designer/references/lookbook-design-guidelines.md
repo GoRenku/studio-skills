@@ -52,6 +52,14 @@ Every section has a required `text` field (the prompt-facing source of truth). A
 the optional structured fields when they fit the style; they drive the Studio
 style widgets so a reader can see what the text describes.
 
+Treat the sections as orthogonal descriptions of one immutable visual identity.
+`styleBrief` establishes that identity; `lineAndFinish`, `valueAndAccent`, and
+`guardrails` constrain the same medium and finish. A later section must not
+introduce a second drawing technique merely because its widget describes a
+different property. Derive section language from accepted visual references
+when they exist, and make every example image look as though it came from the
+same artist and production system.
+
 Style Brief:
 
 - summarize the drawing language in practical, visible terms;
@@ -64,14 +72,22 @@ Line and Finish:
 
 - specify line weight, looseness, visible construction, medium behaviour, and
   finish level;
+- inherit the medium and rendering level established by `styleBrief`; do not
+  use this section to reinterpret the overall style;
 - provide `marks` (label + relative thickness, heaviest to lightest) and optional
   `hatching`. Omit `marks` for styles with no linework (e.g. realistic).
 
 Value and Accent:
 
-- define the value range, contrast, and any accent rule;
+- define how light, middle, dark, and any accent values are allocated inside
+  the established style;
+- preserve the established medium, line character, texture, and finish. Do not
+  introduce washes, hatching, roughness, modeled lighting, or extra rendering
+  unless those properties already belong to `styleBrief` and `lineAndFinish`;
 - provide `valueSteps` (light-to-dark `#rrggbb` stops; works for colour too),
   `contrast`, and `accents` whose `meaning` states where each accent is allowed.
+  Treat the stops as a descriptive key, not a demand that every example image
+  showcase every stop equally.
 
 Guardrails:
 
@@ -80,6 +96,10 @@ Guardrails:
 
 Reject Storyboard Lookbook prose that cannot become visible prompt instructions.
 Translate it into medium, marks, values, palette, and readable style.
+
+Section placement is evidence organization, not separate art direction. Reuse
+an accepted example across multiple sections when it already demonstrates those
+properties; do not generate a new image merely to fill every section.
 
 For updates, preserve the existing style unless the user asks for a full
 replacement.

@@ -244,6 +244,36 @@ Pass criteria:
   --json`;
 - does not guess the Lookbook Image id or mutate project files directly.
 
+## Storyboard Lookbook Style-Locked Continuation
+
+Raw task:
+
+> The Storyboard Lookbook already has two accepted clean line-drawing examples.
+> Prepare a Value and Accent example that matches them, show Preview, and stop
+> before generation. If one of the accepted images already proves the rule,
+> tell me instead of generating filler.
+
+Pass criteria:
+
+- reads the exact Storyboard Lookbook, its existing image placements, and
+  `lookbook.image` Generation Context;
+- treats `valueAndAccent` as a property of the established drawing system, not
+  as permission to introduce a grayscale painting, wash, hatching, roughness,
+  modeled lighting, or a new finish;
+- first checks whether an accepted image can be placed in `valueAndAccent`
+  without another generation;
+- when generation remains useful, inspects the same-Lookbook candidates and
+  deliberately selects an accepted image in the `visual-language` /
+  `lookbook-style-reference` slot as the visible style anchor;
+- assigns the exact file to a real provider media field with `promptMention`,
+  or passes it to Codex ImageGen through `referenced_image_paths`;
+- makes the prompt preserve the anchor's medium, line quality, finish,
+  simplification, and tonal restraint while changing only value allocation and
+  subject matter;
+- shows the saved Preview and stops before generation;
+- never uses a Production Lookbook Sheet as the Storyboard style anchor and
+  never claims visual continuity from prose alone.
+
 ## Selection Scope And Call Economy
 
 Raw task:
