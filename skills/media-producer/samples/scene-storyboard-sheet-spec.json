@@ -4,7 +4,7 @@
   "target": { "kind": "scene", "id": "scene_foundry" },
   "model": { "provider": "fal-ai", "model": "openai/gpt-image-2/edit" },
   "values": {
-    "prompt": "Create a hand-drawn production storyboard sheet for the selected foundry shots. Use @Reference1 for drawing language, value grouping, and notation behavior. Preserve the Cast identity from @Reference2 and the foundry environment from @Reference3. Keep the four ordered panels clear, warm, and practical for shot planning."
+    "prompt": "Create a hand-drawn production storyboard sheet for the selected foundry Beats. Use @Reference1 for drawing language, value grouping, and notation behavior. Preserve the Cast identity from @Reference2 and the foundry environment from @Reference3. Arrange four complete 16:9 panels in Beat order in a clean grid within the model-supported output canvas, with clear gutters and no cropped, stretched, overlapping, or merged panel image regions. Keep the panels warm and practical for shot planning."
   },
   "references": [
     {

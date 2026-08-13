@@ -98,8 +98,9 @@ Pass criteria:
   `visual-language` / `storyboard-lookbook-sheet` placement;
 - assigns the exact Storyboard Lookbook Sheet to an actual image media field
   such as `image_urls` for the selected edit endpoint;
-- treats the Scene Storyboard sheet as a fixed 4:3, high-quality composite and
-  uses agent vision to review the whole sheet and each crop;
+- uses a model-supported composite canvas, keeps every complete panel at the
+  Project aspect ratio in a clean grid, and uses agent vision to review the
+  whole sheet and each crop without adding a geometry rejection gate;
 - keeps the grouped attachment document on the exact current contract with
   `sceneBeatsRevisionId` and `"select": true`, and calls `media import --purpose
   scene.storyboard-sheet --target scene:<id> --revision <id> --file <json>

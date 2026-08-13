@@ -58,11 +58,22 @@ The Scene Beats revision decides the narrative moments to illustrate. It does no
 
 ## Sheet Layout
 
-- one 4:3 composite;
+- one composite on an output canvas supported by the selected model;
 - one to four panels;
+- every complete panel uses the Project aspect ratio returned by generation context;
 - Beats arranged in Scene Beats revision order;
-- clean panel image areas suitable for vision-guided cropping;
-- labels only in margins or headers, never inside the panel image content.
+- a clean grid with clear gutters and panel image areas suitable for vision-guided cropping;
+- no cropped, stretched, overlapping, or merged panel image regions;
+- unused canvas space may remain empty instead of becoming filler imagery;
+- labels only in margins, headers, or gutters, never inside the panel image content.
+
+The composite canvas does not need to match the Project aspect ratio. Its size
+and aspect ratio follow the selected model's supported output. For Codex
+built-in execution, use exactly
+`model: { "provider": "codex", "model": "gpt-image-2" }` on every batch;
+Codex currently exposes no alternate image model. Do not add a Codex model
+selector or fail an otherwise useful result because panel geometry is
+imperfect. Inspect and crop the actual returned image.
 
 Do not use fixed crop coordinates, OCR, marker detection, border detection, or runtime auto-splitting.
 
