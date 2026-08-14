@@ -25,13 +25,13 @@ renku lookbook show --kind <production|storyboard> --json
 4. Validate before writing:
 
 ```bash
-renku lookbook validate --file lookbook.json --json
+renku lookbook validate --file tmp/operations/lookbook.json --json
 ```
 
 5. Apply. The document carries the Lookbook role and authored name. Apply creates an unauthored role or updates the current role in place:
 
 ```bash
-renku lookbook apply --file lookbook.json --json
+renku lookbook apply --file tmp/operations/lookbook.json --json
 ```
 
 6. Read the role back:
@@ -102,7 +102,7 @@ Source Inspiration relationships:
 
 ```bash
 renku lookbook inspiration list --lookbook <lookbook-id> --json
-renku lookbook inspiration set --lookbook <lookbook-id> --file source-inspirations.json --json
+renku lookbook inspiration set --lookbook <lookbook-id> --file tmp/operations/source-inspirations.json --json
 ```
 
 Successful mutation reports include `resourceKeys`. Treat those as Studio refresh keys, not as creative content.

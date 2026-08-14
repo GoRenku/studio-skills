@@ -74,8 +74,8 @@ Pass criteria:
 - chooses a current endpoint and authored setting values from the returned
   context/model descriptors rather than a skill-owned provider map;
 - authors a `GenerationSpec` whose prompt and chosen aspect ratio agree;
-- runs `generation validate --file ... --json` and `generation preview show
-  --file ... --json`;
+- runs `generation validate --file tmp/specs/generation-spec.json --json` and
+  `generation preview show --file tmp/specs/generation-spec.json --json`;
 - does not estimate recursively, fabricate references, persist media, or run
   paid generation.
 
@@ -103,7 +103,8 @@ Pass criteria:
   whole sheet and each crop without adding a geometry rejection gate;
 - keeps the grouped attachment document on the exact current contract with
   `sceneBeatsRevisionId` and `"select": true`, and calls `media import --purpose
-  scene.storyboard-sheet --target scene:<id> --revision <id> --file <json>
+  scene.storyboard-sheet --target scene:<id> --revision <id> --file
+  tmp/operations/scene-storyboard-import.json
   --json`;
 - never invents panel schemas, asset ids, receipts, or a generic import path.
 

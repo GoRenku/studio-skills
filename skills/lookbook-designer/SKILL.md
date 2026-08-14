@@ -7,6 +7,24 @@ description: Create or revise Renku Studio Production Lookbooks and Storyboard L
 
 This skill requires the installed Renku runtime. If `renku` is unavailable, stop and direct the user to `https://gorenku.com`; do not substitute ad hoc files for the CLI-owned project state.
 
+## Project Workspace
+
+Keep every agent-created working file inside the current Project's categorized
+`tmp/` tree. Never create operation JSON, Generation Specs, import manifests,
+QA images, downloads, crops, or scratch files at the Project root.
+
+- Use `tmp/operations/` for CLI authoring documents, including create, update,
+  design, analysis, Lookbook, Scene Beats, Shot Plan, and import JSON.
+- Use `tmp/specs/` for Generation Specs and `tmp/receipts/` for provider receipts.
+- Use `tmp/media/` for temporary generated, downloaded, transformed, or cropped
+  media; use `tmp/qa/` for review evidence and `tmp/scratch/` for other temporary
+  inputs.
+- Create category folders lazily. Let Renku commands copy accepted content into
+  durable owner folders; never construct durable asset paths in the skill.
+- Keep an external user source outside the Project when possible. If a temporary
+  in-Project copy is necessary, place it under `tmp/scratch/`.
+
+
 Use this skill to create or revise a Renku Studio Visual Language Lookbook as a durable project direction.
 
 Renku has two Lookbook types:
@@ -86,13 +104,13 @@ Create a JSON file that matches `references/lookbook-json-contract.md`.
 Validate:
 
 ```bash
-renku lookbook validate --file <lookbook-json> --json
+renku lookbook validate --file tmp/operations/lookbook.json --json
 ```
 
 Apply:
 
 ```bash
-renku lookbook apply --file <lookbook-json> --json
+renku lookbook apply --file tmp/operations/lookbook.json --json
 ```
 
 Read back:

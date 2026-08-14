@@ -21,8 +21,8 @@ renku production-design location context --location <location-id> --json
 renku production-design location list --location <location-id> --json
 renku production-design location show --active --location <location-id> --json
 renku production-design location show --design <location-design-id> --json
-renku production-design location validate --file <location-design-json> --json
-renku production-design location write --file <location-design-json> --json
+renku production-design location validate --file tmp/operations/location-design.json --json
+renku production-design location write --file tmp/operations/location-design.json --json
 renku production-design location set-active --location <location-id> --design <location-design-id> --json
 ```
 

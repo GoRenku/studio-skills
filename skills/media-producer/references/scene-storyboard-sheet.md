@@ -106,7 +106,7 @@ renku media import \
   --purpose scene.storyboard-sheet \
   --target scene:<scene-id> \
   --revision <scene-beats-revision-id> \
-  --file <import.json> \
+  --file tmp/operations/scene-storyboard-import.json \
   --json
 ```
 

@@ -43,7 +43,7 @@ the analysis.
 ## 4. Validate
 
 ```bash
-renku screenplay analyze validate --file <analysis-json> --json
+renku screenplay analyze validate --file tmp/operations/screenplay-analysis.json --json
 ```
 
 Fix every structured error. Unknown fields are rejected.
@@ -51,7 +51,7 @@ Fix every structured error. Unknown fields are rejected.
 ## 5. Write
 
 ```bash
-renku screenplay analyze write --file <analysis-json> --json
+renku screenplay analyze write --file tmp/operations/screenplay-analysis.json --json
 ```
 
 The write command creates a new history row and makes it active.

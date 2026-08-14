@@ -47,13 +47,13 @@ find . -maxdepth 1 -type f
 Validate without writing:
 
 ```bash
-renku inspiration analysis validate --folder <folder-id> --file <analysis-json> --json
+renku inspiration analysis validate --folder <folder-id> --file tmp/operations/inspiration-analysis.json --json
 ```
 
 Write after validation passes:
 
 ```bash
-renku inspiration analysis write --folder <folder-id> --file <analysis-json> --json
+renku inspiration analysis write --folder <folder-id> --file tmp/operations/inspiration-analysis.json --json
 ```
 
 Read back:

@@ -6,9 +6,9 @@ Use `renku location` for Location facts.
 renku location list --json
 renku location show <location-id> --json
 renku location context --location <location-id> --json
-renku location validate --file <location-operations-json> --json
-renku location apply --file <location-operations-json> --dry-run --json
-renku location apply --file <location-operations-json> --json
+renku location validate --file tmp/operations/location-operations.json --json
+renku location apply --file tmp/operations/location-operations.json --dry-run --json
+renku location apply --file tmp/operations/location-operations.json --json
 ```
 
 Operation document:

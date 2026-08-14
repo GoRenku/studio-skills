@@ -39,12 +39,12 @@ renku prop list --json
 Create or revise missing facts through the owning command families:
 
 ```bash
-renku cast validate --file <cast-operations-json> --json
-renku cast apply --file <cast-operations-json> --json
-renku location validate --file <location-operations-json> --json
-renku location apply --file <location-operations-json> --json
-renku prop validate --file <prop-operations-json> --json
-renku prop apply --file <prop-operations-json> --json
+renku cast validate --file tmp/operations/cast-operations.json --json
+renku cast apply --file tmp/operations/cast-operations.json --json
+renku location validate --file tmp/operations/location-operations.json --json
+renku location apply --file tmp/operations/location-operations.json --json
+renku prop validate --file tmp/operations/prop-operations.json --json
+renku prop apply --file tmp/operations/prop-operations.json --json
 ```
 
 Then use durable subject ids in separate Screenplay references. Keep the exact
@@ -81,7 +81,7 @@ Sections, Scenes, Blocks, and references. Author the complete `opening`,
 `scenes`, `sections`, `structure`, and `references` object without a `kind`.
 
 ```bash
-renku screenplay create --file <create-screenplay-json> --json
+renku screenplay create --file tmp/operations/screenplay-create.json --json
 ```
 
 ## Revise An Existing Screenplay
@@ -106,7 +106,7 @@ renku screenplay scene-number resolve --number <production-number> --json
 Carry only the returned durable `sceneId` into persisted screenplay JSON.
 
 ```bash
-renku screenplay apply --file <screenplay-operations-json> --json
+renku screenplay apply --file tmp/operations/screenplay-operations.json --json
 ```
 
 ## Read Helpers

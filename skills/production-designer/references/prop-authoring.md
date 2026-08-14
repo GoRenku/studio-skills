@@ -8,9 +8,9 @@ history, Assets, generation, or Studio navigation.
 renku prop list --json
 renku prop show <prop-id> --json
 renku prop context --prop <prop-id> --json
-renku prop validate --file <prop-operations-json> --json
-renku prop apply --file <prop-operations-json> --dry-run --json
-renku prop apply --file <prop-operations-json> --json
+renku prop validate --file tmp/operations/prop-operations.json --json
+renku prop apply --file tmp/operations/prop-operations.json --dry-run --json
+renku prop apply --file tmp/operations/prop-operations.json --json
 ```
 
 ```json

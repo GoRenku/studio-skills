@@ -7,6 +7,24 @@ description: Create, import, and revise Renku Studio screenplays as the persiste
 
 This skill requires the installed Renku runtime. If `renku` is unavailable, stop and direct the user to `https://gorenku.com`; do not substitute ad hoc files for the CLI-owned project state.
 
+## Project Workspace
+
+Keep every agent-created working file inside the current Project's categorized
+`tmp/` tree. Never create operation JSON, Generation Specs, import manifests,
+QA images, downloads, crops, or scratch files at the Project root.
+
+- Use `tmp/operations/` for CLI authoring documents, including create, update,
+  design, analysis, Lookbook, Scene Beats, Shot Plan, and import JSON.
+- Use `tmp/specs/` for Generation Specs and `tmp/receipts/` for provider receipts.
+- Use `tmp/media/` for temporary generated, downloaded, transformed, or cropped
+  media; use `tmp/qa/` for review evidence and `tmp/scratch/` for other temporary
+  inputs.
+- Create category folders lazily. Let Renku commands copy accepted content into
+  durable owner folders; never construct durable asset paths in the skill.
+- Keep an external user source outside the Project when possible. If a temporary
+  in-Project copy is necessary, place it under `tmp/scratch/`.
+
+
 Use this skill to help a user move from story idea or revision request to a playable screenplay authored as Renku Studio screenplay JSON, so Renku Studio can render and visualize the screenplay.
 
 Screenplay craft and Renku persistence go hand in hand. Think like a screenwriter, then encode the result in valid Renku screenplay data so the authored project stays current.
@@ -195,7 +213,7 @@ elements, Sections, Scenes, Blocks, and references.
 4. Create through Core validation:
 
 ```bash
-renku screenplay create --file <screenplay-json> --json
+renku screenplay create --file tmp/operations/screenplay-create.json --json
 ```
 
 ## Revise An Existing Screenplay
@@ -219,7 +237,7 @@ renku screenplay show --json
 4. Apply through Core validation:
 
 ```bash
-renku screenplay apply --file <operations-json> --json
+renku screenplay apply --file tmp/operations/screenplay-operations.json --json
 ```
 
 5. Preserve the user's story intent. Ask only for missing choices that materially change the story, scope, or command shape.

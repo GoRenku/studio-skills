@@ -16,8 +16,8 @@ Prop ids from current context; never reconstruct Block identity from an index.
 ## Validate And Create
 
 ```bash
-renku shot-plan validate --file <shot-plan-create.json> --json
-renku shot-plan create --file <shot-plan-create.json> --json
+renku shot-plan validate --file tmp/operations/shot-plan-create.json --json
+renku shot-plan create --file tmp/operations/shot-plan-create.json --json
 ```
 
 Creation accepts zero, one, or several initial Shots.
@@ -25,14 +25,14 @@ Creation accepts zero, one, or several initial Shots.
 ## Focused Iteration
 
 ```bash
-renku shot-plan validate --file <shot-plan-update.json> --json
-renku shot-plan update --shot-plan <shot-plan-id> --file <shot-plan-update.json> --json
+renku shot-plan validate --file tmp/operations/shot-plan-update.json --json
+renku shot-plan update --shot-plan <shot-plan-id> --file tmp/operations/shot-plan-update.json --json
 
-renku shot-plan validate --file <shot.json> --json
-renku shot-plan shot add --shot-plan <shot-plan-id> --file <shot.json> --json
-renku shot-plan shot add --shot-plan <shot-plan-id> --file <shot.json> --placement start --json
-renku shot-plan shot add --shot-plan <shot-plan-id> --file <shot.json> --placement before --shot <anchor-shot-id> --json
-renku shot-plan shot update --shot-plan <shot-plan-id> --shot <shot-id> --file <shot.json> --json
+renku shot-plan validate --file tmp/operations/shot.json --json
+renku shot-plan shot add --shot-plan <shot-plan-id> --file tmp/operations/shot.json --json
+renku shot-plan shot add --shot-plan <shot-plan-id> --file tmp/operations/shot.json --placement start --json
+renku shot-plan shot add --shot-plan <shot-plan-id> --file tmp/operations/shot.json --placement before --shot <anchor-shot-id> --json
+renku shot-plan shot update --shot-plan <shot-plan-id> --shot <shot-id> --file tmp/operations/shot.json --json
 renku shot-plan shot move --shot-plan <shot-plan-id> --shot <shot-id> --position <one-based-position> --json
 renku shot-plan shot remove --shot-plan <shot-plan-id> --shot <shot-id> --json
 ```

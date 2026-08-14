@@ -37,7 +37,7 @@ provider request.
 Validate the exact spec, then inspect:
 
 ```bash
-renku generation preview show --file <generation-spec-json> --json
+renku generation preview show --file tmp/specs/generation-spec.json --json
 ```
 
 Use `providerPayload` as evidence that assignments and array ordering are what

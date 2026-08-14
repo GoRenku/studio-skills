@@ -6,9 +6,9 @@ Use `renku cast` for Cast Member facts.
 renku cast list --json
 renku cast show <cast-member-id> --json
 renku cast context --cast <cast-member-id> --json
-renku cast validate --file <cast-operations-json> --json
-renku cast apply --file <cast-operations-json> --dry-run --json
-renku cast apply --file <cast-operations-json> --json
+renku cast validate --file tmp/operations/cast-operations.json --json
+renku cast apply --file tmp/operations/cast-operations.json --dry-run --json
+renku cast apply --file tmp/operations/cast-operations.json --json
 ```
 
 Operation document:

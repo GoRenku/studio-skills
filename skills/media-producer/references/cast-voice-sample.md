@@ -5,8 +5,8 @@ Use `cast.voice-sample` to generate playable sample audio for a Cast Member.
 ```bash
 renku generation context --purpose cast.voice-sample --target cast:<cast-member-id> --json
 renku generation model list --purpose cast.voice-sample --json
-renku generation validate --file <spec.json> --json
-renku generation spec create --file <spec.json> --json
+renku generation validate --file tmp/specs/cast-voice-sample.json --json
+renku generation spec create --file tmp/specs/cast-voice-sample.json --json
 renku generation preview show --spec <spec-id> --json
 renku generation estimate --spec <spec-id> --json
 renku generation run --spec <spec-id> --approval-token <approval-token> --json

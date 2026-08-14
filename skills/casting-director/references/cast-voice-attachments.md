@@ -13,12 +13,12 @@ values are transient shot-video run artifacts and must not be attached here.
 ```bash
 renku cast voice list --cast <cast-member-id> --json
 renku cast voice show --cast <cast-member-id> --voice <cast-voice-id-or-name> --json
-renku cast voice validate --file <cast-voice-attachment-json> --json
-renku cast voice attach --file <cast-voice-attachment-json> --json
+renku cast voice validate --file tmp/operations/cast-voice-attachment.json --json
+renku cast voice attach --file tmp/operations/cast-voice-attachment.json --json
 renku cast voice remove --cast <cast-member-id> --voice <cast-voice-id-or-name> --json
 renku cast voice registrations list --voice <cast-voice-id-or-name> --json
 renku cast voice registrations show --registration <registration-id> --json
-renku cast voice registrations create --voice <cast-voice-id-or-name> --file <registration-json> --json
+renku cast voice registrations create --voice <cast-voice-id-or-name> --file tmp/operations/cast-voice-registration.json --json
 renku cast voice registrations remove --registration <registration-id> --json
 ```
 

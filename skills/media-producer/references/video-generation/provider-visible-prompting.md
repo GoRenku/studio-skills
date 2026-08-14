@@ -43,7 +43,7 @@ the selected model descriptor. Keep media fields out of `values`.
 Validate the draft and run:
 
 ```bash
-renku generation preview show --file <generation-spec-json> --json
+renku generation preview show --file tmp/specs/generation-spec.json --json
 ```
 
 Use the resulting `providerPayload` as evidence of which inputs the provider

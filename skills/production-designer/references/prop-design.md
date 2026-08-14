@@ -4,8 +4,8 @@ Read Prop context and write strict `kind: "propDesign"` JSON through:
 
 ```bash
 renku production-design prop context --prop <prop-id> --json
-renku production-design prop validate --file <prop-design-json> --json
-renku production-design prop write --file <prop-design-json> --json
+renku production-design prop validate --file tmp/operations/prop-design.json --json
+renku production-design prop write --file tmp/operations/prop-design.json --json
 ```
 
 The design envelope contains:

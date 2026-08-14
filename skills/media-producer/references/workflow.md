@@ -5,15 +5,15 @@ Use this sequence for every Renku-managed generation purpose:
 ```bash
 renku generation context --purpose <purpose> --target <target> --json
 renku generation model list --purpose <purpose> --json
-renku generation validate --file <spec.json> --json
-renku generation spec create --file <spec.json> --json
+renku generation validate --file tmp/specs/generation-spec.json --json
+renku generation spec create --file tmp/specs/generation-spec.json --json
 renku generation preview show --spec <spec-id> --json
 renku generation estimate --spec <spec-id> --json
 renku generation run --spec <spec-id> --approval-token <approval-token> --json
 renku generation run show --run <run-id> --json
 ```
 
-Use `generation spec update --spec <spec-id> --file <spec.json>` for revisions and `generation run --spec <spec-id> --approval-token <approval-token> --simulate --json` for a non-paid execution check.
+Use `generation spec update --spec <spec-id> --file tmp/specs/generation-spec.json` for revisions and `generation run --spec <spec-id> --approval-token <approval-token> --simulate --json` for a non-paid execution check.
 
 ## Current GenerationSpec envelope
 
@@ -127,7 +127,7 @@ prompt or add request-description labels such as `Use case`, `Asset type`,
 Save first, then generate:
 
 ```bash
-renku generation spec create --file <external-spec.json> --json
+renku generation spec create --file tmp/specs/external-generation-spec.json --json
 renku generation preview show --spec <returned-spec-id> --json # when policy enables it or the user requests it
 ```
 
@@ -220,7 +220,7 @@ the agent owns this complete workflow:
    their normal Preview editing behavior. For `agent-external`, Preview may
    update only prompt and reference slots. Change its provider, model, or any
    non-prompt saved value with `renku generation spec update --spec <id>
-   --file <spec.json>`, then open Preview again.
+   --file tmp/specs/generation-spec.json`, then open Preview again.
 5. For Renku-managed execution, obtain the exact current estimate token and
    honor the Renku lane confirmation value. For Codex external execution, honor
    the Codex lane confirmation value, read the saved revision, freeze it, and

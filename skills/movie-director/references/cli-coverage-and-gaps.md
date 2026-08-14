@@ -19,11 +19,11 @@ Casting:
 renku cast list --json
 renku cast show <cast-member-id> --json
 renku cast context --cast <cast-member-id> --json
-renku cast validate --file <cast-operations-json> --json
-renku cast apply --file <cast-operations-json> --json
+renku cast validate --file tmp/operations/cast-operations.json --json
+renku cast apply --file tmp/operations/cast-operations.json --json
 renku cast design context --cast <cast-member-id> --json
-renku cast design validate --file <cast-design-json> --json
-renku cast design write --file <cast-design-json> --json
+renku cast design validate --file tmp/operations/cast-design.json --json
+renku cast design write --file tmp/operations/cast-design.json --json
 renku cast design set-active --cast <cast-member-id> --design <cast-design-id> --json
 ```
 
@@ -33,18 +33,18 @@ Production design:
 renku location list --json
 renku location show <location-id> --json
 renku location context --location <location-id> --json
-renku location validate --file <location-operations-json> --json
-renku location apply --file <location-operations-json> --json
+renku location validate --file tmp/operations/location-operations.json --json
+renku location apply --file tmp/operations/location-operations.json --json
 renku production-design location context --location <location-id> --json
-renku production-design location validate --file <location-design-json> --json
-renku production-design location write --file <location-design-json> --json
+renku production-design location validate --file tmp/operations/location-design.json --json
+renku production-design location write --file tmp/operations/location-design.json --json
 renku prop list --json
 renku prop context --prop <prop-id> --json
-renku prop validate --file <prop-operations-json> --json
-renku prop apply --file <prop-operations-json> --json
+renku prop validate --file tmp/operations/prop-operations.json --json
+renku prop apply --file tmp/operations/prop-operations.json --json
 renku production-design prop context --prop <prop-id> --json
-renku production-design prop validate --file <prop-design-json> --json
-renku production-design prop write --file <prop-design-json> --json
+renku production-design prop validate --file tmp/operations/prop-design.json --json
+renku production-design prop write --file tmp/operations/prop-design.json --json
 ```
 
 Screenplay commands do not mutate Cast Members, Locations, or Props.

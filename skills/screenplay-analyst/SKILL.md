@@ -7,6 +7,24 @@ description: Analyze a Renku Studio screenplay through renku screenplay analyze,
 
 This skill requires the installed Renku runtime. If `renku` is unavailable, stop and direct the user to `https://gorenku.com`; do not substitute ad hoc files for the CLI-owned project state.
 
+## Project Workspace
+
+Keep every agent-created working file inside the current Project's categorized
+`tmp/` tree. Never create operation JSON, Generation Specs, import manifests,
+QA images, downloads, crops, or scratch files at the Project root.
+
+- Use `tmp/operations/` for CLI authoring documents, including create, update,
+  design, analysis, Lookbook, Scene Beats, Shot Plan, and import JSON.
+- Use `tmp/specs/` for Generation Specs and `tmp/receipts/` for provider receipts.
+- Use `tmp/media/` for temporary generated, downloaded, transformed, or cropped
+  media; use `tmp/qa/` for review evidence and `tmp/scratch/` for other temporary
+  inputs.
+- Create category folders lazily. Let Renku commands copy accepted content into
+  durable owner folders; never construct durable asset paths in the skill.
+- Keep an external user source outside the Project when possible. If a temporary
+  in-Project copy is necessary, place it under `tmp/scratch/`.
+
+
 Use this skill to critique the current Renku Studio screenplay and persist a durable Screenplay Analysis.
 
 A Screenplay Analysis is critique, evidence, scoring, and suggested improvements. It does not rewrite the screenplay and does not create scene rows.
@@ -55,13 +73,13 @@ Create a JSON file that matches `references/screenplay-analysis-json-contract.md
 Validate:
 
 ```bash
-renku screenplay analyze validate --file <analysis-json> --json
+renku screenplay analyze validate --file tmp/operations/screenplay-analysis.json --json
 ```
 
 Write:
 
 ```bash
-renku screenplay analyze write --file <analysis-json> --json
+renku screenplay analyze write --file tmp/operations/screenplay-analysis.json --json
 ```
 
 Read back:

@@ -12,17 +12,17 @@ renku screenplay beats show --revision <revision-id> --json
 For first creation or an explicit full reset:
 
 ```bash
-renku screenplay beats validate --file <scene-beats.json> --json
-renku screenplay beats create --file <scene-beats.json> --json
-renku screenplay beats reset --file <scene-beats.json> --json
+renku screenplay beats validate --file tmp/operations/scene-beats.json --json
+renku screenplay beats create --file tmp/operations/scene-beats.json --json
+renku screenplay beats reset --file tmp/operations/scene-beats.json --json
 ```
 
 For a focused immutable revision:
 
 ```bash
-renku screenplay beats validate-operations --file <operations.json> --json
-renku screenplay beats apply --file <operations.json> --dry-run --json
-renku screenplay beats apply --file <operations.json> --json
+renku screenplay beats validate-operations --file tmp/operations/scene-beats-operations.json --json
+renku screenplay beats apply --file tmp/operations/scene-beats-operations.json --dry-run --json
+renku screenplay beats apply --file tmp/operations/scene-beats-operations.json --json
 ```
 
 Restore any retained revision by changing only the active pointer:

@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
@@ -68,6 +68,38 @@ test('release tooling cannot write or trigger the Studio repository', () => {
   }
 });
 
+test('shipped skills keep agent working files in categorized Project tmp folders', () => {
+  const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..', '..');
+  const skillsRoot = path.join(root, 'skills');
+  const skillDirectories = readdirSync(skillsRoot, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => path.join(skillsRoot, entry.name));
+
+  for (const skillDirectory of skillDirectories) {
+    const skill = readFileSync(path.join(skillDirectory, 'SKILL.md'), 'utf8');
+    assert.match(skill, /^## Project Workspace$/m, skillDirectory);
+    assert.match(skill, /Project root/, skillDirectory);
+    for (const category of ['media', 'specs', 'receipts', 'operations', 'qa', 'scratch']) {
+      assert.match(skill, new RegExp(`tmp/${category}/`), skillDirectory);
+    }
+  }
+
+  for (const markdownPath of listMarkdownFiles(skillsRoot)) {
+    const contents = readFileSync(markdownPath, 'utf8');
+    for (const match of contents.matchAll(/--file\s+([^\s`\\]+)/g)) {
+      const fileArgument = match[1];
+      if (!/json/i.test(fileArgument)) {
+        continue;
+      }
+      assert.match(
+        fileArgument,
+        /^tmp\/(?:operations|specs|receipts)\//,
+        `${markdownPath} uses an uncategorized JSON --file argument: ${fileArgument}`
+      );
+    }
+  }
+});
+
 function createPluginFixture(version) {
   const root = mkdtempSync(path.join(os.tmpdir(), 'renku-skills-release-'));
   for (const relativePath of PLUGIN_VERSION_MANIFESTS) {
@@ -84,4 +116,17 @@ function createPluginFixture(version) {
 function runGit(root, args) {
   const result = spawnSync('git', args, { cwd: root, encoding: 'utf8' });
   assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+}
+
+function listMarkdownFiles(root) {
+  const files = [];
+  for (const entry of readdirSync(root, { withFileTypes: true })) {
+    const absolutePath = path.join(root, entry.name);
+    if (entry.isDirectory()) {
+      files.push(...listMarkdownFiles(absolutePath));
+    } else if (entry.isFile() && entry.name.endsWith('.md')) {
+      files.push(absolutePath);
+    }
+  }
+  return files;
 }
