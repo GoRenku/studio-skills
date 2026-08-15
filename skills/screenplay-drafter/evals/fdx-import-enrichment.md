@@ -9,24 +9,27 @@ mention, existing matching-looking Project facts, formatting, and ScriptNotes.
 
 ## Success Criteria
 
-- Checks Screenplay status, runs `renku screenplay import-fdx` exactly once,
+- Checks Screenplay status and source ownership, runs the required
+  `renku screenplay import-fdx`,
   and verifies the canonical Screenplay/report.
 - Returns candidate evidence and unresolved identity questions to
   `movie-director`; it does not independently become the enrichment
   coordinator.
-- Does not create Sections for a flat source.
+- Produces no Sections for any FDX source, including files with New Act, End of
+  Act, Sequence, Summary, Outline, Note, or Act-looking prose markers.
 - Treats cue, heading, and tag results as evidence rather than identities.
 - Asks the user whether ambiguous aliases or settings are the same subject.
 - Does not reuse an existing Cast/Location/Prop fact solely because its name
   looks similar; requires agent/user semantic judgment.
 - Routes accepted Cast facts to `casting-director` and Location/Prop facts to
   `production-designer`.
-- Represents the indirect Prop through a focused presence/mention reference
-  without rewriting imported screenplay text.
-- Adds speaker/setting/mention/presence references only after durable fact ids
-  exist.
+- Does not add speaker, setting, mention, or presence references to the
+  FDX-backed Screenplay; the source-owned read-only gate covers references.
 - Does not mention ScriptNotes or formatting as omissions, warnings, or work
   items.
-- Does not attempt re-import, overwrite, merge, or provenance deletion.
+- For a changed-source refresh case, accepts `refreshed` directly without a
+  diff preview, removal confirmation, or approval token.
+- Treats refresh as exact source mirroring, not a partial merge, and never
+  edits imported hierarchy through `screenplay apply`.
 - Does not independently dispatch media, analysis, Scene Beats, or storyboard
   work; those stages are gated by Project Settings in `movie-director`.

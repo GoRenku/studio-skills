@@ -151,14 +151,16 @@ imports preserve exact optional authored numbers. A production number is not
 identity or canonical order. Do not author it in agent Scene input or infer an
 id from a Section, title, or array position.
 
-Use the status counts to choose the command path:
+Use `sourceOwnership` and the status counts to choose the command path:
 
 - all counts are zero and the user supplied an `.fdx`: import it with
   `renku screenplay import-fdx --file <absolute-fdx-path> --json`.
 - all counts are zero and the screenplay will be authored in Renku: create it
   with `renku screenplay create`.
-- any count is nonzero: revise the existing Screenplay with a focused
-  `operations` batch and `renku screenplay apply`.
+- `sourceOwnership` is `fdx`: never use generic Screenplay mutations. Use
+  `import-fdx` only when the user supplies the next source file for a refresh.
+- `sourceOwnership` is `renku` and any count is nonzero: revise the existing
+  Screenplay with one focused `operations` batch and `renku screenplay apply`.
 
 Use `renku screenplay revision list`, `renku screenplay revision show`, and
 `renku screenplay revision restore` when the user asks to inspect or restore
@@ -166,11 +168,22 @@ screenplay history.
 
 ## Import A Final Draft Screenplay
 
-Use this path only for a readable absolute `.fdx` path and an empty Screenplay:
+Use this path for a readable absolute `.fdx` path and either an empty
+Screenplay or an existing FDX-backed Screenplay:
 
 ```bash
 renku screenplay import-fdx --file /absolute/path/to/script.fdx --json
 ```
+
+Handle the typed result:
+
+- `imported`: read back the new exact source-backed Screenplay.
+- `refreshed`: read back the automatically accepted exact source replacement.
+- `unchanged`: report the no-op and do not run follow-up mutation work.
+
+Every valid changed FDX is accepted automatically because Renku has no editable
+copy to reconcile. There is no diff preview, removal approval, approval token,
+partial merge, or conflict resolution branch.
 
 Treat the returned character cues, Scene Headings, and tagged subjects as
 evidence, not Project identities. After import:
@@ -183,12 +196,17 @@ evidence, not Project identities. After import:
    `movie-director`. That coordinator reads
    `projectSettings.screenplayImport` and decides which enabled follow-up
    stages to dispatch.
-4. When the coordinator returns accepted durable subject ids, add focused
-   Screenplay `reference.*` operations without re-running the import.
+4. The coordinator may use accepted evidence to create or revise Project facts,
+   but do not bind those facts into an FDX-backed Screenplay. The Core read-only
+   gate covers reference operations as well as prose and organization.
 
 Do not ask the importer to create or match facts. Do not report formatting or
-ScriptNotes as omissions; they remain only in the retained source. There is no
-re-import, merge, overwrite, or provenance-deletion workflow in this iteration.
+ScriptNotes as omissions; they remain only in the retained source. Refresh
+mirrors the accepted FDX exactly; it is not a merge and cannot retain material
+removed from the source. Every FDX-backed Screenplay is a flat source-ordered
+Scene list. Final Draft New Act, End of Act, Sequence, Summary, Outline, Note,
+and ScriptNote elements never become Renku Sections, and prose that looks like
+an Act marker must not be interpreted as hierarchy.
 Do not independently dispatch casting, production design, media, analysis,
 Scene Beats, or storyboard work from this skill; `movie-director` owns that
 cross-department sequence.
@@ -216,7 +234,7 @@ elements, Sections, Scenes, Blocks, and references.
 renku screenplay create --file tmp/operations/screenplay-create.json --json
 ```
 
-## Revise An Existing Screenplay
+## Revise An Existing Renku-Authored Screenplay
 
 Use this path whenever Screenplay status contains any authored content.
 
@@ -226,6 +244,10 @@ Use this path whenever Screenplay status contains any authored content.
 renku screenplay show --json
 ```
 
+Confirm `renku screenplay status --json` reports `sourceOwnership: renku`.
+Refuse organization or prose mutations for `sourceOwnership: fdx`; the user
+must revise the source in their screenwriting tool and refresh the FDX.
+
 2. Understand the requested story change before choosing operations:
 
    - What story problem is being solved?
@@ -233,12 +255,18 @@ renku screenplay show --json
    - Does the revision change continuity, structure, tone, audience promise, or running time?
    - Do Project `synopsis`, `centralConflict`, `dramaticQuestion`, `themes`, or `assumptions` need to change too?
 
-3. Draft a focused `{ "operations": [...] }` JSON document.
+3. Draft one focused `{ "operations": [...] }` JSON document. Organization
+   work may add/revise Acts and Sequences and move many Scenes in this single
+   atomic batch; do not issue one apply command per Scene.
 4. Apply through Core validation:
 
 ```bash
 renku screenplay apply --file tmp/operations/screenplay-operations.json --json
 ```
+
+There is no separate Screenplay operations validate or dry-run command. One
+`apply` validates the complete final aggregate and writes nothing when any
+operation is invalid.
 
 5. Preserve the user's story intent. Ask only for missing choices that materially change the story, scope, or command shape.
 
@@ -259,8 +287,12 @@ renku screenplay apply --file tmp/operations/screenplay-operations.json --json
   allocates and reserves it.
 - Use durable `id` values for existing records, update targets, delete targets, move targets, parent targets, and placement targets.
 - Run project preflight and `renku screenplay status --json` before any screenplay create/apply.
-- Run project preflight and confirm an empty Screenplay before FDX import.
-- Never re-run FDX import for a Project that already has an import record.
+- Run project preflight and inspect `sourceOwnership` before FDX import or any
+  Screenplay mutation.
+- Refresh only an existing FDX-backed Screenplay; never convert a Renku-authored
+  Screenplay by supplying an FDX.
+- Treat `imported`, `refreshed`, and `unchanged` as the only FDX outcomes. Never
+  ask for removal approval or pass an approval token.
 - Do not run `renku screenplay create` when any Screenplay content exists; use `renku screenplay apply`.
 - Do not replace an existing screenplay with a fresh full create document. Read the current screenplay and apply focused operations.
 - Reference objects contain exactly one of `id` or `key`.

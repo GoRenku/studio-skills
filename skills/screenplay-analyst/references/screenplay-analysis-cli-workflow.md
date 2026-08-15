@@ -28,9 +28,22 @@ duplicate production-number field to Screenplay Analysis JSON.
 renku screenplay analyze context --json
 ```
 
-The context includes direct Project story metadata, opening content, canonical
+The context includes `analysisMethod`, direct Project story metadata, opening content, canonical
 ordered Scenes and stable Block ids, screenplay references for Cast Members,
 Locations, and Props, default criteria, and the active analysis summary.
+
+Branch before authoring:
+
+- `sourceActMode: flat`: derive three analysis-owned segments. Every FDX-backed
+  Screenplay takes this branch. Analyze only canonical context; never inspect
+  retained FDX XML or infer Acts from New Act, End of Act, Sequence, Outline,
+  Note, marker text, or editor lanes.
+- `sourceActMode: sourceThreeAct`: use each returned source Act's ordered
+  `sceneIds` as the matching analytical segment. Put proposed boundary changes
+  in critique suggestions; do not author alternate memberships. This branch is
+  only for canonical Renku-authored three-Act organization.
+- `supported: false`: stop before model work and report `reason`. Renku
+  currently supports only three-act Screenplay Analysis.
 
 Do not scrape the Studio UI for analysis data.
 
@@ -54,7 +67,9 @@ Fix every structured error. Unknown fields are rejected.
 renku screenplay analyze write --file tmp/operations/screenplay-analysis.json --json
 ```
 
-The write command creates a new history row and makes it active.
+The write command creates a new history row and makes it active. Always run it
+for an ordinary request to analyze the current screenplay; do not treat an
+existing active analysis as completion.
 
 ## 6. Confirm
 
@@ -77,3 +92,5 @@ renku screenplay analyze show --analysis <analysis-id> --json
 - `write` always creates a new analysis row.
 - `set-active` changes only the active pointer.
 - Suggestions are critique only and do not create screenplay rows.
+- No analysis step may call `renku screenplay create`, `apply`, or revision
+  restore.

@@ -10,8 +10,9 @@ Pass criteria:
 - reads `renku director context --json` and uses
   `projectSettings.screenplayImport`;
 - runs deterministic FDX import exactly once through `screenplay-drafter`;
-- coordinates only unambiguous Cast, Location, and Prop facts plus exact
-  bindings without another “start this stage?” question;
+- coordinates only unambiguous Cast, Location, and Prop facts without another
+  “start this stage?” question; it does not write bindings into the read-only
+  FDX-backed Screenplay;
 - asks about ambiguous identity and never matches by name alone;
 - does not proactively generate media, analysis, Scene Beats, or storyboards.
 
@@ -21,7 +22,7 @@ Use a Project with all five import preferences enabled.
 
 Pass criteria:
 
-- facts and bindings settle before their dependent media or analysis work;
+- facts settle before their dependent media or analysis work;
 - continuity images and analysis may overlap once their own prerequisites are
   ready;
 - each Scene Beats waits for required project context;

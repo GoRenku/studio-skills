@@ -58,6 +58,11 @@ For `threeAct`, include exactly three segments in screenplay order with roles
 Scenes exactly once and preserve canonical order. They do not reference
 screenplay Section ids.
 
+When analysis context reports `sourceActMode: sourceThreeAct`, each segment's
+`sceneIds` must equal the corresponding returned source Act membership. If a
+boundary should move, state that recommendation in the relevant Act critique's
+`suggestions`; do not persist competing analytical boundaries.
+
 ## Key Beats
 
 Use the v1 beat keys when they apply:

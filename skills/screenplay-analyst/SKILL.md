@@ -36,12 +36,24 @@ A Screenplay Analysis is critique, evidence, scoring, and suggested improvements
    resolve it with `renku screenplay scene-number resolve --number
    <production-number> --json` before focusing the critique.
 2. Read the current analysis context.
-3. Analyze the canonical ordered Scenes and their text. Derive three analytical
-   Act segments and optional Scene groups independently of screenplay Sections.
+3. Read `analysisMethod.supported` and `analysisMethod.sourceActMode` before
+   doing model work:
+
+   - `flat`: derive three analytical Act segments from canonical Scene order.
+     Every FDX-backed Screenplay uses this mode. Do not look for or infer Acts
+     from Final Draft New Act, End of Act, Sequence, Outline, Note, marker text,
+     or retained source XML.
+   - `sourceThreeAct`: use the three source Act Scene memberships exactly and
+     critique weak boundaries through analysis `critique.suggestions`. This
+     mode is available only from canonical Renku-authored Act organization,
+     never from FDX markers.
+   - `unsupported`: stop before authoring or generation and explain the
+     three-act-only restriction from the returned reason.
 4. Author a complete Screenplay Analysis JSON document.
 5. Validate through the Renku CLI.
 6. Fix validation issues until valid.
-7. Write through the Renku CLI.
+7. Write through the Renku CLI. An ordinary “Analyze this screenplay” request
+   always creates a new analysis revision and makes it active.
 8. Report the active analysis id and the most important critique.
 
 Ask only when a missing creative choice materially changes the critique. If the user wants momentum, make a clear assumption and proceed.
@@ -98,10 +110,12 @@ renku screenplay analyze show --active --json
 ## Non-Negotiables
 
 - Do not write directly to `.renku/project.sqlite`.
-- Do not mutate screenplay scenes while analyzing.
+- Do not call any Screenplay mutation command while analyzing. Analysis never
+  creates, updates, moves, deletes, or organizes screenplay content.
 - Do not create scene rows for suggested additions.
-- Do not use screenplay Act or Sequence Section ids in analysis JSON. Sections
-  are optional organization and never own the analytical structure.
+- Do not use screenplay Act or Sequence Section ids in analysis JSON. For
+  `sourceThreeAct`, copy the returned Scene membership into the three
+  `actSegments` without storing Section ids or alternate boundaries.
 - Partition every current Scene exactly once, in canonical order, across the
   three `actSegments`; do the same across `sceneGroups` when groups are present.
 - Include every accepted key-beat role exactly once. Omit `sceneId` when the

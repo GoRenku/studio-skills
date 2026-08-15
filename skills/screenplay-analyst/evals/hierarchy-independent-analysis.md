@@ -18,5 +18,14 @@ Scenes are stored flat with no Sections. Persist a complete three-act analysis.
 - Includes relevant Prop evidence from context when it materially supports the
   critique.
 - Validates before writing and confirms the new active analysis.
+- Creates a new active revision even when an earlier active analysis exists.
+- For a marker-heavy FDX case, uses `sourceActMode: flat`, reads only canonical
+  context, and never infers Acts from Final Draft marker paragraphs or text.
+- For a separate exactly-three-source-Act case, preserves the returned Act
+  Scene memberships and expresses boundary criticism through suggestions; this
+  counterexample is Renku-authored, not FDX-backed.
+- For 1, 2, 4, or more source Acts, stops before model work with the
+  three-act-only explanation.
+- Never calls a Screenplay mutation command.
 - Does not emit `kind`, Act ids, Sequence ids, duplicated Scene titles, or old
   hierarchy fields.

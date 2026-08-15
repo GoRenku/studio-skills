@@ -43,7 +43,7 @@ Pass:
 - target optional Section, Scene, Cast Member, Location, or Prop ids;
 - any active analysis critique that should drive revision.
 - for FDX work, the absolute source path and confirmation that Screenplay
-  status is empty;
+  status is empty or already FDX-backed;
 - after import, exact candidate evidence and the identity questions that still
   require user judgment.
 
@@ -55,8 +55,11 @@ renku screenplay show --json
 ```
 
 For FDX import, also confirm the report's source hash/counts and that later fact
-creation/binding used focused specialist and Screenplay commands. Do not ask a
-specialist to expose ScriptNotes or to re-import over existing provenance.
+creation used focused specialist commands. Do not ask a
+specialist to expose ScriptNotes. A valid changed source refreshes
+automatically; do not ask for a diff, removal confirmation, or approval token.
+Confirm the canonical Screenplay is a flat source-ordered Scene list even when
+the FDX contains planning markers.
 
 For scene revisions, inspect command output for Scene Beats revision impact.
 
@@ -73,6 +76,8 @@ Pass:
 - current project;
 - user-specified analysis focus;
 - any known constraints, such as runtime, audience, or genre.
+- the expectation that results appear in Studio under Analysis > Screenplay
+  Analysis.
 
 Verify:
 

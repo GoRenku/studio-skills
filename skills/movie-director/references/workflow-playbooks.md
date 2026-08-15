@@ -21,15 +21,16 @@ For Codex runs, remember that local Studio HTTP notification is network access. 
 
 1. Read `renku director context --json` and retain
    `projectSettings.screenplayImport` for follow-up dispatch.
-2. Confirm the current Screenplay is empty and dispatch the absolute `.fdx`
-   path to `screenplay-drafter`.
+2. Confirm the current Screenplay is empty or already FDX-backed and dispatch
+   the absolute `.fdx` path to `screenplay-drafter`. Never convert a populated
+   Renku-authored Screenplay.
 3. Read back the canonical Screenplay and import candidates. The deterministic
    importer stops here and returns evidence to this coordinator.
 4. If `createContinuitySubjects` is enabled, compare candidate
    cues/headings/tags with existing Project facts, resolve ambiguity with the
    user, dispatch accepted facts to `casting-director` and
-   `production-designer`, then dispatch exact reference bindings back to
-   `screenplay-drafter`. Never match by name alone.
+   `production-designer`. Never match by name alone, and do not dispatch
+   Screenplay reference bindings for an FDX-backed Screenplay.
 5. If `generateContinuityImages` is enabled, dispatch `cast.profile`,
    `location.hero`, or `prop.hero` only after each accepted subject is ready.
 6. If `runScreenplayAnalysis` is enabled, dispatch `screenplay-analyst` after
@@ -48,8 +49,13 @@ prerequisites; storyboard work never starts before its Scene has an active
 Scene Beats revision. A missing prerequisite stops only the dependent stage and is reported
 clearly.
 
-Never report ScriptNotes or formatting as missing content, and never attempt a
-second import, merge, or overwrite.
+Treat `imported`, `refreshed`, and `unchanged` as the only FDX outcomes. Valid
+changed sources are accepted automatically; never request a diff, removal
+approval, or token. Confirm the result is a flat source-ordered Scene list.
+Final Draft planning markers and outline lanes do not become Renku Acts or
+Sequences and must not guide analysis membership. Never report ScriptNotes or
+formatting as missing content, and never treat refresh as a merge or partial
+overwrite.
 
 ## Cast Refinement Prompt
 

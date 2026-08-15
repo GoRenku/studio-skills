@@ -56,23 +56,28 @@ facts by guessing from cue or heading strings.
 
 ## Import Final Draft FDX
 
-Use only when Screenplay status is entirely empty:
+Use when Screenplay status is entirely empty or `sourceOwnership` is `fdx`:
 
 ```bash
 renku screenplay import-fdx --file /absolute/path/to/script.fdx --json
 ```
 
-The JSON report returns exact source provenance, counts, character-cue and
-Scene-heading candidates, and optional tagged-subject evidence. It creates no
+The JSON report returns `imported`, `refreshed`, or `unchanged`, exact source
+provenance, counts, character-cue and Scene-heading candidates, and optional
+tagged-subject evidence. It creates no
 Cast Member, Location, Prop, or Screenplay reference. Return this evidence to
 `movie-director`, which consumes `projectSettings.screenplayImport`, resolves
 ambiguous identity with the user, and dispatches only enabled follow-up stages.
-Add focused references with `renku screenplay apply` only after the coordinator
-returns accepted durable ids.
+The coordinator may use accepted evidence for Project fact work, but do not add
+Screenplay references after import. FDX ownership blocks every generic
+`screenplay apply` operation, including `reference.*`.
 
-Do not describe ScriptNotes, formatting, or editor state as warnings. Do not
-retry the command as overwrite/merge; a Project can retain only one FDX import
-in the current workflow.
+Every valid changed source refreshes automatically; there is no diff, removal
+approval, or approval token. A refresh mirrors the source and is not a merge.
+Every FDX projection is a flat source-ordered Scene list. Do not turn Final
+Draft New Act, End of Act, Sequence, Summary, Outline, Note, ScriptNote, marker
+text, or editor lanes into Renku Acts or Sequences. Do not describe formatting
+or editor state as warnings.
 
 ## Create A First Screenplay
 
@@ -87,6 +92,8 @@ renku screenplay create --file tmp/operations/screenplay-create.json --json
 ## Revise An Existing Screenplay
 
 Use this path whenever Screenplay status reports any authored content.
+It is available only when `sourceOwnership` is `renku`; FDX-backed Screenplays
+are source-owned and read-only.
 Read the current canonical state first:
 
 ```bash
@@ -108,6 +115,9 @@ Carry only the returned durable `sceneId` into persisted screenplay JSON.
 ```bash
 renku screenplay apply --file tmp/operations/screenplay-operations.json --json
 ```
+
+There is no separate validate or dry-run command for Screenplay operations.
+`apply` validates the complete batch atomically and writes nothing on failure.
 
 ## Read Helpers
 

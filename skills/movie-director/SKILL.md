@@ -106,7 +106,9 @@ Use this loop for every request:
 
 - Use `screenplay-drafter` for deterministic FDX import, screenplay creation,
   and screenplay revisions.
-- Use `screenplay-analyst` for critique, three-act analysis, structure notes, and revision guidance.
+- Use `screenplay-analyst` for critique, three-act analysis, structure notes,
+  and revision guidance. The Studio destination is **Analysis > Screenplay
+  Analysis**.
 - Use `casting-director` for Cast Member facts, Cast Design, costume continuity, voice casting notes, and cast media readiness.
 - Use `production-designer` for Location and Prop facts, Location Design, Prop
   Design, set dressing, atmosphere, and production-design media readiness.

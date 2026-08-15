@@ -32,8 +32,11 @@ neighbouring Scene.
 
 ## Three-Act Lens
 
-Derive three analytical Act segments from canonical Scene order. These are
-analysis-owned partitions, not references to optional screenplay Act Sections.
+For a flat Screenplay, derive three analytical Act segments from canonical
+Scene order. For exactly three source Acts, evaluate those Acts and preserve
+their returned Scene memberships exactly. These never store screenplay Section
+ids. Recommend a better source boundary through critique suggestions rather
+than moving it inside analysis.
 Each current Scene appears exactly once across the three segments, in order.
 Optional `sceneGroups` provide a second analysis-owned partition for sequences
 of dramatic development; they likewise cover each Scene exactly once in order.
@@ -79,5 +82,6 @@ Suggested scene additions should include purpose, synopsis, rationale, and expec
 - Do not invent runtime, page numbers, shot timings, edit pacing, or post-production facts.
 - Do not rewrite scenes inside the analysis document.
 - Do not create new Cast Member, Location, Prop, Section, or Scene ids.
-- Do not use screenplay Act/Sequence Section ids as analytical ownership.
+- Do not use screenplay Act/Sequence Section ids as analytical ownership or
+  invent alternate boundaries for a three-source-Act Screenplay.
 - Do not claim a beat exists when the screenplay only implies it weakly.
