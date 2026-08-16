@@ -263,6 +263,9 @@ Pass criteria:
   modeled lighting, or a new finish;
 - first checks whether an accepted image can be placed in `valueAndAccent`
   without another generation;
+- does not automatically add the canonical `styleBrief` image to
+  `valueAndAccent`, and does not retain that broad placement after a dedicated
+  Value and Accent example is accepted;
 - when generation remains useful, inspects the same-Lookbook candidates and
   deliberately selects an accepted image in the `visual-language` /
   `lookbook-style-reference` slot as the visible style anchor;

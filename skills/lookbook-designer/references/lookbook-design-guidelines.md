@@ -97,9 +97,15 @@ Guardrails:
 Reject Storyboard Lookbook prose that cannot become visible prompt instructions.
 Translate it into medium, marks, values, palette, and readable style.
 
-Section placement is evidence organization, not separate art direction. Reuse
-an accepted example across multiple sections when it already demonstrates those
-properties; do not generate a new image merely to fill every section.
+Section placement is evidence organization, not separate art direction. Default
+each Storyboard example to the single section it most clearly demonstrates. The
+canonical overall-style image belongs in `styleBrief` unless the user explicitly
+wants it repeated elsewhere. Reuse an accepted example across multiple sections
+only when the repetition itself is useful evidence and no dedicated example
+already covers the secondary section. Once a dedicated example exists, narrow
+the broader image's placement with `lookbook image set-placement`. An empty
+section image area is better than repeating a generic image as filler, and a
+Lookbook does not need a generated image for every section.
 
 For updates, preserve the existing style unless the user asks for a full
 replacement.

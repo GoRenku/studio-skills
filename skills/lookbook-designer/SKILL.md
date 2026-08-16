@@ -144,6 +144,7 @@ renku lookbook show --kind <production|storyboard> --json
 - For Production Lookbook point evidence, pass `--anchor <point-id>` to `lookbook image set-placement` and include the point-owning section in `--sections`. Additional sections remain section-level placements, e.g. `--sections thesis,texture --anchor texture-cannon-material-states` shows the image under Thesis and beside that Texture point.
 - Production `thesis` is a single-image slot. Placing an image with `--sections thesis` replaces the previous Thesis placement without discarding that previous image or removing its other placements. Other Production section and point placements append until the slot has 10 images.
 - Use `renku lookbook image set-placement --image <lookbook-image-id> --sections <section>[,<section>] [--anchor <point-id>] --json` to retag or re-anchor an existing Lookbook image with the same placement rules.
+- For Storyboard Lookbooks, default an image to one section. Keep the canonical overall-style image in `styleBrief` only, and narrow any earlier multi-section placement after accepting a dedicated section example. Never repeat an image merely to avoid an empty section.
 - Never discard and re-import a Lookbook image merely to change its section or point placement. `renku lookbook image discard` is only for intentional removal requested by the user.
 - Validate before apply.
 - Read the existing Lookbook before updating it.

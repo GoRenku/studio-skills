@@ -4,7 +4,12 @@ Use `lookbook.image` with target `lookbook:<lookbook-id>`. Context recommends th
 
 Read the target Lookbook and its existing images before deciding to generate.
 If an accepted image already demonstrates the requested section property, reuse
-it with `renku lookbook image set-placement` instead of creating a filler image.
+it with `renku lookbook image set-placement` instead of creating a filler image,
+but do not make multi-section placement the default. For Storyboard Lookbooks,
+keep the canonical overall-style image in `styleBrief` only unless the user asks
+to repeat it. Prefer one clearest section per example; if a dedicated example
+already covers a section, remove any broader image placement there. Leaving a
+section without an image is better than repeating a generic image as filler.
 
 For the first example, generate from the user's direction and visible source
 references. For every later example that the user expects to match the accepted

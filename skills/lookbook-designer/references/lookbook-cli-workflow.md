@@ -46,16 +46,22 @@ renku lookbook show --kind <production|storyboard> --json
    Tag each image with the clearest style aspect it demonstrates so Studio can
    show it next to the right widget. Production aspects are `thesis`, `palette`, `toneMood`,
    `composition`, `lighting`, `texture`, `camera`. Storyboard aspects are
-   `styleBrief`, `lineAndFinish`, `valueAndAccent`, `guardrails`. Prefer one
-   aspect for a dedicated evidence image, but reuse and place the same accepted
-   image in multiple sections when it genuinely demonstrates them. Section
-   placement does not authorize a different visual style, and a Lookbook does
-   not need a separate generated image for every section. When a Production Lookbook
-   image clearly demonstrates one specific pattern or observation, anchor it to
-   that point with `--anchor <point-id>` and include the point-owning section in
-   `--sections` so it renders beside that point. Additional `--sections` values
-   remain broad section placements. Use `--sections thesis` for a Production thesis
-   hero image; when the same image is also exact point evidence, use a mixed
+   `styleBrief`, `lineAndFinish`, `valueAndAccent`, `guardrails`. Default each
+   Storyboard example to the single aspect it demonstrates most clearly. Place
+   the canonical overall-style image in `styleBrief` only unless the user asks
+   to repeat it. Multi-section placement is intentional reuse, not a default:
+   use it only when the repetition adds useful evidence and no dedicated image
+   already covers the secondary section. When a dedicated example is later
+   accepted, use `set-placement` to remove the broader image from that section.
+   Leave a section without images rather than repeat a generic image as filler;
+   a Lookbook does not need a separate generated image for every section.
+   Section placement does not authorize a different visual style. When a
+   Production Lookbook image clearly demonstrates one specific pattern or
+   observation, anchor it to that point with `--anchor <point-id>` and include
+   the point-owning section in `--sections` so it renders beside that point.
+   Additional `--sections` values remain broad section placements. Use
+   `--sections thesis` for a Production thesis hero image; when the same image
+   is also exact point evidence, use a mixed
    placement such as `--sections thesis,texture --anchor
    texture-cannon-material-states`. Set the `styleBrief` image (the overall
    look) as the Storyboard card image so it becomes the detail-page hero.
