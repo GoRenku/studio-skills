@@ -1,31 +1,38 @@
 {
-  "executionKind": "renku-managed",
+  "executionKind": "agent-external",
   "purpose": "scene.storyboard-sheet",
   "target": { "kind": "scene", "id": "scene_foundry" },
-  "model": { "provider": "fal-ai", "model": "openai/gpt-image-2/edit" },
+  "model": { "provider": "codex", "model": "gpt-image-2" },
   "values": {
-    "prompt": "Create a hand-drawn production storyboard sheet for the selected foundry Beats. Use @Reference1 for drawing language, value grouping, and notation behavior. Preserve the Cast identity from @Reference2 and the foundry environment from @Reference3. Arrange four complete 16:9 panels in Beat order in a clean grid within the model-supported output canvas, with clear gutters and no cropped, stretched, overlapping, or merged panel image regions. Keep the panels warm and practical for shot planning."
+    "prompt": "ARTIFACT AND GOAL\nCreate one high-resolution full storyboard composite for four consecutive pre-production story Beats in the foundry. The panels must communicate the narrative progression clearly; they are not production Shot coverage.\n\nREFERENCE ROLES\n@Reference1 is the sole Storyboard appearance authority. Render every panel only in its coarse hand-drawn visual language, including its demonstrated linework, value structure, texture, color treatment, and detail density.\n@Reference2 is Urban's Character continuity authority. Preserve his identity, facial and body features, silhouette, proportions, dark leather apron, tied-back hair, and scarred right hand. Re-render him in @Reference1's Storyboard style; do not copy @Reference2's photographic lighting, finish, or realism.\n@Reference3 is Mara's Character continuity authority. Preserve her identity, facial and body features, silhouette, proportions, blue work coat, short curls, and brass ear cuff. Re-render her in @Reference1's Storyboard style; do not copy @Reference3's photographic lighting, finish, or realism.\n@Reference4 is the foundry Location continuity authority. Preserve the furnace at frame left, long central worktable, north-wall tool rack, arched rear doorway, and clear walking route between table and furnace. Re-render the Location in @Reference1's Storyboard style; do not copy @Reference4's photographic lighting, finish, or realism.\n@Reference5 is the bronze seal Prop continuity authority. Preserve its palm-sized scale, octagonal construction, raised basilica mark, dark bronze material, worn lower edge, and intact condition. Re-render it in @Reference1's Storyboard style; do not copy @Reference5's photographic finish or realism.\n\nPANEL 1 — DISCOVERY\nA complete 16:9 composition. From a clear room-revealing viewpoint, Urban stands left of the central worktable at medium scale while Mara enters through the rear arch at frame right. Urban looks down at the bronze seal lying near the table's front edge; Mara's gaze follows his hand. Keep the furnace, worktable, rear arch, and walking route legible.\n\nPANEL 2 — WARNING\nA complete 16:9 composition. Urban now holds the bronze seal between both scarred hands at chest height near frame left. Mara has crossed to the opposite side of the table at frame right and extends one open hand toward the seal without touching it. Their opposing gazes meet across the Prop; preserve their costumes, relative scale, and foundry geography.\n\nPANEL 3 — COMMITMENT\nA complete 16:9 composition. Center the worktable as Urban presses the bronze seal firmly into wax on the map. His right hand visibly drives the action. Mara stands behind the table, leaning forward with her gaze fixed on the contact point. Show the seal's octagonal silhouette, raised mark, worn edge, and intact state clearly.\n\nPANEL 4 — CONSEQUENCE\nA complete 16:9 composition. The sealed map remains on the table in the foreground, the bronze seal resting beside the fresh impression. Urban has stepped back toward the furnace at frame left, shoulders lowered; Mara remains beside the table at frame right and watches him rather than the seal. Preserve all established identity, costume, geography, and Prop continuity.\n\nCROSS-PANEL CONTINUITY\nKeep left/right geography, Character appearance, costume, scale, and the bronze seal's construction and condition stable across all panels. Progress action continuously from discovery to warning to commitment to consequence.\n\nAPPEARANCE\nDerive every rendering choice only from @Reference1. The realistic Character, Location, and Prop sheets preserve canonical subject facts but must not introduce photographic realism, source lighting, or source finish.\n\nLAYOUT AND OUTPUT\nReturn one high-resolution full storyboard composite containing exactly four equal-priority 16:9 panel image regions in Beat order. Use a clean grid with clear gutters. Keep every panel complete, independently composed, useful for a durable crop, and free of cropping, stretching, overlap, or merging. Keep any panel labels outside the image regions.\n\nEXCLUSIONS\nNo extra Characters or Props. No internal ids, captions, dialogue, production camera notes, lens labels, or text inside panel image regions."
   },
   "references": [
     {
       "placement": { "kind": "slot", "sectionId": "visual-language", "slotId": "storyboard-lookbook-sheet" },
-      "providerField": "image_urls",
       "promptMention": "@Reference1",
       "reference": { "kind": "asset-file", "assetId": "asset_storyboard_lookbook_sheet", "assetFileId": "asset_file_storyboard_lookbook_sheet" }
     },
     {
-      "placement": { "kind": "slot", "sectionId": "cast", "slotId": "character-sheet", "subject": { "kind": "castMember", "id": "cast_mara" } },
-      "providerField": "image_urls",
+      "placement": { "kind": "slot", "sectionId": "cast", "slotId": "character-sheet", "subject": { "kind": "castMember", "id": "cast_urban" } },
       "promptMention": "@Reference2",
+      "reference": { "kind": "asset-file", "assetId": "asset_urban_character_sheet", "assetFileId": "asset_file_urban_character_sheet" }
+    },
+    {
+      "placement": { "kind": "slot", "sectionId": "cast", "slotId": "character-sheet", "subject": { "kind": "castMember", "id": "cast_mara" } },
+      "promptMention": "@Reference3",
       "reference": { "kind": "asset-file", "assetId": "asset_mara_character_sheet", "assetFileId": "asset_file_mara_character_sheet" }
     },
     {
       "placement": { "kind": "slot", "sectionId": "location", "slotId": "location-sheet", "subject": { "kind": "location", "id": "location_foundry" } },
-      "providerField": "image_urls",
-      "promptMention": "@Reference3",
+      "promptMention": "@Reference4",
       "reference": { "kind": "asset-file", "assetId": "asset_foundry_location_sheet", "assetFileId": "asset_file_foundry_location_sheet" }
+    },
+    {
+      "placement": { "kind": "slot", "sectionId": "prop", "slotId": "prop-sheet", "subject": { "kind": "prop", "id": "prop_bronze_seal" } },
+      "promptMention": "@Reference5",
+      "reference": { "kind": "asset-file", "assetId": "asset_bronze_seal_prop_sheet", "assetFileId": "asset_file_bronze_seal_prop_sheet" }
     }
   ],
-  "nextPromptMentionNumber": 4,
+  "nextPromptMentionNumber": 6,
   "title": "Foundry storyboard sheet 1"
 }

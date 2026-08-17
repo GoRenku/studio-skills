@@ -2,6 +2,12 @@
 
 Design Beats around narrative development, not coverage.
 
+Create the narrative-appropriate number of Beats. A Scene may need five, six,
+ten, or another count. Do not merge, split, pad, remove, or reorder narrative
+developments to fit the later up-to-four-panel image batching optimization.
+Storyboard review may reveal relative pace or timing, but those observations do
+not become Beat duration fields.
+
 For each Beat:
 
 - `narrativeDevelopment` says what changes, is discovered, is decided, or becomes emotionally legible.

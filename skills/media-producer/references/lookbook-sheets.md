@@ -1,6 +1,12 @@
 # Lookbook Sheets
 
-Use `lookbook.video-sheet` for final-video visual language and `lookbook.storyboard-sheet` for storyboard drawing language. Both target `lookbook:<lookbook-id>`, allow multiple attached sheets, and currently recommend 4:3, high quality, and GPT Image 2 through context.
+Use `lookbook.video-sheet` for final-video visual language and
+`lookbook.storyboard-sheet` for arbitrary Beat Storyboard appearance language.
+Both target `lookbook:<lookbook-id>`, allow multiple attached sheets, and
+currently recommend 4:3, high quality, and GPT Image 2 through context. A
+Storyboard Sheet may demonstrate photorealistic, realistic, illustrative,
+graphic, painterly, hand-drawn, abstract, or another deliberate language; do
+not assume linework or drawing.
 
 Resolve target ids by role. There is no Lookbook collection or selection state:
 
@@ -23,7 +29,13 @@ Lookbook Sheets are request-scoped candidates. Never pass `--select` and never
 create a global selected Lookbook Sheet. Put the exact chosen AssetFile only in
 the consuming GenerationSpec reference.
 
-A `lookbook.storyboard-sheet` is the preferred candidate for the `visual-language/storyboard-lookbook-sheet` slot in `scene.storyboard-sheet` context. If none is available, context returns non-blocking guidance. Create or attach one when the user wants stronger storyboard consistency, then re-read Scene context. Do not call it a dependency or substitute a Video Lookbook Sheet.
+A `lookbook.storyboard-sheet` is a candidate for the
+`visual-language/storyboard-lookbook-sheet` slot in `scene.storyboard-sheet`
+context. Core keeps that request-scoped slot optional and unselected. The agent
+workflow nevertheless requires one exact usable Sheet for every Beat
+Storyboard request. If none is available, create or attach one and obtain
+acceptance before continuing. Never substitute a Video/Production Lookbook
+Sheet or use Production Lookbook prose as an independent appearance source.
 
 After inspection, attach through the matching focused purpose:
 

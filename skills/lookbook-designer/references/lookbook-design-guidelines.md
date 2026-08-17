@@ -41,12 +41,15 @@ Camera:
 
 ## Storyboard Lookbooks
 
-A Storyboard Lookbook captures a drawing/illustration **style**, used to generate
-sample storyboard images. It is not shot direction: do not include camera,
-composition, panel notation, screen direction, or continuity — those are directed
-later in the flow. The style is open-ended: graphite hand-drawn, realistic,
-cartoon, watercolour, rough sketch, full colour, and so on. Do not assume graphite
-or monochrome.
+A Storyboard Lookbook captures an arbitrary Storyboard **visual language** used
+to generate Beat Storyboard images. It is the sole appearance authority for
+those images. It may define project-wide notation and continuity-clarity
+conventions. It is not Shot direction: do not include camera, composition,
+panel staging, screen direction, crop behavior, or Scene-specific continuity—
+those are decided later per Scene and Beat. The visual language may be photorealistic,
+realistic, illustrative, graphic, painterly, hand-drawn, abstract, monochrome,
+full color, or another deliberate system. Do not assume linework, drawing,
+graphite, warmth, or any other medium.
 
 Every section has a required `text` field (the prompt-facing source of truth). Add
 the optional structured fields when they fit the style; they drive the Studio
@@ -55,14 +58,14 @@ style widgets so a reader can see what the text describes.
 Treat the sections as orthogonal descriptions of one immutable visual identity.
 `styleBrief` establishes that identity; `lineAndFinish`, `valueAndAccent`, and
 `guardrails` constrain the same medium and finish. A later section must not
-introduce a second drawing technique merely because its widget describes a
+introduce a second rendering technique merely because its widget describes a
 different property. Derive section language from accepted visual references
 when they exist, and make every example image look as though it came from the
 same artist and production system.
 
 Style Brief:
 
-- summarize the drawing language in practical, visible terms;
+- summarize the visual language in practical, visible terms;
 - set `styleKind` to the medium (e.g. "graphite hand-drawn", "realistic",
   "cel cartoon"); provide a `palette` of named ColorSwatches (full colour for
   colour styles, a limited substrate/line/midtone/accent set for monochrome) and
@@ -70,8 +73,9 @@ Style Brief:
 
 Line and Finish:
 
-- specify line weight, looseness, visible construction, medium behaviour, and
-  finish level;
+- specify line weight, looseness, visible construction, and mark behavior when
+  linework exists; for realistic or other no-linework styles, describe edge
+  behavior, tonal modeling, surface treatment, and finish level instead;
 - inherit the medium and rendering level established by `styleBrief`; do not
   use this section to reinterpret the overall style;
 - provide `marks` (label + relative thickness, heaviest to lightest) and optional
@@ -95,7 +99,8 @@ Guardrails:
   in `favored`, plus a short `text` summary.
 
 Reject Storyboard Lookbook prose that cannot become visible prompt instructions.
-Translate it into medium, marks, values, palette, and readable style.
+Translate it into medium, form/edge or mark behavior, values, palette, texture,
+detail density, and readable style.
 
 Section placement is evidence organization, not separate art direction. Default
 each Storyboard example to the single section it most clearly demonstrates. The

@@ -20,8 +20,8 @@ Then pass the returned durable `sceneId` to the owning specialist.
 | Create/revise durable Prop facts, Prop Design, or Prop media readiness | Production Design | `production-designer` | `renku production-design prop context --prop <prop-id> --json` |
 | Analyze reference folders, extract visual principles from images | Cinematography / Visual Language | `inspiration-analyzer` | `renku inspiration show --folder <folder-id> --json` |
 | Create, revise, or connect the project's Production Lookbook or Storyboard Lookbook to Inspiration folders | Cinematography / Visual Language | `lookbook-designer` | `renku lookbook show --kind <production\|storyboard> --json` |
-| Design or revise scene narrative Beats and their illustration context | Directing / Beat Design | `scene-beat-designer` | `renku screenplay beats context --scene <scene-id> --json` |
-| Create or iteratively revise a Scene Shot Plan, individual Shots, coverage, order, or selected Shot imagery | Directing / Shot Planning | `shot-planner` | `renku shot-plan list --scene <scene-id> --json` |
+| Design or revise narrative-appropriate Scene Beats; visualize their ordered story developments for pre-production alignment | Directing / Beat Design | `scene-beat-designer`, then `media-producer` for `scene.storyboard-sheet` | `renku screenplay beats context --scene <scene-id> --json` |
+| Create or iteratively revise director/cinematographer production camera coverage, a Scene Shot Plan, individual Shots, order, or selected Shot imagery | Directing / Shot Planning | `shot-planner` | `renku shot-plan list --scene <scene-id> --json` |
 | Generate or import media | Media Production | `media-producer` | `renku generation context --purpose <purpose> --target <target> --json` |
 
 ## Default Production Order
@@ -32,13 +32,15 @@ Then pass the returned durable `sceneId` to the owning specialist.
 4. Screenplay analysis and targeted revision.
 5. Inspiration folders and Inspiration Analysis.
 6. Project Production Lookbook.
-7. Project Storyboard Lookbook, with its `lookbook.storyboard-sheet` available
-   as non-blocking guidance when one exists.
+7. Project Storyboard Lookbook and one accepted
+   `lookbook.storyboard-sheet` before Beat Storyboard generation.
 8. Cast Design, Location Design, and Prop Design.
 9. Cast Character Sheets, Cast Profiles, Location Sheets, and Prop Sheets.
-10. Scene Beats.
-11. Per-Beat storyboard images.
-12. Scene Shot Plans and selected Shot images when useful.
+10. Scene Beats, with cardinality determined only by narrative development.
+11. Per-Beat Storyboard images, batched only at generation time in consecutive
+    groups of up to four without changing the saved revision.
+12. Scene Shot Plans and selected Shot Images when production camera coverage
+    is useful.
 13. Future Shot video authoring and post/editorial work.
 
 ## Current Gaps

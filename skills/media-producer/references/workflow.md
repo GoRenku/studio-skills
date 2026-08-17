@@ -58,10 +58,10 @@ Context is the source of truth for fixed product settings, selectable models, st
   explicit input mode. The Shot Plan does not own request or completion state.
   Retry a supplied frozen Spec unchanged; create a new mutable Spec before
   changing the request.
-- Read `workflowPolicy` for path preference, automatic Preview, per-lane
-  conversational confirmation, and effective concurrency. Explicit current
-  user direction wins, followed by an already-authored saved-spec path, then
-  Project policy. If no usable path remains, ask.
+- Read the Project generation settings for the image path, automatic Preview,
+  confirmation, and concurrency. Codex is the default image path. Explicit
+  current user direction wins, followed by an already-authored saved-spec path,
+  then the Project setting. If no usable path remains, ask.
 
 ## Exact references
 
@@ -89,17 +89,17 @@ Do not infer creative dependencies, manufacture missing media, walk provenance, 
 
 ## Codex image generation path
 
-Use this path when explicit current user direction, the saved spec, or
-Generation Context `workflowPolicy.preferredExecutionPath` selects Codex. The
-policy applies only when `codexBuiltIn.applicable` is true and the current
-harness exposes `codex.gpt-image-2`. If the capability is absent, ask for a
+Use this path when explicit current user direction, the saved spec, or the
+Project's **Use Codex for image generation** setting selects Codex. The setting
+is on by default. The current harness must expose `codex.gpt-image-2`. If the
+capability is absent, ask for a
 path; never silently switch to a paid Renku route.
 Before invoking Codex image generation, save the exact request as a normal
 GenerationSpec. Use `"executionKind": "agent-external"`, record the provider and
 model actually used by the current Codex image tool, and use exactly
 `values: { "prompt": "..." }`. The prompt is the complete, exact instruction
-sent to Codex. Preserve every reviewed requirement there, including `16:9`,
-composition, visual quality, format direction, and creative constraints. Store
+sent to Codex. Preserve every reviewed requirement there, including the Project
+aspect ratio, composition, visual quality, format direction, and creative constraints. Store
 selected image inputs only as logical `references`.
 
 If the user switches an already-saved request from Renku execution to Codex,
@@ -128,11 +128,11 @@ Save first, then generate:
 
 ```bash
 renku generation spec create --file tmp/specs/external-generation-spec.json --json
-renku generation preview show --spec <returned-spec-id> --json # when policy enables it or the user requests it
+renku generation preview show --spec <returned-spec-id> --json # when the Project setting enables it or the user requests it
 ```
 
 Do not treat Preview as a Codex generation-approval gate. Pause before the tool
-only when `workflowPolicy.codexBuiltIn.requirePerRunConfirmation` is true.
+only when the Project's Codex confirmation setting is on.
 After the Preview decision is satisfied, read the saved spec again so any
 already-applied prompt or reference changes are included, then freeze that
 exact saved revision immediately before invoking Codex:
@@ -165,14 +165,13 @@ Dialogue Audio Takes are request-scoped references and never use this flag.
 
 ## Preview and managed price approval
 
-Open Studio Preview automatically only when `workflowPolicy.displayPreview` is
-true, and always when the user explicitly requests it. Open only the saved
+Open Studio Preview automatically only when the Project Preview setting is on,
+and always when the user explicitly requests it. Open only the saved
 request with `preview show --spec`. This keeps the prompt, reference cards,
 model settings, and Update action connected to the same saved request. Showing
 Preview does not execute generation. Renku-managed execution always requires
 the exact current estimate token. Conversational confirmation is separate and
-follows `workflowPolicy.renkuManaged.requirePerRunConfirmation`. Codex follows
-its own lane value.
+follows the Project's Renku or Codex confirmation setting.
 
 Use repeated flags to review several complete, independent requests together while preserving order:
 
@@ -195,11 +194,12 @@ change:
 1. update and validate the spec;
 2. show Preview again;
 3. estimate again;
-4. honor the Renku lane's current conversational confirmation value.
+4. honor the Project's Renku confirmation setting.
 
 The returned token approves provider/model pricing facts, not the creative payload. A pricing-input change can produce a different token; a prompt or reference change can leave the token unchanged. Always pass the token returned by the latest estimate review, even when conversational confirmation is off, and never treat token equality as proof that execution inputs are unchanged or ready.
 
-For batches, cap independent overlapping work at the lane's effective
+For batches, cap independent overlapping work at the selected execution
+method's effective
 `concurrencyLimit`. Preserve one spec, Preview decision, estimate/token or
 external freeze, execution, inspection, and attachment per request. A batch is
 not a durable queue and dependent requests remain sequential.
@@ -213,17 +213,19 @@ the agent owns this complete workflow:
 2. Author a new `image.edit` GenerationSpec targeting that source Asset. Put
    the exact source AssetFile in the locked `source/source-image` slot, write
    the user's edit prompt, and add only deliberately selected references.
-3. Select the path through user direction, saved spec, then `workflowPolicy`.
+3. Select the path through user direction, saved spec, then the single Project
+   image-generation setting.
    Use the external `codex/gpt-image-2` identity only when that precedence
    selects an applicable, available Codex path.
-4. Save the draft and apply the Preview policy for that saved spec. Managed requests keep
+4. Save the draft and apply the Project Preview setting for that saved spec. Managed requests keep
    their normal Preview editing behavior. For `agent-external`, Preview may
    update only prompt and reference slots. Change its provider, model, or any
    non-prompt saved value with `renku generation spec update --spec <id>
    --file tmp/specs/generation-spec.json`, then open Preview again.
 5. For Renku-managed execution, obtain the exact current estimate token and
-   honor the Renku lane confirmation value. For Codex external execution, honor
-   the Codex lane confirmation value, read the saved revision, freeze it, and
+   honor the Project's Renku confirmation setting. For Codex external execution,
+   honor the Project's Codex confirmation setting, read the saved revision,
+   freeze it, and
    invoke the built-in image tool. Any changed request requires a new reviewed
    spec; never mutate a frozen request.
 6. Execute the request through Renku or Codex as selected.

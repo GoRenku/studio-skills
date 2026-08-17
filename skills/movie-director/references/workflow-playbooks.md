@@ -1,11 +1,11 @@
 # Workflow Playbooks
 
 Use these playbooks when a user asks for an outcome rather than naming a single
-department. Always preserve explicit user choices. Pass Generation Context
-`workflowPolicy` to `media-producer`; do not recreate path, Preview,
-confirmation, or concurrency defaults in this coordinator. Every Renku-managed
-run still uses its exact estimate token regardless of the conversational
-confirmation preference.
+department. Always preserve explicit user choices. Pass the Project generation
+settings to `media-producer`; do not recreate image-path, Preview, confirmation,
+or concurrency defaults in this coordinator. Every Renku-managed run still
+uses its exact estimate token regardless of the conversational confirmation
+setting.
 
 For Codex runs, remember that local Studio HTTP notification is network access. Before dispatching any specialist step that will mutate Renku state while Studio is running, make sure the mutating CLI command is run with sandbox/network permission. If `CLI026` appears, do not rerun non-idempotent mutations just to notify Studio.
 
@@ -73,12 +73,21 @@ overwrite.
 ## Scene To Scene Beats To Storyboard Images
 
 1. Read director context, preferably with a selected scene.
-2. If no Production Lookbook exists, dispatch to `lookbook-designer` first unless the user explicitly wants text-only Beat work.
-3. If no Storyboard Lookbook exists and storyboard images are requested or implied by a saved Scene Beats revision, dispatch to `lookbook-designer` to create one unless the user explicitly asked for text-only/no-media work.
-4. If the Storyboard Lookbook has a `lookbook.storyboard-sheet`, pass
-   that exact candidate to `media-producer` as non-blocking guidance. Do not
-   require a sheet before Scene Storyboard generation.
+2. A Production Lookbook may inform finished-film and production-planning work,
+   but it is not an appearance input for Beat Storyboards.
+3. If no Storyboard Lookbook exists and Storyboard images are requested or
+   implied by a saved Scene Beats revision, dispatch to `lookbook-designer` to
+   create one unless the user explicitly asked for text-only/no-media work.
+4. Require one exact usable `lookbook.storyboard-sheet` before Scene
+   Storyboard generation. If it is missing, dispatch its preparation and
+   acceptance; never substitute Production Lookbook styling or prose-only
+   appearance guidance.
 5. If no active Scene Beats exists or the user asks to revise Beats, dispatch to `scene-beat-designer`.
-6. If storyboard images are missing after the Scene Beats pass, dispatch to `media-producer` with the exact revision id and `scene.storyboard-sheet` unless the user explicitly asked for text-only/no-media work.
-7. When the user wants cinematic coverage, dispatch the current Scene, Beat
-   revision, and deliberately chosen visual context to `shot-planner`.
+6. If Storyboard images are missing after the Scene Beats pass, dispatch to
+   `media-producer` with the exact unchanged revision id, missing Beat ids, and
+   `scene.storyboard-sheet`. Media Producer alone batches requested image work
+   into groups of up to four.
+7. When the user wants camera coverage or other production planning, dispatch
+   the current Scene, Beat revision, and deliberately chosen visual context to
+   `shot-planner`. Do not route story-visualization requests through Shot
+   Planner or `shot.image`.

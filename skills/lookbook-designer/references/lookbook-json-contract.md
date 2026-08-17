@@ -74,9 +74,14 @@ Production `thesis` is single-image placement. A new Thesis placement replaces t
 
 ## Storyboard Lookbook
 
-A Storyboard Lookbook describes a drawing/illustration **style**, not shot
-direction. Camera, composition, panel notation, screen direction, and continuity
-are directed later in the flow and must not appear here.
+A Storyboard Lookbook describes arbitrary Storyboard **visual language**, not
+Shot direction. Photorealistic, realistic, illustrative, graphic, painterly,
+hand-drawn, abstract, and no-linework systems are equally valid. Project-wide
+notation and continuity-clarity conventions may remain inside the existing four
+sections. Camera, composition, panel staging, screen direction, crop behavior,
+and Scene-specific continuity are directed later in the flow and must not
+appear here. The four existing sections are general appearance axes; their
+names do not require a drawing medium.
 
 Each section keeps a required `text` field that is the prompt-facing source of
 truth. Every other field is optional and drives the Studio style widgets. Omit a

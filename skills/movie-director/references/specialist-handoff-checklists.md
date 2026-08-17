@@ -14,8 +14,8 @@ Pass:
 - current director readiness blockers;
 - any user-selected provider/model, authored value, exact reference, cost,
   asset, shot, or approval choices.
-- the Core-produced `projectSettings` or Generation Context `workflowPolicy`
-  when the handoff depends on import automation or generation workflow policy.
+- the Core-produced Project generation settings when the handoff depends on
+  import automation, image path, Preview, confirmation, or concurrency.
 
 After completion, read back durable state through the CLI. Do not trust a specialist's prose summary alone when a Renku command can verify the result.
 
@@ -206,11 +206,19 @@ renku screenplay beats storyboard status --scene <scene-id> --revision <revision
 
 Storyboard media handoff:
 
-- scene-beat-designer supplies or revises the Scene Beats.
+- scene-beat-designer supplies or revises the narrative-appropriate Scene
+  Beats without a four-Beat cap or generation grouping.
 - media-producer owns `scene.storyboard-sheet` generation, inspection, slicing,
-  and import. The project Storyboard Lookbook's exact
-  `lookbook.storyboard-sheet` is useful non-blocking guidance when available;
-  its absence does not block generation.
+  and import. It partitions only the requested saved Beats into consecutive
+  image batches of up to four.
+- the current Storyboard Lookbook document and one exact usable
+  `lookbook.storyboard-sheet` are required appearance inputs. Their absence
+  blocks Scene Storyboard generation and routes to Lookbook Designer; never
+  substitute Production Lookbook appearance.
+- Media Producer's focused Scene Storyboard guide owns prompt synthesis,
+  continuity reference roles, the Project image-path setting, and
+  one-pass visual QA.
+  Do not duplicate that recipe in the director handoff.
 
 ## `media-producer`
 
@@ -233,8 +241,8 @@ Pass:
 - Scene Beats revision id and Beat ids for Scene Storyboard imports;
 - any upstream creative work the user explicitly chose to complete first;
 - approval constraints;
-- the exact Generation Context `workflowPolicy`, unless the user explicitly
-  overrode a path or workflow choice for this request;
+- the Project generation settings, unless the user explicitly overrode the
+  image path for this request;
 
 Verify:
 

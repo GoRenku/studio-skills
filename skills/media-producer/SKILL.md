@@ -27,14 +27,12 @@ QA images, downloads, crops, or scratch files at the Project root.
 
 Use Renku as the project metadata and attachment boundary. Treat prompts and media as opaque creative artifacts: inspect them in the agent/user loop, but never turn creative judgment into Studio runtime validation.
 
-Read `workflowPolicy` from Generation Context before choosing any unselected
-execution path or deciding automatic Preview, conversational confirmation, or
-batch concurrency. Apply precedence in this order: explicit user direction for
-the current request, an execution path already authored on the saved
-GenerationSpec, Project `workflowPolicy`, then ask. Never recreate a
-purpose-specific or skill-local default. If policy prefers Codex but the current
-harness lacks capability `codex.gpt-image-2`, ask for a path instead of silently
-falling back to a paid Renku run.
+For image generation, one Project setting chooses the path: **Use Codex for
+image generation**. It is on by default. An explicit user choice for the
+current request or the path already saved on a GenerationSpec takes precedence.
+If Codex is selected but the current harness lacks `codex.gpt-image-2`, ask
+instead of silently falling back to a paid Renku run. Keep Preview,
+confirmation, and concurrency behavior unchanged.
 
 ## Core workflow
 
@@ -58,9 +56,11 @@ renku generation model list --purpose <purpose> --json
    for every image purpose except `image.edit`; use revise-source guidance for
    every new `image.edit` request.
 5. Inspect every candidate in every relevant guide slot, including the underlying image files when the choice is visual. Choose the exact candidate that best serves the request, or choose none. Author only that choice in one generic `GenerationSpec`; the guide never chooses for you. Presence means inclusion. Preserve the exact section, slot, and optional subject from the guide, set `providerField` only when deliberately routing the exact file to a real media field from the selected model descriptor, assign exact stable `promptMention` values to image references used by the prompt, and use `{ "kind": "additional" }` only for an extra exact opaque reference.
-6. Keep Core-fixed settings out of agent policy. Treat recommendations as editable guidance and author them only when explicitly chosen. Leave untouched provider defaults absent.
+6. Do not override Core-fixed settings. Treat recommendations as editable
+   guidance and author them only when explicitly chosen. Leave untouched
+   provider defaults absent.
 7. Validate and save before generation. Automatically show the saved Preview
-   when `workflowPolicy.displayPreview` is true. Always show it when the user
+   when the Project Preview setting is on. Always show it when the user
    explicitly requests Preview, even when automatic display is off:
 
 ```bash
@@ -111,14 +111,14 @@ estimate or ask for managed-provider approval until the combined Preview
 succeeds.
 
 8. Update the same saved draft when the request changes, then validate it and
-   apply the Preview policy again. Before invoking either lane, pause for an
-   additional conversational confirmation only when that lane's
-   `requirePerRunConfirmation` is true. For Renku-managed execution, this
-   preference never replaces exact estimate-token review. For Codex
+   apply the Project Preview setting again. Before invoking either execution
+   method, pause for an additional conversational confirmation only when its
+   Project confirmation setting is on. For Renku-managed execution, this
+   setting never replaces exact estimate-token review. For Codex
    `agent-external` image generation, read the saved request, freeze it, and
    invoke Codex after the configured pause, if any. If the user changes or
    steers the request before invocation, update and revalidate; display Preview
-   again when explicitly requested or enabled by policy. After live
+   again when explicitly requested or enabled by its Project setting. After live
    submission, the saved request is permanently frozen; author a new spec for
    any changed request.
 9. For Renku-managed execution only, estimate the exact saved request and pass
@@ -131,9 +131,9 @@ renku generation run --spec <spec-id> --approval-token <approval-token> --json
 renku generation run show --run <run-id> --json
 ```
 
-Use `--simulate` with the run command for a non-paid execution check. The token approves the current provider/model price from pricing inputs; changing a pricing input requires a new estimate and may produce a new token. Creative or reference changes still require validation, policy-driven or explicitly requested Preview, and a fresh estimate review even when the price token stays the same.
+Use `--simulate` with the run command for a non-paid execution check. The token approves the current provider/model price from pricing inputs; changing a pricing input requires a new estimate and may produce a new token. Creative or reference changes still require validation, Preview when its Project setting is on or the user asks for it, and a fresh estimate review even when the price token stays the same.
 
-For independent requests, schedule no more than the selected lane's
+For independent requests, schedule no more than the selected execution method's
 `concurrencyLimit`. A limit only permits overlap; it does not make dependent
 requests independent. Each request retains its own saved spec, Preview
 decision, exact estimate/token or external freeze, run/tool call, inspection,
@@ -152,9 +152,9 @@ edit.
 - Never invent an asset/file id, receipt, or provenance record.
 - Import finished media only through a currently supported focused purpose. Pass `--receipt` only for an exact output of a matching Renku run.
 - When the selected path is Codex generation, save an `agent-external` spec,
-  apply the Preview policy, read it again, freeze it immediately before
-  invoking Codex, honor the Codex lane confirmation preference, and pass its id
-  with `--source-spec` when importing the accepted image.
+  apply the Project Preview setting, read it again, freeze it immediately
+  before invoking Codex, honor the Project's Codex confirmation setting, and
+  pass its id with `--source-spec` when importing the accepted image.
 - Never copy files manually into canonical Cast, Location, Prop, Lookbook, or Scene
   folders. Core owns durable paths and exclusive Asset membership.
 - When an accepted Profile, Location/Prop Hero, Lookbook Image, Shot Image, or grouped
@@ -166,9 +166,9 @@ edit.
   the consuming GenerationSpec references.
 - Inspect generated media before attachment. A Renku-managed paid regeneration
   requires revalidation, the current Preview decision, a fresh estimate/token,
-  and the configured Renku lane confirmation. A Codex regeneration follows the
-  built-in tool workflow and the configured Codex lane confirmation without a
-  Renku approval token.
+  and the Project's Renku confirmation setting. A Codex regeneration follows
+  the built-in tool workflow and the Project's Codex confirmation setting
+  without a Renku approval token.
 
 ## Purpose routing
 
@@ -289,15 +289,46 @@ adds fixed role words, allocates the `gxxx` token, and chooses the durable path.
 
 ## Scene Storyboard Sheet
 
-Keep splitting agent-owned. Read the exact Scene Beats revision named by the handoff, pass that same `sceneBeatsRevisionId` to Storyboard status and import, and use authored narrative context only as opaque text. Preserve Core-owned Scene-local Storyboard iteration folders. For each one-to-four-Beat request, choose the relevant Cast and Location owners, inspect their exact references, and include them with the style reference. Stop for explicit user direction when needed continuity media is unavailable; do not silently proceed with weaker context. Generate an at-most-four-panel composite on a canvas supported by the selected model, with every complete panel at the Project aspect ratio in a clean grid. For Codex built-in execution, save `model: { "provider": "codex", "model": "gpt-image-2" }` on every request; Codex currently exposes no other image model. Inspect the returned image with vision, choose crop boxes for that exact image, inspect every crop, and attach useful accepted Beat images without adding a pixel-level aspect-ratio rejection gate. Never add fixed-coordinate, OCR, border-detection, grid-slicing, or runtime auto-split behavior.
+Scene Beat design may create any narrative-appropriate number of Beats; it is
+never capped or grouped for generation. Read the exact saved revision named by
+the handoff, pass that same `sceneBeatsRevisionId` to Storyboard status and
+import, and partition only the requested image work into consecutive batches
+of up to four Beats. A ten-Beat request therefore becomes 4 + 4 + 2 without
+changing the revision or inventing filler.
+
+Read the complete current Storyboard Lookbook and attach one exact usable
+Storyboard Lookbook Sheet to every request. It is the sole appearance authority;
+never add Production Lookbook styling or generic realism, drawing, warmth,
+finish, or grade. For each batch, filter exact Cast Member, Location, and Prop
+ids, inspect deliberately selected continuity sheets, and preserve canonical
+identity/design/geography/state while re-rendering them only in the Storyboard
+Lookbook's visual language. Stop for direction when required continuity media
+is unavailable.
+
+Treat Beat narrative fields and opaque Scene context as reasoning inputs. Turn
+them into concrete visible action, subject placement, scale, pose, gaze,
+Location geography, and Prop interaction rather than pasting the raw prose.
+Panel composition is provisional pre-production story visualization, not Shot
+Planner production coverage.
+
+Use `references/scene-storyboard-sheet.md` as the single detailed recipe owner.
+With the Project setting on, use a frozen, prompt-only agent-external
+`codex/gpt-image-2` request with logical references. When the setting is off or
+the user explicitly chooses Renku, use the managed GPT Image 2 edit route.
+Generate one high-resolution full composite
+per batch, not a thumbnail sheet, with every complete panel at Project aspect
+ratio. Analyze the result once, keep the existing vision-guided crop and crop
+inspection path, then accept useful crops or report the issue and stop. Never
+automatically edit, repair, retry, regenerate, or add fixed-coordinate, OCR,
+border-detection, grid-slicing, runtime auto-split, or new crop-library behavior.
 
 ## Safety and permissions
 
 Renku-managed provider generation needs its exact estimate token and network
-permission; any additional conversational pause comes from `workflowPolicy`.
+permission; follow the Project confirmation setting for any additional pause.
 Codex built-in image generation uses Codex's own tool execution and permissions
-plus its policy confirmation value; do not add a Renku price/provider approval
-question. Local Studio
+plus the Project's Codex confirmation setting; do not add a Renku
+price/provider approval question. Local Studio
 notifications may also require localhost network permission. If notification
 fails after a successful mutation, read durable state and refresh Studio; do
 not rerun a non-idempotent import.

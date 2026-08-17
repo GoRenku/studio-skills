@@ -209,10 +209,28 @@ prompts should convert Lookbook concepts into palette, contrast, exposure,
 texture, grain, lens/finish, set feeling, costume/material tendencies, and
 composition constraints.
 
-Scene Storyboard Sheets and ad hoc Shot reference images should keep roles
-shot-facing: character reference, location reference, Lookbook/style reference,
-previous storyboard reference, first-frame source, last-frame source, or custom
-shot reference.
+Scene Storyboard Sheets use exact, non-overlapping reference roles:
+
+- Storyboard Lookbook Sheet: the sole authority for medium, realism, linework,
+  finish, lighting treatment, grade, texture, and detail density;
+- Character Sheet: canonical identity, facial/body features, silhouette,
+  proportions, costume, hair, and distinguishing details;
+- Location Sheet: canonical geography, landmarks, architecture, set dressing,
+  and recognizable environmental features; and
+- Prop Sheet: canonical construction, geometry, scale, materials, markings,
+  condition, and Beat-specific state.
+
+Name every attached reference with its exact `promptMention`. Tell the model to
+preserve each continuity subject's canonical facts while re-rendering it only
+in the Storyboard Lookbook's visual language. A realistic continuity sheet must
+not leak photographic lighting, finish, or realism into a stylized Storyboard.
+Conversely, a realistic Storyboard Lookbook may request realism because that
+exact Lookbook establishes it. State Prop holder, placement, state, scale, and
+interaction in the relevant panel direction.
+
+Ad hoc Shot reference images keep production-facing roles such as character
+reference, location reference, Lookbook/style reference, previous storyboard
+reference, first-frame source, last-frame source, or custom Shot reference.
 
 For a localized correction to a registered Take `video-prompt` image, use
 `image.edit` against the exact source asset. Reuse the accepted output as a

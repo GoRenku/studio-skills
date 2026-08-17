@@ -25,8 +25,18 @@ QA images, downloads, crops, or scratch files at the Project root.
   in-Project copy is necessary, place it under `tmp/scratch/`.
 
 
-Author the mutable Scene-owned Shot Plan. Keep durable state behind Renku CLI
-commands and keep creative interpretation in the agent/user loop.
+Author the mutable Scene-owned Shot Plan as the director and cinematographer's
+production-planning artifact. Convert story intent into deliberate camera
+coverage: ordered Shots, Beat coverage, framing, optics, movement, focus,
+lighting intent, blocking, and approximate duration when relevant. Keep durable
+state behind Renku CLI commands and creative interpretation in the agent/user
+loop.
+
+Do not use Shot Planner to create or regenerate Beat Storyboards. Those are
+pre-production narrative-alignment images owned by logical Scene Beats and
+generated through `scene.storyboard-sheet`. A selected Shot Image belongs to
+one exact production Shot and uses `shot.image`; never substitute one ownership
+model for the other.
 
 ## Workflow
 

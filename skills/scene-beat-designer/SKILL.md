@@ -29,6 +29,12 @@ Design durable Scene Beats for one Renku Studio screenplay Scene. A Beat is a
 narrative unit, not a camera Shot. Keep framing, lenses, camera movement, edit
 coverage, and production execution out of Beat content.
 
+Author as many Beats as the Scene's narrative developments require. There is no
+four-Beat cap, preferred multiple, grouping rule, or image-batch concern in Beat
+design. Beat Storyboard images are later pre-production story-alignment
+artifacts; Media Producer alone partitions requested saved Beats into image
+batches of up to four without changing this revision.
+
 ## Workflow
 
 1. Resolve the current Project and exact Scene. For Studio focus, run
@@ -78,7 +84,8 @@ coverage, and production execution out of Beat content.
 7. If Beats lack selected Storyboard images and the user did not request
    text-only work, hand off to `media-producer` with purpose
    `scene.storyboard-sheet`, `scene:<scene-id>`, the exact
-   `sceneBeatsRevisionId`, and returned `missingBeatIds`.
+   `sceneBeatsRevisionId`, and returned `missingBeatIds`. Hand off the exact
+   revision unchanged; do not group, pad, merge, or reorder Beats.
 
 ## Number And Identity Ownership
 
@@ -112,3 +119,6 @@ its retained Beat images; do not copy image paths into Scene Beats JSON.
 - Preserve creative contents as opaque authored values.
 - Validate before create, reset, or apply.
 - Add no camera fields, generated-media paths, or production-logistics fields.
+- Do not cap or group Beats for the later four-panel generation optimization.
+- Discuss perceived pace and timing during review, but do not invent persisted
+  Beat timing fields.

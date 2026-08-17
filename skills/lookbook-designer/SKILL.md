@@ -30,9 +30,17 @@ Use this skill to create or revise a Renku Studio Visual Language Lookbook as a 
 Renku has two Lookbook types:
 
 - A Production Lookbook is the movie's cinematic visual language: thesis, palette, tone and mood, composition, lighting, texture, and camera guidance.
-- A Storyboard Lookbook is the drawing/reference language for storyboard generation: style brief, line and finish, value and accent, panel and notation, continuity and clarity, and guardrails.
+- A Storyboard Lookbook is the sole appearance language for Beat Storyboard
+  generation: style brief, line and finish, value and accent, and guardrails.
+  It may be photorealistic, realistic, illustrative, graphic, painterly,
+  hand-drawn, abstract, or another deliberate visual system.
 
-Do not blur the two. Production Lookbooks guide the finished-film look. Storyboard Lookbooks guide how storyboard panels are drawn and must be practical enough to turn into image-generation instructions.
+Do not blur the two. Production Lookbooks guide the finished-film look.
+Storyboard Lookbooks guide how Beat Storyboards are rendered and must be
+  practical enough to turn into image-generation instructions. They may also
+  define project-wide notation and continuity-clarity conventions, but they do
+  not own panel staging, Shot coverage, camera direction, or Scene-specific
+  continuity decisions.
 
 ## Start Here
 
@@ -72,7 +80,9 @@ renku lookbook show --kind <production|storyboard> --json
 
 Author the Production Lookbook when the user asks for the film visual direction or describes references for the final moving image.
 
-Author the Storyboard Lookbook when the user asks how storyboards should be drawn, wants storyboard style consistency, or needs a reference sheet for `scene.storyboard-sheet` generation.
+Author the Storyboard Lookbook when the user asks how Beat Storyboards should
+look, wants Storyboard appearance consistency, or needs the appearance Sheet
+required by `scene.storyboard-sheet` generation.
 
 Revise an authored role only when the user asks to change that project direction. Preserve continuity: keep what still works and intentionally change the requested parts. There are no same-role alternatives and no selection step.
 
@@ -157,6 +167,12 @@ renku lookbook show --kind <production|storyboard> --json
 - Synthesize sources into the user's movie.
 - Write for both the user and generation agents.
 - For Production Lookbooks, use concrete cinematography language: color separation, exposure, contrast, shadow behavior, blocking, lens feel, movement, texture, and production surface.
-- For Storyboard Lookbooks, use concrete drawing and board language: line weight, finish level, value range, accent color, panel layout, notation, silhouette clarity, crop behavior, continuity checks, and what to avoid.
+- For Storyboard Lookbooks, use concrete appearance language: realism level,
+  medium, form treatment, line behavior when present, finish, value range,
+  color and accent behavior, texture, detail density, and what to avoid. A
+  realistic/no-linework Lookbook remains valid; describe its tonal modeling and
+  finish without inventing marks. Project-wide notation and continuity-clarity
+  conventions may live in the Lookbook. Keep panel staging, camera, Shot
+  coverage, crop behavior, and Scene-specific continuity decisions out.
 - Include repeatable principles and patterns.
 - Treat named references and source influences with careful language unless the user supplied confirmed facts.

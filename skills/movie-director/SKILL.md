@@ -114,9 +114,12 @@ Use this loop for every request:
   Design, set dressing, atmosphere, and production-design media readiness.
 - Use `inspiration-analyzer` for Visual Language Inspiration folder analysis.
 - Use `lookbook-designer` for durable Production Lookbook and Storyboard Lookbook creation, revision, and Inspiration source linkage.
-- Use `scene-beat-designer` for Scene Beats and Beat iteration.
-- Use `shot-planner` for Scene Shot Plans, individual Shot iteration, order,
-  Beat coverage, and selected-image coordination.
+- Use `scene-beat-designer` for narrative-appropriate Scene Beats and Beat
+  iteration. Use `media-producer` `scene.storyboard-sheet` for pre-production
+  story visualization and alignment from an exact saved revision.
+- Use `shot-planner` for director/cinematographer production planning: Scene
+  Shot Plans, camera coverage, individual Shot iteration, order, Beat coverage,
+  and selected Shot Image coordination.
 - Use `media-producer` for all Renku media generation specs, managed estimates
   and approved runs, Codex external generation, inspection, slicing, and
   supported focused attachments.
@@ -135,9 +138,9 @@ Not first-class today:
 - Do not write directly to `.renku/project.sqlite`.
 - Do not invent project, scene, Beat, Cast Member, Location, Prop, asset, Scene Beats revision, Lookbook, or generation ids or numbers.
 - Do not run Renku-managed paid generation without Renku estimate review and
-  the exact returned approval token. Use Generation Context `workflowPolicy`
-  to decide whether either execution lane also needs a conversational
-  confirmation; do not impose a separate skill-owned default.
+  the exact returned approval token. Follow the Project's Renku or Codex
+  confirmation setting for any additional conversational confirmation; do not
+  impose a separate skill-owned default.
 - Preserve explicit user choices for provider/model, authored values, exact
   references, Beat ids, costs, and approvals.
 - Do not use obsolete command aliases or compatibility paths.
