@@ -35,6 +35,9 @@ Before handoff, read `renku cast design context --cast <cast-member-id> --json` 
   historical source images;
 - existing Cast Voices and sample assets when voice media is requested;
 - active Lookbook context;
+- intended Production or Storyboard rendering mode and the exact prior
+  Character Sheet that supplies canonical content, when preparing a Storyboard
+  continuity variant;
 - whether the request asks for media generation or only design writing.
 
 When an accepted `cast.profile` output should become the Cast Member's current
@@ -42,14 +45,13 @@ Profile, ask `media-producer` to import with `--select` in the same mutation.
 Character Sheets remain request-scoped candidates: never create a global
 Character Sheet selection.
 
-For `cast.character-sheet`, the default handoff is a lean identity turnaround:
-straight-on face close-up cropped above the shoulders, front, back, left
-profile, right profile, labeled height ruler, compact synopsis/metadata block
-below the face close-up, and optional character-owned accessories only. If the
-user wants a reusable final continuity sheet and height is missing, ask for
-height before handoff unless the user explicitly chooses to proceed without it.
-Do not invent height, weight, gender, synopsis facts, or accessories just
-because the visual template can display those fields.
+For `cast.character-sheet`, hand off the facts listed above and point Media
+Producer to `references/cast-character-sheets.md`, the normative owner of the
+universal layout and visual QA. If the user wants a reusable final continuity
+sheet and height is missing, ask before handoff unless the user explicitly
+chooses to proceed without it. Do not invent height, weight, gender, synopsis
+facts, or accessories just because the visual template can display those
+fields.
 
 When the user supplies a portrait, uploaded image, or says "in this likeness":
 

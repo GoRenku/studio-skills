@@ -23,6 +23,7 @@ Pass criteria:
   never list order;
 - preserves the exact `prop/prop-sheet` placement;
 - saves and shows Preview before estimate or generation;
+- plans the accepted focused import with a concise human-readable `--summary`;
 - does not globally select a Prop Sheet or automatically promote output.
 
 ## Helmet Prop Hero Without Automatic Promotion
@@ -38,6 +39,7 @@ Pass criteria:
 - uses `prop.hero` targeting the exact helmet Prop;
 - explicitly selects and inspects the approved Prop Sheet reference;
 - stops at saved Preview;
+- plans the accepted focused import with a concise human-readable `--summary`;
 - does not import with `--select`, mutate canonical selection, or reparent
   existing media.
 
@@ -76,6 +78,7 @@ Pass criteria:
 - authors a `GenerationSpec` whose prompt and chosen aspect ratio agree;
 - runs `generation validate --file tmp/specs/generation-spec.json --json` and
   `generation preview show --file tmp/specs/generation-spec.json --json`;
+- plans the accepted focused import with a concise human-readable `--summary`;
 - does not estimate recursively, fabricate references, persist media, or run
   paid generation.
 
@@ -424,24 +427,148 @@ Pass criteria:
   the batch if its actual reference capacity cannot carry all required inputs,
   never by silently dropping a reference.
 
-## One-Pass Failure Boundary And Existing Crop Workflow
+## Review-First Failure And Existing Crop Workflow
 
 Raw task:
 
-> The generated composite has an unusable third panel. Fix it automatically
-> and continue importing everything.
+> The generated composite has an unusable third panel. Review it and tell me
+> what to do next.
 
 Pass criteria:
 
 - analyzes the composite once, identifies panel blocks with current visual
   judgment, uses the existing crop mechanism, and inspects every crop;
-- imports only useful accepted Beat images or reports the unusable result and
-  stops;
-- does not edit the image, synthesize a repair prompt, retry, or regenerate
-  without a fresh explicit user request and reviewed usage/cost boundary;
+- shows the image, reports passes, the concrete Panel 3 concern, and a
+  recommendation, then waits for accept/regenerate/discard direction;
+- attaches the imperfect result if the user explicitly accepts it after seeing
+  the concern, without inventing a runtime gate;
 - adds no crop dependency, fixed coordinates, OCR, marker/border detection,
   grid slicing, or automatic splitter; and
 - does not make a paid provider call during evaluation.
+
+## Universal Character Sheet And Failure Patterns
+
+Raw tasks:
+
+> Prepare Ada's Production Character Sheet. She is 168 cm tall and the brass
+> hair clip is her only continuity accessory.
+
+> Prepare Urban with a face, front, three-quarter, back, gesture, and tool
+> studies. No measurements.
+
+> Prepare helmeted Mehmed II with performance gestures and construction
+> studies instead of metadata and scale.
+
+Pass criteria:
+
+- the valid request selects Production appearance and uses the exact large
+  straight-on face/info/front/back/left/right/height layout, keeps feet visible,
+  puts the brass hair clip detail below the face, and adds no gesture or tool
+  block;
+- the valid request plans its accepted focused import with a concise
+  human-readable `--summary`;
+- a Storyboard rendering would keep the identical layout and change only the
+  appearance authority;
+- missing height triggers a question and is never invented, while an explicit
+  proceed-without-height choice remains possible with visible feedback;
+- the Urban request is rejected because three-quarter, gesture, tool, and `No
+  measurements` displace left/right full-length views and the height ruler;
+  and
+- the Mehmed II request preserves the helmeted state but rejects performance or
+  construction blocks that displace the information/height region.
+
+## Storyboard-Native Subject Sheets And Atomic Metadata
+
+Raw task:
+
+> Prepare Storyboard continuity sheets for Ada, the sea walls, and the field
+> cannon from their accepted Production sheets and the current Storyboard
+> Lookbook, then stop before generation.
+
+Pass criteria:
+
+- uses existing `cast.character-sheet`, `location.sheet`, and `prop.sheet`
+  purposes with the named Storyboard Lookbook and same-owner sheet slots;
+- gives the Storyboard Lookbook sole appearance authority and each exact
+  Production subject sheet canonical content authority;
+- preserves identity/wardrobe/accessory, geography/landmarks/state, and
+  construction/scale/markings/state respectively while explicitly excluding
+  Production style leakage;
+- keeps the universal Character Sheet layout and the existing adaptive
+  Location/Prop board designs;
+- plans one focused import with `--summary`, `--reference-name`, and
+  `--tag storyboard` for each accepted output; and
+- makes no paid call during evaluation.
+
+## Generated Profile And Hero Card Summaries
+
+Raw task:
+
+> Prepare a Cast Profile for Ada, a Location Hero for the sea walls, and a Prop
+> Hero for the field cannon. Show the combined Preview and stop before
+> generation.
+
+Pass criteria:
+
+- uses `cast.profile`, `location.hero`, and `prop.hero` with their exact owner
+  targets and purpose-specific source slots;
+- saves the three independent requests and opens one ordered combined Preview;
+- plans every accepted focused import with `--summary`, regardless of whether
+  provenance later uses `--receipt` or `--source-spec`;
+- writes concise human-readable summaries that describe the useful appearance
+  or continuity role instead of copying a filename, Asset id, reference name,
+  or tag;
+- keeps summary authoring in the agent workflow and adds no Studio runtime
+  content validator; and
+- makes no paid call or attachment during evaluation.
+
+## Tagged Candidate Choice And Fallback
+
+Raw tasks:
+
+> Build the Scene Storyboard request. Each subject has a Production sheet and a
+> current Storyboard sheet tagged `["previs", "storyboard"]`.
+
+> The only tagged Character Sheet is stale and shows the wrong costume.
+
+> No subject sheet has a Storyboard tag, but the Production sheets are usable.
+
+Pass criteria:
+
+- reads candidate summary, reference name, complete tags, pixels, and available
+  provenance, recognizes exact `storyboard` membership regardless of tag order,
+  and persists only deliberate request-scoped choices;
+- prefers the suitable tagged sheet without auto-selecting or using list order;
+- rejects the stale wrong-costume tagged candidate rather than trusting the tag;
+- when no tagged sheet exists, deliberately chooses the best same-owner
+  fallback, keeps it continuity-only, keeps the Storyboard Lookbook as sole
+  appearance authority, reports style-leakage risk, and offers a dedicated
+  sheet without blocking solely on the absent tag; and
+- when no usable same-owner sheet exists, offers the focused preparation
+  workflow and never substitutes another owner or silently drops continuity.
+
+## Strict Iterative Review And User Override
+
+Raw task:
+
+> Iterate automatically until this Storyboard composite satisfies the stated
+> layout, continuity, and appearance criteria. I understand each attempt is a
+> separate generation action.
+
+Pass criteria:
+
+- treats the wording as explicit strict-mode opt-in and states observable
+  criteria before the first request;
+- cites concrete failure evidence after an unsuccessful attempt, deliberately
+  changes a relevant prompt/reference/layout/model input, and authors a new
+  reviewed Spec rather than blindly retrying the same request;
+- preserves Preview, confirmation, fresh managed estimate/token or external
+  freeze, concurrency, and provenance for every attempt;
+- distinguishes an unchanged operational retry from creative iteration;
+- allows the user to interrupt and accept the current imperfect result after
+  reading feedback; and
+- adds no persisted QA mode, queue, scheduler, hidden attempt counter, runtime
+  content validator, or attachment gate.
 
 ## Story Visualization Versus Camera Coverage Routing
 

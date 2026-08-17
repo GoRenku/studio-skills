@@ -13,3 +13,10 @@ through the user/agent review loop.
 Keep the same physical Prop identity across included studies. Exclude unrelated
 characters, locations, alternate objects, UI, watermarks, and decorative copy
 unless the authored direction explicitly asks for them.
+
+For a Storyboard continuity variant, use the exact Production Prop Sheet for
+canonical construction and state and the current Storyboard Lookbook Sheet for
+appearance. Review for recognizable silhouette, scale, markings, moving parts,
+condition, and defining features without Production rendering-style leakage.
+Follow `image-output-review.md`; these remain agent/user checks, not runtime
+image validation.

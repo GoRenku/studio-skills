@@ -228,6 +228,15 @@ Conversely, a realistic Storyboard Lookbook may request realism because that
 exact Lookbook establishes it. State Prop holder, placement, state, scale, and
 interaction in the relevant panel direction.
 
+When preparing a Storyboard-native Character, Location, or Prop Sheet, use two
+non-overlapping provider-visible roles: the exact accepted Production subject
+sheet is canonical content authority, while the current Storyboard Lookbook
+Sheet is sole appearance authority. Preserve identity, wardrobe, geography,
+construction, scale, markings, condition, and relevant state from the content
+reference. Transfer only medium, linework, value treatment, finish, lighting
+behavior, texture, and detail density from the appearance reference. Explicitly
+exclude Production photographic lighting, finish, and realism leakage.
+
 Ad hoc Shot reference images keep production-facing roles such as character
 reference, location reference, Lookbook/style reference, previous storyboard
 reference, first-frame source, last-frame source, or custom Shot reference.

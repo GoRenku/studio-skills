@@ -140,6 +140,9 @@ decision, exact estimate/token or external freeze, run/tool call, inspection,
 and attachment. Do not build a queue, retry system, or dependency scheduler.
 
 Read `references/workflow.md` for exact reference, output reuse, Preview, and attachment rules.
+For generated images, read `references/image-output-review.md`; focused purpose
+guides supply the visual criteria while that file owns review-first and strict-
+iterative control flow.
 For `image.edit`, follow its complete source-resolution, request-review,
 execution, separate output-acceptance, and destination-import sequence. Studio's
 Generation Request dialog is inspection only; it never starts or approves an
@@ -169,6 +172,15 @@ edit.
   and the Project's Renku confirmation setting. A Codex regeneration follows
   the built-in tool workflow and the Project's Codex confirmation setting
   without a Renku approval token.
+
+For every accepted generated `cast.profile`, `cast.character-sheet`,
+`location.hero`, `location.sheet`, `prop.hero`, or `prop.sheet` image, pass a
+concise human-readable `--summary` during focused import. This becomes the
+Asset's `oneLineSummary` card copy. Describe the useful visual variant or
+continuity role; do not substitute a filename, Asset id, reference name, or tag.
+Apply the same rule whether provenance uses `--receipt` or `--source-spec`.
+External media may omit the summary when the user has not supplied meaningful
+copy.
 
 ## Purpose routing
 
@@ -244,6 +256,7 @@ Load only the relevant reference:
 - Scene Storyboard generation and agent-owned splitting: `references/scene-storyboard-sheet.md`
 - Shot images: `references/shot-image.md`
 - Reference-aware image prompting: `references/reference-visible-image-prompting.md`
+- Generated-image review modes: `references/image-output-review.md`
 - Shot Plan video workflow: `references/shot-plan-video/index.md`
 - Provider-visible video prompting:
   `references/video-generation/provider-visible-prompting.md`
@@ -315,12 +328,13 @@ Use `references/scene-storyboard-sheet.md` as the single detailed recipe owner.
 With the Project setting on, use a frozen, prompt-only agent-external
 `codex/gpt-image-2` request with logical references. When the setting is off or
 the user explicitly chooses Renku, use the managed GPT Image 2 edit route.
-Generate one high-resolution full composite
-per batch, not a thumbnail sheet, with every complete panel at Project aspect
-ratio. Analyze the result once, keep the existing vision-guided crop and crop
-inspection path, then accept useful crops or report the issue and stop. Never
-automatically edit, repair, retry, regenerate, or add fixed-coordinate, OCR,
-border-detection, grid-slicing, runtime auto-split, or new crop-library behavior.
+Generate one high-resolution full composite per batch, not a thumbnail sheet,
+with every complete panel at Project aspect ratio. Keep the existing vision-
+guided crop and crop-inspection path. Review-first inspects one result and waits
+for the user's accept/regenerate/discard direction. Strict iteration is allowed
+only after explicit user opt-in and follows `image-output-review.md`. Neither
+mode adds fixed-coordinate, OCR, border-detection, grid-slicing, runtime auto-
+split, or new crop-library behavior.
 
 ## Safety and permissions
 

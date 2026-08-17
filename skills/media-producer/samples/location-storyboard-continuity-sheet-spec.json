@@ -1,0 +1,23 @@
+{
+  "executionKind": "agent-external",
+  "purpose": "location.sheet",
+  "target": { "kind": "location", "id": "location_sea_walls" },
+  "model": { "provider": "codex", "model": "gpt-image-2" },
+  "values": {
+    "prompt": "Create one reusable Storyboard continuity Location Sheet for the Constantinople sea walls, not a poster or scene illustration. @Reference1 is the sole appearance authority: use its medium, linework, value treatment, finish, lighting behavior, texture, and detail density. @Reference2 is the canonical content authority: preserve the exact wall geography, gate and breach landmarks, entrances, approach routes, sightlines, masonry construction, scale, materials, and siege state, but do not copy its photographic lighting, finish, or realism. Keep one coherent place across a dominant establishing view and focused geography, reverse, landmark, material, movement-path, and scale studies. No unrelated locations, modern artifacts, decorative poster typography, UI, or crop marks."
+  },
+  "references": [
+    {
+      "placement": { "kind": "slot", "sectionId": "visual-language", "slotId": "storyboard-lookbook-sheet" },
+      "promptMention": "@Reference1",
+      "reference": { "kind": "asset-file", "assetId": "asset_storyboard_lookbook_sheet", "assetFileId": "asset_file_storyboard_lookbook_sheet" }
+    },
+    {
+      "placement": { "kind": "slot", "sectionId": "location", "slotId": "location-sheet", "subject": { "kind": "location", "id": "location_sea_walls" } },
+      "promptMention": "@Reference2",
+      "reference": { "kind": "asset-file", "assetId": "asset_sea_walls_production_sheet", "assetFileId": "asset_file_sea_walls_production_sheet" }
+    }
+  ],
+  "nextPromptMentionNumber": 3,
+  "title": "Sea walls Storyboard continuity Location Sheet"
+}

@@ -66,10 +66,12 @@ concrete image language over explaining UI behavior to the model.
 Import the selected image as the normal cast profile purpose:
 
 ```bash
-renku media import --purpose cast.profile --target cast:<cast-member-id> --source tmp/media/<file>.png --select --json
+renku media import --purpose cast.profile --target cast:<cast-member-id> --source tmp/media/<file>.png --title <human-readable-title> --summary <card-summary> --select --json
 ```
 
 Use a human-readable title such as `{Cast Member Name} voice-over profile`. If
 the user also wants a durable Cast Voice, handle that separately through the
-Cast Voice attachment workflow; profile import does not accept reference-name
-or reference-purpose metadata.
+Cast Voice attachment workflow. Always include a concise human-readable
+summary for a generated Profile. The import may also include the standard
+optional Asset reference name and repeated intended-use tags, but those fields
+do not create or configure a Cast Voice.

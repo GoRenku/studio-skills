@@ -141,8 +141,9 @@ Build Location Sheet prompts in this order:
 3. Define the largest hero section first.
 4. Select 4 to 8 supporting sections from the taxonomy.
 5. Explain why each supporting section matters for continuity.
-6. Bind materials, palette, lighting, and atmosphere to the Production
-   Lookbook and active Location Design.
+6. Bind materials, palette, lighting, and atmosphere to the selected Production
+   or Storyboard appearance authority and active Location Design. A Storyboard
+   variant uses the Production Location Sheet only for canonical content.
 7. Add historical, genre, or story guardrails only when grounded in context.
 8. Keep any labels in margins or captions, never over important visual content.
 9. Ask for a clean, readable board with clear hierarchy, not a chaotic collage.
@@ -160,8 +161,9 @@ Make the largest panel a <hero establishing view>. Add supporting panels for
 <selected sections>. Keep all panels consistent with the same place, period,
 materials, palette, lighting behavior, landmarks, and scale anchors.
 
-Use the Production Lookbook for palette, texture, lens feel, lighting, and
-atmosphere. Preserve these concrete Location Design facts: <facts>.
+Use the selected appearance reference for palette, texture, linework or lens
+feel, lighting, and atmosphere. Preserve these concrete Location Design facts
+and the exact content reference's geography and construction: <facts>.
 
 Exclude <grounded exclusions>. Keep any labels small and outside important
 image content. Do not include debug marks, crop guides, UI, fake software
@@ -196,10 +198,10 @@ Reject or ask for revision when:
 - the sheet contradicts user corrections or Location Design constraints;
 - historical or genre guardrails are visibly violated.
 
-For paid Renku-managed generation, explain the issue and ask whether to import
-with caveats, revise the spec, or pay for regeneration. For Codex built-in image
-generation, iterate through the image workflow when useful, but still do not
-import weak media automatically.
+Follow `image-output-review.md`: review-first explains the issue and waits for
+accept/regenerate/discard direction; strict iteration is available only after
+explicit opt-in. In either mode, an informed user may accept and attach the
+result with caveats.
 
 ## Common Weak Outputs And Fixes
 

@@ -32,6 +32,10 @@ Before handoff, summarize:
   guardrails;
 - whether a Location Hero Image is needed for overview/detail display;
 - active Lookbook context;
+- intended Production or Storyboard rendering mode;
+- for a Storyboard continuity sheet, the exact accepted Production Location or
+  Prop Sheet that supplies canonical geography, construction, scale, and state
+  while the current Storyboard Lookbook Sheet supplies appearance;
 - whether the user asked for media generation or only design writing.
 
 When an accepted `location.hero` output should become the Location's current

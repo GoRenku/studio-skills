@@ -1,0 +1,23 @@
+{
+  "executionKind": "agent-external",
+  "purpose": "cast.character-sheet",
+  "target": { "kind": "castMember", "id": "cast_ada" },
+  "model": { "provider": "codex", "model": "gpt-image-2" },
+  "values": {
+    "prompt": "Create a Storyboard continuity Character Sheet for Ada using the universal identity layout. @Reference1 is the sole appearance authority: use its linework, value treatment, finish, lighting behavior, texture, and detail density. @Reference2 is the canonical content authority: preserve Ada's exact identity, face, proportions, simple travel dress, boots, brass hair clip, and relevant state, but do not copy its photographic lighting, finish, or realism. Place one large straight-on face close-up cropped above the shoulders, then compact name, known height, identity synopsis, and brass hair clip detail below it. Follow with complete full-length FRONT, BACK, LEFT PROFILE, and RIGHT PROFILE views in that order, neutral pose, feet visible, consistent proportions and wardrobe. Include a labeled numeric height ruler agreeing with the written 5 ft 6 in / 168 cm height. No gestures, expressions, action poses, environments, tools, swatches, or extra studies."
+  },
+  "references": [
+    {
+      "placement": { "kind": "slot", "sectionId": "visual-language", "slotId": "storyboard-lookbook-sheet" },
+      "promptMention": "@Reference1",
+      "reference": { "kind": "asset-file", "assetId": "asset_storyboard_lookbook_sheet", "assetFileId": "asset_file_storyboard_lookbook_sheet" }
+    },
+    {
+      "placement": { "kind": "slot", "sectionId": "cast", "slotId": "character-sheet", "subject": { "kind": "castMember", "id": "cast_ada" } },
+      "promptMention": "@Reference2",
+      "reference": { "kind": "asset-file", "assetId": "asset_ada_production_character_sheet", "assetFileId": "asset_file_ada_production_character_sheet" }
+    }
+  ],
+  "nextPromptMentionNumber": 3,
+  "title": "Ada Storyboard continuity Character Sheet"
+}

@@ -69,15 +69,15 @@ and persisted Generation Spec. Do not add a duplicate production-number field.
    invoke the built-in image tool with the frozen prompt unchanged and every
    selected local reference. For managed execution, Preview, estimate, obtain
    approval, and run through the ordinary contract.
-10. Analyze the returned image once with vision. For a one-Beat request,
-    inspect and import the complete full-canvas image without putting it in a
-    grid. For a multi-Beat composite, identify only the actual Beat panel image
-    blocks, crop through the existing vision-guided workflow, and inspect every
-    Beat crop. Never crop or import a layout-only placeholder cell. Import
-    useful accepted Beat images, or report the problem and stop. Do not
-    automatically edit the image, author a repair prompt, retry, or regenerate.
-    A user-requested later attempt is a fresh reviewed request and usage/cost
-    boundary.
+10. Follow `image-output-review.md`. Review-first analyzes one result and waits
+    for accept/regenerate/discard direction. Strict iterative review requires
+    explicit user opt-in and a deliberately changed, newly reviewed request
+    after a visual failure. For a one-Beat request, inspect the complete full-
+    canvas image without putting it in a grid. For a multi-Beat composite,
+    identify only actual Beat panel image blocks, crop through the existing
+    vision-guided workflow, and inspect every Beat crop. Never crop or import a
+    layout-only placeholder cell. Quality findings remain advisory; the user
+    may explicitly accept an imperfect result.
 
 ## Prompt Inputs
 
@@ -97,15 +97,32 @@ Gather:
   reference capacity, and size controls.
 
 Filter the complete Scene-level inventories to the batch. Preserve first Beat
-appearance order separately for Cast Members, Locations, and Props. Choose
-exact sheets by visual suitability, never candidate list order. Deliberately
-reuse accepted subject-owned references across Scenes and batches when
-continuity should remain unchanged.
+appearance order separately for Cast Members, Locations, and Props. Read each
+candidate's `oneLineSummary`, `referenceName`, and complete `tags` list, then
+inspect its pixels and available generation request/provenance. Prefer a
+suitable same-owner sheet whose tags include the exact string `storyboard`.
+Check exact membership across the whole list; tag order conveys no priority.
+The tag is evidence of intended use, not proof of visual correctness. Reject a
+tagged candidate that is stale, visibly unsuitable, tied to the wrong wardrobe
+or state, or rendered against an obsolete appearance authority. Never choose
+from candidate order or initialize a selection outside the GenerationSpec.
 
-If a required subject has no usable continuity sheet, do not silently omit it,
-infer continuity from a filename or prompt, or substitute an unrelated Project
-image. Stop and ask whether to generate the missing sheet, use an explicitly
-supplied external reference, revise the batch, or proceed without that anchor.
+When no suitable tagged sheet exists, inspect every eligible same-owner sheet
+and deliberately choose the best continuity match. Untagged and differently
+tagged Production sheets remain valid fallbacks. Keep the fallback in a
+continuity-only role, keep the Storyboard Lookbook Sheet as the sole appearance
+authority, report the increased style-leakage risk in quality feedback, and
+offer to prepare a dedicated Storyboard continuity sheet without blocking the
+request solely because `storyboard` is absent. Deliberately reuse accepted
+subject-owned references across Scenes and batches when continuity should
+remain unchanged.
+
+If a required subject has no usable same-owner continuity sheet, do not silently
+omit it, infer continuity from a filename or prompt, or substitute an unrelated
+Project image. Offer or prepare the focused Storyboard continuity sheet using
+the Production subject sheet as content authority and the Storyboard Lookbook
+as appearance authority. Otherwise ask whether to use an explicitly supplied
+external reference, revise the batch, or proceed without that anchor.
 
 Reason about the visible event that communicates each Beat's narrative
 development and the visual emphasis that serves its narrative purpose without
@@ -154,6 +171,15 @@ Storyboard style; do not copy Reference 2's source lighting, finish, or realism.
 ```
 
 Apply equivalent exact invariant wording to Locations and Props.
+
+## Review criteria
+
+Review the exact requested Beat coverage and count-specific layout; complete
+Project-ratio panel compositions; Storyboard Lookbook appearance; selected
+continuity-reference fidelity; absence of Production rendering-style leakage;
+readable narrative action, geography, and Prop interaction; and usable vision-
+guided crops for occupied Beat cells only. Apply the selected review mode from
+`image-output-review.md`; never turn these checks into runtime validation.
 
 ## Prompt Synthesis
 

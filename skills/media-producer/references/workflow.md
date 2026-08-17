@@ -242,6 +242,11 @@ Closing Preview or the Generation Request inspector does not approve a
 Renku-managed run or accept generated output. Codex external execution does not
 use Preview as an approval gate. Rejected output remains unattached.
 
+For every generated image, route inspection and regeneration control through
+`image-output-review.md`. Review-first is the default. Strict iterative review
+requires explicit task-scoped user opt-in, a deliberate changed request after
+each visual failure, and every ordinary cost and approval boundary.
+
 ## Outputs and focused attachment
 
 A successful run creates output files and provenance. Generation does not

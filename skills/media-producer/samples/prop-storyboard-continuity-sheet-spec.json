@@ -1,0 +1,23 @@
+{
+  "executionKind": "agent-external",
+  "purpose": "prop.sheet",
+  "target": { "kind": "prop", "id": "prop_field_cannon" },
+  "model": { "provider": "codex", "model": "gpt-image-2" },
+  "values": {
+    "prompt": "Create one reusable Storyboard continuity Prop Sheet for the monumental bronze field cannon. @Reference1 is the sole appearance authority: use its medium, linework, value treatment, finish, lighting behavior, texture, and detail density. @Reference2 is the canonical content authority: preserve the exact cannon silhouette, bronze barrel and timber carriage construction, scale, maker mark, moving parts, worn iron fittings, dark patina, and intact siege state, but do not copy its photographic lighting, finish, or realism. Keep one physically consistent cannon across dominant silhouette, construction, handling, human-scale, marking, and state studies. No battlefield scene, unrelated weapons, alternate cannon design, modern hardware, decorative poster copy, UI, or crop marks."
+  },
+  "references": [
+    {
+      "placement": { "kind": "slot", "sectionId": "visual-language", "slotId": "storyboard-lookbook-sheet" },
+      "promptMention": "@Reference1",
+      "reference": { "kind": "asset-file", "assetId": "asset_storyboard_lookbook_sheet", "assetFileId": "asset_file_storyboard_lookbook_sheet" }
+    },
+    {
+      "placement": { "kind": "slot", "sectionId": "prop", "slotId": "prop-sheet", "subject": { "kind": "prop", "id": "prop_field_cannon" } },
+      "promptMention": "@Reference2",
+      "reference": { "kind": "asset-file", "assetId": "asset_field_cannon_production_sheet", "assetFileId": "asset_file_field_cannon_production_sheet" }
+    }
+  ],
+  "nextPromptMentionNumber": 3,
+  "title": "Field Cannon Storyboard continuity Prop Sheet"
+}
