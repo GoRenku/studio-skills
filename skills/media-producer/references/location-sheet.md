@@ -29,6 +29,22 @@ variant.
 
 Read `location-sheet-board-design.md` when authoring or reviewing a Location Sheet. Inspect the output as one opaque production reference image. Do not require runtime slices, view labels, panel schemas, or semantic content validation.
 
+For a standard Production Location Sheet, make spatial continuity the default:
+use a focused set of consistent views and one authoritative plan. Keep material,
+lighting, palette, and atmosphere visible inside those views. Do not add swatch
+grids, prop studies, human-scale panels, or decorative filler unless the user
+explicitly requests them.
+
+When the user intends to generate a 3D Location World, state that production
+job in the prompt and follow the World-ready rules in
+`location-sheet-board-design.md`: four equal-size/equal-aspect same-space
+perspective panels, one matching plan, one nearby unobstructed camera area,
+recognizable overlap, stable spatial and appearance continuity, and enough
+native detail for sharp temporary crops. Generate one coherent composite sheet,
+not four unrelated requests. After acceptance, hand the exact sheet to
+`$location-world-producer`; that skill owns temporary cropping, World Labs
+input review, and the paid Auto Layout request.
+
 Follow `image-output-review.md`. Review Location continuity for canonical
 geography/state, Storyboard appearance when requested, absence of Production
 style leakage, useful downstream coverage, consistent scale and landmarks, and
@@ -51,4 +67,5 @@ request-scoped candidates and never use global selection. Omit Hero
 candidate. Keep `--summary` when substituting `--source-spec` for generated
 media. Describe the visible variant or continuity role rather than repeating a
 reference name or tag. Do not crop a Location Sheet into runtime-owned
-directional slices.
+directional slices. Temporary flat-image crops for World Labs belong only to
+`$location-world-producer` and are never imported as Location Assets.

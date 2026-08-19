@@ -1,0 +1,23 @@
+{
+  "kind": "locationWorldGeneration",
+  "version": 1,
+  "locationId": "<location-id>",
+  "prompt": "<exact World prompt>",
+  "source": {
+    "kind": "multiImage",
+    "images": [
+      {
+        "projectRelativePath": "tmp/media/location-world/<location-handle>/01-view.png"
+      },
+      {
+        "projectRelativePath": "tmp/media/location-world/<location-handle>/02-view.png"
+      },
+      {
+        "projectRelativePath": "tmp/media/location-world/<location-handle>/03-view.png"
+      },
+      {
+        "projectRelativePath": "tmp/media/location-world/<location-handle>/04-view.png"
+      }
+    ]
+  }
+}

@@ -73,7 +73,10 @@ importer to create or bind those facts.
    `renku production-design`.
 
 5. Hand off Location Sheet/Hero or Prop Sheet/Hero generation to
-   `media-producer`.
+   `media-producer`. Hand off a four-flat-image Auto Layout 3D Location World
+   request to `location-world-producer` only after the Location facts, complete
+   prose design, authoritative plan, and reviewed Production Location Sheet are
+   ready. Do not hand off a panorama workflow.
 
 ## Reference Files
 

@@ -1,0 +1,399 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Happyhorse 1.1 Reference To Video · Pika API",
+    "version": "1.0.0",
+    "description": "Happyhorse 1.1 Reference To Video is available in the Business API catalog."
+  },
+  "servers": [
+    {
+      "url": "https://api.dev.pika.art"
+    }
+  ],
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ],
+  "paths": {
+    "/v1/media/alibaba/happyhorse-1.1/reference-to-video": {
+      "post": {
+        "operationId": "create_video",
+        "summary": "Generate with Happyhorse 1.1 Reference To Video",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": false,
+                "properties": {
+                  "prompt": {
+                    "minLength": 1,
+                    "title": "Prompt",
+                    "type": "string"
+                  },
+                  "resolution": {
+                    "default": "1080P",
+                    "enum": ["720P", "1080P"],
+                    "title": "Resolution",
+                    "type": "string"
+                  },
+                  "ratio": {
+                    "anyOf": [
+                      {
+                        "enum": [
+                          "16:9",
+                          "9:16",
+                          "1:1",
+                          "4:3",
+                          "3:4",
+                          "4:5",
+                          "5:4",
+                          "9:21",
+                          "21:9"
+                        ],
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Ratio"
+                  },
+                  "duration": {
+                    "default": 5,
+                    "maximum": 15,
+                    "minimum": 3,
+                    "title": "Duration",
+                    "type": "integer"
+                  },
+                  "watermark": {
+                    "default": false,
+                    "title": "Watermark",
+                    "type": "boolean"
+                  },
+                  "seed": {
+                    "anyOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": "Seed"
+                  },
+                  "reference_image_urls": {
+                    "items": {
+                      "media_kinds": ["image"],
+                      "pattern": "^https?://",
+                      "type": "string"
+                    },
+                    "maxItems": 9,
+                    "minItems": 1,
+                    "title": "Reference Image Urls",
+                    "type": "array"
+                  }
+                },
+                "required": ["prompt", "reference_image_urls"],
+                "title": "HappyhorseReferenceToVideoRequest",
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Media job state.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["id", "status"],
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": ["queued", "running", "completed", "failed"]
+                    },
+                    "output": {
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "required": ["media_type", "video"],
+                          "properties": {
+                            "media_type": {
+                              "type": "string",
+                              "const": "video"
+                            },
+                            "video": {
+                              "type": "object",
+                              "properties": {
+                                "url": {
+                                  "type": ["string", "null"],
+                                  "format": "uri"
+                                },
+                                "content_type": {
+                                  "type": ["string", "null"]
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "required": ["media_type", "images"],
+                          "properties": {
+                            "media_type": {
+                              "type": "string",
+                              "const": "image"
+                            },
+                            "images": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "url": {
+                                    "type": ["string", "null"],
+                                    "format": "uri"
+                                  },
+                                  "content_type": {
+                                    "type": ["string", "null"]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/media/jobs/{request_id}": {
+      "get": {
+        "operationId": "get_generation",
+        "summary": "Poll generation status",
+        "parameters": [
+          {
+            "name": "request_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Current job state.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["id", "status"],
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": ["queued", "running", "completed", "failed"]
+                    },
+                    "output": {
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "required": ["media_type", "video"],
+                          "properties": {
+                            "media_type": {
+                              "type": "string",
+                              "const": "video"
+                            },
+                            "video": {
+                              "type": "object",
+                              "properties": {
+                                "url": {
+                                  "type": ["string", "null"],
+                                  "format": "uri"
+                                },
+                                "content_type": {
+                                  "type": ["string", "null"]
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "required": ["media_type", "images"],
+                          "properties": {
+                            "media_type": {
+                              "type": "string",
+                              "const": "image"
+                            },
+                            "images": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "url": {
+                                    "type": ["string", "null"],
+                                    "format": "uri"
+                                  },
+                                  "content_type": {
+                                    "type": ["string", "null"]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/media/jobs/{request_id}/content": {
+      "get": {
+        "operationId": "get_generation_content",
+        "summary": "Get the result URL",
+        "parameters": [
+          {
+            "name": "request_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Result URL.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["url"],
+                  "properties": {
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/media/uploads": {
+      "post": {
+        "operationId": "create_media_upload_url",
+        "summary": "Create a reference media upload URL",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["content_type", "size_bytes"],
+                "properties": {
+                  "content_type": {
+                    "type": "string",
+                    "example": "image/png"
+                  },
+                  "size_bytes": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "example": 12345
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Presigned upload target.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "upload_url",
+                    "url",
+                    "method",
+                    "headers",
+                    "expires_in",
+                    "max_bytes"
+                  ],
+                  "properties": {
+                    "upload_url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "method": {
+                      "type": "string",
+                      "example": "PUT"
+                    },
+                    "headers": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      }
+                    },
+                    "expires_in": {
+                      "type": "integer",
+                      "example": 300
+                    },
+                    "max_bytes": {
+                      "type": "integer",
+                      "example": 52428800
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
+      }
+    }
+  },
+  "x-pika-api-id": "alibaba/happyhorse-1.1/reference-to-video"
+}

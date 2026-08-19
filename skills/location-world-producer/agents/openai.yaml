@@ -1,0 +1,4 @@
+interface:
+  display_name: "Location World Producer"
+  short_description: "Build a reviewed four-view 3D Location World"
+  default_prompt: "Use $location-world-producer to create a World Labs Auto Layout 3D World from four reviewed flat views of this Location."

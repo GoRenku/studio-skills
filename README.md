@@ -172,6 +172,22 @@ approval stop. After generation, it inspects the output and uses only the
 focused attachment command for the requested purpose; generation never implies
 attachment.
 
+### Location World Producer
+
+```text
+skills/location-world-producer/
+  SKILL.md
+  agents/openai.yaml
+  references/workflow.md
+  samples/location-world-generation.json
+```
+
+Location World Producer coordinates one reviewed equirectangular panorama or an
+explicit same-space reconstruction image set, requires approval for one paid
+World Labs Marble request, and reads back the selected durable SPZ World. It
+reuses common Asset history for rollback and leaves source generation to Media
+Producer.
+
 ## Install In Codex
 
 Install the Renku runtime first:

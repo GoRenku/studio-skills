@@ -123,6 +123,9 @@ Use this loop for every request:
 - Use `media-producer` for all Renku media generation specs, managed estimates
   and approved runs, Codex external generation, inspection, slicing, and
   supported focused attachments.
+- Use `location-world-producer` for same-space reconstruction image coordination,
+  explicitly approved World Labs generation, selected 3D World readback, and
+  rollback through common Asset selection.
 
 Not first-class today:
 

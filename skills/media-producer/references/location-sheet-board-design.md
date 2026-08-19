@@ -1,218 +1,137 @@
 # Location Sheet Board Design
 
-## When To Read
-
 Read this file when writing or inspecting a `location.sheet` prompt.
-Use it to choose the board sections that make the Location Sheet useful for
-shot planning. Do not read it for `location.hero`, final shot video prompting,
-or scene storyboard slicing.
 
-Location Sheets are one full-image production reference board. They are not
-sliced into mandatory front/right/back/left files.
+## Purpose
 
-## Contents
+A Location Sheet is primarily a spatial continuity reference. It must show one
+place from enough consistent directions to make its geography understandable.
+It is not a mood board, prop board, materials board, poster, or collection of
+decorative studies. When the sheet will feed a 3D Location World, it is also the
+shared spatial and visual authority for four temporary Auto Layout inputs; it
+must preserve appearance as carefully as geometry.
 
-- Quality Bar
-- Board Section Taxonomy
-- Adaptive Section Selection
-- Prompt-Building Recipe
-- Inspection And Rejection Checklist
-- Common Weak Outputs And Fixes
+## Default Board
 
-## Quality Bar
+For an interior, use only:
 
-A strong Location Sheet helps a downstream artist, director, or video model
-understand how the place works. It should answer practical continuity
-questions, not merely look atmospheric.
+- one large establishing view along the Location's main axis;
+- one matched reverse view from the opposite end of that axis;
+- one view from each perpendicular side;
+- one clear top-down plan.
 
-A useful sheet often includes:
+When the sheet is explicitly intended for World Labs Auto Layout, keep all four
+perspective panels equal in size and aspect ratio so they can be cropped without
+warping or major reframing. Plan the views from one unobstructed camera area or
+compact cluster of nearby positions shown in the plan. Cover different viewing
+directions while retaining recognizable overlap and clear floor/wall/ceiling
+depth. The plan may use a different panel size because it will not be submitted
+to World Labs.
 
-- one large, readable hero establishing view;
-- selected alternate perspectives or reverse angles;
-- spatial orientation, such as a top-down layout or high-angle overview;
-- material, color, lighting, landmark, prop, and scale references when they
-  matter to the Location;
-- grounded period, genre, or story guardrails.
+For an exterior, landscape, or threshold, adapt those five sections into four
+useful directional or geographic views plus one plan or map. Omit a direction
+only when it genuinely cannot describe that Location.
 
-The neutral-studio reference sheet is a quality benchmark because it gives
-multiple ways to understand one sparse space: establishing view, eye-level and
-reverse views, high/low/corner perspectives, empty staging view, swatches,
-lighting studies, layout map, scale references, landmarks, and props.
+Do not automatically add material swatches, texture studies, palette cards,
+prop close-ups, dressing studies, lighting-study panels, human-scale figures,
+camera notes, or story-zone overlays. Include one only when the user explicitly
+asks the sheet to answer that separate question.
 
-Do not copy that exact layout into every prompt. Exterior battlefields,
-thresholds, streets, natural landscapes, vehicles, rooms, and abstract spaces
-need different section choices.
+## Plan First
 
-## Board Section Taxonomy
+Resolve the plan before generation. The prompt must state:
 
-Choose from this menu. Do not ask for every section by default.
+- the named or relative sides of the Location;
+- the exact wall or side containing each door, window, gate, opening, or other
+  fixed landmark;
+- which sides oppose each other;
+- the axis and placement of major fixed furniture or movement routes; and
+- any side that must remain blank or closed;
+- for a World-ready sheet, one walkable camera area or compact nearby cluster
+  that does not intersect a wall, opening, or furniture.
 
-### Spatial Sections
+Avoid ambiguous placement language such as "opposite or oblique." If the
+active design, existing images, and user corrections disagree, stop and resolve
+one simple plan before authoring the GenerationSpec.
 
-- **Hero establishing view**: the largest, clearest read of the place.
-- **Eye-level perspective**: a human-height view useful for shot continuity.
-- **Reverse angle**: the opposite side of the main axis.
-- **High-angle overview**: a spatial read for geography, blocking, or scale.
-- **Low-angle view**: useful for walls, ceilings, monuments, threat, or height.
-- **Corner or diagonal perspective**: useful for rooms and two-wall geometry.
-- **Empty staging view**: a clean version that can host many shot ideas.
-- **Threshold view**: a doorway, gate, bridge, tunnel, window, boundary, or
-  transition point.
+Treat the top-down plan as the spatial authority. Every perspective panel must
+derive from that same plan. The plan should show only walls or boundaries,
+openings, fixed landmarks, major furniture, and useful circulation. Keep it
+clean; do not fill it with prop zones, material legends, decorative callouts,
+or invented technical notation.
 
-### Continuity Sections
+A plan reference improves generation but does not guarantee that an image
+model will preserve topology across several perspective panels. When exact
+view-to-plan agreement is required, use another already approved same-space
+source in addition to the plan when one exists. If it does not, treat one
+generated sheet as review-first exploration and never attach it when a wall,
+opening, furniture axis, or camera area disagrees. Do not introduce a 3D
+blockout workflow unless the user explicitly requests one.
 
-- **Top-down layout map**: a simple spatial map, not a technical floor plan
-  unless the context needs one.
-- **Material and texture swatches**: dominant wall, floor, stone, wood, glass,
-  fabric, vegetation, dirt, metal, water, signage, or weathered surfaces.
-- **Color palette reference**: the Location palette, kept distinct from generic
-  Lookbook mood when possible.
-- **Lighting studies**: time of day, weather, practical light, window light,
-  firelight, smoke, fog, or shadow behavior.
-- **Key landmarks**: entrances, gates, windows, statues, signs, ruins,
-  machinery, towers, counters, altars, or distinctive silhouettes.
-- **Environmental props**: objects that define use, class, period, occupation,
-  story function, or repeated blocking.
-- **Scale references**: human silhouette, doorway height, furniture, vehicle,
-  wall height, street width, room size, or distance markers.
-- **Camera or lens notes**: optional. Use only when camera emulation or previs
-  continuity matters. Do not invent technical camera metadata for every sheet.
+## Appearance Is Part Of Continuity
 
-## Adaptive Section Selection
+The prompt must carry the complete active Location Design into every
+perspective, not merely a style label. State:
 
-Select sections from the Location's actual production need. If missing user
-intent would materially change the sheet, such as choosing between an empty
-staging board, a damaged-state board, a night-lighting board, or a geography
-overview, ask before writing the final spec. Otherwise infer a focused board
-from the Location Design, scene usage, Production Lookbook, and existing references.
+- floor, wall, ceiling, door, window, built-in, and major furniture construction;
+- surface age, repair, wear, dirt, soot, moisture, plaster loss, wood/metal
+  character, and finish where grounded;
+- stable natural and practical light sources, time/state, and exposure behavior;
+- identity-defining set dressing and what must remain sparse or absent; and
+- concrete period/story exclusions derived from the design and references.
 
-State variants matter. A Location may need a separate sheet for day, night,
-damaged, intact, crowded, empty, before, after, seasonal, or weather-specific
-states when those states affect continuity.
+Keep those facts identical across all four views. “Historically plausible,”
+“weathered,” or “cinematic” is not enough. If a door must be opaque repaired
+timber, say that. If the accepted design has no suspended lighting, carpets,
+radiators, modern hardware, or luxury polish, exclude those exact inventions.
+Do not add a generic anachronism dump unrelated to the Location.
 
-### Interior Rooms And Sets
+## Prompt Recipe
 
-Prefer hero establishing, eye-level and reverse views, corner/diagonal
-perspective, empty staging view, top-down layout, material swatches, lighting
-studies, props, landmarks, and scale references.
+Write the prompt in this order:
 
-Skip distant exterior context unless windows, entrances, or outside geography
-drive the scene.
+1. Request one finished full-image Location Sheet, not a poster or mood board.
+2. State the authoritative plan in plain language.
+3. Define the establishing, reverse, and two perpendicular views from that
+   plan. For a World-ready sheet, require four equal-format panels from the
+   agreed nearby camera area, with different directions and recognizable
+   overlap. State what must appear on the left, ahead, and right in each view
+   when that relationship is important.
+4. Require identical architecture, openings, landmarks, furniture placement,
+   proportions, and state across all views.
+5. Describe construction, surface condition, furniture character, dressing,
+   period, lighting sources, palette, and atmosphere inside the views.
+6. Request one clean top-down plan that matches those views exactly.
+7. Exclude extra panels, filler, and grounded anachronisms. When the sheet is
+   World-ready, place captions and borders outside the four image panels.
 
-### Exterior Architecture And Streets
+Keep labels optional, small, and in margins. The image content must carry the
+spatial meaning; do not depend on generated labels to repair unclear views.
 
-Prefer hero establishing, approach view, reverse view from the important
-opposite side, high-angle or map-like spatial read, low-angle scale view when
-vertical mass matters, landmarks, entrances, gates, towers, thresholds,
-materials, ground surface, lighting/weather studies, and human or vehicle
-scale.
+## Inspection
 
-For historical exteriors, choose period exclusions from the actual context
-instead of dumping a generic anachronism list.
+Reject the sheet before import when any of these are true:
 
-### Landscapes And Natural Locations
+- the plan contradicts the active Location Design or user correction;
+- a door, window, opening, or landmark moves to another wall between views;
+- a major furniture or movement axis rotates or changes length without cause;
+- the establishing and reverse views do not show the same space from the
+  intended matched camera relationship; for a standard sheet this normally
+  means opposite ends, while a World-ready sheet uses nearby viewpoints facing
+  different directions;
+- a side view invents another room, corridor, archway, or duplicate space;
+- construction, surface wear, furniture design, light source, or set dressing
+  changes between views;
+- a grounded period exclusion is violated, such as an invented glazed entrance,
+  chandelier, radiator, carpet, electric fixture, modern hardware, or luxury
+  finish that contradicts the design;
+- a World-ready view lacks overlap or clear spatial depth, or its panel is too
+  small or soft to yield a sharp crop near World Labs' current recommended
+  input size without upscaling;
+- the sheet replaces useful views with materials, props, lighting studies,
+  scale figures, or decorative filler;
+- the board is too dense to inspect or behaves like a poster or mood collage.
 
-Prefer wide establishing view, movement route, high-angle geography or terrain
-map, horizon/silhouette reference, ground texture, vegetation, water, rock,
-mud, snow, weather swatches, scale anchors, and light/atmosphere studies.
-
-Skip architectural floor-plan conventions unless built structures matter.
-
-### Thresholds And Transitional Spaces
-
-Prefer both sides of the threshold, axis of movement, reverse angle, key
-doorway/gate/bridge/window/stair/tunnel/corridor/boundary, scale and material
-changes across the boundary, and lighting contrast across sides.
-
-### Abstract, Empty, Or Minimal Locations
-
-Use subtle continuity. Prefer empty staging view, perspective variations,
-surface relationships, material swatches, lighting studies, scale references,
-simple layout map, and the few props that define the place.
-
-Do not overfill a minimal Location with invented furniture or decoration.
-
-## Prompt-Building Recipe
-
-Build Location Sheet prompts in this order:
-
-1. State the target as one finished full-image Location Sheet.
-2. Name the Location, story period, scene usage, and production job.
-3. Define the largest hero section first.
-4. Select 4 to 8 supporting sections from the taxonomy.
-5. Explain why each supporting section matters for continuity.
-6. Bind materials, palette, lighting, and atmosphere to the selected Production
-   or Storyboard appearance authority and active Location Design. A Storyboard
-   variant uses the Production Location Sheet only for canonical content.
-7. Add historical, genre, or story guardrails only when grounded in context.
-8. Keep any labels in margins or captions, never over important visual content.
-9. Ask for a clean, readable board with clear hierarchy, not a chaotic collage.
-10. Give the saved spec a concise title that names the board's production
-    purpose.
-
-Adapt this skeleton instead of pasting it unchanged:
-
-```text
-Create one polished <context-selected aspect ratio> Location Sheet for
-<location>. The sheet is a
-production reference board for <scene usage / production job>, not a poster.
-
-Make the largest panel a <hero establishing view>. Add supporting panels for
-<selected sections>. Keep all panels consistent with the same place, period,
-materials, palette, lighting behavior, landmarks, and scale anchors.
-
-Use the selected appearance reference for palette, texture, linework or lens
-feel, lighting, and atmosphere. Preserve these concrete Location Design facts
-and the exact content reference's geography and construction: <facts>.
-
-Exclude <grounded exclusions>. Keep any labels small and outside important
-image content. Do not include debug marks, crop guides, UI, fake software
-panels, or decorative poster typography.
-```
-
-## Inspection And Rejection Checklist
-
-Before import, inspect the generated full image as one production board:
-
-- Does it clearly represent the target Location?
-- Does the hero section provide a strong readable overview?
-- Do the supporting sections answer the intended production questions?
-- Are multiple views consistent with one geography?
-- Are materials, palette, and lighting grounded in the Location Design and
-  Production Lookbook?
-- Are scale, landmarks, entrances, props, and movement paths readable when they
-  matter?
-- Is the sheet useful as one full image without slicing?
-- Are labels, if present, outside key visual content and non-critical?
-- Are anachronisms, modern artifacts, or genre-breaking details absent?
-- Is the result more useful than a single pretty image?
-
-Reject or ask for revision when:
-
-- the image is mostly a poster, hero image, generic mood board, or stock-like
-  collage;
-- panels depict unrelated places;
-- labels dominate or corrupt important imagery;
-- the layout is too dense to inspect;
-- key spatial or continuity facts are missing;
-- the sheet contradicts user corrections or Location Design constraints;
-- historical or genre guardrails are visibly violated.
-
-Follow `image-output-review.md`: review-first explains the issue and waits for
-accept/regenerate/discard direction; strict iteration is available only after
-explicit opt-in. In either mode, an informed user may accept and attach the
-result with caveats.
-
-## Common Weak Outputs And Fixes
-
-- **Pretty single image**: add concrete supporting sections such as layout,
-  reverse view, materials, lighting, landmarks, and scale.
-- **Chaotic collage**: reduce sections and name one dominant hero panel.
-- **Unrelated panels**: explicitly require all panels to show the same place,
-  period, materials, landmarks, and scale anchors.
-- **Overbearing labels**: ask for labels only in margins or captions and make
-  visible imagery carry the meaning.
-- **Generic historical mood**: add grounded period materials, infrastructure,
-  props, and exclusions from the Location context.
-- **No spatial usefulness**: add a top-down layout, high-angle overview,
-  threshold view, movement route, or scale reference depending on the Location.
+After generation, inspect the complete image once under
+`image-output-review.md`. Do not invent a runtime slicing or semantic-validation
+system.
