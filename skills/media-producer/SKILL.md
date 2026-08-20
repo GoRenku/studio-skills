@@ -1,6 +1,6 @@
 ---
 name: media-producer
-description: Generate, revise, preview, estimate, run, inspect, and attach purpose-specific Renku Studio image, audio, and video media through the context-first GenerationSpec contract. Use for generic image creation or editing, project videos authored from Shot Plans, Lookbook assets, Cast sheets/profiles/voice samples, Location sheets/heroes, Prop sheets/heroes, Scene Storyboard Sheets, dialogue audio, external media attachment, and generation approval workflows.
+description: Generate, revise, preview, estimate, run, inspect, and attach purpose-specific Renku Studio image, audio, and video media through the context-first GenerationSpec contract. Use for Project covers, generic image creation or editing, project videos authored from Shot Plans, Lookbook assets, Cast sheets/profiles/voice samples, Location sheets/heroes, Prop sheets/heroes, Scene Storyboard Sheets, dialogue audio, external media attachment, and generation approval workflows.
 ---
 
 # Media Producer
@@ -160,7 +160,7 @@ edit.
   pass its id with `--source-spec` when importing the accepted image.
 - Never copy files manually into canonical Cast, Location, Prop, Lookbook, or Scene
   folders. Core owns durable paths and exclusive Asset membership.
-- When an accepted Profile, Location/Prop Hero, Lookbook Image, Shot Image, or grouped
+- When an accepted Project Cover, Profile, Location/Prop Hero, Lookbook Image, Shot Image, or grouped
   Storyboard import should become canonical immediately, pass `--select` on
   that import. Use `renku asset select` only to choose an already imported
   candidate.
@@ -173,7 +173,7 @@ edit.
   the built-in tool workflow and the Project's Codex confirmation setting
   without a Renku approval token.
 
-For every accepted generated `cast.profile`, `cast.character-sheet`,
+For every accepted generated `project.cover`, `cast.profile`, `cast.character-sheet`,
 `location.hero`, `location.sheet`, `prop.hero`, or `prop.sheet` image, pass a
 concise human-readable `--summary` during focused import. This becomes the
 Asset's `oneLineSummary` card copy. Describe the useful visual variant or
@@ -183,6 +183,15 @@ External media may omit the summary when the user has not supplied meaningful
 copy.
 
 ## Purpose routing
+
+Use `project.cover` with target `project` for Project Library and Studio sidebar
+cover candidates. Start with the user's requested subject, mood, abstraction,
+and visual-language direction, then read `references/project-cover.md`. The
+Core context intentionally contains no complete Project-media catalog. Read
+only the missing Project information and exact owner-scoped media needed for
+the agreed direction. Import each accepted candidate through the focused
+purpose and pass `--select` only when the user explicitly chooses it as the
+active Project cover.
 
 Use `shot-plan.video-generation` with target `project` for a video authored
 from a Shot Plan. Read the current context through:
@@ -233,6 +242,7 @@ renku lookbook show --kind storyboard --json
 Use the returned current role id. Do not list alternatives or look for selection state. `lookbook.video-sheet` accepts only the Production role and `lookbook.storyboard-sheet` accepts only the Storyboard role.
 
 - `image.create` -> `project`
+- `project.cover` -> `project`
 - `image.edit` -> `asset:<asset-id>`
 - `shot-plan.video-generation`, `shot-plan.video-first-frame`,
   `shot-plan.video-last-frame`, `shot-plan.video-storyboard`,
@@ -247,6 +257,7 @@ Use the returned current role id. Do not list alternatives or look for selection
 
 Load only the relevant reference:
 
+- Project covers: `references/project-cover.md`
 - Cast sheets: `references/cast-character-sheets.md`
 - Cast profiles: `references/cast-profile.md` or `references/voice-over-profile-image.md`
 - Cast voice samples: `references/cast-voice-sample.md`

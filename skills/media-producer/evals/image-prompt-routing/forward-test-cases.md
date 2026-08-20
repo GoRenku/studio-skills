@@ -21,6 +21,18 @@ The prompt stays concise and uses generation guidance.
 The exact selected references receive stable `promptMention` values, and the
 prompt names their distinct roles without inferring roles from input order.
 
+## Project cover
+
+> Create a 16:9 Project cover that matches the established Production Lookbook
+> and features the named Cast Member at the named Location.
+
+The agent uses `project.cover` with target `project`, reads only the missing
+Project Info plus the exact Production Lookbook, Cast, and Location context
+needed for this request, and authors only deliberately chosen media references.
+It does not load the Storyboard Lookbook or unrelated Project media. After user
+acceptance, it imports through `media import --purpose project.cover --target
+project`; it adds `--select` only for an explicitly chosen active cover.
+
 ## Shot image candidate
 
 > Create a selected image candidate for this authored Shot.

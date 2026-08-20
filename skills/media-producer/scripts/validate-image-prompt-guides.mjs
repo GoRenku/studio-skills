@@ -9,6 +9,7 @@ const skillRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const expectedPurposes = new Set([
   'image.create',
   'image.edit',
+  'project.cover',
   'lookbook.image',
   'lookbook.video-sheet',
   'lookbook.storyboard-sheet',

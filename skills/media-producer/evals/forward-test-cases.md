@@ -8,6 +8,25 @@ preview, and attachment commands—not only its prose answer.
 Never allow a forward test to make a paid provider call or mutate the user's
 real project.
 
+## Conversation-Directed Project Cover
+
+Raw task:
+
+> Prepare two 16:9 cover candidates for this Project. Make the first match the
+> established final-film look and the second a more abstract alternative. Show
+> both requests together and stop before generation.
+
+Pass criteria:
+
+- starts from the user's words and reads minimal `project.cover` context;
+- reads Project Info only for missing story framing;
+- inspects the Production Lookbook and only exact useful media for the first
+  direction, without automatically loading the Storyboard Lookbook or every
+  Cast Member, Location, Prop, Scene, or Project Asset;
+- authors two independent saved specs with fixed 16:9 direction and shows them
+  in one ordered Preview interaction;
+- does not run paid generation, import an output, or select a cover.
+
 ## Cannon Prop Sheet With Explicit Continuity Choice
 
 Raw task:

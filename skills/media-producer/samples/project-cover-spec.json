@@ -1,0 +1,13 @@
+{
+  "executionKind": "renku-managed",
+  "purpose": "project.cover",
+  "target": { "kind": "project" },
+  "model": { "provider": "fal-ai", "model": "nano-banana-2" },
+  "values": {
+    "prompt": "Create a cinematic 16:9 Project cover with one clear focal hierarchy that remains legible at Project Library thumbnail size. Preserve intentional negative space and keep important subjects inside a comfortable safe area.",
+    "aspect_ratio": "16:9",
+    "resolution": "2K"
+  },
+  "references": [],
+  "title": "Cinematic Project cover"
+}
