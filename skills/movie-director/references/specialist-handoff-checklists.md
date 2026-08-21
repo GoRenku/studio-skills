@@ -208,9 +208,11 @@ Storyboard media handoff:
 
 - scene-beat-designer supplies or revises the narrative-appropriate Scene
   Beats without a four-Beat cap or generation grouping.
-- media-producer owns `scene.storyboard-sheet` generation, inspection, slicing,
-  and import. It partitions only the requested saved Beats into consecutive
-  image batches of up to four.
+- media-producer owns image operation routing. It uses
+  `scene.storyboard-sheet` for new or materially recomposed Storyboard imagery,
+  and `image.edit` when one exact existing Beat image must remain the canvas
+  except for named changes. New Storyboard generation alone is partitioned into
+  consecutive image batches of up to four.
 - the current Storyboard Lookbook document and one exact usable
   `lookbook.storyboard-sheet` are required appearance inputs. Their absence
   blocks Scene Storyboard generation and routes to Lookbook Designer; never
@@ -234,8 +236,12 @@ Use for:
 
 Pass:
 
-- purpose key;
-- exact target id from generation context;
+- for non-image work, the purpose key and exact target id from generation
+  context;
+- for image work, the user's requested relationship to any exact existing
+  image, the intended focused destination, and the exact source Asset/File when
+  already known. Media Producer decides the generation purpose before reading
+  purpose context; do not make the prior purpose sticky;
 - current generation context plus the user's provider/model choice, authored
   values, and exact references;
 - Scene Beats revision id and Beat ids for Scene Storyboard imports;

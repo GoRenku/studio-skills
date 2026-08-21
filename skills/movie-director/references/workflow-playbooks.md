@@ -38,8 +38,10 @@ For Codex runs, remember that local Studio HTTP notification is network access. 
 7. If `generateSceneBeats` is enabled, dispatch `scene-beat-designer` for
    each Scene after its required project context is ready.
 8. If `generateBeatStoryboardImages` is enabled, dispatch
-   `scene.storyboard-sheet` only for Scenes that already have an active Scene
-   Beats revision.
+   new `scene.storyboard-sheet` work only for Scenes that already have an active
+   Scene Beats revision. A later request to change an exact generated image is
+   a new Media Producer operation decision, not automatic Storyboard
+   regeneration.
 
 Enabled stages continue without another “start this stage?” question after the
 user requested import. Disabled stages are not proactively dispatched. Explicit
@@ -87,7 +89,11 @@ overwrite.
    `media-producer` with the exact unchanged revision id, missing Beat ids, and
    `scene.storyboard-sheet`. Media Producer alone batches requested image work
    into groups of up to four.
-7. When the user wants camera coverage or other production planning, dispatch
+7. If the user asks to change an existing Beat image, pass the exact image and
+   requested preservation constraints to `media-producer`. Do not preselect
+   `scene.storyboard-sheet`; Media Producer chooses between a new/recomposed
+   candidate and `image.edit` for that turn.
+8. When the user wants camera coverage or other production planning, dispatch
    the current Scene, Beat revision, and deliberately chosen visual context to
    `shot-planner`. Do not route story-visualization requests through Shot
    Planner or `shot.image`.

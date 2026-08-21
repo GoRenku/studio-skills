@@ -119,9 +119,10 @@ Do not change: [source traits that must remain stable].
 Exclude: [unwanted copied reference traits or generated artifacts].
 ```
 
-For generic source-image corrections, use the Renku `image.edit` purpose. The
+For generic source-image corrections, use the Studio `image.edit` purpose. The
 target is the registered source Asset and `source/source-image` selects the
-exact source AssetFile:
+exact source AssetFile. The following is the Renku-managed envelope used only
+when execution-path precedence selects Renku:
 
 ```json
 {
@@ -149,7 +150,7 @@ Do not resend Production Lookbook, Location Sheet, or Character Sheet references
 a localized edit unless the user asks for a new reference-conditioned image.
 The source image is the visible continuity anchor. Inspect the result before
 import, separately ask the user to accept the output, and attach it only through
-the source owner's real destination purpose and target with its matching receipt
+the chosen focused image destination purpose and target with its matching receipt
 or frozen source spec.
 
 ## Provider-Visible Reference Roles

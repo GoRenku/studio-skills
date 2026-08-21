@@ -36,12 +36,13 @@ system: a `valueAndAccent` request may alter value allocation, but must not add
 wash, hatching, roughness, modeled lighting, or a new finish unless those
 properties already belong to the accepted style.
 
-For Renku-managed work, author a generic spec, validate it, persist it, show
-the saved Preview, estimate, obtain approval, and run with the returned approval
-token. Use Codex only when the user explicitly requests it; save its external
-spec before Preview and import the accepted image with `--source-spec`. Manual
-or other external images without a saved generation request use neither a spec
-nor a receipt.
+Select Codex or Renku through explicit current user direction, an already-saved
+spec path, then the Project's **Use Codex for image generation** setting. For
+Renku-managed work, author a generic spec, validate it, persist it, show the
+saved Preview, estimate, obtain approval, and run with the returned approval
+token. For Codex, save its external spec before Preview and import the accepted
+image with `--source-spec`. Manual or other external images without a saved
+generation request use neither a spec nor a receipt.
 
 After visual review, import the image first:
 

@@ -6,14 +6,17 @@ user reviews them.
 
 ## Required routing
 
-1. Read the purpose guide named by `SKILL.md`.
-2. Read `image-model-guide-registry.json` and match the selected exact
+1. Confirm that `image-operation-routing.md` has already selected focused
+   creation or `image.edit`. Prompt authoring and model selection must not
+   change that decision.
+2. Read the purpose guide named by `SKILL.md`.
+3. Read `image-model-guide-registry.json` and match the selected exact
    `provider` and `model` identity. Fail before authoring when no entry exists.
-3. Read the matched model guide. Do not infer a guide from a route suffix,
-   family label, or provider field.
-4. Use generation guidance for every image purpose except `image.edit`.
+4. Read the matched model guide. Do not infer a guide or Studio purpose from a
+   route suffix, family label, or provider field.
+5. Use generation guidance for every image purpose except `image.edit`.
    Use revise-source guidance for every new `image.edit` request.
-5. Combine the purpose ingredients, model practices, inspected references, and
+6. Combine the purpose ingredients, model practices, inspected references, and
    user direction into one prompt. Keep a simple request concise. Use short
    Markdown headings only when they make a complex request easier to review.
 

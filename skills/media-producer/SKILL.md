@@ -27,16 +27,33 @@ QA images, downloads, crops, or scratch files at the Project root.
 
 Use Renku as the project metadata and attachment boundary. Treat prompts and media as opaque creative artifacts: inspect them in the agent/user loop, but never turn creative judgment into Studio runtime validation.
 
-For image generation, one Project setting chooses the path: **Use Codex for
-image generation**. It is on by default. An explicit user choice for the
-current request or the path already saved on a GenerationSpec takes precedence.
-If Codex is selected but the current harness lacks `codex.gpt-image-2`, ask
-instead of silently falling back to a paid Renku run. Keep Preview,
-confirmation, and concurrency behavior unchanged.
+For every image purpose, including `image.edit`, one Project setting chooses
+the path: **Use Codex for image generation**. It is on by default. An explicit
+user choice for the current request or the path already saved on a
+GenerationSpec takes precedence. If Codex is selected but the current harness
+lacks `codex.gpt-image-2`, ask instead of silently falling back to a paid Renku
+run. Keep Preview, confirmation, and concurrency behavior unchanged.
+
+## Image operation routing
+
+For every image request, and again after every user change or review response,
+read `references/image-operation-routing.md` before choosing a purpose. Decide
+whether the user wants a new or materially recomposed candidate, or wants one
+exact existing image preserved as the canvas for an edit. Do not infer the
+operation from the prior turn's purpose, the user's use of words such as
+`edit` or `generate`, the presence of image references, or a provider endpoint
+whose model name ends in `/edit`.
+
+Focused image purposes create new domain candidates. A source-preserving
+modification always uses `image.edit` against the exact source Asset and locked
+AssetFile; after acceptance, its output may be imported through any supported
+focused image destination.
 
 ## Core workflow
 
-1. Resolve the exact current project, purpose, and target. Never invent ids.
+1. For image work, decide the operation through
+   `references/image-operation-routing.md`. Then resolve the exact current
+   project, purpose, and target. Never invent ids.
 2. Read the Core-owned context:
 
 ```bash
@@ -110,8 +127,10 @@ later single-request notifications replace the earlier dialog session. Do not
 estimate or ask for managed-provider approval until the combined Preview
 succeeds.
 
-8. Update the same saved draft when the request changes, then validate it and
-   apply the Project Preview setting again. Before invoking either execution
+8. When the user changes an image request, rerun image operation routing first.
+   Update the same saved draft only when the operation, purpose, and target are
+   unchanged; otherwise author a new spec. Then validate it and apply the
+   Project Preview setting again. Before invoking either execution
    method, pause for an additional conversational confirmation only when its
    Project confirmation setting is on. For Renku-managed execution, this
    setting never replaces exact estimate-token review. For Codex
@@ -183,6 +202,11 @@ External media may omit the summary when the user has not supplied meaningful
 copy.
 
 ## Purpose routing
+
+The mappings below select focused creation and attachment destinations. They
+do not override image operation routing. When the user wants one exact existing
+image preserved as the canvas, generate through `image.edit`; after acceptance,
+import its output through the chosen focused destination below.
 
 Use `project.cover` with target `project` for Project Library and Studio sidebar
 cover candidates. Start with the user's requested subject, mood, abstraction,
@@ -257,6 +281,8 @@ Use the returned current role id. Do not list alternatives or look for selection
 
 Load only the relevant reference:
 
+- Every image request and changed image request:
+  `references/image-operation-routing.md`
 - Project covers: `references/project-cover.md`
 - Cast sheets: `references/cast-character-sheets.md`
 - Cast profiles: `references/cast-profile.md` or `references/voice-over-profile-image.md`
@@ -336,9 +362,15 @@ Panel composition is provisional pre-production story visualization, not Shot
 Planner production coverage.
 
 Use `references/scene-storyboard-sheet.md` as the single detailed recipe owner.
+Use `scene.storyboard-sheet` only for a new or materially recomposed Beat
+Storyboard candidate. When the user chooses one exact existing Beat image as
+the canvas and asks to preserve it except for named changes, use `image.edit`
+and import the accepted result back through the focused Storyboard destination.
 With the Project setting on, use a frozen, prompt-only agent-external
 `codex/gpt-image-2` request with logical references. When the setting is off or
-the user explicitly chooses Renku, use the managed GPT Image 2 edit route.
+the user explicitly chooses Renku, use the managed GPT Image 2 reference-capable
+`/edit` provider route. That endpoint name does not change the
+`scene.storyboard-sheet` creation purpose into `image.edit`.
 Generate one high-resolution full composite per batch, not a thumbnail sheet,
 with every complete panel at Project aspect ratio. Keep the existing vision-
 guided crop and crop-inspection path. Review-first inspects one result and waits

@@ -7,12 +7,19 @@ Applies to:
 - the default Codex built-in GPT Image 2 workflow, whose execution envelope
   stays separate from Engines
 
+These model identities do not choose the Studio purpose. In particular,
+`fal-ai/openai/gpt-image-2/edit` is also a reference-capable route for new
+focused generations such as `scene.storyboard-sheet`. Use `purpose:
+image.edit` only when `image-operation-routing.md` selected one exact source
+image as the canvas for a source-preserving modification.
+
 ## Execution Selection
 
-For Scene Storyboards, the Project has one image-generation setting. Codex is
-on by default. An explicit user choice for the current request or the path
-already saved on the GenerationSpec takes precedence. When Codex is selected,
-the harness must expose `codex.gpt-image-2`.
+For every image purpose, including `image.edit`, the Project has one
+image-generation setting. Codex is on by default. An explicit user choice for
+the current request or the path already saved on the GenerationSpec takes
+precedence. When Codex is selected, the harness must expose
+`codex.gpt-image-2`.
 
 Save the built-in request as `executionKind: agent-external`, provider `codex`,
 model `gpt-image-2`, with exactly `values: { prompt }`. Keep attached image
@@ -62,9 +69,9 @@ GPT Image 2 processes every image input at high fidelity automatically.
   style.
 - Put the Storyboard Lookbook first, then exact batch-relevant Character,
   Location, and Prop references in deliberate stable order.
-- For a localized edit, constrain the change instead of redescribing the whole
-  image. Describe identity, layout, material, lighting, or typography
-  continuity that must survive.
+- When the Studio purpose is `image.edit`, constrain the change instead of
+  redescribing the whole image. Describe identity, layout, material, lighting,
+  or typography continuity that must survive.
 
 ## Provenance
 

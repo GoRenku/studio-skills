@@ -4,6 +4,13 @@ Purpose: `scene.storyboard-sheet`
 
 Target: `scene:<scene-id>`
 
+Use this purpose to create a new or materially recomposed Beat Storyboard
+candidate. If the user chooses one exact existing Beat image as the canvas and
+wants named changes while the unaffected image remains continuous, stop this
+recipe and use `image.edit` through `image-operation-routing.md`. Supplying an
+existing image as a continuity or Additional reference does not turn this
+purpose into an edit.
+
 Beat Storyboards are pre-production story-alignment artifacts. They visualize
 the ordered narrative developments already authored in Scene Beats so the
 director, screenwriter, and collaborators can discuss clarity, emotional
@@ -63,8 +70,9 @@ and persisted Generation Spec. Do not add a duplicate production-number field.
 8. Use the Project's **Use Codex for image generation** setting. It is on by
    default. An explicit user choice for this request or a path already saved on
    the Spec takes precedence. If Codex is selected, require the harness
-   capability `codex.gpt-image-2`. If the setting is off, use Renku-managed GPT
-   Image 2 edit.
+   capability `codex.gpt-image-2`. If the setting is off, use the Renku-managed
+   GPT Image 2 reference-capable `/edit` provider route. The route name does not
+   change this focused creation purpose to `image.edit`.
 9. Save, review, reread, and freeze one GenerationSpec per batch. For Codex,
    invoke the built-in image tool with the frozen prompt unchanged and every
    selected local reference. For managed execution, Preview, estimate, obtain
@@ -234,6 +242,10 @@ universal size. Leave authored `quality` absent because Core fixes it to
 `high`; leave `num_images` absent when the one-image default is correct; and
 omit `input_fidelity` because GPT Image 2 processes references at high
 fidelity automatically.
+
+This provider route remains `purpose: scene.storyboard-sheet`. Never use this
+recipe for a localized source-preserving change merely because the route can
+accept the prior image; a true edit uses the locked `image.edit` source slot.
 
 ## Sheet Layout
 

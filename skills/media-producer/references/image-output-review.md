@@ -13,11 +13,18 @@ Review-first is the default.
 2. Inspect the result once against the focused purpose checklist.
 3. Show the image to the user.
 4. Report concise passes, concrete concerns, and a recommended next action.
-5. Wait for accept and attach, regenerate with a revised request, or
-   discard/leave unattached direction.
+5. Wait for accept and attach, another independent generation, a
+   source-preserving edit of this exact result, or discard/leave unattached
+   direction.
 
 Do not automatically generate a second image. A failed creative criterion does
 not prohibit explicit user acceptance.
+
+Before acting on any follow-up, rerun `image-operation-routing.md`. Another
+interpretation or materially recomposed result keeps the focused creation
+purpose. Choosing this exact result as the canvas and preserving it except for
+named changes switches to `image.edit`. Do not treat `regenerate` as a sticky
+purpose or treat every correction as another focused generation.
 
 ## Strict iterative mode
 
@@ -31,7 +38,8 @@ attempt:
 
 1. inspect against them and record concrete visual failure evidence;
 2. change a justified prompt, reference, layout instruction, or model input;
-3. author and review a new GenerationSpec for the changed creative request;
+3. rerun image operation routing, then author and review a new GenerationSpec
+   with the resulting purpose and target;
 4. apply the normal Preview setting, confirmation setting, estimate/token or
    external freeze, concurrency, and provenance rules; and
 5. continue until the result passes, the user interrupts or accepts it, or a

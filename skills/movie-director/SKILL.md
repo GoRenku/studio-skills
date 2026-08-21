@@ -115,14 +115,19 @@ Use this loop for every request:
 - Use `inspiration-analyzer` for Visual Language Inspiration folder analysis.
 - Use `lookbook-designer` for durable Production Lookbook and Storyboard Lookbook creation, revision, and Inspiration source linkage.
 - Use `scene-beat-designer` for narrative-appropriate Scene Beats and Beat
-  iteration. Use `media-producer` `scene.storyboard-sheet` for pre-production
-  story visualization and alignment from an exact saved revision.
+  iteration. Use `media-producer` `scene.storyboard-sheet` for new or materially
+  recomposed pre-production story visualization from an exact saved revision.
+  When the user wants one exact existing Beat image preserved except for named
+  changes, pass that source and intended Storyboard destination to
+  `media-producer` and let its image-operation routing select `image.edit`.
 - Use `shot-planner` for director/cinematographer production planning: Scene
   Shot Plans, camera coverage, individual Shot iteration, order, Beat coverage,
   and selected Shot Image coordination.
 - Use `media-producer` for all Renku media generation specs, managed estimates
   and approved runs, Codex external generation, inspection, slicing, and
-  supported focused attachments.
+  supported focused attachments. For image work, Media Producer owns the
+  create-versus-edit decision; do not preselect a domain creation purpose merely
+  because that domain will receive the accepted output.
 - Use `location-world-producer` for same-space reconstruction image coordination,
   explicitly approved World Labs generation, selected 3D World readback, and
   rollback through common Asset selection.

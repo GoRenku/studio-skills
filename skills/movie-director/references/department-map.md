@@ -20,8 +20,9 @@ Then pass the returned durable `sceneId` to the owning specialist.
 | Create/revise durable Prop facts, Prop Design, or Prop media readiness | Production Design | `production-designer` | `renku production-design prop context --prop <prop-id> --json` |
 | Analyze reference folders, extract visual principles from images | Cinematography / Visual Language | `inspiration-analyzer` | `renku inspiration show --folder <folder-id> --json` |
 | Create, revise, or connect the project's Production Lookbook or Storyboard Lookbook to Inspiration folders | Cinematography / Visual Language | `lookbook-designer` | `renku lookbook show --kind <production\|storyboard> --json` |
-| Design or revise narrative-appropriate Scene Beats; visualize their ordered story developments for pre-production alignment | Directing / Beat Design | `scene-beat-designer`, then `media-producer` for `scene.storyboard-sheet` | `renku screenplay beats context --scene <scene-id> --json` |
+| Design or revise narrative-appropriate Scene Beats; create or materially recompose their Storyboard imagery for pre-production alignment | Directing / Beat Design | `scene-beat-designer`, then `media-producer` for `scene.storyboard-sheet` | `renku screenplay beats context --scene <scene-id> --json` |
 | Create or iteratively revise director/cinematographer production camera coverage, a Scene Shot Plan, individual Shots, order, or selected Shot imagery | Directing / Shot Planning | `shot-planner` | `renku shot-plan list --scene <scene-id> --json` |
+| Change one exact existing image while preserving its unaffected content, regardless of its current or intended owner | Media Production | `media-producer` for image operation routing and `image.edit` | Resolve the exact source Asset and AssetFile from current context |
 | Generate or import media | Media Production | `media-producer` | `renku generation context --purpose <purpose> --target <target> --json` |
 
 ## Default Production Order
