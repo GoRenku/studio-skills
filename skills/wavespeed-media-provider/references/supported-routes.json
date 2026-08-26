@@ -1,0 +1,9 @@
+{
+  "provider": "wavespeed-ai",
+  "routes": [
+    { "apiId": "wavespeed-ai/z-image/turbo", "name": "Z-Image Turbo", "modelKey": "z-image-turbo", "mediaKind": "image", "operations": ["text-to-image"], "adapter": "adapters/reference-inputs.md" },
+    { "apiId": "wavespeed-ai/minimax-h3/text-to-video", "name": "MiniMax Hailuo 3", "modelKey": "minimax-h3", "mediaKind": "video", "operations": ["text-to-video"], "adapter": "adapters/reference-inputs.md" },
+    { "apiId": "wavespeed-ai/minimax-h3/image-to-video", "name": "MiniMax Hailuo 3", "modelKey": "minimax-h3", "mediaKind": "video", "operations": ["image-to-video", "first-last-frame-to-video"], "adapter": "adapters/reference-inputs.md" },
+    { "apiId": "wavespeed-ai/minimax-h3/reference-to-video", "name": "MiniMax Hailuo 3", "modelKey": "minimax-h3", "mediaKind": "video", "operations": ["reference-to-video"], "adapter": "adapters/reference-inputs.md" }
+  ]
+}

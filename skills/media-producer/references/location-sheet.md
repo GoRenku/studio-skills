@@ -14,7 +14,8 @@ For either purpose, the suggestions are non-binding. Choose another safe
 Project or user-supplied source when it serves the request better.
 
 For `location.hero`, place the deliberately selected Location Sheet's local-file
-marker in an actual image-media field from the selected provider guide.
+marker in an actual image-media field from the selected provider adapter and
+live schema.
 
 For a Production Location Sheet, select the Production Lookbook Sheet as the
 appearance authority. For a Storyboard continuity Location Sheet, select the

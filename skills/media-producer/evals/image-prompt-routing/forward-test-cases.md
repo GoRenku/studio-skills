@@ -21,8 +21,8 @@ Image. It does not invent a more specific purpose or attach Project-wide.
 
 Edit a Location Sheet by changing only one door material. Target its exact
 Asset, include its current Asset File marker with a meaningful `reviewLabel`,
-and author the model-native `promptMention` only when the provider guide calls
-for one. Import the result through `image.edit`; verify it appears beside the
+and author `promptMention` only when the selected provider adapter documents
+exact syntax. Import the result through `image.edit`; verify it appears beside the
 same Location Sheet while the source and current selection remain unchanged.
 
 ## image-create-versus-edit — Create-versus-edit routing

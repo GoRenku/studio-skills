@@ -16,12 +16,14 @@ evidence, downloads, or scratch files at the Project root.
 - Use `tmp/qa/` for review evidence.
 - Use `tmp/scratch/` for other temporary inputs.
 
-Read [references/supported-models.json](references/supported-models.json) and the
-listed guide. Stop when the requested model is absent.
+Read [references/supported-routes.json](references/supported-routes.json), select
+one exact route and operation, and stop when it is absent. Give its `modelKey`
+to Media Producer, which loads the canonical speech or music guide from
+`model-catalog.json`.
 
 Media Producer supplies the exact text, voice choice, and any deliberate local
 inputs. Do not query or reinterpret Renku Project relationships. The
-supported-model index is routing guidance only; read the selected ElevenLabs
+supported-route index is routing guidance only; read the selected ElevenLabs
 operation's current request facts for native fields and constraints.
 
 For speech, author exact `text`, provider `voice` id, and optional native

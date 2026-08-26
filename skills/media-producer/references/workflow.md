@@ -33,8 +33,9 @@ one unique JSON document under `tmp/operations/media-generation/`:
 `request` is the exact native provider input. Its contents remain opaque to
 Core and Studio. A local file is encoded only at the native file/URL field as
 `{"$file":"tmp/scratch/reference.png","mimeType":"image/png","reviewLabel":"Meaningful context label"}`.
-Add `promptMention` only when the retained model guide documents an exact
-provider-visible token. Do not add a Renku
+Add `promptMention` only when the selected provider adapter documents exact
+provider-visible syntax. Derive any ordinals from the final native request
+order. Canonical model guides remain provider-neutral. Do not add a Renku
 purpose, target, domain reference role, estimate, or execution state.
 
 ## Validate and Preview

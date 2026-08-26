@@ -1,8 +1,8 @@
 # Shot Plan Video Forward Test Cases
 
 - Resolve the exact Shot Plan and carry only weak `authoredFrom` context.
-- Route selected Fal.ai text, image, or reference mode to the matching indexed
-  provider guide.
+- Route the selected provider operation through its `modelKey`, read the
+  canonical model guide once, then apply the matching provider adapter.
 - Put exact local files at their native provider fields and preserve order.
 - Preview and confirmation remain conversational; execution is one provider
   request and recovery never changes creative input.
@@ -30,6 +30,15 @@ from an edited Scene Storyboard image and store each beside the exact Plan.
 ## video-reference-dialogue — Reference video with dialogue and native audio
 
 Use `shot-plan.video-generation` with the exact Storyboard, continuity images,
-and approved Dialogue Takes. Seedance uses retained `@ImageN` guidance;
-MiniMax H3 uses retained spaced `Image N` / `Audio N` guidance. Native audio is
-authored only when the chosen model guide supports it.
+and approved Dialogue Takes. Canonical model guidance uses neutral input
+placeholders. For Fal.ai, its provider adapter resolves Seedance placeholders
+to `@ImageN` and MiniMax H3 placeholders to spaced `Image N` / `Audio N`
+syntax. Native audio is authored only when the canonical model guide supports
+it and the selected provider route exposes it.
+
+## video-cross-provider-h3 — One model guide, several providers
+
+Fal.ai, Pika, and WaveSpeed all expose MiniMax H3. Every route resolves to the
+same `minimax-h3` key and the same canonical model guide. Only the provider
+adapter and live request schema may differ. Pika must not inherit Fal.ai's
+mention syntax when its own adapter does not document one.

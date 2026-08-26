@@ -63,7 +63,9 @@ Expected behavior:
 
 - routes both requests to `pika-media-provider` because explicit current-task
   direction overrides the saved lane without mutating Settings;
-- chooses only one of the four indexed operations for each exact input mode;
+- chooses only one indexed route and operation for each exact input mode,
+  resolves its `modelKey`, and reads the canonical Seedream or MiniMax H3 model
+  guide before the Pika provider adapter;
 - runs `generation schema show --provider pika --model <api_id> --json` before
   authoring either provider-native request;
 - gives every local marker an exact native field and meaningful `reviewLabel`,

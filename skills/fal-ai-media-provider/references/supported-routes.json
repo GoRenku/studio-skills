@@ -1,0 +1,25 @@
+{
+  "provider": "fal-ai",
+  "routes": [
+    { "apiId": "openai/gpt-image-2", "name": "GPT Image 2", "modelKey": "gpt-image-2", "mediaKind": "image", "operations": ["text-to-image"], "adapter": "adapters/reference-inputs.md" },
+    { "apiId": "openai/gpt-image-2/edit", "name": "GPT Image 2 Edit", "modelKey": "gpt-image-2", "mediaKind": "image", "operations": ["image-edit"], "adapter": "adapters/reference-inputs.md" },
+    { "apiId": "nano-banana-2", "name": "Nano Banana 2", "modelKey": "nano-banana-2", "mediaKind": "image", "operations": ["text-to-image"], "adapter": "adapters/reference-inputs.md" },
+    { "apiId": "nano-banana-2/edit", "name": "Nano Banana 2 Edit", "modelKey": "nano-banana-2", "mediaKind": "image", "operations": ["image-edit"], "adapter": "adapters/reference-inputs.md" },
+    { "apiId": "nano-banana-pro", "name": "Nano Banana Pro", "modelKey": "nano-banana-pro", "mediaKind": "image", "operations": ["text-to-image"], "adapter": "adapters/reference-inputs.md" },
+    { "apiId": "nano-banana-pro/edit", "name": "Nano Banana Pro Edit", "modelKey": "nano-banana-pro", "mediaKind": "image", "operations": ["image-edit"], "adapter": "adapters/reference-inputs.md" },
+    { "apiId": "xai/grok-imagine-image", "name": "Grok Imagine Image", "modelKey": "grok-imagine-image", "mediaKind": "image", "operations": ["text-to-image"], "adapter": "adapters/reference-inputs.md" },
+    { "apiId": "xai/grok-imagine-image/edit", "name": "Grok Imagine Image Edit", "modelKey": "grok-imagine-image", "mediaKind": "image", "operations": ["image-edit"], "adapter": "adapters/reference-inputs.md" },
+    { "apiId": "bytedance/seedance-2.0/text-to-video", "name": "Seedance 2.0", "modelKey": "seedance-2.0", "mediaKind": "video", "operations": ["text-to-video"], "adapter": "adapters/reference-inputs.md" },
+    { "apiId": "bytedance/seedance-2.0/image-to-video", "name": "Seedance 2.0", "modelKey": "seedance-2.0", "mediaKind": "video", "operations": ["image-to-video", "first-last-frame-to-video"], "adapter": "adapters/reference-inputs.md" },
+    { "apiId": "bytedance/seedance-2.0/reference-to-video", "name": "Seedance 2.0", "modelKey": "seedance-2.0", "mediaKind": "video", "operations": ["reference-to-video"], "adapter": "adapters/reference-inputs.md" },
+    { "apiId": "bytedance/seedance-2.0/mini/text-to-video", "name": "Seedance 2.0 Mini", "modelKey": "seedance-2.0", "mediaKind": "video", "operations": ["text-to-video"], "adapter": "adapters/reference-inputs.md" },
+    { "apiId": "bytedance/seedance-2.0/mini/image-to-video", "name": "Seedance 2.0 Mini", "modelKey": "seedance-2.0", "mediaKind": "video", "operations": ["image-to-video", "first-last-frame-to-video"], "adapter": "adapters/reference-inputs.md" },
+    { "apiId": "bytedance/seedance-2.0/mini/reference-to-video", "name": "Seedance 2.0 Mini", "modelKey": "seedance-2.0", "mediaKind": "video", "operations": ["reference-to-video"], "adapter": "adapters/reference-inputs.md" },
+    { "apiId": "bytedance/seedance-2.0/fast/text-to-video", "name": "Seedance 2.0 Fast", "modelKey": "seedance-2.0", "mediaKind": "video", "operations": ["text-to-video"], "adapter": "adapters/reference-inputs.md" },
+    { "apiId": "bytedance/seedance-2.0/fast/image-to-video", "name": "Seedance 2.0 Fast", "modelKey": "seedance-2.0", "mediaKind": "video", "operations": ["image-to-video", "first-last-frame-to-video"], "adapter": "adapters/reference-inputs.md" },
+    { "apiId": "bytedance/seedance-2.0/fast/reference-to-video", "name": "Seedance 2.0 Fast", "modelKey": "seedance-2.0", "mediaKind": "video", "operations": ["reference-to-video"], "adapter": "adapters/reference-inputs.md" },
+    { "apiId": "minimax/h3/text-to-video", "name": "MiniMax Hailuo 3", "modelKey": "minimax-h3", "mediaKind": "video", "operations": ["text-to-video"], "adapter": "adapters/reference-inputs.md" },
+    { "apiId": "minimax/h3/image-to-video", "name": "MiniMax Hailuo 3", "modelKey": "minimax-h3", "mediaKind": "video", "operations": ["image-to-video", "first-last-frame-to-video"], "adapter": "adapters/reference-inputs.md" },
+    { "apiId": "minimax/h3/reference-to-video", "name": "MiniMax Hailuo 3", "modelKey": "minimax-h3", "mediaKind": "video", "operations": ["reference-to-video"], "adapter": "adapters/reference-inputs.md" }
+  ]
+}

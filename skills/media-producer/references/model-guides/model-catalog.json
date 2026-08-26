@@ -1,0 +1,19 @@
+{
+  "models": [
+    { "key": "gpt-image-2", "name": "GPT Image 2", "mediaKind": "image", "guide": "image/gpt-image-2.md", "operations": { "text-to-image": null, "image-edit": null } },
+    { "key": "nano-banana-2", "name": "Nano Banana 2", "mediaKind": "image", "guide": "image/nano-banana.md", "operations": { "text-to-image": null, "image-edit": null } },
+    { "key": "nano-banana-pro", "name": "Nano Banana Pro", "mediaKind": "image", "guide": "image/nano-banana.md", "operations": { "text-to-image": null, "image-edit": null } },
+    { "key": "grok-imagine-image", "name": "Grok Imagine Image", "mediaKind": "image", "guide": "image/grok-imagine-image.md", "operations": { "text-to-image": null, "image-edit": null } },
+    { "key": "seedream-5.0-pro", "name": "Seedream 5.0 Pro", "mediaKind": "image", "guide": "image/seedream-5.0-pro.md", "operations": { "text-to-image": null, "image-edit": null } },
+    { "key": "flux-kontext-pro", "name": "FLUX Kontext Pro", "mediaKind": "image", "guide": "image/flux-kontext-pro.md", "operations": { "text-to-image": null, "image-edit": null } },
+    { "key": "z-image-turbo", "name": "Z-Image Turbo", "mediaKind": "image", "guide": "image/z-image-turbo.md", "operations": { "text-to-image": null } },
+    { "key": "seedance-2.0", "name": "Seedance 2.0", "mediaKind": "video", "guide": "video/seedance-2.0/index.md", "operations": { "text-to-video": "video/seedance-2.0/text-to-video.md", "image-to-video": "video/seedance-2.0/image-to-video.md", "first-last-frame-to-video": "video/seedance-2.0/first-last-frame-to-video.md", "reference-to-video": "video/seedance-2.0/reference-to-video.md" } },
+    { "key": "minimax-h3", "name": "MiniMax Hailuo 3", "mediaKind": "video", "guide": "video/minimax-h3/index.md", "operations": { "text-to-video": "video/minimax-h3/text-to-video.md", "image-to-video": "video/minimax-h3/image-to-video.md", "first-last-frame-to-video": "video/minimax-h3/image-to-video.md", "reference-to-video": "video/minimax-h3/reference-to-video.md" } },
+    { "key": "veo-3.1-fast", "name": "Veo 3.1 Fast", "mediaKind": "video", "guide": "video/veo-3.1-fast.md", "operations": { "text-to-video": null, "image-to-video": null, "first-last-frame-to-video": null } },
+    { "key": "eleven-v3", "name": "Eleven v3", "mediaKind": "audio", "guide": "audio/elevenlabs-speech.md", "operations": { "text-to-speech": null } },
+    { "key": "eleven-multilingual-v2", "name": "Eleven Multilingual v2", "mediaKind": "audio", "guide": "audio/elevenlabs-speech.md", "operations": { "text-to-speech": null } },
+    { "key": "eleven-turbo-v2-5", "name": "Eleven Turbo v2.5", "mediaKind": "audio", "guide": "audio/elevenlabs-speech.md", "operations": { "text-to-speech": null } },
+    { "key": "eleven-music", "name": "Eleven Music", "mediaKind": "audio", "guide": "audio/elevenlabs-music.md", "operations": { "text-to-music": null } },
+    { "key": "minimax-speech-2.8-hd", "name": "MiniMax Speech 2.8 HD", "mediaKind": "audio", "guide": "audio/minimax-speech-2.8-hd.md", "operations": { "text-to-speech": null } }
+  ]
+}

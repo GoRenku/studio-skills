@@ -11,10 +11,12 @@ weak authoring context, not ownership, dependency state, or a selected video.
    coverage, Scene, related subjects/designs, dialogue, Lookbook, and
    relationship-derived media suggestions.
 3. Read `workflow.md`.
-4. Read `../prompt-guides/video/shared/provider-visible-prompting.md` and
-   `../prompt-guides/video/shared/prompt-quality-checklist.md`.
-5. Choose one provider Skill model and input mode, then read its exact route
-   guide.
+4. Read `../model-guides/shared/prompt-input-visibility.md` and
+   `../model-guides/shared/video-quality-checklist.md`.
+5. Choose one exact route and operation from the provider Skill's
+   `supported-routes.json`. Resolve its `modelKey` through
+   `../model-guides/model-catalog.json`, then read the canonical model and
+   operation guides plus the route's optional provider adapter.
 
 ## Input modes
 

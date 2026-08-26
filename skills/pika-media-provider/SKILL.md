@@ -16,10 +16,12 @@ evidence, downloads, or scratch files at the Project root.
 - Use `tmp/qa/` for review evidence.
 - Use `tmp/scratch/` for other temporary inputs.
 
-Read [references/supported-models.json](references/supported-models.json), then
-read the guide named for the selected operation. Automatically select only an
-operation in that index. If the user requests another Pika operation, stop
-until an exact guide has been added; never substitute a different operation.
+Read [references/supported-routes.json](references/supported-routes.json) and
+select one exact `apiId` and operation. If the route is absent, stop; never
+substitute another operation. Give its `modelKey` to Media Producer, which must
+load the canonical model and operation guidance from its `model-catalog.json`.
+Read the route's adapter when present; it owns Pika field and mention behavior,
+not model prompt craft.
 
 Media Producer supplies the exact deliberately chosen local files. Do not query
 or reinterpret Renku Project relationships. After selecting an exact operation,
@@ -36,9 +38,9 @@ index and editorial guides do not replace it.
 Author the exact Pika-native input as the review document's `request`. Put a
 `{"$file":"<project-relative-path>","mimeType":"<mime>","reviewLabel":"<Media Producer label>"}`
 marker at each exact native local-media field. Preserve request order and the
-meaningful `reviewLabel`. Add `promptMention` only when the selected operation
-guide explicitly requires an exact provider-visible token; none of the initial
-four guides require one. Do not upload media yourself.
+meaningful `reviewLabel`. Add `promptMention` only when the selected adapter
+explicitly establishes one; the initial adapter establishes none. Do not upload
+media yourself.
 
 Follow Media Producer for validation, Preview, conversational confirmation,
 artifact review, and focused provenance attachment. After confirmation, reread

@@ -1,7 +1,7 @@
 # Seedance Bad Prompt Fixtures
 
-Use these as negative examples when checking the skill. Do not use them for
-generation.
+Use these as negative examples when checking the skill. Angle-bracket mentions
+are provider-neutral placeholders. Do not use these prompts for generation.
 
 ## Panel Blending Risk
 
@@ -44,7 +44,7 @@ Why it fails: provider cannot see selected app state, and "video prompt sheet"
 is internal storage vocabulary.
 
 Better direction: name the provider token and visible role, such as
-`@Image1 is the storyboard`.
+`<IMAGE_1> is the storyboard`.
 
 ## Geography Contradiction
 

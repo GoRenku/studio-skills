@@ -1,12 +1,14 @@
 # Seedance Golden Prompt Samples
 
-Use these as shape examples for final `shot-plan.video-generation` prompts. Adapt to the
-actual take context, provider preview, route, duration, and user direction. Do
-not copy names, places, actions, or reference tokens blindly.
+Use these as shape examples for final `shot-plan.video-generation` prompts.
+Angle-bracket mentions such as `<IMAGE_1>` and `<AUDIO_1>` are placeholders;
+replace them with exact provider-adapter mentions before Preview. Adapt to the
+actual take context, route, duration, and user direction. Do not copy names,
+places, actions, or mentions blindly.
 
-Only name tokens that the final provider preview actually supplies. For a
+Only name mentions that the final provider request actually supplies. For a
 realistic storyboard that already absorbed its upstream location/look/character
-references, do not add `@Image2` or `@Image3` just because those images were
+references, do not add `<IMAGE_2>` or `<IMAGE_3>` just because those images were
 used during storyboard generation. For a hand-drawn or abstract storyboard,
 extra image references can be appropriate when they provide final appearance.
 
@@ -40,7 +42,7 @@ characters, text overlays, or a dramatic musical score.
 ## Image-To-Video / First Frame
 
 ```text
-@Image1 is the opening frame. Begin from its exact composition, character
+<IMAGE_1> is the opening frame. Begin from its exact composition, character
 identity, wardrobe, prop shape, doorway geometry, crowd placement, and light
 direction.
 
@@ -67,11 +69,11 @@ props, changed wardrobe, or a different background.
 ## First-And-Last Frame
 
 ```text
-@Image1 is the first frame. Start from its exact subject identity, composition,
+<IMAGE_1> is the first frame. Start from its exact subject identity, composition,
 market doorway layout, light direction, torn petition, crowd placement, and
 wardrobe.
 
-@Image2 is the required final frame. End at its closer composition with the
+<IMAGE_2> is the required final frame. End at its closer composition with the
 petition raised into the doorway light.
 
 Transition: Elise steps half a pace forward and raises the petition through
@@ -94,14 +96,14 @@ architecture morphing, or a different time of day.
 
 ```text
 REFERENCES
-@Image1 is the finished cinematic storyboard blueprint for this 15-second
+<IMAGE_1> is the finished cinematic storyboard blueprint for this 15-second
 video. Read it as six ordered waypoints in one uninterrupted drone movement,
 not as a first frame, not as a collage, and not as a page layout to copy. The
 storyboard is realistic/final-style and already contains the location,
 geography, period look, palette, and lighting needed for this final video. Do
 not add or request extra image references for location or look.
 
-@Audio1 is the narrator voice/style reference. Use its voice character for the
+<AUDIO_1> is the narrator voice/style reference. Use its voice character for the
 spoken narration below.
 
 CRITICAL STORYBOARD RULE
@@ -189,19 +191,19 @@ Constantinople, no city or walls behind the final cannon mouth.
 
 ```text
 REFERENCES
-@Image1 is the hand-drawn action storyboard. Use it for shot order, staging,
+<IMAGE_1> is the hand-drawn action storyboard. Use it for shot order, staging,
 camera angle, shot scale, body mechanics, screen direction, action rhythm, and
 motion cues only. Do not render its sketch texture, blank mannequin qualities,
 panel borders, arrows, labels, captions, timing rows, or page layout.
 
-@Image2 is the final appearance reference for C1: the slim long-haired robed
+<IMAGE_2> is the final appearance reference for C1: the slim long-haired robed
 hero. Use it for face, hair, body type, wardrobe, cloth weight, and color.
 
-@Image3 is the final appearance reference for C2: the broad monk opponent. Use
+<IMAGE_3> is the final appearance reference for C2: the broad monk opponent. Use
 it for face, build, robe construction, skin, posture, and wardrobe.
 
 CRITICAL STORYBOARD RULE
-Turn @Image1 into an edited cinematic martial-arts sequence in the exact panel
+Turn <IMAGE_1> into an edited cinematic martial-arts sequence in the exact panel
 order. The panels are separate shots with fast cuts, not one continuous camera
 path and not a collage. All arrows and energy marks describe movement only;
 none should appear as storyboard graphics.
@@ -282,15 +284,15 @@ rubbery morphing limbs.
 
 ```text
 REFERENCES
-@Image1 is the realistic four-panel storyboard for this 12-second dialogue
+<IMAGE_1> is the realistic four-panel storyboard for this 12-second dialogue
 take. It controls shot order, framing, eyelines, blocking, hand movement,
 camera pace, and the emotional rhythm. Do not treat it as a first frame and do
 not copy the page layout.
 
-@Audio1 is Mara's speaker voice reference: low, controlled, close-mic, carrying
+<AUDIO_1> is Mara's speaker voice reference: low, controlled, close-mic, carrying
 fatigue under restraint.
 
-@Audio2 is Elias's speaker voice reference: quieter, older, rougher, with a
+<AUDIO_2> is Elias's speaker voice reference: quieter, older, rougher, with a
 small pause before answering.
 
 CRITICAL STORYBOARD RULE

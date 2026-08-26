@@ -24,5 +24,6 @@ After generation:
 
 Do not use `renku media import` for Cast Voice samples. Do not store sample paths or provider registrations in Cast Design JSON.
 
-Use the `elevenlabs-media-provider` supported-model index and exact operation
+Use the `elevenlabs-media-provider` supported-route index, resolve its
+`modelKey` through the canonical model catalog, and use the exact operation
 guide for the request shape.

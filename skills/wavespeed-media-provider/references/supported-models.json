@@ -1,9 +1,0 @@
-{
-  "provider": "wavespeed-ai",
-  "models": [
-    { "id": "wavespeed-ai/z-image/turbo", "name": "Z-Image Turbo", "inputModes": ["text-to-image"], "guide": "z-image-turbo.md" },
-    { "id": "wavespeed-ai/minimax-h3/text-to-video", "name": "MiniMax Hailuo 3", "inputModes": ["text-to-video"], "guide": "minimax-h3-text.md" },
-    { "id": "wavespeed-ai/minimax-h3/image-to-video", "name": "MiniMax Hailuo 3", "inputModes": ["image-to-video"], "guide": "minimax-h3-image.md" },
-    { "id": "wavespeed-ai/minimax-h3/reference-to-video", "name": "MiniMax Hailuo 3", "inputModes": ["reference-to-video"], "guide": "minimax-h3-reference.md" }
-  ]
-}

@@ -73,9 +73,28 @@ executing a request. For image work, also read
 and [references/image-output-review.md](references/image-output-review.md).
 Read only the purpose craft guide relevant to the current destination.
 
+## Resolve canonical model guidance
+
+Read the selected provider Skill's `references/supported-routes.json` and choose
+the exact route and operation. Take that route's `modelKey`, then read
+`references/model-guides/model-catalog.json`. Load the matched canonical model
+guide and the operation guide named by the catalog. This canonical model guide
+owns provider-independent prompt craft. Stop if the route, model,
+operation, or required guide is missing.
+
+Read the route's optional provider adapter only after the canonical model
+guidance. The model guide owns prompt craft. The provider adapter owns native
+request fields, input ordering, and provider-visible mention syntax. The live
+provider schema owns current fields and constraints. An adapter must never
+replace or duplicate model guidance.
+
+For the Codex built-in image lane, resolve `gpt-image-2` directly from the same
+catalog. There is no provider adapter; the active image capability contract
+owns its request fields and reference behavior.
+
 | Purpose | Craft guide |
 | --- | --- |
-| `image.create`, `image.edit` | `image-operation-routing.md`, then `prompt-guides/image/shared/prompt-authoring.md` |
+| `image.create`, `image.edit` | `image-operation-routing.md`, then `model-guides/shared/image-prompting.md`; also `model-guides/shared/reference-inputs.md` when references are used |
 | `project.cover` | `project-cover.md` |
 | `lookbook.image` | `lookbook-image.md` |
 | `lookbook.video-sheet`, `lookbook.storyboard-sheet` | `lookbook-sheets.md` |
@@ -87,7 +106,7 @@ Read only the purpose craft guide relevant to the current destination.
 | `scene.storyboard-sheet` | `scene-storyboard-sheet.md` |
 | `shot.image` | `shot-image.md` |
 | all `shot-plan.video-*` purposes | `shot-plan-video/index.md`, then `shot-plan-video/workflow.md` |
-| `scene.dialogue-audio` | `prompt-guides/shared/audio-and-voice.md` |
+| `scene.dialogue-audio` | `model-guides/shared/audio-and-voice.md`, then the canonical audio model guide |
 
 ## Review document
 
@@ -105,7 +124,7 @@ Every request uses this irreducible temporary envelope:
       "$file": "tmp/scratch/reference.png",
       "mimeType": "image/png",
       "reviewLabel": "Opening frame — Shot Plan 01",
-      "promptMention": "@Image1"
+      "promptMention": "<exact adapter-resolved mention>"
     }
   }
 }
@@ -115,7 +134,7 @@ The provider Skill owns the exact `model` and provider-native `request` fields.
 Use `{"$file":"<project-relative-path>","mimeType":"image/png","reviewLabel":"<meaningful context label>","promptMention":"<exact model token>"}`
 at the exact native media field. `reviewLabel` is required for every Renku
 review marker; omit `promptMention` when the selected model uses the input
-implicitly. Do not add domain roles, Asset ids, provider uploads, credentials,
+implicitly according to the selected provider adapter. Do not add domain roles, Asset ids, provider uploads, credentials,
 absolute paths, or signed URLs to the envelope.
 
 ## Preview and confirmation

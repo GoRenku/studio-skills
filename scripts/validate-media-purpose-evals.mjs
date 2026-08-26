@@ -29,7 +29,8 @@ const required = [
   'Interrupted asynchronous job', 'External file import',
   'departure from suggested references', 'source-preserving',
   'create-versus-edit', 'Provider edit route', 'first-and-last',
-  'Prop interaction', 'single Beat', 'dense',
+  'Prop interaction', 'single Beat', 'dense', 'canonical model guide',
+  'same canonical model guide', 'provider adapter',
 ];
 const missingPurposes = requiredPurposes.filter((purpose) => !coverage.purposes?.[purpose]);
 const missingEvalIds = Object.values(coverage.purposes ?? {}).filter(

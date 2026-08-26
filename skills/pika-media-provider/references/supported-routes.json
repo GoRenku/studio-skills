@@ -1,0 +1,9 @@
+{
+  "provider": "pika",
+  "routes": [
+    { "apiId": "bytedance/seedream-5.0-pro/text-to-image", "name": "Seedream 5.0 Pro Text to Image", "modelKey": "seedream-5.0-pro", "mediaKind": "image", "operations": ["text-to-image"], "adapter": "adapters/reference-inputs.md", "docs": "https://dev.pika.art/llms/bytedance/seedream-5.0-pro/text-to-image" },
+    { "apiId": "bytedance/seedream-5.0-pro/image-to-image", "name": "Seedream 5.0 Pro Image Editing", "modelKey": "seedream-5.0-pro", "mediaKind": "image", "operations": ["image-edit"], "adapter": "adapters/reference-inputs.md", "docs": "https://dev.pika.art/llms/bytedance/seedream-5.0-pro/image-to-image" },
+    { "apiId": "minimax/h3/text-to-video", "name": "MiniMax H3 Text to Video", "modelKey": "minimax-h3", "mediaKind": "video", "operations": ["text-to-video"], "adapter": "adapters/reference-inputs.md", "docs": "https://dev.pika.art/llms/minimax/h3/text-to-video" },
+    { "apiId": "minimax/h3/image-to-video", "name": "MiniMax H3 Image to Video", "modelKey": "minimax-h3", "mediaKind": "video", "operations": ["image-to-video", "first-last-frame-to-video"], "adapter": "adapters/reference-inputs.md", "docs": "https://dev.pika.art/llms/minimax/h3/image-to-video" }
+  ]
+}

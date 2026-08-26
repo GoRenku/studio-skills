@@ -16,21 +16,23 @@ evidence, downloads, or scratch files at the Project root.
 - Use `tmp/qa/` for review evidence.
 - Use `tmp/scratch/` for other temporary inputs.
 
-Read [references/supported-models.json](references/supported-models.json), then
-read the exact guide named for the selected model. If the model is absent, stop;
-do not substitute another model.
+Read [references/supported-routes.json](references/supported-routes.json) and
+select one exact `apiId` and operation. If the route is absent, stop; do not
+substitute another model. Give its `modelKey` to Media Producer, which must load
+the canonical model and operation guidance from its `model-catalog.json`. Read
+the route's adapter when present. An adapter never replaces a model guide.
 
 Media Producer supplies the exact deliberately chosen local files. Do not query
 or reinterpret Cast, Location, Prop, Lookbook, Scene, Shot, or Shot Plan
-relationships. The supported-model index is routing guidance only; run `renku
+relationships. The supported-route index is routing guidance only; run `renku
 generation schema show --provider fal-ai --model <model> --json` for the
 selected Fal operation's current native fields and constraints.
 
 Author the exact Fal.ai input object as the review document's `request`. Put a
 `{"$file":"<project-relative-path>","mimeType":"<mime>","reviewLabel":"<Media Producer label>"}`
 marker at each native image/video field. Preserve the exact `reviewLabel`, and
-add the exact model-native `promptMention` after assigning final request order
-when the retained prompt guide calls for one. Do not upload media yourself.
+add the exact `promptMention` only when the selected adapter establishes one
+after final request order is known. Do not upload media yourself.
 
 Follow Media Producer for Preview and conversational confirmation. Then call
 `renku generation validate` and `renku generation execute` once. Use

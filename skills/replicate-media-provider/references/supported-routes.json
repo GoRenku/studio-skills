@@ -1,0 +1,8 @@
+{
+  "provider": "replicate",
+  "routes": [
+    { "apiId": "black-forest-labs/flux-kontext-pro", "name": "FLUX Kontext Pro", "modelKey": "flux-kontext-pro", "mediaKind": "image", "operations": ["text-to-image", "image-edit"], "adapter": "adapters/reference-inputs.md" },
+    { "apiId": "google/veo-3.1-fast", "name": "Veo 3.1 Fast", "modelKey": "veo-3.1-fast", "mediaKind": "video", "operations": ["text-to-video", "image-to-video", "first-last-frame-to-video"], "adapter": "adapters/reference-inputs.md" },
+    { "apiId": "minimax/speech-2.8-hd", "name": "MiniMax Speech 2.8 HD", "modelKey": "minimax-speech-2.8-hd", "mediaKind": "audio", "operations": ["text-to-speech"] }
+  ]
+}

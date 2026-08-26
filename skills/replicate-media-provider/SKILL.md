@@ -17,11 +17,14 @@ evidence, downloads, or scratch files at the Project root.
 - Use `tmp/scratch/` for other temporary inputs.
 
 Replicate is an advanced explicit lane. Read
-[references/supported-models.json](references/supported-models.json) and the
-listed model guide. Stop when the requested model is absent.
+[references/supported-routes.json](references/supported-routes.json), select one
+exact route and operation, and stop when it is absent. Give its `modelKey` to
+Media Producer for canonical model-guide loading from `model-catalog.json`.
+Read the route's adapter when
+present; it owns Replicate request mapping, not prompt craft.
 
 Media Producer supplies the exact deliberately chosen local files. Do not query
-or reinterpret Renku Project relationships. The supported-model index is
+or reinterpret Renku Project relationships. The supported-route index is
 routing guidance only; run `renku generation schema show --provider replicate
 --model <model> --json` for the selected Replicate model's current native fields
 and constraints.
@@ -29,8 +32,8 @@ and constraints.
 Use `owner/model` or the exact pinned `owner/model:version` recorded in the
 index. Author the provider-native prediction input as `request`, using `$file`
 markers with Media Producer's exact `reviewLabel` at exact native media fields.
-Add `promptMention` only from retained editorial model guidance, never from a
-hard-coded provider schema. Engines retrieves the selected model's
+Add `promptMention` only when the selected adapter establishes exact syntax.
+Engines retrieves the selected model's
 live input schema, uploads local files, submits, polls, retries eligible
 failures, downloads outputs, and returns safe provenance.
 
