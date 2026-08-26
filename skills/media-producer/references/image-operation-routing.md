@@ -30,15 +30,14 @@ silently weaken either instruction.
 
 ## Reclassify every turn
 
-The previous GenerationSpec purpose is never sticky. Rerun this decision when
-the user steers a mutable request, responds to image review, or asks for a
+The previous request purpose is never sticky. Rerun this decision when the user
+steers a request, responds to image review, or asks for a
 change to a generated candidate.
 
-- If the operation and exact target remain the same, revise the mutable saved
-  request through the normal workflow.
+- If the operation and exact target remain the same, revise the temporary
+  review request through the normal workflow.
 - If the operation changes between focused creation and `image.edit`, author a
-  new GenerationSpec with the new purpose and target. Never rewrite a saved
-  request into a different purpose.
+  new request with the new purpose and target.
 - `regenerate` means another focused creation only when the user wants a new
   interpretation. If the user chooses the current result as the exact canvas
   and asks to preserve it except for named changes, route the next request to
@@ -63,7 +62,8 @@ For a source-preserving edit:
 
 - use `purpose: image.edit`;
 - target the exact source Asset;
-- put the exact source AssetFile in the locked `source/source-image` slot; and
+- pass the exact source AssetFile path through the selected provider's native
+  source-image field; and
 - use revise-source prompt guidance.
 
 The provider endpoint does not choose the Studio purpose. A route such as
@@ -76,18 +76,16 @@ an Additional or continuity slot is not a substitute for `image.edit`.
 
 After choosing focused creation or `image.edit`, select the execution path
 through the same precedence for every image purpose: explicit current user
-direction, then an already-authored saved-spec path, then the Project's **Use
-Codex for image generation** setting.
+direction, then the Project image-provider setting.
 
 When that setting selects Codex and no higher-precedence choice overrides it,
-an `image.edit` defaults to an `agent-external` request using
-`codex/gpt-image-2`. Keep the exact source AssetFile in the locked
-`source/source-image` placement as a logical reference, omit `providerField`,
-and use exactly `values: { prompt }`. Do not switch to a Renku-managed edit
-merely because its provider route ends in `/edit`.
+an `image.edit` uses the built-in `codex/gpt-image-2` capability. Pass the exact
+source image as a built-in capability reference and keep the exact authored
+prompt in the shared review envelope. Do not switch to Fal.ai merely because
+its provider route ends in `/edit`.
 
-Use a Renku-managed edit route only when explicit current direction, the saved
-spec, or the Project setting selects Renku. If Codex is selected but unavailable
+Use a Fal.ai edit route only when explicit current direction or the Project
+setting selects Fal.ai. If Codex is selected but unavailable
 in the current harness, ask which path to use; never silently fall back to paid
 Renku execution.
 
@@ -99,7 +97,7 @@ An `image.edit` request requires a registered source Asset and AssetFile.
   file from current context.
 - If it is an unattached candidate produced in the current workflow and its
   focused destination is already known, import it there as an unselected
-  candidate with its exact receipt or frozen source spec, report that durable
+  candidate with its exact generation provenance, report that durable
   registration, then use the returned Asset and AssetFile as the edit source.
   Requesting an edit chooses the candidate as a source; it does not select it as
   canonical output.
@@ -111,5 +109,5 @@ An `image.edit` request requires a registered source Asset and AssetFile.
 
 After separate output acceptance, import the edited result through the focused
 image destination chosen for that result. The destination purpose and owner are
-independent from the edit source. Preserve the exact managed receipt or frozen
-external source spec, and apply that destination's ordinary selection rules.
+independent from the edit source. Preserve the exact generation provenance and
+apply that destination's ordinary selection rules.

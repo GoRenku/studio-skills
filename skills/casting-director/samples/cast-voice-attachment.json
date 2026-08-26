@@ -9,9 +9,18 @@
   "sample": {
     "sourceProjectRelativePath": "generated/ada-urban-normal.mp3",
     "title": "Ada urban normal voice sample",
-    "receipt": {
+    "generationProvenance": {
       "provider": "elevenlabs",
-      "model": "eleven_v3"
+      "model": "eleven_v3",
+      "mediaKind": "audio",
+      "prompt": "A calm, direct sample of Ada's normal speaking voice.",
+      "request": {
+        "text": "The first move is what sets everything in motion.",
+        "voice": "21m00Tcm4TlvDq8ikWAM"
+      },
+      "receipt": {
+        "outputFormat": "mp3_44100_128"
+      }
     }
   }
 }

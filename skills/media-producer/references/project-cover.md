@@ -4,29 +4,22 @@ Use `project.cover` with target `project` for retained Project Cover candidates
 shown in Project Details and for the one selected image displayed in the
 Project Library and Studio sidebar.
 
-```bash
-renku generation context --purpose project.cover --target project --json
-renku generation model list --purpose project.cover --json
-```
-
-Core fixes the output aspect ratio to 16:9 and currently recommends medium
-quality and Nano Banana 2 for managed generation. The Project's image-path
-setting still chooses Codex by default unless the user explicitly chooses a
-path or an existing saved spec already records one. Never override the fixed
-aspect ratio.
+Begin with `renku generation context --purpose project.cover --target project
+--json`. Read Project story facts from `project`, the Production Lookbook from
+`visualLanguage`, the current review/execution policy from `workflowPolicy`, and
+the advisory 16:9/quality suggestion from `outputGuidance`.
 
 ## Gather context progressively
 
 Start with the conversation. Identify the requested subject, emotion, degree
 of abstraction, typography preference, and whether the cover should match the
-Project's established final-film look. The Generation Context intentionally
-keeps `referenceGuide.sections` empty; it does not send the complete Project or
-automatically choose visual references.
+Project's established final-film look. The context deliberately does not
+enumerate every Project subject for this broad target or automatically choose
+visual references.
 
 Read only what the agreed direction still needs:
 
-- use `renku info show --json` when title, logline, premise, genre, or tone is
-  missing;
+- use the returned Project facts for title, logline, premise, genre, and tone;
 - use the Production Lookbook when the cover should match the established
   final-image visual language, then inspect only exact useful Lookbook media;
 - use exact Cast, Location, or Prop facts and owner-scoped media only for named
@@ -36,7 +29,7 @@ Read only what the agreed direction still needs:
 - use the Storyboard Lookbook only when the user explicitly asks for a
   storyboard, previs, sketch-board, or related drawn treatment.
 
-Stop once the request can be authored. Never load all Project media, both
+Stop once the request can be authored. Do not load all Project media, both
 Lookbooks, the complete screenplay, or every Cast Member, Location, and Prop by
 default. Project Info supplies story framing, not visual evidence. A Production
 Lookbook reference may own palette, lighting, texture, and finish; exact
@@ -44,9 +37,9 @@ subject references own identity, design, and geography.
 
 ## Author and review
 
-Create one explicit GenerationSpec for each proposed variation. Include only
-the exact references deliberately selected for that variation and assign a
-provider field only when the chosen route exposes a matching media field.
+Create one explicit temporary review request for each proposed variation.
+Include only the exact references deliberately selected for that variation and
+place them only in matching native media fields exposed by the chosen route.
 Prompts and generated pixels remain opaque to Studio runtime validation.
 
 Compose for the actual cover surface:
@@ -70,11 +63,11 @@ renku media import \
   --source <project-relative-path> \
   --title <human-readable-title> \
   --summary <meaningful-card-summary> \
-  --receipt <run-json> \
+  --provenance <provenance-json> \
   --json
 ```
 
-Use `--source-spec` instead of `--receipt` for a frozen Codex request. Omit both
+Use the same `--provenance` contract for a Codex request. Omit it
 for an external file. Add `--select` only when the user explicitly chooses that
 candidate as the active cover. Retained alternatives stay available in
 **Project Details → Covers**; selecting one does not discard the others.

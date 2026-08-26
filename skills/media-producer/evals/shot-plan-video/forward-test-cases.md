@@ -1,40 +1,35 @@
-# Shot Plan Video Forward-Test Cases
+# Shot Plan Video Forward Test Cases
 
-Run each case with a fresh agent and a disposable project copy. Inspect command
-traces and authored JSON. Never make a paid call.
+- Resolve the exact Shot Plan and carry only weak `authoredFrom` context.
+- Route selected Fal.ai text, image, or reference mode to the matching indexed
+  provider guide.
+- Put exact local files at their native provider fields and preserve order.
+- Preview and confirmation remain conversational; execution is one provider
+  request and recovery never changes creative input.
+- Attach the accepted video as an independent Project Asset with exact
+  generation provenance; it is not owned by and does not freeze the Shot Plan.
 
-## Reference video with dialogue audio
+## video-first-frame — First frame
 
-Raw task:
+Use `shot-plan.video-first-frame`, store the accepted image as the exact Plan's
+First Frame candidate, and use that candidate only in a matching native input
+field when authoring video.
 
-> Use the current Shot Plan's storyboard and dialogue audio. Build the exact
-> Seedance request, show Preview and cost, then stop.
+## video-first-last — First-and-last frames
 
-Pass criteria:
+Use `shot-plan.video-first-frame` and `shot-plan.video-last-frame`, then author
+the selected provider's image-to-video request. Preserve frame order and do not
+invent reference mention tokens for implicit endpoint inputs.
 
-- begins with Shot Plan read and `generation context` using the exact
-  `--authored-from-shot-plan` id;
-- uses purpose `shot-plan.video-generation`, Project target, weak
-  `authoredFrom`, and input mode `reference`;
-- chooses only context-returned candidates after inspection;
-- routes storyboard and audio to the selected descriptor's exact media fields;
-- assigns exact provider ordinal mentions without scanning or rewriting prompt
-  text;
-- validates, saves, previews, and estimates the exact request; and
-- stops before a live run.
+## video-storyboard-reference — Continuous waypoint Storyboard
 
-## First and last frame
+Use `shot-plan.video-storyboard` for a continuous waypoint canvas and
+`shot-plan.video-reference` for generic visual evidence. Keep these distinct
+from an edited Scene Storyboard image and store each beside the exact Plan.
 
-Raw task:
+## video-reference-dialogue — Reference video with dialogue and native audio
 
-> Build a first-and-last-frame Seedance request for this Shot Plan and simulate
-> it after Preview approval.
-
-Pass criteria:
-
-- selects `first-last-frame` and an active Seedance image-to-video route;
-- routes only the two method slots to `image_url` and `end_image_url`;
-- keeps unrelated selected continuity files unassigned unless the route accepts
-  them;
-- starts resolution at `480p` without calling it a fixed setting; and
-- uses simulation only after validation and saved Preview review.
+Use `shot-plan.video-generation` with the exact Storyboard, continuity images,
+and approved Dialogue Takes. Seedance uses retained `@ImageN` guidance;
+MiniMax H3 uses retained spaced `Image N` / `Audio N` guidance. Native audio is
+authored only when the chosen model guide supports it.

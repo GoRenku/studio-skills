@@ -15,7 +15,8 @@ QA images, downloads, crops, or scratch files at the Project root.
 
 - Use `tmp/operations/` for CLI authoring documents, including create, update,
   design, analysis, Lookbook, Scene Beats, Shot Plan, and import JSON.
-- Use `tmp/specs/` for Generation Specs and `tmp/receipts/` for provider receipts.
+- Use `tmp/operations/media-generation/` for Media Producer review and
+  provenance documents.
 - Use `tmp/media/` for temporary generated, downloaded, transformed, or cropped
   media; use `tmp/qa/` for review evidence and `tmp/scratch/` for other temporary
   inputs.

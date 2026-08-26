@@ -1,0 +1,9 @@
+{
+  "provider": "codex",
+  "model": "gpt-image-2",
+  "mediaKind": "image",
+  "prompt": "Create one cinematic selected-image candidate for the exact authored Shot at the Project aspect ratio.",
+  "request": {
+    "prompt": "Create one cinematic selected-image candidate for the exact authored Shot at the Project aspect ratio."
+  }
+}

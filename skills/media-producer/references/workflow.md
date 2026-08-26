@@ -1,295 +1,116 @@
-# Context-First Generation Workflow
+# Provider-Skill Media Generation Workflow
 
-Use this sequence for every Renku-managed generation purpose:
+Begin with `renku generation context --purpose <purpose> --target <target>
+--json`. For Scene Storyboards, add the exact `--revision` and repeated `--beat`
+scope. Use the returned typed Project/target context, Lookbooks, policy,
+guidance, suggestions, and warnings as the briefing before selecting a provider.
 
-```bash
-renku generation context --purpose <purpose> --target <target> --json
-renku generation model list --purpose <purpose> --json
-renku generation validate --file tmp/specs/generation-spec.json --json
-renku generation spec create --file tmp/specs/generation-spec.json --json
-renku generation preview show --spec <spec-id> --json
-renku generation estimate --spec <spec-id> --json
-renku generation run --spec <spec-id> --approval-token <approval-token> --json
-renku generation run show --run <run-id> --json
-```
+Core suggestions describe real Project relationships but do not limit creative
+choice. Deliberately choose, omit, supplement, or replace references after
+inspection and user direction. Pass only those exact choices to the selected
+provider Skill. Do not make provider Skills rediscover Cast, Location, Prop,
+Lookbook, Scene, Shot, or Shot Plan relationships.
 
-Use `generation spec update --spec <spec-id> --file tmp/specs/generation-spec.json` for revisions and `generation run --spec <spec-id> --approval-token <approval-token> --simulate --json` for a non-paid execution check.
+## Author one provider-native request
 
-## Current GenerationSpec envelope
-
-Start from the relevant checked-in sample and keep this exact top-level shape:
+Delegate request fields and model choice to the matching provider Skill. Write
+one unique JSON document under `tmp/operations/media-generation/`:
 
 ```json
 {
-  "executionKind": "renku-managed",
-  "purpose": "cast.character-sheet",
-  "target": { "kind": "castMember", "id": "cast_..." },
-  "model": { "provider": "fal-ai", "model": "openai/gpt-image-2" },
-  "values": {
-    "prompt": "Provider-facing prompt text.",
-    "image_size": "landscape_16_9",
-    "quality": "high"
-  },
-  "references": [],
-  "title": "Character sheet"
+  "provider": "elevenlabs",
+  "model": "eleven_multilingual_v2",
+  "mediaKind": "audio",
+  "prompt": "The exact dialogue and performance direction",
+  "request": {
+    "text": "The exact spoken text",
+    "voice": "exact-provider-voice-id",
+    "voice_settings": { "stability": 0.5 }
+  }
 }
 ```
 
-For a project video authored from a Shot Plan, start from
-`samples/shot-plan-video/first-last-frame-video-spec.json` or the other
-current Shot Plan video sample for the chosen method. Keep the target as
-Project and carry the required exact `authoredFrom` value only as
-information-only origin context.
-Never resolve it into a Shot Plan snapshot, Asset owner, execution requirement,
-or attachment destination.
+`request` is the exact native provider input. Its contents remain opaque to
+Core and Studio. A local file is encoded only at the native file/URL field as
+`{"$file":"tmp/scratch/reference.png","mimeType":"image/png","reviewLabel":"Meaningful context label"}`.
+Add `promptMention` only when the retained model guide documents an exact
+provider-visible token. Do not add a Renku
+purpose, target, domain reference role, estimate, or execution state.
 
-Read the selected model descriptor before naming fields under `values`. Validate
-the first draft immediately. Never infer a different spec envelope from old
-project files, prior task memory, UI labels, or model marketing names.
+## Validate and Preview
 
-Context is the source of truth for fixed product settings, selectable models, stable guide placements, exact current selections, and eligible UI candidates. Candidates are never initialized selections, and Core emits no creative readiness notices. Do not duplicate provider readiness rules in the skill.
-
-- Fixed settings are Core-owned. Do not turn them into agent choices.
-- Recommendations are editable guidance. Author them only when explicitly chosen.
-- Provider defaults stay absent unless the user or agent deliberately authors them.
-- One spec, estimate, and run cover one current provider request only.
-- `facts.contextText`, when present, is opaque authored source context. Read it; do not parse it into a parallel domain model or treat it as a runtime validation contract.
-- For Shot Plan video authoring, carry the exact weak `authoredFrom` id and an
-  explicit input mode. The Shot Plan does not own request or completion state.
-  Retry a supplied frozen Spec unchanged; create a new mutable Spec before
-  changing the request.
-- Read the Project generation settings for the image path, automatic Preview,
-  confirmation, and concurrency. Codex is the default image path. Explicit
-  current user direction wins, followed by an already-authored saved-spec path,
-  then the Project setting. If no usable path remains, ask.
-
-## Exact references
-
-Copy exact selections from context rather than rebuilding placement ids. Preserve section, slot, and subject ids. Additional references use `{ "kind": "additional" }`.
-
-Presence means inclusion; omit an unselected reference instead of persisting an `included` flag. `providerField` is optional authored intent. When present, it must name an actual media field from the selected model descriptor. Placement expresses product role while `providerField` expresses provider routing; neither implies the other.
-
-For selected references used by the prompt, author the exact provider-visible
-`promptMention`, such as `@Reference1`, `@Image1`, `@Video1`, or `@Audio1`.
-Never scan prompt text to recover allocation state. A prompt mention is
-independent from `providerField`. Replacing the exact
-reference in the same placement preserves the mention. Clearing it does not
-rewrite the prompt.
-
-Inspect every selected reference before generation. A candidate is not a selected relationship, and filesystem presence is not selection. If a continuity-critical exact selection is missing, stop and ask for explicit user direction rather than substituting the first candidate.
-
-Use:
-
-- `{ "kind": "asset-file", "assetId": "...", "assetFileId": "..." }` for an exact registered asset file;
-- `{ "kind": "project-file", "projectRelativePath": "tmp/media/reference.png" }` for a normalized safe project file that is not registered as an asset.
-
-Use `renku generation reference list --media-kind <image|audio|video> --json` to search registered reusable files. It does not invent registrations for project files.
-
-Do not infer creative dependencies, manufacture missing media, walk provenance, or estimate future work.
-
-## Codex image generation path
-
-Use this path when explicit current user direction, the saved spec, or the
-Project's **Use Codex for image generation** setting selects Codex. The setting
-is on by default. The current harness must expose `codex.gpt-image-2`. If the
-capability is absent, ask for a
-path; never silently switch to a paid Renku route.
-Before invoking Codex image generation, save the exact request as a normal
-GenerationSpec. Use `"executionKind": "agent-external"`, record the provider and
-model actually used by the current Codex image tool, and use exactly
-`values: { "prompt": "..." }`. The prompt is the complete, exact instruction
-sent to Codex. Preserve every reviewed requirement there, including the Project
-aspect ratio, composition, visual quality, format direction, and creative constraints. Store
-selected image inputs only as logical `references`.
-
-If the user switches an already-saved request from Renku execution to Codex,
-start from that saved request. Preserve `values.prompt` exactly, preserve the
-title and selected references, and remove provider-specific structured values
-so the current Codex request has exactly `values: { prompt }`. Change only
-`executionKind` and the actual provider/model. Never synthesize a replacement
-prompt or add request-description labels such as `Use case`, `Asset type`,
-`Input image`, or `Primary request`.
-
-```json
-{
-  "executionKind": "agent-external",
-  "purpose": "cast.profile",
-  "target": { "kind": "castMember", "id": "cast_..." },
-  "model": { "provider": "codex", "model": "<actual-model>" },
-  "values": {
-    "prompt": "Create one polished 16:9 profile image with the reviewed composition, visual quality, format direction, and creative constraints."
-  },
-  "references": [],
-  "title": "Profile image"
-}
-```
-
-Save first, then generate:
+For Engines providers:
 
 ```bash
-renku generation spec create --file tmp/specs/external-generation-spec.json --json
-renku generation preview show --spec <returned-spec-id> --json # when the Project setting enables it or the user requests it
+renku generation validate --file tmp/operations/media-generation/request.json --json
 ```
 
-Do not treat Preview as a Codex generation-approval gate. Pause before the tool
-only when the Project's Codex confirmation setting is on.
-After the Preview decision is satisfied, read the saved spec again so any
-already-applied prompt or reference changes are included, then freeze that
-exact saved revision immediately before invoking Codex:
+Open Preview when Project policy enables it or the user asks:
 
 ```bash
-renku generation spec show --spec <returned-spec-id> --json
-renku generation spec freeze --spec <returned-spec-id> --json
+renku generation preview show --file tmp/operations/media-generation/request.json --json
 ```
 
-Pass the frozen record's `spec.values.prompt` to Codex unchanged and pass each
-accepted logical image reference through the image-generation tool's reference
-input. A failed Codex call does not unfreeze the request; retry that exact frozen
-request or author and review a new spec for any change.
+For an ordered set, repeat `--file` in the requested order. Stop when delivery
+fails; later individual notifications would replace the combined dialog.
 
-After inspecting and accepting the generated file, attach it through the normal
-focused import and link the saved request:
+Preview permits editing only the top-level prompt. References and native
+configuration are read-only. The user continues in the ordinary conversation;
+there is no Generate button, approval token, correlation id, or agent-resume
+callback.
+
+After confirmation, reread the document. If the prompt changed, rebuild the
+provider-native prompt-bearing fields through the provider Skill, revalidate,
+and atomically replace `request`. Do not search the opaque JSON for prompt-like
+keys.
+
+## Execute or recover
 
 ```bash
-renku media import --purpose <purpose> --target <target> --source <project-relative-path> --title <title> --source-spec <returned-spec-id> [--select] --json
+renku generation execute \
+  --file tmp/operations/media-generation/request.json \
+  --output tmp/media/request \
+  --json
 ```
 
-Do not create a GenerationRun or receipt for Codex execution. Do not call Renku
-estimate or run for an `agent-external` spec.
+One execute call is one logical provider request. The result contains the
+downloaded artifacts, provider/model/request id when available, and a safe
+`provenance` value. It contains no durable Renku job or Run.
 
-Pass `--select` only when the accepted output is a canonical Cast Profile,
-Location Hero, Lookbook Image, Shot Image, or Scene Beat Storyboard Image and
-selection is part of the current user intent. Import and selection then remain
-one atomic mutation. Character Sheets, Location Sheets, Lookbook Sheets, and
-Dialogue Audio Takes are request-scoped references and never use this flag.
-
-## Preview and managed price approval
-
-Open Studio Preview automatically only when the Project Preview setting is on,
-and always when the user explicitly requests it. Open only the saved
-request with `preview show --spec`. This keeps the prompt, reference cards,
-model settings, and Update action connected to the same saved request. Showing
-Preview does not execute generation. Renku-managed execution always requires
-the exact current estimate token. Conversational confirmation is separate and
-follows the Project's Renku or Codex confirmation setting.
-
-Use repeated flags to review several complete, independent requests together while preserving order:
+When execution reports a known provider request id but cannot finish polling,
+recover the same request rather than submitting again:
 
 ```bash
-renku generation preview show --spec media_generation_spec_1 --spec media_generation_spec_2 --json
+renku generation recover \
+  --file tmp/operations/media-generation/request.json \
+  --request-id <provider-request-id> \
+  --output tmp/media/request \
+  --json
 ```
 
-Do not mix input kinds. The combined display does not combine estimates, approvals, runs, outputs, or attachments.
-Treat a failed combined Preview command as a failed review handoff. Report the
-failure and stop; do not send separate Preview commands for individual files or
-specs, because each later notification replaces the current dialog session.
-Do not estimate or request managed-provider approval until the combined Preview
-has succeeded. Codex external entries never receive a Renku estimate, approval
-token, or GenerationRun.
+Recovery uses the unchanged provider/model/request envelope. Change the review
+document only for a deliberate new generation.
 
-For a Renku-managed request, if prompt, endpoint, authored values, reference
-order or presence, provider-field assignment, or referenced file contents
-change:
+## Inspect and attach
 
-1. update and validate the spec;
-2. show Preview again;
-3. estimate again;
-4. honor the Project's Renku confirmation setting.
+Inspect every artifact before attachment. Rejected outputs stay temporary.
+Persist the exact safe `provenance` value from Execute/Recover in a unique JSON
+file under `tmp/operations/media-generation/`, then pass it through the focused
+attachment command with `renku media import --provenance` or the focused grouped
+Storyboard, Cast Voice, dialogue, or Location World command.
 
-The returned token approves provider/model pricing facts, not the creative payload. A pricing-input change can produce a different token; a prompt or reference change can leave the token unchanged. Always pass the token returned by the latest estimate review, even when conversational confirmation is off, and never treat token equality as proof that execution inputs are unchanged or ready.
+Never manually copy into canonical Asset folders or write Project SQLite.
+Asset Inspection later reads saved provenance through the same shared Prompt,
+References, and Configuration view as Preview. Inspection is read-only.
 
-For batches, cap independent overlapping work at the selected execution
-method's effective
-`concurrencyLimit`. Preserve one spec, Preview decision, estimate/token or
-external freeze, execution, inspection, and attachment per request. A batch is
-not a durable queue and dependent requests remain sequential.
+## Codex built-in images
 
-## Agent-owned image editing
+Codex is a harness capability, not an Engines provider. Use it only when the
+active harness exposes built-in image generation and selected policy or user
+direction chooses it. Author the same review envelope with `provider: "codex"`,
+`model: "gpt-image-2"`, and `mediaKind: "image"`.
 
-Arrive here only after `image-operation-routing.md` selects a source-preserving
-edit. Studio's Generation Request inspector is read-only. To edit an existing
-image, the agent owns this complete workflow:
-
-1. Resolve the exact source Asset and AssetFile from current project context.
-   If the chosen source is an unattached candidate, follow the registration
-   branch in `image-operation-routing.md`; never substitute a project-file
-   Additional reference for the locked edit source.
-2. Author a new `image.edit` GenerationSpec targeting that source Asset. Put
-   the exact source AssetFile in the locked `source/source-image` slot, write
-   the user's edit prompt, and add only deliberately selected references.
-3. Select the path through explicit current user direction, saved spec, then
-   the single Project image-generation setting. When that setting selects
-   Codex and no higher-precedence choice overrides it, default the edit to an
-   external `codex/gpt-image-2` request. Start from
-   `samples/image-edit-spec.json`. Use
-   `samples/image-edit-renku-managed-spec.json` only when the precedence selects
-   Renku. If selected Codex is unavailable, ask instead of falling back.
-4. Save the draft and apply the Project Preview setting for that saved spec. Managed requests keep
-   their normal Preview editing behavior. For `agent-external`, Preview may
-   update only prompt and reference slots. Change its provider, model, or any
-   non-prompt saved value with `renku generation spec update --spec <id>
-   --file tmp/specs/generation-spec.json`, then open Preview again.
-5. For Renku-managed execution, obtain the exact current estimate token and
-   honor the Project's Renku confirmation setting. For Codex external execution,
-   honor the Project's Codex confirmation setting, read the saved revision,
-   freeze it, and
-   invoke the built-in image tool. Any changed request requires a new reviewed
-   spec; never mutate a frozen request.
-6. Execute the request through Renku or Codex as selected.
-7. Display the generated image in Codex and separately ask whether the user
-   accepts this output for attachment.
-8. Only after output acceptance, call `renku media import` with the focused
-   image destination purpose and target chosen for the output. It does not need
-   to share an owner with the source image. Pass the matching managed
-   `--receipt` or the frozen external `--source-spec`.
-9. Report the newly attached generated Asset. The source Asset, source
-   AssetFile, owner membership, and selection remain unchanged unless the
-   accepted destination import explicitly used `--select`.
-
-Closing Preview or the Generation Request inspector does not approve a
-Renku-managed run or accept generated output. Codex external execution does not
-use Preview as an approval gate. Rejected output remains unattached.
-
-For every generated image, route inspection and subsequent operation selection
-through `image-output-review.md` and `image-operation-routing.md`. Review-first
-is the default. Strict iterative review requires explicit task-scoped user
-opt-in, a deliberate changed request after each visual failure, and every
-ordinary cost and approval boundary.
-
-## Outputs and focused attachment
-
-A successful run creates output files and provenance. Generation does not
-automatically attach outputs to an Asset owner.
-
-Use the exact output path directly as a `project-file` reference when it only needs to guide a later request. Import it only when a current focused destination exists.
-
-Supported single-file focused imports are:
-
-```text
-lookbook.image
-lookbook.video-sheet
-lookbook.storyboard-sheet
-cast.character-sheet
-cast.profile
-location.sheet
-location.hero
-```
-
-Scene Storyboard images use the dedicated grouped or single-Beat import form.
-Cast Voice samples use the Cast Voice attachment workflow.
-
-For canonical imports, `--select` combines accepted attachment and selection.
-Use `renku asset select` only for an existing candidate. Never add global
-selection to Character Sheets, Location Sheets, Lookbook Sheets, or Dialogue
-Audio Takes; author those exact files only in a consuming GenerationSpec.
-
-Pass `--receipt` only for an exact output from the supplied Renku run. For an
-accepted `image.edit`, import through any currently supported focused image
-destination chosen for the output rather than through a generic edit
-destination. The edit source does not determine or restrict the destination
-owner. For a Codex-generated image, pass the frozen saved request with
-`--source-spec`. Attachment rejects a mutable source request. Omit both flags
-for uploaded, manually produced, or other external media with no saved
-generation request. Never fabricate provenance.
-
-When the requested durable destination has no current focused command, report the gap. Do not invent a generic attachment command, use ignored flags, write the database directly, or manually copy files into canonical media folders.
+Preview normally, then invoke the built-in capability directly after
+conversational confirmation. Create safe provenance with the exact final
+prompt/request and no invented receipt. Attach it through the same
+`--provenance` boundary.

@@ -27,57 +27,47 @@ before building the target:
 renku screenplay scene-number resolve --number <production-number> --json
 ```
 
-Use the returned durable `sceneId` in the generation target, Scene Beats revision reads,
-and persisted Generation Spec. Do not add a duplicate production-number field.
+Use the returned durable `sceneId` in the attachment target and Scene Beats
+revision reads. Do not add a duplicate production-number field.
 
-1. Read generation context:
+1. Resolve the exact Scene Beats revision and requested Beat batch, then read
+   one complete deterministic briefing:
 
    ```bash
    renku generation context \
      --purpose scene.storyboard-sheet \
      --target scene:<scene-id> \
+     --revision <scene-beats-revision-id> \
+     --beat <beat-id> \
      --json
    ```
 
-2. Resolve and read the exact Scene Beats revision. Do not rely on an active
-   revision id from an earlier handoff without reading it back:
-
-   ```bash
-   renku screenplay beats context --scene <scene-id> --json
-   renku screenplay beats show --revision <scene-beats-revision-id> --json
-   renku screenplay beats storyboard status --scene <scene-id> --revision <scene-beats-revision-id> --json
-   ```
-
-3. Read the current Storyboard Lookbook document in full with
-   `renku lookbook show --kind storyboard --json`.
-4. Inspect and attach one exact usable Storyboard Lookbook Sheet. It is the
-   only appearance authority. If the role is unauthored, hand off to Lookbook
-   Designer. If the document exists but no usable Sheet exists, prepare
-   `lookbook.storyboard-sheet` and obtain acceptance first. Never substitute
-   the Production Lookbook, Production Lookbook prose, or a prose-only style
-   guess.
-5. Determine the exact requested or missing Beat ids. Scene Beat authoring may
+   Repeat `--beat` for each Beat in the batch. Core returns them in canonical
+   revision order with the related subjects, designs, Lookbook, prior Beat
+   images, and subject continuity suggestions.
+2. Inspect the returned candidates that are useful for this request. A current
+   Storyboard Lookbook Sheet is usually the strongest appearance authority,
+   but its absence is a context gap rather than a Core blocker. The agent/user
+   may use another source or proceed without one after considering the tradeoff.
+4. Determine the exact requested or missing Beat ids. Scene Beat authoring may
    contain any narrative-appropriate number of Beats. Do not add, remove,
    merge, split, pad, reorder, or rewrite Beats for image-generation cost.
-6. Partition only the requested saved Beats, in revision order, into
+5. Partition only the requested saved Beats, in revision order, into
    consecutive groups of at most four. The standard batch is the next four. A
    one-to-three-Beat batch is valid for the final remainder, an exact smaller
    subset requested by the user, or a real selected-path reference-capacity
    constraint. Never invent filler Beats or silently drop a needed reference.
-7. For each batch, gather the exact narrative and continuity context, inspect
+6. For each batch, use the returned exact narrative and continuity context, inspect
    exact reference files, reason about visible action, stage each panel, and
    synthesize the provider prompt as described below.
-8. Use the Project's **Use Codex for image generation** setting. It is on by
-   default. An explicit user choice for this request or a path already saved on
-   the Spec takes precedence. If Codex is selected, require the harness
-   capability `codex.gpt-image-2`. If the setting is off, use the Renku-managed
-   GPT Image 2 reference-capable `/edit` provider route. The route name does not
-   change this focused creation purpose to `image.edit`.
-9. Save, review, reread, and freeze one GenerationSpec per batch. For Codex,
-   invoke the built-in image tool with the frozen prompt unchanged and every
-   selected local reference. For managed execution, Preview, estimate, obtain
-   approval, and run through the ordinary contract.
-10. Follow `image-output-review.md`. Review-first analyzes one result and waits
+7. Use explicit user direction, then `workflowPolicy`, to choose the provider.
+   Choose a supported model and input mode conversationally, then read the
+   provider's current native operation facts. An edit-capable provider route
+   does not change this focused creation purpose to `image.edit`.
+8. Write one temporary review document per batch. Validate Engines requests,
+   show Preview when required, reread after confirmation, rebuild native prompt
+   fields after edits, then execute through the chosen lane.
+9. Follow `image-output-review.md`. Review-first analyzes one result and waits
     for accept/regenerate/discard direction. Strict iterative review requires
     explicit user opt-in and a deliberately changed, newly reviewed request
     after a visual failure. For a one-Beat request, inspect the complete full-
@@ -94,9 +84,9 @@ Gather:
 - the exact Scene and Scene Beats revision;
 - selected Beat ids, titles, descriptions, narrative developments, narrative
   purposes, Cast Member ids, Location ids, Prop ids, and Screenplay Block ids;
-- `facts.contextText` as opaque authored narrative context;
-- the current Storyboard Lookbook document and one exact Storyboard Lookbook
-  Sheet;
+- `targetContext.contextText` as opaque authored narrative context;
+- the current Storyboard Lookbook and any deliberately selected appearance
+  reference;
 - exact records and visually inspected sheets for Cast Members, Locations,
   and Props used by the batch;
 - useful prior accepted Beat images only when they can be attached through a
@@ -104,8 +94,8 @@ Gather:
 - the selected execution path's current model/tool guide, input shape,
   reference capacity, and size controls.
 
-Filter the complete Scene-level inventories to the batch. Preserve first Beat
-appearance order separately for Cast Members, Locations, and Props. Read each
+Use the batch-scoped `targetContext`; Core has already resolved and ordered the
+related Cast Members, Locations, and Props. Read each
 candidate's `oneLineSummary`, `referenceName`, and complete `tags` list, then
 inspect its pixels and available generation request/provenance. Prefer a
 suitable same-owner sheet whose tags include the exact string `storyboard`.
@@ -113,7 +103,7 @@ Check exact membership across the whole list; tag order conveys no priority.
 The tag is evidence of intended use, not proof of visual correctness. Reject a
 tagged candidate that is stale, visibly unsuitable, tied to the wrong wardrobe
 or state, or rendered against an obsolete appearance authority. Never choose
-from candidate order or initialize a selection outside the GenerationSpec.
+from candidate order.
 
 When no suitable tagged sheet exists, inspect every eligible same-owner sheet
 and deliberately choose the best continuity match. Untagged and differently
@@ -125,12 +115,10 @@ request solely because `storyboard` is absent. Deliberately reuse accepted
 subject-owned references across Scenes and batches when continuity should
 remain unchanged.
 
-If a required subject has no usable same-owner continuity sheet, do not silently
-omit it, infer continuity from a filename or prompt, or substitute an unrelated
-Project image. Offer or prepare the focused Storyboard continuity sheet using
-the Production subject sheet as content authority and the Storyboard Lookbook
-as appearance authority. Otherwise ask whether to use an explicitly supplied
-external reference, revise the batch, or proceed without that anchor.
+If a visible subject has no useful same-owner continuity sheet, do not infer a
+Project relationship from a filename or prompt. Consider preparing a focused
+continuity sheet, using a user-supplied reference, or proceeding without that
+anchor. The choice remains agent/user judgment rather than a generation gate.
 
 Reason about the visible event that communicates each Beat's narrative
 development and the visual emphasis that serves its narrative purpose without
@@ -165,7 +153,8 @@ so. A coarse or hand-drawn Lookbook may simplify small details, but identity,
 silhouette, costume, construction, geography, and other defining features must
 remain unmistakable.
 
-Name every prompt-visible reference with its exact stable `promptMention`.
+Name every prompt-visible reference with the exact token determined by the
+selected provider's final native array order.
 Use wording equivalent to:
 
 ```text
@@ -213,34 +202,37 @@ relationships, Location geography, and Prop interaction when they matter.
 
 ## When Codex Is On Or Off
 
-The default request is agent-external Codex:
+The Codex review document is:
 
 ```json
 {
-  "executionKind": "agent-external",
-  "model": { "provider": "codex", "model": "gpt-image-2" },
-  "values": { "prompt": "<exact reviewed prompt>" }
+  "provider": "codex",
+  "model": "gpt-image-2",
+  "mediaKind": "image",
+  "prompt": "<exact reviewed prompt>",
+  "request": {
+    "prompt": "<exact reviewed prompt>",
+    "images": [
+      { "$file": "tmp/scratch/storyboard-lookbook.png", "mimeType": "image/png", "reviewLabel": "Storyboard Lookbook style reference" }
+    ]
+  }
 }
 ```
 
-Keep `values` exactly prompt-only. Keep image references logical and omit
-`providerField`. Put the Storyboard Lookbook first, give every reference a
-stable `promptMention`, and pass every selected local image through the
-built-in tool's reference inputs. Put the high-resolution full-composite
+Put the Storyboard Lookbook first and pass every selected local image through
+the built-in tool's reference inputs. Put the high-resolution full-composite
 requirement in the exact prompt because the current built-in envelope has no
 structured `image_size` or `quality` field. Inspect actual dimensions and do
-not invent a pixel guarantee. Do not author a Renku estimate, approval token,
-GenerationRun, provider receipt, `image_size`, `quality`, `num_images`, or
-`input_fidelity` for this external request.
+not invent a pixel guarantee, provider receipt, or unsupported structured
+fields for this built-in request.
 
-When the Project setting is off or the user explicitly selects Renku, use
+When the Project Image provider is Fal.ai or the user explicitly selects it, use
 `fal-ai/openai/gpt-image-2/edit`. Put every provider-visible reference in
-`image_urls` and choose a current descriptor-supported custom `image_size`
+`image_urls` and choose a current provider-supported custom `image_size`
 near the route's reliable high-resolution boundary while preserving the
 composite layout. Recheck current constraints rather than hardcoding one
-universal size. Leave authored `quality` absent because Core fixes it to
-`high`; leave `num_images` absent when the one-image default is correct; and
-omit `input_fidelity` because GPT Image 2 processes references at high
+universal size. Leave `num_images` absent when the one-image default is correct;
+omit `input_fidelity` when the current route processes references at high
 fidelity automatically.
 
 This provider route remains `purpose: scene.storyboard-sheet`. Never use this
@@ -253,7 +245,7 @@ accept the prior image; a true edit uses the locked `image.edit` source slot.
   the selected model, not a thumbnail sheet;
 - one to four Beat panels; a two-Beat composite also uses two layout-only
   placeholder cells;
-- every complete panel uses the Project aspect ratio returned by generation context;
+- every complete panel uses the Project aspect ratio from current Project info;
 - Beats arranged in Scene Beats revision order;
 - a clean grid with clear gutters and panel image areas suitable for vision-guided cropping;
 - no cropped, stretched, overlapping, or merged panel image regions;

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Fal.ai Media Provider"
+  short_description: "Author supported Fal.ai media requests"
+  default_prompt: "Use $fal-ai-media-provider to author and execute this supported Fal.ai media request."

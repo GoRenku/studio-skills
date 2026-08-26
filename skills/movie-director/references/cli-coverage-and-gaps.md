@@ -51,15 +51,16 @@ Screenplay commands do not mutate Cast Members, Locations, or Props.
 
 ## Media Generation
 
-Use `media-producer` for generation specs, estimates, approved runs,
-inspection, slicing, and supported focused attachment.
+Use `media-producer` for deterministic context, provider-native request review
+and execution, inspection, slicing, and supported focused attachment.
 
 Current media purposes include Lookbook images and typed sheets, Cast Character
 Sheets, cast profiles and voice samples, Location Sheets and heroes, Prop
 Sheets and heroes, Scene Storyboard Sheets, dialogue audio, and general image creation
-and editing. Read current purpose context and model
-descriptors through `media-producer`; do not reconstruct removed route, input,
-or request-planning contracts here.
+and editing. Media Producer reads current purpose context from Core, chooses a
+supported model/input mode conversationally, and reads native request facts
+from the selected provider; do not reconstruct removed route, input, or
+request-planning contracts here.
 
 ## Shot Planning
 
@@ -67,7 +68,9 @@ Use `shot-planner` for `renku shot-plan` list, show, validate, create, focused
 plan detail updates, Shot add/update/move/remove, copy/delete, and explicit
 selected-image work. `shot.image` creates Shot-owned image candidates. Common
 `renku asset select` chooses an existing candidate; accepted generation may
-import with `--select`. Shot video authoring remains a gap.
+import with `--select`. Shot Plan video generation is owned by Media Producer
+and uses a `shot-plan:<id>` context target; Shot-owned durable video state
+remains absent.
 
 ## Lookbook Image Placement
 

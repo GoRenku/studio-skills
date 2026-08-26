@@ -1,0 +1,25 @@
+{
+  "provider": "fal-ai",
+  "models": [
+    { "id": "openai/gpt-image-2", "name": "GPT Image 2", "inputModes": ["text-to-image"], "guide": "image-create.md" },
+    { "id": "openai/gpt-image-2/edit", "name": "GPT Image 2 Edit", "inputModes": ["image-edit"], "guide": "image-edit.md" },
+    { "id": "nano-banana-2", "name": "Nano Banana 2", "inputModes": ["text-to-image"], "guide": "image-create.md" },
+    { "id": "nano-banana-2/edit", "name": "Nano Banana 2 Edit", "inputModes": ["image-edit"], "guide": "image-edit.md" },
+    { "id": "nano-banana-pro", "name": "Nano Banana Pro", "inputModes": ["text-to-image"], "guide": "image-create.md" },
+    { "id": "nano-banana-pro/edit", "name": "Nano Banana Pro Edit", "inputModes": ["image-edit"], "guide": "image-edit.md" },
+    { "id": "xai/grok-imagine-image", "name": "Grok Imagine Image", "inputModes": ["text-to-image"], "guide": "image-create.md" },
+    { "id": "xai/grok-imagine-image/edit", "name": "Grok Imagine Image Edit", "inputModes": ["image-edit"], "guide": "image-edit.md" },
+    { "id": "bytedance/seedance-2.0/text-to-video", "name": "Seedance 2.0", "inputModes": ["text-to-video"], "guide": "video-text.md" },
+    { "id": "bytedance/seedance-2.0/image-to-video", "name": "Seedance 2.0", "inputModes": ["image-to-video"], "guide": "video-image.md" },
+    { "id": "bytedance/seedance-2.0/reference-to-video", "name": "Seedance 2.0", "inputModes": ["reference-to-video"], "guide": "video-reference.md" },
+    { "id": "bytedance/seedance-2.0/mini/text-to-video", "name": "Seedance 2.0 Mini", "inputModes": ["text-to-video"], "guide": "video-text.md" },
+    { "id": "bytedance/seedance-2.0/mini/image-to-video", "name": "Seedance 2.0 Mini", "inputModes": ["image-to-video"], "guide": "video-image.md" },
+    { "id": "bytedance/seedance-2.0/mini/reference-to-video", "name": "Seedance 2.0 Mini", "inputModes": ["reference-to-video"], "guide": "video-reference.md" },
+    { "id": "bytedance/seedance-2.0/fast/text-to-video", "name": "Seedance 2.0 Fast", "inputModes": ["text-to-video"], "guide": "video-text.md" },
+    { "id": "bytedance/seedance-2.0/fast/image-to-video", "name": "Seedance 2.0 Fast", "inputModes": ["image-to-video"], "guide": "video-image.md" },
+    { "id": "bytedance/seedance-2.0/fast/reference-to-video", "name": "Seedance 2.0 Fast", "inputModes": ["reference-to-video"], "guide": "video-reference.md" },
+    { "id": "minimax/h3/text-to-video", "name": "MiniMax Hailuo 3", "inputModes": ["text-to-video"], "guide": "video-text.md" },
+    { "id": "minimax/h3/image-to-video", "name": "MiniMax Hailuo 3", "inputModes": ["image-to-video"], "guide": "video-image.md" },
+    { "id": "minimax/h3/reference-to-video", "name": "MiniMax Hailuo 3", "inputModes": ["reference-to-video"], "guide": "video-reference.md" }
+  ]
+}

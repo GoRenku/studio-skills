@@ -1,0 +1,8 @@
+{
+  "provider": "replicate",
+  "models": [
+    { "id": "black-forest-labs/flux-kontext-pro", "name": "FLUX Kontext Pro", "inputModes": ["text-to-image", "image-edit"], "guide": "flux-kontext-pro.md" },
+    { "id": "google/veo-3.1-fast", "name": "Veo 3.1 Fast", "inputModes": ["text-to-video", "image-to-video", "first-last-frame-to-video"], "guide": "veo-3.1-fast.md" },
+    { "id": "minimax/speech-2.8-hd", "name": "MiniMax Speech 2.8 HD", "inputModes": ["text-to-speech"], "guide": "minimax-speech-2.8-hd.md" }
+  ]
+}

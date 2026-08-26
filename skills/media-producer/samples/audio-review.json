@@ -1,0 +1,10 @@
+{
+  "provider": "elevenlabs",
+  "model": "eleven_multilingual_v2",
+  "mediaKind": "audio",
+  "prompt": "Ada tests the locked door, then lowers her voice: we only get one clean chance.",
+  "request": {
+    "text": "Ada tests the locked door, then lowers her voice: we only get one clean chance.",
+    "voice": "exact-provider-voice-id"
+  }
+}

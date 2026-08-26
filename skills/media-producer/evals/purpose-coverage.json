@@ -1,0 +1,25 @@
+{
+  "purposes": {
+    "image.create": "image-create-shot-plan",
+    "image.edit": "image-edit-source-preserving",
+    "project.cover": "purpose-project-cover",
+    "cast.character-sheet": "purpose-cast-media",
+    "cast.profile": "purpose-cast-media",
+    "cast.voice-sample": "purpose-cast-media",
+    "location.sheet": "purpose-location-media",
+    "location.hero": "purpose-location-media",
+    "prop.sheet": "purpose-prop-media",
+    "prop.hero": "purpose-prop-media",
+    "lookbook.image": "purpose-lookbook-media",
+    "lookbook.video-sheet": "purpose-lookbook-media",
+    "lookbook.storyboard-sheet": "purpose-lookbook-media",
+    "scene.storyboard-sheet": "purpose-storyboard-dense",
+    "shot.image": "purpose-shot-image",
+    "shot-plan.video-first-frame": "video-first-frame",
+    "shot-plan.video-last-frame": "video-first-last",
+    "shot-plan.video-storyboard": "video-storyboard-reference",
+    "shot-plan.video-reference": "video-storyboard-reference",
+    "shot-plan.video-generation": "video-reference-dialogue",
+    "scene.dialogue-audio": "purpose-dialogue-audio"
+  }
+}

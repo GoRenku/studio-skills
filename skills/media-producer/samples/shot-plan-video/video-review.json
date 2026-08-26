@@ -1,0 +1,14 @@
+{
+  "provider": "fal-ai",
+  "model": "bytedance/seedance-2.0/image-to-video",
+  "mediaKind": "video",
+  "prompt": "Hold the opening composition, then make one slow physical dolly push-in as the performance intensifies.",
+  "request": {
+    "prompt": "Hold the opening composition, then make one slow physical dolly push-in as the performance intensifies.",
+    "image_url": {
+      "$file": "tmp/scratch/first-frame.png",
+      "mimeType": "image/png",
+      "reviewLabel": "Shot Plan opening frame"
+    }
+  }
+}

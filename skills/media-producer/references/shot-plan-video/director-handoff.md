@@ -6,8 +6,7 @@ Hand the media producer:
 - the user-approved creative direction;
 - whether an auxiliary first frame, last frame, or storyboard image is wanted;
 - any explicit continuity or dialogue-audio priorities; and
-- whether the work should stop at Preview, estimate, simulation, or live-run
-  approval.
+- whether the work should stop at Preview, artifact review, or attachment.
 
 The media producer rereads current durable context. Do not hand off guessed
 Asset ids, provider ordinals, model fields, or a copied plan snapshot.

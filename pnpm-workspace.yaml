@@ -1,0 +1,4 @@
+# pnpm 11 project settings for this dependency-free, single-package repository.
+# With no packages list, pnpm includes only the root package.
+verifyDepsBeforeRun: false
+lockfile: false

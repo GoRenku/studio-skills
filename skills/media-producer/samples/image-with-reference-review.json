@@ -1,0 +1,17 @@
+{
+  "provider": "fal-ai",
+  "model": "openai/gpt-image-2/edit",
+  "mediaKind": "image",
+  "prompt": "Preserve the exact subject identity and revise only the requested wardrobe detail.",
+  "request": {
+    "prompt": "Preserve the exact subject identity and revise only the requested wardrobe detail.",
+    "image_urls": [
+      {
+        "$file": "tmp/scratch/reference.png",
+        "mimeType": "image/png",
+        "reviewLabel": "Source wardrobe reference",
+        "promptMention": "@Reference1"
+      }
+    ]
+  }
+}

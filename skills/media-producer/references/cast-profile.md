@@ -2,32 +2,33 @@
 
 Use `cast.profile` with target `cast:<cast-member-id>` for the compact Cast navigation image.
 
-```bash
-renku generation context --purpose cast.profile --target cast:<cast-member-id> --json
-renku generation model list --purpose cast.profile --json
-```
+Begin with `renku generation context --purpose cast.profile --target
+cast:<cast-member-id> --json`. Use its exact Cast/design/Scene/voice facts,
+Production Lookbook, policy/guidance, and same-Cast continuity suggestions.
 
-Core fixes the profile aspect ratio to 1:1, currently recommends medium quality and Nano Banana 2, and initializes `source/character-sheet` with the first matching Character Sheet when available. Recommendations remain guidance until explicitly chosen.
+Use a 1:1 profile composition. Inspect every current same-Cast Character Sheet
+candidate and deliberately choose one or none; list order has no special status.
 
-When the source slot is included:
+When a Character Sheet is included:
 
-- preserve the exact placement returned by context;
-- use its exact asset/file identity;
+- resolve and inspect its exact registered file;
 - choose an endpoint that accepts image media;
-- assign the selection to the endpoint's actual media `providerField`.
+- place its local-file marker in the endpoint's actual native media field.
 
-Use a create endpoint when no source sheet is chosen for this request. Use an edit/reference endpoint when continuity with an exact candidate matters. Inspect every current same-Cast Character Sheet candidate and author one exact choice or none into the spec. Do not keep a model allowlist in this reference.
+Use a create endpoint when no source sheet is chosen for this request. Use an
+edit/reference endpoint when continuity with an exact candidate matters.
 
 For Cast Members with `isVoiceOver: true`, do not require a Character Sheet. Read `voice-over-profile-image.md` and create a symbolic display image rather than a physical likeness.
 
-For Codex image generation, follow the external-spec sequence in `workflow.md`, save the accepted file inside the project, inspect it, and import it with `--source-spec <spec-id>`. For Renku generation, follow `workflow.md` and attach the exact accepted run output:
+For Codex or provider image generation, follow `workflow.md`, inspect the exact
+accepted output, and attach it with exact safe provenance:
 
 ```bash
-renku media import --purpose cast.profile --target cast:<cast-member-id> --source <project-relative-path> --title <title> --summary <card-summary> --receipt <run-json> --select --json
+renku media import --purpose cast.profile --target cast:<cast-member-id> --source <project-relative-path> --title <title> --summary <card-summary> --provenance <provenance-json> --select --json
 ```
 
-Use `--source-spec` instead of `--receipt` for Codex-generated files. Omit
-both for external files with no saved generation request. Omit `--select` only
+Use the same provenance contract for Codex-generated files. Omit provenance
+for external files with no generation provenance. Omit `--select` only
 when the user explicitly wants an additional unselected Profile candidate.
 Always include `--summary` for a generated Profile and describe its useful
 appearance in concise human-readable card copy.

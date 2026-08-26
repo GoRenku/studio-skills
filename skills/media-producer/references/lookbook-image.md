@@ -1,6 +1,9 @@
 # Lookbook Image
 
-Use `lookbook.image` with target `lookbook:<lookbook-id>`. Context recommends the project aspect ratio, medium quality, and Nano Banana 2.
+Use `lookbook.image` with target `lookbook:<lookbook-id>`. Begin with the typed
+generation context. It returns the exact Lookbook definition, inspirations,
+current images/sheets, Project-ratio and quality guidance, workflow policy, and
+same-Lookbook reference suggestions. It does not choose a model or reference.
 
 Read the target Lookbook and its existing images before deciding to generate.
 If an accepted image already demonstrates the requested section property, reuse
@@ -15,12 +18,12 @@ For the first example, generate from the user's direction and visible source
 references. For every later example that the user expects to match the accepted
 set:
 
-1. Inspect all candidates in the exact `visual-language` /
-   `lookbook-style-reference` slot.
+1. Inspect the relevant candidates in `suggestedReferences` plus any other
+   user-supplied or creatively useful source.
 2. Choose an accepted image from that target Lookbook as the visual style
    anchor; never choose by list order.
 3. Route that exact file to a real provider image field and allocate its
-   `promptMention`. For Codex ImageGen, pass the same accepted file through
+   provider-documented token. For Codex ImageGen, pass the same accepted file through
    `referenced_image_paths`.
 4. State what remains locked and what may change. For example: `Use @Reference1
    as the locked visual style anchor. Preserve its medium, contour treatment,
@@ -36,25 +39,26 @@ system: a `valueAndAccent` request may alter value allocation, but must not add
 wash, hatching, roughness, modeled lighting, or a new finish unless those
 properties already belong to the accepted style.
 
-Select Codex or Renku through explicit current user direction, an already-saved
-spec path, then the Project's **Use Codex for image generation** setting. For
-Renku-managed work, author a generic spec, validate it, persist it, show the
-saved Preview, estimate, obtain approval, and run with the returned approval
-token. For Codex, save its external spec before Preview and import the accepted
-image with `--source-spec`. Manual or other external images without a saved
-generation request use neither a spec nor a receipt.
+Select Codex or Fal.ai through explicit current user direction, then the
+Project's Image provider setting. For Fal.ai, author one provider-native review
+document through its Skill, validate it, show Preview when required, reread and
+rebuild after prompt edits, then execute after conversational confirmation. For
+Codex, use the same temporary Preview envelope and invoke the built-in capability
+directly. Import either accepted output with exact safe generation provenance.
+Manual or other external images omit generation provenance.
 
 After visual review, import the image first:
 
 ```bash
-renku media import --purpose lookbook.image --target lookbook:<lookbook-id> --source <project-relative-path> --title <title> --receipt <run-json> --select --json
+renku media import --purpose lookbook.image --target lookbook:<lookbook-id> --source <project-relative-path> --title <title> --provenance <provenance-json> --select --json
 ```
 
 Use the returned `ownerRecord.id` with
 `renku lookbook image set-placement --image <lookbook-image-id> --sections ...`
 when section or point placement is intended. Import and placement are separate
 commands. Section placement is agent/user judgment; do not infer it during
-runtime generation validation. Use `--source-spec <spec-id>` for Codex-generated files. Omit both provenance flags for external files with no saved generation request.
+runtime generation validation. Use the same `--provenance` contract for
+Codex-generated files. Omit it for external files with no generation provenance.
 
 Keep `--select` when the image should become the Lookbook's canonical card
 image. Omit it for an unselected example. To choose an existing Lookbook Image,

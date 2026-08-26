@@ -15,7 +15,8 @@ QA images, downloads, crops, or scratch files at the Project root.
 
 - Use `tmp/operations/` for CLI authoring documents, including create, update,
   design, analysis, Lookbook, Scene Beats, Shot Plan, and import JSON.
-- Use `tmp/specs/` for Generation Specs and `tmp/receipts/` for provider receipts.
+- Use `tmp/operations/media-generation/` for Media Producer review and
+  provenance documents.
 - Use `tmp/media/` for temporary generated, downloaded, transformed, or cropped
   media; use `tmp/qa/` for review evidence and `tmp/scratch/` for other temporary
   inputs.
@@ -84,9 +85,9 @@ import it with `--select` as one intent.
 
 7. When the user asks to generate video from the current plan, hand off the
    exact Shot Plan id to `media-producer`. Do not create video state on the
-   plan. The media workflow reads context with
-   `--authored-from-shot-plan <shot-plan-id>` and attaches accepted outputs as
-   independent Project video Assets. Exact frozen provenance lets Core place
+   plan. The media workflow reads context with `--purpose
+   shot-plan.video-generation --target shot-plan:<shot-plan-id>` and attaches
+   accepted outputs as independent Project video Assets. Exact provenance lets Core place
    the accepted file in the corresponding human-readable Scene/Plan folder;
    never calculate that folder from a displayed number.
 

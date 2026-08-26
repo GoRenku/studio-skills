@@ -2,8 +2,8 @@
 
 `production-designer` prepares Location Design. Other skills own downstream work:
 
-- `media-producer` owns `location.sheet` generation specs, estimates, approved
-  runs, inspection, and focused attachment.
+- `media-producer` owns `location.sheet` context, provider-native request
+  review/execution, inspection, and focused attachment.
 - `media-producer` also owns `location.hero` generation/import when a Location needs a compact overview/detail image derived from an approved Location Sheet.
 - `media-producer` owns `prop.sheet` and `prop.hero` for durable Props.
 
@@ -13,12 +13,14 @@ Location Sheet context:
 renku generation context --purpose location.sheet --target location:<location-id> --json
 ```
 
-Before handoff, summarize:
+Media Producer uses that report as the authority for the current Location facts,
+active design, Production Lookbook, owned Assets, related Scenes, and
+relationship-derived reference suggestions. Do not manually reconstruct or
+copy those relationships into the handoff.
 
-- Location facts;
-- active Location Design guidance;
-- existing Location Sheets and the specific sheet descriptions that matter for the current production need;
-- every current same-Location Sheet candidate, with an explicit request-scoped choice or none for continuity rather than an origin-level selection;
+Hand off only the user direction and specialist spatial judgment that are not
+already Project facts, including:
+
 - the Location type, such as interior, exterior, threshold, landscape, urban,
   vehicle-like, abstract, or mixed;
 - the production questions a new Location Sheet must answer for Scene Beat illustration and future Shot planning;
@@ -37,7 +39,6 @@ Before handoff, summarize:
   floor/wall/ceiling materials and wear, major furniture design and condition,
   built-ins, sparse dressing, and grounded anachronism exclusions;
 - whether a Location Hero Image is needed for overview/detail display;
-- active Lookbook context;
 - intended Production or Storyboard rendering mode;
 - for a Storyboard continuity sheet, the exact accepted Production Location or
   Prop Sheet that supplies canonical geography, construction, scale, and state
@@ -73,9 +74,10 @@ Hero, ask `media-producer` to import it with `--select` in the same mutation.
 Location Sheets remain request-scoped candidates: never create a global
 Location Sheet selection.
 
-For a Prop handoff, provide the exact Prop id, active Prop Design, every
-same-Prop Sheet candidate, an explicit reference choice or none, and whether
-the user wants a Hero selected. Never reparent Location media or infer a Prop
-from `recurringObjects`.
+For a Prop handoff, provide the exact Prop id, the user's current direction,
+and whether the user wants a Hero selected. Media Producer must read
+`generation context` for the Prop itself; do not manually enumerate same-Prop
+Sheet candidates. Never reparent Location media or infer a Prop from
+`recurringObjects`.
 
 Do not run paid generation yourself. Do not store generated media paths in Location Design. When Scene Beat illustration needs environment references, name the exact full Location Sheets by description instead of asking for front/right/back/left slices.

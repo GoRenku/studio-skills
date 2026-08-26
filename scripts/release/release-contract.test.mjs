@@ -68,6 +68,22 @@ test('release tooling cannot write or trigger the Studio repository', () => {
   }
 });
 
+test('release validation runs every media-generation guide and eval validator', () => {
+  const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..', '..');
+  for (const validator of [
+    'scripts/validate-media-generation-skills.mjs',
+    'skills/media-producer/scripts/validate-image-prompt-guides.mjs',
+    'skills/media-producer/scripts/validate-video-prompt-guides.mjs',
+    'scripts/validate-media-purpose-evals.mjs',
+  ]) {
+    const result = spawnSync(process.execPath, [validator], {
+      cwd: root,
+      encoding: 'utf8',
+    });
+    assert.equal(result.status, 0, `${validator}\n${result.stdout}\n${result.stderr}`);
+  }
+});
+
 test('shipped skills keep agent working files in categorized Project tmp folders', () => {
   const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..', '..');
   const skillsRoot = path.join(root, 'skills');
@@ -79,9 +95,10 @@ test('shipped skills keep agent working files in categorized Project tmp folders
     const skill = readFileSync(path.join(skillDirectory, 'SKILL.md'), 'utf8');
     assert.match(skill, /^## Project Workspace$/m, skillDirectory);
     assert.match(skill, /Project root/, skillDirectory);
-    for (const category of ['media', 'specs', 'receipts', 'operations', 'qa', 'scratch']) {
+    for (const category of ['media', 'operations', 'qa', 'scratch']) {
       assert.match(skill, new RegExp(`tmp/${category}/`), skillDirectory);
     }
+    assert.match(skill, /tmp\/operations\/media-generation\//, skillDirectory);
   }
 
   for (const markdownPath of listMarkdownFiles(skillsRoot)) {
@@ -93,7 +110,7 @@ test('shipped skills keep agent working files in categorized Project tmp folders
       }
       assert.match(
         fileArgument,
-        /^tmp\/(?:operations|specs|receipts)\//,
+        /^tmp\/operations\//,
         `${markdownPath} uses an uncategorized JSON --file argument: ${fileArgument}`
       );
     }

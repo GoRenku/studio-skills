@@ -6,22 +6,15 @@ weak authoring context, not ownership, dependency state, or a selected video.
 
 ## Required reads
 
-1. Read the exact plan with `renku shot-plan show`.
-2. Read Core context with the exact Shot Plan id:
-
-```bash
-renku generation context \
-  --purpose shot-plan.video-generation \
-  --target project \
-  --authored-from-shot-plan <shot-plan-id> \
-  --json
-```
-
+1. Run `renku generation context --purpose <shot-plan-video-purpose> --target
+   shot-plan:<shot-plan-id> --json`. Core supplies the exact Plan, Shots,
+   coverage, Scene, related subjects/designs, dialogue, Lookbook, and
+   relationship-derived media suggestions.
 3. Read `workflow.md`.
-4. Read `../video-generation/provider-visible-prompting.md` and
-   `../video-generation/prompt-quality-checklist.md`.
-5. Choose one active Seedance family and one input mode, then read the mapped
-   exact route guide from `../video-model-guide-registry.json`.
+4. Read `../prompt-guides/video/shared/provider-visible-prompting.md` and
+   `../prompt-guides/video/shared/prompt-quality-checklist.md`.
+5. Choose one provider Skill model and input mode, then read its exact route
+   guide.
 
 ## Input modes
 
@@ -32,11 +25,12 @@ renku generation context \
 - `reference`: selected images, videos, and audio route in preserved order to
   `image_urls`, `video_urls`, and `audio_urls`.
 
-Choose references from the Core guide. Do not infer candidates by filename or
-scan prompt prose. Keep the exact context-returned placement and subject.
-Replacing a file in a slot preserves its existing mention metadata; assign a
-new exact provider ordinal only after reviewing the final request.
+Choose references from the Core suggestions, user-provided media, or another
+deliberate safe source. Suggestions are advisory, not an allowlist. Do not infer
+Project relationships by filename or prompt prose. Put local-file markers directly in the exact provider-native
+fields and derive provider ordinals from final array order only.
 
 Optional auxiliary requests use `shot-plan.video-first-frame`,
-`shot-plan.video-last-frame`, or `shot-plan.video-storyboard`, target Project,
-and carry the same `authoredFrom` association.
+`shot-plan.video-last-frame`, `shot-plan.video-storyboard`, or
+`shot-plan.video-reference` and target `shot-plan:<id>`. Attachment preserves
+the same weak `authoredFrom` association.

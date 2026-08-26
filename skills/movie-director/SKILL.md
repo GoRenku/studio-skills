@@ -15,7 +15,8 @@ QA images, downloads, crops, or scratch files at the Project root.
 
 - Use `tmp/operations/` for CLI authoring documents, including create, update,
   design, analysis, Lookbook, Scene Beats, Shot Plan, and import JSON.
-- Use `tmp/specs/` for Generation Specs and `tmp/receipts/` for provider receipts.
+- Use `tmp/operations/media-generation/` for Media Producer review and
+  provenance documents.
 - Use `tmp/media/` for temporary generated, downloaded, transformed, or cropped
   media; use `tmp/qa/` for review evidence and `tmp/scratch/` for other temporary
   inputs.
@@ -123,8 +124,8 @@ Use this loop for every request:
 - Use `shot-planner` for director/cinematographer production planning: Scene
   Shot Plans, camera coverage, individual Shot iteration, order, Beat coverage,
   and selected Shot Image coordination.
-- Use `media-producer` for all Renku media generation specs, managed estimates
-  and approved runs, Codex external generation, inspection, slicing, and
+- Use `media-producer` for deterministic generation briefings, provider-native
+  review/execution, Codex external generation, inspection, slicing, and
   supported focused attachments. For image work, Media Producer owns the
   create-versus-edit decision; do not preselect a domain creation purpose merely
   because that domain will receive the accepted output.
@@ -145,10 +146,9 @@ Not first-class today:
 
 - Do not write directly to `.renku/project.sqlite`.
 - Do not invent project, scene, Beat, Cast Member, Location, Prop, asset, Scene Beats revision, Lookbook, or generation ids or numbers.
-- Do not run Renku-managed paid generation without Renku estimate review and
-  the exact returned approval token. Follow the Project's Renku or Codex
-  confirmation setting for any additional conversational confirmation; do not
-  impose a separate skill-owned default.
+- Follow the Project's current confirmation policy and ordinary conversational
+  confirmation before paid generation; do not invent an estimate artifact,
+  approval token, or separate skill-owned gate.
 - Preserve explicit user choices for provider/model, authored values, exact
   references, Beat ids, costs, and approvals.
 - Do not use obsolete command aliases or compatibility paths.

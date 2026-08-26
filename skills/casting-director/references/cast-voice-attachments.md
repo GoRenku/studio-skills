@@ -33,7 +33,9 @@ Use `validate` before `attach`. After attachment, run `list` to verify the Cast 
 - Current direct models are `eleven_v3`, `eleven_multilingual_v2`, and `eleven_turbo_v2_5`.
 - `sample.sourceProjectRelativePath` must point at an existing project-relative audio file.
 - Supported sample file extensions are `.mp3`, `.wav`, and `.m4a`.
-- If the sample came from Renku generation, include the generation receipt so provider/model mismatches fail early.
+- If the sample came from generation, include its exact safe
+  `sample.generationProvenance` so provider/model/media-kind mismatches fail
+  before attachment.
 - Kling and Seedance video voice controls are not Cast Voice Provider
   Registrations. A future Shot workflow must define any transient provider
   voice ids or per-generation audio reference behavior.

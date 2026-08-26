@@ -1,0 +1,4 @@
+interface:
+  display_name: "Replicate Media Provider"
+  short_description: "Author explicit Replicate media requests"
+  default_prompt: "Use $replicate-media-provider to author and execute this explicit Replicate request."

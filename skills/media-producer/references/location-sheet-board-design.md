@@ -52,7 +52,7 @@ Resolve the plan before generation. The prompt must state:
 
 Avoid ambiguous placement language such as "opposite or oblique." If the
 active design, existing images, and user corrections disagree, stop and resolve
-one simple plan before authoring the GenerationSpec.
+one simple plan before authoring the provider request.
 
 Treat the top-down plan as the spatial authority. Every perspective panel must
 derive from that same plan. The plan should show only walls or boundaries,

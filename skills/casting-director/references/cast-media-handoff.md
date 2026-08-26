@@ -1,16 +1,12 @@
 # Cast Media Handoff
 
 `casting-director` prepares facts and Cast Design. `media-producer` owns
-generation specs, estimates, approved runs, inspection, and supported focused
-attachments.
+provider routing, temporary review, conversational confirmation, execution,
+inspection, provenance, and supported focused attachments.
 
-Current cast media purposes:
-
-```bash
-renku generation context --purpose cast.character-sheet --target cast:<cast-member-id> --json
-renku generation context --purpose cast.profile --target cast:<cast-member-id> --json
-renku generation context --purpose cast.voice-sample --target cast:<cast-member-id> --json
-```
+Current Cast media purposes are `cast.character-sheet`, `cast.profile`, and
+`cast.voice-sample`, all targeting the exact `cast:<cast-member-id>` resolved by
+Cast commands.
 
 For Cast Members with `isVoiceOver: true`, hand off profile image requests to
 `media-producer` as `cast.profile` only. The profile image is a symbolic
@@ -20,21 +16,24 @@ unless the user first changes that Cast Member into a visible on-screen role.
 Voice identity and sample audio remain separate Cast Voice / `cast.voice-sample`
 work.
 
-Before handoff, read `renku cast design context --cast <cast-member-id> --json` and summarize:
+Before handoff, read `renku cast design context --cast <cast-member-id> --json`
+to finish Cast Design work. Media Producer independently begins the media turn
+with `renku generation context --purpose <purpose> --target
+cast:<cast-member-id> --json`; that Core report is the authority for the current
+Cast facts, active design, Lookbook, voices, owned Assets, related Scenes, and
+relationship-derived reference suggestions. Do not manually reconstruct or
+copy those relationships into the handoff.
 
-- cast facts that matter;
-- active Cast Design guidance;
+Hand off only the user direction and specialist judgment that are not already
+Project facts, including:
+
 - known or intended height for visible on-screen cast members;
 - one short role or identity synopsis for the block below the face close-up;
 - target wardrobe state for the requested sheet;
 - character-owned accessories that must remain consistent, if any;
-- current character sheet/profile candidates and the exact request-scoped continuity choice, when any;
-- existing same-character sheets that should be used as continuity references;
 - ad hoc user-collected cast reference images that should be offered as
   optional generation references, such as likeness, accessory, costume, or
   historical source images;
-- existing Cast Voices and sample assets when voice media is requested;
-- active Lookbook context;
 - intended Production or Storyboard rendering mode and the exact prior
   Character Sheet that supplies canonical content, when preparing a Storyboard
   continuity variant;
@@ -60,7 +59,7 @@ When the user supplies a portrait, uploaded image, or says "in this likeness":
 - hand off the image as an exact `asset-file` reference when it is already a
   registered project asset, or as an exact `project-file` reference when it is
   only an available project-relative file. Ask `media-producer` to assign it to
-  an actual media field returned by the selected model descriptor;
+  the selected provider Skill's actual native media field;
 - do not silently downgrade the image to a loose text description when a
   selected endpoint accepts the exact reference;
 - do not ask media-producer to combine references into one local collage; Renku
@@ -73,8 +72,8 @@ image. If the user asks to register one independently of a generation request,
 report that capability gap. Do not disguise the file as a character
 sheet/profile or invent provenance.
 
-Do not run paid generation yourself. Ask `media-producer` to create or update
-the persisted generation spec, show the saved spec in the generation preview
-dialog, let the user adjust references, and estimate cost only after the
-preview is accepted. After a voice sample is generated and approved, attach it
-through `renku cast voice attach`; do not import it with `renku media import`.
+Do not run generation yourself. Ask `media-producer` to author the temporary
+provider review document, open conversational Preview when required, satisfy
+the current confirmation policy, inspect the result, and return exact safe
+generation provenance. After a voice sample is generated and approved, attach
+it through `renku cast voice attach`; do not import it with `renku media import`.

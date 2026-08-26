@@ -1,0 +1,4 @@
+interface:
+  display_name: "ElevenLabs Media Provider"
+  short_description: "Author ElevenLabs speech and music requests"
+  default_prompt: "Use $elevenlabs-media-provider to author and execute this ElevenLabs audio request."

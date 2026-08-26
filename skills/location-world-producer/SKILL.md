@@ -30,8 +30,9 @@ scratch files at the Project root.
 - Keep the four source images under
   `tmp/media/location-world/<location-handle>/`. Never import or attach them.
 - Keep the generation document under `tmp/operations/`.
-- Reserve `tmp/specs/` for Generation Specs and `tmp/receipts/` for provider
-  receipts created by Media Producer.
+- Keep provider review/provenance documents under
+  `tmp/operations/media-generation/` when Media Producer creates the four source
+  images.
 - Use `tmp/qa/` for review evidence and `tmp/scratch/` for other temporary
   inputs.
 - Never construct the durable SPZ path. Core owns its Location folder, name,

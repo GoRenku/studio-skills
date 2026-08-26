@@ -226,10 +226,9 @@ Storyboard media handoff:
 
 Use for:
 
-- all Renku media generation specs;
-- model discovery;
-- cost estimates;
-- approved generation runs;
+- deterministic purpose/target generation briefings;
+- conversational model and input-mode choice;
+- provider-native request review and execution;
 - media inspection;
 - slicing composite outputs;
 - supported focused media attachments.
@@ -242,11 +241,12 @@ Pass:
   image, the intended focused destination, and the exact source Asset/File when
   already known. Media Producer decides the generation purpose before reading
   purpose context; do not make the prior purpose sticky;
-- current generation context plus the user's provider/model choice, authored
-  values, and exact references;
+- the exact purpose/target plus the user's provider/model direction, authored
+  values, and exact references when already chosen; Media Producer reads the
+  current Core context itself;
 - Scene Beats revision id and Beat ids for Scene Storyboard imports;
 - any upstream creative work the user explicitly chose to complete first;
-- approval constraints;
+- confirmation constraints;
 - the Project generation settings, unless the user explicitly overrode the
   image path for this request;
 
@@ -254,8 +254,6 @@ Verify:
 
 ```bash
 renku generation context --purpose <purpose-key> --target <target> --json
-renku generation spec show --spec <spec-id> --json
-renku generation estimate --spec <spec-id> --json
 renku director context --json
 ```
 

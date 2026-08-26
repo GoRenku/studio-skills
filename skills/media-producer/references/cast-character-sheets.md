@@ -5,15 +5,11 @@ The same universal layout applies to Production and Storyboard rendering. The
 selected appearance authority changes the rendering style; it never changes
 the layout.
 
-```bash
-renku generation context --purpose cast.character-sheet --target cast:<cast-member-id> --json
-renku generation model list --purpose cast.character-sheet --json
-```
-
-Context exposes the optional named slots
-`visual-language/production-lookbook-sheet`,
-`visual-language/storyboard-lookbook-sheet`, and the same-owner
-`cast/character-sheet`. Select exactly one appearance authority. For a
+Begin with `renku generation context --purpose cast.character-sheet --target
+cast:<cast-member-id> --json`. Use its Cast facts/design/Scene appearances,
+Production and Storyboard Lookbooks, workflow/guidance, and relationship-derived
+appearance/continuity suggestions. Select the references that best serve this
+request; the returned set is advisory and may be supplemented or replaced. For a
 Storyboard continuity sheet, select the exact accepted Production Character
 Sheet as canonical content authority and the current Storyboard Lookbook Sheet
 as sole appearance authority. Use Additional References only for request-
@@ -44,8 +40,8 @@ tool demonstrations, material swatches, or extra studies by default. They may
 replace the universal layout only when the user explicitly requests a custom
 departure. Never use spare canvas as a reason to add them.
 
-Production rendering selects the Production Lookbook Sheet. Storyboard
-rendering selects the Storyboard Lookbook Sheet and keeps the Production
+Production rendering commonly uses a Production Lookbook Sheet. Storyboard
+rendering commonly uses a Storyboard Lookbook Sheet and keeps the Production
 Character Sheet in the content-only role. Preserve identity, silhouette,
 proportions, wardrobe, accessory design, and relevant state while re-rendering
 them in the appearance reference's medium, linework, value treatment, finish,
@@ -74,11 +70,11 @@ renku media import \
   --summary <variant-summary> \
   --reference-name <variant-name> \
   --tag storyboard \
-  --source-spec <frozen-spec-id> \
+  --provenance <provenance-json> \
   --json
 ```
 
-Use `--receipt` instead for the exact managed run. Omit `--tag storyboard` for
+Use the same provenance contract for every generated path. Omit `--tag storyboard` for
 a Production sheet unless independently intended. Always keep `--summary` for
 generated Production and Storyboard sheets; describe the appearance or
 continuity variant in readable card copy rather than repeating the reference

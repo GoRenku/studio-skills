@@ -1,11 +1,10 @@
 # Workflow Playbooks
 
 Use these playbooks when a user asks for an outcome rather than naming a single
-department. Always preserve explicit user choices. Pass the Project generation
-settings to `media-producer`; do not recreate image-path, Preview, confirmation,
-or concurrency defaults in this coordinator. Every Renku-managed run still
-uses its exact estimate token regardless of the conversational confirmation
-setting.
+department. Always preserve explicit user choices. Media Producer reads the
+current Project workflow policy and deterministic domain context itself; do not
+recreate Project relationships, Preview, confirmation, or concurrency defaults
+in this coordinator.
 
 For Codex runs, remember that local Studio HTTP notification is network access. Before dispatching any specialist step that will mutate Renku state while Studio is running, make sure the mutating CLI command is run with sandbox/network permission. If `CLI026` appears, do not rerun non-idempotent mutations just to notify Studio.
 

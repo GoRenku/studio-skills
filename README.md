@@ -163,14 +163,15 @@ skills/media-producer/
 ```
 
 Media Producer helps agents create, inspect, and import purpose-specific Renku
-Studio media. It reads the Core-owned purpose context and current model
-descriptors, authors one generic `GenerationSpec`, assigns every exact
-reference through `providerField`, validates and previews the exact request, and
-estimates Renku-managed work before asking for paid-run approval. Codex
-built-in image generation uses the saved external request without an additional
-approval stop. After generation, it inspects the output and uses only the
-focused attachment command for the requested purpose; generation never implies
-attachment.
+Studio media. Every request begins with the Core-owned deterministic generation
+context for the exact purpose and target. That report supplies current Project
+facts and advisory relationship-derived reference suggestions; it informs the
+agent without limiting its creative choices. Media Producer then chooses a
+provider model and input mode conversationally, reads the provider's current
+native operation facts, authors one temporary review document, previews the
+exact request when required, executes it through the selected provider Skill,
+inspects the result, and uses only the focused attachment command for the
+requested purpose. Generation never implies attachment.
 
 ### Location World Producer
 
@@ -234,3 +235,20 @@ For reliable Studio refreshes, media imports, temporary file work, and optional
 live generation providers, configure a Renku Codex permission profile:
 
 - [Codex Permissions For Renku Skills](docs/codex-renku-permissions.md)
+
+## Repository Validation And Release
+
+This is a single-package skills repository with dependency-free Node.js scripts.
+pnpm is used only to run those scripts; do not run `pnpm install` or add package
+dependencies without deliberately revisiting the repository configuration and
+committing a real lockfile.
+
+Run validation with:
+
+```bash
+pnpm test
+pnpm release:test
+```
+
+Prepare and publish releases with the existing `pnpm release`,
+`pnpm release:minor`, `pnpm release:major`, and `pnpm release:publish` commands.

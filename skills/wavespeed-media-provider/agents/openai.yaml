@@ -1,0 +1,4 @@
+interface:
+  display_name: "WaveSpeed Media Provider"
+  short_description: "Author explicit WaveSpeed media requests"
+  default_prompt: "Use $wavespeed-media-provider to author and execute this explicit WaveSpeed request."
