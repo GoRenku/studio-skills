@@ -25,7 +25,7 @@ The same request arrives in a harness without built-in image generation.
 Expected behavior:
 
 - reports that Codex generation is unavailable in this harness;
-- asks whether to use Fal.ai;
+- asks whether to use Fal.ai or Pika and waits for the user's choice;
 - never silently falls back, adds a Studio capability API, or sends `codex` to
   `renku generation execute`.
 
@@ -53,6 +53,25 @@ Expected behavior:
 - routes to the named provider Skill only when the model appears in its index;
 - stops on an unindexed model instead of substituting one;
 - never makes the advanced provider a Project Settings default.
+
+## Pika Project lane and explicit override
+
+The Project selects Pika for video, and a later image request explicitly asks
+for Pika even though the saved image provider is Fal.ai.
+
+Expected behavior:
+
+- routes both requests to `pika-media-provider` because explicit current-task
+  direction overrides the saved lane without mutating Settings;
+- chooses only one of the four indexed operations for each exact input mode;
+- runs `generation schema show --provider pika --model <api_id> --json` before
+  authoring either provider-native request;
+- gives every local marker an exact native field and meaningful `reviewLabel`,
+  with no invented `promptMention` for the initial operations;
+- validates before Preview, rereads and validates after a prompt edit, executes
+  once, reviews the artifact, and attaches exact returned provenance; and
+- never calls Pika directly, switches provider/model after failure, or turns
+  the four-operation Skill index into an Engines allowlist.
 
 ## Interrupted asynchronous job
 

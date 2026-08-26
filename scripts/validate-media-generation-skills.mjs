@@ -4,6 +4,7 @@ import path from 'node:path';
 const root = process.cwd();
 const providers = [
   ['fal-ai-media-provider', 'fal-ai'],
+  ['pika-media-provider', 'pika'],
   ['replicate-media-provider', 'replicate'],
   ['wavespeed-media-provider', 'wavespeed-ai'],
   ['elevenlabs-media-provider', 'elevenlabs'],

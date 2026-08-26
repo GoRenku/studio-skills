@@ -1,0 +1,4 @@
+interface:
+  display_name: "Pika Media Provider"
+  short_description: "Author supported Pika image and video requests"
+  default_prompt: "Use $pika-media-provider to author and execute this supported Pika media request."

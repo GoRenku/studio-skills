@@ -173,6 +173,12 @@ exact request when required, executes it through the selected provider Skill,
 inspects the result, and uses only the focused attachment command for the
 requested purpose. Generation never implies attachment.
 
+The Pika Media Provider skill is an Image/Video execution lane for Media
+Producer. It curates four initial operations, reads each selected operation's
+raw live schema before request authoring, preserves annotated local references
+for review, and delegates upload, submission, recovery, and download to Renku's
+standalone Engines runtime.
+
 ### Location World Producer
 
 ```text

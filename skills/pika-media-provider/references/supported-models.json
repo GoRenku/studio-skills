@@ -1,0 +1,9 @@
+{
+  "provider": "pika",
+  "models": [
+    { "id": "bytedance/seedream-5.0-pro/text-to-image", "name": "Seedream 5.0 Pro Text to Image", "inputModes": ["text-to-image"], "guide": "seedream-5.0-pro-text-to-image.md" },
+    { "id": "bytedance/seedream-5.0-pro/image-to-image", "name": "Seedream 5.0 Pro Image Editing", "inputModes": ["image-edit"], "guide": "seedream-5.0-pro-image-to-image.md" },
+    { "id": "minimax/h3/text-to-video", "name": "MiniMax H3 Text to Video", "inputModes": ["text-to-video"], "guide": "minimax-h3-text-to-video.md" },
+    { "id": "minimax/h3/image-to-video", "name": "MiniMax H3 Image to Video", "inputModes": ["image-to-video"], "guide": "minimax-h3-image-to-video.md" }
+  ]
+}

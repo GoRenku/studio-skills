@@ -53,18 +53,19 @@ domains or decide which subjects belong to the target.
 ## Choose the execution lane
 
 Read the current Project Settings and the user's explicit direction. The image
-lane is `codex` or `fal-ai`; video is `fal-ai`; audio is `elevenlabs`.
+lane is `codex`, `fal-ai`, or `pika`; video is `fal-ai` or `pika`; audio is `elevenlabs`.
 Replicate and WaveSpeed are advanced explicit choices only. World Labs is not a
 generic Media Producer lane; route Location World work to
 `location-world-producer`.
 
 - For `fal-ai`, use `fal-ai-media-provider`.
+- For `pika`, use `pika-media-provider`.
 - For `replicate`, use `replicate-media-provider`.
 - For `wavespeed-ai`, use `wavespeed-media-provider`.
 - For `elevenlabs`, use `elevenlabs-media-provider`.
 - For Codex, continue only when the current harness exposes its built-in image
   generation capability. If absent, report that fact and ask whether to use
-  Fal.ai. Never silently fall back.
+  Fal.ai or Pika. Wait for the user's choice and never silently fall back.
 
 Read [references/workflow.md](references/workflow.md) before authoring or
 executing a request. For image work, also read

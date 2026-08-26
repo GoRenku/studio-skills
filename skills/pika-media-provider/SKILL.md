@@ -1,0 +1,53 @@
+---
+name: pika-media-provider
+description: Author and execute supported Pika image and video requests for Renku Media Producer. Use after Project Settings or explicit user direction selects Pika; do not use it for Asset attachment decisions.
+---
+
+# Pika Media Provider
+
+## Project Workspace
+
+Keep every agent-created working file inside the current Project's categorized
+`tmp/` tree. Never create review JSON, provenance JSON, generated media, QA
+evidence, downloads, or scratch files at the Project root.
+
+- Use `tmp/operations/media-generation/` for review and provenance documents.
+- Use `tmp/media/` for generated or downloaded media.
+- Use `tmp/qa/` for review evidence.
+- Use `tmp/scratch/` for other temporary inputs.
+
+Read [references/supported-models.json](references/supported-models.json), then
+read the guide named for the selected operation. Automatically select only an
+operation in that index. If the user requests another Pika operation, stop
+until an exact guide has been added; never substitute a different operation.
+
+Media Producer supplies the exact deliberately chosen local files. Do not query
+or reinterpret Renku Project relationships. After selecting an exact operation,
+run:
+
+```bash
+renku generation schema show --provider pika --model <api_id> --json
+```
+
+Treat that raw live `input_schema` as the final authority for fields,
+requiredness, enum values, defaults, bounds, and media cardinality. The model
+index and editorial guides do not replace it.
+
+Author the exact Pika-native input as the review document's `request`. Put a
+`{"$file":"<project-relative-path>","mimeType":"<mime>","reviewLabel":"<Media Producer label>"}`
+marker at each exact native local-media field. Preserve request order and the
+meaningful `reviewLabel`. Add `promptMention` only when the selected operation
+guide explicitly requires an exact provider-visible token; none of the initial
+four guides require one. Do not upload media yourself.
+
+Follow Media Producer for validation, Preview, conversational confirmation,
+artifact review, and focused provenance attachment. After confirmation, reread
+the review file, rebuild any native prompt field from the final top-level
+prompt without changing reference markers, validate again, and execute once.
+Use `generation recover` only with a known Pika request id and the unchanged
+review document.
+
+Never call the Pika API directly, inspect billing as a runtime preflight,
+persist credentials or provider URLs, attach Assets, switch provider/model on
+failure, or create durable execution lifecycle, pricing, balance, or approval
+artifacts.
