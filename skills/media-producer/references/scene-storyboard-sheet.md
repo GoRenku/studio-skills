@@ -243,8 +243,8 @@ accept the prior image; a true edit uses the locked `image.edit` source slot.
 
 - one high-resolution full storyboard image on an output canvas supported by
   the selected model, not a thumbnail sheet;
-- one to four Beat panels; a two-Beat composite also uses two layout-only
-  placeholder cells;
+- one to four Beat panels; incomplete two-by-two composites also use explicit
+  layout-only placeholder cells so every grid cell has a stable boundary;
 - every complete panel uses the Project aspect ratio from current Project info;
 - Beats arranged in Scene Beats revision order;
 - a clean grid with clear gutters and panel image areas suitable for vision-guided cropping;
@@ -266,9 +266,12 @@ the canvas may keep unused margins around it:
   diagonals. Give the placeholders no people, Locations, Props, objects, text,
   labels, captions, or narrative imagery;
 - three panels: use the same fixed two-by-two Project-ratio grid region, place
-  Panels 1 and 2 across the upper row and Panel 3 lower-left, and leave the
-  lower-right cell area as plain sheet background without a panel border,
-  label, or imagery; and
+  Panels 1 and 2 across the upper row and Panel 3 lower-left, and fill the
+  lower-right cell with one visibly bounded, low-detail layout-only
+  placeholder. Give that placeholder a complete cell border and only sparse
+  neutral construction marks, such as two faint corner-to-corner diagonals.
+  Give it no people, Locations, Props, objects, text, labels, captions, or
+  narrative imagery; and
 - four panels: fill the fixed two-by-two Project-ratio grid region in Beat
   order.
 
@@ -276,13 +279,26 @@ A two-by-two grid region with the same outer aspect ratio as the Project gives
 every cell that same aspect ratio. For a two-Beat remainder, use the two visible
 placeholder cells to establish the lower row's geometry, explicitly prohibit
 two full-width stacked strips, and tell the model not to enlarge the Beat
-panels into the placeholder cells. Treat the placeholders only as disposable
-layout scaffolding: they are not Beats, never receive Beat ids, and must not be
-cropped, imported, or persisted. For a three-Beat remainder, explicitly tell
-the model not to enlarge occupied cells into the unused lower-right space. Do
-not rely on generic phrases such as `two-panel layout` or `three-panel layout`
-to communicate this geometry, and do not invent filler Beats or duplicate Beat
-content.
+panels into the placeholder cells. For a three-Beat remainder, use the visible
+fourth placeholder cell to establish the lower row's geometry and prevent the
+model from treating the lower-right area as unconstrained canvas. In both
+cases, treat placeholders only as disposable layout scaffolding: they are not
+Beats, never receive Beat ids, and must not be cropped, imported, or persisted.
+Do not rely on generic phrases such as `two-panel layout` or `three-panel
+layout` to communicate this geometry, and do not invent filler Beats or
+duplicate Beat content.
+
+For a known Project aspect ratio, state that ratio explicitly for the occupied
+cell image areas and the outer two-by-two grid rectangle. If the selected
+model has no structured output-size control, extra model canvas may remain as
+letterbox or sheet margin, but it must not determine the cell proportions.
+For example, in a 16:9 Project, require an exact 16:9 outer grid rectangle
+inside any supported model canvas, with four equal cells and the fourth
+placeholder fully bounded. Do not attach a multi-panel result when an
+occupied crop has a different aspect ratio unless the user explicitly accepts
+the mismatch; regenerate or revise the candidate first. A blank placeholder
+is useful only when it is a bounded fourth cell inside the same grid geometry,
+not when it is unbounded unused canvas.
 
 The composite canvas does not need to match the Project aspect ratio. Its size
 and aspect ratio follow the selected model's supported output. Every Beat panel

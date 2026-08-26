@@ -196,6 +196,14 @@ import only real Beat panels through the grouped current import contract.
 For one selected Beat, author one complete Project-ratio image using the full
 canvas. Do not add a grid, filler Beat, empty panel, or geometry validator.
 
+## purpose-storyboard-three-beat-remainder — Three Beats keep a stable 2×2 grid
+
+For a three-Beat remainder, place the Beats in the first three cells of a
+fixed two-by-two Project-ratio grid and render a bounded, low-detail fourth
+placeholder cell with no narrative content. Never leave the fourth cell as
+unbounded blank canvas, crop it, or import it as a Beat. Inspect the occupied
+cropped panels for the Project aspect ratio before attachment.
+
 ## purpose-shot-image — Shot image candidate
 
 Use `shot.image` for the exact Shot, keep its brief and Beat evidence opaque,

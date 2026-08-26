@@ -22,6 +22,16 @@ create a new image.
 - Describe each storyboard panel as one concrete, action-focused visible Beat.
   Four panels are regions inside one generated composite, not four output
   variants.
+- For a two- or three-Beat storyboard composite, describe the complete 2×2
+  grid explicitly and include each omitted Beat position as a bounded,
+  low-detail placeholder cell. The placeholder stabilizes the cell geometry;
+  it is not a Beat, must not contain narrative imagery, and must never be
+  cropped or imported.
+- When the Project ratio is known but the selected image lane has no
+  structured output-size control, state that the outer 2×2 grid rectangle
+  itself must use the Project ratio and that any extra canvas is only margin
+  or letterbox. Do not let a model-default canvas ratio determine the Beat
+  cell proportions.
 
 ## Reference Roles
 
