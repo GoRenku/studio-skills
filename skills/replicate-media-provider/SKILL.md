@@ -18,15 +18,16 @@ evidence, downloads, or scratch files at the Project root.
 
 Replicate is an advanced explicit lane. Read
 [references/supported-routes.json](references/supported-routes.json), select one
-exact route and operation, and stop when it is absent. Give its `modelKey` to
-Media Producer for canonical model-guide loading from `model-catalog.json`.
-Read the route's adapter when
+exact `apiId` and operation, and stop when it is absent. Copy that `apiId`
+verbatim into the review document's `model` field and every generation command.
+Give its `modelKey` to Media Producer only for canonical model-guide loading
+from `model-catalog.json`. Read the route's adapter when
 present; it owns Replicate request mapping, not prompt craft.
 
 Media Producer supplies the exact deliberately chosen local files. Do not query
 or reinterpret Renku Project relationships. The supported-route index is
 routing guidance only; run `renku generation schema show --provider replicate
---model <model> --json` for the selected Replicate model's current native fields
+--model <api_id> --json` for the selected Replicate model's current native fields
 and constraints.
 
 Use `owner/model` or the exact pinned `owner/model:version` recorded in the

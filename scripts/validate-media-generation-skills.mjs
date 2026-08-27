@@ -57,7 +57,14 @@ for (const [skillName, provider] of providers) {
     && !new RegExp(`generation schema show --provider\\s+${provider}`).test(providerSkill)) {
     throw new Error(`${skillName} must inspect its exact live provider schema.`);
   }
-  for (const required of ['supported-routes.json', 'modelKey', 'model-catalog.json']) {
+  for (const required of [
+    'supported-routes.json',
+    'apiId',
+    'modelKey',
+    'model-catalog.json',
+    'review document',
+    '`model` field',
+  ]) {
     if (!providerSkill.includes(required)) {
       throw new Error(`${skillName} does not explain how to resolve ${required}.`);
     }
@@ -77,6 +84,10 @@ for (const [skillName, provider] of providers) {
       || route.operations.some((operation) => !nonEmpty(operation))
       || seen.has(route.apiId)) {
       throw new Error(`${skillName} has an invalid or duplicate route entry.`);
+    }
+    if (!exactApiId(route.apiId)
+      || (provider === 'fal-ai' && !route.apiId.includes('/'))) {
+      throw new Error(`${skillName} route ${route.apiId} is not an exact provider API id.`);
     }
     const allowedKeys = ['adapter', 'apiId', 'docs', 'mediaKind', 'modelKey', 'name', 'operations'];
     if (Object.keys(route).some((key) => !allowedKeys.includes(key))) {
@@ -173,6 +184,10 @@ for (const file of reviewFiles) {
   }
   reviewedMediaKinds.add(document.mediaKind);
   includesCodexReview ||= document.provider === 'codex';
+  if (document.provider !== 'codex'
+    && !routesByProvider.get(document.provider)?.some((route) => route.apiId === document.model)) {
+    throw new Error(`Media Producer review sample does not use an exact route apiId: ${file}.`);
+  }
   validateReviewMarkers(document.request, file);
 }
 
@@ -244,6 +259,11 @@ async function validateMarkdownLinks(file) {
 
 function nonEmpty(value) {
   return typeof value === 'string' && value.trim().length > 0;
+}
+
+function exactApiId(value) {
+  return /^[A-Za-z0-9._:-]+(?:\/[A-Za-z0-9._:-]+)*$/.test(value)
+    && value.split('/').every((segment) => segment !== '.' && segment !== '..');
 }
 
 function plainObject(value) {

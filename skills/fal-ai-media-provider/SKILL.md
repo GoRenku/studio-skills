@@ -18,14 +18,16 @@ evidence, downloads, or scratch files at the Project root.
 
 Read [references/supported-routes.json](references/supported-routes.json) and
 select one exact `apiId` and operation. If the route is absent, stop; do not
-substitute another model. Give its `modelKey` to Media Producer, which must load
-the canonical model and operation guidance from its `model-catalog.json`. Read
-the route's adapter when present. An adapter never replaces a model guide.
+substitute another model. Copy that `apiId` verbatim into the review document's
+`model` field and every generation command; never add, remove, or replace its
+namespace. Give its `modelKey` to Media Producer only for loading the canonical
+model and operation guidance from `model-catalog.json`. Read the route's adapter
+when present. An adapter never replaces a model guide.
 
 Media Producer supplies the exact deliberately chosen local files. Do not query
 or reinterpret Cast, Location, Prop, Lookbook, Scene, Shot, or Shot Plan
 relationships. The supported-route index is routing guidance only; run `renku
-generation schema show --provider fal-ai --model <model> --json` for the
+generation schema show --provider fal-ai --model <api_id> --json` for the
 selected Fal operation's current native fields and constraints.
 
 Author the exact Fal.ai input object as the review document's `request`. Put a

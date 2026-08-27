@@ -76,11 +76,13 @@ Read only the purpose craft guide relevant to the current destination.
 ## Resolve canonical model guidance
 
 Read the selected provider Skill's `references/supported-routes.json` and choose
-the exact route and operation. Take that route's `modelKey`, then read
+the exact route and operation. Copy the route's `apiId` verbatim into the review
+document's `model` field and every generation command. Never use `modelKey` as
+the executable model. Take that route's `modelKey`, then read
 `references/model-guides/model-catalog.json`. Load the matched canonical model
 guide and the operation guide named by the catalog. This canonical model guide
-owns provider-independent prompt craft. Stop if the route, model,
-operation, or required guide is missing.
+owns provider-independent prompt craft. Stop if the route, model, operation, or
+required guide is missing.
 
 Read the route's optional provider adapter only after the canonical model
 guidance. The model guide owns prompt craft. The provider adapter owns native
@@ -131,6 +133,8 @@ Every request uses this irreducible temporary envelope:
 ```
 
 The provider Skill owns the exact `model` and provider-native `request` fields.
+For Engines providers, `model` is always the selected route's exact `apiId`, not
+its canonical editorial `modelKey`.
 Use `{"$file":"<project-relative-path>","mimeType":"image/png","reviewLabel":"<meaningful context label>","promptMention":"<exact model token>"}`
 at the exact native media field. `reviewLabel` is required for every Renku
 review marker; omit `promptMention` when the selected model uses the input

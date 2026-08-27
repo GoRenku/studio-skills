@@ -18,10 +18,11 @@ evidence, downloads, or scratch files at the Project root.
 
 Read [references/supported-routes.json](references/supported-routes.json) and
 select one exact `apiId` and operation. If the route is absent, stop; never
-substitute another operation. Give its `modelKey` to Media Producer, which must
-load the canonical model and operation guidance from its `model-catalog.json`.
-Read the route's adapter when present; it owns Pika field and mention behavior,
-not model prompt craft.
+substitute another operation. Copy that `apiId` verbatim into the review
+document's `model` field and every generation command. Give its `modelKey` to
+Media Producer only for loading the canonical model and operation guidance from
+its `model-catalog.json`. Read the route's adapter when present; it owns Pika
+field and mention behavior, not model prompt craft.
 
 Media Producer supplies the exact deliberately chosen local files. Do not query
 or reinterpret Renku Project relationships. After selecting an exact operation,

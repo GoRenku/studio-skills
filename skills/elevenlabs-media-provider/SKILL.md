@@ -17,9 +17,10 @@ evidence, downloads, or scratch files at the Project root.
 - Use `tmp/scratch/` for other temporary inputs.
 
 Read [references/supported-routes.json](references/supported-routes.json), select
-one exact route and operation, and stop when it is absent. Give its `modelKey`
-to Media Producer, which loads the canonical speech or music guide from
-`model-catalog.json`.
+one exact `apiId` and operation, and stop when it is absent. Copy that `apiId`
+verbatim into the review document's `model` field and every generation command.
+Give its `modelKey` to Media Producer only for loading the canonical speech or
+music guide from `model-catalog.json`.
 
 Media Producer supplies the exact text, voice choice, and any deliberate local
 inputs. Do not query or reinterpret Renku Project relationships. The

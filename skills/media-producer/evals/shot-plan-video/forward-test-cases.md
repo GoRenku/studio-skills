@@ -1,8 +1,9 @@
 # Shot Plan Video Forward Test Cases
 
 - Resolve the exact Shot Plan and carry only weak `authoredFrom` context.
-- Route the selected provider operation through its `modelKey`, read the
-  canonical model guide once, then apply the matching provider adapter.
+- Copy the selected provider operation's `apiId` into the review document and
+  generation commands, use its `modelKey` to read the canonical model guide
+  once, then apply the matching provider adapter.
 - Put exact local files at their native provider fields and preserve order.
 - Preview and confirmation remain conversational; execution is one provider
   request and recovery never changes creative input.
