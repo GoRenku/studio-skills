@@ -17,6 +17,15 @@ For `location.hero`, place the deliberately selected Location Sheet's local-file
 marker in an actual image-media field from the selected provider adapter and
 live schema.
 
+For `location.hero`, also use the Production Lookbook Sheet as the default
+appearance authority whenever it is available. Keep the Location Sheet's role
+limited to geography, architecture, scale, materials, and continuity; keep the
+Lookbook Sheet's role limited to palette, lighting, texture, composition, and
+finish. Do not silently replace the visible Lookbook reference with prose. If
+the selected model cannot carry the chosen Location and Lookbook references,
+stop and ask before dropping either authority or using a different model. The
+user may explicitly request a deliberate visual departure.
+
 For a Production Location Sheet, select the Production Lookbook Sheet as the
 appearance authority. For a Storyboard continuity Location Sheet, select the
 current Storyboard Lookbook Sheet as sole appearance authority and the exact

@@ -38,6 +38,16 @@ A four-Beat Storyboard may use a provider edit endpoint while remaining
 `scene.storyboard-sheet`. Conversely, a focused Codex source edit remains
 `image.edit` even though the model name has no `/edit` suffix.
 
+## image-appearance-authority-route — Visible authority survives routing
+
+Create a new `prop.hero` using an explicitly selected image model. Core returns
+an available Production Lookbook Sheet as appearance authority and no existing
+Prop Sheet. Inspect and attach the exact Lookbook Sheet, keep the Studio purpose
+`prop.hero`, and choose that model's reference-capable route. If the provider
+has only a text-to-image route for the selected model, stop before generation
+and ask whether to change models or accept a text-only downgrade. Never omit
+the Sheet merely to keep the text-only route.
+
 ## image-multi-turn-storyboard-correction — Correction is not sticky
 
 First materially recompose a Beat Storyboard with `scene.storyboard-sheet`.

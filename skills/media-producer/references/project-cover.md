@@ -17,11 +17,18 @@ Project's established final-film look. The context deliberately does not
 enumerate every Project subject for this broad target or automatically choose
 visual references.
 
+Default to matching the established final-film look. When an available
+Production Lookbook Sheet exists, inspect and attach it as the cover's
+appearance authority unless the user requests a deliberate alternate visual
+direction. Do not silently use only a prose summary or a text-only endpoint.
+If the selected model cannot carry the Sheet, stop and ask before changing the
+model or downgrading to text-only.
+
 Read only what the agreed direction still needs:
 
 - use the returned Project facts for title, logline, premise, genre, and tone;
-- use the Production Lookbook when the cover should match the established
-  final-image visual language, then inspect only exact useful Lookbook media;
+- use the Production Lookbook for the established final-image visual language,
+  then inspect only exact useful Lookbook media;
 - use exact Cast, Location, or Prop facts and owner-scoped media only for named
   subjects in the agreed cover;
 - read a Scene or active Screenplay Analysis only when the request is anchored

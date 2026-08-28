@@ -104,6 +104,14 @@ writing:
 - `Reference 4: Lookbook sheet, palette and light quality only`
 - `Source image: Location Sheet to edit into a hero image`
 
+When the focused purpose guide names a Lookbook Sheet as appearance authority,
+attach that exact Sheet whenever it is available and the user has not requested
+a deliberate departure. Describe only its visible role: palette, lighting,
+texture, composition, medium, and finish. Do not ask it to supply subject
+identity, geography, construction, or story content, and do not let a subject
+continuity reference take over its appearance role. A prose summary is useful
+prompt direction but is not a substitute for an available visible authority.
+
 The prompt must then use the same labels. If the preview shows a selected
 reference that has no role in the prompt, revise the prompt before running. If
 the prompt mentions a reference that is absent from the preview, stop and fix

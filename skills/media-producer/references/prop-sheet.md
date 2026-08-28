@@ -21,6 +21,17 @@ construction, scale, materials, markings, moving parts, condition, and relevant
 state while changing only the rendering language. Do not copy Production
 photographic lighting, finish, or realism.
 
+For `prop.hero`, use the Production Lookbook Sheet as the default appearance
+authority whenever it is available. Use an accepted same-Prop Production Sheet
+as the separate content and construction authority when one exists. The
+Lookbook controls palette, lighting, texture, composition, and finish; the Prop
+Sheet controls silhouette, construction, scale, materials, markings, moving
+parts, and condition. Attach each chosen file with that narrow visible role.
+Do not silently omit the Lookbook Sheet or reduce it to prompt prose. If the
+selected model has no usable reference-capable route, stop and ask before a
+text-only generation. The user may explicitly request a deliberate visual
+departure from the Production Lookbook.
+
 Follow `image-output-review.md`. Review Storyboard variants for canonical
 construction/state, selected Storyboard appearance, absence of Production
 style leakage, useful downstream coverage, consistent scale and defining

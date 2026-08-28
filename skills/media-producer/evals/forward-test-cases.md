@@ -175,7 +175,16 @@ the first Project image.
 
 Prepare `prop.sheet` and `prop.hero` for a handled bronze seal. The authored
 prompt must make holder, scale, state, placement, and physical interaction
-visible. It must not reduce the Prop to a name or paste opaque context text.
+visible. The context contains an available Production Lookbook Sheet and an
+accepted same-Prop Production Sheet. Use the Lookbook Sheet as appearance
+authority and the Prop Sheet as construction/continuity authority in both
+provider-visible input and prompt roles. Keep the Studio purpose `prop.hero`
+even if the selected provider route calls its reference-capable operation
+`image-edit`. If the explicitly selected canonical model has no usable route
+that can carry both authorities, stop before generation rather than silently
+downgrading to text-only. It must not reduce the Prop to a name, paste opaque
+context text, or treat the general advisory-reference rule as permission to
+ignore the purpose guide's default appearance authority.
 
 ## purpose-lookbook-media — Production and Storyboard Lookbooks
 

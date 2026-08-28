@@ -50,6 +50,25 @@ Inspect the exact files you deliberately choose. Give the provider Skill only
 those chosen Project-relative files; provider Skills do not query Project
 domains or decide which subjects belong to the target.
 
+When a focused purpose guide names a Production or Storyboard Lookbook Sheet
+as the appearance authority, treat that as the default agent workflow, not as
+an ordinary optional suggestion. If the exact Sheet is available and the user
+has not requested a deliberate visual departure, inspect it and attach it to
+the provider request with a narrow appearance role. Do not replace a visible
+appearance authority with a prose summary merely because a text-only route is
+easier to call.
+
+Keep Studio purpose and provider operation separate. A new focused candidate
+may use a reference-capable provider route whose operation is named
+`image-edit`; that does not change the Studio purpose to `image.edit`. Prefer a
+reference-capable route for the same explicitly selected provider and canonical
+model when an appearance authority must be visible. If no usable route can
+carry it, stop before generation, explain that the request would become
+text-only, and ask whether the user wants that downgrade or another model.
+Missing Lookbook media does not invent a blocker: use the authored Lookbook
+definition as prompt direction, report the gap, and continue unless the user
+required visual-reference matching.
+
 ## Choose the execution lane
 
 Read the current Project Settings and the user's explicit direction. The image

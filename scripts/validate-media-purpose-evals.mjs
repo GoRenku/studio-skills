@@ -31,6 +31,7 @@ const required = [
   'create-versus-edit', 'Provider edit route', 'first-and-last',
   'Prop interaction', 'single Beat', 'dense', 'canonical model guide',
   'same canonical model guide', 'provider adapter',
+  'appearance authority', 'text-only downgrade',
 ];
 const missingPurposes = requiredPurposes.filter((purpose) => !coverage.purposes?.[purpose]);
 const missingEvalIds = Object.values(coverage.purposes ?? {}).filter(

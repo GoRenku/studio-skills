@@ -18,6 +18,15 @@ When a Character Sheet is included:
 Use a create endpoint when no source sheet is chosen for this request. Use an
 edit/reference endpoint when continuity with an exact candidate matters.
 
+Use the Production Lookbook Sheet as the default appearance authority whenever
+it is available. A selected Character Sheet remains the separate identity,
+wardrobe, proportion, and physical-continuity authority. Attach both with
+narrow visible roles and choose a route that can carry them. Do not silently
+replace the Lookbook Sheet with a prose summary or drop it to stay on a
+text-only route. If the selected model cannot accept the required visible
+references, stop and ask before changing models or continuing text-only. The
+user may explicitly request a deliberate visual departure.
+
 For Cast Members with `isVoiceOver: true`, do not require a Character Sheet. Read `voice-over-profile-image.md` and create a symbolic display image rather than a physical likeness.
 
 For Codex or provider image generation, follow `workflow.md`, inspect the exact
