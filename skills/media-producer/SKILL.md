@@ -193,6 +193,10 @@ renku generation execute \
   --json
 ```
 
+Follow the command-session tracking rules in `references/workflow.md`. A
+surrounding script or tool cell finishing without Renku's final structured
+result does not mean the provider request or artifact download finished.
+
 If a submitted job times out or becomes interrupted and a request id is known,
 use `generation recover` with the unchanged review file and exact request id.
 Do not resubmit blindly.

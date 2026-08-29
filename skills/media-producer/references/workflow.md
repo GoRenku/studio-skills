@@ -67,6 +67,33 @@ keys.
 
 ## Execute or recover
 
+Treat the local command session as the authority for whether Execute or Recover
+is still running. Long provider polling and artifact downloads commonly outlive
+an individual tool yield.
+
+- Preserve the command runner's complete result, including its session handle,
+  output, and exit code. Never print or retain only an initially empty `output`
+  field.
+- When the runner returns a live session handle, poll that same command session
+  until it returns a terminal exit code. In Codex harnesses, use the returned
+  `session_id` with `write_stdin`; do not substitute a wait on the surrounding
+  JavaScript/tool cell.
+- If the surrounding cell itself yields, its wait handle resumes only that
+  cell. A message such as `Script completed` with no Renku JSON, request id,
+  artifact, or exit code is not provider completion.
+- Do not use a separate `ps` invocation or an early missing-output-directory
+  check as proof that the isolated command stopped. Keep polling the original
+  command handle.
+- Announce success only after the terminal command result has exit code zero and
+  the structured Renku result identifies the request and downloaded artifacts.
+  Announce failure or interruption from the terminal structured result, not from
+  silence.
+
+When nested command and cell runners have independent yield timers, make the
+inner command yield first so its session handle can be captured before the outer
+cell yields. Always surface the whole inner result. This avoids losing a live
+command when both layers reach the same yield boundary.
+
 ```bash
 renku generation execute \
   --file tmp/operations/media-generation/request.json \
@@ -77,6 +104,12 @@ renku generation execute \
 One execute call is one logical provider request. The result contains the
 downloaded artifacts, provider/model/request id when available, and a safe
 `provenance` value. It contains no durable Renku job or Run.
+
+If a command handle is nevertheless lost, keep the request indeterminate. Do
+not resubmit. First allow the original execution time to elapse and recheck the
+exact output path and any late command-completion result. Query provider history
+only when needed to recover the exact request id. Run Recover only when that
+request id is known and the local artifact is still absent or invalid.
 
 When execution reports a known provider request id but cannot finish polling,
 recover the same request rather than submitting again:

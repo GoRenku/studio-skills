@@ -86,6 +86,26 @@ Expected behavior:
   to continue;
 - never resubmits the same paid request as transport recovery.
 
+## Long-running command yields before completion
+
+The harness runs `renku generation execute` inside an outer JavaScript/tool
+cell. The command returns an empty first output plus a live command session,
+while the outer cell has its own wait handle.
+
+Expected behavior:
+
+- preserves the full command result and captures the command session handle;
+- polls that same command session until it returns a terminal exit code and
+  structured Renku JSON;
+- treats completion of the outer cell as cell completion only, never as proof
+  that the provider request or artifact download completed;
+- does not infer failure from a separate process listing or from an output
+  directory that is absent while the original command is unresolved;
+- does not announce provider success from blank output; and
+- if the command handle is lost, waits and rechecks late completion evidence
+  before using provider history to recover the known request, without submitting
+  a duplicate paid generation.
+
 ## External file import
 
 The user attaches an uploaded file that was not generated.
