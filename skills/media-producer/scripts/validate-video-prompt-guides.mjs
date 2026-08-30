@@ -21,6 +21,8 @@ for (const model of models) {
 for (const [modelKey, expected] of [
   ['seedance-2.0', ['text-to-video', 'image-to-video', 'first-last-frame-to-video', 'reference-to-video']],
   ['minimax-h3', ['text-to-video', 'image-to-video', 'first-last-frame-to-video', 'reference-to-video']],
+  ['gemini-omni-flash-1.1', ['text-to-video', 'image-to-video', 'first-last-frame-to-video', 'reference-to-video', 'video-edit']],
+  ['wan-3.0-prime', ['text-to-video', 'image-to-video', 'first-last-frame-to-video', 'reference-to-video']],
 ]) {
   const model = models.find((entry) => entry.key === modelKey);
   if (!model || expected.some((operation) => !(operation in model.operations))) {
@@ -45,8 +47,28 @@ const falAdapter = readFileSync(
   join(skillRoot, '../fal-ai-media-provider/references/adapters/reference-inputs.md'),
   'utf8',
 );
-if (!falAdapter.includes('@ImageN') || !falAdapter.includes('Image N')) {
-  errors.push('Fal adapter must preserve distinct Seedance and MiniMax mention syntax.');
+if (!falAdapter.includes('@ImageN') || !falAdapter.includes('Image N')
+  || !falAdapter.includes('<IMAGE_REF_0>') || !falAdapter.includes('Audio N')) {
+  errors.push('Fal adapter must preserve distinct Seedance, MiniMax, Gemini, and Wan mention syntax.');
+}
+
+const falRoutes = JSON.parse(readFileSync(
+  join(skillRoot, '../fal-ai-media-provider/references/supported-routes.json'),
+  'utf8',
+)).routes ?? [];
+for (const [apiId, expectedOperations] of [
+  ['google/gemini-omni-flash/v1.1/text-to-video', ['text-to-video']],
+  ['google/gemini-omni-flash/v1.1/image-to-video', ['image-to-video', 'first-last-frame-to-video']],
+  ['google/gemini-omni-flash/v1.1/reference-to-video', ['reference-to-video']],
+  ['google/gemini-omni-flash/v1.1/edit', ['video-edit']],
+  ['alibaba/wan-3.0-prime/text-to-video', ['text-to-video']],
+  ['alibaba/wan-3.0-prime/image-to-video', ['image-to-video', 'first-last-frame-to-video']],
+  ['alibaba/wan-3.0-prime/reference-to-video', ['reference-to-video']],
+]) {
+  const route = falRoutes.find((entry) => entry.apiId === apiId);
+  if (!route || route.operations.join(',') !== expectedOperations.join(',')) {
+    errors.push(`Fal route is missing or has incorrect operations: ${apiId}.`);
+  }
 }
 
 for (const file of markdownFiles(join(guideRoot, 'video'))) {
