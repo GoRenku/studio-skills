@@ -52,6 +52,47 @@ if (!falAdapter.includes('@ImageN') || !falAdapter.includes('Image N')
   errors.push('Fal adapter must preserve distinct Seedance, MiniMax, Gemini, and Wan mention syntax.');
 }
 
+const wanIndex = readFileSync(join(guideRoot, 'video/wan-3.0-prime/index.md'), 'utf8');
+const wanText = readFileSync(join(guideRoot, 'video/wan-3.0-prime/text-to-video.md'), 'utf8');
+const wanImage = readFileSync(join(guideRoot, 'video/wan-3.0-prime/image-to-video.md'), 'utf8');
+const wanReference = readFileSync(join(guideRoot, 'video/wan-3.0-prime/reference-to-video.md'), 'utf8');
+for (const required of ['actual_prompt', 'Project', 'live schema']) {
+  if (!wanIndex.includes(required)) errors.push(`Wan guidance lost ${required}.`);
+}
+for (const required of ['Compact exploration', 'Labeled block brief', 'Timecoded beat sheet']) {
+  if (!wanText.includes(required)) errors.push(`Wan text guidance lost ${required}.`);
+}
+for (const required of ['CLIP 1', 'exact first frame', 'required final frame']) {
+  if (!wanImage.includes(required)) errors.push(`Wan frame guidance lost ${required}.`);
+}
+for (const required of ['<IMAGE_1>', '<VIDEO_1>', '<AUDIO_1>', 'final image/video/audio array order']) {
+  if (!wanReference.includes(required)) errors.push(`Wan reference guidance lost ${required}.`);
+}
+
+const omniIndex = readFileSync(join(guideRoot, 'video/gemini-omni-flash-1.1/index.md'), 'utf8');
+const omniText = readFileSync(join(guideRoot, 'video/gemini-omni-flash-1.1/text-to-video.md'), 'utf8');
+const omniEdit = readFileSync(join(guideRoot, 'video/gemini-omni-flash-1.1/video-edit.md'), 'utf8');
+for (const required of [
+  'https://ai.google.dev/gemini-api/docs/omni#prompt-guide',
+  '360p', '4K', '10-second increments', 'no continuation',
+]) {
+  if (!omniIndex.includes(required)) errors.push(`Omni guidance lost ${required}.`);
+}
+for (const required of ['single scene', 'continuous unbroken shot', 'correctly spelled']) {
+  if (!omniText.includes(required)) errors.push(`Omni text guidance lost ${required}.`);
+}
+for (const required of ['Keep everything else', '10-second', 'not continuation']) {
+  if (!omniEdit.includes(required)) errors.push(`Omni edit guidance lost ${required}.`);
+}
+
+const continuity = readFileSync(join(skillRoot, 'references/video-reference-continuity.md'), 'utf8');
+for (const required of [
+  'isWorkflowSelected', 'exactly one active candidate', 'Narrative',
+  'explicit user request to omit', 'never truncate',
+]) {
+  if (!continuity.includes(required)) errors.push(`Video continuity guidance lost ${required}.`);
+}
+
 const falRoutes = JSON.parse(readFileSync(
   join(skillRoot, '../fal-ai-media-provider/references/supported-routes.json'),
   'utf8',

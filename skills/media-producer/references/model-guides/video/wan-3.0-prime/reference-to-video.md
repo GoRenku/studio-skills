@@ -46,6 +46,29 @@ Do not include: [critical visible exclusions].
 Include only lines backed by actual native inputs. Replace neutral placeholders
 with exact adapter-supplied mentions after inspecting the reviewed request.
 
+Combined multimodal example before adapter mention substitution:
+
+```text
+REFERENCES
+<IMAGE_1> is only the courier's face, cropped hair, and charcoal coat.
+<VIDEO_1> is only the four-step run, planted turn, and grounded landing.
+<AUDIO_1> is only the speaker's voice, timing, and restrained delivery.
+
+Create one continuous night-platform shot. The courier from <IMAGE_1> performs
+the movement from <VIDEO_1>, then faces camera and delivers the exact supplied
+line in the voice and timing of <AUDIO_1>. A chest-height tracking camera
+follows the run and settles before the line. Keep face, coat, platform
+geography, and screen direction unchanged. Sound: retain the reference voice,
+add footsteps and distant rail ambience, no music. No cuts, duplicated person,
+morphing, captions, logos, or wardrobe changes.
+```
+
+The neutral markers above describe roles only. Substitute the exact one-based
+Fal mentions from final image/video/audio array order. If any reference is not
+actually present, delete its role rather than leaving a dangling mention.
+After generation, compare actual-prompt evidence against all three roles,
+identity, movement order, voice, camera, sound, and exclusions.
+
 ## Checks
 
 - Does every media mention match final modality-local native request order?
@@ -54,3 +77,5 @@ with exact adapter-supplied mentions after inspecting the reviewed request.
   prompt's creative direction and are the live schema requirements satisfied?
 - Does audio timing fit the selected output duration?
 - Does the output remain one coherent video rather than a reference montage?
+- Did every numbered role and hard constraint survive prompt expansion when
+  actual-prompt evidence is available?

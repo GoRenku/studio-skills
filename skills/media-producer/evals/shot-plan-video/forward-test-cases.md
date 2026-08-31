@@ -31,11 +31,15 @@ from an edited Scene Storyboard image and store each beside the exact Plan.
 ## video-reference-dialogue — Reference video with dialogue and native audio
 
 Use `shot-plan.video-generation` with the exact Storyboard, continuity images,
-and approved Dialogue Takes. Canonical model guidance uses neutral input
-placeholders. For Fal.ai, its provider adapter resolves Seedance placeholders
-to `@ImageN` and MiniMax H3 placeholders to spaced `Image N` / `Audio N`
-syntax. Native audio is authored only when the canonical model guide supports
-it and the selected provider route exposes it.
+and resolved Dialogue Takes whenever the selected live route is audio-capable.
+Resolve workflow-selected first, then a sole unselected Take; stop on multiple
+unselected or missing Takes with the exact Scene Narrative direction. Canonical
+model guidance uses neutral input placeholders. For Fal.ai, its provider
+adapter resolves Seedance placeholders to `@ImageN`, MiniMax H3 placeholders to
+spaced `Image N` / `Audio N` syntax, and Wan placeholders to its distinct
+one-based spaced mentions. Native audio is authored only when the canonical
+model guide supports it and the selected provider route exposes it. Never
+invent reference audio for an audio-incapable route.
 
 ## video-cross-provider-h3 — One model guide, several providers
 

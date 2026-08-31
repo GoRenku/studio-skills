@@ -30,6 +30,27 @@ Continuity: keep [identity, wardrobe, props, and geography] stable.
 Do not include: [critical visible exclusions].
 ```
 
+Single-shot example:
+
+```text
+In a single scene and one continuous unbroken shot with no cuts, a tabby cat
+sits on a sunlit sill, turns toward a bird call, and slowly raises one paw as
+the camera makes a gentle push-in. Dust drifts through the side light. Sound:
+soft wind and distant birds, no dialogue or music. Keep the same cat, sill,
+garden, and morning light throughout. No captions or logos.
+```
+
+Timecoded text example:
+
+```text
+[0-3s] A hand sets a cream card on a black table.
+[3-6s] The camera glides closer as gold letters reading "OPEN AT MIDNIGHT"
+appear sharp and correctly spelled.
+[6-10s] Hold the readable card while a clock chimes once.
+Sound: paper contact, quiet room tone, one clock chime; no dialogue or music.
+One continuous overhead shot, no cuts, extra hands, or additional text.
+```
+
 ## Checks
 
 - Is the physical progression concrete rather than only described as
@@ -37,3 +58,5 @@ Do not include: [critical visible exclusions].
 - Can the action and camera move finish within the selected duration?
 - Is sound direction present when audio matters and omitted when unknown?
 - Are there no reference mentions without actual reference inputs?
+- Is every required on-screen word quoted exactly and given enough held time to
+  inspect for readability?

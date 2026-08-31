@@ -128,17 +128,16 @@ Use this loop for every request:
   review/execution, Codex external generation, inspection, slicing, and
   supported focused attachments. For image work, Media Producer owns the
   create-versus-edit decision; do not preselect a domain creation purpose merely
-  because that domain will receive the accepted output.
+  because that domain will receive the accepted output. Route one-turn or
+  whole-Scene Dialogue Audio to its existing `scene.dialogue-audio` workflow,
+  and route edits or continuations of an exact registered video Asset to
+  `video.edit`.
 - Use `location-world-producer` for same-space reconstruction image coordination,
   explicitly approved World Labs generation, selected 3D World readback, and
   rollback through common Asset selection.
 
 Not first-class today:
 
-- Shot Video authoring and its First Frame, Last Frame, and Video Prompt image
-  inputs. Do not route to `shot.first-frame`, `shot.last-frame`,
-  `shot.video-prompt`, or `shot.video-take`, and do not infer replacement
-  commands.
 - Costume-variant media and voice media. Keep their design notes in Cast Design and hand off only existing cast media purposes to `media-producer`.
 - Set-dressing media, sound, music, editorial, and final assembly skills.
 

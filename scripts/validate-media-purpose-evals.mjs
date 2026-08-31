@@ -22,7 +22,7 @@ const requiredPurposes = [
   'scene.storyboard-sheet', 'shot.image',
   'shot-plan.video-first-frame', 'shot-plan.video-last-frame',
   'shot-plan.video-storyboard', 'shot-plan.video-reference',
-  'shot-plan.video-generation', 'scene.dialogue-audio',
+  'shot-plan.video-generation', 'scene.dialogue-audio', 'video.edit',
 ];
 const required = [
   'Codex capability present', 'Codex capability absent',
@@ -32,6 +32,9 @@ const required = [
   'Prop interaction', 'single Beat', 'dense', 'canonical model guide',
   'same canonical model guide', 'provider adapter',
   'appearance authority', 'text-only downgrade',
+  'workflow-selected', 'sole unselected', 'multiple unselected',
+  'prompt expansion', 'whole-Scene', 'audio-capable',
+  'audio-incapable', '360p', '4K', 'continuation',
 ];
 const missingPurposes = requiredPurposes.filter((purpose) => !coverage.purposes?.[purpose]);
 const missingEvalIds = Object.values(coverage.purposes ?? {}).filter(

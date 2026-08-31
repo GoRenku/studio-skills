@@ -237,6 +237,12 @@ Pass:
 
 - for non-image work, the purpose key and exact target id from generation
   context;
+- for Dialogue Audio, the exact Scene id and requested one-turn or whole-Scene
+  scope. Media Producer shows the current workspace and keeps every turn as a
+  separate ElevenLabs request/file/Take;
+- for a video edit or continuation, the exact active source Asset and current
+  video AssetFile. Media Producer uses `video.edit` only through a compatible
+  live operation and preserves the source as a separate candidate;
 - for image work, the user's requested relationship to any exact existing
   image, the intended focused destination, and the exact source Asset/File when
   already known. Media Producer decides the generation purpose before reading
@@ -277,16 +283,12 @@ Use the purpose-specific focused attachment command documented by
 `media-producer`; attachment flags differ between single-file project-relative
 sources and grouped Scene Storyboard JSON.
 
-Approval gate:
+Confirmation gate:
 
-- Never run a Renku-managed paid provider without a Renku estimate and explicit
-  user approval. Do not apply this approval gate to Codex built-in image
-  generation.
-- Treat estimates as pricing-only. Before a real Renku-managed provider run, require
-  explicit approval for the estimated cost or unknown-cost state and sending the
-  preview-approved project-derived prompt/context to the selected provider. If
-  the agent changes any part of that request, show the preview again, estimate
-  again, and get a fresh live-run approval gesture.
+- Follow the Project's current Preview and conversational confirmation policy.
+  There is no estimate artifact or approval token.
+- If the agent changes any part of a previewed request, show Preview again and
+  obtain fresh conversational confirmation.
 - Inspect generated media before importing it.
 
 ## Cast And Production Design Boundaries

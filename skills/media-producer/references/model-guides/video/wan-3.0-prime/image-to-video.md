@@ -45,9 +45,35 @@ Sound: [ambience and events aligned to the transition].
 Do not include: [critical visible exclusions].
 ```
 
+For a longer opening-frame animation, numbered clip blocks can make one
+continuous pass easier to audit:
+
+```text
+The supplied opening image is the exact first frame. Preserve the pilot's face,
+orange suit, cockpit geometry, and cyan instrument light.
+CLIP 1 — 0-4s: one locked medium as she reaches for the overhead switch.
+CLIP 2 — 4-8s: the same camera eases forward while the canopy closes.
+CLIP 3 — 8-12s: hold on her profile as runway lights begin moving behind her.
+Sound: switch click, canopy motor, engine idle; no music or dialogue.
+No cuts, morphing, added crew, text, or changes to the opening composition.
+```
+
+For a first/end-frame request, the corresponding example is one physical move:
+
+```text
+The opening image is the exact first frame and the ending image is the required
+last frame. In one continuous lateral track, the dancer crosses the marked
+floor and turns into the final pose. Preserve her identity, blue costume, stage
+geography, screen direction, and amber side light. Reach the ending framing by
+movement rather than morphing. Footsteps and fabric only; no music, cuts, text,
+or extra performers.
+```
+
 ## Checks
 
 - Is each frame assigned to the correct singular native field?
 - Are preservation details explicit enough to survive prompt expansion?
 - Does the transition fit the selected duration?
 - If audio is enabled, does the prompt deliberately define sound or silence?
+- If expansion returns actual-prompt evidence, do both frame obligations and
+  every preservation constraint remain explicit?

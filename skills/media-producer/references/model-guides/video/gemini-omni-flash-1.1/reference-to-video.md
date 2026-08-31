@@ -3,9 +3,10 @@
 Read `index.md` first. Use this when exact images or short videos should guide
 the result without acting as a binding first frame.
 
-The Fal adapter supplies zero-based `<IMAGE_REF_N>` and `<VIDEO_REF_N>` mentions
-from final modality-local native array order. Replace the neutral placeholders
-below only after validating and inspecting the reviewed request.
+Google's model guide supports role tags for images and videos. The selected Fal
+adapter supplies the exact executable zero-based mentions from final
+modality-local native array order. Replace the neutral role markers below only
+after validating and inspecting the reviewed request.
 
 ## Prompt Contract
 
@@ -23,10 +24,10 @@ below only after validating and inspecting the reviewed request.
 
 ```text
 REFERENCES
-<IMAGE_1> is only [subject/product/location/composition/style] continuity for
+[IMAGE_REFERENCE_1] is only [subject/product/location/composition/style] continuity for
 [specific visible traits].
-<IMAGE_2> is only [a different narrow visual role].
-<VIDEO_1> is only [performance/motion/physics/camera/rhythm] reference.
+[IMAGE_REFERENCE_2] is only [a different narrow visual role].
+[VIDEO_REFERENCE_1] is only [performance/motion/physics/camera/rhythm] reference.
 
 Create one coherent video: [subject, action, setting, and final state].
 Camera: [opening framing, movement, and final framing].
@@ -39,8 +40,8 @@ Do not include: [critical visible exclusions].
 
 ## Checks
 
-- Was each neutral placeholder replaced with the exact adapter-supplied,
-  zero-based Gemini mention?
+- Was each neutral role marker replaced with the exact adapter-supplied,
+  zero-based Gemini mention from final request order?
 - Does every reference have one narrow, non-competing role?
 - Are all requested references present in the reviewed native request?
 - Is there no audio mention or field unsupported by the live schema?

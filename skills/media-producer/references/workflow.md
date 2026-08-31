@@ -11,6 +11,11 @@ inspection and user direction. Pass only those exact choices to the selected
 provider Skill. Do not make provider Skills rediscover Cast, Location, Prop,
 Lookbook, Scene, Shot, or Shot Plan relationships.
 
+For video work, resolve Dialogue Audio continuity with
+`video-reference-continuity.md` only after selecting the exact route and
+reading its live schema. `isWorkflowSelected` records user-authored workflow
+intent; it is distinct from common Asset display selection.
+
 ## Author one provider-native request
 
 Delegate request fields and model choice to the matching provider Skill. Write
@@ -37,6 +42,13 @@ Add `promptMention` only when the selected provider adapter documents exact
 provider-visible syntax. Derive any ordinals from the final native request
 order. Canonical model guides remain provider-neutral. Do not add a Renku
 purpose, target, domain reference role, estimate, or execution state.
+
+Apply `workflowPolicy.enableProviderPromptExpansion` only when the selected
+live schema exposes one semantically unambiguous prompt-expansion or rewriting
+control. Set that native control to the Project value, omit it when absent, and
+consult provider documentation when ambiguous. Do not maintain a model or
+property-name map in this workflow. Preserve the authored prompt even when the
+provider returns rewritten/actual prompt evidence for review.
 
 ## Validate and Preview
 

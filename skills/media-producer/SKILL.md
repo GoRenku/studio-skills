@@ -109,6 +109,16 @@ request fields, input ordering, and provider-visible mention syntax. The live
 provider schema owns current fields and constraints. An adapter must never
 replace or duplicate model guidance.
 
+Before authoring the request, read
+`workflowPolicy.enableProviderPromptExpansion`. Inspect the selected route's
+live schema and descriptions for one unambiguous control whose meaning is
+provider prompt expansion or prompt rewriting. Set that native control to the
+Project preference when it exists, omit it when it does not, and consult the
+selected provider documentation rather than guessing when the schema is
+ambiguous. Never infer the native property from a model name or a checked-in
+field-name map. When the provider returns a rewritten or actual prompt, review
+it as receipt evidence while preserving the authored prompt unchanged.
+
 For the Codex built-in image lane, resolve `gpt-image-2` directly from the same
 catalog. There is no provider adapter; the active image capability contract
 owns its request fields and reference behavior.
@@ -127,7 +137,13 @@ owns its request fields and reference behavior.
 | `scene.storyboard-sheet` | `scene-storyboard-sheet.md` |
 | `shot.image` | `shot-image.md` |
 | all `shot-plan.video-*` purposes | `shot-plan-video/index.md`, then `shot-plan-video/workflow.md` |
-| `scene.dialogue-audio` | `model-guides/shared/audio-and-voice.md`, then the canonical audio model guide |
+| `scene.dialogue-audio` | `scene-dialogue-audio.md`, then `model-guides/shared/audio-and-voice.md` and the canonical audio model guide |
+| `video.edit` | `video-reference-continuity.md`, then the canonical video edit guide |
+
+For every video workflow, also read
+`references/video-reference-continuity.md` after selecting the route and
+inspecting its live schema. This is where selected Dialogue Audio becomes the
+default for any route that can actually accept uploaded audio references.
 
 ## Review document
 
@@ -235,9 +251,13 @@ Keep the current focused purpose and target vocabulary. Resolve exact ids from
 the current handoff or relevant Renku domain command; never invent them. Then
 let `generation context` supply the complete related graph.
 
-- `project.cover` and `image.create` target `project`.
+- `project.cover` targets `project`; `image.create` targets the destination
+  `shot-plan:<id>` selected by the image-operation workflow.
 - `image.edit` context targets the exact source `asset:<id>`; an accepted output
   attaches through the user's chosen focused destination.
+- `video.edit` context and attachment target the exact source `asset:<id>`.
+  The accepted output is a separate source-derived video Asset beside the
+  source and never replaces or auto-selects it.
 - Lookbook media targets `lookbook:<id>`.
 - Cast media targets `cast:<id>`.
 - Location and Prop media target `location:<id>` and `prop:<id>`.

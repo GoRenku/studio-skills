@@ -24,5 +24,10 @@ model guides own prompt craft.
 - A singular source video for Gemini Omni Flash 1.1 edit is implicit. Put it in
   `video_url` and write a direct edit instruction without inventing a video
   mention.
+- Native audio generation is not uploaded reference-audio support. Apply the
+  shared Dialogue Audio continuity policy only when the exact selected live
+  route exposes an uploaded audio reference field.
+- The current Fal Omni index exposes text, image, reference, and edit routes but
+  no continuation route. Do not repurpose edit for model continuation.
 - Never copy native fields, counts, bounds, or defaults from this adapter; read
   them from `generation schema show` immediately before authoring the request.

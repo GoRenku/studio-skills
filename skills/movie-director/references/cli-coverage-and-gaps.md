@@ -56,11 +56,23 @@ and execution, inspection, slicing, and supported focused attachment.
 
 Current media purposes include Lookbook images and typed sheets, Cast Character
 Sheets, cast profiles and voice samples, Location Sheets and heroes, Prop
-Sheets and heroes, Scene Storyboard Sheets, dialogue audio, and general image creation
-and editing. Media Producer reads current purpose context from Core, chooses a
+Sheets and heroes, Scene Storyboard Sheets, per-turn Dialogue Audio, Shot Plan
+video, general image creation/editing, and source-derived editing of any active
+registered video Asset. Media Producer reads current purpose context from Core, chooses a
 supported model/input mode conversationally, and reads native request facts
 from the selected provider; do not reconstruct removed route, input, or
 request-planning contracts here.
+
+Dialogue Audio workspace/setup is agent-readable and writable through:
+
+```bash
+renku dialogue-audio show --scene <scene-id> --json
+renku dialogue-audio setup --scene <scene-id> --dialogue <turn-id> --file tmp/operations/media-generation/dialogue-setup.json --json
+```
+
+Whole-Scene generation is orchestration over those per-turn contracts. It
+creates one provider request, file, provenance record, and Take per Dialogue
+Turn; there is no combined Scene audio command.
 
 ## Shot Planning
 

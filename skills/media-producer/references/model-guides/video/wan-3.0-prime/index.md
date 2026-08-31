@@ -29,6 +29,11 @@ Read:
 - Keep non-negotiable details explicit because prompt expansion may rewrite the
   authored prompt. Review the returned `actual_prompt` as receipt evidence when
   the provider returns it; never replace the authored prompt silently.
+- Apply the Project's prompt-expansion preference only through the selected
+  route's live schema. With expansion on, compare returned actual-prompt
+  evidence against identity, camera, timing, sound, and exclusions. With it
+  off, preserve the same explicit constraints; do not shorten the prompt merely
+  because rewriting is disabled.
 - Use only exact reference mentions from the selected Fal adapter and final
   modality-local request order.
 

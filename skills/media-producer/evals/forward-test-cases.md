@@ -244,4 +244,105 @@ new.
 
 Use `scene.dialogue-audio` for the exact Dialogue turn and current Cast Voice.
 Author provider-native text-to-speech input, preserve dialogue text and voice
-identity, inspect the result, and attach a Take only after approval.
+identity, inspect the result, and attach a Take only after approval. For a
+whole-Scene request, show the workspace first and create one independent
+review document, ElevenLabs request, output file, provenance document, and Take
+per Dialogue Turn in screenplay order. Never concatenate the Scene. If some
+turns already have Takes and the user did not state the scope, ask whether to
+generate only missing turns or a new Take for every turn.
+
+## dialogue-audio-selection — Workflow-selected and sole unselected Takes
+
+For an audio-capable non-Wan video route, one relevant Dialogue has two active
+candidates and exactly one is `isWorkflowSelected: true`. A second Dialogue has
+one sole unselected candidate.
+
+Expected behavior:
+
+- includes the workflow-selected candidate for the first Dialogue and the sole
+  unselected candidate for the second by default;
+- ignores common Asset display selection when resolving this workflow intent;
+- derives native audio fields and mention order only from the selected live
+  schema and provider adapter; and
+- omits both only when the user explicitly asks to omit Dialogue Audio.
+
+## dialogue-audio-ambiguity — Multiple unselected and missing Takes
+
+One Dialogue has multiple unselected active Takes; another has none.
+
+Expected behavior:
+
+- stops instead of choosing first or latest;
+- directs the user to that Scene's Narrative tab, the Dialogue block, and its
+  Takes tab to pick one of the multiple unselected Takes;
+- directs the user to create Scene Narrative Dialogue Audio for the missing
+  turn; and
+- never turns missing or ambiguous creative material into a Core context
+  validation failure.
+
+## dialogue-audio-capability — Two audio-capable families and one audio-incapable route
+
+Evaluate a Fal Wan reference route and a second model-family route whose live
+schema accepts uploaded audio references, then evaluate current Gemini Omni
+reference-to-video whose schema does not.
+
+Expected behavior:
+
+- applies the same selected/sole Dialogue Audio policy to both audio-capable
+  families without branching on their model names;
+- uses each adapter's own native field and mention syntax;
+- for the audio-incapable Omni route, invents no field or mention, explains
+  that exact Dialogue Audio continuity cannot be supplied, and asks whether to
+  switch to a capable model or proceed without it;
+- if a capable route's live limit is smaller than the resolved audio set, asks
+  the user to narrow scope or switch instead of silently truncating; and
+- treats explicit omission as authoritative across every family.
+
+## prompt-expansion-live-schema — Project preference without a property map
+
+Exercise one route whose live schema clearly describes provider prompt expansion,
+one whose unambiguously described control uses a different native
+name, and one with no such control. Run each with the Project preference true
+and false.
+
+Expected behavior:
+
+- semantically identifies the exact live control and applies the Project value;
+- omits a control when absent and consults provider documentation when the
+  schema is ambiguous;
+- never infers a property from provider/model name or a checked-in mapping;
+- preserves the authored prompt; and
+- reviews returned actual or rewritten prompt evidence when available.
+
+## purpose-video-edit — Source-derived editing of any video Asset
+
+The user asks for a concise local edit to one exact active registered video
+Asset whose type and owner are not Shot Plan-specific.
+
+Expected behavior:
+
+- reads `generation context --purpose video.edit --target asset:<id>` and uses
+  its exact `source-video` reference;
+- selects only a live video-edit route, keeps the request concise, and names
+  every unaffected timing, performance, camera, identity, environment, and
+  audio property that must be preserved;
+- imports with `video.edit`, exact safe provenance, and the same source Asset
+  target;
+- expects a separate unselected source-derived Asset beside the source, not a
+  mutation, replacement, or display selection; and
+- does not restrict eligibility by Asset type or owner.
+
+## omni-capability-routing — Preview, upscale, references, edit, and continuation
+
+Users separately request cheap exploration, 4K delivery, video-reference
+continuity, a local edit, and continuation.
+
+Expected behavior:
+
+- suggests Omni for 360p preview when the selected live route exposes it;
+- describes 4K as upscaled output rather than native recovery of missing detail;
+- uses video references and concise edit-preservation guidance through their
+  exact live operations;
+- understands continuation as 10-second increments bounded by the live total,
+  but stops when the installed Fal index has no continuation route; and
+- asks before switching the Project's selected provider or model.
