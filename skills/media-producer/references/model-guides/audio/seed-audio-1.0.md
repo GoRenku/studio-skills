@@ -14,9 +14,14 @@ Sources:
 
 Create a reusable sample from text description only when no established sample
 exists. Combine the user's direct direction with the Cast Member's voice notes.
-Target about 30 seconds and roughly 70–85 natural words. Keep one speaker, one
-consistent emotion and timbre, natural pacing, minimal background sound, no
-music, no second voice, and a clear steady microphone perspective.
+Target about 30 seconds with roughly 70–85 natural words of spoken script. Count
+only words the character will say; descriptive and instructional prompt text
+does not satisfy the spoken-word budget. Verify that count before Preview. Keep
+one speaker, one consistent emotion and timbre, natural continuous pacing,
+minimal background sound, no music, no second voice, and a clear steady
+microphone perspective. Never ask the model to stretch a short script with long
+pauses or sparse delivery to reach the target duration; expand the actual
+in-character speech instead.
 
 ## Dialogue with selected samples
 

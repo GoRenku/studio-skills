@@ -38,7 +38,13 @@ context and do not copy them into a second Skill-owned schema.
 
 Read `model-guides/audio/seed-audio-1.0.md`. Create the first reference voice
 from text description only; do not condition it on another voice sample.
-Author approximately 70–85 natural words, targeting about 30 seconds. Require:
+Author approximately 70–85 natural words that the character actually speaks,
+targeting about 30 seconds at natural conversational pace. Count the spoken
+script separately before Preview: voice direction, speaker description, scene
+setting, and prompt instructions do not count toward this word budget. If the
+spoken script is short, expand it with meaningful in-character speech; never
+make up the missing duration with stretched pauses, sparse delivery, repeated
+ellipses, or an artificially slow pace. Require:
 
 - one speaker only;
 - one consistent emotion and timbre;

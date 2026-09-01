@@ -273,6 +273,22 @@ Expected behavior:
 - never reuses prior HTML/browser state or persists the choices to Project
   Settings.
 
+## cast-voice-sample-spoken-word-budget — Spoken words carry the duration
+
+Create an approximately 30-second Seed Audio Cast Voice sample. The first draft
+prompt contains about 80 words overall, but only 33 words appear in the passage
+the character will actually speak; the rest describe the voice and recording.
+
+Expected behavior:
+
+- recognizes that prompt instructions and voice description do not count as
+  spoken material;
+- expands the in-character script to approximately 70–85 spoken words and
+  verifies that spoken-script count separately before Preview;
+- preserves natural conversational pacing and the user's chosen speed; and
+- never pads the missing duration with silence, stretched pauses, repeated
+  ellipses, or sparse delivery.
+
 ## dialogue-audio-selection — Multi-select exact Takes
 
 The Shot Plan has three active Takes: one selected single-Turn Take, one
