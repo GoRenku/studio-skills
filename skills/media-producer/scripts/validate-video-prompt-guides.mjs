@@ -98,6 +98,7 @@ const falRoutes = JSON.parse(readFileSync(
   'utf8',
 )).routes ?? [];
 for (const [apiId, expectedOperations] of [
+  ['minimax/h3-max/reference-to-video', ['reference-to-video']],
   ['google/gemini-omni-flash/v1.1/text-to-video', ['text-to-video']],
   ['google/gemini-omni-flash/v1.1/image-to-video', ['image-to-video', 'first-last-frame-to-video']],
   ['google/gemini-omni-flash/v1.1/reference-to-video', ['reference-to-video']],

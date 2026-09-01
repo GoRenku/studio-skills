@@ -49,7 +49,8 @@ H3-specific prompt guide yet.
 - `https://fal.ai/models/minimax/h3/text-to-video/api`
 - `https://fal.ai/models/minimax/h3/image-to-video/api`
 - `https://fal.ai/models/minimax/h3/reference-to-video/api`
+- `https://fal.ai/models/minimax/h3-max/reference-to-video/api`
 - `https://www.minimax.io/news/a-new-era-of-ai-filmmaking`
 
-Sources reviewed: 2026-08-01. Provider request details were intentionally moved
+Sources reviewed: 2026-09-01. Provider request details were intentionally moved
 to provider adapters and live schemas.

@@ -47,3 +47,21 @@ Fal.ai, Pika, and WaveSpeed all expose MiniMax H3. Every route resolves to the
 same `minimax-h3` key and the same canonical model guide. Only the provider
 adapter and live request schema may differ. Pika must not inherit Fal.ai's
 mention syntax when its own adapter does not document one.
+
+## video-fal-h3-max-reference-budget — Combined reference limit
+
+Use Fal.ai `minimax/h3-max/reference-to-video` with deliberately selected
+image, video, and audio references. The selected files fit each modality's
+individual live-schema limit but initially add up to 13 files.
+
+Expected behavior:
+
+- resolves the exact H3 Max route to the canonical `minimax-h3`
+  reference-to-video guide and Fal.ai adapter;
+- derives spaced `Image N`, `Video N`, and `Audio N` mentions from final
+  modality-local request order without adding `@`;
+- reads the live schema and stops before Preview because the combined reference
+  count exceeds 12, even though no modality exceeds its individual maximum;
+- proceeds after the selection is reduced to at most 12 total references; and
+- does not turn the dated count in the adapter into a substitute for the live
+  schema.

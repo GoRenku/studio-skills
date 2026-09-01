@@ -9,8 +9,12 @@ model guides own prompt craft.
   `N` from final request order.
 - Seedance reference-to-video derives `@ImageN`, `@VideoN`, and `@AudioN` from
   final modality-local array order.
-- MiniMax H3 reference-to-video derives spaced `Image N`, `Video N`, and
-  `Audio N` mentions from final modality-local array order. Do not add `@`.
+- MiniMax H3 and H3 Max reference-to-video derive spaced `Image N`, `Video N`,
+  and `Audio N` mentions from final modality-local array order. Do not add `@`.
+  For H3 Max, Fal.ai's live schema on 2026-09-01 allowed up to 9 images, 3
+  videos, and 3 audio clips, with at most 12 reference files combined. Treat
+  these dated counts as discovery context only and re-check the live schema
+  before authoring each request.
 - Gemini Omni Flash 1.1 reference-to-video derives zero-based
   `<IMAGE_REF_0>` and `<VIDEO_REF_0>` mentions from final modality-local array
   order. Its current live schema does not expose reference audio; do not invent
