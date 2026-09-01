@@ -1,6 +1,7 @@
 {
   "provider": "elevenlabs",
   "routes": [
+    { "apiId": "voice-sample-audio", "name": "ElevenLabs Voice Sample", "modelKey": "elevenlabs-voice-sample", "mediaKind": "audio", "operations": ["voice-sample-retrieval"] },
     { "apiId": "eleven_v3", "name": "Eleven v3", "modelKey": "eleven-v3", "mediaKind": "audio", "operations": ["text-to-speech"] },
     { "apiId": "eleven_multilingual_v2", "name": "Eleven Multilingual v2", "modelKey": "eleven-multilingual-v2", "mediaKind": "audio", "operations": ["text-to-speech"] },
     { "apiId": "eleven_turbo_v2_5", "name": "Eleven Turbo v2.5", "modelKey": "eleven-turbo-v2-5", "mediaKind": "audio", "operations": ["text-to-speech"] },

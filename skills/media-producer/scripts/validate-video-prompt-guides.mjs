@@ -87,7 +87,7 @@ for (const required of ['Keep everything else', '10-second', 'not continuation']
 
 const continuity = readFileSync(join(skillRoot, 'references/video-reference-continuity.md'), 'utf8');
 for (const required of [
-  'isWorkflowSelected', 'exactly one active candidate', 'Narrative',
+  'isSelected', 'one exact reference URL', 'Audio',
   'explicit user request to omit', 'never truncate',
 ]) {
   if (!continuity.includes(required)) errors.push(`Video continuity guidance lost ${required}.`);

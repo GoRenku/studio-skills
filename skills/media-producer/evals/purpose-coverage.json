@@ -20,7 +20,7 @@
     "shot-plan.video-storyboard": "video-storyboard-reference",
     "shot-plan.video-reference": "video-storyboard-reference",
     "shot-plan.video-generation": "video-reference-dialogue",
-    "scene.dialogue-audio": "purpose-dialogue-audio",
+    "shot-plan.dialogue-audio": "purpose-dialogue-audio",
     "video.edit": "purpose-video-edit"
   }
 }

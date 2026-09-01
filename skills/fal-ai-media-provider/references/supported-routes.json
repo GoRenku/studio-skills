@@ -1,6 +1,7 @@
 {
   "provider": "fal-ai",
   "routes": [
+    { "apiId": "bytedance/seed-audio-1.0", "name": "Seed Audio 1.0", "modelKey": "seed-audio-1.0", "mediaKind": "audio", "operations": ["text-to-speech"], "adapter": "adapters/seed-audio.md", "docs": "https://fal.ai/models/bytedance/seed-audio-1.0/api" },
     { "apiId": "openai/gpt-image-2", "name": "GPT Image 2", "modelKey": "gpt-image-2", "mediaKind": "image", "operations": ["text-to-image"], "adapter": "adapters/reference-inputs.md" },
     { "apiId": "openai/gpt-image-2/edit", "name": "GPT Image 2 Edit", "modelKey": "gpt-image-2", "mediaKind": "image", "operations": ["image-edit"], "adapter": "adapters/reference-inputs.md" },
     { "apiId": "fal-ai/nano-banana-2", "name": "Nano Banana 2", "modelKey": "nano-banana-2", "mediaKind": "image", "operations": ["text-to-image"], "adapter": "adapters/reference-inputs.md" },

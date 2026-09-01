@@ -56,23 +56,25 @@ and execution, inspection, slicing, and supported focused attachment.
 
 Current media purposes include Lookbook images and typed sheets, Cast Character
 Sheets, cast profiles and voice samples, Location Sheets and heroes, Prop
-Sheets and heroes, Scene Storyboard Sheets, per-turn Dialogue Audio, Shot Plan
+Sheets and heroes, Scene Storyboard Sheets, Shot Plan Dialogue Audio, Shot Plan
 video, general image creation/editing, and source-derived editing of any active
 registered video Asset. Media Producer reads current purpose context from Core, chooses a
 supported model/input mode conversationally, and reads native request facts
 from the selected provider; do not reconstruct removed route, input, or
 request-planning contracts here.
 
-Dialogue Audio workspace/setup is agent-readable and writable through:
+Dialogue Audio context is agent-readable through:
 
 ```bash
-renku dialogue-audio show --scene <scene-id> --json
-renku dialogue-audio setup --scene <scene-id> --dialogue <turn-id> --file tmp/operations/media-generation/dialogue-setup.json --json
+renku generation context --purpose shot-plan.dialogue-audio --target shot-plan:<shot-plan-id> --json
 ```
 
-Whole-Scene generation is orchestration over those per-turn contracts. It
-creates one provider request, file, provenance record, and Take per Dialogue
-Turn; there is no combined Scene audio command.
+Attachment creates one independent Take for one Turn or one consecutive Turn
+range:
+
+```bash
+renku media import --purpose shot-plan.dialogue-audio --target shot-plan:<shot-plan-id> --turns <N-or-N-M> --source <path> --provenance <path> --json
+```
 
 ## Shot Planning
 
@@ -98,7 +100,7 @@ Do not use discard plus media import to retag or re-anchor an existing Lookbook 
 
 ## Hard Gaps
 
-- Costume-variant media is not a first-class purpose. Cast voice samples use
+- Costume-variant media is not a first-class purpose. Cast Voice samples use
   `cast.voice-sample`, but durable attachment remains owned by the Cast Voice
   command rather than generic media import.
 - Location-local set-dressing media is not a first-class purpose.

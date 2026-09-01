@@ -1,12 +1,12 @@
 # Cast Voice Attachments
 
-Use this reference when a Cast Member needs a durable provider voice reference.
+Use this reference when a Cast Member needs a durable playable voice sample.
 
 A Cast Voice is Cast Member-owned project data. It stores the reference name,
-purpose, linked sample audio asset, and sample provenance. Provider-specific
-durable handles live in Cast Voice Provider Registrations attached to that Cast
-Voice. Cast Voice data does not belong in Cast Design JSON. Kling `voice_id`
-values are transient shot-video run artifacts and must not be attached here.
+purpose, linked sample audio asset, sample provenance, default-selection state,
+and an optional opaque provider-owned voice identity. Core stores that identity
+without interpreting provider or model fields. Cast Voice data does not belong
+in Cast Design JSON.
 
 ## Commands
 
@@ -16,43 +16,29 @@ renku cast voice show --cast <cast-member-id> --voice <cast-voice-id-or-name> --
 renku cast voice validate --file tmp/operations/cast-voice-attachment.json --json
 renku cast voice attach --file tmp/operations/cast-voice-attachment.json --json
 renku cast voice remove --cast <cast-member-id> --voice <cast-voice-id-or-name> --json
-renku cast voice registrations list --voice <cast-voice-id-or-name> --json
-renku cast voice registrations show --registration <registration-id> --json
-renku cast voice registrations create --voice <cast-voice-id-or-name> --file tmp/operations/cast-voice-registration.json --json
-renku cast voice registrations remove --registration <registration-id> --json
 ```
 
-Use `validate` before `attach`. After attachment, run `list` to verify the Cast Voice and sample asset are present. Use `registrations list` to verify provider handles.
+Use `validate` before `attach`. After attachment, run `list` to verify the Cast
+Voice and sample Asset are present. The first attached voice becomes the Cast
+Member's default. Additional default selection is user-owned in the Cast Assets
+media-card UI.
 
 ## Attachment Rules
 
-- `kind` must be `castVoiceAttachment`.
-- `castMemberId`, `name`, `purpose`, `provider`, `model`, `voiceId`, and `sample` are required for the initial ElevenLabs attachment.
-- `attach` creates the Cast Voice and its initial ElevenLabs provider registration with capability `dialogue-audio-tts`.
-- Use direct ElevenLabs provider ids for current dialogue audio voices.
-- Current direct models are `eleven_v3`, `eleven_multilingual_v2`, and `eleven_turbo_v2_5`.
+- `kind` must be `castVoiceFileAttachment`.
+- `castMemberId`, `name`, `purpose`, and `sample` are required.
+- `voiceIdentity` is optional opaque JSON. Provider Skills own its shape.
+- An ElevenLabs sample uses an exact identity such as
+  `{"provider":"elevenlabs","voiceId":"<exact-id>"}`.
+- A Seed Audio sample omits `voiceIdentity`; its audio Asset is the reusable
+  reference.
 - `sample.sourceProjectRelativePath` must point at an existing project-relative audio file.
 - Supported sample file extensions are `.mp3`, `.wav`, and `.m4a`.
 - If the sample came from generation, include its exact safe
   `sample.generationProvenance` so provider/model/media-kind mismatches fail
   before attachment.
-- Kling and Seedance video voice controls are not Cast Voice Provider
-  Registrations. A future Shot workflow must define any transient provider
-  voice ids or per-generation audio reference behavior.
 - Cast Voice sample deletion happens by removing the Cast Voice, not by deleting the asset directly.
 
 ## Sample
 
 See `samples/cast-voice-attachment.json`.
-
-Provider registration JSON:
-
-```json
-{
-  "provider": "elevenlabs",
-  "registrationModel": "eleven_v3",
-  "externalVoiceId": "elevenlabs_voice_ada",
-  "capabilities": ["dialogue-audio-tts"],
-  "sourceSampleAssetId": "asset_ada_voice_sample"
-}
-```

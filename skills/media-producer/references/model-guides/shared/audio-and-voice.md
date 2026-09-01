@@ -5,9 +5,10 @@ selected provider adapter.
 
 ## Durable Cast Voice Records
 
-ElevenLabs TTS registrations carried capability `dialogue-audio-tts` and were
-used by Scene Dialogue Audio generation. Kling and Seedance video controls did
-not become durable Cast Voice Provider Registrations.
+A Cast Voice always has a playable sample Asset and may carry opaque
+provider-owned identity JSON. Core stores and returns that identity without
+interpreting it. The selected provider Skill decides whether it can use the
+identity or the sample file for the current request.
 
 ## Kling
 
@@ -23,10 +24,10 @@ lipsync, talking-head, or composition workflow.
 
 ## Seedance
 
-Seedance audio references are request-scoped conditioning inputs, not durable
-provider registrations. A Shot Video request may select clean Cast Voice
-samples or Scene Dialogue Audio as exact conditioning references when the
-provider adapter and live schema expose an audio field.
+Seedance audio references are request-scoped conditioning inputs. A Shot Video
+request may select clean Cast Voice samples or selected Shot Plan Dialogue
+Audio Takes as exact conditioning references when the provider adapter and live
+schema expose an audio field.
 
 The prompt names each provider token with a narrow role such as
 narrator voice, speaker character, ambience, or sound character. Conditioning

@@ -28,14 +28,24 @@ supported-route index is routing guidance only; read the selected ElevenLabs
 operation's current request facts for native fields and constraints.
 
 For speech, author exact `text`, provider `voice` id, and optional native
-`voice_settings`/`output_format`. For music, author exact `prompt` and optional
-native duration/instrumental fields. Local-media markers are unsupported.
+`voice_settings`/`output_format`. Resolve that id only from the selected Cast
+Voice's opaque identity when it has `provider: "elevenlabs"` and a non-empty
+`voiceId`; otherwise stop rather than inventing one. For music, author exact
+`prompt` and optional native duration/instrumental fields. Local-media markers
+are unsupported.
+
+For `voice-sample-audio`, author `voiceId` from the same opaque Cast Voice
+identity and optional `apiBaseUrl` only when the user deliberately selected a
+non-default endpoint. This is sample retrieval, not TTS: do not add `text`,
+speech settings, or local reference media. Engines owns the authenticated
+download and returns normal audio generation provenance.
 
 Follow Media Producer for Preview and conversational confirmation. Engines owns
 the ElevenLabs SDK call, retry, stream collection, output file, and safe
 provenance. Return the accepted output for focused media import or Cast Voice
-attachment. Voice listing and sample retrieval remain focused Renku operations,
-not generic generation requests.
+attachment. Voice browsing remains outside generic generation; supported
+sample retrieval runs through `voice-sample-audio` like every other Engines
+operation.
 
 Never call the SDK directly, invent a voice id, attach Cast Voice records,
 persist credentials, or create durable execution lifecycle records or

@@ -1,11 +1,12 @@
 {
-  "kind": "castVoiceAttachment",
+  "kind": "castVoiceFileAttachment",
   "castMemberId": "cast_ada",
   "name": "urban-normal",
   "purpose": "Normal speaking voice for dialogue and test lines",
-  "provider": "elevenlabs",
-  "model": "eleven_v3",
-  "voiceId": "21m00Tcm4TlvDq8ikWAM",
+  "voiceIdentity": {
+    "provider": "elevenlabs",
+    "voiceId": "21m00Tcm4TlvDq8ikWAM"
+  },
   "sample": {
     "sourceProjectRelativePath": "generated/ada-urban-normal.mp3",
     "title": "Ada urban normal voice sample",

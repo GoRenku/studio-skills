@@ -72,7 +72,8 @@ required visual-reference matching.
 ## Choose the execution lane
 
 Read the current Project Settings and the user's explicit direction. The image
-lane is `codex`, `fal-ai`, or `pika`; video is `fal-ai` or `pika`; audio is `elevenlabs`.
+lane is `codex`, `fal-ai`, or `pika`; video is `fal-ai` or `pika`; audio is
+`elevenlabs` or `fal-ai`.
 Replicate and WaveSpeed are advanced explicit choices only. World Labs is not a
 generic Media Producer lane; route Location World work to
 `location-world-producer`.
@@ -137,7 +138,7 @@ owns its request fields and reference behavior.
 | `scene.storyboard-sheet` | `scene-storyboard-sheet.md` |
 | `shot.image` | `shot-image.md` |
 | all `shot-plan.video-*` purposes | `shot-plan-video/index.md`, then `shot-plan-video/workflow.md` |
-| `scene.dialogue-audio` | `scene-dialogue-audio.md`, then `model-guides/shared/audio-and-voice.md` and the canonical audio model guide |
+| `shot-plan.dialogue-audio` | `shot-plan-dialogue-audio.md`, then `model-guides/shared/audio-and-voice.md` and the canonical audio model guide |
 | `video.edit` | `video-reference-continuity.md`, then the canonical video edit guide |
 
 For every video workflow, also read
@@ -235,10 +236,12 @@ renku media import \
   --json
 ```
 
-Use the existing grouped Storyboard, Cast Voice, dialogue, or Location World
-command when that domain owns the attachment. Pass the same exact safe
-provenance through its focused document. Do not create durable request/job
-state, cost approval artifacts, or lifecycle records around generation.
+Use the existing grouped Storyboard, Cast Voice, or Location World command when
+that domain owns the attachment. Pass the same exact safe provenance through
+its focused document. For Shot Plan Dialogue Audio, attach the accepted output
+with `renku media import --purpose shot-plan.dialogue-audio --target
+shot-plan:<id> --turns <N-or-N-M>`. Do not create durable request/job state,
+cost approval artifacts, or lifecycle records around generation.
 
 Ordinary external media has no generation provenance. Never fabricate
 provenance merely to satisfy a generated-only purpose. Copying and selection
@@ -263,7 +266,8 @@ let `generation context` supply the complete related graph.
 - Location and Prop media target `location:<id>` and `prop:<id>`.
 - Scene Storyboards target `scene:<id>`; Shot images target `shot:<id>`.
 - Shot Plan video and auxiliary contexts target `shot-plan:<id>`.
-- Dialogue audio uses the focused Scene dialogue target.
+- Dialogue audio targets the exact `shot-plan:<id>` and stores one consecutive,
+  inclusive Turn range on each independent audio Take.
 
 Shot Plan generated Assets retain only weak `authoredFrom` context. They do not
 become owned by or freeze the Shot Plan.

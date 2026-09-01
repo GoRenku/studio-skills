@@ -1,6 +1,6 @@
 ---
 name: fal-ai-media-provider
-description: Author and execute supported Fal.ai image and video requests for Renku Media Producer. Use only after the workflow has selected Fal.ai; do not use it for provider selection or Asset attachment decisions.
+description: Author and execute supported Fal.ai image, audio, and video requests for Renku Media Producer. Use only after the workflow has selected Fal.ai; do not use it for provider selection or Asset attachment decisions.
 ---
 
 # Fal.ai Media Provider
@@ -35,6 +35,10 @@ Author the exact Fal.ai input object as the review document's `request`. Put a
 marker at each native image/video field. Preserve the exact `reviewLabel`, and
 add the exact `promptMention` only when the selected adapter establishes one
 after final request order is known. Do not upload media yourself.
+
+For Seed Audio, place one local audio marker per selected speaker sample in the
+native `audio_urls` array and follow `adapters/seed-audio.md` for exact
+`@AudioN` mention ordering. Never send more than three local voice references.
 
 Follow Media Producer for Preview and conversational confirmation. Then call
 `renku generation validate` and `renku generation execute` once. Use

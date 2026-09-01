@@ -24,20 +24,19 @@ field, or an output-audio switch as reference-audio support.
 Audio references condition generation. Do not promise that they replace the
 final mix unless the selected provider explicitly documents that behavior.
 
-## Resolve one Take per relevant Dialogue Turn
+## Resolve selected Shot Plan Takes
 
-Use the `dialogue-audio` candidates in Generation Context. Keep all active
-candidates visible and apply this order independently to each turn:
+Use the `dialogueAudio` candidates in the exact Shot Plan Generation Context.
+Include every active candidate with `isSelected: true` and no unselected
+candidate. Each selected Take remains one exact reference URL whether it covers
+one Turn or a consecutive Turn range. Do not concatenate, group, rank, fill
+gaps, choose the latest, or infer a preferred combination.
 
-1. If exactly one candidate has `isWorkflowSelected: true`, use it.
-2. If none is workflow-selected and exactly one active candidate exists, use
-   that sole Take.
-3. If none is selected and several active candidates exist, stop and ask the
-   user to open that Scene's **Narrative** tab, open the Dialogue block's
-   **Takes** tab, and pick the Take to use. Never choose first, latest, or a
-   display-selected Asset.
-4. If no active candidate exists, stop and ask the user to create Dialogue
-   Audio for that Dialogue in the Scene **Narrative** workflow.
+If no Take is selected and the video needs exact Dialogue Audio, ask the user
+to open the Shot Plan **Audio** tab and select the intended Media Cards. If
+selected Takes exceed the chosen provider route's live reference limit, ask the
+user to narrow the selection or choose another capable route. Never truncate
+the selected set.
 
 An explicit user request to omit Dialogue Audio wins over these defaults.
 

@@ -240,45 +240,64 @@ and import the accepted result as an unselected candidate unless the user
 explicitly requests selection. Do not promote a candidate merely because it is
 new.
 
-## purpose-dialogue-audio — Scene Dialogue Audio
+## purpose-dialogue-audio — Shot Plan Dialogue Audio
 
-Use `scene.dialogue-audio` for the exact Dialogue turn and current Cast Voice.
-Author provider-native text-to-speech input, preserve dialogue text and voice
-identity, inspect the result, and attach a Take only after approval. For a
-whole-Scene request, show the workspace first and create one independent
-review document, ElevenLabs request, output file, provenance document, and Take
-per Dialogue Turn in screenplay order. Never concatenate the Scene. If some
-turns already have Takes and the user did not state the scope, ask whether to
-generate only missing turns or a new Take for every turn.
+Use `shot-plan.dialogue-audio` for one exact Shot Plan and one canonical Turn or
+consecutive Turn range. Show the transient Codex configuration component, start
+from Project Settings and default Cast Voices, preserve exact screenplay text,
+inspect the result, and attach one independent Take with `media import
+--turns`. Exercise one-Turn generation with both ElevenLabs and Seed Audio and
+one multi-Turn Seed Audio request. Never combine outputs or create durable Turn
+relations.
 
-## dialogue-audio-selection — Workflow-selected and sole unselected Takes
+## inline-audio-configuration — Visible values and exact handoff
 
-For an audio-capable non-Wan video route, one relevant Dialogue has two active
-candidates and exactly one is `isWorkflowSelected: true`. A second Dialogue has
-one sole unselected candidate.
+Configure a Seed Audio voice sample with speed `0.95`, volume `1`, pitch `-1`,
+and sample rate `44100`, then change speed with the keyboard and apply the
+configuration. Repeat with a supported ElevenLabs route whose live schema has a
+different native control set.
 
 Expected behavior:
 
-- includes the workflow-selected candidate for the first Dialogue and the sole
-  unselected candidate for the second by default;
-- ignores common Asset display selection when resolving this workflow intent;
+- creates a fresh transient visualization from each route's inspected live
+  schema while following the shared inline-configuration reference;
+- presents one compact, balanced, legible configuration with orderly field
+  widths, coherent control grouping, and enough room for numeric ranges;
+- shows each numeric label first with its separately aligned current value and
+  unit, then updates that value without relying on thumb position, hover, color,
+  or a tooltip;
+- sends the exact current raw values, purpose, target, provider, model, and
+  selected voice/reference identities through one clearly labeled continuation
+  action before authoring the request;
+- never interprets a display-formatted value as the provider-native value; and
+- never reuses prior HTML/browser state or persists the choices to Project
+  Settings.
+
+## dialogue-audio-selection — Multi-select exact Takes
+
+The Shot Plan has three active Takes: one selected single-Turn Take, one
+unselected duplicate, and one selected multi-Turn Take.
+
+Expected behavior:
+
+- includes both and only the selected Takes as separate exact references;
+- keeps the multi-Turn Take as one reference instead of splitting it;
 - derives native audio fields and mention order only from the selected live
   schema and provider adapter; and
-- omits both only when the user explicitly asks to omit Dialogue Audio.
+- omits all only when the user explicitly asks to omit Dialogue Audio.
 
-## dialogue-audio-ambiguity — Multiple unselected and missing Takes
+## dialogue-audio-limits — Narrow before generation
 
-One Dialogue has multiple unselected active Takes; another has none.
+Exercise one disjoint Turn request, one Seed Audio range with four distinct
+speakers, one prompt over 2,048 characters, and one likely to exceed two
+minutes.
 
 Expected behavior:
 
-- stops instead of choosing first or latest;
-- directs the user to that Scene's Narrative tab, the Dialogue block, and its
-  Takes tab to pick one of the multiple unselected Takes;
-- directs the user to create Scene Narrative Dialogue Audio for the missing
-  turn; and
-- never turns missing or ambiguous creative material into a Core context
-  validation failure.
+- asks the user to split a disjoint request into separate Takes;
+- asks the user to narrow a range with more than three distinct speakers;
+- asks the user to narrow or split oversized prompt or duration requests; and
+- never truncates text, omits a reference, or invents a voice from prose.
 
 ## dialogue-audio-capability — Two audio-capable families and one audio-incapable route
 
@@ -288,7 +307,7 @@ reference-to-video whose schema does not.
 
 Expected behavior:
 
-- applies the same selected/sole Dialogue Audio policy to both audio-capable
+- applies the same multi-select Dialogue Audio policy to both audio-capable
   families without branching on their model names;
 - uses each adapter's own native field and mention syntax;
 - for the audio-incapable Omni route, invents no field or mention, explains

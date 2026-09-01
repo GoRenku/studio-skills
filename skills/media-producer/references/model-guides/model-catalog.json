@@ -15,7 +15,9 @@
     { "key": "eleven-v3", "name": "Eleven v3", "mediaKind": "audio", "guide": "audio/elevenlabs-speech.md", "operations": { "text-to-speech": null } },
     { "key": "eleven-multilingual-v2", "name": "Eleven Multilingual v2", "mediaKind": "audio", "guide": "audio/elevenlabs-speech.md", "operations": { "text-to-speech": null } },
     { "key": "eleven-turbo-v2-5", "name": "Eleven Turbo v2.5", "mediaKind": "audio", "guide": "audio/elevenlabs-speech.md", "operations": { "text-to-speech": null } },
+    { "key": "elevenlabs-voice-sample", "name": "ElevenLabs Voice Sample", "mediaKind": "audio", "guide": "audio/elevenlabs-voice-sample.md", "operations": { "voice-sample-retrieval": null } },
     { "key": "eleven-music", "name": "Eleven Music", "mediaKind": "audio", "guide": "audio/elevenlabs-music.md", "operations": { "text-to-music": null } },
+    { "key": "seed-audio-1.0", "name": "Seed Audio 1.0", "mediaKind": "audio", "guide": "audio/seed-audio-1.0.md", "operations": { "text-to-speech": null } },
     { "key": "minimax-speech-2.8-hd", "name": "MiniMax Speech 2.8 HD", "mediaKind": "audio", "guide": "audio/minimax-speech-2.8-hd.md", "operations": { "text-to-speech": null } }
   ]
 }

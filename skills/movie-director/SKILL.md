@@ -128,17 +128,17 @@ Use this loop for every request:
   review/execution, Codex external generation, inspection, slicing, and
   supported focused attachments. For image work, Media Producer owns the
   create-versus-edit decision; do not preselect a domain creation purpose merely
-  because that domain will receive the accepted output. Route one-turn or
-  whole-Scene Dialogue Audio to its existing `scene.dialogue-audio` workflow,
-  and route edits or continuations of an exact registered video Asset to
-  `video.edit`.
+  because that domain will receive the accepted output. Route one-Turn or one
+  consecutive Turn-range Dialogue Audio Take to
+  `shot-plan.dialogue-audio`, and route edits or continuations of an exact
+  registered video Asset to `video.edit`.
 - Use `location-world-producer` for same-space reconstruction image coordination,
   explicitly approved World Labs generation, selected 3D World readback, and
   rollback through common Asset selection.
 
 Not first-class today:
 
-- Costume-variant media and voice media. Keep their design notes in Cast Design and hand off only existing cast media purposes to `media-producer`.
+- Costume-variant media. Keep its design notes in Cast Design.
 - Set-dressing media, sound, music, editorial, and final assembly skills.
 
 ## Non-Negotiables

@@ -23,7 +23,7 @@ Then pass the returned durable `sceneId` to the owning specialist.
 | Design or revise narrative-appropriate Scene Beats; create or materially recompose their Storyboard imagery for pre-production alignment | Directing / Beat Design | `scene-beat-designer`, then `media-producer` for `scene.storyboard-sheet` | `renku screenplay beats context --scene <scene-id> --json` |
 | Create or iteratively revise director/cinematographer production camera coverage, a Scene Shot Plan, individual Shots, order, or selected Shot imagery | Directing / Shot Planning | `shot-planner` | `renku shot-plan list --scene <scene-id> --json` |
 | Change one exact existing image while preserving its unaffected content, regardless of its current or intended owner | Media Production | `media-producer` for image operation routing and `image.edit` | Resolve the exact source Asset and AssetFile from current context |
-| Create one Dialogue Audio Take or separate Takes for every Dialogue Turn in a Scene | Media Production / Dialogue | `media-producer` for `scene.dialogue-audio` | `renku dialogue-audio show --scene <scene-id> --json` |
+| Create one Dialogue Audio Take for one Turn or one consecutive Turn range in a Shot Plan | Media Production / Dialogue | `media-producer` for `shot-plan.dialogue-audio` | `renku generation context --purpose shot-plan.dialogue-audio --target shot-plan:<shot-plan-id> --json` |
 | Edit or continue one exact registered video while preserving unaffected content | Media Production | `media-producer` for `video.edit` | Resolve the exact source video Asset and AssetFile from current context |
 | Generate or import media | Media Production | `media-producer` | `renku generation context --purpose <purpose> --target <target> --json` |
 
@@ -50,7 +50,7 @@ Then pass the returned durable `sceneId` to the owning specialist.
 
 ## Current Gaps
 
-- Costume-variant media and voice media are not first-class. Keep their notes in Cast Design.
+- Costume-variant media is not first-class. Keep its notes in Cast Design.
 - Location-local set-dressing media is not first-class. Keep its notes in
   Location Design unless the object is deliberately authored as a Prop.
 - Sound, music, editorial, and final assembly do not have complete specialist workflows yet.
