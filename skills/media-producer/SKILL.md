@@ -146,6 +146,43 @@ For every video workflow, also read
 inspecting its live schema. This is where selected Dialogue Audio becomes the
 default for any route that can actually accept uploaded audio references.
 
+## Configure every generation in Codex
+
+When the active harness is Codex and exposes `@Visualize`, always show the
+transient inline configuration component before authoring the review document.
+Read and follow
+[references/inline-generation-configuration.md](references/inline-generation-configuration.md).
+This common step applies to every image, video, and audio purpose in the table
+above.
+
+Prepare the initial authored prompt, exact chosen references, and native values
+first. Treat explicit user direction or the matching Project Setting only as
+the initial selection. Read the selected provider/model's Skill, guide, adapter,
+and live schema, then create controls only for that selection. Read only the
+other providers' small route indexes to populate the Provider and Model
+selectors; never read alternative provider Skills, guides, adapters, docs, or
+schemas before the user selects one. Advanced providers remain explicit
+one-request choices, and Codex appears only when its built-in image capability
+is available. The component contains configuration only and has no tabs or
+reference previews. Ordinary image/video references remain review-only in
+Generation Preview; bounded purpose-owned choices such as a Cast Voice may
+appear as configuration controls. The component calls no Renku or provider API
+and never persists choices to Project Settings.
+
+When the user changes Provider or Model, the component explains that the prompt
+and settings must be prepared again and sends a reconfiguration follow-up rather
+than accepting the old controls. Read only that selected route's Skill, guide,
+adapter, and schema, recreate the prompt when its canonical model changed, and
+update the same visualization source file for this pending request with the new
+controls. When the canonical model is unchanged, preserve the prompt and only
+schema-compatible exact native values. Continue to Generation Preview only from
+**Continue with these settings** while the selectors match the prepared route,
+or from a separate explicit confirmation of unchanged prepared values.
+
+This is a Codex-only convenience. In another harness, do not invent a browser
+component or substitute callback; continue with the existing conversational
+selection and Preview workflow.
+
 ## Review document
 
 Every request uses this irreducible temporary envelope:

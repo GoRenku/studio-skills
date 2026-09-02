@@ -26,17 +26,14 @@ for disjoint Turns, stop and ask them to split the request into separate Takes.
 Seed Audio and ElevenLabs may both generate a one-Turn Take. Multi-Turn
 generation uses Seed Audio.
 
-## Configure this generation in Codex
+## Purpose-specific configuration
 
-Before authoring every request, use `@Visualize` to show a compact inline
-configuration component in Codex. Read and follow
-[inline-generation-configuration.md](inline-generation-configuration.md) for
-its fresh-instance behavior, visible values, balanced presentation, and exact
-handoff. Start with the Project Settings audio provider and the default
-Cast Voice sample for each current speaker. Let the user switch provider,
-model, voice sample, and useful native controls for this generation only. The
-component is always shown and its choices are transient; never save them as
-Project defaults.
+Use the shared
+[inline generation configuration](inline-generation-configuration.md) from the
+main Media Producer flow. Start with the Project Settings Audio provider and
+the default Cast Voice sample for each current speaker. Let the user choose
+another compatible Cast Voice as a configuration control; the choice applies
+only to this generation.
 
 For ElevenLabs, expose current supported voice settings such as speed,
 stability, similarity, style, speaker boost, language override, and output

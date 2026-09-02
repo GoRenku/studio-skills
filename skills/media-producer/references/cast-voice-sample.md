@@ -2,16 +2,12 @@
 
 Use `cast.voice-sample` to generate playable sample audio for a Cast Member.
 
-## Configure this generation in Codex
+## Purpose-specific configuration
 
-Before authoring the request, always use `@Visualize` to show a compact inline
-configuration component in Codex. Read and follow
-[inline-generation-configuration.md](inline-generation-configuration.md) for
-its fresh-instance behavior, visible values, balanced presentation, and exact
-handoff. Start with the Project Settings audio provider as the visible
-default. Let the user inspect or change the provider, model, and useful native
-controls for this one generation. This state is transient: never write the
-user's choice back to Project Settings.
+Use the shared
+[inline generation configuration](inline-generation-configuration.md) from the
+main Media Producer flow. The Project Settings Audio provider remains the
+initial provider for this request.
 
 For Seed Audio sample creation, show provider, model, output format, sample
 rate, speed, volume, pitch, and multilingual when the live Fal schema exposes

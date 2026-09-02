@@ -171,6 +171,111 @@ Expected behavior:
 - does not add copied enums, ranges, prices, duration summaries, or request
   schemas to the provider model index.
 
+## inline-configuration-coverage — Every Media Producer purpose
+
+In Codex with `@Visualize` available, exercise one request from each purpose
+family in `purpose-coverage.json` before any review document is authored.
+
+Expected behavior:
+
+- every image, video, and audio purpose enters the same shared inline
+  configuration flow from `media-producer/SKILL.md`;
+- the agent prepares the authored prompt, exact references, and native values
+  only for the initial provider/model before rendering, then continues only
+  from the returned follow-up or explicit confirmation of unchanged values;
+- no purpose guide creates its own component shell, copied schema, or field
+  registry; and
+- a non-Codex harness does not invent a browser substitute or callback and
+  continues with the existing conversational selection and Preview workflow.
+
+## inline-image-configuration — Provider/model switch and rich controls
+
+Prepare a referenced image request while Project Settings select Codex. Read the
+other provider route indexes to populate the selectors, but inspect no
+alternative provider Skill, adapter, model guide, documentation, or live schema.
+Switch to a Fal.ai route whose schema exposes a finite image size or aspect
+choice and at least one useful bounded numeric value. Prepare that selection,
+change both controls, then continue.
+
+Expected behavior:
+
+- presents one compact component matching the shared voice-sample composition,
+  with configuration fields directly visible and no tabs;
+- does not show reference thumbnails, paths, labels, marker objects, or a
+  References section; exact references remain in the returned handoff and the
+  existing Generation Preview;
+- preselects Codex without restricting the Provider list to Codex, includes
+  every Renku provider with a broadly compatible indexed route, and lists all
+  broadly compatible models for the selected provider;
+- initially reads only the Codex capability contract and does not eagerly
+  inspect alternative provider schemas or model guides;
+- hides the Codex controls after the selector changes, shows that the selected
+  model must be prepared and its prompt may be recreated, and changes the action
+  to **Prepare selected model**;
+- sends a reconfiguration follow-up that does not accept settings or create the
+  review document, then reads only the selected Fal.ai route, guide, adapter,
+  and schema;
+- recreates the prompt because the canonical model changed and updates the same
+  visualization source path with the Fal.ai selection and its controls;
+- uses a select for the finite choice and a slider with a separately visible,
+  updating value for the truthful bounded number;
+- keeps the authored prompt outside the compact form; and
+- sends that editable prompt first, followed by two-space-indented JSON with
+  exact purpose, target, provider, executable model id, references, and raw
+  native control values, after which the agent shows the already prepared prompt
+  in Generation Preview without re-authoring it again.
+
+Repeat with a provider switch whose destination route has the same canonical
+`modelKey`. The reconfiguration follow-up reads only that destination route; the
+prompt remains unchanged, and only native values at exact property paths
+accepted by both schemas survive the switch.
+
+Repeat with an image request that has no references. Expected behavior: it
+uses the same single Configuration surface without empty reference content.
+
+## inline-video-configuration — Required references survive route switching
+
+Prepare a Shot Plan video request with an exact required opening image and a
+useful live-schema duration or output control. Include broadly compatible
+Fal.ai and Pika routes from their indexes, then select a route whose exact live
+schema cannot carry the required input.
+
+Expected behavior:
+
+- does not render the opening image in the component, while preserving its exact
+  marker for compatibility checking, the returned handoff, and Generation
+  Preview;
+- shows provider/model plus the truthful native duration/output control directly;
+- offers alternatives from their small route indexes without inspecting their
+  provider Skills, adapters, model guides, or schemas before selection;
+- inspects only the selected alternative after **Prepare selected model**, then
+  keeps the prior prepared selection and reports the incompatibility rather than
+  silently dropping the opening image or converting the request to text-only;
+- rebuilds model choices and native controls on provider change without a
+  provider/model switchboard in the purpose guide; and
+- keeps all choices transient, then follows the normal review-document,
+  validation, Preview, and confirmation sequence.
+
+## inline-configuration-omissions — Do not expose implementation fields
+
+The selected live schema contains prompt text, a negative prompt, local media
+and provider upload fields, callback/delivery fields, credentials, a fixed
+output-count field, an internal debug field, and one scalar whose constraints
+are too vague to present truthfully.
+
+Expected behavior:
+
+- omits prompt-like fields because prompt editing belongs in the Codex handoff
+  and retained Generation Preview;
+- keeps exact chosen media out of the component while preserving it for the
+  returned handoff and Generation Preview, without exposing marker/upload
+  structures as controls;
+- omits credentials, callbacks, delivery/runtime fields, the purpose-fixed
+  output count, the provider-internal field, and the ambiguous scalar;
+- leaves omitted prepared request values unchanged; and
+- never falls back to raw JSON editing or invents options, bounds, units, or
+  qualitative labels.
+
 ## purpose-project-cover — Project Cover candidates
 
 Prepare two `project.cover` requests: one matching the Production Lookbook and
@@ -250,7 +355,7 @@ inspect the result, and attach one independent Take with `media import
 one multi-Turn Seed Audio request. Never combine outputs or create durable Turn
 relations.
 
-## inline-audio-configuration — Visible values and exact handoff
+## inline-audio-configuration — Shared configuration, visible values, and exact handoff
 
 Configure a Seed Audio voice sample with speed `0.95`, volume `1`, pitch `-1`,
 and sample rate `44100`, then change speed with the keyboard and apply the
@@ -261,14 +366,16 @@ Expected behavior:
 
 - creates a fresh transient visualization from each route's inspected live
   schema while following the shared inline-configuration reference;
-- presents one compact, balanced, legible configuration with orderly field
-  widths, coherent control grouping, and enough room for numeric ranges;
+- presents the same compact, tab-free component as image and video requests,
+  with the selected voice/reference identity as a configuration control beside
+  provider, model, and native fields;
 - shows each numeric label first with its separately aligned current value and
   unit, then updates that value without relying on thumb position, hover, color,
   or a tooltip;
-- sends the exact current raw values, purpose, target, provider, model, and
-  selected voice/reference identities through one clearly labeled continuation
-  action before authoring the request;
+- uses **Continue with these settings** below the fields and sends the editable
+  authored prompt first, then pretty JSON containing the exact current raw
+  values, purpose, target, provider, model, and selected voice/reference
+  identities before authoring the request;
 - never interprets a display-formatted value as the provider-native value; and
 - never reuses prior HTML/browser state or persists the choices to Project
   Settings.
