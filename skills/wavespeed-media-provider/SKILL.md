@@ -30,6 +30,13 @@ routing guidance only; run `renku generation schema show --provider
 wavespeed-ai --model <api_id> --json` for the selected WaveSpeed operation's
 current native fields and constraints.
 
+When Media Producer is running its Codex inline-configuration flow, a `fresh`
+Core-managed generation configuration visualization schema snapshot is this
+inspection for pre-review authoring. Do not also run `generation schema show`
+during that 24-hour window. Media Producer owns miss, expiry, dependency-change,
+and invalidation refreshes; final validation and execution remain authoritative
+live boundaries.
+
 Author the provider-native input as `request`, using `$file` markers with Media
 Producer's exact `reviewLabel` only at native media fields. Add `promptMention`
 only when the selected adapter establishes exact syntax. Engines retrieves

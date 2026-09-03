@@ -4,8 +4,8 @@
   "type": "module",
   "packageManager": "pnpm@11.7.0",
   "scripts": {
-    "test": "node scripts/validate-media-generation-skills.mjs && node skills/media-producer/scripts/validate-image-prompt-guides.mjs && node skills/media-producer/scripts/validate-video-prompt-guides.mjs && node scripts/validate-media-purpose-evals.mjs && node --test scripts/release/*.test.mjs",
-    "test:media-generation": "node scripts/validate-media-generation-skills.mjs && node skills/media-producer/scripts/validate-image-prompt-guides.mjs && node skills/media-producer/scripts/validate-video-prompt-guides.mjs && node scripts/validate-media-purpose-evals.mjs",
+    "test": "node scripts/validate-media-generation-skills.mjs && node skills/media-producer/scripts/validate-image-prompt-guides.mjs && node skills/media-producer/scripts/validate-video-prompt-guides.mjs && node --test skills/media-producer/scripts/*.test.mjs && node scripts/validate-media-purpose-evals.mjs && node --test scripts/release/*.test.mjs",
+    "test:media-generation": "node scripts/validate-media-generation-skills.mjs && node skills/media-producer/scripts/validate-image-prompt-guides.mjs && node skills/media-producer/scripts/validate-video-prompt-guides.mjs && node --test skills/media-producer/scripts/*.test.mjs && node scripts/validate-media-purpose-evals.mjs",
     "release": "node scripts/release/ship.mjs patch",
     "release:minor": "node scripts/release/ship.mjs minor",
     "release:major": "node scripts/release/ship.mjs major",

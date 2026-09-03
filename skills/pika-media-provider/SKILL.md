@@ -36,6 +36,13 @@ Treat that raw live `input_schema` as the final authority for fields,
 requiredness, enum values, defaults, bounds, and media cardinality. The model
 index and editorial guides do not replace it.
 
+When Media Producer is running its Codex inline-configuration flow, a `fresh`
+Core-managed generation configuration visualization schema snapshot is this
+inspection for pre-review authoring. Do not also run `generation schema show`
+during that 24-hour window. Media Producer owns miss, expiry, dependency-change,
+and invalidation refreshes; final validation and execution remain authoritative
+live boundaries.
+
 Author the exact Pika-native input as the review document's `request`. Put a
 `{"$file":"<project-relative-path>","mimeType":"<mime>","reviewLabel":"<Media Producer label>"}`
 marker at each exact native local-media field. Preserve request order and the

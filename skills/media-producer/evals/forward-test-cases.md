@@ -188,6 +188,34 @@ Expected behavior:
 - a non-Codex harness does not invent a browser substitute or callback and
   continues with the existing conversational selection and Preview workflow.
 
+## inline-configuration-cache — Fresh, expired, and changed schemas
+
+Configure the same exact provider, executable model, operation, and input mode
+in two different Projects. Begin with no cache entry, repeat within 24 hours,
+then repeat at the expiry boundary with first an unchanged schema and then a
+changed enum value.
+
+Expected behavior:
+
+- the first request obtains the current schema once, generates a reusable
+  request-independent template, and stores both through the Core-owned CLI;
+- the second Project receives a fresh task-local instance from the shared
+  template without contacting the provider schema endpoint, while its prompt,
+  target, references, selections, and browser state never enter the cache;
+- exactly 24 hours after `checkedAt`, the entry is expired and the agent obtains
+  the current schema once rather than relying on filesystem modification time;
+- an unchanged semantic schema refreshes `checkedAt` and `expiresAt` without
+  regenerating the template;
+- a changed schema regenerates and stores the template before configuration;
+- a route-index, Visualize Skill, or template-contract fingerprint change is
+  incompatible and regenerates rather than reusing the old code; and
+- a refresh failure stops visibly instead of using expired content.
+
+Repeat with a schema-validation rejection after the user returns settings.
+Expected behavior: the agent invalidates the exact route entry, refreshes and
+rematerializes it, and asks the user to configure again without silently
+dropping or translating the rejected value.
+
 ## inline-image-configuration — Provider/model switch and rich controls
 
 Prepare a referenced image request while Project Settings select Codex. Read the
@@ -364,8 +392,9 @@ different native control set.
 
 Expected behavior:
 
-- creates a fresh transient visualization from each route's inspected live
-  schema while following the shared inline-configuration reference;
+- creates a fresh transient request instance from each route's compatible
+  cached template and fresh schema snapshot while following the shared
+  inline-configuration reference;
 - presents the same compact, tab-free component as image and video requests,
   with the selected voice/reference identity as a configuration control beside
   provider, model, and native fields;
@@ -377,8 +406,8 @@ Expected behavior:
   values, purpose, target, provider, model, and selected voice/reference
   identities before authoring the request;
 - never interprets a display-formatted value as the provider-native value; and
-- never reuses prior HTML/browser state or persists the choices to Project
-  Settings.
+- never reuses prior instance HTML/browser state or persists the choices to
+  Project Settings or the shared template cache.
 
 ## cast-voice-sample-spoken-word-budget — Spoken words carry the duration
 

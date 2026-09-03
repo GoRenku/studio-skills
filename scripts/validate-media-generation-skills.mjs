@@ -135,6 +135,22 @@ for (const required of [
   }
 }
 
+const inlineConfiguration = await readFile(
+  path.join(root, 'skills/media-producer/references/inline-generation-configuration.md'),
+  'utf8',
+);
+for (const required of [
+  'configuration-visualization inspect',
+  '24 hours',
+  'materialize-generation-configuration-visualization.mjs',
+  '<!--__RENKU_GENERATION_CONFIGURATION_PAYLOAD__-->',
+  'stale-on-error',
+]) {
+  if (!inlineConfiguration.includes(required)) {
+    throw new Error(`Inline generation configuration is missing ${required}.`);
+  }
+}
+
 for (const forbidden of ['GenerationSpec', 'estimate token', 'providerField']) {
   if (mediaProducer.includes(forbidden)) {
     throw new Error(`Media Producer still contains obsolete generation language: ${forbidden}.`);

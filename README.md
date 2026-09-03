@@ -42,6 +42,34 @@ Example prompt:
 $screenplay-drafter help me create a 5-minute family fantasy short about a child who discovers an abandoned mountain tunnel connected to a forgotten railway.
 ```
 
+### Screenplay PDF to FDX
+
+```text
+skills/screenplay-pdf-to-fdx/
+  SKILL.md
+  agents/openai.yaml
+  references/conversion-manifest.md
+  scripts/
+```
+
+Screenplay PDF to FDX reconstructs a conventionally formatted screenplay PDF
+as editor-ready Final Draft XML when ordinary PDF import garbles the screenplay
+structure. It renders every page for review, extracts line geometry, builds FDX
+from a reviewed semantic manifest, reconciles the source text, and validates the
+result before delivery.
+
+Invoke it in Codex with:
+
+```text
+$screenplay-pdf-to-fdx
+```
+
+Example prompt:
+
+```text
+$screenplay-pdf-to-fdx convert the downloaded Sintel screenplay PDF to a validated FDX without changing the screenplay text.
+```
+
 ### Inspiration Analyzer
 
 ```text

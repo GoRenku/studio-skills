@@ -27,6 +27,13 @@ inputs. Do not query or reinterpret Renku Project relationships. The
 supported-route index is routing guidance only; read the selected ElevenLabs
 operation's current request facts for native fields and constraints.
 
+When Media Producer is running its Codex inline-configuration flow, use a
+`fresh` Core-managed generation configuration visualization schema snapshot for
+pre-review authoring and do not independently re-read the same remote facts
+during that 24-hour window. Media Producer owns miss, expiry,
+dependency-change, and invalidation refreshes; final validation and execution
+remain authoritative live boundaries.
+
 For speech, author exact `text`, provider `voice` id, and optional native
 `voice_settings`/`output_format`. Resolve that id only from the selected Cast
 Voice's opaque identity when it has `provider: "elevenlabs"` and a non-empty

@@ -158,12 +158,15 @@ above.
 Prepare the initial authored prompt, exact chosen references, and native values
 first. Treat explicit user direction or the matching Project Setting only as
 the initial selection. Read the selected provider/model's Skill, guide, adapter,
-and live schema, then create controls only for that selection. Read only the
-other providers' small route indexes to populate the Provider and Model
-selectors; never read alternative provider Skills, guides, adapters, docs, or
-schemas before the user selects one. Advanced providers remain explicit
-one-request choices, and Codex appears only when its built-in image capability
-is available. The component contains configuration only and has no tabs or
+and fresh Core-managed schema snapshot, then create controls only for that
+selection. Inspect the system cache before any live schema request: reuse a
+compatible entry for 24 hours, refresh it once when expired, and rebuild only
+when the schema or template dependencies changed. Read only the other
+providers' small route indexes to populate the Provider and Model selectors;
+never read alternative provider Skills, guides, adapters, docs, or schemas
+before the user selects one. Advanced providers remain explicit one-request
+choices, and Codex appears only when its built-in image capability is
+available. The component contains configuration only and has no tabs or
 reference previews. Ordinary image/video references remain review-only in
 Generation Preview; bounded purpose-owned choices such as a Cast Voice may
 appear as configuration controls. The component calls no Renku or provider API
@@ -172,12 +175,13 @@ and never persists choices to Project Settings.
 When the user changes Provider or Model, the component explains that the prompt
 and settings must be prepared again and sends a reconfiguration follow-up rather
 than accepting the old controls. Read only that selected route's Skill, guide,
-adapter, and schema, recreate the prompt when its canonical model changed, and
-update the same visualization source file for this pending request with the new
-controls. When the canonical model is unchanged, preserve the prompt and only
-schema-compatible exact native values. Continue to Generation Preview only from
-**Continue with these settings** while the selectors match the prepared route,
-or from a separate explicit confirmation of unchanged prepared values.
+adapter, and fresh cached or newly fetched schema, recreate the prompt when its
+canonical model changed, and rematerialize the same task-local visualization
+source file from that route's cached template. When the canonical model is
+unchanged, preserve the prompt and only schema-compatible exact native values.
+Continue to Generation Preview only from **Continue with these settings** while
+the selectors match the prepared route, or from a separate explicit
+confirmation of unchanged prepared values.
 
 This is a Codex-only convenience. In another harness, do not invent a browser
 component or substitute callback; continue with the existing conversational
