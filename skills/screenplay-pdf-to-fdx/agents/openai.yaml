@@ -1,0 +1,4 @@
+interface:
+  display_name: "Screenplay PDF to FDX"
+  short_description: "Convert screenplay PDFs into validated FDX"
+  default_prompt: "Use $screenplay-pdf-to-fdx to reconstruct this screenplay PDF as a validated FDX file."
