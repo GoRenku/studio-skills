@@ -11,10 +11,37 @@ For Codex runs, remember that local Studio HTTP notification is network access. 
 ## Idea To First Screenplay
 
 1. Ask only for missing brief details that materially affect the screenplay.
-2. If scenes need named Cast Members or Locations, dispatch those facts to `casting-director` and `production-designer` first.
-3. Dispatch screenplay drafting to `screenplay-drafter` using durable Cast Member and Location ids.
-4. Read back `renku screenplay status --json`.
-5. Recommend screenplay analysis before visual production.
+2. If the user supplied supporting source files, dispatch their exact import to
+   `screenplay-supporting-material-importer`. This step does not require an FDX
+   or non-empty Screenplay.
+3. If scenes need named Cast Members or Locations, dispatch those facts to
+   `casting-director` and `production-designer` first. Their source-driven pass
+   reads the complete Screenplay when one exists plus all active supporting
+   material.
+4. Dispatch screenplay drafting to `screenplay-drafter` using durable Cast
+   Member and Location ids. The drafter also reads all active supporting
+   material before initial screenplay creation.
+5. Read back `renku screenplay status --json`.
+6. Recommend screenplay analysis before visual production.
+
+## Supporting Material To Durable Authoring
+
+1. Dispatch every supplied file to `screenplay-supporting-material-importer`.
+2. Stop after import unless the user also requested an initial or later
+   enrichment pass. Import alone changes no creative facts.
+3. For initial screenplay creation or an explicit source-driven revision,
+   dispatch the source set to `screenplay-drafter`. Do not attempt this revision
+   when the Screenplay is FDX-backed.
+4. For enrichment, dispatch Cast descriptions and `CastMember.arc` to
+   `casting-director`; dispatch Location and Prop descriptions to
+   `production-designer`.
+5. Each owning specialist reads `renku screenplay show --json`, all active
+   `screenplay_supporting_material` Assets, and current durable facts before
+   proposing focused updates.
+6. After those updates, pass only the canonical Screenplay, durable facts, and
+   designs downstream.
+   Never include supporting-material paths or copied source content in analysis,
+   media, sheet, Beat, Shot, Lookbook, storyboard, or generation handoffs.
 
 ## Final Draft FDX To Enriched Project
 
@@ -60,16 +87,22 @@ overwrite.
 
 ## Cast Refinement Prompt
 
-1. Dispatch Cast Member fact and Cast Design work to `casting-director`.
-2. Read back `renku cast design context --cast <cast-member-id> --json`.
-3. If the user wants new imagery, dispatch `cast.character-sheet` or `cast.profile` work to `media-producer`.
-4. Read back director context to confirm readiness changed.
+1. If this is a source-driven initial or refresh pass, make all active
+   supporting material discoverable to `casting-director`; otherwise do not add
+   it as incidental context.
+2. Dispatch Cast Member fact and Cast Design work to `casting-director`.
+3. Read back `renku cast design context --cast <cast-member-id> --json`.
+4. If the user wants new imagery, dispatch `cast.character-sheet` or `cast.profile` work to `media-producer` using durable Cast context only.
+5. Read back director context to confirm readiness changed.
 
 ## Location Production Design Prompt
 
-1. Dispatch Location facts and Location Design to `production-designer`.
-2. If the user wants new imagery, dispatch `location.sheet` to `media-producer`.
-3. Read back director context to confirm readiness changed.
+1. If this is a source-driven initial or refresh pass, make all active
+   supporting material discoverable to `production-designer`; otherwise do not
+   add it as incidental context.
+2. Dispatch Location facts and Location Design to `production-designer`.
+3. If the user wants new imagery, dispatch `location.sheet` to `media-producer` using durable Location context only.
+4. Read back director context to confirm readiness changed.
 
 ## Scene To Scene Beats To Storyboard Images
 

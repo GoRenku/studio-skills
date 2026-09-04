@@ -42,6 +42,29 @@ Example prompt:
 $screenplay-drafter help me create a 5-minute family fantasy short about a child who discovers an abandoned mountain tunnel connected to a forgotten railway.
 ```
 
+### Screenplay Supporting Material Importer
+
+```text
+skills/screenplay-supporting-material-importer/
+  SKILL.md
+  agents/openai.yaml
+  references/workflow.md
+  evals/project-supporting-material-import.md
+```
+
+This skill imports any readable regular file unchanged into the current Renku
+Project as screenplay supporting material. Casting Director and Production
+Designer read those sources together with the canonical Screenplay when
+creating facts and during an explicit later enrichment pass. Screenplay Drafter
+reads them for initial creation or explicit Renku-authored revision. Later
+media, sheet, Scene Beat, Shot Plan, Lookbook, and analysis workflows continue
+from the canonical Screenplay and durable descriptions and do not receive the
+raw source files.
+
+```text
+$screenplay-supporting-material-importer import these research notes into the current project.
+```
+
 ### Screenplay PDF to FDX
 
 ```text

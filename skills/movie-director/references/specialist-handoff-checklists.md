@@ -40,6 +40,9 @@ Pass:
 
 - direct Project brief fields, format, runtime, genre, tones, and user boundaries;
 - current screenplay status or relevant screenplay excerpt;
+- every active supporting-material Asset for initial creation or an explicit
+  source-driven revision. Do not forward the raw set beyond Screenplay
+  authoring and do not revise an FDX-backed Screenplay from it;
 - target optional Section, Scene, Cast Member, Location, or Prop ids;
 - any active analysis critique that should drive revision.
 - for FDX work, the absolute source path and confirmation that Screenplay
@@ -62,6 +65,31 @@ Confirm the canonical Screenplay is a flat source-ordered Scene list even when
 the FDX contains planning markers.
 
 For scene revisions, inspect command output for Scene Beats revision impact.
+
+## `screenplay-supporting-material-importer`
+
+Use for:
+
+- importing research, notes, documents, screenshots, or any other source file
+  as opaque Project context;
+- importing a changed source edition as another immutable Asset.
+
+Pass:
+
+- current Project name;
+- each exact absolute source path;
+- whether the user requested import only or an explicit description-enrichment
+  pass after import.
+
+Verify:
+
+```bash
+renku asset list --project <project-name> --owner project --type screenplay_supporting_material --json
+```
+
+Do not require screenplay content or source ownership. Do not let the importer
+author screenplay or facts, and do not send its raw paths or contents beyond
+the subsequent screenplay/casting/production-design authoring passes.
 
 ## `screenplay-analyst`
 
@@ -146,6 +174,9 @@ Pass:
 - whether the user wants media generation or only design writing.
 - imported cue candidates and their Dialogue Turn ids when casting follows an
   FDX import; preserve ambiguity for user confirmation.
+- for an explicit source-driven pass, the instruction to read the complete
+  canonical Screenplay and every active supporting-material Asset. Do not copy
+  those raw paths or contents into a later media handoff.
 
 Verify:
 
@@ -172,6 +203,9 @@ Pass:
 - whether the user wants media generation or only design writing.
 - imported Scene-heading/tag/text evidence when production design follows an
   FDX import; do not treat evidence as an already-authored fact.
+- for an explicit source-driven pass, the instruction to read the complete
+  canonical Screenplay and every active supporting-material Asset. Do not copy
+  those raw paths or contents into a later media handoff.
 
 Verify:
 

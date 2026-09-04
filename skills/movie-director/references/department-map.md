@@ -14,6 +14,7 @@ Then pass the returned durable `sceneId` to the owning specialist.
 | User intent | Department | Specialist | First CLI read |
 | --- | --- | --- | --- |
 | Import Final Draft FDX, or create/revise story, screenplay, scene, dialogue, narration, scene settings, action lines | Screenwriting | `screenplay-drafter` | `renku screenplay status --json` |
+| Import research, notes, documents, images of text, or other supporting screenplay context without changing screenplay content | Source Import | `screenplay-supporting-material-importer` | `renku project current --json` |
 | Critique structure, diagnose pacing, plan revisions, derive analytical Act segments or Scene groups | Screenplay Analysis | `screenplay-analyst` | `renku screenplay analyze context --json` |
 | Create/revise Cast Member facts, appearance, performance, costume, voice casting notes | Casting | `casting-director` | `renku cast design context --cast <cast-member-id> --json` |
 | Create/revise Location facts, spatial design, set dressing, props, atmosphere | Production Design | `production-designer` | `renku production-design location context --location <location-id> --json` |
@@ -30,23 +31,24 @@ Then pass the returned durable `sceneId` to the owning specialist.
 ## Default Production Order
 
 1. Direct Project brief, story metadata, and constraints.
-2. Cast Member, Location, and Prop facts when Scenes will reference them.
-3. Screenplay import or draft, followed by collaborative fact/reference binding.
-4. Screenplay analysis and targeted revision.
-5. Inspiration folders and Inspiration Analysis.
-6. Project Production Lookbook.
-7. Project Storyboard Lookbook and one accepted
+2. Import any user-supplied supporting material; this may also happen later.
+3. Cast Member, Location, and Prop facts when Scenes will reference them.
+4. Screenplay import or draft, followed by collaborative fact/reference binding.
+5. Screenplay analysis and targeted revision.
+6. Inspiration folders and Inspiration Analysis.
+7. Project Production Lookbook.
+8. Project Storyboard Lookbook and one accepted
    `lookbook.storyboard-sheet` before Beat Storyboard generation.
-8. Cast Design, Location Design, and Prop Design.
-9. Cast Character Sheets, Cast Profiles, Location Sheets, and Prop Sheets.
-10. Scene Beats, with cardinality determined only by narrative development.
-11. Per-Beat Storyboard images, batched only at generation time in consecutive
+9. Cast Design, Location Design, and Prop Design.
+10. Cast Character Sheets, Cast Profiles, Location Sheets, and Prop Sheets.
+11. Scene Beats, with cardinality determined only by narrative development.
+12. Per-Beat Storyboard images, batched only at generation time in consecutive
     groups of up to four without changing the saved revision.
-12. Scene Shot Plans and selected Shot Images when production camera coverage
+13. Scene Shot Plans and selected Shot Images when production camera coverage
     is useful.
-13. Shot Plan video generation, Dialogue Audio continuity, and source-derived
+14. Shot Plan video generation, Dialogue Audio continuity, and source-derived
     video edits when requested.
-14. Future post/editorial assembly work.
+15. Future post/editorial assembly work.
 
 ## Current Gaps
 

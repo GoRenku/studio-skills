@@ -107,6 +107,9 @@ Use this loop for every request:
 
 - Use `screenplay-drafter` for deterministic FDX import, screenplay creation,
   and screenplay revisions.
+- Use `screenplay-supporting-material-importer` to retain any supporting source
+  file as opaque Project context. Import does not require FDX and does not
+  trigger screenplay, fact, analysis, or media mutations.
 - Use `screenplay-analyst` for critique, three-act analysis, structure notes,
   and revision guidance. The Studio destination is **Analysis > Screenplay
   Analysis**.

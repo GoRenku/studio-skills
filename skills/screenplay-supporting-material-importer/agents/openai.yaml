@@ -1,0 +1,4 @@
+interface:
+  display_name: "Screenplay Supporting Material Importer"
+  short_description: "Import source files for screenplay context"
+  default_prompt: "Use $screenplay-supporting-material-importer to import these files into the current Renku Studio Project."

@@ -23,6 +23,10 @@ mention, existing matching-looking Project facts, formatting, and ScriptNotes.
   looks similar; requires agent/user semantic judgment.
 - Routes accepted Cast facts to `casting-director` and Location/Prop facts to
   `production-designer`.
+- If separately supplied supporting files exist, routes their exact import to
+  `screenplay-supporting-material-importer` without making FDX ownership a
+  prerequisite. The owning fact specialists read those files during explicit
+  enrichment; the screenplay importer does not.
 - Does not add speaker, setting, mention, or presence references to the
   FDX-backed Screenplay; the source-owned read-only gate covers references.
 - Does not mention ScriptNotes or formatting as omissions, warnings, or work
@@ -33,3 +37,5 @@ mention, existing matching-looking Project facts, formatting, and ScriptNotes.
   edits imported hierarchy through `screenplay apply`.
 - Does not independently dispatch media, analysis, Scene Beats, or storyboard
   work; those stages are gated by Project Settings in `movie-director`.
+- Does not pass raw supporting-material paths or contents into those downstream
+  stages after durable Cast/Location/Prop descriptions are written.

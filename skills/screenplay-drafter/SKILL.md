@@ -37,10 +37,16 @@ Screenplay craft and Renku persistence go hand in hand. Think like a screenwrite
    - New screenplay from a rough idea.
    - New screenplay from a detailed brief.
    - Deterministic import of an existing Final Draft `.fdx` screenplay.
+   - Import of supporting source files without changing screenplay content.
    - Revision of an existing screenplay.
    - Focused craft help, such as scene structure, dialogue, cast, locations, narration, or story arc.
 
    For focused craft help, still keep Renku as the target artifact. Diagnose the story problem, decide the craft change, then express the accepted change as a complete Screenplay input or a focused `operations` batch. If the user is choosing between alternatives, describe the options briefly and make clear which Renku change each option would become.
+
+   Route supporting-file import to `screenplay-supporting-material-importer`.
+   It is available to every Renku Project and is independent of FDX ownership.
+   Do not treat a PDF, document, image, or other contextual source as a request
+   to adapt or mutate the screenplay unless the user separately asks for that.
 
 2. Gather or infer the story brief before writing JSON.
 
@@ -61,6 +67,23 @@ Screenplay craft and Renku persistence go hand in hand. Think like a screenwrite
 3. Gather supporting information when the premise depends on facts.
 
    - Use the user's supplied material first.
+   - Before creating a Screenplay, list and read every imported source. For an
+     existing Renku-authored Screenplay, reread them when the user explicitly
+     asks for a source-driven revision after new material is imported:
+
+     ```bash
+     renku asset list --project <project-name> --owner project --type screenplay_supporting_material --json
+     ```
+
+     Resolve each file below `projectFolder` from `renku project current
+     --json` and use the harness reader appropriate to its contents. Do not
+     filter by extension or MIME type. An FDX-backed Screenplay remains
+     source-authoritative and cannot be revised from supporting material.
+     Raw supporting-material paths and copied source content stop at screenplay
+     authoring. Do not place them in screenplay JSON or forward them to
+     Screenplay Analysis, Media Producer, Scene Beats, Shot Plans, Lookbooks,
+     or storyboards. Those workflows consume the resulting canonical
+     Screenplay and durable continuity descriptions.
    - For historical, biographical, technical, legal, cultural, or place-specific stories, identify what must be true for the script to work.
    - Keep sourced facts separate from dramatized inventions.
    - Put sources or source notes in Project `researchSources` when available.

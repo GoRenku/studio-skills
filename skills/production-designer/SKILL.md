@@ -54,6 +54,21 @@ renku prop context --prop <prop-id> --json
 renku production-design prop context --prop <prop-id> --json
 ```
 
+Before creating Location or Prop facts, or when the user explicitly asks to
+refresh them after another import, also read the complete canonical Screenplay
+and every active source before authoring:
+
+```bash
+renku screenplay show --json
+renku asset list --project <project-name> --owner project --type screenplay_supporting_material --json
+```
+
+Resolve each returned file below the current Project's `projectFolder` and use
+the harness reader appropriate to its actual contents. Read current facts
+first, use the combined evidence to make descriptions more specific, preserve
+ambiguous identity as a user question, and do not run this enrichment
+automatically when a file is imported.
+
 3. If a fact needs to change, validate and dry-run the matching
    `locationOperations` or `propOperations` document before applying it.
 
@@ -97,3 +112,7 @@ importer to create or bind those facts.
   canonical Prop image selection.
 - FDX candidates are non-authoritative evidence. Do not infer facts from them
   automatically and do not report ScriptNotes or formatting exclusions.
+- Supporting material is import-only context for fact/design authoring. Never
+  include its file paths or copied contents in Location/Prop Sheet, Hero, World,
+  Media Producer, Scene Beats, Shot Plan, or Screenplay Analysis handoffs; those
+  workflows consume the durable Location, Prop, and department-design prose.

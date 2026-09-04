@@ -54,6 +54,21 @@ production-number field to Cast Design JSON.
 renku cast design context --cast <cast-member-id> --json
 ```
 
+Before creating Cast facts, or when the user explicitly asks to refresh them
+after another import, also read the complete canonical Screenplay and every
+active source before authoring:
+
+```bash
+renku screenplay show --json
+renku asset list --project <project-name> --owner project --type screenplay_supporting_material --json
+```
+
+Resolve each returned file below the current Project's `projectFolder` and use
+the harness reader appropriate to its actual contents. Use the combined
+evidence to write more detailed Cast Member descriptions and the existing
+`arc` field. Read current facts first, preserve ambiguous identity as a user
+question, and do not run this enrichment automatically when a file is imported.
+
 3. If the Cast Member fact itself needs to change, validate and apply a `kind: "castOperations"` document:
 
 ```bash
@@ -132,3 +147,7 @@ the Cast Member. Core allocates the durable filename directly under
 - When casting changes affect Scene Beats, report the need for a `scene-beat-designer` pass instead of editing Scene Beats revisions directly.
 - FDX cue candidates are evidence only. Do not infer identity from spelling
   alone and do not report ScriptNotes or formatting exclusions.
+- Supporting material is import-only context for fact/design authoring. Never
+  include its file paths or copied contents in Character Sheet, Cast Profile,
+  voice, Media Producer, Scene Beats, Shot Plan, or Screenplay Analysis handoffs;
+  those workflows consume the durable Cast Member and Cast Design descriptions.
