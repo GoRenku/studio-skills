@@ -21,8 +21,13 @@ renku asset list \
   --project <project-name> \
   --owner project \
   --type screenplay_supporting_material \
+  --limit 200 \
   --json
 ```
+
+This command is paginated. If `nextCursor` is not `null`, repeat the same
+command with `--cursor <nextCursor>` and accumulate `items` until
+`nextCursor` is `null`. Never treat the first page as the complete source set.
 
 Resolve each file by joining `projectFolder` from `renku project current
 --json` with its returned `projectRelativePath`. Use the active harness's

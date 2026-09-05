@@ -60,8 +60,11 @@ active source before authoring:
 
 ```bash
 renku screenplay show --json
-renku asset list --project <project-name> --owner project --type screenplay_supporting_material --json
+renku asset list --project <project-name> --owner project --type screenplay_supporting_material --limit 200 --json
 ```
+
+Follow `nextCursor` with repeated `--cursor <nextCursor>` calls until it is
+`null`; combine every page before authoring.
 
 Resolve each returned file below the current Project's `projectFolder` and use
 the harness reader appropriate to its actual contents. Use the combined

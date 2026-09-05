@@ -72,8 +72,11 @@ Screenplay craft and Renku persistence go hand in hand. Think like a screenwrite
      asks for a source-driven revision after new material is imported:
 
      ```bash
-     renku asset list --project <project-name> --owner project --type screenplay_supporting_material --json
+     renku asset list --project <project-name> --owner project --type screenplay_supporting_material --limit 200 --json
      ```
+
+     Follow `nextCursor` with repeated `--cursor <nextCursor>` calls until it
+     is `null`; combine every page before drafting or revising.
 
      Resolve each file below `projectFolder` from `renku project current
      --json` and use the harness reader appropriate to its contents. Do not
