@@ -50,6 +50,12 @@ renku screenplay supporting-material import \
 3. Preserve each typed `imported` or `unchanged` result. Never preflight or
    reject a file based on extension, MIME type, contents, or size.
 
+   Imported files are available in Studio under Project Details → Supporting
+   Files, after Covers. Users can inspect dates and the retained location, open
+   a browser preview or download, open the containing folder on the server
+   computer, and move supporting material to Trash. Retained FDX sources also
+   appear there and are protected from deletion.
+
 4. When the user asks to draft or explicitly revise the screenplay from these
    sources, hand off to `screenplay-drafter`. For character, location, or prop
    enrichment, hand off to `casting-director` or `production-designer`. This
