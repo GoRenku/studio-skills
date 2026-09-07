@@ -205,12 +205,12 @@ renku screenplay import-fdx --file /absolute/path/to/script.fdx --json
 Handle the typed result:
 
 - `imported`: read back the new exact source-backed Screenplay.
-- `refreshed`: read back the automatically accepted exact source replacement.
+- `refreshed`: read back the immediately imported exact source replacement.
 - `unchanged`: report the no-op and do not run follow-up mutation work.
 
-Every valid changed FDX is accepted automatically because Renku has no editable
-copy to reconcile. There is no diff preview, removal approval, approval token,
-partial merge, or conflict resolution branch.
+A user-explicit CLI import accepts the valid source immediately and may replace
+current Scene identities. It has no approval token or merge mode. The detected
+Studio workflow instead requires review; see External Export And Reviewed Update.
 
 Treat the returned character cues, Scene Headings, and tagged subjects as
 evidence, not Project identities. After import:
@@ -319,7 +319,7 @@ operation is invalid.
 - Refresh only an existing FDX-backed Screenplay; never convert a Renku-authored
   Screenplay by supplying an FDX.
 - Treat `imported`, `refreshed`, and `unchanged` as the only FDX outcomes. Never
-  ask for removal approval or pass an approval token.
+  pass an approval token to the manual CLI command. Detected Studio updates require review.
 - Do not run `renku screenplay create` when any Screenplay content exists; use `renku screenplay apply`.
 - Do not replace an existing screenplay with a fresh full create document. Read the current screenplay and apply focused operations.
 - Reference objects contain exactly one of `id` or `key`.
@@ -335,3 +335,17 @@ operation is invalid.
 - Use dialogue for behavior, pressure, and subtext, not exposition that can be shown.
 - Keep Cast Member, Location, and Prop handles stable in their owning Project fact commands; do not embed them in screenplay prose.
 - Record important assumptions in direct Project fields when the user asks you to proceed with incomplete information.
+
+## External Export And Reviewed Update
+
+For a detected Studio update, have the user export to the exact path displayed
+by **External screenplay**: `<projectFolder>/screenplay/edit/script.fdx`.
+Never write or overwrite a retained `screenplay_source` Asset. Studio detects
+stable changed bytes and requires review plus **Update screenplay**; **Later**
+leaves the accepted screenplay unchanged. Do not automatically run CLI import
+to bypass that pending review. A user-explicit manual `import-fdx` request still
+imports immediately and has no approval token.
+
+Even a one-character dialogue edit can replace the whole Scene graph. Existing
+Beats, Shot Plans, Shots, and audio remain in history attached to old Scene IDs;
+do not promise continuity, infer replacements, or repair creative artifacts.

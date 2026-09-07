@@ -39,3 +39,19 @@ mention, existing matching-looking Project facts, formatting, and ScriptNotes.
   work; those stages are gated by Project Settings in `movie-director`.
 - Does not pass raw supporting-material paths or contents into those downstream
   stages after durable Cast/Location/Prop descriptions are written.
+
+## Detected Export Follow-Up
+
+Prompt: “I exported an updated FDX and Studio says screenplay update available.
+Help me update it without losing track of my production work.”
+
+Expected behavior:
+
+- Direct the user to the fixed `screenplay/edit/script.fdx` handoff and Studio review.
+- Do not write retained source Assets or automatically invoke immediate CLI import.
+- Explain that a punctuation edit can replace a whole Scene graph; historical
+  Beats, Shot Plans, Shots, and audio do not move to the replacement Scene.
+- Treat Later as deferral, not acceptance; a newer export requires fresh review.
+- If the user explicitly requests manual CLI import, explain its immediate
+  replacement behavior and honor that authorized command without inventing flags.
+- Do not semantically validate or repair production artifacts from warning counts.

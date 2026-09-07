@@ -335,3 +335,17 @@ Prop facts and designs to `production-designer`. Use `screenplay-drafter` only
 to bind those existing Project subjects into plain screenplay text through
 focused Screenplay references. Use `media-producer` for supported visual media
 and `scene-beat-designer` when Scene Beats need to change.
+
+## External Export And Reviewed Update
+
+For a detected Studio update, have the user export to the exact path displayed
+by **External screenplay**: `<projectFolder>/screenplay/edit/script.fdx`.
+Never write or overwrite a retained `screenplay_source` Asset. Studio detects
+stable changed bytes and requires review plus **Update screenplay**; **Later**
+leaves the accepted screenplay unchanged. Do not automatically run CLI import
+to bypass that pending review. A user-explicit manual `import-fdx` request still
+imports immediately and has no approval token.
+
+Even a one-character dialogue edit can replace the whole Scene graph. Existing
+Beats, Shot Plans, Shots, and audio remain in history attached to old Scene IDs;
+do not promise continuity, infer replacements, or repair creative artifacts.

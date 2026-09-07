@@ -78,8 +78,7 @@ Scene Beats revision. A missing prerequisite stops only the dependent stage and 
 clearly.
 
 Treat `imported`, `refreshed`, and `unchanged` as the only FDX outcomes. Valid
-changed sources are accepted automatically; never request a diff, removal
-approval, or token. Confirm the result is a flat source-ordered Scene list.
+changed sources supplied to a user-explicit CLI import are accepted immediately. Confirm the result is a flat source-ordered Scene list.
 Final Draft planning markers and outline lanes do not become Renku Acts or
 Sequences and must not guide analysis membership. Never report ScriptNotes or
 formatting as missing content, and never treat refresh as a merge or partial
@@ -129,3 +128,17 @@ overwrite.
    the current Scene, Beat revision, and deliberately chosen visual context to
    `shot-planner`. Do not route story-visualization requests through Shot
    Planner or `shot.image`.
+
+## External Export And Reviewed Update
+
+For a detected Studio update, have the user export to the exact path displayed
+by **External screenplay**: `<projectFolder>/screenplay/edit/script.fdx`.
+Never write or overwrite a retained `screenplay_source` Asset. Studio detects
+stable changed bytes and requires review plus **Update screenplay**; **Later**
+leaves the accepted screenplay unchanged. Do not automatically run CLI import
+to bypass that pending review. A user-explicit manual `import-fdx` request still
+imports immediately and has no approval token.
+
+Even a one-character dialogue edit can replace the whole Scene graph. Existing
+Beats, Shot Plans, Shots, and audio remain in history attached to old Scene IDs;
+do not promise continuity, infer replacements, or repair creative artifacts.
