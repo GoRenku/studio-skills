@@ -8,6 +8,7 @@ is an authoring input, not durable browser state.
 ```json
 {
   "kind": "shotPlanCreate",
+  "type": "shot-list",
   "sceneId": "scene_exact",
   "title": "Bombardment",
   "coverage": {

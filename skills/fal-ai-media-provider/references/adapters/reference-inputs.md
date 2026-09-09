@@ -35,3 +35,14 @@ model guides own prompt craft.
   no continuation route. Do not repurpose edit for model continuation.
 - Never copy native fields, counts, bounds, or defaults from this adapter; read
   them from `generation schema show` immediately before authoring the request.
+
+## Seedance 2.5 route evidence
+
+Verified 2026-09-08 against the exact
+[reference-to-video API schema](https://fal.ai/models/bytedance/seedance-2.5/reference-to-video/api).
+Use `image_urls`, `video_urls`, `audio_urls` with `@ImageN`, `@VideoN`, `@AudioN`
+from final modality-local order. The route overview's bracket-style examples are
+not the API field descriptions; use the API contract. At this check the schema
+allows 4–30 seconds output and uploaded image/video/audio references together.
+Recheck live limits and enum types before submission. No paid run established
+motion-transfer or dialogue-sync fidelity.

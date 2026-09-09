@@ -204,6 +204,19 @@ Example prompt:
 $scene-beat-designer design the narrative Beats for the current scene and save them to the project.
 ```
 
+### Blender Shot Planner
+
+`skills/blender-shot-planner/` creates Scene-specific **Previs** Shot Plans and
+iterates camera, blocking, gestures and dialogue timing from director feedback.
+Its short entrypoint links storage conventions, Blender execution guidance and
+lessons/evals from the Harbor exploration. **Shot List** coverage remains with
+`shot-planner`; Media Producer turns reviewed previs into AI video using the
+existing generation workflow.
+
+```text
+$blender-shot-planner revise this Previs so Mara starts her third line at 8 seconds.
+```
+
 ### Media Producer
 
 ```text

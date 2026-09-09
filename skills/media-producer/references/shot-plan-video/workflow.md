@@ -1,5 +1,7 @@
 # Shot Plan Video Renku Workflow
 
+For a Blender-authored plan, follow `blender-previs.md` for input roles and timing; continue this same generation/attachment workflow with the exact Previs plan.
+
 1. Resolve the current Project and exact Shot Plan id.
 2. Read one complete Core briefing with `renku generation context --purpose
    <purpose> --target shot-plan:<shot-plan-id> --json`.
@@ -21,6 +23,8 @@
 10. Attach with the exact returned safe provenance. The accepted result is a
     Project-owned `shot_plan_video` Asset whose file Core places in the exact
     Scene/Shot Plan folder and whose `authoredFrom` context names the Shot Plan.
+    For a Previs handoff, also pass `--previs-revision <registered-revision-id>`.
+    Preserve that exact association for derivative inputs; do not infer latest.
 
 Never manually copy media into the durable Shot Plan folder. Never create a
 reverse video pointer or completion state on the Shot Plan.

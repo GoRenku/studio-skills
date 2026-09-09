@@ -1,5 +1,7 @@
 # Specialist Handoff Checklists
 
+Previs handoff: exact Project/Scene/plan, relevant designs and sheet files, requested blocking/camera/performance and accepted constraints. AI handoff additionally names the reviewed revision/video and shared dialogue timing.
+
 Use these checklists before dispatching to a specialist skill and after the specialist completes work. Keep the handoff brief, concrete, and grounded in Renku ids.
 
 ## Universal Handoff

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Blender Shot Planner"
+  short_description: "Direct scene-specific Blender previs and render revisions"
+  default_prompt: "Use $blender-shot-planner to create or revise this Scene’s Previs Shot Plan."

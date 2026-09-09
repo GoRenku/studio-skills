@@ -65,3 +65,42 @@ Expected behavior:
 - proceeds after the selection is reduced to at most 12 total references; and
 - does not turn the dated count in the adapter into a substitute for the live
   schema.
+
+
+## Previs reference-video cases
+
+For attachment contract verification, use isolated local media without buying a
+generation. Register two revisions; hand off the older one and attach with its
+exact `--previs-revision` id. Repeat for a derivative input. The take must appear
+only beside that revision, retain safe provenance, and stay Project-owned. An
+unpaired take must remain unpaired. Reject a revision from another plan before
+any write; do not substitute latest. `samples/shot-plan-video/video-review.json`
+is the provider review envelope; supply revision context separately on import.
+
+Use `references/shot-plan-video/blender-previs.md`. Prepare requests, not paid runs.
+Use current route schema fixtures, keeping each route's native fields and types.
+Source check: Fal API pages for H3 Max, Seedance 2.5, Seedance 2.0 and Wan 3.0 Prime,
+2026-09-08. Record the schema used with each eval request.
+
+| Case | Expected preparation/review |
+| --- | --- |
+| No explicit model, reviewed 15s previs plus sheets | H3 Max exact reference route; `reference_video_urls`, `reference_image_urls`, integer duration; spaced modality mentions. |
+| Explicit Seedance 2.5, 17s master and selected speech | Native `video_urls`, `image_urls`, `audio_urls`; string duration `"17"`; adapter mentions from final order. No unnecessary retime. |
+| Explicit Seedance 2.0, no dialogue | Its exact reference route, native modality arrays; no invented audio or forced dialogue. Check current duration bounds. |
+| Explicit Wan 3.0 | Name the actual Prime route, use `reference_*_urls`, integer duration and its own audio/prompt expansion fields. |
+| Reverse character sheet order | Renumber native mentions; proxy mapping follows exact files, not remembered ordinals. |
+| More/longer selected audio than route permits | Expose conflict; do not drop, concatenate or time-stretch selected dialogue. |
+| 17s master to 15s derivative with locked 3s hold | Show 15/17 map and 2.647s resulting hold; resolve direction before preparing derivative. |
+| Required modality absent in a chosen route | Ask about route/input scope; native output audio is not uploaded-audio support. |
+| Mara turn3 at 8s | Resolve “Then do not go to him.” in Harbor; same timing in directing params, gesture/reaction, playback cue and prompt. Conflicting speaker requires clarification. |
+
+For all cases, keep the same exact Shot Plan/revision and selected audio identities;
+inspect appearance sheets, omit a separate Lookbook image only for this workflow,
+and preserve authored prompt plus safe provenance through existing Core attachment.
+Review the accepted Harbor output without buying a replacement; explicitly separate
+appearance/motion observations from unverified speech or voice fidelity.
+
+Prepared native examples are in `previs-native-requests.json`. Their inert URLs are
+not provider inputs to submit; request fields/types were checked against the dated
+API sources. Live configuration/limits and actual media still require the normal
+workflow before execution.

@@ -1,0 +1,120 @@
+[
+  {
+    "model": "minimax/h3-max/reference-to-video",
+    "source": "https://fal.ai/models/minimax/h3-max/reference-to-video/api",
+    "checkedAt": "2026-09-08",
+    "purpose": "shot-plan.video-generation",
+    "target": {
+      "kind": "shotPlan",
+      "id": "eval_previs_plan"
+    },
+    "previsRevision": "eval_revision",
+    "request": {
+      "prompt": "Video 1 supplies blocking, camera and geography. Image 1 is Mara, Image 2 is Urban, Image 3 supplies harbor architecture and materials. Create one continuous shot preserving those roles, replacing proxy geometry with the supplied appearances. No labels or sheet panels. Audio 1 supplies the selected dialogue performance. Mara says \u2018Then do not go to him.\u2019 at 8 seconds; intended timing is a direction, not an exact-sync guarantee.",
+      "duration": 15,
+      "resolution": "768P",
+      "aspect_ratio": "16:9",
+      "reference_image_urls": [
+        "https://example.invalid/eval/mara.png",
+        "https://example.invalid/eval/urban.png",
+        "https://example.invalid/eval/harbor.png"
+      ],
+      "reference_video_urls": [
+        "https://example.invalid/eval/reviewed-previs.mp4"
+      ],
+      "reference_audio_urls": [
+        "https://example.invalid/eval/selected-dialogue.wav"
+      ],
+      "prompt_expansion_mode": "balanced"
+    },
+    "note": "Preparation-only fixture. URLs are inert; not executable. Timing here is already in submitted timebase."
+  },
+  {
+    "model": "bytedance/seedance-2.5/reference-to-video",
+    "source": "https://fal.ai/models/bytedance/seedance-2.5/reference-to-video/api",
+    "checkedAt": "2026-09-08",
+    "purpose": "shot-plan.video-generation",
+    "target": {
+      "kind": "shotPlan",
+      "id": "eval_previs_plan"
+    },
+    "previsRevision": "eval_revision",
+    "request": {
+      "prompt": "@Video1 supplies blocking, camera and geography. @Image1 is Mara, @Image2 is Urban, @Image3 supplies harbor architecture and materials. Create one continuous shot preserving those roles, replacing proxy geometry with the supplied appearances. No labels or sheet panels. @Audio1 supplies the selected dialogue performance. Mara says \u2018Then do not go to him.\u2019 at 8 seconds; intended timing is a direction, not an exact-sync guarantee.",
+      "duration": "17",
+      "resolution": "720p",
+      "aspect_ratio": "16:9",
+      "image_urls": [
+        "https://example.invalid/eval/mara.png",
+        "https://example.invalid/eval/urban.png",
+        "https://example.invalid/eval/harbor.png"
+      ],
+      "video_urls": [
+        "https://example.invalid/eval/reviewed-previs.mp4"
+      ],
+      "audio_urls": [
+        "https://example.invalid/eval/selected-dialogue.wav"
+      ],
+      "generate_audio": true
+    },
+    "note": "Preparation-only fixture. URLs are inert; not executable. Timing here is already in submitted timebase."
+  },
+  {
+    "model": "bytedance/seedance-2.0/reference-to-video",
+    "source": "https://fal.ai/models/bytedance/seedance-2.0/reference-to-video/api",
+    "checkedAt": "2026-09-08",
+    "purpose": "shot-plan.video-generation",
+    "target": {
+      "kind": "shotPlan",
+      "id": "eval_previs_plan"
+    },
+    "previsRevision": "eval_revision",
+    "request": {
+      "prompt": "@Video1 supplies blocking, camera and geography. @Image1 is Mara, @Image2 is Urban, @Image3 supplies harbor architecture and materials. Create one continuous shot preserving those roles, replacing proxy geometry with the supplied appearances. No labels or sheet panels.",
+      "duration": "15",
+      "resolution": "720p",
+      "aspect_ratio": "16:9",
+      "image_urls": [
+        "https://example.invalid/eval/mara.png",
+        "https://example.invalid/eval/urban.png",
+        "https://example.invalid/eval/harbor.png"
+      ],
+      "video_urls": [
+        "https://example.invalid/eval/reviewed-previs.mp4"
+      ],
+      "generate_audio": false
+    },
+    "note": "Preparation-only fixture. URLs are inert; not executable. Timing here is already in submitted timebase."
+  },
+  {
+    "model": "alibaba/wan-3.0-prime/reference-to-video",
+    "source": "https://fal.ai/models/alibaba/wan-3.0-prime/reference-to-video/api",
+    "checkedAt": "2026-09-08",
+    "purpose": "shot-plan.video-generation",
+    "target": {
+      "kind": "shotPlan",
+      "id": "eval_previs_plan"
+    },
+    "previsRevision": "eval_revision",
+    "request": {
+      "prompt": "Video 1 supplies blocking, camera and geography. Image 1 is Mara, Image 2 is Urban, Image 3 supplies harbor architecture and materials. Create one continuous shot preserving those roles, replacing proxy geometry with the supplied appearances. No labels or sheet panels. Audio 1 supplies the selected dialogue performance. Mara says \u2018Then do not go to him.\u2019 at 8 seconds; intended timing is a direction, not an exact-sync guarantee.",
+      "duration": 15,
+      "resolution": "720p",
+      "aspect_ratio": "16:9",
+      "reference_image_urls": [
+        "https://example.invalid/eval/mara.png",
+        "https://example.invalid/eval/urban.png",
+        "https://example.invalid/eval/harbor.png"
+      ],
+      "reference_video_urls": [
+        "https://example.invalid/eval/reviewed-previs.mp4"
+      ],
+      "reference_audio_urls": [
+        "https://example.invalid/eval/selected-dialogue.wav"
+      ],
+      "audio": true,
+      "enable_prompt_expansion": true
+    },
+    "note": "Preparation-only fixture. URLs are inert; not executable. Timing here is already in submitted timebase."
+  }
+]

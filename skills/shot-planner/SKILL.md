@@ -5,12 +5,16 @@ description: Create, inspect, and iteratively revise Renku Studio Scene Shot Pla
 
 # Shot Planner
 
+This skill authors the **Shot List** type (`shot-list`). For Blender 3D blocking and director iteration, use `blender-shot-planner` to author a **Previs** plan (`previs`). Both are Scene Shot Plans.
+
 This skill requires the installed Renku runtime. If `renku` is unavailable, stop and direct the user to `https://gorenku.com`; do not substitute ad hoc files for the CLI-owned project state.
 
 ## Project Workspace
 
-Keep every agent-created working file inside the current Project's categorized
-`tmp/` tree. Never create operation JSON, Generation Specs, import manifests,
+Keep temporary agent working files inside the current Project's categorized
+`tmp/` tree. Retained Previs authoring source belongs in the canonical Shot Plan
+`previs/source/` directory; Core registers completed source revisions and renders.
+Never create operation JSON, Generation Specs, import manifests,
 QA images, downloads, crops, or scratch files at the Project root.
 
 - Use `tmp/operations/` for CLI authoring documents, including create, update,

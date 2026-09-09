@@ -19,6 +19,7 @@ for (const model of models) {
 }
 
 for (const [modelKey, expected] of [
+  ['seedance-2.5', ['reference-to-video']],
   ['seedance-2.0', ['text-to-video', 'image-to-video', 'first-last-frame-to-video', 'reference-to-video']],
   ['minimax-h3', ['text-to-video', 'image-to-video', 'first-last-frame-to-video', 'reference-to-video']],
   ['gemini-omni-flash-1.1', ['text-to-video', 'image-to-video', 'first-last-frame-to-video', 'reference-to-video', 'video-edit']],

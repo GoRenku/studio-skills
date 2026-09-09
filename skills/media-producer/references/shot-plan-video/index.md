@@ -1,5 +1,7 @@
 # Shot Plan Video Generation
 
+For a `previs` Shot Plan, read `blender-previs.md` before selecting inputs. Empty Shots are expected; use the reviewed registered previs revision as video reference.
+
 Use this workflow for a video request authored from one current Shot Plan.
 The finished video is an independent Project Asset. The plan association is
 weak authoring context, not ownership, dependency state, or a selected video.
@@ -24,8 +26,10 @@ weak authoring context, not ownership, dependency state, or a selected video.
 - `first-frame`: the `first-frame` method slot routes to `image_url`.
 - `first-last-frame`: `first-frame` and `last-frame` route to `image_url` and
   `end_image_url`.
-- `reference`: selected images, videos, and audio route in preserved order to
-  `image_urls`, `video_urls`, and `audio_urls`.
+- `reference`: selected images, videos, and audio route in preserved modality-local
+  order to the exact native fields in the selected route schema. Seedance uses
+  `image_urls`/`video_urls`/`audio_urls`; H3 Max and Wan use `reference_image_urls`/
+  `reference_video_urls`/`reference_audio_urls`.
 
 Choose references from the Core suggestions, user-provided media, or another
 deliberate safe source. Suggestions are advisory, not an allowlist. Do not infer

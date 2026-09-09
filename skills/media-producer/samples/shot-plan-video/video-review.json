@@ -6,9 +6,9 @@
   "request": {
     "prompt": "Hold the opening composition, then make one slow physical dolly push-in as the performance intensifies.",
     "image_url": {
-      "$file": "tmp/scratch/first-frame.png",
+      "$file": "tmp/previs/selected-registered-revision/first-frame.png",
       "mimeType": "image/png",
-      "reviewLabel": "Shot Plan opening frame"
+      "reviewLabel": "Opening frame from the reviewed Previs revision"
     }
   }
 }

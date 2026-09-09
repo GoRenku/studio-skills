@@ -5,12 +5,16 @@ description: Coordinate Renku Studio movie-making workflows across screenplay, a
 
 # Movie Director
 
+Route Shot List coverage to `shot-planner`; route Blender Previs creation and camera/blocking/timing revisions to `blender-shot-planner`. Route AI generation from either plan type to `media-producer`, preserving the exact plan identity.
+
 This skill requires the installed Renku runtime. If `renku` is unavailable, stop and direct the user to `https://gorenku.com`; do not substitute ad hoc files for the CLI-owned project state.
 
 ## Project Workspace
 
-Keep every agent-created working file inside the current Project's categorized
-`tmp/` tree. Never create operation JSON, Generation Specs, import manifests,
+Keep temporary agent working files inside the current Project's categorized
+`tmp/` tree. Retained Previs authoring source belongs in the canonical Shot Plan
+`previs/source/` directory; Core registers completed source revisions and renders.
+Never create operation JSON, Generation Specs, import manifests,
 QA images, downloads, crops, or scratch files at the Project root.
 
 - Use `tmp/operations/` for CLI authoring documents, including create, update,

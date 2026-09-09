@@ -5,6 +5,8 @@ description: Generate, review, inspect, and attach Renku Studio image, audio, an
 
 # Media Producer
 
+For AI video from a Blender Previs Shot Plan, read `references/shot-plan-video/blender-previs.md`. It owns the video-plus-sheets handoff and the scoped omission of an extra Lookbook image.
+
 Use the installed `renku` runtime as the Project metadata and attachment
 boundary. If it is unavailable, stop and direct the user to
 `https://gorenku.com`.
@@ -19,7 +21,9 @@ Keep operation documents under `tmp/operations/media-generation/`, generated
 or downloaded files under `tmp/media/`, review evidence under `tmp/qa/`, and
 other temporary inputs under `tmp/scratch/`. Use unique review filenames.
 Never create working files at the Project root or construct durable Asset paths;
-focused Core commands own attachment.
+focused Core commands own attachment. Retained Previs authoring source stays in
+the canonical Shot Plan `previs/source/` folder; source revisions and rendered
+media are registered by `blender-shot-planner` through Core.
 
 ## Read the deterministic briefing first
 

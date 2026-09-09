@@ -1,5 +1,7 @@
 # Workflow Playbooks
 
+For a Previs request: resolve Scene/plan → `blender-shot-planner` reads sheets and authors/revises the scene → review/register the procedural render → `media-producer` uses that revision as video with appearance/audio references. Continue the current plan for feedback.
+
 Use these playbooks when a user asks for an outcome rather than naming a single
 department. Always preserve explicit user choices. Media Producer reads the
 current Project workflow policy and deterministic domain context itself; do not

@@ -1,5 +1,6 @@
 {
   "kind": "shotPlanCreate",
+  "type": "shot-list",
   "sceneId": "scene_example",
   "title": "Bombardment",
   "coverage": {

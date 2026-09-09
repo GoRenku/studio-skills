@@ -84,7 +84,7 @@ test('release validation runs every media-generation guide and eval validator', 
   }
 });
 
-test('shipped skills keep agent working files in categorized Project tmp folders', () => {
+test('shipped skills separate temporary working files from retained Previs authoring', () => {
   const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..', '..');
   const skillsRoot = path.join(root, 'skills');
   const skillDirectories = readdirSync(skillsRoot, { withFileTypes: true })
@@ -99,6 +99,11 @@ test('shipped skills keep agent working files in categorized Project tmp folders
       assert.match(skill, new RegExp(`tmp/${category}/`), skillDirectory);
     }
     assert.match(skill, /tmp\/operations\/media-generation\//, skillDirectory);
+  }
+
+  for (const skillName of ['blender-shot-planner', 'movie-director', 'shot-planner', 'media-producer']) {
+    const skill = readFileSync(path.join(skillsRoot, skillName, 'SKILL.md'), 'utf8');
+    assert.match(skill, /previs\/source\//, `${skillName} must distinguish retained Previs source from temporary work`);
   }
 
   for (const markdownPath of listMarkdownFiles(skillsRoot)) {

@@ -1,5 +1,7 @@
 # CLI Coverage And Gaps
 
+Previs Core/CLI supports typed plan creation, `shot-plan previs show` and `shot-plan previs register`. The Studio Blender player, overlays and directing UI are deferred. Project Settings provides explicit temporary-file cleanup.
+
 Use this reference to decide whether a requested department workflow is fully supported today. When support is partial, name the exact missing media or post-production contract.
 
 ## Director Context
