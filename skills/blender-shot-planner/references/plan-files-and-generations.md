@@ -58,39 +58,57 @@ authorship. AI takes continue through `shot-plan.video-generation`, stored with
 normal `shot_plan_video` naming and provider provenance. No `generations/` tree,
 model-named take folder or duplicate `review.mp4` is needed.
 
-## Lightweight playback metadata
+## Direction timeline
 
-`description.md` is the model-neutral authored Markdown shown by Studio for this
-exact revision. Derive it and `playback.json` from the same directing choices.
-Edit the authoring copies under `previs/source/`, include both in the revision
-candidate, and register; never modify the retained historical files.
+`description.md` is exact authored Markdown for this revision. Author it and
+`playback.json` from the same directing decisions, in `previs/source/`. Include
+them in a stable candidate and register; never edit retained historical files.
 
-`playback.json` supplies the Studio director's monitor display envelope:
+`playback.json` is a Core-validated domain contract:
 
 ```json
 {
-  "subjects":[{"key":"mara","label":"Mara","color":"#D98278"},{"key":"door","label":"Door","color":"#80AABB"}],
+  "frameRate": {"numerator":24,"denominator":1},
+  "frameCount":336,
+  "segments":[{"id":"tracking","startFrame":0,"label":"Following Mara"}],
+  "subjects":[{"key":"mara","label":"Mara","color":"#D98278"}],
   "cues":[
-    {"startSeconds":8,"endSeconds":11,"subject":"mara","text":"<exact resolved line>","audio":{"assetId":"<recorded-asset-id>","assetFileId":"<exact-file-id>","offsetSeconds":0}},
-    {"startSeconds":11,"subject":"door","text":"Door opens."},
-    {"startSeconds":12,"text":"Hold the frame."}
+    {"id":"mara-line","kind":"dialogue","startFrame":192,"endFrame":264,"speaker":"mara","text":"<exact resolved line>"},
+    {"id":"mara-turn","kind":"action","startFrame":264,"subject":"mara","text":"Mara turns toward the doorway."},
+    {"id":"camera-stop","kind":"camera","startFrame":288,"text":"Camera stops tracking."}
   ]
 }
 ```
 
-Seconds are relative to the beginning of this revision's video. Subjects identify
-proxies; a cue describes what the player may show during that interval. The agent
-can include useful dialogue/action cues. `subject` uses the same local key as the
-parameters; no separate speakerId is needed. There are no Cast/Beat/turn foreign
-keys or runtime creative checks. Missing annotations do not block registration.
-Start-only cues are points; an end makes a range. Overlaps, unknown local subjects,
-objects and subjectless cues remain visible. Times are finite nonnegative seconds;
-ends exceed starts, keys are unique, and colors use six-digit hex. Text is opaque.
-Audio is optional: use exact recorded Asset/file ids, never a selected-take lookup,
-local path or URL. Offset defaults to zero. Unavailable audio leaves video usable.
-Studio validates this display envelope at read time; registration retains exact
-bytes even when optional annotations are missing or invalid. Never burn cues into
-the video. Carry the registered revision id into the AI attachment handoff.
+Positions are zero-based integer frames, ends exclusive. Verify rate/count from
+the authored constant-frame-rate render. Seconds = frame × denominator / numerator;
+24000/1001 is supported without rounding the rate. Cue and segment starts must
+be inside frameCount; Dialogue ends must exceed their starts and may equal
+frameCount. Never silently turn provisional caption seconds into measured frames:
+record the rounding choice and verify event frames, retaining uncertainty.
+
+A Dialogue is one speech turn, with explicit local `speaker` and exact line text.
+Only Dialogue has optional `endFrame` and optional exact recording
+`audio: {assetId, assetFileId, offsetSeconds?}`. Without an end it is seekable but
+cannot audition. Do not infer an end from the next turn or video boundary.
+An Action is a physical direction change with optional local `subject`, no end
+or audio. A Camera is a camera direction change, with no subject/end/audio.
+A held gaze, looping animation, location, caption heading or gestured conversation
+is not automatically speech or an interval cue. Author useful onset/arrival/stop
+points deliberately; never export all animation controls or classify prose.
+
+Segments are uninterrupted camera views. First starts at zero, later strictly
+increasing starts are cuts to incoming views; do not store cuts/end fields again.
+A continuous render has one segment. Dialogue may cross a cut without splitting.
+Keep ids stable for unchanged directions across revisions. Subjects resolve locally;
+ids are unique, labels nonempty and colors six-digit hex. Simultaneous points and
+overlapping dialogue are valid. Studio only auditions the explicitly chosen turn.
+
+Missing timeline is valid. Supplied invalid timeline fails registration before
+writes. Optional malformed/unavailable recording yields a localized warning while
+video stays usable. Creative text remains opaque to Core. Never burn cues into
+video. Use the continuous/cut examples in `../samples/` and carry the exact
+registered revision into the AI handoff.
 
 ## Temporary frames
 

@@ -53,3 +53,14 @@ Profile before deeper optimization: Harbor motion evaluation was about 0.028–0
 seconds, with session render/finish observations around 19.5/15.5 seconds; these
 are local evidence, not a latency promise. Keep sparse cues, long labels and final
 frame handling in playback metadata; the MP4 encoder should not lay out a review UI.
+
+### Cuts and frame evidence
+
+Author camera switching or shot assembly in this plan's own implementation.
+Retain the switching source with the render. Store each incoming camera start
+as a segment boundary, starting the initial segment at frame zero. Inspect
+cut-1/cut/cut+1 and confirm the incoming view at the cut. In-shot camera changes
+are Camera cues, not cuts. Continuous takes use one segment. Keep Dialogue turns
+intact across cuts; inspect their explicit start/end frames and distinguish
+planned timing from audible speech. Validate motion onsets visually; a blending
+control's held end is not an action duration. No universal Blender engine is needed.

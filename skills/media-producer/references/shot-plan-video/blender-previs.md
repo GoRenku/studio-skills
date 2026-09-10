@@ -106,3 +106,13 @@ The accepted Harbor H3 take arrived around 8–9 seconds versus the submitted in
 near 7.06 seconds; conditioning helped but was not exact transfer. Disclose such
 deviations and preserve a director-accepted result. Do not initiate paid retries
 merely because a numerical timing comparison differs.
+
+### Typed Previs direction handoff
+
+Read `shot-plan previs show --json` for the chosen revision before authoring its
+provider-native request. Preserve explicit segments/cuts and Dialogue turns,
+including a turn crossing a cut. Action and Camera cues are onset directions,
+not speech. Consult the selected provider's capabilities; do not add a common
+provider timeline schema. Record derivative time maps and disclose that paired
+AI output is not verified to match Previs speech/action timing. Keep exact
+revision attachment, Preview approval and provider provenance unchanged.

@@ -104,3 +104,12 @@ Prepared native examples are in `previs-native-requests.json`. Their inert URLs 
 not provider inputs to submit; request fields/types were checked against the dated
 API sources. Live configuration/limits and actual media still require the normal
 workflow before execution.
+
+## Direction timeline cases
+
+- Continuous revision: one segment, explicit Dialogue and Action points; no
+  invented dialogue from gestured conversation or caption headings.
+- Two segments with a mid-turn cut: preserve one Dialogue occurrence and express
+  the cut using the chosen provider's native capabilities and exact revision.
+- Retimed derivative: retain the time map and avoid claiming AI alignment from
+  matching duration; no automatic retiming or additional paid calls for this eval.

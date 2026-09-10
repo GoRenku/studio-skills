@@ -53,3 +53,14 @@ motion. Check final frame explicitly, not just periodic samples. Distinguish cod
 checks from visual judgment; listen before claiming audio or dialogue correctness.
 Keep feedback concrete: which subject, which instant, position, framing, action and
 what should remain. Record the director's accepted choices in concise plan notes.
+
+### Author direction points
+
+Resolve speech from actual Scene dialogue context. Give each authored turn a
+stable cue id, local speaker, exact line and frame start; set its end only when
+explicitly directed. Mark physical onset/arrival changes as Action, and in-shot
+camera changes as Camera. Do not export animation hold intervals or review
+captions. A gestured conversation is Action unless spoken lines were authored.
+Author ordered segments for actual cuts; preserve a single turn across a cut.
+Verify frame count/rate and inspect event frames before registration. Recovered
+caption timing remains planned until verified; record any rounding explicitly.

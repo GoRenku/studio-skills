@@ -53,3 +53,15 @@ The original plan is `shot_plan_zx39wxev`, Urban Basilica Harbor Argument.
 Detailed run results belong in `implementation-results.md`, with visual/audio
 limitations explicit. Rotation wrap remains an unproven Harbor risk until a
 specific crossing is exercised; do not present it as an observed Harbor defect.
+
+## Typed timeline acceptance
+
+Use `samples/playback-continuous.json` and `samples/playback-cuts.json` as authored
+envelope examples, not proof of rendered performance. Render an isolated two-view
+sequence with a cut inside one dialogue turn. Inspect cut-1/cut/cut+1 and onset/end
+frames. Verify only Dialogue gets Play, only the selected audition highlights,
+Action/Camera/cut seek cancels it, and unknown ends disable only audition. Include
+simultaneous direction points, overlapping dialogue, pause/resume/replay and an
+early-ending exact recording. A gestured conversation must remain an Action;
+caption headings belong in Description. For historical recovery record original
+seconds, chosen frames and unverified speech timing; never label it measured.

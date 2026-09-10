@@ -28,3 +28,13 @@ For a Blender-authored plan, follow `blender-previs.md` for input roles and timi
 
 Never manually copy media into the durable Shot Plan folder. Never create a
 reverse video pointer or completion state on the Shot Plan.
+
+### Typed Previs direction handoff
+
+Read `shot-plan previs show --json` for the chosen revision before authoring its
+provider-native request. Preserve explicit segments/cuts and Dialogue turns,
+including a turn crossing a cut. Action and Camera cues are onset directions,
+not speech. Consult the selected provider's capabilities; do not add a common
+provider timeline schema. Record derivative time maps and disclose that paired
+AI output is not verified to match Previs speech/action timing. Keep exact
+revision attachment, Preview approval and provider provenance unchanged.

@@ -23,3 +23,12 @@ locked timing, retain the master and record the submitted derivative/time map in
 existing generation evidence and the AI take's existing Asset summary so tmp
 cleanup does not erase the map. Map dialogue cues too; never silently stretch selected
 speech. AI reference conditioning does not guarantee exact motion or speech timing.
+
+### Preserve timeline intent
+
+Read the selected revision with `shot-plan previs show --json`. Carry its shot
+segments, cuts and explicit dialogue-turn direction into the provider-native
+handoff, using the selected model's documented capabilities. Never infer cuts
+from captions or duplicate a turn that crosses a cut. Disclose derivative time
+maps separately: equal elapsed seconds in Studio do not prove AI alignment.
+Keep exact revision attachment and existing provider review/provenance unchanged.

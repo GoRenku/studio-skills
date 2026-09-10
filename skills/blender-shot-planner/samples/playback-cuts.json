@@ -1,0 +1,56 @@
+{
+  "frameRate": {
+    "numerator": 24,
+    "denominator": 1
+  },
+  "frameCount": 144,
+  "segments": [
+    {
+      "id": "wide",
+      "startFrame": 0,
+      "label": "Harbor wide"
+    },
+    {
+      "id": "close",
+      "startFrame": 72,
+      "label": "Mara close-up"
+    }
+  ],
+  "subjects": [
+    {
+      "key": "mara",
+      "label": "Mara",
+      "color": "#D98278"
+    }
+  ],
+  "cues": [
+    {
+      "id": "mara-line",
+      "kind": "dialogue",
+      "startFrame": 24,
+      "endFrame": 96,
+      "speaker": "mara",
+      "text": "Stay here."
+    },
+    {
+      "id": "mara-step",
+      "kind": "action",
+      "startFrame": 48,
+      "subject": "mara",
+      "text": "Mara steps toward the doorway."
+    },
+    {
+      "id": "camera-hold",
+      "kind": "camera",
+      "startFrame": 48,
+      "text": "Camera stops tracking."
+    },
+    {
+      "id": "mara-next",
+      "kind": "dialogue",
+      "startFrame": 108,
+      "speaker": "mara",
+      "text": "Wait."
+    }
+  ]
+}

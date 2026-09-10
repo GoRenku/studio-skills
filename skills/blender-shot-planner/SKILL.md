@@ -26,8 +26,9 @@ a shared previs platform is outside this workflow.
    to `media-producer`. Blender renders and AI takes are different Assets.
 
 Keep creative interpretation in the director/agent loop. Playback metadata is
-lightweight authored content for the future Studio player, not a cast or dialogue
-database. Do not burn legends, timecodes or captions into the MP4.
+a Core-validated direction timeline: explicit Dialogue, Action and Camera points,
+frame timing and shot segments whose starts define cuts. Read the full contract
+and samples in `references/plan-files-and-generations.md`. Do not burn legends, timecodes or captions into the MP4.
 
 For verification scenarios and exploration evidence, use `evals/director-iteration.md`.
 
