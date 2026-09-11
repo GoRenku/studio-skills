@@ -22,6 +22,8 @@ a shared previs platform is outside this workflow.
 4. Review a small render, then the full motion and event frames. Apply director
    feedback to the existing plan, keeping accepted choices unless the direction
    changes them. Save exact source/config with each completed render revision.
+   Rewrite the description as the complete current cinematic direction on every
+   iteration, following `references/directing-workflow.md`; never append a change log.
 5. For an AI video, read `references/ai-handoff.md` and hand the reviewed revision
    to `media-producer`. Blender renders and AI takes are different Assets.
 

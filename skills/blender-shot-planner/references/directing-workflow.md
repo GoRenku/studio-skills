@@ -40,6 +40,40 @@ same decision. Do not maintain separate conflicting timing copies. A different
 speaker in the Scene or selected audio is a real conflict to clarify. Do not invent
 speech, select another performance or time-stretch audio to conceal it.
 
+## Write a self-contained revision description
+
+Treat `description.md` as the complete, model-neutral creative direction for this
+revision. On every iteration, integrate the latest feedback into the whole
+description, preserve still-applicable decisions, and remove superseded or
+contradictory prose. Describe the resulting film in temporal order, not the edits
+that produced it. A reader must understand it without the conversation, earlier
+revisions, review notes, source code or unseen media.
+
+State the relevant setting, subjects, opening composition, action, camera/cuts,
+dialogue and timing, and ending explicitly from known context. Resolve shorthand
+such as “the original wide”, “accepted turns 2–5”, “same as before” and “the new
+drawing” into the actual composition, speaker/lines, behavior and prop appearance.
+Do not invent missing creative facts to make the description sound complete.
+
+For example, replace “The earlier Urban reaction during Constantine’s question is
+removed” with the resulting direction: “Cut to Constantine in close-up at 10.583 s.
+At 11.375 s, he asks ‘What would you require?’ Remain on Constantine through the
+question, then cut to Urban at 12.917 s.” Describe the bombard drawing's visible
+details directly rather than saying it replaces an old schematic.
+
+Keep change explanations, approval history, transcription/QA methods, Blender
+packing details and provider execution instructions in the conversation or
+existing working evidence, outside the cinematic description. Keep exact revision
+ids, reference files, audio offsets and delivery time maps in the agent handoff;
+the description still states the intended on-screen action and speech timing.
+Model-specific syntax and reference binding belong to Media Producer.
+
+Before registration, reread the full description as an outside model: can each
+instruction be understood from this text alone? Rewrite context-dependent phrases,
+check that the latest feedback is integrated without losing retained direction,
+and keep the description consistent with this revision's cues and rendered intent.
+This is agent editorial review, not a Studio runtime validator or keyword ban.
+
 ## Review
 
 Keep the model-neutral `description.md` and display cues aligned with the same

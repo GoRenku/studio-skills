@@ -12,6 +12,13 @@ locked actions and dialogue timing. Hand off the selected audio intent when pres
 Use its `references/shot-plan-video/blender-previs.md` workflow; reread current
 Core generation context there. Do not create a replacement placeholder plan.
 
+Include the chosen revision's complete cinematic description, authored according
+to `directing-workflow.md`. Keep attachment ids, reference bindings, timing maps
+and execution notes separate from that prose. Media Producer must apply
+`references/model-guides/shared/prompt-input-visibility.md` from its own skill
+before finalizing the provider request; a model cannot infer this session's
+feedback or recognize an earlier take that is not supplied.
+
 H3 Max is the default for this workflow; explicit Seedance 2.5, Seedance 2.0 or
 Wan 3.0 choices win. Check the exact route's current limits early. The video is
 motion/geography/camera reference; character/location sheets supply appearance.

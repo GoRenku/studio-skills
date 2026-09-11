@@ -37,6 +37,28 @@ The original plan is `shot_plan_zx39wxev`, Urban Basilica Harbor Argument.
 
 ## Forward exercises
 
+### Description after repeated feedback
+
+Use a scratch document, without rendering or changing the movie. Start with a
+30-second plan whose accumulated notes say “accepted dialogue turns 2–5 unchanged”,
+“the earlier Urban reaction during Constantine’s question is removed”, “return to
+the original wide”, and “the new drawing replaces every old schematic line”. Supply
+the actual dialogue, current cut timings, wide composition and drawing appearance
+as context. Ask for a revision keeping Constantine visible for his question and
+Urban visible for the following list, with all other current direction preserved.
+
+Assess whether the whole resulting description communicates the complete current
+scene without that context: concrete staging, speakers/lines, cuts, timing and
+prop appearance, with no superseded direction or edit-history dependencies. Check
+that retained choices survive and no unknown creative facts were invented. Then
+prepare a model-specific continuation request with a supplied boundary frame; its
+reference must resolve to that actual input, not “revised clip 1”. Repeat with the
+required frame absent and expect the agent to resolve the missing input before
+execution. Evaluate meaning and actual input bindings, not exact wording. This is
+a behavioral scenario, not an executed passing result or a runtime text check.
+
+### Render and directing exercises
+
 1. In a Harbor copy, move Mara to the other side, center the camera, add a timed
    shoulder and lean, then stage a three-second settled conversation, later Urban
    stop and slow turn. Inspect continuous changed intervals and event/final frames.

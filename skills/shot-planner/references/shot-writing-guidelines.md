@@ -1,7 +1,20 @@
 # Shot Writing Guidelines
 
 Write `description` as one self-contained, model-neutral cinematic idea in
-temporal order. For a complex Shot, use only the relevant sections from this
+temporal order. On every revision, rewrite the affected description into a complete
+statement of the current intent: integrate feedback, retain applicable decisions,
+and remove superseded or contradictory prose. Do not append corrections or use it
+as a change log. This applies to authored Shot Plan descriptions as well as Shots.
+
+Read it without the conversation or earlier revisions. Replace “as before”,
+“the approved version”, or “the earlier reaction is removed” with the actual
+composition, action, speaker and timing now intended. Resolve dialogue-turn
+shorthand into the known speaker and exact line when speech defines the Shot.
+Keep review history and implementation notes outside the description; do not
+invent missing choices. Media Producer adapts this complete intent to the chosen
+model and binds references to inputs that model actually receives.
+
+For a complex Shot, use only the relevant sections from this
 compact vocabulary:
 
 ```md

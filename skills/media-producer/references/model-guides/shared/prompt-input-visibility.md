@@ -17,6 +17,31 @@ receives:
 
 Do not ask the provider to understand hidden Studio state.
 
+## Iterated descriptions and requests
+
+Treat an authored description as current creative intent, never as a revision log
+to forward verbatim. Before adapting it to the selected model's best practices,
+resolve conversational shorthand using the exact chosen revision and its context.
+Preserve applicable direction and integrate feedback into one complete prompt.
+Replace edit history with the resulting visible action: “the earlier reaction is
+removed” becomes the intended speaker framing and cut sequence. Do not include
+approval history, QA methods, source-code details or instructions to the agent.
+
+Review the final prompt with only the exact request inputs in view. The provider
+does not receive this conversation, previous requests, local descriptions or
+Scene dialogue unless their needed content is explicitly included. Spell out
+speakers and exact lines when required; bind appearance and continuity to actual
+attached inputs using the model's documented syntax. For a continuation, “use the
+last frame of revised clip 1” is insufficient: supply that exact frame through a
+supported input and describe the opening state and continuing action. Resolve a
+missing required reference or material ambiguity before execution; do not claim
+an unseen input is attached or invent its contents.
+
+Do this check on every revised request, including after model-specific shortening
+or reordering. Keep revision identity, provenance and time maps in their existing
+agent-facing evidence. This is agent editorial judgment, not runtime semantic
+validation of opaque prompts.
+
 Forbidden provider-facing language includes:
 
 - selected;
