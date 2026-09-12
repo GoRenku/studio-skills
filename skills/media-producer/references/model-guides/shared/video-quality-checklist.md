@@ -72,6 +72,14 @@ answer is "no", revise the request first.
 
 ## Audio
 
+- Are wording, voice identity, visible/off-screen speaker and mouth synchronization
+  reviewed independently, rather than inferred from a matching transcript?
+- For multiple clips, does `../../shot-plan-video/scene-segmentation.md` account
+  for actual delivered material and all remaining words/actions before continuation?
+- Is raw footage preserved without automatic trims, audio replacement or stretching?
+- Are unlocked Previs timing differences distinguished from incomplete speech or
+  broken mouth/audio synchronization?
+
 - Is exact narration or dialogue copied exactly when known?
 - Is every supplied audio token named with a narrator, speaker, ambience, or
   sound-character role?

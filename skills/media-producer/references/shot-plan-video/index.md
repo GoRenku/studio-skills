@@ -13,6 +13,7 @@ weak authoring context, not ownership, dependency state, or a selected video.
    coverage, Scene, related subjects/designs, dialogue, Lookbook, and
    relationship-derived media suggestions.
 3. Read `workflow.md`.
+   For multiple clips or an incomplete-output continuation, read `scene-segmentation.md`.
 4. Read `../model-guides/shared/prompt-input-visibility.md` and
    `../model-guides/shared/video-quality-checklist.md`.
 5. Choose one exact route and operation from the provider Skill's

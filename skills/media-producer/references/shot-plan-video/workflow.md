@@ -2,6 +2,11 @@
 
 For a Blender-authored plan, follow `blender-previs.md` for input roles and timing; continue this same generation/attachment workflow with the exact Previs plan.
 
+For multi-clip work read `scene-segmentation.md`. Inspect actual delivered coverage
+before preparing a dependent request. Describe incomplete or unverified outputs
+as candidates, not corrected/complete scenes. Preserve existing authorization;
+do not add repeated confirmation for unchanged already-authorized work.
+
 1. Resolve the current Project and exact Shot Plan id.
 2. Read one complete Core briefing with `renku generation context --purpose
    <purpose> --target shot-plan:<shot-plan-id> --json`.

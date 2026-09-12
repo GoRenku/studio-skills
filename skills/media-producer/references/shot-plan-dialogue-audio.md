@@ -67,6 +67,12 @@ For Seed Audio:
 
 ## Execute and attach
 
+Review wording, speaker order/voice identity, acting, duration and boundary timing
+separately. ASR can locate words but cannot establish the intended cast assignment.
+Listen before using a new ensemble take to retime Previs; if listening is unavailable,
+request a focused user audition. Do not present intended speaker labels as verified
+observations. Preserve an unverified candidate honestly instead of claiming success.
+
 Validate, Preview when required, obtain conversational confirmation, execute
 one provider request, and inspect its single output. Preserve the exact safe
 provenance, then attach the accepted file:

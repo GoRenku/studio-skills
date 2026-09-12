@@ -28,6 +28,16 @@ timing; use those decisions alongside current Scene context.
 
 ## Inputs and roles
 
+Simple Previs is only a spatial/motion/camera guide. Its proxy surfaces, faces,
+wardrobe textures, light treatment and prop scribbles must not define final
+appearance. Establish a reviewed finished-look image in the relevant composition
+before video execution: reuse suitable existing media or prepare it through the
+authorized image workflow. Identity/design comes from subject references and
+finish from the intended visual language; realism is not mandatory for every film.
+Inspect featured props and close-ups at their screen scale. Supply independent
+appearance evidence when the master image does not adequately depict them, without
+requiring a separate sheet for every incidental object or detailed Blender props.
+
 - Send the unannotated previs as an actual native video reference for blocking,
   geography, camera path, action order and intended timing.
 - Inspect character/location sheets and supply the relevant exact images for
@@ -68,7 +78,7 @@ quality guarantees.
 
 ## Direction and timing
 
-Write a continuous-shot prompt assigning motion/camera to video and appearance to
+Preserve the authored continuous view or hard-cut sequence, assigning motion/camera to video and appearance to
 images. Describe ordered actions, spatial relationships and priorities, then sound
 intent. Replace block geometry with the supplied appearances while preserving
 geography and performance. Exclude reproduced proxy materials, sheet panels,
@@ -87,6 +97,11 @@ becomes 2.647 seconds. Resolve changed locked timings first and map prompt/audio
 intent to the submitted timebase. Never incidentally time-stretch selected speech.
 Reference audio does not promise identical waveform, lip sync or onset timing.
 
+Read `scene-segmentation.md` for multi-clip excerpts and adaptive continuation.
+For off-screen speech, name the audible speaker, visible listener/reaction and
+who must not articulate the line. Do not silently replace off-screen coverage
+with an on-screen speaker. Unlocked Previs timing may differ in a usable take.
+
 ## Execute and review
 
 Use the existing Generation Spec, provider-native request, Preview, confirmation,
@@ -102,6 +117,8 @@ tmp cleanup without extra folders, provider fields or a new metadata schema.
 
 Review appearance, camera, event timing and audio separately. Inspect continuous
 motion and the final frame. Listen before asserting speech/voice correctness.
+Inspect every cut and featured insert for proxy reversion, not only the opening.
+Do not carry failed appearance into a continuation without explicit user acceptance.
 The accepted Harbor H3 take arrived around 8–9 seconds versus the submitted intent
 near 7.06 seconds; conditioning helped but was not exact transfer. Disclose such
 deviations and preserve a director-accepted result. Do not initiate paid retries

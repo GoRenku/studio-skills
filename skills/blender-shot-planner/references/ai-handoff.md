@@ -1,5 +1,10 @@
 # Handoff to Media Producer
 
+For multiple duration-limited clips, Media Producer reads its
+`references/shot-plan-video/scene-segmentation.md`. Carry full remaining dialogue
+and actions, not just planned elapsed times. Simple Previs never defines finished
+surface detail or prop artwork; establish independent finished-look references.
+
 Pass the exact `revisions[].id` chosen from `renku shot-plan previs show` as
 attachment context. Media Producer uses `--previs-revision <id>` with the existing
 video-generation media import, including when submitting a derivative of that

@@ -87,3 +87,14 @@ simultaneous direction points, overlapping dialogue, pause/resume/replay and an
 early-ending exact recording. A gestured conversation must remain an Action;
 caption headings belong in Description. For historical recovery record original
 seconds, chosen frames and unverified speech timing; never label it measured.
+
+## Self-contained handoff and deliberately simple Previs
+
+Give repeated feedback about a question's coverage and a featured prop insert.
+Request a fresh handoff without the earlier conversation. Verify the current
+shot order and audible/visible roles are fully stated, every reference is actually
+supplied, and no earlier failed take or removed reaction is needed to understand
+it. The Blender scene remains simple blocking; independent finished-look and prop
+references carry appearance. Review representative later cuts as well as the first
+frame when actual generated footage is available; preparation alone cannot pass
+that visual check.

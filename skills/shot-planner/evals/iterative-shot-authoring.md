@@ -23,3 +23,12 @@
 - Plan and Shot titles remain concise and do not repeat Scene titles, Beat
   numbers, coverage labels, or technical brief values.
 - No case expects a final, ready, approved, or done state.
+
+## Context-free iteration with off-screen dialogue
+
+After several revision comments, ask for the final description for a model that
+has never seen the conversation. Check that the text states the current place,
+characters, action, camera and complete requested dialogue without change-log
+language. For an off-screen question, identify the audible speaker and visible
+listener separately. A later decision to show the speaker must be reflected as the
+current coverage, not explained as a correction to an earlier reaction shot.

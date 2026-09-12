@@ -32,8 +32,8 @@ from an edited Scene Storyboard image and store each beside the exact Plan.
 
 Use `shot-plan.video-generation` with the exact Storyboard, continuity images,
 and resolved Dialogue Takes whenever the selected live route is audio-capable.
-Resolve workflow-selected first, then a sole unselected Take; stop on multiple
-unselected or missing Takes with the exact Scene Narrative direction. Canonical
+Use only explicitly selected Takes; a sole unselected Take is not a selection.
+Resolve missing selection through the Shot Plan Audio tab. Canonical
 model guidance uses neutral input placeholders. For Fal.ai, its provider
 adapter resolves Seedance placeholders to `@ImageN`, MiniMax H3 placeholders to
 spaced `Image N` / `Audio N` syntax, and Wan placeholders to its distinct
@@ -113,3 +113,30 @@ workflow before execution.
   the cut using the chosen provider's native capabilities and exact revision.
 - Retimed derivative: retain the time map and avoid claiming AI alignment from
   matching duration; no automatic retiming or additional paid calls for this eval.
+
+## Complete-scene segmentation preparation exercises
+
+Use the cases S1–S12 in Studio plan 0203 as preparation/review exercises, with
+scratch artifacts and dated route-limit fixtures. Do not count a written scenario
+as an executed media test. Record the evidence supplied, resulting clip requests,
+remaining-content calculation, and unresolved audiovisual checks. Include:
+
+- A 23-second ordered performance under 12-second and 8-second route ceilings;
+  natural boundaries at 6, 11, 17 and 23 seconds, and a separate 5-second reference
+  ceiling that makes the direct reference strategy infeasible.
+- A first clip ending after “Open the gate.” instead of continuing “Bring the
+  horses.”; preserve the actual ending and start the next request with the suffix.
+- An internal missing sentence, intentional repeated “Wait”, and a clipped final
+  syllable; appending lost content must not be accepted as preserving order.
+- Dialogue spanning a camera cut and a delivery boundary, no-dialogue action,
+  one-request scenes, selected recordings that cannot be concatenated, and a
+  resumed clip after an explicitly requested paired trim.
+- A correct transcript with unauditioned voices, an off-screen speaker over a
+  listener, rough Previs surfaces, a featured prop absent from the master reference,
+  and realistic opening frames followed by proxy reversion.
+- Exact `Clip N.M` resolution and rereading selection before submission; browsing
+  does not select and source attribution does not insert provider references.
+
+Preparation can establish a coherent request and honest limitation report. Only
+inspection of actual produced audio/video can establish performance, lip sync,
+visual continuity, or the provider's success in following the request.

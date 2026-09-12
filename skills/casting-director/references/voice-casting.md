@@ -1,5 +1,11 @@
 # Voice Casting
 
+Before ensemble dialogue generation, compare a new voice with the existing voices
+it will converse with. Assess audible resonance, texture, cadence and articulation;
+pitch or written direction alone does not establish contrast. If listening is not
+available, provide the user a focused comparison and leave identity/contrast
+unverified. Do not infer quality or select a voice merely from a matching transcript.
+
 Creative voice direction lives inside Cast Design. Playable sample audio lives
 in Cast Voice records. An optional provider-owned voice identity may live on a
 Cast Voice as opaque JSON. Core never interprets its provider or model fields.

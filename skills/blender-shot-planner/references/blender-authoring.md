@@ -5,6 +5,11 @@ Harbor exploration's Workbench object colors, studio lighting, shadows, cavity,
 outlines, Standard view transform and 16-sample AA at 960×540/24fps are a successful
 example, not a mandatory style. Preserve an accepted plan's look during revisions.
 
+Simple Previs is intentional: use it for placement, geography, camera and motion.
+Do not add photorealistic modeling, textures or detailed prop artwork merely to
+prevent proxy appearance transferring into AI footage. Finished character, room
+and featured-prop appearance belongs to independent references in the AI handoff.
+
 ## Fast iteration
 
 - Keep this plan's main Python implementation and useful parameters easy to find.
