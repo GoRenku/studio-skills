@@ -33,9 +33,17 @@ For authorized multi-clip work, extract the assigned intervals from the exact
 selected audio files without changing speed, voices or wording. Preserve original
 Takes and selection. Keep separate selected recordings separate; resolve ambiguous
 overlapping performances rather than concatenate or choose an unselected candidate.
-Store excerpts in `tmp/media/`; record source Asset/File, start/end samples or
+Prepare excerpts in `tmp/media/`; record source Asset/File, start/end samples or
 seconds, and submitted offset in request evidence. Out-of-clip material must still
 appear in the complete coverage plan. Excerpting is not permission to drop speech.
+
+Before request authoring, import every chosen new image, video, or audio
+derivative with `renku shot-plan reference import` as described in
+`../workflow.md`. Supply the exact Plan/revision, retain extraction facts in
+the Asset summary, and use the returned registered path in the request. This
+includes final-frame continuation images and voice-delivery excerpts. Existing
+registered sources stay at their current paths. Verify all intended inputs are
+available in Preview before requesting confirmation.
 
 Prepare matching Previs excerpts and local camera/action timing. If generation
 drifts, rebuild the next excerpt/timing from the remaining performance, not a stale

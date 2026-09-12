@@ -37,7 +37,7 @@ one unique JSON document under `tmp/operations/media-generation/`:
 
 `request` is the exact native provider input. Its contents remain opaque to
 Core and Studio. A local file is encoded only at the native file/URL field as
-`{"$file":"tmp/scratch/reference.png","mimeType":"image/png","reviewLabel":"Meaningful context label"}`.
+`{"$file":"<registered-AssetFile-projectRelativePath>","mimeType":"image/png","reviewLabel":"Meaningful context label"}`.
 Add `promptMention` only when the selected provider adapter documents exact
 provider-visible syntax. Derive any ordinals from the final native request
 order. Canonical model guides remain provider-neutral. Do not add a Renku
@@ -51,6 +51,33 @@ property-name map in this workflow. Preserve the authored prompt even when the
 provider returns rewritten/actual prompt evidence for review.
 
 ## Validate and Preview
+
+### Register prepared Shot Plan references
+
+Prepare and inspect new frames, video excerpts, and audio excerpts in
+`tmp/media/`. Before including a chosen derivative in a Shot Plan request,
+register it through Core:
+
+```bash
+renku shot-plan reference import --project <name> --shot-plan <id> --previs-revision <exact-revision-id> --source <prepared-project-relative-file> --media-kind <image|video|audio> --title <authored-title> --summary <source-Asset/File-and-exact-extraction-facts> --json
+```
+
+The revision is required for Previs and omitted for other Plan types. Use the
+returned AssetFile `projectRelativePath` in the request; never construct a
+canonical path or register a temporary file in place. The command copies the
+bytes and preserves the original. Record exact source ids, frame/sample
+intervals, offsets and time maps in the authored summary when applicable.
+Local extraction has no AI generation receipt: do not fabricate provenance.
+AI-generated reference images still use the normal provenance-bearing
+`renku media import` path with the exact `--previs-revision` when applicable.
+
+Reuse already registered files directly, including Cast/Location/Prop sheets.
+On resumption reuse the exact imported Asset instead of importing it again.
+Unchosen candidates and QA material may remain temporary. Check the structured
+Preview reference availability before asking for generation confirmation;
+resolve unavailable intended inputs without silently dropping them.
+
+### Validate and deliver the request
 
 For Engines providers:
 

@@ -12,6 +12,11 @@ it for derivative provider inputs; never guess latest revision. The id does not
 belong in the provider request or review JSON. Video edits inherit it from their
 source Asset through the existing edit attachment path.
 
+Prepared input derivatives must also be registered before Preview. Follow
+`../workflow.md`'s `shot-plan reference import` step for extracted frames,
+Previs clips and audio excerpts, with this exact revision. Use returned AssetFile
+paths in the request. Temporary preparation alone does not attach a reference.
+
 Use this workflow when the reviewed input is a Blender procedural previs.
 Read `workflow.md`, `../video-reference-continuity.md`, the selected model operation
 and provider adapter. Reread generation context for the exact existing plan:

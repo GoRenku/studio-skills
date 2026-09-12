@@ -11,6 +11,11 @@ video-generation media import, including when submitting a derivative of that
 render. Do not infer the id from newest revision, timestamps or prompt prose.
 This id belongs outside the provider-native request and provenance envelope.
 
+Media Producer registers chosen extracted frames, Previs clips and audio excerpts
+with `renku shot-plan reference import`, preserving this exact Plan/revision.
+The provider request uses returned registered AssetFile paths, not temporary
+preparation paths. Follow Media Producer's `references/workflow.md`.
+
 Give `media-producer` the exact Project/Scene/Shot Plan, reviewed Previs revision
 and registered video Asset/file, source parameters, duration/fps, proxy identities,
 locked actions and dialogue timing. Hand off the selected audio intent when present.

@@ -25,6 +25,11 @@ focused Core commands own attachment. Retained Previs authoring source stays in
 the canonical Shot Plan `previs/source/` folder; source revisions and rendered
 media are registered by `blender-shot-planner` through Core.
 
+Before authoring a Shot Plan request, register chosen new image/video/audio
+derivatives with `renku shot-plan reference import` and use the returned
+AssetFile paths. Follow `references/workflow.md` for exact revision association,
+source summaries, reuse of registered inputs, and Preview availability checks.
+
 ## Read the deterministic briefing first
 
 Before choosing a provider, authoring a prompt, or creating a review document,

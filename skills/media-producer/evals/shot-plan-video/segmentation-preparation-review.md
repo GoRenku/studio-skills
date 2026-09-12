@@ -47,3 +47,15 @@ Additional variations exercised on paper:
 Outcome: these preparation decisions preserve scope, order and ownership. Actual
 word delivery, voice contrast, mouth synchronization, later-frame appearance and
 join quality remain untested until a separately authorized media run is inspected.
+
+## Prepared reference registration regression
+
+Given a selected Clip 1.3 and exact Previs revision, prepare an image of its final
+frame, a matching Previs video excerpt and an audio delivery excerpt in tmp/media.
+Expected: inspect each chosen file, import all three with `shot-plan reference
+import`, preserve exact Plan/revision and source intervals in summaries, then use
+returned AssetFile paths in the native request. All inputs resolve in Preview
+before confirmation. No invented generation receipt and no take selection change.
+On resumption reuse the imported Assets; already registered Cast and Location
+sheets stay at their current paths. If one intended reference is unavailable,
+resolve it before confirmation instead of dropping it or presenting a blank card.
