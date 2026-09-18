@@ -1,0 +1,4 @@
+interface:
+  display_name: "Install Renku"
+  short_description: "Install Renku and guide Studio setup"
+  default_prompt: "Use $install-renku to install Renku, launch Studio, and help me complete setup."

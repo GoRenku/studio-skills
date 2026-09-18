@@ -26,6 +26,7 @@ maintained workflow entrypoints, rather than a second set of tutorials here.
 
 | Area | Skills |
 | --- | --- |
+| Installation | [Install Renku](skills/install-renku/SKILL.md) |
 | Direction | [Movie Director](skills/movie-director/SKILL.md) |
 | Screenplay | [Drafter](skills/screenplay-drafter/SKILL.md), [Analyst](skills/screenplay-analyst/SKILL.md), [Supporting Material Importer](skills/screenplay-supporting-material-importer/SKILL.md), [PDF to FDX](skills/screenplay-pdf-to-fdx/SKILL.md) |
 | Visual language | [Inspiration Analyzer](skills/inspiration-analyzer/SKILL.md), [Lookbook Designer](skills/lookbook-designer/SKILL.md) |

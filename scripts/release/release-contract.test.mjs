@@ -92,6 +92,9 @@ test('shipped skills separate temporary working files from retained Previs autho
     .map((entry) => path.join(skillsRoot, entry.name));
 
   for (const skillDirectory of skillDirectories) {
+    if (path.basename(skillDirectory) === 'install-renku') {
+      continue; // Installation runs before a Project workspace exists.
+    }
     const skill = readFileSync(path.join(skillDirectory, 'SKILL.md'), 'utf8');
     assert.match(skill, /^## Project Workspace$/m, skillDirectory);
     assert.match(skill, /Project root/, skillDirectory);
