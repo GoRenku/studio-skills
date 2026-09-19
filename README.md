@@ -33,6 +33,7 @@ maintained workflow entrypoints, rather than a second set of tutorials here.
 | Cast and sets | [Casting Director](skills/casting-director/SKILL.md), [Production Designer](skills/production-designer/SKILL.md), [Location World Producer](skills/location-world-producer/SKILL.md) |
 | Scene and shot planning | [Scene Beat Designer](skills/scene-beat-designer/SKILL.md), [Shot Planner](skills/shot-planner/SKILL.md), [Blender Shot Planner](skills/blender-shot-planner/SKILL.md) |
 | Media workflow | [Media Producer](skills/media-producer/SKILL.md) |
+| Model research and curation | [Model Researcher](skills/model-researcher/SKILL.md) |
 | Provider execution | [Fal.ai](skills/fal-ai-media-provider/SKILL.md), [ElevenLabs](skills/elevenlabs-media-provider/SKILL.md), [Pika](skills/pika-media-provider/SKILL.md), [Replicate](skills/replicate-media-provider/SKILL.md), [WaveSpeed](skills/wavespeed-media-provider/SKILL.md) |
 
 ## Repository layout
@@ -68,3 +69,20 @@ maintainer responsibilities.
 - [Studio CLI reference](https://github.com/GoRenku/studio/blob/main/docs/cli/commands.md)
 - [Studio architecture](https://github.com/GoRenku/studio/blob/main/docs/architecture/README.md)
 - [Codex permissions for Renku skills](docs/codex-renku-permissions.md)
+
+### Personal media models
+
+`model-researcher` adds or refreshes a three-field personal route and optional
+Markdown shared across Projects. Use a runtime exposing `renku generation models`;
+the first supporting release version will be recorded when published. Runtime and
+plugin releases remain independent. Personal content lives at CLI-returned global
+paths outside either installation. Media Producer discovers personal routes and
+prepares requests using current schemas and optional bundled/personal advice.
+
+For maintainer curation, explicitly ask Model Researcher to add or refresh a
+model in the Studio Skills distribution. Its
+[bundled authoring workflow](skills/model-researcher/references/bundled-authoring.md)
+edits the source checkout's existing route indexes and model guides, validates
+the changes, and leaves them ready for review and the normal plugin release.
+Personal additions remain the default; bundled authoring does not change the
+personal library or publish a release.

@@ -16,13 +16,25 @@ evidence, downloads, or scratch files at the Project root.
 - Use `tmp/qa/` for review evidence.
 - Use `tmp/scratch/` for other temporary inputs.
 
-Read [references/supported-routes.json](references/supported-routes.json) and
-select one exact `apiId` and operation. If the route is absent, stop; do not
-substitute another model. Copy that `apiId` verbatim into the review document's
-`model` field and every generation command; never add, remove, or replace its
-namespace. Give its `modelKey` to Media Producer only for loading the canonical
-model and operation guidance from `model-catalog.json`. Read the route's adapter
-when present. An adapter never replaces a model guide.
+Use `renku generation models list --provider fal-ai --route-index <absolute-path-to-references/supported-routes.json> --json`
+for this provider's bundled and personal discovery choices. Select the exact
+`apiId`; an explicitly requested unlisted route can proceed without installation.
+Copy it verbatim into the review document's `model` field and every generation
+command. Never substitute a model or rewrite its namespace.
+
+For optional advice, independently look up the exact route in
+[references/supported-routes.json](references/supported-routes.json). When it has
+a `modelKey`, Media Producer may read available guidance from
+`model-catalog.json`. Read a useful provider adapter when available. Missing
+route entries, keys, model guides, operation guides, or adapters are ordinary
+absence of advice: do not warn, stop, or ask approval because of them.
+Use `generation models show --provider fal-ai --model <apiId> --json` to get
+`personalGuidePath`. Read it if present. Current bundled guidance supplies the
+curated default; personal notes add advice and explicit user preferences take
+priority. A personal discovery label never suppresses bundled guidance.
+Prepare the selected request from its live/cached schema and optional advice.
+Consult current provider documentation when necessary. Do not add a separate
+capability check or mandatory transport/output compatibility audit.
 
 Media Producer supplies the exact deliberately chosen local files. Do not query
 or reinterpret Cast, Location, Prop, Lookbook, Scene, Shot, or Shot Plan

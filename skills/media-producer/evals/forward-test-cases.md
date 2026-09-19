@@ -207,7 +207,7 @@ Expected behavior:
 - an unchanged semantic schema refreshes `checkedAt` and `expiresAt` without
   regenerating the template;
 - a changed schema regenerates and stores the template before configuration;
-- a route-index, Visualize Skill, or template-contract fingerprint change is
+- an effective name/route list, Visualize Skill, or template-contract fingerprint change is
   incompatible and regenerates rather than reusing the old code; and
 - a refresh failure stops visibly instead of using expired content.
 
@@ -515,5 +515,12 @@ Expected behavior:
 - uses video references and concise edit-preservation guidance through their
   exact live operations;
 - understands continuation as 10-second increments bounded by the live total,
-  but stops when the installed Fal index has no continuation route; and
+  but explains an actual unsupported continuation protocol from provider documentation, without treating index absence as a blocker; and
 - asks before switching the Project's selected provider or model.
+
+## Personal models and optional advice
+
+Run the route-only, unlisted-route, missing-guide, plugin replacement, later
+bundled adoption, explicit-preference, and schema-input mismatch scenarios in
+`../../model-researcher/evals/personal-models.md`. Inspect the resulting commands
+and prepared requests, preserving Preview and final validation.

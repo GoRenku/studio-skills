@@ -16,14 +16,16 @@ hard-code `~/.config/renku`, a Project folder, or the cache destination in the
 Skill. The CLI returns the authorized absolute paths.
 
 The cache key is the exact provider, executable model id, operation, and input
-mode. Its compatibility fingerprint also includes all small route indexes used
+mode. Its compatibility fingerprint also includes the effective name/route list used
 to populate Provider and Model selectors, the installed Visualize Skill version
 and SHA-256, template contract version `1`, and this reference's SHA-256. Use
 `scripts/write-generation-configuration-visualization-descriptor.mjs` to write
 that descriptor to
 `tmp/operations/media-generation/generation-configuration-visualization-descriptor.json`
-in the current Project. Pass every route index used by this request as a
-repeatable `--route-index`; never compute the cache path yourself.
+in the current Project. First run `renku generation models list --json` with all five current provider
+indexes as repeated `--route-index` arguments. Pass its unfiltered
+`routeCatalogSha256` as `--route-catalog-sha256`; never compute the cache path
+yourself. Optional Markdown changes do not change this digest.
 
 ```bash
 node <media-producer-skill-dir>/scripts/write-generation-configuration-visualization-descriptor.mjs \
@@ -31,7 +33,7 @@ node <media-producer-skill-dir>/scripts/write-generation-configuration-visualiza
   --model <exact-api-id> \
   --operation <operation> \
   --input-mode <input-mode> \
-  --route-index <absolute-supported-routes-json> \
+  --route-catalog-sha256 <effective-list-routeCatalogSha256> \
   --visualize-skill <absolute-installed-visualize-skill-md> \
   --visualize-skill-version <installed-version> \
   --template-contract <absolute-this-reference-md> \
@@ -133,21 +135,22 @@ request.
 The matching Project Setting chooses only the initial selection. It must never
 narrow the provider or model choices. Keep discovery lightweight:
 
-1. Read only the small `supported-routes.json` index for each Renku provider
-   named by Media Producer's execution-lane guidance, including advanced
-   providers. Do not read an unselected provider's Skill, adapter, model guide,
-   operation guide, documentation, or live schema. Choosing an advanced
-   provider in this component is an explicit one-request user choice; it does
-   not make that provider a Project default.
-2. Build the Provider list from every index with a route broadly compatible
-   with the pending media kind, operation, and input mode. Build each provider's
-   Model list from those indexed routes and human-readable names. Add Codex for
-   image work only when the active harness exposes its built-in image
-   capability. Do not fetch schemas merely to refine these selector options.
-3. For only the initial provider/model, read the selected provider Skill,
-   selected route adapter, canonical model/operation guides, and the exact
-   fresh cached or newly fetched input schema. Build configuration controls
-   only for this prepared selection.
+1. Run `generation models list --json` with all five current provider Skills'
+   `supported-routes.json` files as repeated `--route-index` arguments, including
+   advanced providers. This returns bundled and personal choices. Do not read
+   unselected Skills, guides, adapters, documentation, or schemas.
+2. Build selectors from the effective exact identities and human-readable names.
+   Do not exclude personal routes for lacking operation or media-kind metadata.
+   Existing bundled hints can help presentation but are not capability gates.
+   Add Codex for image work only when the active harness exposes it. Selecting
+   an advanced provider is an explicit one-request choice, not a Settings change.
+3. For only the selected route, read its provider Skill, available bundled advice,
+   optional personal Markdown from `generation models show`, and fresh cached or
+   newly fetched schema. Missing advice is ordinary absence, without a warning
+   or approval question. Current bundled defaults and explicit personal
+   preferences apply independently of discovery labels. Build controls from the
+   selected schema; explain actual input mismatches during preparation. No
+   separate capability check or transport/output audit is required.
 
 Do not eagerly inspect every alternative or pre-generate every possible control
 set. The selector indexes are enough to offer alternatives; exact compatibility

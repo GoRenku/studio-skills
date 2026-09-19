@@ -16,23 +16,38 @@ evidence, downloads, or scratch files at the Project root.
 - Use `tmp/qa/` for review evidence.
 - Use `tmp/scratch/` for other temporary inputs.
 
-Read [references/supported-routes.json](references/supported-routes.json), select
-one exact `apiId` and operation, and stop when it is absent. Copy that `apiId`
-verbatim into the review document's `model` field and every generation command.
-Give its `modelKey` to Media Producer only for loading the canonical speech or
-music guide from `model-catalog.json`.
+Use `renku generation models list --provider elevenlabs --route-index <absolute-path-to-references/supported-routes.json> --json`
+for this provider's bundled and personal discovery choices. Select the exact
+`apiId`; an explicitly requested unlisted route can proceed without installation.
+Copy it verbatim into the review document's `model` field and every generation
+command. Never substitute a model or rewrite its namespace.
+
+For optional advice, independently look up the exact route in
+[references/supported-routes.json](references/supported-routes.json). When it has
+a `modelKey`, Media Producer may read available guidance from
+`model-catalog.json`. Read a useful provider adapter when available. Missing
+route entries, keys, model guides, operation guides, or adapters are ordinary
+absence of advice: do not warn, stop, or ask approval because of them.
+Use `generation models show --provider elevenlabs --model <apiId> --json` to get
+`personalGuidePath`. Read it if present. Current bundled guidance supplies the
+curated default; personal notes add advice and explicit user preferences take
+priority. A personal discovery label never suppresses bundled guidance.
+Prepare the selected request from available technical facts and optional advice.
+Consult current provider documentation when necessary. Do not add a separate
+capability check or mandatory transport/output compatibility audit.
 
 Media Producer supplies the exact text, voice choice, and any deliberate local
 inputs. Do not query or reinterpret Renku Project relationships. The
 supported-route index is routing guidance only; read the selected ElevenLabs
 operation's current request facts for native fields and constraints.
 
-When Media Producer is running its Codex inline-configuration flow, use a
-`fresh` Core-managed generation configuration visualization schema snapshot for
-pre-review authoring and do not independently re-read the same remote facts
-during that 24-hour window. Media Producer owns miss, expiry,
-dependency-change, and invalidation refreshes; final validation and execution
-remain authoritative live boundaries.
+The installed ElevenLabs integration exposes schema inspection only for voice
+sample retrieval. Generic speech/music schema inspection is unavailable; report
+that limitation when schema-driven configuration needs it. Do not invent a local
+schema. Compatible TTS requests can use their exact model string, while music
+retains the fixed `music_v1` execution path. A personal music entry cannot enable
+another music protocol. Such a request needs separate provider work, not a guide
+or paid activation check. Final validation and execution remain authoritative.
 
 For speech, author exact `text`, provider `voice` id, and optional native
 `voice_settings`/`output_format`. Resolve that id only from the selected Cast

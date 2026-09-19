@@ -16,13 +16,27 @@ evidence, downloads, or scratch files at the Project root.
 - Use `tmp/qa/` for review evidence.
 - Use `tmp/scratch/` for other temporary inputs.
 
-Replicate is an advanced explicit lane. Read
-[references/supported-routes.json](references/supported-routes.json), select one
-exact `apiId` and operation, and stop when it is absent. Copy that `apiId`
-verbatim into the review document's `model` field and every generation command.
-Give its `modelKey` to Media Producer only for canonical model-guide loading
-from `model-catalog.json`. Read the route's adapter when
-present; it owns Replicate request mapping, not prompt craft.
+Replicate remains an advanced explicit lane.
+
+Use `renku generation models list --provider replicate --route-index <absolute-path-to-references/supported-routes.json> --json`
+for this provider's bundled and personal discovery choices. Select the exact
+`apiId`; an explicitly requested unlisted route can proceed without installation.
+Copy it verbatim into the review document's `model` field and every generation
+command. Never substitute a model or rewrite its namespace.
+
+For optional advice, independently look up the exact route in
+[references/supported-routes.json](references/supported-routes.json). When it has
+a `modelKey`, Media Producer may read available guidance from
+`model-catalog.json`. Read a useful provider adapter when available. Missing
+route entries, keys, model guides, operation guides, or adapters are ordinary
+absence of advice: do not warn, stop, or ask approval because of them.
+Use `generation models show --provider replicate --model <apiId> --json` to get
+`personalGuidePath`. Read it if present. Current bundled guidance supplies the
+curated default; personal notes add advice and explicit user preferences take
+priority. A personal discovery label never suppresses bundled guidance.
+Prepare the selected request from its live/cached schema and optional advice.
+Consult current provider documentation when necessary. Do not add a separate
+capability check or mandatory transport/output compatibility audit.
 
 Media Producer supplies the exact deliberately chosen local files. Do not query
 or reinterpret Renku Project relationships. The supported-route index is

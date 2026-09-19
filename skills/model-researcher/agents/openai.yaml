@@ -1,0 +1,4 @@
+interface:
+  display_name: "Model Researcher"
+  short_description: "Research personal models and curated distribution guides"
+  default_prompt: "Use $model-researcher to add or refresh a model in my personal Renku library."

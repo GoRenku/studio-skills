@@ -11,9 +11,10 @@ do not add repeated confirmation for unchanged already-authorized work.
 2. Read one complete Core briefing with `renku generation context --purpose
    <purpose> --target shot-plan:<shot-plan-id> --json`.
 3. Inspect every relevant candidate file and deliberately select or omit it.
-4. Route to the selected provider Skill, choose one exact route and operation
-   from `supported-routes.json`, and resolve its `modelKey` through the Media
-   Producer's canonical `model-catalog.json`.
+4. Route to the selected provider Skill and choose one exact route through
+   `generation models list` or explicit user direction. Prepare from the selected
+   schema and available bundled/personal advice using Media Producer's optional
+   guidance rules; missing catalog keys or guides do not block preparation.
 5. Author one temporary review document with the exact provider-native request.
    Keep the Shot Plan id out of that provider envelope; it returns later only as
    weak attachment context.

@@ -92,8 +92,8 @@ test('shipped skills separate temporary working files from retained Previs autho
     .map((entry) => path.join(skillsRoot, entry.name));
 
   for (const skillDirectory of skillDirectories) {
-    if (path.basename(skillDirectory) === 'install-renku') {
-      continue; // Installation runs before a Project workspace exists.
+    if (['install-renku', 'model-researcher'].includes(path.basename(skillDirectory))) {
+      continue; // Installation and personal model research require no Project.
     }
     const skill = readFileSync(path.join(skillDirectory, 'SKILL.md'), 'utf8');
     assert.match(skill, /^## Project Workspace$/m, skillDirectory);
@@ -110,6 +110,9 @@ test('shipped skills separate temporary working files from retained Previs autho
   }
 
   for (const markdownPath of listMarkdownFiles(skillsRoot)) {
+    if (markdownPath.startsWith(path.join(skillsRoot, 'model-researcher') + path.sep)) {
+      continue; // Global library imports can use temporary files without a Project.
+    }
     const contents = readFileSync(markdownPath, 'utf8');
     for (const match of contents.matchAll(/--file\s+([^\s`\\]+)/g)) {
       const fileArgument = match[1];

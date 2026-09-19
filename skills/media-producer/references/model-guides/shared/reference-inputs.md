@@ -22,12 +22,13 @@ state, department names, review history, asset ids, file names, Production Lookb
 names, Cast Design names, Location Design names, and prior generated images
 that are not attached to the request.
 
-## Required Reads
+## Reference advice
 
-Read the canonical model guide from `model-catalog.json` and the selected
-provider route's adapter before writing a reference-aware prompt. The model
-guide decides how the model uses visual evidence. The adapter decides which
-inputs are visible and how the prompt may mention them.
+Read available canonical advice from `model-catalog.json`, the selected route's
+optional adapter, and personal notes under Media Producer's independent guidance
+rules. Missing guides or keys do not block preparation. Use the selected schema
+and current provider documentation for actual reference input support; available
+advice can explain visual evidence and native mention syntax.
 
 ## Prompt Grammar By Endpoint Shape
 

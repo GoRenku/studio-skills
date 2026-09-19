@@ -7,17 +7,8 @@ import { pathToFileURL } from 'node:url';
 const TEMPLATE_CONTRACT_VERSION = 1;
 
 export async function buildGenerationConfigurationVisualizationDescriptor(input) {
-  const routeCatalogs = await Promise.all(input.routeIndexes.map(async (filePath) => {
-    const document = JSON.parse(await readRegularFile(filePath, '--route-index'));
-    if (!isRecord(document) || typeof document.provider !== 'string') {
-      throw new Error(`Route index does not declare a provider: ${filePath}`);
-    }
-    return { provider: document.provider, document };
-  }));
-  routeCatalogs.sort((left, right) => left.provider.localeCompare(right.provider));
-  const providers = routeCatalogs.map(({ provider }) => provider);
-  if (new Set(providers).size !== providers.length) {
-    throw new Error('Each --route-index must describe a different provider.');
+  if (!/^[a-f0-9]{64}$/.test(input.routeCatalogSha256 ?? '')) {
+    throw new Error('--route-catalog-sha256 must be an effective route SHA-256 digest.');
   }
   const [visualizeSkill, templateContract] = await Promise.all([
     readRegularFile(input.visualizeSkillPath, '--visualize-skill'),
@@ -28,7 +19,7 @@ export async function buildGenerationConfigurationVisualizationDescriptor(input)
     model: input.model,
     operation: input.operation,
     inputMode: input.inputMode,
-    routeCatalogSha256: sha256(canonicalJson(routeCatalogs)),
+    routeCatalogSha256: input.routeCatalogSha256,
     visualizeSkillVersion: input.visualizeSkillVersion,
     visualizeSkillSha256: sha256(visualizeSkill),
     templateContractVersion: TEMPLATE_CONTRACT_VERSION,
@@ -44,16 +35,13 @@ export async function writeGenerationConfigurationVisualizationDescriptor(input)
 
 function parseArguments(argv) {
   const values = new Map();
-  const routeIndexes = [];
   for (let index = 0; index < argv.length; index += 2) {
     const flag = argv[index];
     const value = argv[index + 1];
     if (!flag?.startsWith('--') || !value) {
       throw new Error('Every argument must be a flag followed by a value.');
     }
-    if (flag === '--route-index') {
-      routeIndexes.push(value);
-    } else if (values.has(flag)) {
+    if (values.has(flag)) {
       throw new Error(`Flag may be provided only once: ${flag}`);
     } else {
       values.set(flag, value);
@@ -66,32 +54,17 @@ function parseArguments(argv) {
     }
     return value;
   };
-  if (routeIndexes.length === 0) {
-    throw new Error('At least one --route-index is required.');
-  }
   return {
     provider: required('--provider'),
     model: required('--model'),
     operation: required('--operation'),
     inputMode: required('--input-mode'),
-    routeIndexes,
+    routeCatalogSha256: required('--route-catalog-sha256'),
     visualizeSkillPath: required('--visualize-skill'),
     visualizeSkillVersion: required('--visualize-skill-version'),
     templateContractPath: required('--template-contract'),
     outputPath: required('--output'),
   };
-}
-
-function canonicalJson(value) {
-  if (Array.isArray(value)) {
-    return `[${value.map(canonicalJson).join(',')}]`;
-  }
-  if (isRecord(value)) {
-    return `{${Object.keys(value).sort().map((key) =>
-      `${JSON.stringify(key)}:${canonicalJson(value[key])}`
-    ).join(',')}}`;
-  }
-  return JSON.stringify(value);
 }
 
 function sha256(value) {
@@ -142,10 +115,6 @@ async function writeFileAtomically(filePath, contents) {
       await fs.unlink(temporaryPath).catch(() => undefined);
     }
   }
-}
-
-function isRecord(value) {
-  return value !== null && typeof value === 'object' && !Array.isArray(value);
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

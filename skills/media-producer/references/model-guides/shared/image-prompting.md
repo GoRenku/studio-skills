@@ -12,12 +12,11 @@ user reviews them.
 2. Read the purpose guide named by `SKILL.md` and consume the current
    `generation context` report. Purpose guides own craft guidance, not Project
    relationship discovery.
-3. Route to the selected provider Skill and match one exact entry in its
-   `supported-routes.json`. Take the route's `modelKey` and operation exactly.
-4. Read `../model-catalog.json`, the matched canonical model guide, and the
-   operation guide named by that catalog entry when one exists. Then read the
-   provider adapter named by the route, when present. The canonical model guide
-   owns prompt craft; the adapter owns native fields and mention syntax.
+3. Route to the selected provider Skill and choose the exact executable identity
+   through `generation models list` or explicit user direction.
+4. Read available advice from `../model-catalog.json`, optional operation guides,
+   provider adapters, and personal Markdown using Media Producer's guidance rules.
+   Missing entries, keys, or guides do not block schema-based preparation.
 5. Use generation guidance for every image purpose except `image.edit`.
    Use revise-source guidance for every new `image.edit` request.
 6. Combine `targetContext`, `visualLanguage`, advisory `outputGuidance`, the

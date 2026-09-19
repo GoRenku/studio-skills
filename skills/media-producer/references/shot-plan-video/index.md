@@ -16,10 +16,11 @@ weak authoring context, not ownership, dependency state, or a selected video.
    For multiple clips or an incomplete-output continuation, read `scene-segmentation.md`.
 4. Read `../model-guides/shared/prompt-input-visibility.md` and
    `../model-guides/shared/video-quality-checklist.md`.
-5. Choose one exact route and operation from the provider Skill's
-   `supported-routes.json`. Resolve its `modelKey` through
-   `../model-guides/model-catalog.json`, then read the canonical model and
-   operation guides plus the route's optional provider adapter.
+5. Choose an exact route through `generation models list` or explicit user
+   direction. Use the selected schema and optional advice under Media Producer's
+   guidance rules. Look up available bundled `modelKey` advice through
+   `../model-guides/model-catalog.json` independently of personal labels; missing
+   routes, keys, or guides do not block preparation.
 
 ## Input modes
 

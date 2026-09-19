@@ -10,43 +10,24 @@ import {
   materializeGenerationConfigurationVisualization,
 } from './materialize-generation-configuration-visualization.mjs';
 
-test('builds a stable descriptor from semantic route index content', async () => {
+test('uses the effective route digest without reading optional guidance', async () => {
   const directory = await fs.mkdtemp(path.join(os.tmpdir(), 'renku-card-descriptor-'));
-  const firstRouteIndex = path.join(directory, 'fal.json');
-  const secondRouteIndex = path.join(directory, 'pika.json');
   const visualizeSkillPath = path.join(directory, 'SKILL.md');
-  const templateContractPath = path.join(directory, 'inline-generation-configuration.md');
-  await fs.writeFile(firstRouteIndex, JSON.stringify({
-    routes: [{ apiId: 'openai/gpt-image-2' }],
-    provider: 'fal-ai',
-  }));
-  await fs.writeFile(secondRouteIndex, JSON.stringify({
-    provider: 'pika',
-    routes: [{ apiId: 'bytedance/seedream-5.0-pro/text-to-image' }],
-  }));
-  await fs.writeFile(visualizeSkillPath, '# Visualize\n');
-  await fs.writeFile(templateContractPath, '# Inline generation configuration\n');
-  const input = {
-    provider: 'fal-ai',
-    model: 'openai/gpt-image-2',
-    operation: 'text-to-image',
-    inputMode: 'text',
-    routeIndexes: [secondRouteIndex, firstRouteIndex],
-    visualizeSkillPath,
-    visualizeSkillVersion: '1.0.27',
-    templateContractPath,
-  };
-
+  const templateContractPath = path.join(directory, 'contract.md');
+  await fs.writeFile(visualizeSkillPath, '# Visualize');
+  await fs.writeFile(templateContractPath, '# Configuration');
+  const input = { provider: 'fal-ai', model: 'personal/new-model',
+    operation: 'text-to-image', inputMode: 'text', routeCatalogSha256: 'a'.repeat(64),
+    visualizeSkillPath, visualizeSkillVersion: '1.0.27', templateContractPath };
   const first = await buildGenerationConfigurationVisualizationDescriptor(input);
-  const second = await buildGenerationConfigurationVisualizationDescriptor({
-    ...input,
-    routeIndexes: [firstRouteIndex, secondRouteIndex],
-  });
-  assert.deepEqual(first, second);
-  assert.equal(first.routeCatalogSha256.length, 64);
-  assert.equal(first.visualizeSkillSha256.length, 64);
-  assert.equal(first.templateContractVersion, 1);
-  assert.equal(first.templateContractSha256.length, 64);
+  assert.equal(first.routeCatalogSha256, input.routeCatalogSha256);
+  assert.deepEqual(await buildGenerationConfigurationVisualizationDescriptor(input), first);
+  const changed = await buildGenerationConfigurationVisualizationDescriptor({
+    ...input, routeCatalogSha256: 'b'.repeat(64) });
+  assert.notEqual(changed.routeCatalogSha256, first.routeCatalogSha256);
+  assert.equal(changed.templateContractSha256, first.templateContractSha256);
+  await assert.rejects(buildGenerationConfigurationVisualizationDescriptor({
+    ...input, routeCatalogSha256: 'invalid' }), /SHA-256/);
 });
 
 test('materializes request data safely without changing the shared template', async () => {

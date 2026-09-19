@@ -104,20 +104,29 @@ Read only the purpose craft guide relevant to the current destination.
 
 ## Resolve canonical model guidance
 
-Read the selected provider Skill's `references/supported-routes.json` and choose
-the exact route and operation. Copy the route's `apiId` verbatim into the review
-document's `model` field and every generation command. Never use `modelKey` as
-the executable model. Take that route's `modelKey`, then read
-`references/model-guides/model-catalog.json`. Load the matched canonical model
-guide and the operation guide named by the catalog. This canonical model guide
-owns provider-independent prompt craft. Stop if the route, model, operation, or
-required guide is missing.
+List effective discovery choices with `renku generation models list --json`,
+passing all five provider Skills' `references/supported-routes.json` paths as
+repeated `--route-index` flags. Personal entries override exact discovery labels.
+An explicitly selected unlisted route can proceed without installation. Copy the
+exact `apiId` into the review document's `model` field; never execute `modelKey`.
+Use `generation models show --provider <provider> --model <apiId> --json` to
+obtain the optional `personalGuidePath`.
 
-Read the route's optional provider adapter only after the canonical model
-guidance. The model guide owns prompt craft. The provider adapter owns native
-request fields, input ordering, and provider-visible mention syntax. The live
-provider schema owns current fields and constraints. An adapter must never
-replace or duplicate model guidance.
+Independently look up the selected exact route in its current bundled index.
+If it supplies a `modelKey`, consult `references/model-guides/model-catalog.json`
+and read an available canonical model guide and useful operation advice. Read
+an available provider adapter for native notation and ordering. Read personal
+Markdown if present. Current bundled guidance is the curated default; personal
+notes add advice, and explicit user preferences take priority. A personal route
+or note never hides later bundled curation. Do not rewrite notes during generation.
+
+Missing routes, catalog keys, guides, or operation advice are ordinary absence:
+continue without a warning or approval question. Prepare only the selected route
+from its live/cached schema and optional advice; consult provider documentation
+when needed. Explain actual input mismatches using that schema or documentation.
+Do not prefetch alternative schemas, copy schemas into the library, or introduce
+a separate capability check or mandatory transport/output compatibility audit.
+The provider schema owns executable fields and constraints.
 
 Before authoring the request, read
 `workflowPolicy.enableProviderPromptExpansion`. Inspect the selected route's
@@ -166,12 +175,12 @@ above.
 
 Prepare the initial authored prompt, exact chosen references, and native values
 first. Treat explicit user direction or the matching Project Setting only as
-the initial selection. Read the selected provider/model's Skill, guide, adapter,
+the initial selection. Read the selected provider/model's Skill, available advice,
 and fresh Core-managed schema snapshot, then create controls only for that
 selection. Inspect the system cache before any live schema request: reuse a
 compatible entry for 24 hours, refresh it once when expired, and rebuild only
-when the schema or template dependencies changed. Read only the other
-providers' small route indexes to populate the Provider and Model selectors;
+when the schema or template dependencies changed. Use the effective
+`generation models list` result to populate the Provider and Model selectors;
 never read alternative provider Skills, guides, adapters, docs, or schemas
 before the user selects one. Advanced providers remain explicit one-request
 choices, and Codex appears only when its built-in image capability is
@@ -183,8 +192,8 @@ and never persists choices to Project Settings.
 
 When the user changes Provider or Model, the component explains that the prompt
 and settings must be prepared again and sends a reconfiguration follow-up rather
-than accepting the old controls. Read only that selected route's Skill, guide,
-adapter, and fresh cached or newly fetched schema, recreate the prompt when its
+than accepting the old controls. Read only that selected route's Skill, available
+advice, and fresh cached or newly fetched schema, recreate the prompt when its
 canonical model changed, and rematerialize the same task-local visualization
 source file from that route's cached template. When the canonical model is
 unchanged, preserve the prompt and only schema-compatible exact native values.
