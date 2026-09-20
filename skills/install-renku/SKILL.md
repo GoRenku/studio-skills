@@ -8,7 +8,7 @@ description: Install the Renku runtime on macOS or Windows, launch Studio in a v
 Take the user from an installed skills plugin to a running local Studio and a
 configured Project Library. No movie project, Renku executable, source checkout,
 Node.js, or package manager is required to begin. This skill installs the runtime;
-it does not reinstall the plugin that supplied it.
+the platform installer also offers standalone skills for the user's chosen agents.
 
 ## Inspect and install
 
@@ -24,10 +24,13 @@ detection, official installers, launcher paths, and visible terminal commands.
    documented launcher path before treating a missing PATH entry as a missing
    install. If the command belongs to another product or is broken, explain the
    finding before a targeted repair; do not overwrite an unrelated executable.
-3. If absent, run the official installer for the supported platform. The user's
-   installation request authorizes this work; follow actual tool approval
-   requirements without inventing a second confirmation gate. Preserve checksum
-   verification. Report download, extraction, or smoke-check failures and stop
+3. If absent, run the official installer in a visible local terminal for the
+   supported platform. The user's installation request authorizes this work; follow actual tool approval
+   requirements without inventing a second confirmation gate. The installer uses
+   bundled Node/npm, prepares Git if needed, and prompts for agent selection.
+   Let the user complete these interactive steps; do not run setup in a sandbox
+   without a controlling terminal. Preserve checksum verification. Report
+   download, extraction, or smoke-check failures and stop
    that attempt; do not bypass verification or switch to a source build.
 4. Verify the installed launcher with `about`. Use its full path in the current
    session if PATH has not refreshed. The installer may require restarting

@@ -16,7 +16,7 @@ default launcher is `$HOME/.local/bin/renku`. An existing
 `RENKU_BIN_ROOT` override changes that location; inspect only relevant path
 variables, not the full environment, which can contain secrets.
 
-If installation is needed:
+If installation is needed, run this in a visible Terminal window:
 
 ```sh
 curl -fsSL https://downloads.gorenku.com/install.sh | sh
@@ -27,6 +27,10 @@ Node runtime, and activates a version beneath `$HOME/.local/share/renku` by
 default. `RENKU_INSTALL_ROOT` and `RENKU_BIN_ROOT` are supported overrides.
 Use existing explicit overrides; do not invent them to bypass a permission
 failure. Installer PATH changes affect future login shells and restarted apps.
+The installer uses bundled npm and opens interactive agent selection. Missing
+Git opens Apple's Command Line Tools installation; the user completes its
+dialog and presses Return in Terminal before setup continues. Do not install
+system Node or Homebrew as prerequisites.
 
 Verify using the actual launcher; default-path example:
 
@@ -76,7 +80,7 @@ The published target is `win32-x64`. A 64-bit OS check alone does not establish
 x64 support on ARM64; do not promise native ARM64 support. WSL is not the native
 installation environment. Detect emulation/host ambiguity before installation.
 
-If installation is needed:
+If installation is needed, run this in a visible native PowerShell window:
 
 ```powershell
 irm https://downloads.gorenku.com/install.ps1 | iex
@@ -88,6 +92,10 @@ its `bin` directory. `RENKU_INSTALL_ROOT` changes the root and default bin;
 path. User PATH updates affect future processes; the current app may need a
 restart. Prefer the `.cmd` launcher so a `.ps1` execution policy does not prevent
 ordinary runtime launch; do not weaken execution policy.
+The installer uses bundled npm directly, reuses working Git, or downloads a
+verified private MinGit copy when needed. It then prompts for agent selection.
+No separate Node/npm install, administrator access for MinGit, or PowerShell
+execution-policy change is needed for skills setup.
 
 Default-path verification:
 
@@ -146,6 +154,10 @@ where possible; label user-confirmed steps honestly.
   reinstall without addressing the cause.
 - `INSTALL005`: PATH changed for future processes, not installation failure.
   Use the full launcher path now.
+- `INSTALL006`–`INSTALL009`: skills setup could not finish (bundled npm,
+  interactive terminal, Git setup, or skills command). The runtime may already
+  be installed. Resolve the reported problem and rerun the installer in a
+  visible local terminal; do not report skills installed based on runtime success.
 - `CLI161`: incomplete runtime. Explain the error and use the official installer
   for a targeted repair; preserve existing user configuration and projects.
 - `CLI162`: occupied Studio port. Identify/report the conflict; do not kill an
