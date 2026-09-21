@@ -92,8 +92,8 @@ test('shipped skills separate temporary working files from retained Previs autho
     .map((entry) => path.join(skillsRoot, entry.name));
 
   for (const skillDirectory of skillDirectories) {
-    if (['install-renku', 'model-researcher'].includes(path.basename(skillDirectory))) {
-      continue; // Installation and personal model research require no Project.
+    if (path.basename(skillDirectory) === 'model-researcher') {
+      continue; // Personal model research requires no Project.
     }
     const skill = readFileSync(path.join(skillDirectory, 'SKILL.md'), 'utf8');
     assert.match(skill, /^## Project Workspace$/m, skillDirectory);
