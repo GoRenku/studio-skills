@@ -1,6 +1,6 @@
 ---
 name: movie-director
-description: Coordinate Renku Studio movie-making workflows across screenplay, analysis, visual language, casting, locations, scene Beat design, Shot planning, media generation, and production readiness. Use when the user wants a top-level filmmaking sidekick, asks what to do next, wants to make or revise a movie across multiple departments, needs help choosing which Renku Studio skill to use, or asks for director-like guidance that dispatches to specialist skills such as screenplay-drafter, screenplay-analyst, inspiration-analyzer, lookbook-designer, casting-director, production-designer, scene-beat-designer, shot-planner, and media-producer.
+description: Coordinate Renku Studio movie-making workflows across screenplay, analysis, visual language, casting, locations, scene Beat design, Shot planning, media generation, and production readiness. Use when the user wants a top-level filmmaking sidekick, asks what to do next, wants to make or revise a movie across multiple departments, needs help choosing which Renku Studio skill to use, asks to stop the local Studio server, or asks for director-like guidance that dispatches to specialist skills such as screenplay-drafter, screenplay-analyst, inspiration-analyzer, lookbook-designer, casting-director, production-designer, scene-beat-designer, shot-planner, and media-producer.
 ---
 
 # Movie Director
@@ -33,6 +33,16 @@ QA images, downloads, crops, or scratch files at the Project root.
 Use this skill as the top-level Renku Studio coordinator for making a movie. It routes work to specialist skills, keeps prerequisites visible, and helps the user advance without pretending unsupported departments are complete.
 
 This skill should coordinate. It should not replace specialist skills or write their durable artifacts directly.
+
+## Stop Studio
+
+When the user asks to stop the local Studio server, run `renku studio stop`.
+This command requests a graceful shutdown and waits for the server to stop;
+`renku studio server status` can confirm its state afterward. A stop request
+does not require an open Project or Studio selection, so skip the project
+context steps below. The command uses local HTTP; request loopback network
+permission if the sandbox blocks it. Do not stop Studio as part of an unrelated
+filmmaking workflow.
 
 ## Start Here
 
