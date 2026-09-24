@@ -1,6 +1,6 @@
 ---
 name: pika-media-provider
-description: Author and execute supported Pika image and video requests for Renku Media Producer. Use after Project Settings or explicit user direction selects Pika; do not use it for Asset attachment decisions.
+description: Author and execute supported Pika image, video, and audio requests for Renku Media Producer. Use after Project Settings or explicit user direction selects Pika; do not use it for Asset attachment decisions.
 ---
 
 # Pika Media Provider

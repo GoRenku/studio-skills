@@ -1,6 +1,6 @@
 ---
 name: wavespeed-media-provider
-description: Author and execute explicitly selected supported WaveSpeed image or video requests for Renku Media Producer. Do not use it for automatic Project provider selection.
+description: Author and execute explicitly selected supported WaveSpeed image, video, or audio requests for Renku Media Producer. Do not use it for automatic Project provider selection.
 ---
 
 # WaveSpeed Media Provider

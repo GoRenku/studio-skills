@@ -178,7 +178,10 @@ references, current prompt, selected provider/model, prepared provider/model,
 and previous native values. It does not accept settings, author a review
 document, or generate media.
 
-In the follow-up turn, read only the newly selected provider Skill, exact route,
+In the follow-up turn, first rerun `renku credentials status --json` when the
+provider changed. If its key is absent, follow Media Producer's Settings-link
+preflight and wait for a fresh configured status before preparing the route.
+Then read only the newly selected provider Skill, exact route,
 adapter, canonical model/operation guides, and fresh cached or newly fetched
 schema. Resolve the selected route's cache entry before contacting its provider.
 Confirm that it can carry every non-negotiable appearance authority, first/last

@@ -29,6 +29,28 @@ Expected behavior:
 - never silently falls back, adds a Studio capability API, or sends `codex` to
   `renku generation execute`.
 
+## Missing selected-provider key
+
+The user asks for Fal.ai media while no provider has a saved key, or only
+Pika has a saved key.
+
+Expected behavior:
+
+- chooses Fal.ai from the current request and Project context, then calls
+  `renku credentials status --json` before writing the prompt or preparing
+  references, schemas, or visualization;
+- checks `fal-ai.configured`, not whether any provider is configured;
+- gives the user the live Studio URL with `/?settings=provider-credentials`,
+  opens it when browser control is available, and explains Save and resume;
+- never asks for a key in chat or silently changes provider;
+- reruns status after the user saves, and pauses again if Fal.ai remains absent.
+
+The same check is skipped for Codex built-in image generation. An invalid but
+saved key proceeds to ordinary provider validation; presence is not proof of
+authentication. First-run Project Library setup leads to its key step. A
+provider switch in the inline component runs the new provider check before
+preparing its route.
+
 ## Fal.ai Preview prompt edit
 
 The user asks for a Cast Profile and edits the prompt in Preview.
@@ -50,8 +72,8 @@ The user explicitly names an advanced provider and model.
 
 Expected behavior:
 
-- routes to the named provider Skill only when the model appears in its index;
-- stops on an unindexed model instead of substituting one;
+- routes to the named provider Skill and uses the exact selected model;
+- permits an explicitly selected unlisted route through its live schema;
 - never makes the advanced provider a Project Settings default.
 
 ## Pika Project lane and explicit override
@@ -73,7 +95,7 @@ Expected behavior:
 - validates before Preview, rereads and validates after a prompt edit, executes
   once, reviews the artifact, and attaches exact returned provenance; and
 - never calls Pika directly, switches provider/model after failure, or turns
-  the four-operation Skill index into an Engines allowlist.
+  the Skill index into an Engines allowlist.
 
 ## Interrupted asynchronous job
 

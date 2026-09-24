@@ -81,8 +81,9 @@ required visual-reference matching.
 ## Choose the execution lane
 
 Read the current Project Settings and the user's explicit direction. The image
-lane is `codex`, `fal-ai`, or `pika`; video is `fal-ai` or `pika`; audio is
-`elevenlabs` or `fal-ai`.
+lane is `codex`, `fal-ai`, or `pika`; video is `fal-ai` or `pika`; audio defaults
+to `elevenlabs` or `fal-ai`. Pika's audio routes may be selected explicitly for
+a request when they support its inputs.
 Replicate and WaveSpeed are advanced explicit choices only. World Labs is not a
 generic Media Producer lane; route Location World work to
 `location-world-producer`.
@@ -95,6 +96,26 @@ generic Media Producer lane; route Location World work to
 - For Codex, continue only when the current harness exposes its built-in image
   generation capability. If absent, report that fact and ask whether to use
   Fal.ai or Pika. Wait for the user's choice and never silently fall back.
+
+Before writing a prompt, inspecting references, fetching a provider schema,
+or building a configuration component, run `renku credentials status --json`
+for the selected external provider. Check that provider's `configured` value;
+another provider's saved key does not satisfy it. Codex built-in image needs
+no provider key. If status fails, report its structured read error rather than
+calling it a missing key. If the key is missing, pause preparation and tell
+the user that this provider needs a saved key. Run `renku studio server status --json`
+for `agent.browserUrl`; if Studio is stopped, start it through the existing
+foreground `renku studio start` workflow. Open the local
+`/?settings=provider-credentials` link when browser control is available and
+give the user the link in chat. Ask them to enter the selected provider's key
+in **Settings → Provider API keys**, select **Save**, and tell you when done.
+For first-run setup, guide them through Project Library setup to its optional
+key step. Never ask for the key in chat or record it in a request document.
+After the user says it is saved, rerun `renku credentials status --json` and
+continue only when that provider is configured. Recheck on a provider switch.
+This confirms saved presence only; live provider validation still handles an
+invalid or expired key. Do not silently switch providers or retry a submitted
+job on a missing-key result.
 
 Read [references/workflow.md](references/workflow.md) before authoring or
 executing a request. For image work, also read

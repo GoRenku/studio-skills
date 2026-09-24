@@ -44,6 +44,17 @@ scratch files at the Project root.
 
 1. Resolve the current Project and exact Location id. Read Location production
    design context and useful existing Location media.
+   Before preparing a Sheet, four source images, or a World prompt, run
+   `renku credentials status --json` and check `world-labs.configured`. If
+   status fails, report its read error rather than calling it a missing key.
+   If absent, run `renku studio server status --json`, start Studio through its
+   existing foreground workflow if needed, and open the returned browser URL
+   with `/?settings=provider-credentials` when browser control is available.
+   Give the user that link and ask them to save the World Labs key in
+   **Settings → Provider API keys** and tell you when done. Never ask for the
+   key in chat. Rerun the status command before resuming. A saved key does not
+   guarantee provider validity. This check does not replace the paid Marble
+   confirmation in step 9.
 2. Read [references/workflow.md](references/workflow.md) completely.
 3. Establish and show one canonical Location contract in clear prose. It must
    describe both geometry and appearance: one-space boundary, named sides,

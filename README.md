@@ -35,6 +35,38 @@ maintained workflow entrypoints, rather than a second set of tutorials here.
 | Model research and curation | [Model Researcher](skills/model-researcher/SKILL.md) |
 | Provider execution | [Fal.ai](skills/fal-ai-media-provider/SKILL.md), [ElevenLabs](skills/elevenlabs-media-provider/SKILL.md), [Pika](skills/pika-media-provider/SKILL.md), [Replicate](skills/replicate-media-provider/SKILL.md), [WaveSpeed](skills/wavespeed-media-provider/SKILL.md) |
 
+## Models and providers
+
+The [bundled media model table](docs/bundled-media-models.md) shows which image,
+video, and audio models are included for each provider and which generation
+modes are listed. The table is a curated selection, not the providers' full
+model inventories.
+
+## Add a model for your own use
+
+With a Studio runtime that provides `renku generation models`, ask your Renku
+agent to use the [Model Researcher](skills/model-researcher/SKILL.md) skill. For
+example:
+
+> Add `<exact model route>` on `<provider>` to my personal media model library.
+> Research the model and save useful prompting advice if available.
+
+Give the exact provider and model version when you know them. The agent checks
+the provider route, saves its name and exact ID through the `renku generation models`
+command, and can keep optional Markdown advice in your personal library.
+This works without an active Project. You can then ask the
+[Media Producer](skills/media-producer/SKILL.md) to use the model in any of your
+Projects when the provider supports its execution protocol.
+
+Your personal model library and notes are stored on your device, outside the
+Studio runtime and plugin installations. They are shared across your Projects,
+and updating either installation does not replace them.
+The agent can show you the actual library and notes paths. Saving a model does
+not supply a provider API key or confirm that a paid generation will succeed;
+enter the selected provider's key in Studio **Settings → Provider API keys**
+before generating. For the exact command sequence, see the
+[personal model workflow](skills/model-researcher/references/workflow.md).
+
 ## Repository layout
 
 - `skills/`: skill instructions (`SKILL.md`) and supporting references, samples,
@@ -68,20 +100,3 @@ maintainer responsibilities.
 - [Studio CLI reference](https://github.com/GoRenku/studio/blob/main/docs/cli/commands.md)
 - [Studio architecture](https://github.com/GoRenku/studio/blob/main/docs/architecture/README.md)
 - [Codex permissions for Renku skills](docs/codex-renku-permissions.md)
-
-### Personal media models
-
-`model-researcher` adds or refreshes a three-field personal route and optional
-Markdown shared across Projects. Use a runtime exposing `renku generation models`;
-the first supporting release version will be recorded when published. Runtime and
-plugin releases remain independent. Personal content lives at CLI-returned global
-paths outside either installation. Media Producer discovers personal routes and
-prepares requests using current schemas and optional bundled/personal advice.
-
-For maintainer curation, explicitly ask Model Researcher to add or refresh a
-model in the Studio Skills distribution. Its
-[bundled authoring workflow](skills/model-researcher/references/bundled-authoring.md)
-edits the source checkout's existing route indexes and model guides, validates
-the changes, and leaves them ready for review and the normal plugin release.
-Personal additions remain the default; bundled authoring does not change the
-personal library or publish a release.

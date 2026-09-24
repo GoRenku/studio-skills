@@ -30,11 +30,16 @@ controls are actually available; this guide owns the model-facing prompt.
 
 ## Provenance
 
-Recovered from the Seedream research and model heuristics present before the
-provider refactor. The earlier material reviewed Fal.ai's Seedream 5 overview,
-its exposed v5 Lite route, and the Seedream 4.0 model-family paper. Those sources
-establish prompting direction, not the current 5.0 Pro transport contract:
+The creative advice above was recovered from earlier Seedream research. Current
+Seedream 5.0 Pro text and edit routes were checked on Fal.ai, Pika, WaveSpeed,
+and Replicate on 2026-09-24. Their input fields and limits still come from the
+selected route's live schema:
 
 - https://fal.ai/seedream-5.0
-- https://fal.ai/models/fal-ai/bytedance/seedream/v5/lite/text-to-image
-- https://arxiv.org/abs/2509.20427
+- https://fal.ai/models/bytedance/seedream/v5/pro/text-to-image/api
+- https://fal.ai/models/bytedance/seedream/v5/pro/edit/api
+- https://dev.pika.art/llms/bytedance/seedream-5.0-pro/text-to-image
+- https://dev.pika.art/llms/bytedance/seedream-5.0-pro/image-to-image
+- https://wavespeed.ai/models/bytedance/seedream-v5.0-pro
+- https://wavespeed.ai/models/bytedance/seedream-v5.0-pro/edit
+- https://replicate.com/bytedance/seedream-5-pro
