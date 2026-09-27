@@ -206,14 +206,59 @@ Handle the typed result:
 
 - `imported`: read back the new exact source-backed Screenplay.
 - `refreshed`: read back the immediately imported exact source replacement.
-- `unchanged`: report the no-op and do not run follow-up mutation work.
+- `unchanged`: report that the Screenplay did not change. Still complete missing
+  Project Information as described below; do not repeat fact enrichment merely
+  because the same FDX was supplied again.
 
 A user-explicit CLI import accepts the valid source immediately and may replace
 current Scene identities. It has no approval token or merge mode. The detected
 Studio workflow instead requires review; see External Export And Reviewed Update.
 
+After a successful explicit import, including `unchanged`, enrich Project
+Information before any fact handoff:
+
+1. Read `renku screenplay show --json` and
+   `renku info show --project <project-name> --json`. Read the canonical script
+   across its full story before drafting missing text. For a long script, work
+   through bounded portions and consolidate the beginning, central conflict,
+   major turns, and ending. If command output is too large, save the JSON under
+   the Project's `tmp/scratch/` and inspect it in bounded portions rather than
+   relying on truncated terminal output. Do not summarize from opening scenes,
+   a filename, a title page, or knowledge of a familiar film. If you cannot
+   inspect enough of the script, leave the fields unchanged and explain why.
+2. Consider `logline`, `synopsis`, and `premise` separately. Draft a concise
+   one-sentence story hook, a coherent plot account, and the central dramatic
+   proposition, respectively. Use the supplied story brief to resolve
+   ambiguity, but make the imported script authoritative for its story. Do not
+   copy the same text into all three fields.
+3. Fill absent, null, empty, or whitespace-only fields. You may replace
+   unmistakably temporary text such as `TBD`, `TODO`, `placeholder`, or an
+   explicitly unfinished note. Make this a creative judgment, not a keyword
+   or length test: preserve a short but meaningful sentence. If quality is
+   ambiguous, or substantive text differs from the script, preserve it and
+   tell the user what may need revision.
+   Preserve a meaningful Project title. Change a clearly temporary title only
+   when the supplied FDX has an explicit, unambiguous title; never infer it
+   from the filename or Project name. Do not infer or change aspect ratio or
+   Project language from the screenplay.
+4. Re-read `renku info show --project <project-name> --json` immediately before
+   writing. Omit any field that has become substantive since the first read.
+   Make one `renku info set --project <project-name> ... --json` call containing
+   only the selected fields; skip it when none qualify. Read back with
+   `renku info show --project <project-name> --json` and report what was filled,
+   preserved, or left unresolved.
+
+Do not start Project Information enrichment if FDX import fails. If import
+succeeds but `info set` reports an error, read Project Information back before
+retrying: the write may have persisted even if Studio notification failed.
+Report the Screenplay outcome and the verified metadata outcome separately.
+Retry only fields still missing or clearly temporary. An explicit later import
+of the same FDX may return `unchanged` and still finish this pass. The
+deterministic importer itself never writes creative Project Information. A
+bare CLI import or a detected Studio export does not invoke this agent workflow.
+
 Treat the returned character cues, Scene Headings, and tagged subjects as
-evidence, not Project identities. After import:
+evidence, not Project identities. After `imported` or `refreshed`:
 
 1. Read the canonical Screenplay plus existing Cast Members, Locations, and
    Props.
@@ -226,6 +271,9 @@ evidence, not Project identities. After import:
 4. The coordinator may use accepted evidence to create or revise Project facts,
    but do not bind those facts into an FDX-backed Screenplay. The Core read-only
    gate covers reference operations as well as prose and organization.
+
+After `unchanged`, do not repeat this fact handoff unless the user separately
+asks for another review of the existing Screenplay.
 
 Do not ask the importer to create or match facts. Do not report formatting or
 ScriptNotes as omissions; they remain only in the retained source. Refresh

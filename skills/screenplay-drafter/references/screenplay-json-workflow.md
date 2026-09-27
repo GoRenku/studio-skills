@@ -62,10 +62,41 @@ Use when Screenplay status is entirely empty or `sourceOwnership` is `fdx`:
 renku screenplay import-fdx --file /absolute/path/to/script.fdx --json
 ```
 
+After `imported`, `refreshed`, or `unchanged`, let the agent read the canonical
+Screenplay and current Project Information before writing any story metadata:
+
+```bash
+renku screenplay show --json
+renku info show --project <project-name> --json
+```
+
+Follow the field-by-field preservation and full-script reading rules in
+`../SKILL.md`. For a large readback, save the JSON under `tmp/scratch/` and
+inspect it in bounded portions. Re-read `info show` immediately before a
+write, then make at most one `info set` call with only missing or clearly
+temporary fields. For example, set just a missing logline, or combine
+qualifying fields in the same command:
+
+```bash
+renku info set --project <project-name> --logline <drafted-logline> --json
+renku info set --project <project-name> --logline <drafted-logline> --synopsis <drafted-synopsis> --premise <drafted-premise> --json
+renku info show --project <project-name> --json
+```
+
+The two `info set` lines illustrate alternatives, not consecutive writes. Add
+`--title <source-title>` only when the current title is clearly temporary and
+the supplied FDX states an unambiguous title. Do not set aspect ratio or
+Project language. Skip `info set` entirely when all existing fields are
+substantive. An `unchanged` import may finish missing Project Information, but
+does not repeat Screenplay or fact mutations. If the Project Information write
+reports an error after import, read back Project Information to determine
+whether the write persisted, then retry only fields still qualifying.
+No Project Information write follows a failed import.
+
 The JSON report returns `imported`, `refreshed`, or `unchanged`, exact source
 provenance, counts, character-cue and Scene-heading candidates, and optional
-tagged-subject evidence. It creates no
-Cast Member, Location, Prop, or Screenplay reference. Return this evidence to
+tagged-subject evidence. It creates no Cast Member, Location, Prop, or
+Screenplay reference. After `imported` or `refreshed`, return this evidence to
 `movie-director`, which consumes `projectSettings.screenplayImport`, resolves
 ambiguous identity with the user, and dispatches only enabled follow-up stages.
 The coordinator may use accepted evidence for Project fact work, but do not add
