@@ -17,8 +17,8 @@ model change. The user may explicitly request a deliberate visual departure.
 
 Choose the path through explicit current user direction, then the Project's
 Image provider setting. Do not add a Shot Image-specific setting. If Codex is
-selected but the harness lacks `codex.gpt-image-2`, ask rather than falling back
-to a paid provider.
+selected but the harness lacks built-in image generation, ask rather than
+falling back to a paid provider.
 
 Use the standard temporary review-document workflow. Display Preview when its
 Project setting is on or the user explicitly asks. Honor the Image confirmation

@@ -143,7 +143,9 @@ narrow the provider or model choices. Keep discovery lightweight:
    Do not exclude personal routes for lacking operation or media-kind metadata.
    Existing bundled hints can help presentation but are not capability gates.
    Add Codex for image work only when the active harness exposes it. Selecting
-   an advanced provider is an explicit one-request choice, not a Settings change.
+   another provider for this request is an explicit one-request choice, not a
+   Settings change. A saved Project media preference can initially select its
+   keyed provider even when no bundled route matches the current request.
 3. For only the selected route, read its provider Skill, available bundled advice,
    optional personal Markdown from `generation models show`, and fresh cached or
    newly fetched schema. Missing advice is ordinary absence, without a warning

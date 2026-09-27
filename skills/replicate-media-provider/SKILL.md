@@ -1,6 +1,6 @@
 ---
 name: replicate-media-provider
-description: Author and execute explicitly selected supported Replicate image, video, or audio requests for Renku Media Producer. Do not use it for automatic Project provider selection.
+description: Author and execute supported Replicate image, video, or audio requests when selected by user direction or a saved Project provider preference. Do not choose it automatically as a replacement for another provider.
 ---
 
 # Replicate Media Provider
@@ -16,7 +16,8 @@ evidence, downloads, or scratch files at the Project root.
 - Use `tmp/qa/` for review evidence.
 - Use `tmp/scratch/` for other temporary inputs.
 
-Replicate remains an advanced explicit lane.
+Use Replicate when explicit user direction or a saved Project provider
+preference selects it. Do not switch to it automatically from another provider.
 
 Use `renku generation models list --provider replicate --route-index <absolute-path-to-references/supported-routes.json> --json`
 for this provider's bundled and personal discovery choices. Select the exact

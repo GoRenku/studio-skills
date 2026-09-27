@@ -80,13 +80,16 @@ required visual-reference matching.
 
 ## Choose the execution lane
 
-Read the current Project Settings and the user's explicit direction. The image
-lane is `codex`, `fal-ai`, or `pika`; video is `fal-ai` or `pika`; audio defaults
-to `elevenlabs` or `fal-ai`. Pika's audio routes may be selected explicitly for
-a request when they support its inputs.
-Replicate and WaveSpeed are advanced explicit choices only. World Labs is not a
-generic Media Producer lane; route Location World work to
-`location-world-producer`.
+Read the current Project Settings and the user's explicit direction. The saved
+Image, Video, or Audio provider is the initial preference, including when it is
+Replicate or WaveSpeed with a saved key. The Project media menus offer keyed
+Fal.ai, Pika, Replicate, and WaveSpeed; ElevenLabs is Audio-only, and World Labs
+is reserved for Location World generation outside these menus. A Project default
+does not certify support for the requested media, model, or operation. Check
+only the selected request against current provider guidance. If the preferred
+provider cannot fulfill it, explain the mismatch and ask the user which
+provider or model to use; do not silently switch. Use
+`location-world-producer` for World Labs Location World requests.
 
 - For `fal-ai`, use `fal-ai-media-provider`.
 - For `pika`, use `pika-media-provider`.
@@ -95,7 +98,7 @@ generic Media Producer lane; route Location World work to
 - For `elevenlabs`, use `elevenlabs-media-provider`.
 - For Codex, continue only when the current harness exposes its built-in image
   generation capability. If absent, report that fact and ask whether to use
-  Fal.ai or Pika. Wait for the user's choice and never silently fall back.
+  another provider. Wait for the user's choice and never silently fall back.
 
 Before writing a prompt, inspecting references, fetching a provider schema,
 or building a configuration component, run `renku credentials status --json`
@@ -159,9 +162,10 @@ ambiguous. Never infer the native property from a model name or a checked-in
 field-name map. When the provider returns a rewritten or actual prompt, review
 it as receipt evidence while preserving the authored prompt unchanged.
 
-For the Codex built-in image lane, resolve `gpt-image-2` directly from the same
-catalog. There is no provider adapter; the active image capability contract
-owns its request fields and reference behavior.
+For the Codex built-in image lane, resolve `chatgpt-images-2.5` directly from
+the same catalog. This is a product-family identity, not a selectable Flare or
+Sunburst API variant. There is no provider adapter; the active image capability
+contract owns its request fields and reference behavior.
 
 | Purpose | Craft guide |
 | --- | --- |
@@ -203,9 +207,10 @@ compatible entry for 24 hours, refresh it once when expired, and rebuild only
 when the schema or template dependencies changed. Use the effective
 `generation models list` result to populate the Provider and Model selectors;
 never read alternative provider Skills, guides, adapters, docs, or schemas
-before the user selects one. Advanced providers remain explicit one-request
-choices, and Codex appears only when its built-in image capability is
-available. The component contains configuration only and has no tabs or
+before the user selects one. A saved Project default counts as a provider
+selection; other providers remain explicit one-request choices. Codex appears
+only when its built-in image capability is available. The component contains
+configuration only and has no tabs or
 reference previews. Ordinary image/video references remain review-only in
 Generation Preview; bounded purpose-owned choices such as a Cast Voice may
 appear as configuration controls. The component calls no Renku or provider API

@@ -1,9 +1,8 @@
 # GPT Image 2 Prompt Guide
 
-Use this guide for GPT Image 2 regardless of whether execution uses the Codex
-built-in capability or a supported external provider. The provider route owns
-request fields and reference syntax. Use image-edit prompting only when image
-operation routing selected one exact source as the canvas for a
+Use this guide for GPT Image 2 on a supported external provider. The provider
+route owns request fields and reference syntax. Use image-edit prompting only
+when image operation routing selected one exact source as the canvas for a
 source-preserving modification; a reference-capable provider route can also
 create a new image.
 

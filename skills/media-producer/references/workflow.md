@@ -181,7 +181,8 @@ References, and Configuration view as Preview. Inspection is read-only.
 Codex is a harness capability, not an Engines provider. Use it only when the
 active harness exposes built-in image generation and selected policy or user
 direction chooses it. Author the same review envelope with `provider: "codex"`,
-`model: "gpt-image-2"`, and `mediaKind: "image"`.
+`model: "chatgpt-images-2.5"`, and `mediaKind: "image"`. This identifies the
+Codex product family; it does not assert a Flare or Sunburst API variant.
 
 Preview normally, then invoke the built-in capability directly after
 conversational confirmation. Create safe provenance with the exact final

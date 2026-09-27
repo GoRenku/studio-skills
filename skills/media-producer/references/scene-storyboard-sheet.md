@@ -207,7 +207,7 @@ The Codex review document is:
 ```json
 {
   "provider": "codex",
-  "model": "gpt-image-2",
+  "model": "chatgpt-images-2.5",
   "mediaKind": "image",
   "prompt": "<exact reviewed prompt>",
   "request": {

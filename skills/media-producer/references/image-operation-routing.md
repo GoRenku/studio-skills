@@ -68,8 +68,9 @@ For a source-preserving edit:
 
 The provider endpoint does not choose the Studio purpose. A route such as
 `fal-ai/openai/gpt-image-2/edit` can provide multi-image conditioning for a new
-focused generation. Conversely, Codex may use the same `codex/gpt-image-2`
-identity for both a new generation and an actual source edit. A source image in
+focused generation. Conversely, Codex may use the same
+`codex/chatgpt-images-2.5` family identity for both a new generation and an
+actual source edit. A source image in
 an Additional or continuity slot is not a substitute for `image.edit`.
 
 ## Select execution independently
@@ -79,8 +80,9 @@ through the same precedence for every image purpose: explicit current user
 direction, then the Project image-provider setting.
 
 When that setting selects Codex and no higher-precedence choice overrides it,
-an `image.edit` uses the built-in `codex/gpt-image-2` capability. Pass the exact
-source image as a built-in capability reference and keep the exact authored
+an `image.edit` uses the built-in Codex image capability with the
+`chatgpt-images-2.5` family identity. Pass the exact source image as a built-in
+capability reference and keep the exact authored
 prompt in the shared review envelope. Do not switch to Fal.ai merely because
 its provider route ends in `/edit`.
 

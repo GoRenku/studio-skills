@@ -1,6 +1,7 @@
 {
   "models": [
     { "key": "gpt-image-2", "name": "GPT Image 2", "mediaKind": "image", "guide": "image/gpt-image-2.md", "operations": { "text-to-image": null, "image-edit": null } },
+    { "key": "chatgpt-images-2.5", "name": "ChatGPT Images 2.5 (Codex)", "mediaKind": "image", "guide": "image/chatgpt-images-2.5.md", "operations": { "text-to-image": null, "image-edit": null } },
     { "key": "nano-banana-2", "name": "Nano Banana 2", "mediaKind": "image", "guide": "image/nano-banana.md", "operations": { "text-to-image": null, "image-edit": null } },
     { "key": "nano-banana-pro", "name": "Nano Banana Pro", "mediaKind": "image", "guide": "image/nano-banana.md", "operations": { "text-to-image": null, "image-edit": null } },
     { "key": "grok-imagine-image", "name": "Grok Imagine Image", "mediaKind": "image", "guide": "image/grok-imagine-image.md", "operations": { "text-to-image": null, "image-edit": null } },

@@ -11,7 +11,8 @@ Expected behavior:
   before choosing the execution lane or authoring the prompt;
 - treats returned references as optional evidence rather than a required list;
 - authors a unique Codex review document under
-  `tmp/operations/media-generation/`;
+  `tmp/operations/media-generation/` with the `chatgpt-images-2.5` family
+  identity and no invented Flare or Sunburst variant;
 - opens Preview when policy requires it, then pauses in conversation;
 - rereads the final prompt and invokes the built-in image capability directly;
 - inspects the output and attaches it with exact safe Codex provenance and no
@@ -25,7 +26,7 @@ The same request arrives in a harness without built-in image generation.
 Expected behavior:
 
 - reports that Codex generation is unavailable in this harness;
-- asks whether to use Fal.ai or Pika and waits for the user's choice;
+- asks which other provider to use and waits for the user's choice;
 - never silently falls back, adds a Studio capability API, or sends `codex` to
   `renku generation execute`.
 
@@ -74,7 +75,27 @@ Expected behavior:
 
 - routes to the named provider Skill and uses the exact selected model;
 - permits an explicitly selected unlisted route through its live schema;
-- never makes the advanced provider a Project Settings default.
+- does not change the saved Project default for this one-request choice.
+
+## Keyed provider default with unsupported Audio request
+
+Project Audio Settings select Replicate because its API key is saved. The user
+asks for an Audio model or operation that the selected Replicate route does not
+support.
+
+Expected behavior:
+
+- starts from Replicate as the saved default without treating the Settings
+  choice as proof that the requested Audio route is supported;
+- explains the actual route mismatch and asks which provider or model to use;
+- does not silently switch to ElevenLabs, Fal.ai, Pika, or WaveSpeed;
+- does not add provider/media or model-availability rules to Core or Engines.
+
+The same default-selection rule applies when WaveSpeed is saved for Audio.
+The agent checks only the requested route with the selected provider Skill
+and explains an actual input or model mismatch if one occurs. World Labs is
+never offered in Project Image, Video, or Audio Settings; it serves Location
+World generation. ElevenLabs is offered only in Audio Settings.
 
 ## Pika Project lane and explicit override
 
