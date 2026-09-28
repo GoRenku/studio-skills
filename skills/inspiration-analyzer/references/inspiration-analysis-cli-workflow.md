@@ -4,26 +4,24 @@ Use this reference for command order and report handling.
 
 ## Current Project
 
-Open the project first:
+Resolve the project once from the user or current task context:
 
-```bash
-renku project open <project-name> --json
-```
+Use the known project name with `--project <project-name>`; no `project open` is needed.
 
-If a command fails because no current project is open, open the project and retry.
+If project identity is missing, resolve it once. Do not retry a known permission denial or change global selection for this workflow.
 
 ## Folder Discovery
 
 List folders when the user did not provide a folder ID:
 
 ```bash
-renku inspiration list --json
+renku inspiration list --project <project-name> --json
 ```
 
 Show the selected folder:
 
 ```bash
-renku inspiration show --folder <folder-id> --json
+renku inspiration show --folder <folder-id> --project <project-name> --json
 ```
 
 The report includes:
@@ -44,22 +42,22 @@ find . -maxdepth 1 -type f
 
 ## Validate And Write
 
-Validate without writing:
+For validation-only requests or a review pause, validate without writing:
 
 ```bash
-renku inspiration analysis validate --folder <folder-id> --file tmp/operations/inspiration-analysis.json --json
+renku inspiration analysis validate --folder <folder-id> --file tmp/operations/inspiration-analysis.json --project <project-name> --json
 ```
 
-Write after validation passes:
+For authorized authoring, write directly; Core performs the same validation before writing:
 
 ```bash
-renku inspiration analysis write --folder <folder-id> --file tmp/operations/inspiration-analysis.json --json
+renku inspiration analysis write --folder <folder-id> --file tmp/operations/inspiration-analysis.json --project <project-name> --json
 ```
 
-Read back:
+Read back only if the mutation report lacks needed detail, the outcome is uncertain, or relevant state changed:
 
 ```bash
-renku inspiration analysis show --folder <folder-id> --json
+renku inspiration analysis show --folder <folder-id> --project <project-name> --json
 ```
 
 Successful write reports include:

@@ -19,7 +19,10 @@ Pass:
 - the Core-produced Project generation settings when the handoff depends on
   import automation, image path, Preview, confirmation, or concurrency.
 
-After completion, read back durable state through the CLI. Do not trust a specialist's prose summary alone when a Renku command can verify the result.
+After completion, inspect the specialist's actual CLI mutation report. When it
+contains the required persisted result, use it as verification. Read missing or
+uncertain state, or refresh after intervening changes. A prose-only claim is not
+a mutation report and does not establish persistence.
 
 Resolve a production scene reference before dispatch:
 

@@ -1,5 +1,11 @@
 # Location World Workflow
 
+## Efficient Command Use
+
+Location World commands use the current authoring project. Establish the requested selection once; do not repeat project open during a simple iteration. Reuse sufficient command reports for registration confirmation. Retain four reviewed same-space images, generation approval, exact World/Location attachment, and output inspection.
+
+Consult the relevant CLI reference/help once if syntax is unknown, then reuse verified syntax for this task. Do not discover syntax by attempting mutations. Do not invent `project list`. If a known permission denial blocks cache/output/config or local-network access, explain the requirement and use the authorized host permission flow; do not repeat the denied attempt, read secrets, disable cache persistence, or change permissions. `CLI026` means the mutation succeeded: report the notification warning without replaying the mutation.
+
 ## Source Context
 
 Resolve durable ids instead of names or UI position:

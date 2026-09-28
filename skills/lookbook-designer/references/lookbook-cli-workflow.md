@@ -4,40 +4,37 @@ Use JSON output for every command.
 
 1. Open or confirm the project:
 
-```bash
-renku project open <project-name> --json
-renku project current --json
-```
+Use `--project <project-name>` without changing current authoring selection.
 
 2. Read both project roles:
 
 ```bash
-renku lookbook show --kind production --json
-renku lookbook show --kind storyboard --json
+renku lookbook show --kind production --project <project-name> --json
+renku lookbook show --kind storyboard --project <project-name> --json
 ```
 
-3. Read an authored role before revising it:
+3. Reuse the authored role just read; refresh it only after relevant changes:
 
 ```bash
-renku lookbook show --kind <production|storyboard> --json
+renku lookbook show --kind <production|storyboard> --project <project-name> --json
 ```
 
-4. Validate before writing:
+4. For validation-only intent or a real review pause:
 
 ```bash
-renku lookbook validate --file tmp/operations/lookbook.json --json
+renku lookbook validate --file tmp/operations/lookbook.json --project <project-name> --json
 ```
 
 5. Apply. The document carries the Lookbook role and authored name. Apply creates an unauthored role or updates the current role in place:
 
 ```bash
-renku lookbook apply --file tmp/operations/lookbook.json --json
+renku lookbook apply --file tmp/operations/lookbook.json --project <project-name> --json
 ```
 
-6. Read the role back:
+6. Use the returned Lookbook and changes. Read the role again only if the report is insufficient or state changed:
 
 ```bash
-renku lookbook show --kind <production|storyboard> --json
+renku lookbook show --kind <production|storyboard> --project <project-name> --json
 ```
 
 7. Import example images after files exist in the project. Selection may be
@@ -76,15 +73,15 @@ anchor can be attached, stop or label the result as exploration rather than
 claiming it belongs to the matching set.
 
 ```bash
-renku media import --purpose lookbook.image --target lookbook:<production-lookbook-id> --source <project-relative-path> --select --json
+renku media import --purpose lookbook.image --target lookbook:<production-lookbook-id> --source <project-relative-path> --select --project <project-name> --json
 # Read ownerRecord.id from the JSON report, then choose the intended placement:
-renku lookbook image set-placement --image <ownerRecord.id> --sections thesis --json
-renku lookbook image set-placement --image <ownerRecord.id> --sections composition --anchor composition-clinical-symmetry --json
-renku lookbook image set-placement --image <ownerRecord.id> --sections thesis,texture --anchor texture-cannon-material-states --json
+renku lookbook image set-placement --image <ownerRecord.id> --sections thesis --project <project-name> --json
+renku lookbook image set-placement --image <ownerRecord.id> --sections composition --anchor composition-clinical-symmetry --project <project-name> --json
+renku lookbook image set-placement --image <ownerRecord.id> --sections thesis,texture --anchor texture-cannon-material-states --project <project-name> --json
 
-renku media import --purpose lookbook.image --target lookbook:<storyboard-lookbook-id> --source <project-relative-path> --select --json
+renku media import --purpose lookbook.image --target lookbook:<storyboard-lookbook-id> --source <project-relative-path> --select --project <project-name> --json
 # Read ownerRecord.id from this import report before placement:
-renku lookbook image set-placement --image <ownerRecord.id> --sections styleBrief --json
+renku lookbook image set-placement --image <ownerRecord.id> --sections styleBrief --project <project-name> --json
 ```
 
 Keep `--select` only when the imported image should become the Lookbook's
@@ -107,8 +104,8 @@ Production `thesis` is a single-image slot: placing a new image with `--sections
 Source Inspiration relationships:
 
 ```bash
-renku lookbook inspiration list --lookbook <lookbook-id> --json
-renku lookbook inspiration set --lookbook <lookbook-id> --file tmp/operations/source-inspirations.json --json
+renku lookbook inspiration list --lookbook <lookbook-id> --project <project-name> --json
+renku lookbook inspiration set --lookbook <lookbook-id> --file tmp/operations/source-inspirations.json --project <project-name> --json
 ```
 
 Successful mutation reports include `resourceKeys`. Treat those as Studio refresh keys, not as creative content.

@@ -50,9 +50,9 @@ Storyboard Lookbooks guide how Beat Storyboards are rendered and must be
 3. Decide whether the user wants the Production role, the Storyboard role, media import, or brainstorming only.
 4. Gather source context from the user's direction, Inspiration folders, existing analyses, raw folder images, named references, screenplay context, or existing Lookbooks.
 5. Write a complete `kind: "productionLookbook"` or `kind: "storyboardLookbook"` JSON document.
-6. Validate through the Renku CLI.
-7. Apply through the Renku CLI. Apply creates an unauthored role or updates the existing role while preserving its id.
-8. Read back and confirm what changed.
+6. Use separate validation only for validation-only intent or a review pause.
+7. Apply through the Renku CLI, which validates before writing. Apply creates an unauthored role or updates the existing role while preserving its id.
+8. Confirm the returned Lookbook and changes; read back only for missing detail or uncertain state.
 
 Ask only when a missing choice materially changes the Lookbook. If the user wants momentum, make a clear assumption and proceed.
 
@@ -60,21 +60,19 @@ Ask only when a missing choice materially changes the Lookbook. If the user want
 
 For an existing project:
 
-```bash
-renku project open <project-name> --json
-```
+Use the known project name with `--project <project-name>`; no `project open` is needed.
 
 Read both project Lookbook roles:
 
 ```bash
-renku lookbook show --kind production --json
-renku lookbook show --kind storyboard --json
+renku lookbook show --kind production --project <project-name> --json
+renku lookbook show --kind storyboard --project <project-name> --json
 ```
 
-An unauthored role returns `CORE_LOOKBOOK_NOT_AUTHORED`; that means the role is empty, not unselected. Read an authored role before revising it:
+An unauthored role returns `CORE_LOOKBOOK_NOT_AUTHORED`; that means the role is empty, not unselected. Reuse the authored role already read; refresh after relevant changes:
 
 ```bash
-renku lookbook show --kind <production|storyboard> --json
+renku lookbook show --kind <production|storyboard> --project <project-name> --json
 ```
 
 ## Decide The Role
@@ -89,12 +87,11 @@ Revise an authored role only when the user asks to change that project direction
 
 ## Use Inspiration Sources
 
-If the user names one or more Inspiration folders:
+If the user names Inspiration folders, list only when the exact folder id is unknown; show includes the analysis:
 
 ```bash
-renku inspiration list --json
-renku inspiration show --folder <folder-id> --json
-renku inspiration analysis show --folder <folder-id> --json
+renku inspiration list --project <project-name> --json
+renku inspiration show --folder <folder-id> --project <project-name> --json
 ```
 
 Use the returned folder name, folder path, and analysis. Do not expect image lists from the CLI. The folder path is enough.
@@ -112,22 +109,22 @@ If an Inspiration folder has no analysis, either ask to run `inspiration-analyze
 
 Create a JSON file that matches `references/lookbook-json-contract.md`.
 
-Validate:
+For validation-only requests or a review pause, validate without writing:
 
 ```bash
-renku lookbook validate --file tmp/operations/lookbook.json --json
+renku lookbook validate --file tmp/operations/lookbook.json --project <project-name> --json
 ```
 
 Apply:
 
 ```bash
-renku lookbook apply --file tmp/operations/lookbook.json --json
+renku lookbook apply --file tmp/operations/lookbook.json --project <project-name> --json
 ```
 
-Read back:
+Read back only if the mutation report lacks needed detail, the outcome is uncertain, or relevant state changed:
 
 ```bash
-renku lookbook show --kind <production|storyboard> --json
+renku lookbook show --kind <production|storyboard> --project <project-name> --json
 ```
 
 ## Reference Files
@@ -154,10 +151,10 @@ renku lookbook show --kind <production|storyboard> --json
   common `asset.id` only for later `renku asset select`.
 - For Production Lookbook point evidence, pass `--anchor <point-id>` to `lookbook image set-placement` and include the point-owning section in `--sections`. Additional sections remain section-level placements, e.g. `--sections thesis,texture --anchor texture-cannon-material-states` shows the image under Thesis and beside that Texture point.
 - Production `thesis` is a single-image slot. Placing an image with `--sections thesis` replaces the previous Thesis placement without discarding that previous image or removing its other placements. Other Production section and point placements append until the slot has 10 images.
-- Use `renku lookbook image set-placement --image <lookbook-image-id> --sections <section>[,<section>] [--anchor <point-id>] --json` to retag or re-anchor an existing Lookbook image with the same placement rules.
+- Use `renku lookbook image set-placement --image <lookbook-image-id> --sections <section>[,<section>] [--anchor <point-id>] --project <project-name> --json` to retag or re-anchor an existing Lookbook image with the same placement rules.
 - For Storyboard Lookbooks, default an image to one section. Keep the canonical overall-style image in `styleBrief` only, and narrow any earlier multi-section placement after accepting a dedicated section example. Never repeat an image merely to avoid an empty section.
 - Never discard and re-import a Lookbook image merely to change its section or point placement. `renku lookbook image discard` is only for intentional removal requested by the user.
-- Validate before apply.
+- Apply validates before writing; keep separate validation for validation-only requests or review.
 - Read the existing Lookbook before updating it.
 - Do not invent source Inspiration folder IDs. Use IDs returned by the CLI.
 - Do not write theoretical Storyboard Lookbook prose that cannot become visible image-generation instructions.

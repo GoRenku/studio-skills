@@ -9,6 +9,12 @@ Route Shot List coverage to `shot-planner`; route Blender Previs creation and ca
 
 This skill requires the installed Renku runtime. If `renku` is unavailable, stop and direct the user to `https://gorenku.com`; do not substitute ad hoc files for the CLI-owned project state.
 
+## Efficient Command Use
+
+Resolve project identity once per task and pass it with exact selected resource ids to specialists. Do not repeat project current or director discovery just because a specialist is invoked. Director context uses the current authoring project: establish it once when needed. Studio selection remains a separate required read when the user refers to the open surface. Confirm completion from sufficient specialist mutation reports; read again for missing state or intervening edits.
+
+Consult the relevant CLI reference/help once if syntax is unknown, then reuse verified syntax for this task. Do not discover syntax by attempting mutations. Do not invent `project list`. If a known permission denial blocks cache/output/config or local-network access, explain the requirement and use the authorized host permission flow; do not repeat the denied attempt, read secrets, disable cache persistence, or change permissions. `CLI026` means the mutation succeeded: report the notification warning without replaying the mutation.
+
 ## Project Workspace
 
 Keep temporary agent working files inside the current Project's categorized
@@ -46,7 +52,7 @@ filmmaking workflow.
 
 ## Start Here
 
-1. Resolve the current authoring project:
+1. Reuse the verified current authoring project; read it when missing or changed:
 
 ```bash
 renku project current --json
@@ -67,7 +73,7 @@ renku director context --selection '<studio-selection-json>' --json
 3. Classify the user's request by department and current readiness.
 4. Load only the reference file needed for the next decision.
 5. Dispatch durable artifact work to the owning specialist skill.
-6. Read back durable state through Renku CLI after the specialist completes.
+6. Verify sufficient specialist mutation reports; read back missing or uncertain durable state.
 7. Suggest the next concrete department step.
 
 When the user asks about "this", "current", "selected", "open", "the thing on
@@ -86,7 +92,7 @@ When the user addresses a scene as `Scene 22`, `22A`, or another production
 number, resolve it before specialist dispatch:
 
 ```bash
-renku screenplay scene-number resolve --number <production-number> --json
+renku screenplay scene-number resolve --number <production-number> --project <project-name> --json
 ```
 
 Pass the returned durable `sceneId` to the specialist. The production number may
@@ -114,7 +120,7 @@ Use this loop for every request:
 1. **Orient**: identify the open project, current Studio selection, and the minimum state needed for the request.
 2. **Diagnose**: decide whether the next step is screenplay, analysis, visual language, casting, production design, Beat design, media generation, or production readiness.
 3. **Dispatch**: use the specialist skill that owns the artifact. Do not directly write screenplay, analysis, Lookbook, Scene Beats, or media generation JSON when the specialist skill owns that workflow.
-4. **Verify**: read back the durable state with the CLI.
+4. **Verify**: consume sufficient mutation reports; read back missing or uncertain state with the CLI.
 5. **Advance**: name the next supported step and any unresolved prerequisite.
 
 ## Specialist Ownership

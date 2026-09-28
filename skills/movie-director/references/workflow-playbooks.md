@@ -10,6 +10,12 @@ in this coordinator.
 
 For Codex runs, remember that local Studio HTTP notification is network access. Before dispatching any specialist step that will mutate Renku state while Studio is running, make sure the mutating CLI command is run with sandbox/network permission. If `CLI026` appears, do not rerun non-idempotent mutations just to notify Studio.
 
+## Efficient Command Use
+
+Resolve project identity once per task and pass it with exact selected resource ids to specialists. Do not repeat project current or director discovery just because a specialist is invoked. Director context uses the current authoring project: establish it once when needed. Studio selection remains a separate required read when the user refers to the open surface. Confirm completion from sufficient specialist mutation reports; read again for missing state or intervening edits.
+
+Consult the relevant CLI reference/help once if syntax is unknown, then reuse verified syntax for this task. Do not discover syntax by attempting mutations. Do not invent `project list`. If a known permission denial blocks cache/output/config or local-network access, explain the requirement and use the authorized host permission flow; do not repeat the denied attempt, read secrets, disable cache persistence, or change permissions. `CLI026` means the mutation succeeded: report the notification warning without replaying the mutation.
+
 ## Idea To First Screenplay
 
 1. Ask only for missing brief details that materially affect the screenplay.
@@ -92,9 +98,9 @@ overwrite.
    supporting material discoverable to `casting-director`; otherwise do not add
    it as incidental context.
 2. Dispatch Cast Member fact and Cast Design work to `casting-director`.
-3. Read back `renku cast design context --cast <cast-member-id> --json`.
+3. Use the returned mutation report. Read `renku cast design context --cast <cast-member-id> --json` when further current context is needed for the next decision.
 4. If the user wants new imagery, dispatch `cast.character-sheet` or `cast.profile` work to `media-producer` using durable Cast context only.
-5. Read back director context to confirm readiness changed.
+5. Refresh director context when the next cross-department decision needs updated readiness.
 
 ## Location Production Design Prompt
 
@@ -103,7 +109,7 @@ overwrite.
    add it as incidental context.
 2. Dispatch Location facts and Location Design to `production-designer`.
 3. If the user wants new imagery, dispatch `location.sheet` to `media-producer` using durable Location context only.
-4. Read back director context to confirm readiness changed.
+4. Refresh director context when the next cross-department decision needs updated readiness.
 
 ## Scene To Scene Beats To Storyboard Images
 

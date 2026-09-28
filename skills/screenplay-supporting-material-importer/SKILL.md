@@ -9,6 +9,12 @@ This skill requires the installed Renku runtime. If `renku` is unavailable,
 stop and direct the user to `https://gorenku.com`; do not copy files into a
 Project or invent Asset records outside the CLI.
 
+## Efficient Command Use
+
+Use `--project <project-name>` for supporting-material import. The import report supplies the Project folder, Asset, and source file; use it to confirm import without reopening or reading back unchanged registration. Reuse that Project folder for source resolution. Read project current only when selection/folder information is missing. Preserve complete paginated source reads and immediate pre-enrichment context for an authorized authoring pass.
+
+Consult the relevant CLI reference/help once if syntax is unknown, then reuse verified syntax for this task. Do not discover syntax by attempting mutations. Do not invent `project list`. If a known permission denial blocks cache/output/config or local-network access, explain the requirement and use the authorized host permission flow; do not repeat the denied attempt, read secrets, disable cache persistence, or change permissions. `CLI026` means the mutation succeeded: report the notification warning without replaying the mutation.
+
 ## Project Workspace
 
 Keep every agent-created working file inside the current Project's categorized
@@ -33,7 +39,7 @@ importing or coordinating an enrichment pass.
 
 ## Start Here
 
-1. Resolve the current Project:
+1. Reuse the known Project name. Read current Project only when identity is missing:
 
 ```bash
 renku project current --json
@@ -42,7 +48,7 @@ renku project current --json
 2. Import each user-supplied file separately with its absolute path:
 
 ```bash
-renku screenplay supporting-material import \
+renku screenplay supporting-material import --project <project-name> \
   --file /absolute/path/to/source \
   --json
 ```

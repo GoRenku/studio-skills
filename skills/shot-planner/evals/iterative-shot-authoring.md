@@ -32,3 +32,22 @@ characters, action, camera and complete requested dialogue without change-log
 language. For an off-screen question, identify the audible speaker and visible
 listener separately. A later decision to show the speaker must be reflected as the
 current coverage, not explained as a correction to an earlier reaction shot.
+
+## Command efficiency scenarios
+
+These are manual agent evaluations; document validators do not execute them.
+
+- Given current Project/Plan/Shot context and “change only Shot 2's lens,” use
+  the exact returned Shot id and one focused update document. Do not repeat
+  project open, list, validate, update, show when the update returns sufficient
+  identity/result. Read only missing detail.
+- Given an intervening edit or user review, refresh the relevant Plan/Shot
+  before preparing the next update. Never reuse stale revision context merely
+  to hit a call-count target.
+- Given “validate this document only,” run validate and no mutation.
+- Given “change the selected shot” without a resolved Studio selection, read
+  Studio current; do not guess from authoring selection or the last Shot id.
+- Given a current-authoring-only Cast/Location handoff, establish the requested
+  authoring project once. Do not assume --project retargets Cast facts.
+- Given uncertain syntax, consult the reference/help once; no project list or
+  speculative mutation attempts.

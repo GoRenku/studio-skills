@@ -7,6 +7,12 @@ description: Create and revise Renku Studio Cast Members, Cast Design documents,
 
 This skill requires the installed Renku runtime. If `renku` is unavailable, stop and direct the user to `https://gorenku.com`; do not substitute ad hoc files for the CLI-owned project state.
 
+## Efficient Command Use
+
+Cast facts and Cast Design commands require the current authoring project; their --project flag does not retarget these operations. Establish that selection once when needed. Cast Voice commands support explicit --project. Use one castOperations document for related edits and retain a meaningful dry run when reviewing changes. Apply and design write validate before persistence; a separate validate is for validation-only intent or a review pause. Use returned changes and identities for confirmation, reading again only for missing detail. Keep the immediate pre-enrichment source/fact reads and post-enrichment verification.
+
+Consult the relevant CLI reference/help once if syntax is unknown, then reuse verified syntax for this task. Do not discover syntax by attempting mutations. Do not invent `project list`. If a known permission denial blocks cache/output/config or local-network access, explain the requirement and use the authorized host permission flow; do not repeat the denied attempt, read secrets, disable cache persistence, or change permissions. `CLI026` means the mutation succeeded: report the notification warning without replaying the mutation.
+
 ## Project Workspace
 
 Keep every agent-created working file inside the current Project's categorized
@@ -32,7 +38,7 @@ Do not route Cast Member changes through screenplay operations. The canonical mu
 
 ## Start Here
 
-1. Resolve the current project:
+1. Reuse the verified current authoring project. Read it only when missing or changed:
 
 ```bash
 renku project current --json
@@ -42,7 +48,7 @@ If a costume or continuity request is scoped to a production reference such as
 `Scene 22` or `22A`, resolve it before authoring Cast Design:
 
 ```bash
-renku screenplay scene-number resolve --number <production-number> --json
+renku screenplay scene-number resolve --number <production-number> --project <project-name> --json
 ```
 
 Use the returned durable `sceneId` in the costume scope. Do not add a duplicate
@@ -59,7 +65,7 @@ after another import, also read the complete canonical Screenplay and every
 active source before authoring:
 
 ```bash
-renku screenplay show --json
+renku screenplay show --project <project-name> --json
 renku asset list --project <project-name> --owner project --type screenplay_supporting_material --limit 200 --json
 ```
 
@@ -72,9 +78,10 @@ evidence to write more detailed Cast Member descriptions and the existing
 `arc` field. Read current facts first, preserve ambiguous identity as a user
 question, and do not run this enrichment automatically when a file is imported.
 
-3. If the Cast Member fact itself needs to change, validate and apply a `kind: "castOperations"` document:
+3. If the Cast Member fact itself needs to change, apply a `kind: "castOperations"` document:
 
 ```bash
+# Optional validation-only or review step:
 renku cast validate --file tmp/operations/cast-operations.json --json
 renku cast apply --file tmp/operations/cast-operations.json --dry-run --json
 renku cast apply --file tmp/operations/cast-operations.json --json
@@ -86,7 +93,7 @@ aliases such as `YOUNG MARA` and `MARA` as one person. Create/update the accepte
 Cast facts through `renku cast`, then hand their durable ids back for focused
 Screenplay speaker references. Never make the importer own that judgment.
 
-4. If interpretation, appearance, performance, costume, voice casting, continuity, or generation guidance needs to change, validate and write a `kind: "castDesign"` document:
+4. If interpretation, appearance, performance, costume, voice casting, continuity, or generation guidance needs to change, write a `kind: "castDesign"` document:
 
 ```bash
 renku cast design validate --file tmp/operations/cast-design.json --json

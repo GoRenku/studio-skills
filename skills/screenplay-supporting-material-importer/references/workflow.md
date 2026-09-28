@@ -1,11 +1,17 @@
 # Supporting Material Workflow
 
+## Efficient Command Use
+
+Use `--project <project-name>` for supporting-material import. The import report supplies the Project folder, Asset, and source file; use it to confirm import without reopening or reading back unchanged registration. Reuse that Project folder for source resolution. Read project current only when selection/folder information is missing. Preserve complete paginated source reads and immediate pre-enrichment context for an authorized authoring pass.
+
+Consult the relevant CLI reference/help once if syntax is unknown, then reuse verified syntax for this task. Do not discover syntax by attempting mutations. Do not invent `project list`. If a known permission denial blocks cache/output/config or local-network access, explain the requirement and use the authorized host permission flow; do not repeat the denied attempt, read secrets, disable cache persistence, or change permissions. `CLI026` means the mutation succeeded: report the notification warning without replaying the mutation.
+
 ## Import contract
 
 Run one command per external source file:
 
 ```bash
-renku screenplay supporting-material import --file <absolute-path> --json
+renku screenplay supporting-material import --file <absolute-path> --project <project-name> --json
 ```
 
 Core accepts any readable regular file as opaque bytes. Do not add agent-side
@@ -29,8 +35,10 @@ This command is paginated. If `nextCursor` is not `null`, repeat the same
 command with `--cursor <nextCursor>` and accumulate `items` until
 `nextCursor` is `null`. Never treat the first page as the complete source set.
 
-Resolve each file by joining `projectFolder` from `renku project current
---json` with its returned `projectRelativePath`. Use the active harness's
+Resolve each file by joining the exact Project folder from the import report
+or current task context with its returned `projectRelativePath`. If that folder
+is missing, establish and read the correct authoring selection once; never use
+a different current Project folder for an explicitly targeted import. Use the active harness's
 appropriate reader for that source: direct text reading, document/PDF reading,
 or image vision/OCR. If the harness cannot read one source, identify that exact
 file and limitation; do not silently omit it or convert it into a different

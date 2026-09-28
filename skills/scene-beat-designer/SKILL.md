@@ -7,6 +7,12 @@ description: Design and persist Renku Studio Scene Beats by reading Scene screen
 
 This skill requires the installed Renku runtime. If `renku` is unavailable, stop and direct the user to `https://gorenku.com`; do not substitute ad hoc files for the CLI-owned project state.
 
+## Efficient Command Use
+
+Use `--project <project-name>` on screenplay beats commands when the project is known. Read current Beat context once; list/show only for missing revision detail. Create, reset, and apply validate before writes. Separate validation is for validation-only intent or a review pause; retain a meaningful apply --dry-run when reviewing a proposed change. Use returned exact revision and Beat identities for the next step. Refresh context after relevant edits or intervening user review, and keep Storyboard/media review separate.
+
+Consult the relevant CLI reference/help once if syntax is unknown, then reuse verified syntax for this task. Do not discover syntax by attempting mutations. Do not invent `project list`. If a known permission denial blocks cache/output/config or local-network access, explain the requirement and use the authorized host permission flow; do not repeat the denied attempt, read secrets, disable cache persistence, or change permissions. `CLI026` means the mutation succeeded: report the notification warning without replaying the mutation.
+
 ## Project Workspace
 
 Keep every agent-created working file inside the current Project's categorized
@@ -68,7 +74,7 @@ batches of up to four without changing this revision.
    `references/scene-beats-json-contract.md`, and
    `references/scene-beats-cli-workflow.md` as needed.
 
-5. Validate before mutation, execute the chosen intent, then read back the
+5. Execute the chosen intent with Core validation, then use the returned or, when needed, freshly read
    exact revision. If a command reports `CLI026`, the mutation already
    succeeded; read durable state and refresh Studio separately instead of
    rerunning the mutation.
@@ -118,7 +124,7 @@ its retained Beat images; do not copy image paths into Scene Beats JSON.
 - Do not put `id` or `number` in a Beat input.
 - Use stable `screenplayBlockIds`, never array indexes.
 - Preserve creative contents as opaque authored values.
-- Validate before create, reset, or apply.
+- Create, reset, and apply validate before writing. Separate validation is for validation-only intent or a review pause.
 - Add no camera fields, generated-media paths, or production-logistics fields.
 - Do not cap or group Beats for the later four-panel generation optimization.
 - Discuss perceived pace and timing during review, but do not invent persisted

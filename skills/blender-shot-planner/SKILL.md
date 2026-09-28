@@ -34,6 +34,12 @@ and samples in `references/plan-files-and-generations.md`. Do not burn legends, 
 
 For verification scenarios and exploration evidence, use `evals/director-iteration.md`.
 
+## Efficient Command Use
+
+Use supported `--project <project-name>` on Shot Plan and screenplay commands. Reuse resolved Project/Plan/revision context for a simple directed iteration; refresh after relevant edits or user review. Keep focused revision registration, exact Clip/Take identities, rendering, QA, and requested changes intact. A mutation report replaces read-back only when it contains the needed result.
+
+Consult the relevant CLI reference/help once if syntax is unknown, then reuse verified syntax for this task. Do not discover syntax by attempting mutations. Do not invent `project list`. If a known permission denial blocks cache/output/config or local-network access, explain the requirement and use the authorized host permission flow; do not repeat the denied attempt, read secrets, disable cache persistence, or change permissions. `CLI026` means the mutation succeeded: report the notification warning without replaying the mutation.
+
 ## Project Workspace
 
 Keep temporary files out of the Project root: CLI documents in `tmp/operations/`,

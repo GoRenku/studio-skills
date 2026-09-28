@@ -567,3 +567,24 @@ Run the route-only, unlisted-route, missing-guide, plugin replacement, later
 bundled adoption, explicit-preference, and schema-input mismatch scenarios in
 `../../model-researcher/evals/personal-models.md`. Inspect the resulting commands
 and prepared requests, preserving Preview and final validation.
+
+## Startup and workflow efficiency regression cases
+
+Manual agent scenarios; automated file validation is not an agent execution.
+
+1. Known-folder Inspiration handoff: with an authorized update, explicit Project
+   and folder id, expect inspiration show, filesystem image review, then analysis
+   write. The returned persisted analysis confirms completion: two CLI calls.
+   Validation-only intent must instead validate without writing. Missing result
+   detail or uncertain outcome permits a focused read-back.
+2. Several prepared requests: batch Preview using repeated --file, retaining
+   current configuration, required approval, final request reread/validation,
+   provider concurrency policy, output inspection, and focused attachment.
+3. Metadata cache permission denied: identify required cache/output access and
+   use host authorization. Do not retry identically, disable persistence, read
+   credential secrets, or generate through a different provider without intent.
+4. Successful mutation with CLI026: report the warning and use sufficient report
+   state. Never replay the mutation or paid execution to refresh Studio.
+5. Changed provider/model or intervening user review: refresh the affected
+   request/schema/context under existing freshness rules; do not treat prior
+   discovery as an indefinitely valid cross-turn cache.

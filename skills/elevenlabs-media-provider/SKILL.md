@@ -5,6 +5,10 @@ description: Author and execute supported ElevenLabs speech or music requests fo
 
 # ElevenLabs Media Provider
 
+## Request Preparation And Recovery
+
+Reuse verified command syntax and selected-route discovery within the current request preparation. Follow existing configuration-cache freshness; final native validation and execution remain live boundaries. Do not retry paid execution automatically or replay a successful mutation after CLI026. Provider metadata cache and output writes require host permission, and Preview notification requires local network access. Explain a known denial and use the authorized permission flow instead of repeating it or disabling persistence. Keep Preview, approval, concurrency, output review, and attachment ownership with Media Producer.
+
 ## Project Workspace
 
 Keep every agent-created working file inside the current Project's categorized

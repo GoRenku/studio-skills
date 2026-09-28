@@ -2,16 +2,24 @@
 
 Use this reference for command order and validation when creating or revising Renku Studio screenplay data.
 
+## Efficient Command Use
+
+Screenplay commands support `--project <project-name>`; prefer it for a known project. Reuse selection after create or a verified current-project-only handoff instead of reopening. Apply existing operation documents for related changes; one apply validates the complete aggregate. Import reports establish outcome, but retain exact source-backed Screenplay reads and plan 0210 immediate pre-enrichment reads plus result verification. Refresh context after intervening edits or user review.
+
+Consult the relevant CLI reference/help once if syntax is unknown, then reuse verified syntax for this task. Do not discover syntax by attempting mutations. Do not invent `project list`. If a known permission denial blocks cache/output/config or local-network access, explain the requirement and use the authorized host permission flow; do not repeat the denied attempt, read secrets, disable cache persistence, or change permissions. `CLI026` means the mutation succeeded: report the notification warning without replaying the mutation.
+
 ## Current Project
 
-Screenplay commands operate on the current authoring project.
+Use the known Project name explicitly. Read current selection only if identity
+is missing; otherwise proceed directly to targeted screenplay status.
 
 ```bash
 renku project current --json
-renku screenplay status --json
+renku screenplay status --project <project-name> --json
 ```
 
-For an existing project, open it first:
+Only for a downstream current-authoring-only command whose selection has not
+yet been established:
 
 ```bash
 renku project open <project-name> --json
@@ -39,10 +47,13 @@ renku prop list --json
 Create or revise missing facts through the owning command families:
 
 ```bash
+# Optional validation-only or review step:
 renku cast validate --file tmp/operations/cast-operations.json --json
 renku cast apply --file tmp/operations/cast-operations.json --json
+# Optional validation-only or review step:
 renku location validate --file tmp/operations/location-operations.json --json
 renku location apply --file tmp/operations/location-operations.json --json
+# Optional validation-only or review step:
 renku prop validate --file tmp/operations/prop-operations.json --json
 renku prop apply --file tmp/operations/prop-operations.json --json
 ```
@@ -59,14 +70,14 @@ facts by guessing from cue or heading strings.
 Use when Screenplay status is entirely empty or `sourceOwnership` is `fdx`:
 
 ```bash
-renku screenplay import-fdx --file /absolute/path/to/script.fdx --json
+renku screenplay import-fdx --file /absolute/path/to/script.fdx --project <project-name> --json
 ```
 
 After `imported`, `refreshed`, or `unchanged`, let the agent read the canonical
 Screenplay and current Project Information before writing any story metadata:
 
 ```bash
-renku screenplay show --json
+renku screenplay show --project <project-name> --json
 renku info show --project <project-name> --json
 ```
 
@@ -118,7 +129,7 @@ Sections, Scenes, Blocks, and references. Author the complete `opening`,
 `scenes`, `sections`, `structure`, and `references` object without a `kind`.
 
 ```bash
-renku screenplay create --file tmp/operations/screenplay-create.json --json
+renku screenplay create --file tmp/operations/screenplay-create.json --project <project-name> --json
 ```
 
 ## Revise An Existing Screenplay
@@ -129,7 +140,7 @@ are source-owned and read-only.
 Read the current canonical state first:
 
 ```bash
-renku screenplay show --json
+renku screenplay show --project <project-name> --json
 ```
 
 Use durable IDs from that output in update, delete, move, parent, placement,
@@ -139,13 +150,13 @@ atomic request.
 When the user names a production scene number, resolve it first:
 
 ```bash
-renku screenplay scene-number resolve --number <production-number> --json
+renku screenplay scene-number resolve --number <production-number> --project <project-name> --json
 ```
 
 Carry only the returned durable `sceneId` into persisted screenplay JSON.
 
 ```bash
-renku screenplay apply --file tmp/operations/screenplay-operations.json --json
+renku screenplay apply --file tmp/operations/screenplay-operations.json --project <project-name> --json
 ```
 
 There is no separate validate or dry-run command for Screenplay operations.
@@ -154,18 +165,18 @@ There is no separate validate or dry-run command for Screenplay operations.
 ## Read Helpers
 
 ```bash
-renku screenplay status --json
-renku screenplay show --json
+renku screenplay status --project <project-name> --json
+renku screenplay show --project <project-name> --json
 renku cast list --json
 renku cast show <cast-member-id> --json
 renku location list --json
 renku location show <location-id> --json
 renku prop list --json
-renku screenplay structure --json
-renku screenplay section show <section-id> --json
-renku screenplay scene show <scene-id> --json
-renku screenplay scene-number list --json
-renku screenplay scene-number resolve --number <production-number> --json
+renku screenplay structure --project <project-name> --json
+renku screenplay section show <section-id> --project <project-name> --json
+renku screenplay scene show <scene-id> --project <project-name> --json
+renku screenplay scene-number list --project <project-name> --json
+renku screenplay scene-number resolve --number <production-number> --project <project-name> --json
 ```
 
 ## Handling Reports

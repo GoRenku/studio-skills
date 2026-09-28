@@ -51,8 +51,8 @@ A Screenplay Analysis is critique, evidence, scoring, and suggested improvements
    - `unsupported`: stop before authoring or generation and explain the
      three-act-only restriction from the returned reason.
 4. Author a complete Screenplay Analysis JSON document.
-5. Validate through the Renku CLI.
-6. Fix validation issues until valid.
+5. Use separate validation for validation-only intent or a review pause.
+6. Fix any validation errors returned by the owning command.
 7. Write through the Renku CLI. An ordinary “Analyze this screenplay” request
    always creates a new analysis revision and makes it active.
 8. Report the active analysis id and the most important critique.
@@ -61,16 +61,14 @@ Ask only when a missing creative choice materially changes the critique. If the 
 
 ## Project Preflight
 
-Open the project when the user named one:
+For a named project:
 
-```bash
-renku project open <project-name> --json
-```
+Use the known project name with `--project <project-name>`; no `project open` is needed.
 
 Read the analysis context:
 
 ```bash
-renku screenplay analyze context --json
+renku screenplay analyze context --project <project-name> --json
 ```
 
 Optional orientation:
@@ -83,22 +81,22 @@ renku studio current --json
 
 Create a JSON file that matches `references/screenplay-analysis-json-contract.md`.
 
-Validate:
+For validation-only requests or a review pause, validate without writing:
 
 ```bash
-renku screenplay analyze validate --file tmp/operations/screenplay-analysis.json --json
+renku screenplay analyze validate --file tmp/operations/screenplay-analysis.json --project <project-name> --json
 ```
 
 Write:
 
 ```bash
-renku screenplay analyze write --file tmp/operations/screenplay-analysis.json --json
+renku screenplay analyze write --file tmp/operations/screenplay-analysis.json --project <project-name> --json
 ```
 
-Read back:
+Read back only if the mutation report lacks needed detail, the outcome is uncertain, or relevant state changed:
 
 ```bash
-renku screenplay analyze show --active --json
+renku screenplay analyze show --active --project <project-name> --json
 ```
 
 ## Reference Files
@@ -126,7 +124,7 @@ renku screenplay analyze show --active --json
 - Use production numbers in transient user-facing prose when helpful, but keep
   persisted Screenplay Analysis JSON references durable-id-only.
 - Keep suggestions actionable enough for a later screenplay operation agent to apply.
-- Validate before writing.
+- Write validates before persistence; keep separate validation for validation-only requests or review.
 - Use US spelling: `analyze`, not `analyse`.
 
 ## Quality Bar

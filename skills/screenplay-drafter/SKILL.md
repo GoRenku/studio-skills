@@ -7,6 +7,12 @@ description: Create, import, and revise Renku Studio screenplays as the persiste
 
 This skill requires the installed Renku runtime. If `renku` is unavailable, stop and direct the user to `https://gorenku.com`; do not substitute ad hoc files for the CLI-owned project state.
 
+## Efficient Command Use
+
+Screenplay commands support `--project <project-name>`; prefer it for a known project. Reuse selection after create or a verified current-project-only handoff instead of reopening. Apply existing operation documents for related changes; one apply validates the complete aggregate. Import reports establish outcome, but retain exact source-backed Screenplay reads and plan 0210 immediate pre-enrichment reads plus result verification. Refresh context after intervening edits or user review.
+
+Consult the relevant CLI reference/help once if syntax is unknown, then reuse verified syntax for this task. Do not discover syntax by attempting mutations. Do not invent `project list`. If a known permission denial blocks cache/output/config or local-network access, explain the requirement and use the authorized host permission flow; do not repeat the denied attempt, read secrets, disable cache persistence, or change permissions. `CLI026` means the mutation succeeded: report the notification warning without replaying the mutation.
+
 ## Project Workspace
 
 Keep every agent-created working file inside the current Project's categorized
@@ -78,8 +84,11 @@ Screenplay craft and Renku persistence go hand in hand. Think like a screenwrite
      Follow `nextCursor` with repeated `--cursor <nextCursor>` calls until it
      is `null`; combine every page before drafting or revising.
 
-     Resolve each file below `projectFolder` from `renku project current
-     --json` and use the harness reader appropriate to its contents. Do not
+     Resolve each file below the exact Project folder from its import report
+     or verified task context. If that folder is missing, establish and read
+     the correct authoring selection once; never resolve an explicitly targeted
+     Project against a different current Project folder. Use the harness reader
+     appropriate to the contents. Do not
      filter by extension or MIME type. An FDX-backed Screenplay remains
      source-authoritative and cannot be revised from supporting material.
      Raw supporting-material paths and copied source content stop at screenplay
@@ -131,24 +140,22 @@ Screenplay craft and Renku persistence go hand in hand. Think like a screenwrite
    - Use `shot`, `super`, `titleCard`, `specialHeading`, and `transition` blocks when the script needs those formal elements.
    - Avoid camera-direction clutter unless a shot instruction is essential to the story, rhythm, or later generation workflow.
 
-7. Express the authored screenplay or revision as Renku Studio screenplay JSON and validate it.
+7. Express related screenplay changes in one supported operation document; the mutation validates the complete aggregate.
 
    Renku owns durable IDs. Agents author temporary keys for new records, run the Renku commands, then use Renku's generated IDs for later edits.
 
 ## Project Preflight
 
-Screenplay commands operate on the current Renku authoring project. Resolve that
-project before writing, validating, creating, or applying screenplay JSON.
+Screenplay commands support explicit `--project <project-name>`. Resolve the
+Project once before writing, creating, or applying screenplay JSON.
 
 The user must either provide an existing Renku project name or let the skill
 create a new project. Treat a user-supplied project ID as the Renku CLI
 `<project-name>`.
 
-1. For an existing project, open the provided Renku project name:
-
-```bash
-renku project open <project-name> --json
-```
+1. For an existing project, pass the known name with `--project <project-name>`.
+   Open authoring selection only for a downstream current-authoring-only command
+   when that Project is not already verified as current.
 
 2. For a new project, derive or ask for a kebab-case project name and title, then create it:
 
@@ -162,14 +169,14 @@ not run `renku project open` again after a successful create.
 3. Before any screenplay mutation, inspect screenplay state:
 
 ```bash
-renku screenplay status --json
+renku screenplay status --project <project-name> --json
 ```
 
 If the user identifies an existing scene by production number, such as
 `Scene 22` or `22A`, resolve it before reading or authoring the mutation:
 
 ```bash
-renku screenplay scene-number resolve --number <production-number> --json
+renku screenplay scene-number resolve --number <production-number> --project <project-name> --json
 ```
 
 Use the returned durable `sceneId` in Screenplay operation JSON and `--scene`
@@ -199,7 +206,7 @@ Use this path for a readable absolute `.fdx` path and either an empty
 Screenplay or an existing FDX-backed Screenplay:
 
 ```bash
-renku screenplay import-fdx --file /absolute/path/to/script.fdx --json
+renku screenplay import-fdx --file /absolute/path/to/script.fdx --project <project-name> --json
 ```
 
 Handle the typed result:
@@ -306,7 +313,7 @@ elements, Sections, Scenes, Blocks, and references.
 4. Create through Core validation:
 
 ```bash
-renku screenplay create --file tmp/operations/screenplay-create.json --json
+renku screenplay create --file tmp/operations/screenplay-create.json --project <project-name> --json
 ```
 
 ## Revise An Existing Renku-Authored Screenplay
@@ -316,7 +323,7 @@ Use this path whenever Screenplay status contains any authored content.
 1. Read the current state first:
 
 ```bash
-renku screenplay show --json
+renku screenplay show --project <project-name> --json
 ```
 
 Confirm `renku screenplay status --json` reports `sourceOwnership: renku`.
@@ -336,7 +343,7 @@ must revise the source in their screenwriting tool and refresh the FDX.
 4. Apply through Core validation:
 
 ```bash
-renku screenplay apply --file tmp/operations/screenplay-operations.json --json
+renku screenplay apply --file tmp/operations/screenplay-operations.json --project <project-name> --json
 ```
 
 There is no separate Screenplay operations validate or dry-run command. One

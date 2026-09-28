@@ -37,29 +37,31 @@ The folder already exists in a Renku Studio project. Renku owns the folder metad
 3. Use the folder name as a creative and research hint.
 4. Inspect every supported image file in the folder.
 5. Write a complete `kind: "inspirationAnalysis"` JSON document.
-6. Validate and write it through the Renku CLI.
-7. Read the analysis back and make sure it persisted.
+6. Write it through the Renku CLI when authoring is authorized; the write validates.
+7. Confirm persistence from the returned analysis. Read again only when that report is insufficient or state changed.
 
 Ask only when a missing choice materially changes the analysis. If the user wants momentum, make clear assumptions and proceed.
+
+For an authorized known-folder update, show plus write is the expected two-call
+CLI sequence; inspect all source images between those calls. The write report
+contains the persisted analysis.
 
 ## Project Preflight
 
 For an existing project:
 
-```bash
-renku project open <project-name> --json
-```
+Use the known project name with `--project <project-name>`; no `project open` is needed.
 
 If the user did not provide a folder ID, list folders:
 
 ```bash
-renku inspiration list --json
+renku inspiration list --project <project-name> --json
 ```
 
 Inspect the chosen folder:
 
 ```bash
-renku inspiration show --folder <folder-id> --json
+renku inspiration show --folder <folder-id> --project <project-name> --json
 ```
 
 Use the returned `folder.name` as context and `folder.absolutePath` as the filesystem location.
@@ -82,22 +84,22 @@ find . -maxdepth 1 -type f
 
 Create a JSON file matching `references/inspiration-analysis-json-contract.md`.
 
-Validate:
+For validation-only requests or a review pause, validate without writing:
 
 ```bash
-renku inspiration analysis validate --folder <folder-id> --file tmp/operations/inspiration-analysis.json --json
+renku inspiration analysis validate --folder <folder-id> --file tmp/operations/inspiration-analysis.json --project <project-name> --json
 ```
 
 Write:
 
 ```bash
-renku inspiration analysis write --folder <folder-id> --file tmp/operations/inspiration-analysis.json --json
+renku inspiration analysis write --folder <folder-id> --file tmp/operations/inspiration-analysis.json --project <project-name> --json
 ```
 
-Read back:
+Read back only if the mutation report lacks needed detail, the outcome is uncertain, or relevant state changed:
 
 ```bash
-renku inspiration analysis show --folder <folder-id> --json
+renku inspiration analysis show --folder <folder-id> --project <project-name> --json
 ```
 
 ## Reference Files
@@ -114,7 +116,7 @@ renku inspiration analysis show --folder <folder-id> --json
 - Do not register Inspiration images as assets or create per-image database records.
 - Do not store absolute paths in the JSON document.
 - Do not use project-relative paths in `imageFiles`; use folder-local filenames.
-- Do not write analysis until `validate` passes.
+- Core validates the write before persistence. Separate `validate` is required only for validation-only intent or a review pause.
 - Do not omit images that are present unless the file is unreadable or not a supported image.
 - Do not invent director, cinematographer, year, or production history from the folder name. Use known information when it is reliable; otherwise qualify it as inference or leave it out.
 

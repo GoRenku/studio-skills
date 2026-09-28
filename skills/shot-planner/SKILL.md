@@ -9,6 +9,12 @@ This skill authors the **Shot List** type (`shot-list`). For Blender 3D blocking
 
 This skill requires the installed Renku runtime. If `renku` is unavailable, stop and direct the user to `https://gorenku.com`; do not substitute ad hoc files for the CLI-owned project state.
 
+## Efficient Command Use
+
+Use `--project <project-name>` on Shot Plan commands. Reuse current Scene/Beat/Plan context during one unchanged iteration, and consume returned exact Plan/Shot identities. Create/update/shot add/shot update validate before writing; separate validate is for validation-only requests or a review pause. Put related fields in the existing authoring document instead of one mutation per field. Refresh after relevant edits, revision conflicts, or intervening user review; read back when the report lacks needed detail. Do not confuse Shot, Clip, Take, or revision ids.
+
+Consult the relevant CLI reference/help once if syntax is unknown, then reuse verified syntax for this task. Do not discover syntax by attempting mutations. Do not invent `project list`. If a known permission denial blocks cache/output/config or local-network access, explain the requirement and use the authorized host permission flow; do not repeat the denied attempt, read secrets, disable cache persistence, or change permissions. `CLI026` means the mutation succeeded: report the notification warning without replaying the mutation.
+
 ## Project Workspace
 
 Keep temporary agent working files inside the current Project's categorized
@@ -58,10 +64,10 @@ If the user names a production scene number, resolve it with
 2. Read only the context needed:
 
 ```bash
-renku screenplay beats context --scene <scene-id> --json
-renku screenplay beats show --active --scene <scene-id> --json
-renku shot-plan list --scene <scene-id> --json
-renku shot-plan show --shot-plan <shot-plan-id> --json
+renku screenplay beats context --scene <scene-id> --project <project-name> --json
+renku screenplay beats show --active --scene <scene-id> --project <project-name> --json
+renku shot-plan list --scene <scene-id> --project <project-name> --json
+renku shot-plan show --shot-plan <shot-plan-id> --project <project-name> --json
 ```
 
 Read `references/shot-plan-cli-workflow.md` for create and iteration commands.
@@ -76,7 +82,7 @@ references in Shot prose.
 `references/shot-plan-json-contract.md` and copy the closest file from
 `samples/`.
 
-4. Validate before every mutation. Use focused Shot commands for later edits;
+4. Let the mutation validate; use separate validation for validation-only intent or a review pause. Use focused Shot commands for later edits;
 never read-modify-write the complete plan.
 
 5. Read the exact Shot Plan back after mutation. There is no final, ready, or

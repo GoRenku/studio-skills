@@ -15,6 +15,12 @@ Treat prompts, provider-native requests, receipts, and media as opaque creative
 artifacts. Inspect them in the agent/user loop; never invent runtime validation
 for their creative contents.
 
+## Efficient Command Use
+
+Read fresh generation context for each request. Within that preparation, reuse verified syntax, selected route discovery, and the existing configuration cache according to its freshness rules; do not prefetch other providers. Use repeated --file on generation preview show to review several prepared requests together when appropriate. Retain native validation, configuration, Preview, approval, concurrency limits, artifact inspection, and focused attachment. Tool-session polling continues the same process; it is not another CLI invocation. Never retry a successful paid execution automatically.
+
+Consult the relevant CLI reference/help once if syntax is unknown, then reuse verified syntax for this task. Do not discover syntax by attempting mutations. Do not invent `project list`. If a known permission denial blocks cache/output/config or local-network access, explain the requirement and use the authorized host permission flow; do not repeat the denied attempt, read secrets, disable cache persistence, or change permissions. `CLI026` means the mutation succeeded: report the notification warning without replaying the mutation.
+
 ## Project Workspace
 
 Keep operation documents under `tmp/operations/media-generation/`, generated
@@ -313,7 +319,7 @@ receipt—to a unique JSON file under `tmp/operations/media-generation/`. Attach
 through the focused destination:
 
 ```bash
-renku media import \
+renku media import --project <project-name> \
   --purpose <purpose> \
   --target <target> \
   --source <project-relative-output> \

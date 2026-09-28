@@ -7,6 +7,12 @@ description: Create and revise Renku Studio Location and Prop facts, Location De
 
 This skill requires the installed Renku runtime. If `renku` is unavailable, stop and direct the user to `https://gorenku.com`; do not substitute ad hoc files for the CLI-owned project state.
 
+## Efficient Command Use
+
+Location, Prop, production-design, and location world commands require current authoring selection; --project does not retarget them. Establish the requested project once, then reuse it during an unchanged iteration. Apply operation documents for related fact changes; retain meaningful dry-run review. Apply/design write enforce validation; separate validate is for validation-only intent or a review pause. Mutation reports confirm their returned changes, but read missing authored detail when needed. Keep immediate pre-enrichment reads and post-enrichment verification.
+
+Consult the relevant CLI reference/help once if syntax is unknown, then reuse verified syntax for this task. Do not discover syntax by attempting mutations. Do not invent `project list`. If a known permission denial blocks cache/output/config or local-network access, explain the requirement and use the authorized host permission flow; do not repeat the denied attempt, read secrets, disable cache persistence, or change permissions. `CLI026` means the mutation succeeded: report the notification warning without replaying the mutation.
+
 ## Project Workspace
 
 Keep every agent-created working file inside the current Project's categorized
@@ -35,7 +41,7 @@ canonical mutation paths are `renku location` and `renku prop`.
 
 ## Start Here
 
-1. Resolve the current project:
+1. Reuse the verified current authoring project. Read it only when missing or changed:
 
 ```bash
 renku project current --json
@@ -59,7 +65,7 @@ refresh them after another import, also read the complete canonical Screenplay
 and every active source before authoring:
 
 ```bash
-renku screenplay show --json
+renku screenplay show --project <project-name> --json
 renku asset list --project <project-name> --owner project --type screenplay_supporting_material --limit 200 --json
 ```
 
@@ -76,6 +82,7 @@ automatically when a file is imported.
    `locationOperations` or `propOperations` document before applying it.
 
 ```bash
+# Optional validation-only or review step:
 renku location validate --file tmp/operations/location-operations.json --json
 renku location apply --file tmp/operations/location-operations.json --dry-run --json
 renku location apply --file tmp/operations/location-operations.json --json

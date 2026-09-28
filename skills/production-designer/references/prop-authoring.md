@@ -4,10 +4,17 @@ Use `renku prop` for durable reusable production Props. Keep a Location Design
 `recurringObjects` entry local when it does not need independent design
 history, Assets, generation, or Studio navigation.
 
+Prop commands require current authoring selection. Establish it once for the
+requested Project; --project does not retarget these handlers. Use one operations
+document for related changes. Apply validates before writing; separate validate
+is for validation-only intent or a review pause. Keep a meaningful dry run for
+change review and read missing detail when mutation reports are insufficient.
+
 ```bash
 renku prop list --json
 renku prop show <prop-id> --json
 renku prop context --prop <prop-id> --json
+# Optional validation-only or review step:
 renku prop validate --file tmp/operations/prop-operations.json --json
 renku prop apply --file tmp/operations/prop-operations.json --dry-run --json
 renku prop apply --file tmp/operations/prop-operations.json --json

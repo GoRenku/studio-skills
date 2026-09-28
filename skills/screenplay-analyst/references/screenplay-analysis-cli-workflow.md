@@ -6,9 +6,7 @@ Use the CLI as the only metadata boundary.
 
 If the user named a project:
 
-```bash
-renku project open <project-name> --json
-```
+Use the known project name with `--project <project-name>`; no `project open` is needed.
 
 If the project is already current, continue.
 
@@ -16,7 +14,7 @@ If the requested focus is a production scene number, resolve it before reading
 the analysis context:
 
 ```bash
-renku screenplay scene-number resolve --number <production-number> --json
+renku screenplay scene-number resolve --number <production-number> --project <project-name> --json
 ```
 
 Use the returned `sceneId` for persisted evidence references. Do not add a
@@ -25,7 +23,7 @@ duplicate production-number field to Screenplay Analysis JSON.
 ## 2. Read Analysis Context
 
 ```bash
-renku screenplay analyze context --json
+renku screenplay analyze context --project <project-name> --json
 ```
 
 The context includes `analysisMethod`, direct Project story metadata, opening content, canonical
@@ -53,10 +51,10 @@ Write a complete hierarchy-independent document using
 `screenplay-analysis-json-contract.md`. Do not copy screenplay Section ids into
 the analysis.
 
-## 4. Validate
+## 4. Optional Validation
 
 ```bash
-renku screenplay analyze validate --file tmp/operations/screenplay-analysis.json --json
+renku screenplay analyze validate --file tmp/operations/screenplay-analysis.json --project <project-name> --json
 ```
 
 Fix every structured error. Unknown fields are rejected.
@@ -64,17 +62,20 @@ Fix every structured error. Unknown fields are rejected.
 ## 5. Write
 
 ```bash
-renku screenplay analyze write --file tmp/operations/screenplay-analysis.json --json
+renku screenplay analyze write --file tmp/operations/screenplay-analysis.json --project <project-name> --json
 ```
 
 The write command creates a new history row and makes it active. Always run it
 for an ordinary request to analyze the current screenplay; do not treat an
 existing active analysis as completion.
 
-## 6. Confirm
+## 6. Confirm From The Write Report
+
+Use `analysis`, `activeAnalysisId`, and `changes` from the write report. Read
+the active analysis only when more persisted detail is needed or state changed:
 
 ```bash
-renku screenplay analyze show --active --json
+renku screenplay analyze show --active --project <project-name> --json
 ```
 
 Report the active analysis id, the short summary, and the highest-impact critique.
@@ -82,8 +83,8 @@ Report the active analysis id, the short summary, and the highest-impact critiqu
 ## Useful Reads
 
 ```bash
-renku screenplay analyze list --json
-renku screenplay analyze show --analysis <analysis-id> --json
+renku screenplay analyze list --project <project-name> --json
+renku screenplay analyze show --analysis <analysis-id> --project <project-name> --json
 ```
 
 ## Rules
