@@ -13,11 +13,44 @@ Expected behavior:
 - authors a unique Codex review document under
   `tmp/operations/media-generation/` with the `chatgpt-images-2.5` family
   identity and no invented Flare or Sunburst variant;
-- opens Preview when policy requires it, then pauses in conversation;
+- skips inline configuration unless the user requested settings review;
+- opens Preview when policy requires it without pausing for generation consent,
+  even when `askBeforeGenerating` is enabled;
 - rereads the final prompt and invokes the built-in image capability directly;
 - inspects the output and attaches it with exact safe Codex provenance and no
-  invented receipt;
+  invented receipt or separate attachment confirmation;
 - never calls Engines execution or creates durable request/job state.
+
+## Codex sheet and hero in one request
+
+The user asks for an Edirne Palace Workroom location sheet and hero. Codex is
+selected, Preview and `askBeforeGenerating` are enabled, and `@Visualize` is
+available. The generated sheet has a visible furniture continuity issue.
+
+Expected behavior:
+
+- prepares and generates the sheet without a settings or Generate confirmation;
+- inspects and attaches it with exact provenance, reporting the continuity
+  concern without an Attach question or an unrequested corrective generation;
+- continues the requested hero using the inspected sheet and relevant context,
+  then inspects and attaches the hero without another consent gate;
+- reports both attachments and any remaining concerns.
+
+## Automatic attachment across asset kinds
+
+Exercise generated image creation and editing, grouped Beat Storyboards,
+Cast Voice samples, dialogue audio, Shot Plan video, and Location Worlds.
+External-provider spending has the authorization required by its workflow.
+
+Expected behavior:
+
+- inspects each result and attaches through its focused command with exact safe
+  provenance and existing destination/selection rules;
+- never asks for separate acceptance or attachment confirmation;
+- preserves external-provider spending approval and host permission boundaries;
+- honors explicit preview-only, leave-unattached, and strict-iteration requests;
+- reports missing/unusable files or an unresolved destination rather than
+  inventing a successful attachment.
 
 ## Codex capability absent
 
@@ -214,15 +247,17 @@ Expected behavior:
 - does not add copied enums, ranges, prices, duration summaries, or request
   schemas to the provider model index.
 
-## inline-configuration-coverage — Every Media Producer purpose
+## inline-configuration-coverage — External providers and requested Codex configuration
 
 In Codex with `@Visualize` available, exercise one request from each purpose
 family in `purpose-coverage.json` before any review document is authored.
 
 Expected behavior:
 
-- every image, video, and audio purpose enters the same shared inline
-  configuration flow from `media-producer/SKILL.md`;
+- every external-provider image, video, and audio purpose enters the same
+  shared inline configuration flow from `media-producer/SKILL.md`;
+- Codex built-in requests skip configuration unless the user asks to configure
+  or review settings, using current direction and Project defaults directly;
 - the agent prepares the authored prompt, exact references, and native values
   only for the initial provider/model before rendering, then continues only
   from the returned follow-up or explicit confirmation of unchanged values;
@@ -261,7 +296,8 @@ dropping or translating the rejected value.
 
 ## inline-image-configuration — Provider/model switch and rich controls
 
-Prepare a referenced image request while Project Settings select Codex. Read the
+The user asks to configure a referenced image request while Project Settings
+select Codex. Read the
 other provider route indexes to populate the selectors, but inspect no
 alternative provider Skill, adapter, model guide, documentation, or live schema.
 Switch to a Fal.ai route whose schema exposes a finite image size or aspect

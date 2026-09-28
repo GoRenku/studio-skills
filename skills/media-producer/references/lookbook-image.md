@@ -29,8 +29,8 @@ set:
    as the locked visual style anchor. Preserve its medium, contour treatment,
    finish, facial simplification, background treatment, and tonal restraint.
    Change only the subject and the requested section property.`
-5. Inspect the result beside the anchor before import. Reject a technically
-   relevant image when its medium or rendering style drifts.
+5. Inspect the result beside the anchor before import. Report medium or
+   rendering-style drift without adding an attachment acceptance gate.
 
 Do not claim that a request will match an approved image unless that image is
 visible to the provider. Descriptive modifiers are not a substitute for the
@@ -44,7 +44,8 @@ Project's Image provider setting. For Fal.ai, author one provider-native review
 document through its Skill, validate it, show Preview when required, reread and
 rebuild after prompt edits, then execute after conversational confirmation. For
 Codex, use the same temporary Preview envelope and invoke the built-in capability
-directly. Import either accepted output with exact safe generation provenance.
+directly without generation consent. Inspect and automatically import either
+output with exact safe generation provenance, without attachment confirmation.
 Manual or other external images omit generation provenance.
 
 After visual review, import the image first:

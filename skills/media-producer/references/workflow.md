@@ -105,7 +105,12 @@ configuration are read-only. The user continues in the ordinary conversation;
 there is no Generate button, approval token, correlation id, or agent-resume
 callback.
 
-After confirmation, reread the document. If the prompt changed, rebuild the
+Codex built-in generation needs no generation consent: automatic Preview is
+informational, and `askBeforeGenerating` does not pause that lane. Wait only
+when the user explicitly requested review before execution. External-provider
+confirmation follows the existing policy in `SKILL.md`.
+
+Immediately before execution, reread the document. If the prompt changed, rebuild the
 provider-native prompt-bearing fields through the provider Skill, revalidate,
 and atomically replace `request`. Do not search the opaque JSON for prompt-like
 keys.
@@ -172,7 +177,11 @@ document only for a deliberate new generation.
 
 ## Inspect and attach
 
-Inspect every artifact before attachment. Rejected outputs stay temporary.
+Inspect every artifact, then automatically attach generated assets to the
+requested destination across all providers, media kinds, and purposes. Report
+quality concerns without asking for output acceptance or attachment consent.
+Only explicit review-only, leave-unattached, or strict-iteration instructions
+change that default; unusable files or unresolved destinations remain blockers.
 Persist the exact safe `provenance` value from Execute/Recover in a unique JSON
 file under `tmp/operations/media-generation/`, then pass it through the focused
 attachment command with `renku media import --provenance` or the focused grouped
@@ -190,7 +199,9 @@ direction chooses it. Author the same review envelope with `provider: "codex"`,
 `model: "chatgpt-images-2.5"`, and `mediaKind: "image"`. This identifies the
 Codex product family; it does not assert a Flare or Sunburst API variant.
 
-Preview normally, then invoke the built-in capability directly after
-conversational confirmation. Create safe provenance with the exact final
+Use the user's direction and Project defaults without a configuration or
+generation consent pause. Show configuration only if requested; automatic
+Preview is informational. Invoke the built-in capability directly, respecting
+an explicit request to review before execution. Create safe provenance with the exact final
 prompt/request and no invented receipt. Attach it through the same
 `--provenance` boundary.

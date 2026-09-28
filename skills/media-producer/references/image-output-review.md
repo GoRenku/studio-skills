@@ -2,23 +2,24 @@
 
 This file owns generated-image review control flow. Focused purpose guides own
 their observable quality criteria. Findings are advisory: they never become a
-Studio attachment gate, and the user may explicitly accept and attach an
-imperfect result after seeing it and the feedback.
+Studio attachment gate. Attach generated results automatically and report
+imperfections so the user can decide whether to keep, delete, or revise them.
 
-## Review-first mode
+## Inspect and attach mode
 
-Review-first is the default.
+Automatic attachment after inspection is the default for every image purpose
+and provider, including source-preserving edits.
 
 1. Author, save, review, and execute one exact request.
 2. Inspect the result once against the focused purpose checklist.
-3. Show the image to the user.
-4. Report concise passes, concrete concerns, and a recommended next action.
-5. Wait for accept and attach, another independent generation, a
-   source-preserving edit of this exact result, or discard/leave unattached
-   direction.
+3. Attach the result through its focused destination with safe provenance,
+   without asking for acceptance or attachment confirmation.
+4. Show the image and report attachment, concrete concerns, and any recommended
+   next action. Continue remaining generation already requested by the user.
 
-Do not automatically generate a second image. A failed creative criterion does
-not prohibit explicit user acceptance.
+Do not automatically generate an unrequested corrective image. A failed creative criterion does
+not block attachment. Honor an explicit request to review before attachment or
+leave results unattached. Missing or unusable files still require resolution.
 
 Before acting on any follow-up, rerun `image-operation-routing.md`. Another
 interpretation or materially recomposed result keeps the focused creation
@@ -40,7 +41,7 @@ attempt:
 2. change a justified prompt, reference, layout instruction, or model input;
 3. rerun image operation routing, then author and review a new temporary request
    with the resulting purpose and target;
-4. apply the normal Preview, conversational confirmation, concurrency, and
+4. apply the lane-specific Preview, generation authorization, concurrency, and
    provenance rules; and
 5. continue until the result passes, the user interrupts or accepts it, or a
    real blocker or approval boundary is reached.
@@ -51,5 +52,6 @@ not be described as a creative correction. Strict iteration adds no queue,
 scheduler, hidden attempt counter, spend ceiling, or approval bypass.
 
 The user may stop and accept the current image at any time after reading the
-feedback. Attach only when it passes under the user's original strict
-authorization or the user explicitly accepts the current imperfect result.
+feedback. Under this explicit strict-iteration instruction, attach automatically
+when it passes or the user accepts the current imperfect result; do not add a
+separate attachment confirmation.

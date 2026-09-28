@@ -20,9 +20,8 @@ Keep the sequence explicit:
    approval stop;
 3. execute through the selected path;
 4. inspect the exact output;
-5. wait for output acceptance;
-6. when the accepted image should become the Shot's current image, import and
-   select it atomically:
+5. automatically attach without asking for output acceptance; when the image
+   should become the Shot's current image, import and select it atomically:
 
 ```bash
 renku media import \

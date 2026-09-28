@@ -75,5 +75,5 @@ sheet/profile or invent provenance.
 Do not run generation yourself. Ask `media-producer` to author the temporary
 provider review document, open conversational Preview when required, satisfy
 the current confirmation policy, inspect the result, and return exact safe
-generation provenance. After a voice sample is generated and approved, attach
+generation provenance. After a voice sample is generated and inspected, automatically attach
 it through `renku cast voice attach`; do not import it with `renku media import`.

@@ -21,10 +21,10 @@ selected but the harness lacks built-in image generation, ask rather than
 falling back to a paid provider.
 
 Use the standard temporary review-document workflow. Display Preview when its
-Project setting is on or the user explicitly asks. Honor the Image confirmation
-setting with one ordinary conversational pause.
-After execution, inspect the exact output and wait for output acceptance. Then
-import:
+Project setting is on or the user explicitly asks. For external providers,
+honor the Image confirmation setting with one ordinary conversational pause.
+Codex generation has no separate consent pause. After execution, inspect the
+exact output and automatically import without asking for output acceptance:
 
 ```bash
 renku media import \

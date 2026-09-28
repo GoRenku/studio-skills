@@ -65,10 +65,11 @@ revision reads. Do not add a duplicate production-number field.
    provider's current native operation facts. An edit-capable provider route
    does not change this focused creation purpose to `image.edit`.
 8. Write one temporary review document per batch. Validate Engines requests,
-   show Preview when required, reread after confirmation, rebuild native prompt
+   show Preview when required, apply the lane-specific authorization rules,
+   reread before execution, rebuild native prompt
    fields after edits, then execute through the chosen lane.
-9. Follow `image-output-review.md`. Review-first analyzes one result and waits
-    for accept/regenerate/discard direction. Strict iterative review requires
+9. Follow `image-output-review.md`. Inspect and automatically attach the result
+    without output acceptance or attachment confirmation. Strict iterative review requires
     explicit user opt-in and a deliberately changed, newly reviewed request
     after a visual failure. For a one-Beat request, inspect the complete full-
     canvas image without putting it in a grid. For a multi-Beat composite,

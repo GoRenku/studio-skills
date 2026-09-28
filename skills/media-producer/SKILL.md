@@ -195,14 +195,33 @@ For every video workflow, also read
 inspecting its live schema. This is where selected Dialogue Audio becomes the
 default for any route that can actually accept uploaded audio references.
 
-## Configure every generation in Codex
+## Generation and attachment authorization
 
-When the active harness is Codex and exposes `@Visualize`, always show the
-transient inline configuration component before authoring the review document.
+A request to generate media authorizes attaching the resulting assets to the
+requested destination for every provider, media kind, and purpose. Inspect the
+outputs, attach them through the focused Core command with safe provenance,
+and report the result and any quality concerns without asking for separate
+acceptance or attachment confirmation. Follow explicit preview-only,
+leave-unattached, or strict-iteration direction when supplied. Do not invent
+another generation to fix a concern without authorization.
+
+Codex built-in generation is part of the current session: do not ask for
+generation consent or apply `askBeforeGenerating` to that lane. Use the user's
+direction and current Project defaults directly. Configuration and Preview
+must not become implicit consent gates. Pause for creative review only when
+the user explicitly requests it; external-provider spending approval and host
+permissions remain governed by their existing rules.
+
+## Configure generation in Codex
+
+For external-provider requests, when the active harness is Codex and exposes
+`@Visualize`, show the transient inline configuration component before authoring
+the review document. For Codex built-in generation, use it only when the user
+asks to configure or review settings; otherwise prepare the request directly.
 Read and follow
 [references/inline-generation-configuration.md](references/inline-generation-configuration.md).
-This common step applies to every image, video, and audio purpose in the table
-above.
+This distinction applies to every image, video, and audio purpose in the table
+above; running an external provider from Codex is still external generation.
 
 Prepare the initial authored prompt, exact chosen references, and native values
 first. Treat explicit user direction or the matching Project Setting only as
@@ -229,7 +248,8 @@ advice, and fresh cached or newly fetched schema, recreate the prompt when its
 canonical model changed, and rematerialize the same task-local visualization
 source file from that route's cached template. When the canonical model is
 unchanged, preserve the prompt and only schema-compatible exact native values.
-Continue to Generation Preview only from **Continue with these settings** while
+When this configuration flow is used, continue to Generation Preview only from
+**Continue with these settings** while
 the selectors match the prepared route, or from a separate explicit
 confirmation of unchanged prepared values.
 
@@ -279,15 +299,19 @@ renku generation preview show --file tmp/operations/media-generation/request.jso
 ```
 
 Use repeated `--file` flags to review several independent requests in order.
-Preview is conversational: the agent pauses, the user may edit only the
-top-level prompt, and Update or Close does not generate media or resume an
-agent. Continue only after the user confirms in the ordinary conversation.
+Preview supports conversational review: the user may edit only the top-level
+prompt, and Update or Close does not generate media or resume an
+agent. For external providers, continue after the required conversational
+confirmation. Codex built-in generation continues without a consent pause;
+if the user explicitly requested review before execution, wait for their review.
 Reread the file, rebuild the native request from its final prompt, validate it
 again when Engines-owned, and replace the document atomically before execution.
 
 `showGenerationPreviews` controls automatic Preview. An explicit user Preview
-request always opens it. `askBeforeGenerating` is one conversational pause, not
-an approval token; a confirmation after Preview satisfies it. Apply the
+request always opens it. For Codex, an automatic Preview is informational and
+does not require a reply. For external providers, `askBeforeGenerating` is one
+conversational pause, not an approval token; a confirmation after Preview
+satisfies it. Apply the
 per-media concurrency setting only to independent requests.
 
 ## Execute, recover, and attach
@@ -309,11 +333,12 @@ If a submitted job times out or becomes interrupted and a request id is known,
 use `generation recover` with the unchanged review file and exact request id.
 Do not resubmit blindly.
 
-Codex requests invoke the built-in image capability directly after Preview and
-confirmation. They never call Engines commands and never invent an Engines
+Codex requests invoke the built-in image capability directly without separate
+generation consent. They never call Engines commands and never invent an Engines
 receipt.
 
-Inspect every output before attachment. Write the exact returned
+Inspect every output, then attach automatically without an acceptance question.
+Write the exact returned
 `provenance`—or the equivalent safe Codex provenance with no invented
 receipt—to a unique JSON file under `tmp/operations/media-generation/`. Attach
 through the focused destination:

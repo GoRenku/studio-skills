@@ -107,9 +107,9 @@ An `image.edit` request requires a registered source Asset and AssetFile.
   product decision, ask before importing. Do not avoid the question by placing
   the project file in an Additional slot and calling focused creation an edit.
 
-## Attach the accepted result
+## Attach the generated result
 
-After separate output acceptance, import the edited result through the focused
+After inspection, automatically import the edited result through the focused
 image destination chosen for that result. The destination purpose and owner are
 independent from the edit source. Preserve the exact generation provenance and
 apply that destination's ordinary selection rules.

@@ -91,7 +91,7 @@ copy a field name from a different provider.
 Do not resend Production Lookbook, Location Sheet, or Character Sheet references for
 a localized edit unless the user asks for a new reference-conditioned image.
 The source image is the visible continuity anchor. Inspect the result before
-import, separately ask the user to accept the output, and attach it only through
+import, then attach automatically without separate output acceptance through
 the chosen focused destination with the exact safe provenance.
 
 ## Provider-Visible Reference Roles

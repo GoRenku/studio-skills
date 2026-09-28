@@ -4,7 +4,10 @@ Use this guide for the transient `@Visualize` component shown before Media
 Producer authors any image, video, or audio review document. The installed
 Visualize Skill owns styling, theme, layout primitives, interaction, and
 accessibility. This guide owns Renku's shared composition, system cache, and
-request handoff.
+request handoff. For Codex built-in generation, this component is optional and
+used only when the user asks to configure or review settings. Otherwise use
+their direction and Project defaults directly, without creating a configuration
+confirmation gate. External-provider requests retain the configuration flow.
 
 ## Reuse a system-cached route template
 

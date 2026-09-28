@@ -59,7 +59,8 @@ geography/state, Storyboard appearance when requested, absence of Production
 style leakage, useful downstream coverage, consistent scale and landmarks, and
 absence of an unrequested poster treatment.
 
-After acceptance, attach through the matching focused purpose. Every generated
+After inspection, automatically attach through the matching focused purpose
+without a separate acceptance question. Every generated
 Location Sheet and Hero includes readable summary metadata. A Storyboard
 continuity variant also includes exact tag membership:
 

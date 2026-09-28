@@ -64,8 +64,9 @@ A plan reference improves generation but does not guarantee that an image
 model will preserve topology across several perspective panels. When exact
 view-to-plan agreement is required, use another already approved same-space
 source in addition to the plan when one exists. If it does not, treat one
-generated sheet as review-first exploration and never attach it when a wall,
-opening, furniture axis, or camera area disagrees. Do not introduce a 3D
+generated sheet as exploration, inspect it, and report any wall, opening,
+furniture-axis, or camera-area disagreement. Follow `image-output-review.md`
+for automatic attachment and any explicitly requested strict iteration. Do not introduce a 3D
 blockout workflow unless the user explicitly requests one.
 
 ## Appearance Is Part Of Continuity
@@ -110,7 +111,8 @@ spatial meaning; do not depend on generated labels to repair unclear views.
 
 ## Inspection
 
-Reject the sheet before import when any of these are true:
+Report these quality concerns after inspection; they do not block automatic
+attachment unless the user explicitly requested strict iteration:
 
 - the plan contradicts the active Location Design or user correction;
 - a door, window, opening, or landmark moves to another wall between views;
