@@ -4,7 +4,7 @@ Use `prop.sheet` with `prop:<prop-id>` for one production reference board and
 `prop.hero` for the compact overview/detail image.
 
 Begin with `renku generation context --purpose <prop.sheet|prop.hero> --target
-prop:<prop-id> --json`. Use its exact Prop facts/design/Scene appearances,
+prop:<prop-id>`. Use its exact Prop facts/design/Scene appearances,
 relevant Lookbooks, policy/guidance, and same-Prop continuity suggestions.
 Suggestions are advisory and may be supplemented or replaced.
 

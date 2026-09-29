@@ -9,7 +9,7 @@ weak authoring context, not ownership, dependency state, or a selected video.
 ## Required reads
 
 1. Run `renku generation context --purpose <shot-plan-video-purpose> --target
-   shot-plan:<shot-plan-id> --json`. Core supplies the exact Plan, Shots,
+   shot-plan:<shot-plan-id>`. Core supplies the exact Plan, Shots,
    coverage, Scene, related subjects/designs, dialogue, Lookbook, and
    relationship-derived media suggestions.
 3. Read `workflow.md`.

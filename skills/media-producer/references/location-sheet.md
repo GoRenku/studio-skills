@@ -10,6 +10,12 @@ reference boards. Begin with its generation context and consume the exact
 Location facts/design/Scene appearances, both Lookbooks, policy, advisory
 output guidance, and relationship-derived suggestions.
 
+Read the briefing directly using the shared format-choice rule in `workflow.md`.
+The Media section supplies exact files; Reference Suggestions supplies their
+roles. In JSON, resolve candidate `assetId` and `assetFileId` through top-level
+`assets`. Lookbook `images` and `sheets` retain placement metadata and `assetId`;
+individual images retain their authored `sections` and `points`.
+
 Use `location.hero` for the compact Location overview image. Core suggests 16:9
 and medium quality without choosing a model. Inspect every
 eligible `source/location-sheet` candidate and choose the exact source

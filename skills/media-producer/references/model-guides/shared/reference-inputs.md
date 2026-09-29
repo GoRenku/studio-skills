@@ -29,6 +29,12 @@ visible or audible evidence. Stored provenance records an earlier request; it
 does not prove what the output contains or instruct the next generation.
 Generation context omits those recipes, including exact edit sources.
 
+The briefing's Media inventory supplies complete current Asset/File facts once.
+Reference Suggestions preserves their distinct roles and selection facts. For
+programmatic JSON use, resolve `assetId` and `assetFileId` through `assets`;
+do not infer identity from a title or path. Voice `sampleAssetId`, Lookbook
+`assetId`, subject `assetIds`, and Shot `imageAssetIds` use that same inventory.
+
 Use current direction to decide what to preserve and change:
 
 - A helmetless character variant uses the sheet for identity, build, and costume

@@ -12,8 +12,7 @@ Resolve the exact Shot Plan, then read its current generation context:
 ```bash
 renku generation context \
   --purpose shot-plan.dialogue-audio \
-  --target shot-plan:<shot-plan-id> \
-  --json
+  --target shot-plan:<shot-plan-id>
 ```
 
 Use the canonical Turn numbers returned by Core for this request. The numbers

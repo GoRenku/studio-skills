@@ -4,8 +4,8 @@ Use `project.cover` with target `project` for retained Project Cover candidates
 shown in Project Details and for the one selected image displayed in the
 Project Library and Studio sidebar.
 
-Begin with `renku generation context --purpose project.cover --target project
---json`. Read Project story facts from `project`, the Production Lookbook from
+Begin with `renku generation context --purpose project.cover --target project`.
+Read Project story facts from `project`, the Production Lookbook from
 `visualLanguage`, the current review/execution policy from `workflowPolicy`, and
 the advisory 16:9/quality suggestion from `outputGuidance`.
 

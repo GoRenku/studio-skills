@@ -3,7 +3,7 @@
 Use `cast.profile` with target `cast:<cast-member-id>` for the compact Cast navigation image.
 
 Begin with `renku generation context --purpose cast.profile --target
-cast:<cast-member-id> --json`. Use its exact Cast/design/Scene/voice facts,
+cast:<cast-member-id>`. Use its exact Cast/design/Scene/voice facts,
 Production Lookbook, policy/guidance, and same-Cast continuity suggestions.
 
 Use a 1:1 profile composition. Inspect every current same-Cast Character Sheet

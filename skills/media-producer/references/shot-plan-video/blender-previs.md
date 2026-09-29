@@ -22,7 +22,7 @@ Read `workflow.md`, `../video-reference-continuity.md`, the selected model opera
 and provider adapter. Reread generation context for the exact existing plan:
 
 ```bash
-renku generation context --project <name> --purpose shot-plan.video-generation --target shot-plan:<id> --json
+renku generation context --project <name> --purpose shot-plan.video-generation --target shot-plan:<id>
 renku shot-plan previs show --project <name> --shot-plan <id> --json
 ```
 

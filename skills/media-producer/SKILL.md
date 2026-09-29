@@ -17,8 +17,8 @@ for their creative contents.
 
 ## Efficient Command Use
 
-Follow `references/workflow.md` for first-call context capture, bounded local
-inspection, reuse and refresh timing. Do not repeat a successful context call
+Follow `references/workflow.md` for one-call format choice, direct briefing
+consumption, reuse and refresh timing. Do not repeat a successful context call
 just to save it. Prior recipes are omitted from the briefing; use references for
 the current task and retrieve history only when needed, following
 `references/model-guides/shared/reference-inputs.md`.
@@ -44,14 +44,17 @@ source summaries, reuse of registered inputs, and Preview availability checks.
 
 ## Read the deterministic briefing first
 
+For media generation from an existing Location or Prop design, use this skill
+directly. Load `production-designer` when the task also needs design authoring
+or revision; do not fetch its department context to repeat the generation briefing.
+
 Before choosing a provider, authoring a prompt, or creating a review document,
 read the complete current Core briefing:
 
 ```bash
 renku generation context \
   --purpose <purpose> \
-  --target <target> \
-  --json
+  --target <target>
 ```
 
 For `scene.storyboard-sheet`, pass the exact reviewed revision and repeat
@@ -140,12 +143,22 @@ Read only the purpose craft guide relevant to the current destination.
 
 ## Resolve canonical model guidance
 
-List effective discovery choices with `renku generation models list --json`,
-passing all five provider Skills' `references/supported-routes.json` paths as
-repeated `--route-index` flags. Personal entries override exact discovery labels.
+For Codex built-in images, look up the entry with `key: "chatgpt-images-2.5"`
+in the `models` array of `references/model-guides/model-catalog.json` and read
+its `guide`, relative to `references/model-guides/`. The active image capability
+owns native request fields; there is no provider adapter or external-provider
+discovery step. This is a product-family identity, not a selectable Flare or
+Sunburst API variant. Continue with the purpose craft guide below and the Codex
+section of `references/workflow.md`.
+
+For external providers, list effective discovery choices with
+`renku generation models list --provider <selected-provider> --json`, passing
+that provider Skill's `references/supported-routes.json` as `--route-index`.
+Load all five indexes only when presenting choices across providers, such as
+an explicitly requested configuration UI. Personal entries override exact discovery labels.
 An explicitly selected unlisted route can proceed without installation. Copy the
 exact `apiId` into the review document's `model` field; never execute `modelKey`.
-Use `generation models show --provider <provider> --model <apiId> --json` to
+Use `generation models show --provider <provider> --model <apiId> --route-index <selected-provider-index> --json` to
 obtain the optional `personalGuidePath`.
 
 Independently look up the selected exact route in its current bundled index.
@@ -173,11 +186,6 @@ selected provider documentation rather than guessing when the schema is
 ambiguous. Never infer the native property from a model name or a checked-in
 field-name map. When the provider returns a rewritten or actual prompt, review
 it as receipt evidence while preserving the authored prompt unchanged.
-
-For the Codex built-in image lane, resolve `chatgpt-images-2.5` directly from
-the same catalog. This is a product-family identity, not a selectable Flare or
-Sunburst API variant. There is no provider adapter; the active image capability
-contract owns its request fields and reference behavior.
 
 | Purpose | Craft guide |
 | --- | --- |

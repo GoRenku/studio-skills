@@ -1,7 +1,7 @@
 # Provider-Skill Media Generation Workflow
 
-Begin with `renku generation context --purpose <purpose> --target <target>
---json`. For Scene Storyboards, add the exact `--revision` and repeated `--beat`
+Begin with `renku generation context --purpose <purpose> --target <target>`.
+For Scene Storyboards, add the exact `--revision` and repeated `--beat`
 scope. Use the returned typed Project/target context, Lookbooks, policy,
 guidance, suggestions, and warnings as the briefing before selecting a provider.
 
@@ -20,14 +20,23 @@ intent; it is distinct from common Asset display selection.
 
 1. Resolve the requested Project once and use its absolute Project folder as
    the working directory, respecting each command's targeting flags. Keep
-   temporary paths project-relative under `tmp/`.
-2. Capture the first successful generation-context stdout directly to a unique
-   file under `tmp/scratch/`. Check success before consuming it; never read a
-   partial failed output. Do not run the same command again just to save it.
-3. Inspect identity, policy, guidance, warnings, current target/design facts,
-   relevant Lookbook definitions, and reference metadata in bounded sections
-   from that file. Do not print the whole report followed by its subsets or
-   broad object differences. Inspect chosen media as well.
+   temporary paths project-relative under `tmp/`. When no Project is named,
+   `renku project current --json` returns `project.projectName` and
+   `project.projectFolder`. If it resolves the requested context, continue there;
+   do not enumerate sibling folders or read other Projects' `info show` reports.
+   Resolve another Project only for an explicit different target or unresolved
+   identity. Reuse a Project already resolved by the calling workflow.
+2. Read generation context once. Use text for direct briefing consumption, or
+   request `--json` from the start when the next operation processes the report
+   in code. Honor an explicit user format choice. These are alternatives, not
+   successive steps; neither format omits information supplied by the other.
+   Purpose guides inherit this rule. JSON does not itself require Python.
+3. Read complete current documents, policy, guidance, warnings, and media roles;
+   inspect chosen media too. If saving output is useful, capture that same call
+   to a unique file under `tmp/scratch/` and check success before reading it.
+   Do not repeat a successful call to save it or routinely fetch both formats.
+   For a long captured report, read successive sections rather than truncating
+   creative text. Reuse a current saved report when it supplies the needed format.
 4. Reuse within unchanged preparation. Refresh after changed scope, relevant
    user edits, imported/replaced references, changed design/Lookbook/policy,
    known external mutation, or uncertain intervening state. This is task-local
@@ -43,7 +52,28 @@ intent; it is distinct from common Asset display selection.
    execution. Execute and record those exact values. Avoid an initial full dump
    followed by an identical second read, and never reuse stale pre-Preview values.
 
-Use the mutation report to confirm attachment/selection. Generation context
+The readable Media section contains each Asset and its files once. Reference
+Suggestions distinguishes role, subject, availability, display selection, and
+workflow selection. In JSON, resolve each candidate's `assetId` and `assetFileId`
+through `assets`; subject `assetIds`, Shot `imageAssetIds`, Lookbook `assetId`,
+and Voice `sampleAssetId` refer to the same inventory. Preserve opaque
+`voiceIdentity` when the provider needs it. Full designs remain in `activeDesign`
+with `activeDesignId`; exact edit and Shot targets use `assetId` and `shotId`.
+Suggestions are not the full media inventory: other returned alternatives remain
+usable. A changed task or Project state may justify another read; a routine
+text-then-JSON sequence to discover missing fields should not be necessary.
+
+Use the mutation report's `valid`, `asset.id`, and `asset.files` to confirm a
+media import. It does not expose display selection. When confirming an imported
+Hero's selected state, capture `renku asset list --project <project-name>
+--owner location:<location-id> --json` once and compare its top-level
+`selectedAssetId` with the imported `asset.id`. Print that comparison, not the
+full Asset history. For other selectable owners use their exact owner syntax;
+Location Sheets have no global selection. A focused selection command already
+returns `selectedAssetId`, so it needs no extra list call. Do not search Asset
+properties or department context for selection flags.
+
+Generation context
 omits prior Asset recipes even for exact edit sources. Use references for their
 intended contribution to the current request; consult the shared reference-input
 guide for deliberate history access instead of retrieving history by default.
@@ -239,3 +269,39 @@ Preview is informational. Invoke the built-in capability directly, respecting
 an explicit request to review before execution. Create safe provenance with the exact final
 prompt/request and no invented receipt. Attach it through the same
 `--provenance` boundary.
+
+Author the review document's `request` with the actual built-in capability
+fields from the start. For example, a file-backed image reference uses
+`referenced_image_paths`, not a separate generic reference list:
+
+```json
+{
+  "provider": "codex",
+  "model": "chatgpt-images-2.5",
+  "mediaKind": "image",
+  "prompt": "The exact current generation prompt",
+  "request": {
+    "prompt": "The exact current generation prompt",
+    "referenced_image_paths": [
+      { "$file": "<registered-AssetFile-projectRelativePath>", "mimeType": "image/png", "reviewLabel": "Production Lookbook appearance reference" }
+    ],
+    "transparent_background": false
+  }
+}
+```
+
+Omit reference fields for a request with no references; use the current tool's
+conversation-image mechanism when appropriate. Resolve local-file markers to
+absolute paths for the tool invocation, preserving reference order. Keep safe
+markers in the stored request. Read the final post-Preview values for execution
+and retain that same envelope for provenance; matching two prompt fields alone
+does not establish that an earlier tool-call literal is still current.
+
+When the final review envelope contains only the five fields above, pass that
+file directly as `--provenance`. Otherwise copy those five fields into a unique
+provenance JSON file. Preserve the actual executed request, including background
+and reference choices, with safe local-file markers and no invented receipt.
+Use this structure rather than opening another Asset's historical recipe as a
+format example. Inspect and copy the generated file, prepare provenance when
+needed, and import in one shell operation where practical; check each operation
+succeeded before the next. Visual inspection still precedes attachment.

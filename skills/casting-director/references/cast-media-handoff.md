@@ -19,7 +19,7 @@ work.
 Before handoff, read `renku cast design context --cast <cast-member-id> --json`
 to finish Cast Design work. Media Producer independently begins the media turn
 with `renku generation context --purpose <purpose> --target
-cast:<cast-member-id> --json`; that Core report is the authority for the current
+cast:<cast-member-id>`; that Core report is the authority for the current
 Cast facts, active design, Lookbook, voices, owned Assets, related Scenes, and
 relationship-derived reference suggestions. Do not manually reconstruct or
 copy those relationships into the handoff.

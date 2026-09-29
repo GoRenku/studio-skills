@@ -27,9 +27,9 @@ Then pass the returned durable `sceneId` to the owning specialist.
 | Create or iteratively revise director/cinematographer production camera coverage, a Shot List, individual Shots, order, or selected Shot imagery | Directing / Shot Planning | `shot-planner` | `renku shot-plan list --scene <scene-id> --json` |
 | Change one exact existing image while preserving its unaffected content, regardless of its current or intended owner | Media Production | `media-producer` for image operation routing and `image.edit` | Resolve the exact source Asset and AssetFile from current context |
 | Create or revise Blender 3D blocking, camera, gestures or dialogue timing | Directing / Previs | `blender-shot-planner` | `renku shot-plan previs show --shot-plan <shot-plan-id> --json` |
-| Create one Dialogue Audio Take for one Turn or one consecutive Turn range in a Shot Plan | Media Production / Dialogue | `media-producer` for `shot-plan.dialogue-audio` | `renku generation context --purpose shot-plan.dialogue-audio --target shot-plan:<shot-plan-id> --json` |
+| Create one Dialogue Audio Take for one Turn or one consecutive Turn range in a Shot Plan | Media Production / Dialogue | `media-producer` for `shot-plan.dialogue-audio` | `renku generation context --purpose shot-plan.dialogue-audio --target shot-plan:<shot-plan-id>` |
 | Edit or continue one exact registered video while preserving unaffected content | Media Production | `media-producer` for `video.edit` | Resolve the exact source video Asset and AssetFile from current context |
-| Generate or import media | Media Production | `media-producer` | `renku generation context --purpose <purpose> --target <target> --json` |
+| Generate or import media | Media Production | `media-producer` | `renku generation context --purpose <purpose> --target <target>` |
 
 ## Default Production Order
 

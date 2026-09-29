@@ -38,8 +38,7 @@ revision reads. Do not add a duplicate production-number field.
      --purpose scene.storyboard-sheet \
      --target scene:<scene-id> \
      --revision <scene-beats-revision-id> \
-     --beat <beat-id> \
-     --json
+     --beat <beat-id>
    ```
 
    Repeat `--beat` for each Beat in the batch. Core returns them in canonical

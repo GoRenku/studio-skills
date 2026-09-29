@@ -6,7 +6,7 @@ selected appearance authority changes the rendering style; it never changes
 the layout.
 
 Begin with `renku generation context --purpose cast.character-sheet --target
-cast:<cast-member-id> --json`. Use its Cast facts/design/Scene appearances,
+cast:<cast-member-id>`. Use its Cast facts/design/Scene appearances,
 Production and Storyboard Lookbooks, workflow/guidance, and relationship-derived
 appearance/continuity suggestions. Select the references that best serve this
 request; the returned set is advisory and may be supplemented or replaced. For a

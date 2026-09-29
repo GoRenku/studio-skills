@@ -17,7 +17,7 @@ selected Cast Voice identity and the supported retrieval operation rather than
 inventing speech-generation controls.
 
 ```bash
-renku generation context --purpose cast.voice-sample --target cast:<cast-member-id> --json
+renku generation context --purpose cast.voice-sample --target cast:<cast-member-id>
 renku generation validate --file tmp/operations/media-generation/cast-voice-sample.json --json
 renku generation preview show --file tmp/operations/media-generation/cast-voice-sample.json --json
 renku generation execute --file tmp/operations/media-generation/cast-voice-sample.json --output tmp/media/cast-voice-sample --json

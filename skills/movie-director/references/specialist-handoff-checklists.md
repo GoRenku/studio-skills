@@ -301,7 +301,7 @@ Pass:
 Verify:
 
 ```bash
-renku generation context --purpose <purpose-key> --target <target> --json
+renku generation context --purpose <purpose-key> --target <target>
 renku director context --json
 ```
 

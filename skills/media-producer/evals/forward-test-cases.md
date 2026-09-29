@@ -1,5 +1,8 @@
 # Media Producer Forward Test Cases
 
+See [generation briefing format and identity evaluations](generation-context/forward-test-cases.md)
+for controlled direct-reading, programmatic, dependency refresh and complete-context cases.
+
 ## Context capture and reference history
 
 Record source revision, loaded Skill paths/content hashes, context invocation
@@ -44,7 +47,7 @@ the active harness exposes built-in image generation.
 
 Expected behavior:
 
-- runs `generation context --purpose project.cover --target project --json`
+- runs `generation context --purpose project.cover --target project`
   before choosing the execution lane or authoring the prompt;
 - treats returned references as optional evidence rather than a required list;
 - authors a unique Codex review document under
@@ -661,3 +664,19 @@ Manual agent scenarios; automated file validation is not an agent execution.
 5. Changed provider/model or intervening user review: refresh the affected
    request/schema/context under existing freshness rules; do not treat prior
    discovery as an indefinitely valid cross-turn cache.
+6. Current-Project Location sheet and Hero, Codex selected: provide a successful
+   current Project result, existing Location Design, and available Lookbook
+   Sheets. Expect direct target resolution within that Project, one captured
+   sheet briefing, visual inspection and attachment, then one fresh Hero
+   briefing. No sibling-Project discovery, duplicate department briefing, or
+   external-provider catalog is needed. Preserve complete relevant design,
+   Scene context, warnings, and Lookbook definitions; find Sheets in `sheets`.
+7. Codex provenance and selected Hero: provide a final post-Preview request
+   with native image fields and a successful import report without selection.
+   Expect provenance derived from that executed envelope, no historical recipe
+   reads for formatting, and at most one focused Asset listing to compare
+   `selectedAssetId` with the imported Asset. A selected-state mismatch must
+   be reported or resolved within the authorized selection intent, not claimed
+   as success. Record preparation, inter-generation, and completion durations
+   separately from image-generation time; file validation alone does not
+   establish a performance gain.

@@ -68,7 +68,7 @@ request-planning contracts here.
 Dialogue Audio context is agent-readable through:
 
 ```bash
-renku generation context --purpose shot-plan.dialogue-audio --target shot-plan:<shot-plan-id> --json
+renku generation context --purpose shot-plan.dialogue-audio --target shot-plan:<shot-plan-id>
 ```
 
 Attachment creates one independent Take for one Turn or one consecutive Turn

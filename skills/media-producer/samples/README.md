@@ -5,7 +5,7 @@ provider schemas, or durable Project records. Read the deterministic briefing
 for the real target before adapting one:
 
 ```bash
-renku generation context --purpose <purpose> --target <target> --json
+renku generation context --purpose <purpose> --target <target>
 ```
 
 The briefing stays outside the review document. Its suggestions are advisory;

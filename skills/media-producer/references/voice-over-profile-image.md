@@ -21,7 +21,7 @@ user changes the Cast Member into a visible on-screen role first.
 Read the regular `cast.profile` context first:
 
 ```bash
-renku generation context --purpose cast.profile --target cast:<cast-member-id> --json
+renku generation context --purpose cast.profile --target cast:<cast-member-id>
 ```
 
 Use the context to ground the prompt in:

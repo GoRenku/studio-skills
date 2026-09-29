@@ -14,7 +14,7 @@ capture; do not fetch another copy merely to reconstruct the same briefing.
 Location Sheet context:
 
 ```bash
-renku generation context --purpose location.sheet --target location:<location-id> --json
+renku generation context --purpose location.sheet --target location:<location-id>
 ```
 
 Media Producer uses that report as the authority for the current Location facts,
