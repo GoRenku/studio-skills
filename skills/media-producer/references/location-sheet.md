@@ -1,5 +1,10 @@
 # Location Sheet And Hero
 
+For a combined sheet-and-hero request, capture sheet context once to
+`tmp/scratch/`, inspect and attach the output under current authorization, then
+capture hero context with the new reference. Do not prefetch or duplicate hero
+context. Follow `workflow.md` for bounded inspection and refresh conditions.
+
 Use `location.sheet` with `location:<location-id>` for one or more reusable
 reference boards. Begin with its generation context and consume the exact
 Location facts/design/Scene appearances, both Lookbooks, policy, advisory

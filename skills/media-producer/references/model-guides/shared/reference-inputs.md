@@ -22,6 +22,45 @@ state, department names, review history, asset ids, file names, Production Lookb
 names, Cast Design names, Location Design names, and prior generated images
 that are not attached to the request.
 
+## Current Guidance, Artifact Evidence, And Previous Recipes
+
+Current design documents describe intended design. Reference media supplies
+visible or audible evidence. Stored provenance records an earlier request; it
+does not prove what the output contains or instruct the next generation.
+Generation context omits those recipes, including exact edit sources.
+
+Use current direction to decide what to preserve and change:
+
+- A helmetless character variant uses the sheet for identity, build, and costume
+  while changing headwear. Do not retrieve an old instruction requiring a helmet.
+- A Lookbook supplies palette, materials, and lighting. Old instructions for
+  panels, headers, or swatches do not belong in a Location hero request.
+- Inspect Location sheets for spatial evidence: requested closed shutters do
+  not prove the output has them. Explain relevant design/image discrepancies.
+- A production sheet used for a storyboard preserves identity and geography;
+  current storyboard direction controls the rendering medium.
+- A neighboring Shot or first frame supplies continuity, not an obligation to
+  repeat its framing, action, or initial pose in the next Shot or last frame.
+- A voice sample supplies voice evidence; its old words/performance direction
+  do not replace current dialogue. Preserve the selected opaque voice identity.
+- Exact image/video edits use the source and current change; their old recipe
+  is not required merely because this is an edit.
+
+Explicit direction can resolve a changed trait without another consent question
+or an automatic durable design update. Ask only when a material creative choice
+remains unresolved. These are agent judgments, not runtime prompt filters.
+
+Retrieve history deliberately to inspect an original prompt, reuse settings,
+revise a prior prompt, or diagnose a previous result. Use
+`renku asset list --project <name> --owner <owner> --json`, save the result, and
+inspect the exact Asset id's `generationProvenance` locally. Follow `nextCursor`
+only when needed, keeping filters unchanged. Specific voice history is available
+through `renku cast voice show`. These resources retain full provenance.
+Read necessary history once; do not dump every recipe, fetch the entire reference
+graph, or read SQLite directly. Preserve the stored original and author a new
+request for changes. Reusing settings does not guarantee identical output.
+Never fetch history automatically to compensate for its absence in the briefing.
+
 ## Reference advice
 
 Read available canonical advice from `model-catalog.json`, the selected route's

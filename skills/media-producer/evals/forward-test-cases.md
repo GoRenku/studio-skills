@@ -1,5 +1,42 @@
 # Media Producer Forward Test Cases
 
+## Context capture and reference history
+
+Record source revision, loaded Skill paths/content hashes, context invocation
+count, repeated file reads, command output bytes, CLI process time, image-tool
+intervals, agent-turn time, and between-turn gaps. Fixture checks and source
+validation are not evidence of an executed live agent session or provider speedup.
+
+Exercise these journeys with deterministic fixture outputs before any live run:
+
+1. **Dependent sheet and hero with Codex defaults:** capture sheet context once,
+   inspect/attach the sheet, then capture hero context once with the new Asset.
+   No redundant settings reads or unsolicited configuration/consent/attachment
+   pauses. Preserve exact output provenance and source linkage.
+2. **Explicit Preview and leave-unattached:** wait for requested review, read
+   final edited values once, execute those values, and leave output unattached.
+3. **External route with fresh template:** reuse cache and route discovery;
+   preserve provider validation and spending approval. Use fixture execution.
+4. **Relevant mutation:** replace/import a reference or change policy during
+   preparation; refresh once and use the changed state. Do not enforce a rigid
+   maximum call count when correctness requires another read.
+5. **Working directory and host denial:** resolve the Project folder before
+   relative paths; retry a denied cache write only through authorized host
+   permissions. No unchanged denial loop or speculative permission changes.
+6. **Changed reference role/trait:** cover helmetless character, Lookbook-to-hero,
+   Location sheet with visible/requested shutter discrepancy, production sheet
+   to drawn storyboard, neighboring Shot/new angle, first/last-frame pose change,
+   voice sample/new dialogue, and exact image/video edits. Use current direction
+   and inspected media; do not retrieve or forward prior recipes by default.
+   Do not add consent when the user already specified the change. Evaluate agent
+   judgment, not runtime prompt-string matching or generated-media validation.
+7. **Deliberate history:** request original-prompt inspection, settings reuse,
+   prompt revision, or diagnosis. Capture the relevant owner-scoped Asset page,
+   locate the exact id, paginate only if necessary, and inspect history once.
+   Preserve stored originals, author changed requests separately, and do not
+   promise identical reproduction. Specific Cast Voice history and output
+   provenance attachments must remain functional.
+
 ## Codex capability present
 
 The user requests a Project Cover, Project Settings select Codex images, and

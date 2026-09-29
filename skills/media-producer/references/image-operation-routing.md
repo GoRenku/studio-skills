@@ -7,6 +7,10 @@ intended relationship to an existing image, not from words such as `edit`,
 
 ## Choose the operation first
 
+An exact edit needs the source artifact and current instruction, not its old
+recipe. Use `model-guides/shared/reference-inputs.md` for deliberate history
+inspection, reuse, revision, or debugging when the task calls for it.
+
 Use the relevant focused creation purpose when the user wants a new image
 candidate or a materially recomposed depiction. This includes a new camera or
 viewpoint, framing, composition, layout, scene staging, depth order, subject

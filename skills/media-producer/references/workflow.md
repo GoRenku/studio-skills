@@ -18,7 +18,41 @@ intent; it is distinct from common Asset display selection.
 
 ## Efficient Command Use
 
-Read fresh generation context for each request. Within that preparation, reuse verified syntax, selected route discovery, and the existing configuration cache according to its freshness rules; do not prefetch other providers. Use repeated --file on generation preview show to review several prepared requests together when appropriate. Retain native validation, configuration, Preview, approval, concurrency limits, artifact inspection, and focused attachment. Tool-session polling continues the same process; it is not another CLI invocation. Never retry a successful paid execution automatically.
+1. Resolve the requested Project once and use its absolute Project folder as
+   the working directory, respecting each command's targeting flags. Keep
+   temporary paths project-relative under `tmp/`.
+2. Capture the first successful generation-context stdout directly to a unique
+   file under `tmp/scratch/`. Check success before consuming it; never read a
+   partial failed output. Do not run the same command again just to save it.
+3. Inspect identity, policy, guidance, warnings, current target/design facts,
+   relevant Lookbook definitions, and reference metadata in bounded sections
+   from that file. Do not print the whole report followed by its subsets or
+   broad object differences. Inspect chosen media as well.
+4. Reuse within unchanged preparation. Refresh after changed scope, relevant
+   user edits, imported/replaced references, changed design/Lookbook/policy,
+   known external mutation, or uncertain intervening state. This is task-local
+   reasoning, not a persistent cache or rigid call limit.
+5. If a hero will consume a new sheet, inspect and attach the sheet under current
+   authorization first, then fetch hero context once. Do not prefetch context
+   that must be replaced. Independent requests may run together within limits.
+6. Read each relevant guide once per unchanged workflow; reread for a changed
+   operation or missing context. Reuse selected-route discovery and fresh
+   configuration templates; do not prefetch other providers or add an unsolicited
+   Codex configuration step.
+7. Read the final request once after permitted Preview edits, immediately before
+   execution. Execute and record those exact values. Avoid an initial full dump
+   followed by an identical second read, and never reuse stale pre-Preview values.
+
+Use the mutation report to confirm attachment/selection. Generation context
+omits prior Asset recipes even for exact edit sources. Use references for their
+intended contribution to the current request; consult the shared reference-input
+guide for deliberate history access instead of retrieving history by default.
+
+Use repeated `--file` on generation preview show to review prepared requests
+together when appropriate. Retain applicable validation, configuration, Preview,
+approval, concurrency limits, artifact inspection, and focused attachment.
+Tool-session polling continues the same process; it is not another CLI
+invocation. Never retry a successful paid execution automatically.
 
 Consult the relevant CLI reference/help once if syntax is unknown, then reuse verified syntax for this task. Do not discover syntax by attempting mutations. Do not invent `project list`. If a known permission denial blocks cache/output/config or local-network access, explain the requirement and use the authorized host permission flow; do not repeat the denied attempt, read secrets, disable cache persistence, or change permissions. `CLI026` means the mutation succeeded: report the notification warning without replaying the mutation.
 

@@ -11,6 +11,11 @@ confirmation gate. External-provider requests retain the configuration flow.
 
 ## Reuse a system-cached route template
 
+Read this guide once per unchanged configuration workflow and reuse selected
+route discovery with a fresh template. Codex configuration remains optional
+unless requested. A denied cache write uses the normal host permission flow;
+do not loop on the unchanged denial or disable persistence.
+
 Cache only request-independent component code and the exact schema snapshot
 that shaped its controls. Renku Core resolves the system cache beneath its
 platform configuration directory at

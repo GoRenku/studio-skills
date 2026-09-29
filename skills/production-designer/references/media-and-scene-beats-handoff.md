@@ -1,5 +1,9 @@
 # Media Handoff
 
+Carry the resolved Project folder, exact subject identity, user direction, and
+specialist judgment into the handoff. Media Producer owns the generation-context
+capture; do not fetch another copy merely to reconstruct the same briefing.
+
 `production-designer` prepares Location Design. Other skills own downstream work:
 
 - `media-producer` owns `location.sheet` context, provider-native request
