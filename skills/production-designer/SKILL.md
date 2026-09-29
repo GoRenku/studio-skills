@@ -41,6 +41,10 @@ canonical mutation paths are `renku location` and `renku prop`.
 
 ## Start Here
 
+For media-only generation from existing Location or Prop facts/design, route
+directly to `media-producer`. Skip department authoring reads unless the user
+also needs facts or design revised. Resolve an unknown target as needed.
+
 1. Reuse the verified current authoring project. Read it only when missing or changed:
 
 ```bash

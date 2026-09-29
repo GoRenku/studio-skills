@@ -48,6 +48,10 @@ batches of up to four without changing this revision.
 
 ## Workflow
 
+For storyboard generation from existing Beats, resolve the exact Scene, revision
+and requested Beat scope if unknown, then route directly to `media-producer`.
+Do not run the Beat-authoring workflow below unless the task also changes Beats.
+
 1. Resolve the current Project and exact Scene. For Studio focus, run
    `renku studio current --json`. For `Scene 22` or `22A`, run:
 

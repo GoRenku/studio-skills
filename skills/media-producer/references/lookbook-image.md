@@ -5,7 +5,9 @@ generation context. It returns the exact Lookbook definition, inspirations,
 current images/sheets, Project-ratio and quality guidance, workflow policy, and
 same-Lookbook reference suggestions. It does not choose a model or reference.
 
-Read the target Lookbook and its existing images before deciding to generate.
+Read the target Lookbook definition and existing-image inventory from the full
+generation briefing, and visually inspect relevant images before deciding to
+generate. Do not fetch another Lookbook report for information already present.
 If an accepted image already demonstrates the requested section property, reuse
 it with `renku lookbook image set-placement` instead of creating a filler image,
 but do not make multi-section placement the default. For Storyboard Lookbooks,

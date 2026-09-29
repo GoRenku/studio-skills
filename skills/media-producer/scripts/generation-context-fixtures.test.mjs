@@ -64,3 +64,33 @@ test('behavioral inputs include alternatives, voices, exact edit files and chang
   assert.ok(!reports.locationBefore.report.assets.some((asset) => asset.id === fixtureIds.newLocationSheet));
   assert.ok(reports.locationAfter.report.assets.some((asset) => asset.id === fixtureIds.newLocationSheet));
 });
+
+test('large-output evals can expose aggregate clipping while retaining a complete capture', () => {
+  for (const [name, { text: briefing }] of Object.entries(reports)) {
+    const captured = Buffer.from(briefing, 'utf8');
+    const limit = 1024;
+    assert.ok(captured.length > limit, `${name}: fixture must exceed the tool budget`);
+    assert.ok(briefing.includes('## Media'));
+    const displayed = Buffer.concat([Buffer.alloc(limit, 'g'), captured]).subarray(0, limit);
+    assert.ok(!displayed.includes(Buffer.from('## Media')));
+    const pages = [];
+    for (let offset = 0; offset < captured.length; offset += limit) {
+      pages.push(captured.subarray(offset, offset + limit));
+    }
+    assert.equal(Buffer.concat(pages).toString('utf8'), briefing);
+  }
+});
+
+test('structured reference resolution needs the inventory and preserves exact file identities', () => {
+  for (const { report } of Object.values(reports)) {
+    for (const group of report.suggestedReferences) {
+      for (const candidate of group.candidates) {
+        assert.equal(candidate.projectRelativePath, undefined);
+        const asset = report.assets.find((entry) => entry.id === candidate.assetId);
+        const file = asset.files.find((entry) => entry.id === candidate.assetFileId);
+        assert.equal(typeof file.projectRelativePath, 'string');
+        assert.equal(file.id, candidate.assetFileId);
+      }
+    }
+  }
+});

@@ -295,15 +295,13 @@ Pass:
 - Scene Beats revision id and Beat ids for Scene Storyboard imports;
 - any upstream creative work the user explicitly chose to complete first;
 - confirmation constraints;
-- the Project generation settings, unless the user explicitly overrode the
-  image path for this request;
+- explicit user overrides; Media Producer reads saved generation policy from
+  its current briefing rather than requiring a separate Settings handoff.
 
-Verify:
-
-```bash
-renku generation context --purpose <purpose-key> --target <target>
-renku director context --json
-```
+Verify the focused mutation report returned by Media Producer. Fetch missing
+detail only when needed for the next decision. Refresh director context for a
+subsequent cross-department readiness decision, not as an automatic generation
+completion step. Do not fetch another generation briefing just to verify import.
 
 ## `shot-planner`
 

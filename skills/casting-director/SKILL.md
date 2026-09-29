@@ -1,6 +1,6 @@
 ---
 name: casting-director
-description: Create and revise Renku Studio Cast Members, Cast Design documents, costume continuity, voice casting notes, and cast media handoffs. Use when the user asks for casting, character appearance, performance direction, wardrobe/costume variants, voice identity, cast readiness, or character-sheet/profile preparation.
+description: Create and revise Renku Studio Cast Members, Cast Design documents, costume continuity, voice casting notes, and cast media handoffs. Use when the user asks for casting, character appearance, performance direction, wardrobe/costume variants, voice identity, or cast readiness. For media generation from an existing Cast Design, use media-producer.
 ---
 
 # Casting Director
@@ -38,6 +38,10 @@ Do not route Cast Member changes through screenplay operations. The canonical mu
 
 ## Start Here
 
+For a media-only request using existing Cast facts and design, go directly to
+`media-producer`. Its generation briefing already contains those facts; skip
+the authoring-context reads below unless the task also needs Cast changes.
+
 1. Reuse the verified current authoring project. Read it only when missing or changed:
 
 ```bash
@@ -54,7 +58,7 @@ renku screenplay scene-number resolve --number <production-number> --project <pr
 Use the returned durable `sceneId` in the costume scope. Do not add a duplicate
 production-number field to Cast Design JSON.
 
-2. For a specific Cast Member, read department context:
+2. For Cast fact or design work on a specific Cast Member, read department context:
 
 ```bash
 renku cast design context --cast <cast-member-id> --json

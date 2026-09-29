@@ -9,7 +9,9 @@ do not add repeated confirmation for unchanged already-authorized work.
 
 1. Resolve the current Project and exact Shot Plan id.
 2. Read one complete Core briefing with `renku generation context --purpose
-   <purpose> --target shot-plan:<shot-plan-id>`.
+   <purpose> --target shot-plan:<shot-plan-id>`, following `../workflow.md` for
+   format choice and contiguous reads through EOF. Reuse that report when
+   continuing into a video-specific guide; refresh for changed dependencies.
 3. Inspect every relevant candidate file and deliberately select or omit it.
 4. Route to the selected provider Skill and choose one exact route through
    `generation models list` or explicit user direction. Prepare from the selected

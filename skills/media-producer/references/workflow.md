@@ -30,13 +30,24 @@ intent; it is distinct from common Asset display selection.
    request `--json` from the start when the next operation processes the report
    in code. Honor an explicit user format choice. These are alternatives, not
    successive steps; neither format omits information supplied by the other.
-   Purpose guides inherit this rule. JSON does not itself require Python.
+   Purpose guides inherit this rule. Never pipe default text to `jq`; JSON does
+   not itself require Python. Print readable command output directly rather
+   than JSON-encoding it in a tool-result wrapper.
 3. Read complete current documents, policy, guidance, warnings, and media roles;
    inspect chosen media too. If saving output is useful, capture that same call
    to a unique file under `tmp/scratch/` and check success before reading it.
    Do not repeat a successful call to save it or routinely fetch both formats.
-   For a long captured report, read successive sections rather than truncating
-   creative text. Reuse a current saved report when it supplies the needed format.
+   Keep the briefing separate from large guide reads: the enclosing tool's
+   aggregate output limit applies even when individual command limits suffice.
+   For a long captured report, determine its extent and read contiguous bounded
+   ranges from the beginning through EOF. Continue from the last fully displayed
+   line; if a page is clipped, reduce its size and recover the unread portion
+   from the same file. Before authoring, check that no ranges were skipped,
+   including the final media entries and warnings. Heading searches may help
+   navigation but do not count as reading the intervening content. Apply this
+   procedure to text and JSON for every purpose. A parsed identity mapping alone
+   does not establish that the creative documents were read. Reuse a current
+   saved report when it supplies the needed format.
 4. Reuse within unchanged preparation. Refresh after changed scope, relevant
    user edits, imported/replaced references, changed design/Lookbook/policy,
    known external mutation, or uncertain intervening state. This is task-local
@@ -51,6 +62,10 @@ intent; it is distinct from common Asset display selection.
 7. Read the final request once after permitted Preview edits, immediately before
    execution. Execute and record those exact values. Avoid an initial full dump
    followed by an identical second read, and never reuse stale pre-Preview values.
+   For Engines providers, execute the final review file with `--file`. For Codex,
+   parse that file and pass its native request values to the built-in capability,
+   resolving safe file markers in order. Do not retype the prompt into a second
+   tool-call literal. This rule covers every destination, not only sheets.
 
 The readable Media section contains each Asset and its files once. Reference
 Suggestions distinguishes role, subject, availability, display selection, and

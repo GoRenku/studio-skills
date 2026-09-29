@@ -40,6 +40,12 @@ tool demonstrations, material swatches, or extra studies by default. They may
 replace the universal layout only when the user explicitly requests a custom
 departure. Never use spare canvas as a reason to add them.
 
+An existing design or reference image can contain a different sheet layout.
+Preserve its character facts and visual identity without copying extra study
+blocks into the current default layout. Explicit current user layout direction
+takes precedence. For the height ruler, state the common sole baseline and
+crown level; inspect the spacing of numeric marks, not only the printed height.
+
 Production rendering commonly uses a Production Lookbook Sheet. Storyboard
 rendering commonly uses a Storyboard Lookbook Sheet and keeps the Production
 Character Sheet in the content-only role. Preserve identity, silhouette,

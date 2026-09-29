@@ -17,9 +17,20 @@ for their creative contents.
 
 ## Efficient Command Use
 
-Follow `references/workflow.md` for one-call format choice, direct briefing
-consumption, reuse and refresh timing. Do not repeat a successful context call
-just to save it. Prior recipes are omitted from the briefing; use references for
+Choose text for reading; choose `--json` before invoking a command whose output
+will go to `jq` or code. Read the briefing separately from large guide reads.
+Capture a long briefing on its first call under `tmp/scratch/`, then read that
+file in contiguous, bounded ranges through EOF. Track the last fully displayed
+line; the next read starts at the following line. Search matches and a saved
+file are not a completed read. Finish all ranges before authoring the request.
+This applies to every image, audio, and video purpose, including exact edits.
+Respect both command and enclosing tool
+output limits; print readable output directly, without JSON-stringifying it.
+Recover truncation from the captured file, not another context call. In JSON,
+retain the top-level `assets` inventory when resolving reference identities.
+Structured extraction does not replace reading the complete creative briefing.
+Follow `references/workflow.md` for reuse and refresh timing. Prior recipes are
+omitted from the briefing; use references for
 the current task and retrieve history only when needed, following
 `references/model-guides/shared/reference-inputs.md`.
 
@@ -44,9 +55,10 @@ source summaries, reuse of registered inputs, and Preview availability checks.
 
 ## Read the deterministic briefing first
 
-For media generation from an existing Location or Prop design, use this skill
-directly. Load `production-designer` when the task also needs design authoring
-or revision; do not fetch its department context to repeat the generation briefing.
+For media generation from an existing Cast, Location, or Prop design, use this
+skill directly. Load `casting-director` or `production-designer` when the task
+also needs design authoring or revision; do not fetch department context to
+repeat the generation briefing.
 
 Before choosing a provider, authoring a prompt, or creating a review document,
 read the complete current Core briefing:
@@ -95,7 +107,8 @@ required visual-reference matching.
 
 ## Choose the execution lane
 
-Read the current Project Settings and the user's explicit direction. The saved
+Use the briefing's current `workflowPolicy` and the user's explicit direction.
+Do not fetch Settings again for policy already present in that briefing. The saved
 Image, Video, or Audio provider is the initial preference, including when it is
 Replicate or WaveSpeed with a saved key. The Project media menus offer keyed
 Fal.ai, Pika, Replicate, and WaveSpeed; ElevenLabs is Audio-only, and World Labs

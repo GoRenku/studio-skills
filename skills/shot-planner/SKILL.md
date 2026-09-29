@@ -1,6 +1,6 @@
 ---
 name: shot-planner
-description: Create, inspect, and iteratively revise Renku Studio Scene Shot Plans and individual Shots through the focused CLI. Use when the user asks for a shot list, coverage plan, cinematic breakdown, Shot title or description changes, Shot reordering/removal, Beat coverage changes, or a selected Shot image.
+description: Create, inspect, and iteratively revise Renku Studio Scene Shot Plans and individual Shots through the focused CLI. Use when the user asks for a shot list, coverage plan, cinematic breakdown, Shot title or description changes, Shot reordering/removal, or Beat coverage changes. For media generation for an existing Shot or Shot Plan, use media-producer.
 ---
 
 # Shot Planner
@@ -50,6 +50,11 @@ one exact production Shot and uses `shot.image`; never substitute one ownership
 model for the other.
 
 ## Workflow
+
+For media-only work on an existing Shot or Shot Plan, resolve the exact target
+if unknown, then route directly to `media-producer`. Skip plan-authoring reads
+below unless the user also asks to change the plan. Generation context owns the
+current media briefing; Previs revision/source reads remain required where used.
 
 1. Resolve the current project and exact Scene or selected Shot Plan:
 

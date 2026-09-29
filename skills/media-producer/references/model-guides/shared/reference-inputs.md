@@ -29,6 +29,13 @@ visible or audible evidence. Stored provenance records an earlier request; it
 does not prove what the output contains or instruct the next generation.
 Generation context omits those recipes, including exact edit sources.
 
+Across image, audio and video purposes, separate the facts a reference supplies
+from instructions for a different deliverable. Preserve relevant identity,
+geography, construction or voice while following the current requested layout,
+medium, dialogue or action. Do not copy sheet panels into a hero, previous words
+into new dialogue, or an earlier framing into a newly directed Shot. Read the
+full briefing before making these creative choices; do not filter it in code.
+
 The briefing's Media inventory supplies complete current Asset/File facts once.
 Reference Suggestions preserves their distinct roles and selection facts. For
 programmatic JSON use, resolve `assetId` and `assetFileId` through `assets`;

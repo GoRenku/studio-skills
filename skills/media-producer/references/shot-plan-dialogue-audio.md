@@ -29,7 +29,8 @@ generation uses Seed Audio.
 
 Use the shared
 [inline generation configuration](inline-generation-configuration.md) from the
-main Media Producer flow. Start with the Project Settings Audio provider and
+main Media Producer flow. Use the Audio provider from the briefing's
+`workflowPolicy`, subject to current user direction, and
 the default Cast Voice sample for each current speaker. Let the user choose
 another compatible Cast Voice as a configuration control; the choice applies
 only to this generation.

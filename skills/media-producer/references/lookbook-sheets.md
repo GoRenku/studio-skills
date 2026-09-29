@@ -8,7 +8,8 @@ Storyboard Sheet may demonstrate photorealistic, realistic, illustrative,
 graphic, painterly, hand-drawn, abstract, or another deliberate language; do
 not assume linework or drawing.
 
-Resolve target ids by role. There is no Lookbook collection or selection state:
+Reuse a known exact target; otherwise resolve only the requested role. There is
+no Lookbook collection or selection state. These are alternative lookups:
 
 ```bash
 renku lookbook show --kind production --json

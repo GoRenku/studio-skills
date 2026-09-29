@@ -45,6 +45,11 @@ Storyboard Lookbooks guide how Beat Storyboards are rendered and must be
 
 ## Start Here
 
+For media-only generation from an existing Lookbook, resolve the requested role
+and target if unknown, then route directly to `media-producer`. Its briefing
+contains the authored definition and media; do not run the authoring preflight
+below unless the task also changes the Lookbook definition.
+
 1. Resolve the Renku project.
 2. Read the Production and Storyboard role resources.
 3. Decide whether the user wants the Production role, the Storyboard role, media import, or brainstorming only.

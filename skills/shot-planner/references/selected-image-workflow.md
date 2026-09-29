@@ -4,20 +4,19 @@ Delegate generation to `media-producer` with:
 
 - purpose `shot.image`;
 - target `shot:<shot-id>`;
-- exact current Shot Plan and Shot report;
-- deliberately selected Scene, Beat, Cast, Location, Lookbook, and visual references;
-- the resolved project aspect ratio.
+- current Shot Plan/Shot identities already resolved;
+- user direction and deliberately chosen references already known.
 
-When the user has not selected an execution path, propose Codex built-in
-GPT-Image-2 for this purpose. A user-selected Renku model or other supported
-route overrides the preference.
+Media Producer obtains the complete current Shot/Plan briefing, references,
+aspect ratio and policy. Do not reconstruct them through department reads.
+Follow its shared provider precedence: explicit user direction, then the saved
+Image provider in the briefing. Use its current model guidance.
 
 Keep the sequence explicit:
 
-1. save and show Generation Preview;
-2. for Renku-managed execution, estimate and wait for explicit cost/provider
-   approval; for Codex execution, continue without a separate generation
-   approval stop;
+1. save the native request and show Preview when policy or user direction requires;
+2. follow Media Producer's existing external-provider confirmation policy;
+   Codex execution has no separate generation approval stop;
 3. execute through the selected path;
 4. inspect the exact output;
 5. automatically attach without asking for output acceptance; when the image

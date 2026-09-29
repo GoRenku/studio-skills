@@ -6,8 +6,9 @@ Use `cast.voice-sample` to generate playable sample audio for a Cast Member.
 
 Use the shared
 [inline generation configuration](inline-generation-configuration.md) from the
-main Media Producer flow. The Project Settings Audio provider remains the
-initial provider for this request.
+main Media Producer flow. The briefing's `workflowPolicy` supplies the saved
+Audio provider; current user direction takes precedence. Read the complete
+briefing before configuration, including voice facts and media inventory.
 
 For Seed Audio sample creation, show provider, model, output format, sample
 rate, speed, volume, pitch, and multilingual when the live Fal schema exposes

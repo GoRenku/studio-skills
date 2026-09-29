@@ -1,8 +1,9 @@
 # Shot Image
 
 Use `shot.image` only for one candidate image owned by the exact Shot. Begin
-with `renku generation context --purpose shot.image --target shot:<shot-id>
---json`. It supplies the exact Shot/Plan/covered Beats/Scene, related Cast,
+with `renku generation context --purpose shot.image --target shot:<shot-id>`.
+Use the shared workflow's format choice and complete-read procedure. The report
+supplies the exact Shot/Plan/covered Beats/Scene, related Cast,
 Locations and Props with designs/assets, Production Lookbook, selected sibling
 Shot images, Beat Storyboards, policy, and advisory Project-ratio guidance.
 Consider those suggestions without treating them as required or exhaustive.

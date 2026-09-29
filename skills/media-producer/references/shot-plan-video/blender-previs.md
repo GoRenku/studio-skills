@@ -19,7 +19,9 @@ paths in the request. Temporary preparation alone does not attach a reference.
 
 Use this workflow when the reviewed input is a Blender procedural previs.
 Read `workflow.md`, `../video-reference-continuity.md`, the selected model operation
-and provider adapter. Reread generation context for the exact existing plan:
+and provider adapter. Read generation context for the exact existing plan;
+reuse a complete current report already read for this request. Refresh after
+registering new chosen derivatives or another relevant state change:
 
 ```bash
 renku generation context --project <name> --purpose shot-plan.video-generation --target shot-plan:<id>

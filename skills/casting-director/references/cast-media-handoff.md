@@ -16,8 +16,10 @@ unless the user first changes that Cast Member into a visible on-screen role.
 Voice identity and sample audio remain separate Cast Voice / `cast.voice-sample`
 work.
 
-Before handoff, read `renku cast design context --cast <cast-member-id> --json`
-to finish Cast Design work. Media Producer independently begins the media turn
+Read `renku cast design context --cast <cast-member-id> --json` when authoring
+or revising Cast Design. A media-only request using an existing design goes
+directly to Media Producer without that department-context read.
+Media Producer begins the media turn
 with `renku generation context --purpose <purpose> --target
 cast:<cast-member-id>`; that Core report is the authority for the current
 Cast facts, active design, Lookbook, voices, owned Assets, related Scenes, and
