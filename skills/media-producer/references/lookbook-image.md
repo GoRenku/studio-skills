@@ -53,7 +53,7 @@ Manual or other external images omit generation provenance.
 After visual review, import the image first:
 
 ```bash
-renku media import --purpose lookbook.image --target lookbook:<lookbook-id> --source <project-relative-path> --title <title> --provenance <provenance-json> --select --json
+renku media import --purpose lookbook.image --target lookbook:<lookbook-id> --source <project-relative-path> --title <title> --provenance <provenance-json> --select
 ```
 
 Use the returned `ownerRecord.id` with

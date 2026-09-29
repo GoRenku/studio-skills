@@ -8,6 +8,11 @@ request handoff. For Codex built-in generation, this component is optional and
 used only when the user asks to configure or review settings. Otherwise use
 their direction and Project defaults directly, without creating a configuration
 confirmation gate. External-provider requests retain the configuration flow.
+Discover Visualize through the available skills catalog and read its full
+`SKILL.md`; it is not a tool-name capability check. If unavailable, explain the
+limitation rather than silently claiming configuration was shown. Choosing a
+model in the user's request sets the initial selection, not acceptance of all
+native settings. Studio Preview does not replace this inline control surface.
 
 ## Reuse a system-cached route template
 
@@ -30,8 +35,9 @@ and SHA-256, template contract version `1`, and this reference's SHA-256. Use
 `scripts/write-generation-configuration-visualization-descriptor.mjs` to write
 that descriptor to
 `tmp/operations/media-generation/generation-configuration-visualization-descriptor.json`
-in the current Project. First run `renku generation models list --json` with all five current provider
-indexes as repeated `--route-index` arguments. Pass its unfiltered
+in the current Project. Use the retained `renku generation models list --json`
+result from all five provider indexes, obtaining it once if not already loaded.
+Pass its unfiltered
 `routeCatalogSha256` as `--route-catalog-sha256`; never compute the cache path
 yourself. Optional Markdown changes do not change this digest.
 
@@ -136,16 +142,21 @@ comes from explicit user direction or the matching Project Setting; its initial
 model and values come from the purpose/model workflow and selected provider
 route.
 
-Render it directly in the Codex conversation. Do not launch an external browser,
+Render it directly in the Codex conversation by ending the turn with the
+Visualize content reference to the materialized HTML. Wait for acceptance of
+the displayed settings before writing the review document; do not continue to
+Preview or Execute in the same configuration turn. Do not launch an external browser,
 start a preview server, or create a reusable component application for this
 request.
 
 The matching Project Setting chooses only the initial selection. It must never
 narrow the provider or model choices. Keep discovery lightweight:
 
-1. Run `generation models list --json` with all five current provider Skills'
+1. Reuse the current workflow's `generation models list --json` result, or obtain
+   it once with all five current provider Skills'
    `supported-routes.json` files as repeated `--route-index` arguments, including
-   advanced providers. This returns bundled and personal choices. Do not read
+   advanced providers. This returns bundled and personal choices. Do not fetch
+   a separate provider-filtered list before or after it. Do not read
    unselected Skills, guides, adapters, documentation, or schemas.
 2. Build selectors from the effective exact identities and human-readable names.
    Do not exclude personal routes for lacking operation or media-kind metadata.
@@ -156,7 +167,8 @@ narrow the provider or model choices. Keep discovery lightweight:
    keyed provider even when no bundled route matches the current request.
 3. For only the selected route, read its provider Skill, available bundled advice,
    optional personal Markdown from `generation models show`, and fresh cached or
-   newly fetched schema. Missing advice is ordinary absence, without a warning
+   newly fetched schema. An absent optional personal file needs no search or
+   discovery retry. Missing advice is ordinary absence, without a warning
    or approval question. Current bundled defaults and explicit personal
    preferences apply independently of discovery labels. Build controls from the
    selected schema; explain actual input mismatches during preparation. No
@@ -326,7 +338,10 @@ Project Settings.
 At this point the provider/model already matches the prepared selection, so the
 prompt and controls belong to the same inspected route. Put the prepared prompt
 into the existing Generation Preview, where the user can still edit it, and
-continue through the normal confirmation workflow.
+continue through the normal confirmation workflow. Configuration submission
+accepts settings; it does not itself authorize a paid run before the resulting
+Preview. Offer the explicit continue-to-generate choice once that Preview is
+ready, then use the shared unchanged-document execution path after confirmation.
 
 Final `generation validate` and `generation execute` remain authoritative live
 provider boundaries. If validation reports that a cached-schema control or

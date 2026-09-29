@@ -15,20 +15,27 @@ do not add repeated confirmation for unchanged already-authorized work.
 3. Inspect every relevant candidate file and deliberately select or omit it.
 4. Route to the selected provider Skill and choose one exact route through
    `generation models list` or explicit user direction. Prepare from the selected
-   schema and available bundled/personal advice using Media Producer's optional
+   route and available bundled/personal advice using Media Producer's optional
    guidance rules; missing catalog keys or guides do not block preparation.
-5. Author one temporary review document with the exact provider-native request.
-   Keep the Shot Plan id out of that provider envelope; it returns later only as
-   weak attachment context.
-6. Put configuration only in native provider fields. A recommended resolution
-   belongs in the provider request, not in Core.
+5. For external generation in Codex, render the inline configuration through
+   `../inline-generation-configuration.md`: inspect the selected route's system
+   cache before fetching a live schema or generating template code, reuse a fresh
+   template/schema, and materialize this request's values. End the turn with its Visualize
+   content reference. Resume request authoring after the user accepts the
+   displayed settings. Reading the skill or fetching a schema is not rendering.
+6. Author one temporary review document from those settings with the exact
+   provider-native request. Keep the Shot Plan id out of that envelope; it
+   returns later only as weak attachment context. Configuration belongs in
+   native provider fields, not Core.
 7. Validate and show Preview when policy or user direction requires it. Review
    Prompt, References, and Configuration; rebuild the native request if the
    user edits the prompt.
-8. Pause once for conversational confirmation when required, then execute.
+8. Pause once for conversational confirmation when required, then follow the
+   shared execution path with Validate's `requestSha256`, without redundant validation.
 9. If a known provider request id survives an interruption, recover it rather
-   than resubmitting. Inspect the output before attachment.
-10. Attach with the exact returned safe provenance. The accepted result is a
+   than resubmitting. Present the returned video immediately, then inspect it
+   before attachment; playback does not wait for analysis or provenance work.
+10. Attach using the returned `provenancePath` directly. The accepted result is a
     Project-owned `shot_plan_video` Asset whose file Core places in the exact
     Scene/Shot Plan folder and whose `authoredFrom` context names the Shot Plan.
     For a Previs handoff, also pass `--previs-revision <registered-revision-id>`.

@@ -76,8 +76,7 @@ renku media import \
   --summary <variant-summary> \
   --reference-name <variant-name> \
   --tag storyboard \
-  --provenance <provenance-json> \
-  --json
+  --provenance <provenance-json>
 ```
 
 Use the same provenance contract for every generated path. Omit `--tag storyboard` for

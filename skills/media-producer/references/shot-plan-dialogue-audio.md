@@ -75,7 +75,7 @@ observations. Preserve an unverified candidate honestly instead of claiming succ
 
 Validate, Preview when required, obtain conversational confirmation, execute
 one provider request, and inspect its single output. Preserve the exact safe
-provenance, then attach the accepted file:
+provenance using the returned `provenancePath`, then attach the reviewed file:
 
 ```bash
 renku media import \
@@ -83,8 +83,7 @@ renku media import \
   --target shot-plan:<shot-plan-id> \
   --turns <N-or-N-M> \
   --source <project-relative-output> \
-  --provenance tmp/operations/media-generation/<unique-provenance>.json \
-  --json
+  --provenance <returned-provenancePath>
 ```
 
 The new Take is an independent Media Card. Its stored facts are only the Shot

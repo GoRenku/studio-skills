@@ -37,8 +37,8 @@ considering the creative tradeoff.
 After inspection, attach through the matching focused purpose:
 
 ```bash
-renku media import --purpose lookbook.video-sheet --target lookbook:<lookbook-id> --source <project-relative-path> --title <title> --provenance <provenance-json> --json
-renku media import --purpose lookbook.storyboard-sheet --target lookbook:<lookbook-id> --source <project-relative-path> --title <title> --provenance <provenance-json> --json
+renku media import --purpose lookbook.video-sheet --target lookbook:<lookbook-id> --source <project-relative-path> --title <title> --provenance <provenance-json>
+renku media import --purpose lookbook.storyboard-sheet --target lookbook:<lookbook-id> --source <project-relative-path> --title <title> --provenance <provenance-json>
 ```
 
 Use the same `--provenance` contract for Codex-generated files. Omit it for

@@ -57,6 +57,16 @@ test('materializes request data safely without changing the shared template', as
   assert.equal(instance.includes('</script><script>alert(1)</script>'), false);
   assert.equal(await fs.readFile(templatePath, 'utf8'), template);
   assert.equal(result.outputPath, outputPath);
+  const nextPayload = { prompt: 'A different target', references: [{ $file: 'media/second.png' }], controls: { resolution: '1080P' } };
+  await fs.writeFile(payloadPath, JSON.stringify(nextPayload));
+  await materializeGenerationConfigurationVisualization({ templatePath, payloadPath, outputPath });
+  const nextInstance = await fs.readFile(outputPath, 'utf8');
+  const nextMatch = nextInstance.match(
+    /<script id="renku-generation-configuration-payload" type="application\/json">([^<]*)<\/script>/
+  );
+  assert.deepEqual(JSON.parse(nextMatch[1]), nextPayload);
+  assert.equal(nextInstance.includes('alert(1)'), false);
+  assert.equal(await fs.readFile(templatePath, 'utf8'), template);
 });
 
 test('rejects a template without exactly one payload placeholder', async () => {

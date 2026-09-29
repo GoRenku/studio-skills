@@ -12,6 +12,13 @@ test('Loukas partial-read trace fails completeness despite a single successful c
     [[241, 842], [1073, 1408]]);
 });
 
+test('H3 selected references do not excuse an unread middle of the Media inventory', () => {
+  assert.deepEqual(unreadBriefingRanges(3578, [
+    [1, 300], [601, 900], [301, 600], [901, 1200], [601, 1000],
+    [1001, 1932], [3270, 3578], [1933, 2250],
+  ]), [[2251, 3269]]);
+});
+
 for (const [name, { report, text }] of Object.entries(reports)) {
   for (const [format, contents] of [['text', text], ['json', JSON.stringify(report, null, 2)]]) {
     test(`${name} ${format}: coverage detects skipped middle and tail pages`, () => {

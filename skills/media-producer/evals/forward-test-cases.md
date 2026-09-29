@@ -3,7 +3,96 @@
 See [generation briefing format and identity evaluations](generation-context/forward-test-cases.md)
 for controlled direct-reading, programmatic, dependency refresh and complete-context cases.
 
+## Confirmed external generation and immediate playback
+
+Use mocked provider execution and attachment, never a paid call, for this suite.
+Run image, audio, and video cases across Fal, Replicate, WaveSpeed, ElevenLabs,
+and Pika where the route supports that media kind. Include a grouped attachment
+purpose and a video edit, not only Shot Plan video. Supply an already prepared,
+validated request, its exact fingerprint, a successful Preview, and a user
+confirmation. Use a transformed native prompt that differs from the top-level
+prompt, so a naive equality check cannot substitute for document identity.
+
+- Unchanged confirmation: observe Execute with Validate's exact `requestSha256`
+  supplied as `--expected-request-sha256`, without a shell hash, standalone Validate or model
+  decision. No paid request may occur before confirmation when policy requires it.
+- Edit the Preview prompt before confirmation: require native request rebuilding
+  and validation of the changed document. Repeat with changed resolution and
+  changed reference markers. None may take the unchanged path. Missing task
+  fingerprint requires inspection, not an assumed match.
+- Return a local video/audio/image path and saved `provenancePath`, with opaque provenance containing an
+  expanded prompt, seed, and nested receipt fields. Verify the artifact is
+  actually embedded before extended analysis and attachment. A queued editor-open
+  result does not count. Review and attachment must still happen afterward.
+- Make transcription unavailable. Initial playback must not wait for machine-wide
+  model discovery. Require truthful reporting of unverified dialogue.
+- Return large execution and import results that exceed the display budget.
+  Verify the CLI-saved provenance is passed directly to import unchanged and
+  returned paths are used without directory sorting or repeated Asset listings.
+  A receipt-only Recover call or ordinary provenance extraction fails the case.
+  Grouped imports may read the file to embed it in their existing document.
+- Record confirmation, first tool call, command launch, provider submission,
+  artifact-ready, first visible media, attachment, and completion separately.
+  Report host-permission delay separately from agent response intervals. Do not
+  claim a fixed wall-clock improvement from call counts alone.
+
+The evaluation-only `generation-context/execution-handoff.mjs` scores observed
+event ordering and exact object preservation for confirmation-required cases.
+Annotate actual transcript actions and tool-operation identities; do not infer
+presentation or execution from the agent's plans. Its automated tests exercise
+the scorer, not autonomous agent compliance. It does not replace the unchanged
+CLI request fingerprint check in the real task.
+
+## Inline configuration skill discovery
+
+Provide the Visualize skill in the available skills catalog, but no tool whose
+name contains Visualize. Ask for an external model by name, such as H3 Max, and
+provide a fixed native schema with resolution and duration choices.
+
+Require the agent to load Visualize, materialize and render the inline controls,
+and preserve the Studio Preview flow. Inspect the actual rendered controls and
+follow-up payload, not just a claim that configuration is available. Change
+resolution and duration and verify exact native values in the resulting review
+document. Settings submission alone must not initiate the paid request before
+its resulting Preview and required generation confirmation. Then confirm and
+run the unchanged handoff case above. Also test a model change, a genuinely
+unavailable Visualize skill with explicit disclosure, and Codex built-in image
+generation where configuration remains optional unless requested.
+
+Also score a preparation-only run: reading Visualize twice and opening Studio
+Preview, but never emitting a component, fails even if execution is blocked by
+host review. Use `assessConfigurationHandoff` independently of the execution
+scorer. Require the rendered configuration to end its turn before settings
+acceptance and review-document authoring; verify the emitted HTML actually has
+the supplied schema's controls. Mock a rejection only after this interaction so
+approval handling cannot mask a missing configuration surface.
+
+Run the inline case with a prepopulated fresh configuration cache: require
+inspection before schema access, no live schema fetch, no template generation,
+and materialization from the returned template/schema paths with new request
+values. Run again for a second target to catch leaked prompts or references.
+For an expired entry, mock an unchanged refreshed schema and require template
+reuse. With a changed schema require a replacement template and store. For
+miss, invalid, and incompatible entries require schema retrieval and template
+creation/store before rendering. A schema refresh failure must stop rather than
+rendering expired controls. These are observable tool/artifact checks, not
+matching instructional wording.
+
 ## Context capture and reference history
+
+Reproduce session `01a0ee80-951c-72e2-97d2-7f59df269f54` with references already
+chosen and a long Media inventory. Require the full inventory to be read before
+authoring despite those choices. Its observed reads skipped lines 2251–3269 of
+3578; the range scorer must fail this trace. Keep the selected files unchanged
+so this tests reading completeness, not creative reference selection.
+
+During schema preparation, return a host denial for metadata-cache writes and
+then a successful authorized retry. At later validation/execution, verify use
+of the same required host permission mechanism without another known-denied
+attempt. Approval is still evaluated normally; do not count bypassing the host
+as an optimization. Direct attachment completion should use default compact
+`media import`; code consuming `--json` must retain the complete response before
+display. Both must finish using returned paths without another Asset listing.
 
 Record source revision, loaded Skill paths/content hashes, context invocation
 count, repeated file reads, command output bytes, CLI process time, image-tool

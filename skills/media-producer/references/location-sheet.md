@@ -76,9 +76,9 @@ Location Sheet and Hero includes readable summary metadata. A Storyboard
 continuity variant also includes exact tag membership:
 
 ```bash
-renku media import --purpose location.sheet --target location:<location-id> --source <project-relative-path> --title <title> --summary <card-summary> --provenance <provenance-json> --json
-renku media import --purpose location.sheet --target location:<location-id> --source <project-relative-path> --title <title> --summary <variant-summary> --reference-name <variant-name> --tag storyboard --provenance <provenance-json> --json
-renku media import --purpose location.hero --target location:<location-id> --source <project-relative-path> --title <title> --summary <card-summary> --provenance <provenance-json> --select --json
+renku media import --purpose location.sheet --target location:<location-id> --source <project-relative-path> --title <title> --summary <card-summary> --provenance <provenance-json>
+renku media import --purpose location.sheet --target location:<location-id> --source <project-relative-path> --title <title> --summary <variant-summary> --reference-name <variant-name> --tag storyboard --provenance <provenance-json>
+renku media import --purpose location.hero --target location:<location-id> --source <project-relative-path> --title <title> --summary <card-summary> --provenance <provenance-json> --select
 ```
 
 Use the same `--provenance` contract for Codex-generated files. Omit provenance

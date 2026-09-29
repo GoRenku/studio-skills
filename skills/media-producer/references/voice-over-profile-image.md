@@ -66,7 +66,7 @@ concrete image language over explaining UI behavior to the model.
 Import the selected image as the normal cast profile purpose:
 
 ```bash
-renku media import --purpose cast.profile --target cast:<cast-member-id> --source tmp/media/<file>.png --title <human-readable-title> --summary <card-summary> --select --json
+renku media import --purpose cast.profile --target cast:<cast-member-id> --source tmp/media/<file>.png --title <human-readable-title> --summary <card-summary> --select
 ```
 
 Use a human-readable title such as `{Cast Member Name} voice-over profile`. If

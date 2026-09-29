@@ -15,7 +15,8 @@ Keep every agent-created working file inside the current Project's categorized
 `tmp/` tree. Never create review JSON, provenance JSON, generated media, QA
 evidence, downloads, or scratch files at the Project root.
 
-- Use `tmp/operations/media-generation/` for review and provenance documents.
+- Use `tmp/operations/media-generation/` for review documents. Execute/Recover
+  saves provenance beside its media and returns `provenancePath` for attachment.
 - Use `tmp/media/` for generated or downloaded media.
 - Use `tmp/qa/` for review evidence.
 - Use `tmp/scratch/` for other temporary inputs.
@@ -23,7 +24,8 @@ evidence, downloads, or scratch files at the Project root.
 Use WaveSpeed when explicit user direction or a saved Project provider
 preference selects it. Do not switch to it automatically from another provider.
 
-Use `renku generation models list --provider wavespeed-ai --route-index <absolute-path-to-references/supported-routes.json> --json`
+Reuse Media Producer's effective model list when already loaded. Otherwise use
+`renku generation models list --provider wavespeed-ai --route-index <absolute-path-to-references/supported-routes.json> --json`
 for this provider's bundled and personal discovery choices. Select the exact
 `apiId`; an explicitly requested unlisted route can proceed without installation.
 Copy it verbatim into the review document's `model` field and every generation

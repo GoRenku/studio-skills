@@ -43,7 +43,9 @@ intent; it is distinct from common Asset display selection.
    ranges from the beginning through EOF. Continue from the last fully displayed
    line; if a page is clipped, reduce its size and recover the unread portion
    from the same file. Before authoring, check that no ranges were skipped,
-   including the final media entries and warnings. Heading searches may help
+   including the final media entries and warnings. Reference selection never
+   substitutes for reading the Media inventory, even when all intended inputs
+   are already known. Heading searches may help
    navigation but do not count as reading the intervening content. Apply this
    procedure to text and JSON for every purpose. A parsed identity mapping alone
    does not establish that the creative documents were read. Reuse a current
@@ -59,10 +61,10 @@ intent; it is distinct from common Asset display selection.
    operation or missing context. Reuse selected-route discovery and fresh
    configuration templates; do not prefetch other providers or add an unsolicited
    Codex configuration step.
-7. Read the final request once after permitted Preview edits, immediately before
-   execution. Execute and record those exact values. Avoid an initial full dump
-   followed by an identical second read, and never reuse stale pre-Preview values.
-   For Engines providers, execute the final review file with `--file`. For Codex,
+7. For Engines providers, pass Validate's `requestSha256` to Execute with
+   `--expected-request-sha256`; the CLI checks and reads the final `--file`.
+   Reread only if that check reports a change or the prepared hash is unavailable.
+   For Codex, read the final request once after permitted Preview edits,
    parse that file and pass its native request values to the built-in capability,
    resolving safe file markers in order. Do not retype the prompt into a second
    tool-call literal. This rule covers every destination, not only sheets.
@@ -100,6 +102,23 @@ Tool-session polling continues the same process; it is not another CLI
 invocation. Never retry a successful paid execution automatically.
 
 Consult the relevant CLI reference/help once if syntax is unknown, then reuse verified syntax for this task. Do not discover syntax by attempting mutations. Do not invent `project list`. If a known permission denial blocks cache/output/config or local-network access, explain the requirement and use the authorized host permission flow; do not repeat the denied attempt, read secrets, disable cache persistence, or change permissions. `CLI026` means the mutation succeeded: report the notification warning without replaying the mutation.
+
+## Configure before authoring the review document
+
+For external-provider generation in Codex with Visualize available, complete
+`inline-generation-configuration.md` first. Resolve its system cache before any
+live schema request or template authoring: reuse fresh schema/template paths,
+refresh expired entries, and create a template only for a miss, invalid or
+incompatible entry, or changed schema. Materialize a new request payload into
+the reusable template; never reuse another request's values. Render the actual controls and end
+the turn with the Visualize content reference. Continue below only after the
+user accepts the displayed settings. Reading Visualize, fetching the schema,
+or opening Studio Preview does not complete configuration. A model named by the
+user selects the initial model; it does not skip this interaction.
+
+Codex built-in generation keeps its optional configuration policy. If Visualize
+is genuinely unavailable, disclose that limitation and use the existing
+conversational configuration flow.
 
 ## Author one provider-native request
 
@@ -189,10 +208,26 @@ informational, and `askBeforeGenerating` does not pause that lane. Wait only
 when the user explicitly requested review before execution. External-provider
 confirmation follows the existing policy in `SKILL.md`.
 
-Immediately before execution, reread the document. If the prompt changed, rebuild the
-provider-native prompt-bearing fields through the provider Skill, revalidate,
-and atomically replace `request`. Do not search the opaque JSON for prompt-like
-keys.
+Retain Validate's `requestSha256` and supply it to Execute using
+`--expected-request-sha256`. The CLI compares the exact loaded file before provider
+work. After confirmation, call Execute directly: no separate hash command,
+unchanged-request reread, or standalone Validate. Engines still validates before
+submission. Retain host permission handling. Before the review pause, request
+writing, validation, and Preview delivery can run sequentially in one tool
+operation; stop on a failure and retain the validation result.
+
+If Execute reports `CLI_GENERATION_REQUEST_CHANGED`, or the prepared hash is
+unavailable, reread the request before
+execution. If the prompt changed, rebuild the provider-native prompt-bearing
+fields through the provider Skill and atomically save the revised document.
+Validate that saved file and retain its new `requestSha256`. Apply the existing
+Preview/confirmation policy to the revised request. A user's explicit instruction
+to execute their edit remains authorization; a technical revalidation alone
+does not require asking again.
+Handle changed configuration or references through their existing preparation
+flow. Do not search opaque JSON for prompt-like keys or equate the top-level
+prompt with a native field whose adapter may transform it. A changed file must
+never silently take the unchanged-request path.
 
 ## Execute or recover
 
@@ -227,12 +262,14 @@ command when both layers reach the same yield boundary.
 renku generation execute \
   --file tmp/operations/media-generation/request.json \
   --output tmp/media/request \
-  --json
+  --expected-request-sha256 <requestSha256-from-validation>
 ```
 
-One execute call is one logical provider request. The result contains the
-downloaded artifacts, provider/model/request id when available, and a safe
-`provenance` value. It contains no durable Renku job or Run.
+Execute and Recover save exact provenance automatically inside the output
+directory and return `provenancePath` with the downloaded artifact paths. Use
+default compact output for reading and `--json` when code consumes fields; JSON
+also includes the full provenance. One execute call is one logical provider
+request. A successful result needs no provider recovery to obtain its receipt.
 
 If a command handle is nevertheless lost, keep the request indeterminate. Do
 not resubmit. First allow the original execution time to elapse and recheck the
@@ -247,8 +284,7 @@ recover the same request rather than submitting again:
 renku generation recover \
   --file tmp/operations/media-generation/request.json \
   --request-id <provider-request-id> \
-  --output tmp/media/request \
-  --json
+  --output tmp/media/request
 ```
 
 Recovery uses the unchanged provider/model/request envelope. Change the review
@@ -256,15 +292,36 @@ document only for a deliberate new generation.
 
 ## Inspect and attach
 
+Present the returned artifact immediately, before extended review or provenance
+work. In Codex, embed the exact returned absolute image/audio/video path in a
+commentary message and continue analysis. State that review is in progress.
+Do not wait for canonical attachment paths or treat a queued editor open as
+proof of playback. This applies across providers and purposes.
+
+Review using available capabilities. Do not delay initial playback to search
+machine-wide for transcription models or install an analysis stack. Distinguish
+sampled-frame review, audio-stream presence, and verified spoken content; when
+speech cannot be checked, report that limit. User-requested deeper analysis can
+continue after presentation.
+
 Inspect every artifact, then automatically attach generated assets to the
 requested destination across all providers, media kinds, and purposes. Report
 quality concerns without asking for output acceptance or attachment consent.
 Only explicit review-only, leave-unattached, or strict-iteration instructions
 change that default; unusable files or unresolved destinations remain blockers.
-Persist the exact safe `provenance` value from Execute/Recover in a unique JSON
-file under `tmp/operations/media-generation/`, then pass it through the focused
-attachment command with `renku media import --provenance` or the focused grouped
-Storyboard, Cast Voice, dialogue, or Location World command.
+Pass Execute/Recover's saved `provenancePath` directly to
+`renku media import --provenance`. Grouped Storyboard and focused Cast Voice
+documents can read that file when embedding provenance in their existing import
+shape. Codex and Location World keep their own provenance handoffs.
+
+Never reconstruct the receipt or copy expanded prompts into a generated script.
+For direct reading, use the compact default `media import` display. Full `--json`
+is for code: retain the complete response and display only the needed completion
+fields, rather than dumping the provenance back into the conversation.
+Consume exact artifact paths from Execute/Recover and canonical paths from the
+attachment result. Preserve those complete results if displayed output is bounded;
+do not rediscover successful attachments through directory sorting or repeated
+Asset listings. Read back only information genuinely missing from the result.
 
 Never manually copy into canonical Asset folders or write Project SQLite.
 Asset Inspection later reads saved provenance through the same shared Prompt,

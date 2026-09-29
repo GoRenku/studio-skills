@@ -70,8 +70,7 @@ renku media import \
   --source <project-relative-path> \
   --title <human-readable-title> \
   --summary <meaningful-card-summary> \
-  --provenance <provenance-json> \
-  --json
+  --provenance <provenance-json>
 ```
 
 Use the same `--provenance` contract for a Codex request. Omit it

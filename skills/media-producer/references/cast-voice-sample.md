@@ -21,7 +21,7 @@ inventing speech-generation controls.
 renku generation context --purpose cast.voice-sample --target cast:<cast-member-id>
 renku generation validate --file tmp/operations/media-generation/cast-voice-sample.json --json
 renku generation preview show --file tmp/operations/media-generation/cast-voice-sample.json --json
-renku generation execute --file tmp/operations/media-generation/cast-voice-sample.json --output tmp/media/cast-voice-sample --json
+renku generation execute --file tmp/operations/media-generation/cast-voice-sample.json --output tmp/media/cast-voice-sample --expected-request-sha256 <requestSha256-from-validation>
 ```
 
 Use the returned Cast/design/voice/Project-language facts as evidence. Combine
@@ -56,8 +56,8 @@ conflict and ask which direction should win before generation.
 After generation:
 
 1. inspect or play the output enough to confirm it is the intended sample;
-2. preserve the exact safe provenance returned by generation execution;
-3. hand the accepted output and exact safe provenance to `casting-director`;
+2. retain execution's `provenancePath`;
+3. hand the accepted output and that saved provenance file to `casting-director`;
 4. validate and attach a current `castVoiceFileAttachment` document with
    `renku cast voice attach`.
 

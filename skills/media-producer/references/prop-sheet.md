@@ -40,9 +40,9 @@ features, and absence of an unrequested scene or poster treatment.
 Attach only through focused purposes:
 
 ```bash
-renku media import --purpose prop.sheet --target prop:<prop-id> --source <path> --title <title> --summary <card-summary> --provenance <provenance-json> --json
-renku media import --purpose prop.sheet --target prop:<prop-id> --source <path> --title <title> --summary <variant-summary> --reference-name <variant-name> --tag storyboard --provenance <provenance-json> --json
-renku media import --purpose prop.hero --target prop:<prop-id> --source <path> --title <title> --summary <card-summary> --provenance <provenance-json> --select --json
+renku media import --purpose prop.sheet --target prop:<prop-id> --source <path> --title <title> --summary <card-summary> --provenance <provenance-json>
+renku media import --purpose prop.sheet --target prop:<prop-id> --source <path> --title <title> --summary <variant-summary> --reference-name <variant-name> --tag storyboard --provenance <provenance-json>
+renku media import --purpose prop.hero --target prop:<prop-id> --source <path> --title <title> --summary <card-summary> --provenance <provenance-json> --select
 ```
 
 Prop Sheets are request-scoped and never use global selection. Use `--select`

@@ -339,8 +339,7 @@ renku media import \
   --purpose scene.storyboard-sheet \
   --target scene:<scene-id> \
   --revision <scene-beats-revision-id> \
-  --file tmp/operations/scene-storyboard-import.json \
-  --json
+  --file tmp/operations/scene-storyboard-import.json
 ```
 
 For one source file, pass exactly one `--beats <beat-id>`.

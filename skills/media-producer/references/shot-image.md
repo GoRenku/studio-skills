@@ -33,8 +33,7 @@ renku media import \
   --target shot:<shot-id> \
   --source <project-relative-output> \
   --provenance <provenance-json> \
-  --select \
-  --json
+  --select
 ```
 
 Use the same provenance contract for every generated output. Keep

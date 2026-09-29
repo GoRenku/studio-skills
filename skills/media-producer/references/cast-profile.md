@@ -33,7 +33,7 @@ For Codex or provider image generation, follow `workflow.md`, inspect the exact
 accepted output, and attach it with exact safe provenance:
 
 ```bash
-renku media import --purpose cast.profile --target cast:<cast-member-id> --source <project-relative-path> --title <title> --summary <card-summary> --provenance <provenance-json> --select --json
+renku media import --purpose cast.profile --target cast:<cast-member-id> --source <project-relative-path> --title <title> --summary <card-summary> --provenance <provenance-json> --select
 ```
 
 Use the same provenance contract for Codex-generated files. Omit provenance

@@ -15,12 +15,14 @@ Keep every agent-created working file inside the current Project's categorized
 `tmp/` tree. Never create review JSON, provenance JSON, generated media, QA
 evidence, downloads, or scratch files at the Project root.
 
-- Use `tmp/operations/media-generation/` for review and provenance documents.
+- Use `tmp/operations/media-generation/` for review documents. Execute/Recover
+  saves provenance beside its media and returns `provenancePath` for attachment.
 - Use `tmp/media/` for generated or downloaded media.
 - Use `tmp/qa/` for review evidence.
 - Use `tmp/scratch/` for other temporary inputs.
 
-Use `renku generation models list --provider fal-ai --route-index <absolute-path-to-references/supported-routes.json> --json`
+Reuse Media Producer's effective model list when already loaded. Otherwise use
+`renku generation models list --provider fal-ai --route-index <absolute-path-to-references/supported-routes.json> --json`
 for this provider's bundled and personal discovery choices. Select the exact
 `apiId`; an explicitly requested unlisted route can proceed without installation.
 Copy it verbatim into the review document's `model` field and every generation
@@ -63,8 +65,10 @@ For Seed Audio, place one local audio marker per selected speaker sample in the
 native `audio_urls` array and follow `adapters/seed-audio.md` for exact
 `@AudioN` mention ordering. Never send more than three local voice references.
 
-Follow Media Producer for Preview and conversational confirmation. Then call
-`renku generation validate` and `renku generation execute` once. Use
+Follow Media Producer for pre-Preview validation and conversational confirmation.
+After confirmation, an unchanged prepared request goes directly to
+`renku generation execute`, which validates before submission. Follow the shared
+changed-document procedure when edits require preparation. Use
 `generation recover` only with a known Fal request id and the unchanged review
 document. Return the artifacts and exact safe provenance to Media Producer.
 

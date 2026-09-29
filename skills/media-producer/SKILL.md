@@ -29,6 +29,9 @@ output limits; print readable output directly, without JSON-stringifying it.
 Recover truncation from the captured file, not another context call. In JSON,
 retain the top-level `assets` inventory when resolving reference identities.
 Structured extraction does not replace reading the complete creative briefing.
+The Media inventory is part of that briefing even when references have already
+been chosen. Selecting a subset of references does not authorize skipping its
+other entries; distinguish completed reading from reference selection.
 Follow `references/workflow.md` for reuse and refresh timing. Prior recipes are
 omitted from the briefing; use references for
 the current task and retrieve history only when needed, following
@@ -37,6 +40,12 @@ the current task and retrieve history only when needed, following
 Read fresh generation context for each request. Within that preparation, reuse verified syntax, selected route discovery, and the existing configuration cache according to its freshness rules; do not prefetch other providers. Use repeated --file on generation preview show to review several prepared requests together when appropriate. Retain native validation, configuration, Preview, approval, concurrency limits, artifact inspection, and focused attachment. Tool-session polling continues the same process; it is not another CLI invocation. Never retry a successful paid execution automatically.
 
 Consult the relevant CLI reference/help once if syntax is unknown, then reuse verified syntax for this task. Do not discover syntax by attempting mutations. Do not invent `project list`. If a known permission denial blocks cache/output/config or local-network access, explain the requirement and use the authorized host permission flow; do not repeat the denied attempt, read secrets, disable cache persistence, or change permissions. `CLI026` means the mutation succeeded: report the notification warning without replaying the mutation.
+
+Carry known host permission requirements across stages of the same task. If
+schema retrieval required elevated access to the provider metadata cache,
+validation and execution using that cache need the same permission mechanism;
+do not first repeat the denied access in each stage. Request required host
+approval normally; this does not grant or bypass it.
 
 ## Project Workspace
 
@@ -164,11 +173,13 @@ discovery step. This is a product-family identity, not a selectable Flare or
 Sunburst API variant. Continue with the purpose craft guide below and the Codex
 section of `references/workflow.md`.
 
-For external providers, list effective discovery choices with
-`renku generation models list --provider <selected-provider> --json`, passing
-that provider Skill's `references/supported-routes.json` as `--route-index`.
-Load all five indexes only when presenting choices across providers, such as
-an explicitly requested configuration UI. Personal entries override exact discovery labels.
+For external providers in Codex, obtain the effective choices once with
+`renku generation models list --json`, passing all five provider Skills'
+`references/supported-routes.json` files as repeated `--route-index` arguments.
+Reuse this result and its catalog digest for route selection and inline
+configuration; filter it locally instead of fetching a second provider list.
+Outside that configuration workflow, discovery may use only the selected
+provider's index. Personal entries override exact discovery labels.
 An explicitly selected unlisted route can proceed without installation. Copy the
 exact `apiId` into the review document's `model` field; never execute `modelKey`.
 Use `generation models show --provider <provider> --model <apiId> --route-index <selected-provider-index> --json` to
@@ -241,9 +252,12 @@ permissions remain governed by their existing rules.
 
 ## Configure generation in Codex
 
-For external-provider requests, when the active harness is Codex and exposes
-`@Visualize`, show the transient inline configuration component before authoring
-the review document. For Codex built-in generation, use it only when the user
+For external-provider requests in Codex, discover Visualize in the available
+skills catalog and read its `SKILL.md`. It renders through a content reference;
+it does not require a tool named Visualize. An empty tool-name search is not
+evidence that the skill is unavailable. When available, show the transient inline
+configuration component before authoring the review document. For Codex built-in
+generation, use it only when the user
 asks to configure or review settings; otherwise prepare the request directly.
 Read and follow
 [references/inline-generation-configuration.md](references/inline-generation-configuration.md).
@@ -275,12 +289,16 @@ advice, and fresh cached or newly fetched schema, recreate the prompt when its
 canonical model changed, and rematerialize the same task-local visualization
 source file from that route's cached template. When the canonical model is
 unchanged, preserve the prompt and only schema-compatible exact native values.
-When this configuration flow is used, continue to Generation Preview only from
-**Continue with these settings** while
-the selectors match the prepared route, or from a separate explicit
-confirmation of unchanged prepared values.
+Complete external-provider configuration by rendering the component and ending
+the turn with its Visualize content reference, as the Visualize skill requires.
+Resume review-document authoring and Generation Preview only after **Continue
+with these settings** while the selectors match the prepared route, or explicit
+acceptance of the displayed unchanged values. Reading the skill and schema is
+preparation, not a substitute for displaying controls. Do not proceed straight
+from schema discovery to a review document and Execute.
 
-This is a Codex-only convenience. In another harness, do not invent a browser
+This interaction is required for external providers in Codex when Visualize is
+available. In another harness, do not invent a browser
 component or substitute callback; continue with the existing conversational
 selection and Preview workflow.
 
@@ -331,8 +349,13 @@ prompt, and Update or Close does not generate media or resume an
 agent. For external providers, continue after the required conversational
 confirmation. Codex built-in generation continues without a consent pause;
 if the user explicitly requested review before execution, wait for their review.
-Reread the file, rebuild the native request from its final prompt, validate it
-again when Engines-owned, and replace the document atomically before execution.
+Retain Validate's `requestSha256` and pass it as `--expected-request-sha256`
+to Execute after confirmation. Execute checks the file itself; no shell hash,
+unchanged-file reread, or second Validate call is needed. On
+`CLI_GENERATION_REQUEST_CHANGED`, read the edit and reprepare through the provider
+Skill. See `references/workflow.md` for the changed-request path. Request writing,
+validation, and Preview can run sequentially in one tool operation, stopping on
+failure rather than adding a model roundtrip between each step.
 
 `showGenerationPreviews` controls automatic Preview. An explicit user Preview
 request always opens it. For Codex, an automatic Preview is informational and
@@ -349,7 +372,7 @@ Engines-provider requests execute through the provider Skill:
 renku generation execute \
   --file tmp/operations/media-generation/request.json \
   --output tmp/media/request \
-  --json
+  --expected-request-sha256 <requestSha256-from-validation>
 ```
 
 Follow the command-session tracking rules in `references/workflow.md`. A
@@ -364,20 +387,34 @@ Codex requests invoke the built-in image capability directly without separate
 generation consent. They never call Engines commands and never invent an Engines
 receipt.
 
+Present returned playable/viewable artifacts as soon as Execute or Recover
+finishes, before extended analysis or attachment bookkeeping. In Codex, embed the
+exact returned local media path in commentary and continue review; a queued
+open-file request alone is not confirmation of visible playback. Label review
+as ongoing, without claiming attachment or quality verification yet.
 Inspect every output, then attach automatically without an acceptance question.
-Write the exact returned
-`provenance`—or the equivalent safe Codex provenance with no invented
-receipt—to a unique JSON file under `tmp/operations/media-generation/`. Attach
-through the focused destination:
+Execute/Recover automatically saves exact provenance and returns `provenancePath`.
+Pass that file directly to import; no extraction or receipt-only recovery is
+needed. Default output is compact; use `--json` when code consumes fields.
+For Codex, use its safe review envelope as described in `references/workflow.md`.
+Never retype receipts, expanded prompts, or provider metadata. Use returned artifact
+and attachment paths instead of directory searches or repeated Asset listings.
+Attach through the focused destination:
 
 ```bash
 renku media import --project <project-name> \
   --purpose <purpose> \
   --target <target> \
   --source <project-relative-output> \
-  --provenance tmp/operations/media-generation/provenance.json \
-  --json
+  --provenance <returned-provenancePath>
 ```
+
+For direct completion reading, `media import` without `--json` displays returned
+attachment facts and canonical files without echoing the recipe. Choose `--json`
+only for programmatic consumption and retain its complete output before displaying
+selected completion fields. This format choice also applies to purpose-guide
+import examples; grouped and owner-specific workflows still use their focused
+commands and must retain complete results when processing them.
 
 Use the existing grouped Storyboard, Cast Voice, or Location World command when
 that domain owns the attachment. Pass the same exact safe provenance through
