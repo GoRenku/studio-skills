@@ -71,7 +71,7 @@ Explicit model choice wins; continue existing provider/Preview/confirmation poli
 
 | Model | Fal route | Canonical operation |
 | --- | --- | --- |
-| H3 Max | `minimax/h3-max/reference-to-video` | `../model-guides/video/minimax-h3/reference-to-video.md` |
+| H3 Max | `minimax/h3-max/reference-to-video` | `../model-guides/video/minimax-h3-max.md` |
 | Seedance 2.5 | `bytedance/seedance-2.5/reference-to-video` | `../model-guides/video/seedance-2.5/reference-to-video.md` |
 | Seedance 2.0 | `bytedance/seedance-2.0/reference-to-video` | `../model-guides/video/seedance-2.0/reference-to-video.md` |
 | Wan 3.0 | `alibaba/wan-3.0-prime/reference-to-video` | `../model-guides/video/wan-3.0-prime/reference-to-video.md` |

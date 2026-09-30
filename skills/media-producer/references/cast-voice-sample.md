@@ -19,9 +19,8 @@ inventing speech-generation controls.
 
 ```bash
 renku generation context --purpose cast.voice-sample --target cast:<cast-member-id>
-renku generation validate --file tmp/operations/media-generation/cast-voice-sample.json --json
-renku generation preview show --file tmp/operations/media-generation/cast-voice-sample.json --json
-renku generation execute --file tmp/operations/media-generation/cast-voice-sample.json --output tmp/media/cast-voice-sample --expected-request-sha256 <requestSha256-from-validation>
+renku generation prepare --file tmp/operations/media-generation/cast-voice-sample.json --json
+renku generation execute --file tmp/operations/media-generation/cast-voice-sample.json --output tmp/media/cast-voice-sample --expected-request-sha256 <requestSha256-from-preparation>
 ```
 
 Use the returned Cast/design/voice/Project-language facts as evidence. Combine
@@ -70,6 +69,6 @@ paths or provider identities in Cast Design JSON. The attachment's optional
 - ElevenLabs samples use the provider's durable identity, for example
   `{"provider":"elevenlabs","voiceId":"<exact-id>"}`.
 
-Use the selected provider's supported-route index, resolve its `modelKey`
-through the canonical model catalog, and use the exact operation guide for the
-request shape.
+Discover routes through `generation models list` and find relevant model advice
+by name under `references/model-guides/`. Use the selected schema for supported
+voice and audio inputs.

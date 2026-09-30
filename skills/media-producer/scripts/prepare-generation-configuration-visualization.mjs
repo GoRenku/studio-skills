@@ -3,23 +3,24 @@ import crypto from 'node:crypto';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
 
 const TEMPLATE_CONTRACT_VERSION = 1;
+const templateContractPath = fileURLToPath(new URL('../references/generation-configuration-template.md', import.meta.url));
+const runFile = promisify(execFile);
 
 export async function buildGenerationConfigurationVisualizationDescriptor(input) {
-  if (!/^[a-f0-9]{64}$/.test(input.routeCatalogSha256 ?? '')) {
-    throw new Error('--route-catalog-sha256 must be an effective route SHA-256 digest.');
-  }
   const [visualizeSkill, templateContract] = await Promise.all([
     readRegularFile(input.visualizeSkillPath, '--visualize-skill'),
-    readRegularFile(input.templateContractPath, '--template-contract'),
+    readRegularFile(input.templateContractPath ?? templateContractPath, 'template contract'),
   ]);
   return {
     provider: input.provider,
     model: input.model,
     operation: input.operation,
     inputMode: input.inputMode,
-    routeCatalogSha256: input.routeCatalogSha256,
     visualizeSkillVersion: input.visualizeSkillVersion,
     visualizeSkillSha256: sha256(visualizeSkill),
     templateContractVersion: TEMPLATE_CONTRACT_VERSION,
@@ -27,10 +28,26 @@ export async function buildGenerationConfigurationVisualizationDescriptor(input)
   };
 }
 
-export async function writeGenerationConfigurationVisualizationDescriptor(input) {
+export async function prepareGenerationConfigurationVisualization(input, runCli = runRenku) {
   const descriptor = await buildGenerationConfigurationVisualizationDescriptor(input);
-  await writeFileAtomically(input.outputPath, `${JSON.stringify(descriptor, null, 2)}\n`);
-  return { descriptor, outputPath: path.resolve(input.outputPath) };
+  const descriptorPath = path.resolve(input.descriptorPath);
+  await writeFileAtomically(descriptorPath, `${JSON.stringify(descriptor, null, 2)}\n`);
+  const skillsDirectory = fileURLToPath(new URL('../../', import.meta.url));
+  const providers = (await fs.readdir(skillsDirectory)).filter((name) => name.endsWith('-media-provider')).sort();
+  const routeIndexes = providers.map((name) => path.join(skillsDirectory, name, 'references/supported-routes.json'));
+  const result = await runCli([
+    'generation', 'configuration-visualization', 'prepare',
+    '--file', descriptorPath, '--payload', path.resolve(input.payloadPath),
+    '--output', path.resolve(input.outputPath), '--json',
+    ...routeIndexes.flatMap((index) => ['--route-index', index]),
+  ]);
+  await writeFileAtomically(descriptorPath, `${JSON.stringify(result.descriptor, null, 2)}\n`);
+  return result;
+}
+
+async function runRenku(args) {
+  const { stdout } = await runFile('renku', args, { maxBuffer: 4_000_000 });
+  return JSON.parse(stdout);
 }
 
 function parseArguments(argv) {
@@ -59,10 +76,10 @@ function parseArguments(argv) {
     model: required('--model'),
     operation: required('--operation'),
     inputMode: required('--input-mode'),
-    routeCatalogSha256: required('--route-catalog-sha256'),
     visualizeSkillPath: required('--visualize-skill'),
     visualizeSkillVersion: required('--visualize-skill-version'),
-    templateContractPath: required('--template-contract'),
+    descriptorPath: required('--descriptor'),
+    payloadPath: required('--payload'),
     outputPath: required('--output'),
   };
 }
@@ -119,7 +136,7 @@ async function writeFileAtomically(filePath, contents) {
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   try {
-    const result = await writeGenerationConfigurationVisualizationDescriptor(
+    const result = await prepareGenerationConfigurationVisualization(
       parseArguments(process.argv.slice(2))
     );
     process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);

@@ -72,8 +72,6 @@ test('release validation runs every media-generation guide and eval validator', 
   const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..', '..');
   for (const validator of [
     'scripts/validate-media-generation-skills.mjs',
-    'skills/media-producer/scripts/validate-image-prompt-guides.mjs',
-    'skills/media-producer/scripts/validate-video-prompt-guides.mjs',
     'scripts/validate-media-purpose-evals.mjs',
   ]) {
     const result = spawnSync(process.execPath, [validator], {

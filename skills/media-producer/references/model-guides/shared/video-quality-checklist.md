@@ -12,7 +12,7 @@ answer is "no", revise the request first.
   `authoredFrom` association?
 - Is every selected reference deliberately placed at the exact native media
   field documented by the provider Skill?
-- Did `renku generation validate` pass, and did the agent inspect the reviewed
+- Did `renku generation prepare` (or standalone validation when applicable) pass, and did the agent inspect the reviewed
   provider-native request for actual field assignment and token order?
 - Does every provider-specific image, video, and audio mention in the prompt
   correspond to an actual provider input and use the selected route's exact

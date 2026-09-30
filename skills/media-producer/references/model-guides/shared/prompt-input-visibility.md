@@ -64,13 +64,17 @@ role.
 Place every included exact reference's local-file marker in a native media field
 declared by the selected provider adapter and live schema.
 
-Validate the draft and run:
+For an Engines request with Preview enabled, prepare the final draft:
 
 ```bash
-renku generation preview show \
+renku generation prepare \
   --file tmp/operations/media-generation/request.json \
   --json
 ```
+
+Reuse a successful Prepare result from the shared workflow; do not call it
+again for this guide. Codex and ordered multi-request review use the shared
+workflow's standalone Preview path.
 
 Inspect the exact reviewed native request as evidence of which inputs the
 provider will receive and in what order. Do not infer numbering from filenames,

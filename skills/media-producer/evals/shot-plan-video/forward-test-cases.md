@@ -2,8 +2,8 @@
 
 - Resolve the exact Shot Plan and carry only weak `authoredFrom` context.
 - Copy the selected provider operation's `apiId` into the review document and
-  generation commands, use its `modelKey` to read the canonical model guide
-  once, then apply the matching provider adapter.
+  generation commands; find relevant model Markdown by name and apply useful
+  provider advice.
 - Put exact local files at their native provider fields and preserve order.
 - Preview and confirmation remain conversational; execution is one provider
   request and recovery never changes creative input.

@@ -61,7 +61,7 @@ intent; it is distinct from common Asset display selection.
    operation or missing context. Reuse selected-route discovery and fresh
    configuration templates; do not prefetch other providers or add an unsolicited
    Codex configuration step.
-7. For Engines providers, pass Validate's `requestSha256` to Execute with
+7. For Engines providers, pass Prepare's (or standalone Validate's) `requestSha256` to Execute with
    `--expected-request-sha256`; the CLI checks and reads the final `--file`.
    Reread only if that check reports a change or the prepared hash is unavailable.
    For Codex, read the final request once after permitted Preview edits,
@@ -183,20 +183,24 @@ resolve unavailable intended inputs without silently dropping them.
 
 ### Validate and deliver the request
 
-For Engines providers:
+For one Engines request when Preview is enabled or requested, write the final
+request and run preparation in the same tool operation:
 
 ```bash
-renku generation validate --file tmp/operations/media-generation/request.json --json
+renku generation prepare --file tmp/operations/media-generation/request.json --json
 ```
 
-Open Preview when Project policy enables it or the user asks:
+Prepare validates through Engines, delivers Preview from that same loaded
+request, and returns `requestSha256`, diagnostics, and delivery status. Check
+its diagnostics before asking for confirmation. Do not follow it with separate
+Validate or Preview calls.
 
-```bash
-renku generation preview show --file tmp/operations/media-generation/request.json --json
-```
-
-For an ordered set, repeat `--file` in the requested order. Stop when delivery
-fails; later individual notifications would replace the combined dialog.
+When Preview is disabled, use `renku generation validate --file <request> --json`.
+Codex built-in generation uses `renku generation preview show --file <request>`
+when Preview is enabled; it does not use Engines preparation.
+For an ordered set, validate each Engines request and use repeated `--file` on
+`generation preview show` in the requested order. Stop when delivery fails;
+later individual notifications would replace the combined dialog.
 
 Preview permits editing only the top-level prompt. References and native
 configuration are read-only. The user continues in the ordinary conversation;
@@ -208,13 +212,12 @@ informational, and `askBeforeGenerating` does not pause that lane. Wait only
 when the user explicitly requested review before execution. External-provider
 confirmation follows the existing policy in `SKILL.md`.
 
-Retain Validate's `requestSha256` and supply it to Execute using
+Retain Prepare's (or standalone Validate's) `requestSha256` and supply it to Execute using
 `--expected-request-sha256`. The CLI compares the exact loaded file before provider
 work. After confirmation, call Execute directly: no separate hash command,
 unchanged-request reread, or standalone Validate. Engines still validates before
-submission. Retain host permission handling. Before the review pause, request
-writing, validation, and Preview delivery can run sequentially in one tool
-operation; stop on a failure and retain the validation result.
+submission. Retain host permission handling. Before the review pause, request writing and Prepare run sequentially in one tool operation; stop on a
+failure and retain the preparation result.
 
 If Execute reports `CLI_GENERATION_REQUEST_CHANGED`, or the prepared hash is
 unavailable, reread the request before

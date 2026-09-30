@@ -45,6 +45,25 @@ CLI request fingerprint check in the real task.
 
 ## Inline configuration skill discovery
 
+For cross-thread cache reuse, supply a previously stored compatible template
+and a new request with a different prompt and native control value. Require one
+`prepare-generation-configuration-visualization.mjs` invocation, a fresh result,
+and an actual Visualize reference to the returned task-local HTML. The instance
+must contain only the new request values; schema fetching or HTML rebuilding on
+that hit fails the case. Repeat for image, audio, and video purposes. Change only
+workflow instructions and expect reuse; change the template contract and expect
+incompatibility followed by the normal rebuild path. An expired entry must use
+the existing schema refresh path before materialization.
+
+After accepted settings, require request writing and `generation prepare` in
+one tool operation. Check the returned diagnostics, retain its request hash,
+and preserve the confirmation pause. Additional Validate or Preview calls for
+that unchanged single request fail. Cover disabled Preview, Codex, and ordered
+multi-request review separately: their standalone paths remain intentional.
+Use `generation-context/preparation.mjs` to score observed outcomes and payload
+preservation; its automated tests validate the scorer rather than autonomous
+agent compliance.
+
 Provide the Visualize skill in the available skills catalog, but no tool whose
 name contains Visualize. Ask for an external model by name, such as H3 Max, and
 provide a fixed native schema with resolution and duration choices.
@@ -268,9 +287,9 @@ Expected behavior:
 
 - routes both requests to `pika-media-provider` because explicit current-task
   direction overrides the saved lane without mutating Settings;
-- chooses only one indexed route and operation for each exact input mode,
-  resolves its `modelKey`, and reads the canonical Seedream or MiniMax H3 model
-  guide before the Pika provider adapter;
+- chooses a supported route that serves each request and preserves its intended
+  inputs; finds relevant Seedream or MiniMax H3 advice and applies useful
+  provider guidance without requiring a fixed reading order;
 - runs `generation schema show --provider pika --model <api_id> --json` before
   authoring either provider-native request;
 - gives every local marker an exact native field and meaningful `reviewLabel`,
@@ -461,8 +480,8 @@ Expected behavior:
   native control values, after which the agent shows the already prepared prompt
   in Generation Preview without re-authoring it again.
 
-Repeat with a provider switch whose destination route has the same canonical
-`modelKey`. The reconfiguration follow-up reads only that destination route; the
+Repeat with a provider switch whose destination route has the same underlying
+model. The reconfiguration follow-up reads only that destination route; the
 prompt remains unchanged, and only native values at exact property paths
 accepted by both schemas survive the switch.
 
@@ -769,3 +788,21 @@ Manual agent scenarios; automated file validation is not an agent execution.
    as success. Record preparation, inter-generation, and completion durations
    separately from image-generation time; file validation alone does not
    establish a performance gain.
+8. Model discovery and expansion: request H3 Max with expansion enabled and
+   provide the live schema with `balanced` as its enabled default and `quality`
+   described as slower. Inspect command outcomes: matching routes and available guides found without hand-written parsing or
+   catalog-file writes. Visualization preparation resolves the full selector
+   list and digest internally; verify both bundled and personal choices appear. Expect balanced in the request;
+   repeat with an explicit quality choice and expect quality. Also exercise a
+   boolean expansion schema, a personal route with no bundled guides, and a
+   route with no expansion field. Score observations with the discovery and
+   expansion evaluators in `generation-context/preparation.mjs`; record actual
+   agent timing separately from scorer and script tests.
+
+## Cross-model selection evaluation
+
+Use [model-selection/README.md](model-selection/README.md) for repeated runs
+against different agent models. Its twelve cases cover mixed input roles, binding
+frames, optional and personal advice, image editing, voice samples, provider
+switches, and visualization cache reuse. Score outcomes and justified tool work,
+not a prescribed reading sequence.

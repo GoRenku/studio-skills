@@ -9,7 +9,7 @@ used only when the user asks to configure or review settings. Otherwise use
 their direction and Project defaults directly, without creating a configuration
 confirmation gate. External-provider requests retain the configuration flow.
 Discover Visualize through the available skills catalog and read its full
-`SKILL.md`; it is not a tool-name capability check. If unavailable, explain the
+`SKILL.md` once in this workflow for the rendering contract. If unavailable, explain the
 limitation rather than silently claiming configuration was shown. Choosing a
 model in the user's request sets the initial selection, not acceptance of all
 native settings. Studio Preview does not replace this inline control surface.
@@ -29,42 +29,38 @@ hard-code `~/.config/renku`, a Project folder, or the cache destination in the
 Skill. The CLI returns the authorized absolute paths.
 
 The cache key is the exact provider, executable model id, operation, and input
-mode. Its compatibility fingerprint also includes the effective name/route list used
-to populate Provider and Model selectors, the installed Visualize Skill version
-and SHA-256, template contract version `1`, and this reference's SHA-256. Use
-`scripts/write-generation-configuration-visualization-descriptor.mjs` to write
-that descriptor to
-`tmp/operations/media-generation/generation-configuration-visualization-descriptor.json`
-in the current Project. Use the retained `renku generation models list --json`
-result from all five provider indexes, obtaining it once if not already loaded.
-Pass its unfiltered
-`routeCatalogSha256` as `--route-catalog-sha256`; never compute the cache path
-yourself. Optional Markdown changes do not change this digest.
+mode. Compatibility includes the effective route list, installed Visualize
+version and contents, and `generation-configuration-template.md`. Workflow-only
+instruction changes do not affect that template contract.
+
+Write the fresh request payload in Project `tmp/scratch/`
+with purpose, target, authored prompt, exact references, prepared provider/model,
+and native values. Then run one preparation command:
 
 ```bash
-node <media-producer-skill-dir>/scripts/write-generation-configuration-visualization-descriptor.mjs \
+node <media-producer-skill-dir>/scripts/prepare-generation-configuration-visualization.mjs \
   --provider <provider> \
   --model <exact-api-id> \
   --operation <operation> \
   --input-mode <input-mode> \
-  --route-catalog-sha256 <effective-list-routeCatalogSha256> \
   --visualize-skill <absolute-installed-visualize-skill-md> \
   --visualize-skill-version <installed-version> \
-  --template-contract <absolute-this-reference-md> \
-  --output tmp/operations/media-generation/generation-configuration-visualization-descriptor.json
+  --descriptor tmp/operations/media-generation/generation-configuration-visualization-descriptor.json \
+  --payload <absolute-request-payload-json> \
+  --output <absolute-task-visualization-html>
 ```
 
-Inspect before contacting a provider:
-
-```bash
-renku generation configuration-visualization inspect \
-  --file tmp/operations/media-generation/generation-configuration-visualization-descriptor.json \
-  --json
-```
+The script supplies installed route-index paths and invokes Core-owned cache
+preparation through the CLI. Core reads the effective bundled/personal list and
+calculates its digest; the script saves the returned dependency descriptor.
+Non-fresh results include the full `routes` for selector authoring. A fresh hit
+returns `outputPath` for the ready HTML instance. There is no separate Inspect
+or materialization round trip.
 
 Handle the returned status exactly:
 
-- `fresh`: use the returned `schemaPath` and `templatePath`. Do not call
+- `fresh`: render the returned `outputPath` with Visualize. Use `schemaPath`
+  for the exact cached controls schema if needed. Do not call
   `generation schema show` or a provider schema endpoint.
 - `miss`, `invalid`, or `incompatible`: obtain the exact current route schema
   once, generate one request-independent template, and store both as shown
@@ -90,15 +86,8 @@ entry as stale-on-error. A provider route without an Engines schema command may
 use only an exact current schema or capability contract exposed by its selected
 provider/harness; do not invent fields merely to make it cacheable.
 
-A reusable template must be a Visualize HTML fragment under 1 MB and contain
-exactly one
-`<!--__RENKU_GENERATION_CONFIGURATION_PAYLOAD__-->` placeholder. Its code reads
-the fresh request payload from
-`#renku-generation-configuration-payload`. It may embed the compatible
-Provider/Model options and schema-derived control structure, labels, bounds,
-and enumerated values. It must not embed a prompt, purpose target, references,
-credentials, request-specific initial selections, browser state, or any other
-request-specific or Project-specific value.
+Read the template contract before rebuilding. Keep request-specific payloads
+out of shared templates.
 
 After generating a new template, store it with the same schema snapshot:
 
@@ -113,21 +102,18 @@ The Core-owned manifest supplies `checkedAt` and an `expiresAt` exactly 24 hours
 later, semantic schema and template hashes, and dependency fingerprints. Use
 manifest timestamps, never filesystem modification times, to decide freshness.
 
-For every request, write a new JSON payload in Project `tmp/scratch/` containing
-the pending purpose, target, prompt, exact references, prepared provider/model,
-and initial native values. Materialize it into the current task's Visualize
-artifact directory:
+After storing or refreshing, complete preparation using the saved descriptor
+and the same fresh payload:
 
 ```bash
-node <media-producer-skill-dir>/scripts/materialize-generation-configuration-visualization.mjs \
-  --template <cache-template-path> \
+renku generation configuration-visualization prepare \
+  --file tmp/operations/media-generation/generation-configuration-visualization-descriptor.json \
   --payload <absolute-request-payload-json> \
-  --output <absolute-task-visualization-html>
+  --output <absolute-task-visualization-html> --json
 ```
 
-Render only that fresh task-local instance with `@Visualize`. Never render the
-shared template directly and never place the request payload in the shared
-cache.
+Render only the returned task-local instance with Visualize. Never render the
+shared template directly.
 
 ## Prepare one fresh request
 
@@ -152,12 +138,9 @@ request.
 The matching Project Setting chooses only the initial selection. It must never
 narrow the provider or model choices. Keep discovery lightweight:
 
-1. Reuse the current workflow's `generation models list --json` result, or obtain
-   it once with all five current provider Skills'
-   `supported-routes.json` files as repeated `--route-index` arguments, including
-   advanced providers. This returns bundled and personal choices. Do not fetch
-   a separate provider-filtered list before or after it. Do not read
-   unselected Skills, guides, adapters, documentation, or schemas.
+1. Use the complete `routes` from the non-fresh preparation result for Provider
+   and Model options. These are resolved by Core from the installed indexes and
+   personal library; no separate catalog file or model-list call is needed.
 2. Build selectors from the effective exact identities and human-readable names.
    Do not exclude personal routes for lacking operation or media-kind metadata.
    Existing bundled hints can help presentation but are not capability gates.
@@ -180,25 +163,7 @@ with reference cardinality and native constraints is checked only if the user
 chooses an alternative. The rendered component never fetches schemas or calls
 Renku/provider APIs.
 
-## Change provider or model in a second step
-
-The component records the provider and executable model whose prompt, adapter,
-schema, and controls are currently prepared. Changing either selector must not
-pretend the old controls belong to the new route:
-
-- rebuild the Model choices immediately when Provider changes;
-- hide the prepared route's native controls while either selector differs from
-  the prepared selection;
-- show a concise live message: **Changing provider or model will prepare its
-  settings and may recreate the prompt before you continue.** When the indexed
-  canonical `modelKey` changed, state that the prompt will be recreated for the
-  selected model; and
-- change the primary action to **Prepare selected model**.
-
-That action sends a follow-up containing the pending purpose, target, exact
-references, current prompt, selected provider/model, prepared provider/model,
-and previous native values. It does not accept settings, author a review
-document, or generate media.
+## Handle a provider or model change
 
 In the follow-up turn, first rerun `renku credentials status --json` when the
 provider changed. If its key is absent, follow Media Producer's Settings-link
@@ -211,7 +176,7 @@ frame, source video, voice, or other required input. If it cannot, keep the
 prior prepared selection and explain the incompatibility; never drop the
 reference.
 
-When the canonical `modelKey` changed, recreate the prompt for that model's
+When the underlying model changed, recreate the prompt for that model's
 technique while preserving the user's creative intent and explicit facts. When
 the canonical model is unchanged, preserve the prompt and carry a native value
 only when the new schema contains the same exact property path and JSON type and
@@ -226,124 +191,15 @@ may come from the system cache, but instance state is never global or
 cross-thread. Do not create another instance file for each selection, and do
 not rely on browser-local state surviving between turns.
 
-## Use one shared composition
+## Template authoring
 
-Follow the compact voice-sample component composition: one bounded card, a
-concise title and context line, restrained hierarchy, orderly fields, and one
-full-width primary action. Use Visualize's standard card, form controls,
-ranges, and primary block button without custom per-purpose styling. Render one
-Configuration surface with no tabs.
+On a rebuild, read [the template contract](generation-configuration-template.md)
+and the installed Visualize Skill. That contract owns composition, controls,
+provider/model switching, payload use, and the exact follow-up handoff.
+On a fresh hit, reuse the returned HTML without rereading template-authoring
+instructions or modifying its controls.
 
-Do not show reference thumbnails, labels, paths, marker objects, or a References
-section in this component. Generation Preview remains the exact reference
-review surface. Keep bounded choices already owned by a purpose, such as
-selecting a compatible Cast Voice sample, as ordinary configuration controls.
-Do not add a Project Asset browser, file picker, upload, drag/drop,
-reference-role editor, or durable selection.
-
-Show Provider and Model first, followed by useful route-native controls for the
-currently prepared selection only. Keep related controls aligned in a balanced
-grid and give numeric ranges enough room to read and adjust. Show selected
-options and boolean state on the first render. Prefer natural component growth
-to cramped fields or an inner scrolling form.
-
-For each numeric control, put the label first and the formatted current value
-as a separately aligned part of the same header, such as `Speed` and `0.95×`.
-Update it with the control. Never require the user to infer a value from thumb
-position, color, hover, or a tooltip.
-
-Use the fresh schema snapshot's title, description, enum/one-of choices,
-minimum, maximum, step, default, and units:
-
-- use a select for a finite scalar choice;
-- use a slider for a useful number or integer with a truthful finite range and
-  usable step;
-- use a numeric input for a useful number without a truthful slider range;
-- use an accessible checkbox or switch for a boolean, with a visible state
-  label when the field label is ambiguous;
-- use a text input only for a useful short scalar string that is not prompt-like
-  and whose meaning is clear from the schema; and
-- decompose a nested object only when its child fields independently fit these
-  controls. Never expose raw JSON editing.
-
-Initial values use this precedence: explicit user direction, applicable Project
-workflow preference, agent-authored request value, then live-schema default.
-Human-readable display formatting must preserve the exact raw value and enough
-precision to distinguish adjacent valid choices. For example, display `44.1
-kHz` while returning `44100`; do not turn a dimensionless value into a
-percentage or invent qualitative labels.
-
-Omit fields that are not meaningful one-request user choices:
-
-- prompt and negative-prompt text, because the Codex handoff and retained
-  Generation Preview own prompt editing;
-- local-file marker objects, upload URLs or handles, native mention bookkeeping,
-  and reference-order internals;
-- credentials, authentication, callbacks, webhooks, queueing, polling,
-  delivery, storage, and output URLs;
-- provider debug/internal fields without a clear creative or output decision;
-- values fixed by the purpose, including required media kind, input mode, exact
-  output count, or deterministic sheet layout; and
-- unavailable, deprecated, read-only, or untruthfully renderable fields.
-
-Do not infer inclusion from familiar field names. If the fresh schema snapshot
-does not provide enough information for a truthful control, omit it and retain
-the prepared request value unchanged. Omit unavailable controls instead of
-showing disabled decoration.
-
-## Return prompt and settings to Codex
-
-When the selectors still match the prepared selection, place one full-width
-**Continue with these settings** action below the configuration fields. It
-calls `window.openai.sendFollowUpMessage` with the
-optional confirmation title `Continue with generation settings`. When a
-selector differs, use the separate **Prepare selected model** behavior above
-instead.
-
-The follow-up body places the exact current authored prompt first:
-
-```text
-Use this prompt for the pending <purpose> generation:
-
-<exact current authored prompt>
-
-Use this exact one-shot generation configuration:
-```
-
-Then append a fenced JSON object with two-space indentation and stable key
-order:
-
-```json
-{
-  "purpose": "<purpose>",
-  "target": "<target>",
-  "provider": "<provider>",
-  "model": "<exact executable provider model id>",
-  "references": [],
-  "controls": {}
-}
-```
-
-Use `JSON.stringify(value, null, 2)`. `references` preserves the existing exact
-request marker or purpose-specific voice identity shapes; do not invent a
-normalized reference DTO. `controls` preserves the selected provider's native
-field names, nesting, raw values, and types. The prompt stays outside JSON so
-the user can edit it without changing a duplicate prompt field.
-
-A control change is only browser-local state. Author the review document from
-the returned prompt and JSON, or from unchanged initial values only when the
-user separately confirms them in conversation. Never persist these choices to
-Project Settings.
-
-At this point the provider/model already matches the prepared selection, so the
-prompt and controls belong to the same inspected route. Put the prepared prompt
-into the existing Generation Preview, where the user can still edit it, and
-continue through the normal confirmation workflow. Configuration submission
-accepts settings; it does not itself authorize a paid run before the resulting
-Preview. Offer the explicit continue-to-generate choice once that Preview is
-ready, then use the shared unchanged-document execution path after confirmation.
-
-Final `generation validate` and `generation execute` remain authoritative live
+Final `generation prepare` (or standalone `generation validate`) and `generation execute` remain authoritative live
 provider boundaries. If validation reports that a cached-schema control or
 value is no longer accepted, invalidate the entry:
 

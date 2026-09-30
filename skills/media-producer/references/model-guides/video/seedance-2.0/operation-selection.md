@@ -6,11 +6,11 @@ that another provider, tier, or version has the same request contract.
 
 ## Creative Selection Guidance
 
-- Use text-to-video when no exact media file should control the request.
-- Use image-to-video when an opening image is binding; include an ending input
-  only when the provider supports it and the destination frame is also binding.
-- Use reference-to-video when one or more images, videos, or audio files should
-  guide the result without becoming a binding opening frame.
+Judge the route against the intended roles of the supplied media and its supported
+inputs. An opening frame constrains the starting composition; a reference can
+guide identity, appearance, motion, or sound. Requests may combine these roles.
+Route labels and image count alone do not establish whether a route fits.
+
 - Inspect a storyboard/reference image before choosing the storyboard prompt
   guide. Its visual contents remain agent/user-owned creative evidence.
 - Match authored duration to action density. Warn before paid execution when

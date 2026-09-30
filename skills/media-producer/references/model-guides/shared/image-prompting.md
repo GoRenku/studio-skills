@@ -14,9 +14,9 @@ user reviews them.
    relationship discovery.
 3. Route to the selected provider Skill and choose the exact executable identity
    through `generation models list` or explicit user direction.
-4. Read available advice from `../model-catalog.json`, optional operation guides,
-   provider adapters, and personal Markdown using Media Producer's guidance rules.
-   Missing entries, keys, or guides do not block schema-based preparation.
+4. Find relevant model Markdown by name and read useful provider advice and
+   personal notes using Media Producer's guidance rules. Missing guides do not
+   block schema-based preparation.
 5. Use generation guidance for every image purpose except `image.edit`.
    Use revise-source guidance for every new `image.edit` request.
 6. Combine `targetContext`, `visualLanguage`, advisory `outputGuidance`, the

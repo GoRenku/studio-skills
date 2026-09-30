@@ -18,9 +18,9 @@ weak authoring context, not ownership, dependency state, or a selected video.
    `../model-guides/shared/video-quality-checklist.md`.
 5. Choose an exact route through `generation models list` or explicit user
    direction. Use the selected schema and optional advice under Media Producer's
-   guidance rules. Look up available bundled `modelKey` advice through
-   `../model-guides/model-catalog.json` independently of personal labels; missing
-   routes, keys, or guides do not block preparation.
+   guidance rules. Find relevant Markdown advice by model name under
+   `../model-guides/`, independently of personal labels; missing advice does not
+   block preparation.
 
 ## Input modes
 

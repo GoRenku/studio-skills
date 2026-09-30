@@ -163,37 +163,36 @@ executing a request. For image work, also read
 and [references/image-output-review.md](references/image-output-review.md).
 Read only the purpose craft guide relevant to the current destination.
 
-## Resolve canonical model guidance
+## Find models and guidance
 
-For Codex built-in images, look up the entry with `key: "chatgpt-images-2.5"`
-in the `models` array of `references/model-guides/model-catalog.json` and read
-its `guide`, relative to `references/model-guides/`. The active image capability
-owns native request fields; there is no provider adapter or external-provider
-discovery step. This is a product-family identity, not a selectable Flare or
-Sunburst API variant. Continue with the purpose craft guide below and the Codex
-section of `references/workflow.md`.
+For Codex built-in images, read
+[the ChatGPT Images guide](references/model-guides/image/chatgpt-images-2.5.md).
 
-For external providers in Codex, obtain the effective choices once with
-`renku generation models list --json`, passing all five provider Skills'
-`references/supported-routes.json` files as repeated `--route-index` arguments.
-Reuse this result and its catalog digest for route selection and inline
-configuration; filter it locally instead of fetching a second provider list.
-Outside that configuration workflow, discovery may use only the selected
-provider's index. Personal entries override exact discovery labels.
-An explicitly selected unlisted route can proceed without installation. Copy the
-exact `apiId` into the review document's `model` field; never execute `modelKey`.
-Use `generation models show --provider <provider> --model <apiId> --route-index <selected-provider-index> --json` to
-obtain the optional `personalGuidePath`.
+For external providers, use the existing CLI directly, supplying the installed
+provider indexes as repeated `--route-index` arguments when needed:
 
-Independently look up the selected exact route in its current bundled index.
-If it supplies a `modelKey`, consult `references/model-guides/model-catalog.json`
-and read an available canonical model guide and useful operation advice. Read
-an available provider adapter for native notation and ordering. Read personal
-Markdown if present. Current bundled guidance is the curated default; personal
-notes add advice, and explicit user preferences take priority. A personal route
-or note never hides later bundled curation. Do not rewrite notes during generation.
+```bash
+renku generation models list --query "<model name or id>" \
+  --route-index <provider-skill-dir>/references/supported-routes.json --json
+```
 
-Missing routes, catalog keys, guides, or operation advice are ordinary absence:
+Core merges bundled and personal choices. Use the selected route's exact `apiId`
+for execution. Visualization preparation independently obtains the complete
+selector list; discovery does not need to save it.
+
+Find relevant Markdown under `references/model-guides/` by model name or filename.
+Read the useful model and provider advice, following document links as needed.
+Choose a route from the user's intent, intended input roles, and the model's
+supported inputs together; use the selected live/cached schema for native fields.
+The presence or number of images alone does not determine the route. Consult
+provider documentation if a consequential input behavior remains unclear.
+
+`generation models show --provider <provider> --model <apiId> --json` returns
+`personalGuidePath`; read it if present. Bundled advice and personal notes inform
+preparation, while explicit user preferences take priority. A personal display
+name does not hide the model's bundled guidance.
+
+Missing routes, guides, or operation advice are ordinary absence:
 continue without a warning or approval question. Prepare only the selected route
 from its live/cached schema and optional advice; consult provider documentation
 when needed. Explain actual input mismatches using that schema or documentation.
@@ -208,7 +207,13 @@ provider prompt expansion or prompt rewriting. Set that native control to the
 Project preference when it exists, omit it when it does not, and consult the
 selected provider documentation rather than guessing when the schema is
 ambiguous. Never infer the native property from a model name or a checked-in
-field-name map. When the provider returns a rewritten or actual prompt, review
+field-name map. Enabling expansion does not request the slowest expansion mode.
+When several enabled modes exist, preserve the schema's enabled default unless
+explicit user direction or personal preferences select another mode. If the
+default is disabled, use the schema descriptions to choose its ordinary enabled
+mode. Show any deliberately selected slower mode and its described latency in
+configuration; do not silently promote an enabled preference to maximum quality.
+When the provider returns a rewritten or actual prompt, review
 it as receipt evidence while preserving the authored prompt unchanged.
 
 | Purpose | Craft guide |
@@ -267,11 +272,12 @@ above; running an external provider from Codex is still external generation.
 Prepare the initial authored prompt, exact chosen references, and native values
 first. Treat explicit user direction or the matching Project Setting only as
 the initial selection. Read the selected provider/model's Skill, available advice,
-and fresh Core-managed schema snapshot, then create controls only for that
-selection. Inspect the system cache before any live schema request: reuse a
+and fresh Core-managed schema snapshot. Create controls only when rebuilding a
+template for that selection. Use the inline guide's preparation script for cache
+lookup and instance creation before any live schema request: reuse a
 compatible entry for 24 hours, refresh it once when expired, and rebuild only
-when the schema or template dependencies changed. Use the effective
-`generation models list` result to populate the Provider and Model selectors;
+when the schema or template dependencies changed. Use the complete `routes` returned by visualization preparation on a rebuild
+to populate the Provider and Model selectors;
 never read alternative provider Skills, guides, adapters, docs, or schemas
 before the user selects one. A saved Project default counts as a provider
 selection; other providers remain explicit one-request choices. Codex appears
@@ -325,8 +331,7 @@ Every request uses this irreducible temporary envelope:
 ```
 
 The provider Skill owns the exact `model` and provider-native `request` fields.
-For Engines providers, `model` is always the selected route's exact `apiId`, not
-its canonical editorial `modelKey`.
+For Engines providers, `model` is always the selected route's exact `apiId`, as returned by discovery.
 Use `{"$file":"<project-relative-path>","mimeType":"image/png","reviewLabel":"<meaningful context label>","promptMention":"<exact model token>"}`
 at the exact native media field. `reviewLabel` is required for every Renku
 review marker; omit `promptMention` when the selected model uses the input
@@ -335,27 +340,30 @@ absolute paths, or signed URLs to the envelope.
 
 ## Preview and confirmation
 
-For Engines providers, validate before Preview. Preview accepts Codex documents
-without Engines validation:
+For a single Engines request when Preview is enabled or requested, write the
+final request and call Prepare in one tool operation:
 
 ```bash
-renku generation validate --file tmp/operations/media-generation/request.json --json
-renku generation preview show --file tmp/operations/media-generation/request.json --json
+renku generation prepare --file tmp/operations/media-generation/request.json --json
 ```
 
-Use repeated `--file` flags to review several independent requests in order.
+It validates and delivers Preview from the same loaded request. Inspect the
+returned diagnostics and retain its hash; do not call Validate or Preview again.
+With Preview disabled, use `renku generation validate --file <request> --json`.
+For Codex documents or several independent requests, use
+`renku generation preview show` with repeated `--file` flags in order; validate
+Engines requests individually before a combined Preview.
 Preview supports conversational review: the user may edit only the top-level
 prompt, and Update or Close does not generate media or resume an
 agent. For external providers, continue after the required conversational
 confirmation. Codex built-in generation continues without a consent pause;
 if the user explicitly requested review before execution, wait for their review.
-Retain Validate's `requestSha256` and pass it as `--expected-request-sha256`
+Retain Prepare's (or standalone Validate's) `requestSha256` and pass it as `--expected-request-sha256`
 to Execute after confirmation. Execute checks the file itself; no shell hash,
 unchanged-file reread, or second Validate call is needed. On
 `CLI_GENERATION_REQUEST_CHANGED`, read the edit and reprepare through the provider
-Skill. See `references/workflow.md` for the changed-request path. Request writing,
-validation, and Preview can run sequentially in one tool operation, stopping on
-failure rather than adding a model roundtrip between each step.
+Skill. See `references/workflow.md` for the changed-request path. Request writing and Prepare run sequentially in one tool operation, stopping
+on failure.
 
 `showGenerationPreviews` controls automatic Preview. An explicit user Preview
 request always opens it. For Codex, an automatic Preview is informational and
@@ -372,7 +380,7 @@ Engines-provider requests execute through the provider Skill:
 renku generation execute \
   --file tmp/operations/media-generation/request.json \
   --output tmp/media/request \
-  --expected-request-sha256 <requestSha256-from-validation>
+  --expected-request-sha256 <requestSha256-from-preparation>
 ```
 
 Follow the command-session tracking rules in `references/workflow.md`. A

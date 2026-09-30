@@ -50,15 +50,8 @@ for (const [skillName, provider] of providers) {
       || (provider === 'fal-ai' && !route.apiId.includes('/'))) {
       throw new Error(`${skillName} route ${route.apiId} is not an exact provider API id.`);
     }
-    const allowedKeys = ['adapter', 'apiId', 'docs', 'mediaKind', 'modelKey', 'name', 'operations'];
-    if (Object.keys(route).some((key) => !allowedKeys.includes(key))) {
+    if (Object.keys(route).some((key) => !['apiId', 'name'].includes(key))) {
       throw new Error(`${skillName} route ${route.apiId} contains an unsupported field.`);
-    }
-    if (route.adapter !== undefined) {
-      await assertRelativeFile(indexPath, route.adapter, `adapter for ${provider}/${route.apiId}`);
-    }
-    if (route.docs !== undefined && !/^https:\/\//.test(route.docs)) {
-      throw new Error(`${skillName} route ${route.apiId} has an invalid docs URL.`);
     }
     seen.add(route.apiId);
   }
@@ -76,10 +69,6 @@ for (const required of [
   'media import',
   '--provenance',
   'supported-routes.json',
-  'model-catalog.json',
-  'modelKey',
-  'canonical model guide',
-  'provider adapter',
 ]) {
   if (!mediaProducer.includes(required)) {
     throw new Error(`Media Producer is missing ${required}.`);
@@ -91,10 +80,10 @@ const inlineConfiguration = await readFile(
   'utf8',
 );
 for (const required of [
-  'configuration-visualization inspect',
+  'configuration-visualization prepare',
   '24 hours',
-  'materialize-generation-configuration-visualization.mjs',
-  '<!--__RENKU_GENERATION_CONFIGURATION_PAYLOAD__-->',
+  'prepare-generation-configuration-visualization.mjs',
+  'generation-configuration-template.md',
   'stale-on-error',
 ]) {
   if (!inlineConfiguration.includes(required)) {
@@ -171,18 +160,6 @@ async function validateSkill(name) {
 
 function readSkill(name) {
   return readFile(path.join(root, 'skills', name, 'SKILL.md'), 'utf8');
-}
-
-async function assertRelativeFile(ownerPath, relativePath, label) {
-  const resolved = path.resolve(path.dirname(ownerPath), relativePath);
-  if (!resolved.startsWith(`${path.dirname(ownerPath)}${path.sep}`)) {
-    throw new Error(`Invalid path for ${label}: ${relativePath}.`);
-  }
-  try {
-    await stat(resolved);
-  } catch (error) {
-    if (error.code !== 'ENOENT') throw error;
-  }
 }
 
 async function validateMarkdownLinks(file) {

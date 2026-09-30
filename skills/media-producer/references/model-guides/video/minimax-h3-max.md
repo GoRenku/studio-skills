@@ -39,8 +39,11 @@ do not assume the base H3 guide describes its response to prompts.
 Check the live route schema for duration, resolution, prompt expansion, reference
 limits, and accepted image/video/audio combinations. Standard H3 Max exposes
 prompt expansion; an expansion pass may rewrite the prompt, so a repeated seed
-alone is not a guarantee of identical output. Turbo's available fields should
-be checked separately rather than assumed identical.
+alone is not a guarantee of identical output. When the current schema exposes
+`balanced` as its enabled default, keep it for an enabled expansion preference.
+The schema describes `quality` as spending up to roughly 30 seconds on expansion;
+use it when the user chooses that tradeoff, not merely because expansion is on.
+Turbo's available fields should be checked separately rather than assumed identical.
 
 Sources reviewed 2026-09-24:
 

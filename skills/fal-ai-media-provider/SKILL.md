@@ -28,12 +28,10 @@ for this provider's bundled and personal discovery choices. Select the exact
 Copy it verbatim into the review document's `model` field and every generation
 command. Never substitute a model or rewrite its namespace.
 
-For optional advice, independently look up the exact route in
-[references/supported-routes.json](references/supported-routes.json). When it has
-a `modelKey`, Media Producer may read available guidance from
-`model-catalog.json`. Read a useful provider adapter when available. Missing
-route entries, keys, model guides, operation guides, or adapters are ordinary
-absence of advice: do not warn, stop, or ask approval because of them.
+Find model advice by name under Media Producer's `references/model-guides/`.
+Read relevant provider guidance: [reference inputs](references/adapters/reference-inputs.md), [seed audio](references/adapters/seed-audio.md).
+Missing advice does not block a supported request; the selected schema and
+provider documentation describe its current inputs.
 Use `generation models show --provider fal-ai --model <apiId> --json` to get
 `personalGuidePath`. Read it if present. Current bundled guidance supplies the
 curated default; personal notes add advice and explicit user preferences take
@@ -52,7 +50,7 @@ When Media Producer is running its Codex inline-configuration flow, a `fresh`
 Core-managed generation configuration visualization schema snapshot is this
 inspection for pre-review authoring. Do not also run `generation schema show`
 during that 24-hour window. Media Producer owns miss, expiry, dependency-change,
-and invalidation refreshes; final `generation validate` and `generation
+and invalidation refreshes; final `generation prepare`/`generation validate` and `generation
 execute` remain authoritative live boundaries.
 
 Author the exact Fal.ai input object as the review document's `request`. Put a

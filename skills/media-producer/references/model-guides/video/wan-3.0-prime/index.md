@@ -2,19 +2,18 @@
 
 Use this when the selected video model family is Wan 3.0 Prime.
 
-Read:
-
-- `../../shared/prompt-input-visibility.md`;
-- `../../shared/video-quality-checklist.md`;
-- exactly one operation guide matching the selected route.
+Use the linked advice relevant to the request. Input roles and the selected
+route's live schema determine which details apply. Shared advice covers
+[prompt input visibility](../../shared/prompt-input-visibility.md) and
+[video quality](../../shared/video-quality-checklist.md).
 
 ## Operation Guides
 
 | Operation | Guide |
 | --- | --- |
-| Text-to-video | `text-to-video.md` |
-| Image-to-video and first/last-frame video | `image-to-video.md` |
-| Reference-to-video | `reference-to-video.md` |
+| Text-to-video | [text-to-video.md](text-to-video.md) |
+| Image-to-video and first/last-frame video | [image-to-video.md](image-to-video.md) |
+| Reference-to-video | [reference-to-video.md](reference-to-video.md) |
 
 ## Universal Prompt Rules
 

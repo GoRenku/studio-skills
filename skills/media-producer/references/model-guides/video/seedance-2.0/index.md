@@ -2,26 +2,22 @@
 
 Use this when the final `shot-plan.video-generation` model family is Seedance.
 
-Read:
-
-- `../../shared/prompt-input-visibility.md`;
-- `../../shared/video-quality-checklist.md`;
-- `operation-selection.md`;
-- exactly one prompt guide matching the selected endpoint's actual media
-  fields.
-
-Load `native-audio.md` only when native Seedance audio, narration, dialogue,
-ambience, or audio references matter.
+Use the linked advice relevant to the request. Input roles and the selected
+route's live schema determine which details apply. Shared advice covers
+[prompt input visibility](../../shared/prompt-input-visibility.md) and
+[video quality](../../shared/video-quality-checklist.md).
 
 ## Endpoint Prompt Guides
 
-- text-to-video: `text-to-video.md`
-- image-to-video / opening frame: `image-to-video.md`
-- first-and-last-frame: `first-last-frame-to-video.md`
-- storyboard/reference image input: `storyboard-reference-to-video.md`
+[Input roles and duration](operation-selection.md) explain how the advice applies.
+
+- text-to-video: [text-to-video.md](text-to-video.md)
+- image-to-video / opening frame: [image-to-video.md](image-to-video.md)
+- first-and-last-frame: [first-last-frame-to-video.md](first-last-frame-to-video.md)
+- storyboard/reference image input: [storyboard-reference-to-video.md](storyboard-reference-to-video.md)
 - generic reference-to-video without storyboard:
-  `reference-to-video.md`
-- native audio: `native-audio.md`
+  [reference-to-video.md](reference-to-video.md)
+- native audio: [native-audio.md](native-audio.md)
 
 ## Universal Seedance Rules
 

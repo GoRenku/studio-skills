@@ -30,13 +30,6 @@ instructions in this checkout. Research the exact requested routes using
   array. The `provider` belongs to the containing document. Preserve namespaces,
   endpoint variants, and pinned versions. Update an existing exact route instead
   of duplicating it; include only variants within the user's request.
-- When retaining curated guidance, use the route's `modelKey` to connect it to
-  `skills/media-producer/references/model-guides/model-catalog.json`. Reuse a
-  matching model entry across providers where its prompt craft is shared. For a
-  new entry, follow the existing `key`, `name`, `mediaKind`, `guide`, and
-  `operations` layout. Guide paths are relative to `model-guides/`; operation
-  values may be `null` when no separate operation guide is useful. This is an
-  editorial lookup, not an execution schema or capability definition.
 - Write useful model advice beneath `model-guides/image/`, `video/`, or `audio/`.
   Use a focused Markdown file; split out operation advice only when it warrants
   separate treatment. Cover model-specific prompt construction, reference use,
@@ -44,13 +37,12 @@ instructions in this checkout. Research the exact requested routes using
   inference. Reuse shared advice rather than duplicating it. Each model normally
   gets a guide consumed by existing Skills, not a new top-level Skill.
 - Put provider-specific notation and input-ordering advice in the provider
-  Skill's `references/adapters/` only when useful. Its optional route `adapter`
-  path is relative to that provider's `references/` directory. These adapters
-  are Markdown guidance, not executable provider code. Live schemas remain the
+  Skill's `references/adapters/` only when useful, and link it from that Skill.
+  These adapters are Markdown guidance, not executable provider code. Live schemas remain the
   authority for current request fields and constraints.
 
-A route can still be added without any guide, `modelKey`, operation map, or
-adapter. If specialized research is unavailable, report that limit and retain
+A route can still be added without a guide or provider advice. If specialized
+research is unavailable, report that limit and retain
 only useful supported advice; do not invent guidance to fill the structure.
 Do not copy provider schemas into the repository or introduce a new registry.
 An unsupported execution protocol needs separate runtime work; a bundled entry
@@ -59,8 +51,8 @@ must not imply that authoring guidance enabled it.
 ## Verify and hand off
 
 Run `pnpm test` from the source repository root. Inspect the full diff and
-manually follow each changed route's `modelKey` through the catalog to its guide
-and any operation/adapter links. Automated validation intentionally permits
+find each changed model's advice by filename or model name, then follow its
+Markdown links. Automated validation intentionally permits
 absent guidance, so passing it alone does not prove new advice is discoverable.
 
 Exercise a request-preparation walkthrough with the selected route and available

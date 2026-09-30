@@ -76,9 +76,9 @@ Never fetch history automatically to compensate for its absence in the briefing.
 
 ## Reference advice
 
-Read available canonical advice from `model-catalog.json`, the selected route's
-optional adapter, and personal notes under Media Producer's independent guidance
-rules. Missing guides or keys do not block preparation. Use the selected schema
+Find relevant model Markdown by name, provider advice through the provider Skill,
+and personal notes through `generation models show`. Missing guides do not block
+preparation. Use the selected schema
 and current provider documentation for actual reference input support; available
 advice can explain visual evidence and native mention syntax.
 
