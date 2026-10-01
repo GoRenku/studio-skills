@@ -5,10 +5,12 @@ generation to pass these scenarios. Review actual commands and authored requests
 
 | User request / fixture | Expected observable outcome |
 | --- | --- |
-| Add an exact known Fal route; no dedicated prompting guide exists | Three-field import and discovery succeed; no guide, paid call, warning, or approval gate |
+| Add an exact known Fal route; no dedicated prompting guide is found after an actual search | Three-field import and discovery succeed; reports the research limit without a compulsory guide, paid call, warning, or approval gate |
 | Generate with an explicitly named unlisted route | Selected schema prepares a valid native request without mandatory installation |
-| Bundled route points to an absent catalog key or guide | Request preparation proceeds using schema and available documentation |
+| Bundled route has no model guide | Request preparation proceeds using schema and available documentation |
 | Add useful personal notes, then refresh research | Existing explicit preferences and unrelated edits survive; no schema copy or operation matrix |
+| Ordinary personal model addition with useful developer prompting material | Saves the route through Core and useful sourced advice at the returned personal guide path; includes an original untested example without copying private Project details |
+| Explicit personal route-only addition | Imports only the requested route; no compulsory research, guide file, paid call, or approval gate |
 | Replace plugin A with B; B adopts the personal route | One selector choice retains personal name; current B advice supplies defaults, personal notes contribute, files remain unchanged |
 | Replace B with C improving the same guide | New defaults apply while an explicit “keep my prompts concise” preference remains effective |
 | Neither personal nor bundled guidance exists | Normal selected-schema preparation succeeds without warning or extra approval |

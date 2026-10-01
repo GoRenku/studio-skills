@@ -1,11 +1,14 @@
 # MiniMax H3 Video Prompt Guide
 
 Use this when the selected `shot-plan.video-generation` family is MiniMax H3.
+The model's official writing guides use an audiovisual timeline, not a keyword
+list. Choose the operation first, then use the matching guide below. These
+formats are prompt-writing guidance; the selected route's live schema and
+provider adapter still determine request fields and reference mentions.
 
-Use the linked advice relevant to the request. Input roles and the selected
-route's live schema determine which details apply. Shared advice covers
-[prompt input visibility](../../shared/prompt-input-visibility.md) and
-[video quality](../../shared/video-quality-checklist.md).
+Use shared [prompt input visibility](../../shared/prompt-input-visibility.md)
+and [video quality](../../shared/video-quality-checklist.md) guidance when it
+applies.
 
 ## Operation Guides
 
@@ -15,41 +18,40 @@ route's live schema determine which details apply. Shared advice covers
 | Image-to-video and first/last-frame video | [image-to-video.md](image-to-video.md) |
 | Reference-to-video | [reference-to-video.md](reference-to-video.md) |
 
-## Universal H3 prompt rules
+## Write the timeline around observable changes
 
-- Describe one coherent result with concrete subject action, camera behavior,
-  temporal progression, environment motion, lighting, and sound intent.
-- Match action density and shot count to the selected duration.
-- Treat supplied first and last frames as binding endpoints, not loose style
-  references.
-- On reference-to-video, use only exact mentions supplied by the selected
-  provider adapter. Derive every ordinal from final modality-local request order,
-  never from filenames, selection order, or memory.
-- Give every supplied reference one narrow role and keep competing references
-  from redefining the same subject, location, motion, or sound.
-- Put critical visible exclusions in the main prompt unless the selected route's
-  live schema exposes another deliberate place for them.
+MiniMax's base prompt guide separates the playback description, ambient and
+physical sound, and audience-only music. That separation helps keep spoken
+content in the scene description, scene sounds in the soundscape, and score in
+the music section of the prompt. These are prompt-writing sections, not native
+request fields; the selected route's live schema defines the request. Describe
+each beat as a visible change: who moves, what they touch, where the camera
+moves, and what state the shot reaches. Add a cut only when the viewpoint or
+scene should change; a small reframing can often be described as camera motion.
+
+For a reference workflow, distinguish a reference that contributes an
+appearance or motion trait from an image that anchors a particular shot. The
+official full-reference guide makes this distinction; use the actual route's
+adapter syntax for any mentions and never assume every H3 endpoint accepts all
+reference types.
 
 ## Route Constraints
 
-Read the selected provider's live schema for duration, resolution, aspect ratio,
-reference counts, per-file limits, combined limits, and valid reference
-combinations. These provider facts can change without changing how H3 should be
-prompted.
+Read the selected provider's live schema for duration, resolution, aspect
+ratio, reference counts, per-file limits, combined limits, and valid reference
+combinations. Do not transfer capabilities among H3, H3 Max, and H3 Max Turbo.
 
-## Sources and confidence
+The examples in the operation guides are original, untested prompt-writing
+examples. MiniMax's official guides describe formats for H3 model workflows;
+they do not certify identical behavior through every hosted provider route.
 
-Confidence: medium. Earlier endpoint research used Fal.ai schemas. General
-prompt structure follows
-MiniMax's first-party filmmaking guidance, which recommends explicit camera,
-lighting, movement, and structured direction; MiniMax has not published a deep
-H3-specific prompt guide yet.
+## Sources
 
-- `https://fal.ai/models/minimax/h3/text-to-video/api`
-- `https://fal.ai/models/minimax/h3/image-to-video/api`
-- `https://fal.ai/models/minimax/h3/reference-to-video/api`
-- `https://fal.ai/models/minimax/h3-max/reference-to-video/api`
-- `https://www.minimax.io/news/a-new-era-of-ai-filmmaking`
+MiniMax official H3 prompt guides and the currently linked route schemas were
+reviewed 2026-09-30:
 
-Sources reviewed: 2026-09-01. Provider request details were intentionally moved
-to provider adapters and live schemas.
+- [MiniMax H3 base video prompt guide](https://huggingface.co/MiniMaxAI/MiniMax-H3/blob/main/docs/VIDEO_PROMPT_WRITING_GUIDE_base_en.md)
+- [MiniMax H3 full-reference prompt guide](https://huggingface.co/MiniMaxAI/MiniMax-H3/blob/main/docs/VIDEO_PROMPT_WRITING_GUIDE_ref_en.md)
+- [Fal H3 text-to-video](https://fal.ai/models/minimax/h3/text-to-video/api)
+- [Fal H3 image-to-video](https://fal.ai/models/minimax/h3/image-to-video/api)
+- [Fal H3 reference-to-video](https://fal.ai/models/minimax/h3/reference-to-video/api)

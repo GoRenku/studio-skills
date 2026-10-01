@@ -1,66 +1,74 @@
-# Kling Video Prompt Research
+# Kling Video Provider Research
 
-This file preserves Kling provider research. Kling is not active in the
-current Studio video catalog.
+Kling is not active in the current Studio video catalog. Keep this note as
+provider research, not as a route recommendation or a claim that Kling is
+available through Renku.
 
-Keep the common provider-native request workflow, reference placement, and provider-visible
-prompt rules in the shared video-generation files. Apply the guidance below
-only after confirming the named field in the selected endpoint's current
-provider facts.
+## Separate Kling product features from hosted API routes
 
-## Endpoint And Field Rules
+Kling's current VIDEO 3.0 product guide describes native sound, multi-shot
+direction, and element-based character references. Those product capabilities
+do not establish that a particular hosted endpoint exposes matching input
+fields. Choose the route first; use its current provider documentation and live
+schema to decide which source media and controls can actually be sent.
 
-- Assign a first frame only to a current native field such as `start_image_url` or
-  `image_url`; assign a last frame only to `end_image_url` when present.
-- Kling O3 reference-to-video endpoints expose `image_urls`. Assign each exact
-  reference image to that field, then use its native request array order for
-  `@ImageN` numbering.
-- Kling O3 video-to-video/reference endpoints expose the singular `video_url`
-  source field and document it as `@Video1`. They may also expose `image_urls`
-  for optional `@ImageN` references.
-- Historical Kling V3 guidance used `@ElementN` for element-bound image or
-  video media. Video-backed elements could bind transient voice control while
-  image-set elements could not.
-- Historical native voice control used a transient provider `voice_id`; it did
-  not create a durable Cast Voice registration. Exact generated dialogue still
-  required a supported route or a lipsync/composition workflow.
-- Use `negative_prompt` only for an endpoint whose current provider facts include
-  it, such as Kling V3 image-to-video. Otherwise keep critical exclusions in
-  the main prompt.
-- Current direct Kling operations do not expose file-backed audio or element
-  media fields. Do not assign Dialogue Audio to Kling, invent `@AudioN` or
-  `@ElementN`, or fabricate nested provider media values. Choose another
-  endpoint when exact audio/reference support is required.
+The provider-field notes below record a prior review of Fal's model endpoints.
+Treat them as a dated observation about those endpoints only, not general Kling
+rules:
 
-Validate and inspect `generation preview show` before using any token. The
-reviewed native request, not guide order or filenames, is the evidence for
-the request the provider will receive.
+- The reviewed Kling O3 reference-to-video endpoints used an `image_urls`
+  array; the O3 video-to-video routes used a singular `video_url` source, with
+  optional images on some endpoints. The reviewed guides used `@ImageN` and
+  `@Video1` syntax. Reconfirm fields and ordering before relying on them.
+- The reviewed Kling V3 guidance used `@ElementN` for element-bound media.
+  Voice behavior described by Kling's product guide may depend on its element
+  workflow and may not be exposed by a hosted API route.
+- Prior Fal V3 notes described a provider `voice_id` as transient voice control,
+  not a durable Studio Cast Voice registration. They also cautioned that exact
+  generated dialogue depends on a route that exposes the necessary controls.
+  Those API-specific findings need a fresh provider-source check before use.
+- Use `negative_prompt` only where the selected endpoint documents that field.
+- Do not invent audio references, nested media objects, or element fields for
+  an endpoint that does not expose them. If exact dialogue audio or reference
+  media is essential, select a route that documents those inputs.
 
-Example:
+The official VIDEO 3.0 guide describes controls in Kling's product. Fal's
+endpoint documentation defines a separate API surface. The older Fal LLM
+endpoint references below were checked on 2026-06-14; they could not be fetched
+for this 2026-09-30 refresh, so their request-field details remain unverified
+today. The Kling product guide was reviewed 2026-09-30. No execution or live
+schema checks were performed.
+
+## Prompt reference discipline
+
+When a selected route does provide reference mentions, give each supplied item
+one job, such as appearance or movement. Check that each mentioned item exists
+in the reviewed native request and follows that endpoint's final input order.
+This is a general workflow recommendation; it does not imply that a Kling route
+is currently available.
+
+Example, untested and illustrative only:
 
 ```text
-@Video1 supplies only the source performance and camera rhythm. @Image1 supplies
-only wardrobe and face continuity. Keep one coherent scene.
+[IMAGE_REFERENCE] guides the courier's coat and hairstyle. [VIDEO_REFERENCE]
+guides the pace of the walk. Create one dusk scene in a station passage, ending
+when the courier stops at the closed door. Describe the desired camera movement
+and sound in the prompt itself.
 ```
 
-When the user needs exact generated dialogue audio synchronized to video, use a
-lipsync, talking-head, or composition workflow instead.
+Replace placeholders only with exact mentions exposed by the selected route.
+Otherwise omit the reference line.
 
-## Maintenance Provenance
+## Sources
 
-These prompt-token rules were reviewed on June 14, 2026 from:
+Reviewed 2026-09-30:
 
-- `https://fal.ai/models/fal-ai/kling-video/v3/standard/image-to-video/llms.txt`
-- `https://fal.ai/models/fal-ai/kling-video/v3/pro/image-to-video/llms.txt`
-- `https://fal.ai/models/fal-ai/kling-video/o3/standard/reference-to-video/llms.txt`
-- `https://fal.ai/models/fal-ai/kling-video/o3/pro/reference-to-video/llms.txt`
-- `https://fal.ai/models/fal-ai/kling-video/o3/standard/video-to-video/reference/llms.txt`
-- `https://fal.ai/models/fal-ai/kling-video/o3/standard/video-to-video/edit/llms.txt`
-- `https://fal.ai/models/fal-ai/kling-video/o3/pro/video-to-video/edit/llms.txt`
-- `https://fal.ai/models/fal-ai/kling-video/create-voice/llms.txt`
-- `https://kling.ai/quickstart/klingai-video-3-model-user-guide`
-- `https://kling.ai/quickstart/klingai-video-3-omni-model-user-guide`
-
-Maintenance check: if a prompt contains `@Image` or `@Video`, confirm the
-corresponding exact reference appears in the validated native request and the
-selected provider guide exposes its field before paid execution.
+- [Kling VIDEO 3.0 Model User Guide](https://kling.ai/quickstart/klingai-video-3-model-user-guide) — product capabilities and product workflow; not proof of hosted API fields
+- [Fal Kling V3 standard image-to-video documentation](https://fal.ai/models/fal-ai/kling-video/v3/standard/image-to-video/llms.txt) — field details previously reviewed 2026-06-14; not fetchable during this refresh
+- [Fal Kling V3 Pro image-to-video documentation](https://fal.ai/models/fal-ai/kling-video/v3/pro/image-to-video/llms.txt) — field details previously reviewed 2026-06-14; not fetchable during this refresh
+- [Fal Kling O3 reference-to-video documentation](https://fal.ai/models/fal-ai/kling-video/o3/standard/reference-to-video/llms.txt) — field details previously reviewed 2026-06-14; not fetchable during this refresh
+- [Fal Kling O3 Pro reference-to-video documentation](https://fal.ai/models/fal-ai/kling-video/o3/pro/reference-to-video/llms.txt) — field details previously reviewed 2026-06-14; not fetchable during this refresh
+- [Fal Kling O3 standard video-to-video reference documentation](https://fal.ai/models/fal-ai/kling-video/o3/standard/video-to-video/reference/llms.txt) — field details previously reviewed 2026-06-14; not fetchable during this refresh
+- [Fal Kling O3 video-to-video edit documentation](https://fal.ai/models/fal-ai/kling-video/o3/standard/video-to-video/edit/llms.txt) — field details previously reviewed 2026-06-14; not fetchable during this refresh
+- [Fal Kling O3 Pro video-to-video edit documentation](https://fal.ai/models/fal-ai/kling-video/o3/pro/video-to-video/edit/llms.txt) — field details previously reviewed 2026-06-14; not fetchable during this refresh
+- [Fal Kling create-voice documentation](https://fal.ai/models/fal-ai/kling-video/create-voice/llms.txt) — field details previously reviewed 2026-06-14; not fetchable during this refresh

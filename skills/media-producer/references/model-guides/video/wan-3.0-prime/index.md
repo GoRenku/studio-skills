@@ -17,14 +17,21 @@ route's live schema determine which details apply. Shared advice covers
 
 ## Universal Prompt Rules
 
-- Use concrete, matchable detail: a named camera behavior, directed light,
-  specific color or material, and movement with pace.
-- Give each beat one camera setup. Use timecoded beats when several events must
-  land within a longer generation.
-- Include a deliberate sound line when native audio is enabled. Write spoken
-  lines exactly in quotes and name their delivery only when dialogue is known.
-- Prefer physical actions and sound events over vague adjectives such as
-  "cinematic" or "epic".
+- Choose a prompt shape to fit the shot: a short phrase can explore a simple
+  action; a natural-language brief suits one coherent shot; labeled sections or
+  time ranges help when sequence, sound, or timing has to be explicit. Length
+  alone does not make a prompt more controllable.
+- Use matchable detail when it affects what appears: one camera behavior, a
+  light source and direction, a specific material or color, and a physical
+  action with a clear end state.
+- Give each beat one camera setup. Add a cut only for a change of viewpoint or
+  scene; use one continuous camera move when the place and action continue.
+- Include a deliberate sound line when native audio is enabled. Name physical
+  sources and connect sounds to visible actions. Include exact dialogue only
+  when supplied; describe its delivery without inventing words.
+- Prefer observable action and sound over a stack of mood adjectives. For a
+  prompt that feels vague, add the missing event or camera choice before adding
+  more style language.
 - Keep non-negotiable details explicit because prompt expansion may rewrite the
   authored prompt. Review the returned `actual_prompt` as receipt evidence when
   the provider returns it; never replace the authored prompt silently.
@@ -43,14 +50,20 @@ audio, prompt expansion, thinking, required frames, reference limits, and
 document or public-page requirements. Do not copy those changing provider facts
 into a request from this guide.
 
-## Sources and Confidence
+## Evidence and scope
 
-Confidence: high. Fal publishes a detailed Wan 3 workflow and prompt guide plus
-the exact Prime route schemas.
+The prompt-shape suggestions and worked examples below draw on Fal's Wan 3
+tutorial, a provider-authored guide with examples for the standard and Prime
+routes. Treat the advice as practical guidance, not a controlled comparison or
+an Alibaba-authored claim about model internals. Its tier comparison describes
+Prime as faster and more expensive with the same exposed parameters; this is not
+evidence of higher output quality. The prompt recommendations here are original
+agent guidance and have not been generation-tested.
 
-- `https://fal.ai/learn/tools/how-to-use-wan-3`
+- [Fal: How to Use Wan 3](https://fal.ai/learn/tools/how-to-use-wan-3)
 - `https://fal.ai/models/alibaba/wan-3.0-prime/text-to-video/api`
 - `https://fal.ai/models/alibaba/wan-3.0-prime/image-to-video/api`
 - `https://fal.ai/models/alibaba/wan-3.0-prime/reference-to-video/api`
 
-Sources and live schemas reviewed: 2026-08-29.
+Fal tutorial and listed route pages reviewed 2026-09-30; live schemas must be
+checked again for each request.

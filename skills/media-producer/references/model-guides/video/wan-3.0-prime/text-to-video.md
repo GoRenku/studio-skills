@@ -42,7 +42,20 @@ SOUND
 Do not include: [critical visible exclusions].
 ```
 
-## Paraphrased Examples
+## Original examples (untested)
+
+When a result brief is vague, identify the missing visible event before
+rewriting the whole prompt. For example, "a tense night scene" does not tell
+the model what changes. Add a subject action and camera path:
+
+```text
+A night-shift baker slides a tray into the oven and shuts the heavy door. The
+camera tracks from the tray to the amber oven window and holds as the timer
+clicks. Extractor fan, metal rails, one timer beep; no music.
+```
+
+This illustrates a practical revision, not a measured Wan-specific failure or
+guaranteed improvement.
 
 Compact exploration:
 
@@ -78,6 +91,10 @@ unchanged. No cuts, duplicates, captions, or logos.
 After generation, compare actual-prompt evidence with the authored identity,
 single-camera path, three time ranges, sound events, and exclusions. Record
 loss or reinterpretation as review evidence; never replace the authored prompt.
+
+The prompt-shape and `actual_prompt` advice is informed by [Fal's Wan 3
+prompting tutorial](https://fal.ai/learn/tools/how-to-use-wan-3), reviewed
+2026-09-30. The sample prompts above are original and untested.
 
 ## Checks
 

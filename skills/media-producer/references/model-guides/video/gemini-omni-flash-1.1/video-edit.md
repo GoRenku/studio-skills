@@ -1,34 +1,35 @@
 # Gemini Omni Flash 1.1 Video Edit
 
-Read `index.md` first. Use this only when one exact source video should be
-changed through the Fal edit route.
+Use this for an edit route that receives one source video. The source belongs in
+the singular native field confirmed by the selected provider; do not add a
+video-reference marker unless the adapter supplies one.
 
-Put the source marker in the singular native `video_url` field. The source is
-implicit; do not invent a video mention.
+## Make one local change
 
-## Prompt Contract
-
-- State the requested change first as a direct instruction.
-- Name exactly what must remain unchanged: timing, performance, camera path,
-  framing, identity, objects, background, lighting, or audio.
-- Describe visible replacement details concretely when changing an object,
-  wardrobe, setting, lighting, or style.
-- Keep unrelated fixes out of the request so preservation intent stays clear.
-- If the requested result needs a different duration or a new shot structure,
-  choose a generation route instead of treating it as a local edit.
-- Prefer concise conversational phrasing: one direct change followed by
-  explicit preservation. Negative wording should identify observable unwanted
-  changes, not become a long alternate scene description.
-
-## Template
+Google recommends simple edit instructions because extra scene description can
+lead to changes beyond the requested edit. Name the visible change first, then
+state only the source details that matter to keep. Avoid asking an edit route to
+change the duration or invent a different shot structure; choose a generation
+or continuation route if the requested work is broader.
 
 ```text
-[Make one specific edit].
-Preserve exactly: [timing, performance, camera movement, framing, identity,
-objects, environment, lighting, and audio that must not change].
-The changed result should show: [concrete visible properties of the edit].
-Do not change: [critical exclusions].
+[Change one visible object, garment, or lighting detail]. Keep [specific
+unaffected action, framing, identity, and sound] as in the source.
 ```
+
+Original, untested example:
+
+```text
+Change the red scarf to dark blue. Keep the person's movement, coat, face,
+camera framing, street, and original sound as in the source.
+```
+
+Do not list every visible property by default. If the edit concerns only the
+scarf, preserving unrelated timing, sound, or background may add noise to the
+instruction. Name the unaffected details that the user actually cares about.
+
+Preserved example for an edit with stricter continuity needs; not tested in this
+refresh:
 
 ```text
 Make the phone in the performer's right hand invisible. Keep everything else
@@ -37,18 +38,31 @@ lighting, and original audio. Reconstruct only the small background area behind
 the phone. Do not add another object, alter the fingers, or introduce a cut.
 ```
 
-Model continuation is not the same as local edit. Google documents 10-second
-continuation increments, with the last 10 seconds used for continuity and a
-live total-duration bound. Use a continuation-capable route only when its live
-schema exposes that input. Describe whether the scene and audio continue or a
-deliberate cut occurs, and treat timecode zero as the start of the new segment.
-The current checked Fal route index exposes edit but not continuation, so do
-not send a continuation request to `video_url` merely because both use a source
-video.
+This explicitly protects the performance while requesting a local removal.
+Its preservation language states the brief; review the output for altered hands,
+background reconstruction, and unwanted changes rather than assuming success.
+
+## Continuation is a different operation
+
+Google documents Omni continuation in 10-second increments, using the source
+video's final 10 seconds for continuity and allowing up to 40 seconds total.
+Those are Google API facts; this guide's checked Fal route index exposed an edit
+route, not continuation. Use a continuation-capable route only when its live
+schema exposes that input. For a continuation, direct what happens next and
+whether the scene carries on or cuts; do not send a continuation request to the
+edit source field by inference.
+
+When that supported continuation workflow uses segment-relative timecodes,
+time zero describes the new segment, not the beginning of the entire source.
 
 ## Checks
 
-- Is the exact source video assigned to `video_url`?
-- Is the change unambiguous and observable?
-- Does preservation language cover every unaffected part that matters?
-- Does the prompt avoid asking the edit route to create an unrelated new clip?
+- Is the source assigned to the exact native field exposed by the route?
+- Is the requested visual change observable and limited to the intended scope?
+- Does preservation language name only details that matter?
+- Is this an edit, rather than an extension or new-shot request?
+
+Google prompt advice reviewed 2026-09-30:
+
+- [Google Gemini API: Generate and edit videos with Gemini Omni Flash](https://ai.google.dev/gemini-api/docs/omni#prompts-for-editing)
+- [Fal Gemini Omni Flash 1.1 edit route](https://fal.ai/models/google/gemini-omni-flash/v1.1/edit/api)

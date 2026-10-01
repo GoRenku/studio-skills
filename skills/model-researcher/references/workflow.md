@@ -18,10 +18,14 @@ Do not edit installed Skills or write the library JSON directly as a workaround.
    ```
 
 4. Run `renku generation models show --provider <id> --model <exact-api-id> --json`.
-   Verify the route. The returned `personalGuidePath` is an optional Markdown
-   destination, not a required file. Create its parent directory only if saving
-   advice. Read existing notes before editing them. Keep user preferences and
-   unrelated edits; do not replace them wholesale with new research.
+   Verify the route. For a normal addition or refresh, research useful prompting
+   advice using [source-research.md](source-research.md) and save it at the
+   returned `personalGuidePath`. That path is an optional Markdown destination,
+   not a required file or availability gate. An explicit route-only request can
+   skip guidance; if sources remain thin, retain supported advice and report
+   that limit. Create the parent directory only when saving advice. Read existing
+   notes first. Keep user preferences and unrelated edits; do not replace them
+   wholesale with new research.
 5. Report the route separately from any saved guidance or execution test.
 
 A revision conflict means another edit happened: reread and reconcile the exact

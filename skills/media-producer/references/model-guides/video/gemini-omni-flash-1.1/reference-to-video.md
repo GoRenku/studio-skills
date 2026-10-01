@@ -13,8 +13,11 @@ after validating and inspecting the reviewed request.
 - Give every supplied image and video one narrow role.
 - Use images for subject identity, product geometry, wardrobe, location,
   composition, or visual style.
-- Use videos for performance, motion, physics, camera path, rhythm, or scene
-  behavior.
+- Google's current API guide describes video references mainly as likeness
+  references for a person or object; it says audio in those references is
+  ignored and multiple-video reasoning is unsupported. Do not assume a source
+  clip will supply its motion or soundtrack: describe the desired action and
+  sound in the prompt, and check the selected hosted route's limits.
 - State the one coherent output after assigning roles.
 - Resolve precedence when two references could redefine the same trait.
 - Do not invent audio references. The current Gemini Omni Flash 1.1 reference
@@ -46,3 +49,5 @@ Do not include: [critical visible exclusions].
 - Are all requested references present in the reviewed native request?
 - Is there no audio mention or field unsupported by the live schema?
 - Does the output remain one result rather than a montage of references?
+
+The role guidance follows Google's [Omni prompt guide](https://ai.google.dev/gemini-api/docs/omni#using-tags-in-prompts-to-set-image-and-video-roles), reviewed 2026-09-30. Examples elsewhere in this guide are original and untested. Google API limits do not automatically apply to Fal's route; its live schema remains decisive.

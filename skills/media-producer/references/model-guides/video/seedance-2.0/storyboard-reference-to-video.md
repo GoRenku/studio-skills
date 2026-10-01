@@ -1,8 +1,16 @@
 # Seedance Storyboard-Reference-To-Video
 
+This is Renku's Seedance storyboard authoring workflow. Its panel audit,
+continuity, and audio direction apply to 2.0 and 2.5, with version-specific
+evidence in [the 2.0 guide](index.md) and
+[the 2.5 reference guide](../seedance-2.5/reference-to-video.md).
+Panel controls and timestamps below express directing intent; they do not
+guarantee exact panel reproduction or segment timing. In particular, keep
+2.0's timing limitation distinct from 2.5's integer-second timestamp guidance.
+
 Use this only for final `shot-plan.video-generation` prompting when all are true:
 
-- model family is Seedance;
+- selected model is Seedance 2.0 or 2.5;
 - selected provider route supports reference-to-video;
 - an exact storyboard image is placed through that route's adapter;
 - the agent is drafting, reviewing, or executing the final video

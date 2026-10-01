@@ -20,6 +20,10 @@ tokens when the route receives none.
 
 ## Template
 
+The examples below are original prompt-writing illustrations and have not
+been generation-tested. Google documents timed events, audio direction, and
+requests for on-screen text; those instructions do not guarantee exact output.
+
 ```text
 [Subject] [performs a concrete visible action] in [specific setting and time].
 Camera: [opening scale and angle], [movement], ending on [final framing].
@@ -58,5 +62,6 @@ One continuous overhead shot, no cuts, extra hands, or additional text.
 - Can the action and camera move finish within the selected duration?
 - Is sound direction present when audio matters and omitted when unknown?
 - Are there no reference mentions without actual reference inputs?
-- Is every required on-screen word quoted exactly and given enough held time to
-  inspect for readability?
+- If on-screen wording matters, is the intended text specified exactly and
+  given an inspectable hold? Treat legibility as a review criterion, not a
+  guaranteed model behavior.

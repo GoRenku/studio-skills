@@ -5,6 +5,10 @@ image that anchors the video. Put exact markers only in fields supplied by the
 provider adapter and confirmed by the live schema. Include an ending image only
 when it is supported and binding.
 
+Read [index.md](index.md) for 2.0-specific construction and evidence. The image
+already supplies appearance and composition; concentrate prose on the change
+that should happen from that state.
+
 ## Prompt Contract
 
 - Use an opening-image mention only if the provider adapter establishes one.
@@ -30,6 +34,30 @@ Sound: [ambient bed and key events, if native audio matters].
 Continuity: keep [identity/layout/props/geography] stable.
 Do not include: [critical exclusions].
 ```
+
+## Worked motion brief
+
+Original example for an opening image of a woman seated beside a window, not
+generated or tested:
+
+```text
+Begin from the supplied opening frame. The seated woman turns her head toward
+the window, pauses, and places her left palm flat on the table. Her right hand
+remains beside the cup; the cup stays still. The camera slowly pushes closer
+along its existing viewing angle, ending on her face and left hand.
+Keep her face, blue cardigan, chair, table, window position, and light direction.
+Environmental motion: the curtain edge moves gently; other objects stay still.
+Quiet room tone and a soft sleeve rustle; no speech, music, cuts, or new objects.
+```
+
+The brief separates subject movement, camera movement, and things that stay
+still. It does not reconstruct the photographed scene as a different setting.
+Do not copy these particulars if they contradict the actual opening image.
+
+Agent revision suggestions: if the scene is redesigned, remove new setting or
+wardrobe descriptions and name the few invariants that matter. If movement is
+unclear, specify the moving body part and the state it reaches. If subject and
+camera motion are both too complex, simplify one before adding more prose.
 
 ## Checks
 

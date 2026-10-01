@@ -34,6 +34,20 @@ do not assume the base H3 guide describes its response to prompts.
   shapes represent; use optional images for appearance. Do not ask the prompt
   to contradict the source motion or camera path.
 
+Original, untested 3D-previs example:
+
+```text
+The gray proxy figure is a harbor worker in a yellow rain jacket. Keep the
+source camera's slow push toward the mooring post and the worker's existing
+walk cycle. Add rain beads on the jacket, salt on the concrete, and blue dawn
+light from the water side. Rain hiss, rope creak, and one buoy bell; no music.
+```
+
+Use this kind of clarification only when the selected 3D-to-video route accepts
+the source clip and appearance references. The prompt should explain proxy
+meaning and surface treatment while letting the previs control layout and
+timing.
+
 ## Route details
 
 Check the live route schema for duration, resolution, prompt expansion, reference
@@ -45,9 +59,12 @@ The schema describes `quality` as spending up to roughly 30 seconds on expansion
 use it when the user chooses that tradeoff, not merely because expansion is on.
 Turbo's available fields should be checked separately rather than assumed identical.
 
-Sources reviewed 2026-09-24:
+Fal's H3 Max tutorial and linked route pages reviewed 2026-09-30. This tutorial
+provides the specialized craft guidance available for the Max tier; the H3
+base model's separate first-party prompt format has not been assumed to transfer
+to H3 Max or Turbo. The added example is original and untested.
 
-- https://fal.ai/learn/tools/how-to-use-minimax-h3-max
+- [Fal: How to Use MiniMax H3 Max](https://fal.ai/learn/tools/how-to-use-minimax-h3-max)
 - https://fal.ai/models/minimax/h3-max-turbo/text-to-video/api
 - https://fal.ai/models/minimax/h3-max-turbo/image-to-video/api
 - https://fal.ai/models/minimax/h3-max/3d-to-video/api

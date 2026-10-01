@@ -79,3 +79,8 @@ identity, movement order, voice, camera, sound, and exclusions.
 - Does the output remain one coherent video rather than a reference montage?
 - Did every numbered role and hard constraint survive prompt expansion when
   actual-prompt evidence is available?
+
+Fal's Wan 3 tutorial and linked Prime route pages were reviewed 2026-09-30.
+Reference-role and prompt-expansion practices are adapted from that provider
+guide; the examples here are original and untested. Check the live schema for
+current modality support and limits.

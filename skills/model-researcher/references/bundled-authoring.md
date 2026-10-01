@@ -32,18 +32,23 @@ instructions in this checkout. Research the exact requested routes using
   of duplicating it; include only variants within the user's request.
 - Write useful model advice beneath `model-guides/image/`, `video/`, or `audio/`.
   Use a focused Markdown file; split out operation advice only when it warrants
-  separate treatment. Cover model-specific prompt construction, reference use,
-  examples, or pitfalls supported by the research. Link sources and distinguish
-  inference. Reuse shared advice rather than duplicating it. Each model normally
-  gets a guide consumed by existing Skills, not a new top-level Skill.
+  separate treatment. Apply the research and editorial review in
+  [source-research.md](source-research.md): cover model-specific craft, relevant
+  operation differences, original examples, and useful failure/rewrite advice
+  supported by the evidence. Preserve strong existing material. Link prompting
+  sources separately from route references and identify agent recommendations.
+  Reuse shared advice rather than duplicating it. Each model normally gets a
+  guide consumed by existing Skills, not a new top-level Skill.
 - Put provider-specific notation and input-ordering advice in the provider
   Skill's `references/adapters/` only when useful, and link it from that Skill.
   These adapters are Markdown guidance, not executable provider code. Live schemas remain the
   authority for current request fields and constraints.
 
-A route can still be added without a guide or provider advice. If specialized
-research is unavailable, report that limit and retain
-only useful supported advice; do not invent guidance to fill the structure.
+A route can still be saved without a guide or provider advice. For an ordinary
+addition, first search for useful guidance rather than treating route discovery
+as completed research. If specialized research remains unavailable, report that
+limit and retain only useful supported advice; do not invent guidance to fill
+the structure. An explicit route-only request does not need prompting research.
 Do not copy provider schemas into the repository or introduce a new registry.
 An unsupported execution protocol needs separate runtime work; a bundled entry
 must not imply that authoring guidance enabled it.
@@ -54,6 +59,8 @@ Run `pnpm test` from the source repository root. Inspect the full diff and
 find each changed model's advice by filename or model name, then follow its
 Markdown links. Automated validation intentionally permits
 absent guidance, so passing it alone does not prove new advice is discoverable.
+Read the changed prose and examples against the actual sources; a discoverable
+file full of generic advice does not complete a guidance refresh.
 
 Exercise a request-preparation walkthrough with the selected route and available
 schema or fixture: confirm Media Producer finds the new advice and applies it

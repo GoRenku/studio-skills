@@ -20,6 +20,10 @@ route's live schema determine which details apply. Shared advice covers
 
 - Describe visible action, camera behavior, physical progression, lighting, and
   desired sound in direct natural language.
+- Google says Omni Flash may invent multiple shots when a prompt does not
+  constrain shot structure. When a single take matters, say that it is one
+  scene and one continuous shot with no cuts; if cuts are wanted, give the
+  beats in order.
 - Fit one coherent action or a deliberately ordered short sequence into the
   selected duration. Do not overload a short clip with unrelated events.
 - State dialogue, ambience, effects, or silence when they matter. The model
@@ -35,7 +39,12 @@ route's live schema determine which details apply. Shared advice covers
 - When one uninterrupted shot is required, say all three ideas plainly:
   single scene, single continuous shot, and no cuts.
 - Use concise conversational edit instructions. State the change first and
-  explicitly preserve everything else that matters.
+  explicitly preserve everything else that matters. Google's edit examples
+  favor a short change instruction and warn that extra scene description can
+  introduce unwanted edits.
+- Timing can be described in ordinary language or time ranges; the Google guide
+  does not require a special timestamp grammar. Name audio when you care about
+  it because Omni otherwise attempts to create a suitable track by default.
 
 ## Route Constraints
 
@@ -57,13 +66,16 @@ references; native generated audio does not change that fact.
 
 Confidence: high for model prompt craft from Google's official Omni guide;
 Fal's live schemas remain the authority for fields available through Renku's
-installed Fal provider.
+installed Fal provider. Google’s prompt examples are product guidance, not
+evidence of guaranteed shot, dialogue, or text outcomes. Operation examples in
+the linked files are original and have not been generation-tested.
 
-- `https://ai.google.dev/gemini-api/docs/omni#prompt-guide`
+- [Google Gemini API: Generate and edit videos with Gemini Omni Flash](https://ai.google.dev/gemini-api/docs/omni#prompt-guide)
 - `https://fal.ai/gemini-omni`
 - `https://fal.ai/models/google/gemini-omni-flash/v1.1/text-to-video/api`
 - `https://fal.ai/models/google/gemini-omni-flash/v1.1/image-to-video/api`
 - `https://fal.ai/models/google/gemini-omni-flash/v1.1/reference-to-video/api`
 - `https://fal.ai/models/google/gemini-omni-flash/v1.1/edit/api`
 
-Sources and live schemas reviewed: 2026-08-30.
+Google prompt guidance reviewed 2026-09-30. Fal schemas and route pages last
+reviewed 2026-08-30; read the live schema again for each request.

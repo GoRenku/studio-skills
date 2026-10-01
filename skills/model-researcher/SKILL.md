@@ -19,13 +19,21 @@ request does not also authorize changing the personal library, or vice versa.
 Read [references/source-research.md](references/source-research.md) when
 researching the model or retaining useful advice in either destination.
 
-A complete addition needs only `provider`, exact `apiId`, and display `name`.
-No guide, operation map, local schema, research dossier, network check, paid
-generation, or separate compatibility audit is required to save a known route.
-Do not substitute a different model. Clarify the model identity only if it is
-ambiguous enough to prevent selecting the exact route.
+For an ordinary model addition or refresh, research and save useful prompting
+guidance by default. A saved route alone does not complete that research work.
+An explicit route-only request can skip it. Use model-developer guidance and
+substantive provider tutorials, with practical examples and clear attribution;
+API field descriptions alone are not evidence of prompt craft.
 
-The user's add/refresh request authorizes the route update and useful optional
+Saving a known route needs only `provider`, exact `apiId`, and display `name`.
+Guidance quality is an authoring responsibility, not a model-availability gate.
+No operation map, local schema, research dossier, paid generation, or separate
+compatibility audit is required. If useful sources cannot be found after an
+actual search, save the route, retain supported advice, and report the research
+limit without inventing filler. Do not substitute a different model. Clarify
+model identity only if ambiguity prevents selecting the exact route.
+
+The user's add/refresh request authorizes the route update and useful researched
 guidance at the selected destination. Preserve existing edits. Report the
 destination, exact route, guidance changes, and what was actually researched or
 tested. Do not imply a saved route proves successful execution. Bundled authoring

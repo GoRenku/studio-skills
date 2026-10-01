@@ -1,48 +1,102 @@
 # MiniMax H3 Reference-To-Video
 
-Read `index.md` first. Use this only for a MiniMax H3 reference-to-video
-operation. Assign images, videos, and audio through the provider adapter, then
-derive exact mentions from final modality-local request order. The adapter owns
-whether mentions contain spaces, prefixes, or no visible token at all.
+Use this when supplied references should contribute selected content to one
+new result. H3's official full-reference guide separates reference roles,
+retention intent, the playback description, location sound, and audience-only
+music. Use these ideas as prompt-writing guidance; check the selected endpoint
+before assuming it accepts a particular media type or reference role.
 
-## Prompt contract
+The provider adapter supplies the actual media fields and any visible tokens.
+Use exact mentions from the prepared request, derived from final
+modality-local order. Do not copy the official guide's `<Subject N>`,
+`<Picture N>`, `<Video N>`, or `<Audio N>` labels into a provider prompt unless
+the selected route's adapter explicitly supplies that syntax.
 
-- Name every supplied mention and give it one narrow role.
-- Use images for specific subject, location, prop, composition, or style
-  continuity.
-- Use videos for specific motion, performance, physics, camera path, or rhythm.
-- Use audio for a specific voice, ambience, music character, or sound texture.
-- State the single coherent output scene or sequence after assigning roles.
-- Resolve precedence explicitly when multiple references could compete.
-- Do not let reference media become alternate first frames or unrelated scenes.
+## Give each reference one job
 
-## Template
+Describe a reference's role at the level needed for the intended shot:
+
+- An image may anchor a specific composition or contribute selected traits
+  such as a face, garment, prop, or location.
+- A video may contribute a source edit, temporal structure, performance, or
+  camera rhythm. Say which role applies.
+- An audio input, when the selected route supports it, may contribute voice
+  timbre, sound texture, music, or source audio. Do not imply that a video
+  reference automatically supplies audio guidance.
+- Resolve conflicts in the prompt by stating which reference controls the
+  relevant trait.
+
+For every reference, distinguish copied source content from traits that should
+only influence a newly created result. The terms below are plain-language
+guidance; they do not guarantee that the generated output will preserve a
+reference exactly.
+
+## Adapted prompt outline
+
+This outline uses the ideas in MiniMax's official six-part reference format
+without treating its model-internal labels as provider API tokens. Replace
+`[REFERENCE]` only with syntax supplied by the selected adapter.
 
 ```text
-REFERENCES
-<IMAGE_1> is only [subject/location/prop/composition/style] continuity for
-[specific visible traits].
-<IMAGE_2> is only [different narrow visual role].
-<VIDEO_1> is only [motion/performance/camera/physics/rhythm] reference.
-<AUDIO_1> is only [voice/ambience/music-character/sound-texture] reference.
+SUBJECT DEFINITIONS
+[REFERENCE] contributes [specific trait or source role] for [part of result].
 
-Create one coherent video: [subject, action, setting, and intended final state].
-Camera: [opening framing, movement, and final framing].
-Timing: [ordered action beats that fit the selected duration].
-Environment and light: [secondary motion and lighting progression].
-Sound: [how <AUDIO_1> informs the result, plus known sound events].
-Continuity: preserve [identity, wardrobe, props, geography, screen direction].
-Do not include: [critical visible exclusions].
+TASK
+Create [one coherent result and intended ending].
+
+REFERENCE USE
+Use [REFERENCE] for [narrow role]. Keep [selected characteristics] recognizable;
+change [characteristics that should differ].
+
+PLAYBACK DESCRIPTION
+[Shot 1] [composition, subject, action, camera, lighting, and dialogue in
+playback order. Add a later shot only for a deliberate cut.]
+
+SOUND
+[Location ambience and physical sounds, or silence.]
+
+MUSIC
+[Audience-only score, or N/A.]
 ```
 
-Replace angle-bracket placeholders with exact adapter-supplied mentions. Include
-only lines backed by actual inputs. Read all count, duration, and modality
-constraints from the live schema before Preview.
+The section labels above are a readable scaffold, not required route syntax.
+When the endpoint expects MiniMax's full-reference output format, use its
+official label and section rules while substituting only supported provider
+mentions.
 
-## Checks
+## Example
 
-- Does every mention match the exact modality-local native array order?
-- Does every supplied reference have a narrow, non-competing role?
-- Does every mention use the selected provider adapter's exact syntax?
-- Does the request satisfy the live schema's current limits?
-- Does the output remain one coherent result rather than a reference montage?
+Original and untested. It illustrates two distinct roles; remove either role if
+the route or reviewed request does not contain that input.
+
+```text
+SUBJECT DEFINITIONS
+[IMAGE_REFERENCE] contributes the courier's dark coat and short silver hair.
+[VIDEO_REFERENCE] contributes the measured walking pace and the camera's
+side-on tracking rhythm.
+
+TASK
+Create one dusk scene in a quiet station passage, ending when the courier stops
+at a closed door.
+
+REFERENCE USE
+Use [IMAGE_REFERENCE] for the courier's appearance and [VIDEO_REFERENCE] for
+movement and camera rhythm. Let the station architecture come from this prompt.
+
+PLAYBACK DESCRIPTION
+[Shot 1] The courier walks beside tiled walls, slowing as a warm light appears
+under the door. The camera tracks at waist height and settles when the courier
+stops. The courier touches the brass handle but does not open the door.
+
+SOUND
+Soft shoe taps echo on tile; a low ventilation hum continues underneath.
+
+MUSIC
+N/A
+```
+
+Sources reviewed 2026-09-30:
+
+- [MiniMax H3 full-reference prompt guide](https://huggingface.co/MiniMaxAI/MiniMax-H3/blob/main/docs/VIDEO_PROMPT_WRITING_GUIDE_ref_en.md)
+- [MiniMax H3 base video prompt guide](https://huggingface.co/MiniMaxAI/MiniMax-H3/blob/main/docs/VIDEO_PROMPT_WRITING_GUIDE_base_en.md)
+- [Fal H3 reference-to-video route](https://fal.ai/models/minimax/h3/reference-to-video/api)
