@@ -63,8 +63,10 @@ revision reads. Do not add a duplicate production-number field.
    Choose a supported model and input mode conversationally, then read the
    provider's current native operation facts. An edit-capable provider route
    does not change this focused creation purpose to `image.edit`.
-8. Write one temporary review document per batch. Validate Engines requests,
-   show Preview when required, apply the lane-specific authorization rules,
+8. Write one temporary review document per batch. Follow
+   [generation review routing](generation-review-routing.md): panel Submit without
+   Studio Preview, or the selected Studio Preview path (mandatory outside Codex
+   desktop). Validate Engines requests and apply the lane-specific authorization rules,
    reread before execution, rebuild native prompt
    fields after edits, then execute through the chosen lane.
 9. Follow `image-output-review.md`. Inspect and automatically attach the result

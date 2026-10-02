@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "renku": {
+      "type": "stdio",
+      "command": "renku",
+      "args": ["studio", "mcp"]
+    }
+  }
+}

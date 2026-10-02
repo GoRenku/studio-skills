@@ -64,7 +64,10 @@ role.
 Place every included exact reference's local-file marker in a native media field
 declared by the selected provider adapter and live schema.
 
-For an Engines request with Preview enabled, prepare the final draft:
+Follow [generation review routing](../../generation-review-routing.md) before
+delivery. The panel uses standalone Validate and its combined review; do not
+open Studio Preview in that path. In a Studio Preview path, prepare one Engines
+request from the final draft:
 
 ```bash
 renku generation prepare \
@@ -73,8 +76,8 @@ renku generation prepare \
 ```
 
 Reuse a successful Prepare result from the shared workflow; do not call it
-again for this guide. Codex and ordered multi-request review use the shared
-workflow's standalone Preview path.
+again for this guide. Codex built-in and ordered multi-request review use the
+chosen path in the shared guide; this reference never opens a second surface.
 
 Inspect the exact reviewed native request as evidence of which inputs the
 provider will receive and in what order. Do not infer numbering from filenames,

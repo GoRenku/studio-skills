@@ -5,7 +5,7 @@ Use `cast.voice-sample` to generate playable sample audio for a Cast Member.
 ## Purpose-specific configuration
 
 Use the shared
-[inline generation configuration](inline-generation-configuration.md) from the
+[generation review routing](generation-review-routing.md) from the
 main Media Producer flow. The briefing's `workflowPolicy` supplies the saved
 Audio provider; current user direction takes precedence. Read the complete
 briefing before configuration, including voice facts and media inventory.
@@ -19,9 +19,11 @@ inventing speech-generation controls.
 
 ```bash
 renku generation context --purpose cast.voice-sample --target cast:<cast-member-id>
-renku generation prepare --file tmp/operations/media-generation/cast-voice-sample.json --json
-renku generation execute --file tmp/operations/media-generation/cast-voice-sample.json --output tmp/media/cast-voice-sample --expected-request-sha256 <requestSha256-from-preparation>
 ```
+
+Author the request, then use the selected review path. Panel review uses
+standalone Validate and Submit/consume; Studio Preview uses Prepare. Execute
+only after that path completes, with its exact final request hash.
 
 Use the returned Cast/design/voice/Project-language facts as evidence. Combine
 the user's direct voice direction with the Cast Member's voice-casting notes.

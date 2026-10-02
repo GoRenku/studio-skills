@@ -28,7 +28,7 @@ generation uses Seed Audio.
 ## Purpose-specific configuration
 
 Use the shared
-[inline generation configuration](inline-generation-configuration.md) from the
+[generation review routing](generation-review-routing.md) from the
 main Media Producer flow. Use the Audio provider from the briefing's
 `workflowPolicy`, subject to current user direction, and
 the default Cast Voice sample for each current speaker. Let the user choose
@@ -73,7 +73,7 @@ Listen before using a new ensemble take to retime Previs; if listening is unavai
 request a focused user audition. Do not present intended speaker labels as verified
 observations. Preserve an unverified candidate honestly instead of claiming success.
 
-Validate, Preview when required, obtain conversational confirmation, execute
+Complete the selected combined-panel or Studio Preview review path, execute
 one provider request, and inspect its single output. Preserve the exact safe
 provenance using the returned `provenancePath`, then attach the reviewed file:
 

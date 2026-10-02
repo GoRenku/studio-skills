@@ -1,5 +1,10 @@
 # Inline Generation Configuration
 
+Use this guide only after [generation-review-routing.md](generation-review-routing.md)
+selects `visualize` in Codex desktop. The default combined panel does not use
+Visualize templates or open Studio Preview. CLI and non-Codex sessions use
+conversational configuration and mandatory Studio Preview.
+
 Use this guide for the transient `@Visualize` component shown before Media
 Producer authors any image, video, or audio review document. The installed
 Visualize Skill owns styling, theme, layout primitives, interaction, and

@@ -4,7 +4,9 @@ import { assessConfigurationHandoff, assessExecutionHandoff } from '../evals/gen
 
 const event = (type, toolOperation = 1) => ({ type, toolOperation });
 
-test('H3 preparation that reads Visualize twice but authors no component fails', () => {
+// These observations exercise the explicitly selected Visualize desktop path.
+// Default panel routing and its Submit confirmation are evaluated separately.
+test('Visualize H3 preparation that reads the Skill twice but authors no component fails', () => {
   const events = ['visualize-read', 'schema-read', 'visualize-read', 'review-authored',
     'preview', 'execution-rejected'].map((type) => ({ type, turn: 1 }));
   assert.deepEqual(assessConfigurationHandoff(events),
@@ -64,7 +66,7 @@ test('receipt reconstruction cannot silently lose provider fields', () => {
   assert.ok(assessExecutionHandoff({ ...baseline, attachedProvenance: prepared }).includes('provenance-changed'));
 });
 
-test('settings submission alone is not paid-generation confirmation', () => {
+test('Visualize configuration submission alone is not paid-generation confirmation', () => {
   const events = baseline.events.filter((entry) => entry.type !== 'confirmation');
   assert.ok(assessExecutionHandoff({ ...baseline, events }).includes('execution-without-confirmation'));
 });

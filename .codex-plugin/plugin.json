@@ -15,6 +15,7 @@
     "movie-making"
   ],
   "skills": "./skills/",
+  "mcpServers": "./codex.mcp.json",
   "interface": {
     "displayName": "Renku",
     "shortDescription": "Movie-making skills for writers and filmmakers.",

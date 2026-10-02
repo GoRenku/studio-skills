@@ -2,6 +2,8 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { assessPreparation, assessModelDiscovery, assessExpansionChoice } from '../evals/generation-context/preparation.mjs';
 
+// Visualize desktop observations; panel and mandatory Preview routing have their own matrix.
+
 for (const mediaKind of ['image', 'audio', 'video']) {
   test(`${mediaKind} reuses cached HTML, carries new settings, and prepares in one operation`, () => {
     const payload = { mediaKind, prompt: 'Current request', controls: { quality: 'selected' } };

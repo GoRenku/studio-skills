@@ -21,10 +21,11 @@ Image provider setting. Do not add a Shot Image-specific setting. If Codex is
 selected but the harness lacks built-in image generation, ask rather than
 falling back to a paid provider.
 
-Use the standard temporary review-document workflow. Display Preview when its
-Project setting is on or the user explicitly asks. For external providers,
-honor the Image confirmation setting with one ordinary conversational pause.
-Codex generation has no separate consent pause. After execution, inspect the
+Use [generation review routing](generation-review-routing.md) with the standard
+temporary review document. Panel mode waits for Submit without a Studio Preview;
+CLI/non-Codex sessions always deliver Studio Preview. The Visualize desktop path
+retains Project Preview/confirmation policy. Do not add a second confirmation
+after panel Submit or a separate Codex consent pause. After execution, inspect the
 exact output and automatically import without asking for output acceptance:
 
 ```bash

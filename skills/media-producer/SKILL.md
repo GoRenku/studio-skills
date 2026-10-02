@@ -37,7 +37,7 @@ omitted from the briefing; use references for
 the current task and retrieve history only when needed, following
 `references/model-guides/shared/reference-inputs.md`.
 
-Read fresh generation context for each request. Within that preparation, reuse verified syntax, selected route discovery, and the existing configuration cache according to its freshness rules; do not prefetch other providers. Use repeated --file on generation preview show to review several prepared requests together when appropriate. Retain native validation, configuration, Preview, approval, concurrency limits, artifact inspection, and focused attachment. Tool-session polling continues the same process; it is not another CLI invocation. Never retry a successful paid execution automatically.
+Read fresh generation context for each request. Within that preparation, reuse verified syntax and selected route discovery; do not prefetch other providers. Follow [generation review routing](references/generation-review-routing.md) for every image, audio and video purpose. Use its combined panel or Studio Preview path once; the Visualize choice retains the existing configuration cache. Retain native validation, approval, concurrency limits, artifact inspection, and focused attachment. Tool-session polling continues the same process; it is not another CLI invocation. Never retry a successful paid execution automatically.
 
 Consult the relevant CLI reference/help once if syntax is unknown, then reuse verified syntax for this task. Do not discover syntax by attempting mutations. Do not invent `project list`. If a known permission denial blocks cache/output/config or local-network access, explain the requirement and use the authorized host permission flow; do not repeat the denied attempt, read secrets, disable cache persistence, or change permissions. `CLI026` means the mutation succeeded: report the notification warning without replaying the mutation.
 
@@ -250,12 +250,32 @@ another generation to fix a concern without authorization.
 
 Codex built-in generation is part of the current session: do not ask for
 generation consent or apply `askBeforeGenerating` to that lane. Use the user's
-direction and current Project defaults directly. Configuration and Preview
-must not become implicit consent gates. Pause for creative review only when
-the user explicitly requests it; external-provider spending approval and host
-permissions remain governed by their existing rules.
+direction and current Project defaults directly. In the default panel path,
+wait for Submit as the combined creative review handoff, including built-in
+images. In the Visualize/conversational paths, pause for built-in creative review
+only when requested. External-provider spending approval and host permissions
+remain governed by their existing rules.
 
-## Configure generation in Codex
+## Choose the generation review surface
+
+Read and follow
+[references/generation-review-routing.md](references/generation-review-routing.md)
+before configuring or delivering any review. Read
+`workflowPolicy.codexGenerationReview` from the CLI generation context and query
+the current connection's `generation.review.capabilities` when available.
+The global preference defaults to `panel`; it is not a Project setting.
+Also read `workflowPolicy.codexGenerationReviewDisplayMode`: `inline` (default)
+or `fullscreen`. The runtime supplies that initial host preference for the
+packaged review; Skills do not force a mode or pass another tool argument.
+The panel combines prompt, references and native settings and never automatically
+opens Studio Preview. Codex CLI, Claude and unidentified hosts always require
+Studio Preview, even when `workflowPolicy.displayPreview` is false. Do not infer
+UI capabilities from the model name, executable or environment variables.
+
+## Configure with Visualize
+
+This section applies only when routing selected `visualize` in Codex desktop.
+The default panel follows the shared routing guide instead.
 
 For external-provider requests in Codex, discover Visualize in the available
 skills catalog and read its `SKILL.md`. It renders through a content reference;
@@ -303,10 +323,9 @@ acceptance of the displayed unchanged values. Reading the skill and schema is
 preparation, not a substitute for displaying controls. Do not proceed straight
 from schema discovery to a review document and Execute.
 
-This interaction is required for external providers in Codex when Visualize is
-available. In another harness, do not invent a browser
-component or substitute callback; continue with the existing conversational
-selection and Preview workflow.
+This interaction is required for external providers in the selected Visualize
+desktop path. In another harness, use conversational configuration and mandatory
+Studio Preview through the routing guide.
 
 ## Review document
 
@@ -340,6 +359,11 @@ absolute paths, or signed URLs to the envelope.
 
 ## Preview and confirmation
 
+These commands are for the Studio Preview paths selected by the routing guide.
+The combined panel uses standalone Validate, its Submit/consume handoff, and
+validation of accepted edits; it never automatically calls Prepare or Preview.
+Outside Codex desktop, Preview is always required regardless of Project settings.
+
 For a single Engines request when Preview is enabled or requested, write the
 final request and call Prepare in one tool operation:
 
@@ -365,8 +389,9 @@ unchanged-file reread, or second Validate call is needed. On
 Skill. See `references/workflow.md` for the changed-request path. Request writing and Prepare run sequentially in one tool operation, stopping
 on failure.
 
-`showGenerationPreviews` controls automatic Preview. An explicit user Preview
-request always opens it. For Codex, an automatic Preview is informational and
+`workflowPolicy.displayPreview` controls automatic Preview only in the explicit
+Visualize desktop path. An explicit user Preview request always opens it.
+For Codex built-in images in that path, automatic Preview is informational and
 does not require a reply. For external providers, `askBeforeGenerating` is one
 conversational pause, not an approval token; a confirmation after Preview
 satisfies it. Apply the

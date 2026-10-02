@@ -4,6 +4,9 @@ Begin with `renku generation context --purpose <purpose> --target <target>`.
 For Scene Storyboards, add the exact `--revision` and repeated `--beat`
 scope. Use the returned typed Project/target context, Lookbooks, policy,
 guidance, suggestions, and warnings as the briefing before selecting a provider.
+Read [generation-review-routing.md](generation-review-routing.md) for every
+purpose. Resolve the global review preference and current host capability before
+any configuration display or Preview delivery.
 
 Core suggestions describe real Project relationships but do not limit creative
 choice. Deliberately choose, omit, supplement, or replace references after
@@ -60,7 +63,8 @@ intent; it is distinct from common Asset display selection.
 6. Read each relevant guide once per unchanged workflow; reread for a changed
    operation or missing context. Reuse selected-route discovery and fresh
    configuration templates; do not prefetch other providers or add an unsolicited
-   Codex configuration step.
+   Codex configuration step in the selected Visualize path. Panel review includes
+   built-in images and waits for its Submit handoff.
 7. For Engines providers, pass Prepare's (or standalone Validate's) `requestSha256` to Execute with
    `--expected-request-sha256`; the CLI checks and reads the final `--file`.
    Reread only if that check reports a change or the prepared hash is unavailable.
@@ -95,8 +99,8 @@ omits prior Asset recipes even for exact edit sources. Use references for their
 intended contribution to the current request; consult the shared reference-input
 guide for deliberate history access instead of retrieving history by default.
 
-Use repeated `--file` on generation preview show to review prepared requests
-together when appropriate. Retain applicable validation, configuration, Preview,
+Use ordered requests in the panel, or repeated `--file` on generation preview show
+in a Studio Preview path, to review prepared requests together. Retain applicable validation, configuration, review,
 approval, concurrency limits, artifact inspection, and focused attachment.
 Tool-session polling continues the same process; it is not another CLI
 invocation. Never retry a successful paid execution automatically.
@@ -104,6 +108,12 @@ invocation. Never retry a successful paid execution automatically.
 Consult the relevant CLI reference/help once if syntax is unknown, then reuse verified syntax for this task. Do not discover syntax by attempting mutations. Do not invent `project list`. If a known permission denial blocks cache/output/config or local-network access, explain the requirement and use the authorized host permission flow; do not repeat the denied attempt, read secrets, disable cache persistence, or change permissions. `CLI026` means the mutation succeeded: report the notification warning without replaying the mutation.
 
 ## Configure before authoring the review document
+
+Resolve [generation-review-routing.md](generation-review-routing.md) first.
+For `panel`, prepare the native request and schema-derived descriptors, Validate
+Engines files without delivering Preview, then open/yield/consume/apply/validate
+through that guide. The following cache/template instructions apply only to the
+explicit `visualize` desktop path.
 
 For external-provider generation in Codex with Visualize available, complete
 `inline-generation-configuration.md` first. Resolve its system cache before any
@@ -116,9 +126,9 @@ user accepts the displayed settings. Reading Visualize, fetching the schema,
 or opening Studio Preview does not complete configuration. A model named by the
 user selects the initial model; it does not skip this interaction.
 
-Codex built-in generation keeps its optional configuration policy. If Visualize
-is genuinely unavailable, disclose that limitation and use the existing
-conversational configuration flow.
+Codex built-in generation keeps its optional configuration policy in that path.
+If the selected Visualize Skill is unavailable, report it and stop. Outside
+Codex desktop use conversational configuration and mandatory Studio Preview.
 
 ## Author one provider-native request
 
@@ -182,6 +192,12 @@ Preview reference availability before asking for generation confirmation;
 resolve unavailable intended inputs without silently dropping them.
 
 ### Validate and deliver the request
+
+For panel routing, follow the combined review guide: standalone Validate, then
+the panel handoff, then validate accepted edits. Do not run Prepare or Preview
+automatically. The instructions below apply only to Studio Preview paths.
+Outside Codex desktop, Preview is mandatory even when Project displayPreview is
+false. In the Visualize desktop path it follows Project policy or user direction.
 
 For one Engines request when Preview is enabled or requested, write the final
 request and run preparation in the same tool operation:
@@ -338,10 +354,12 @@ direction chooses it. Author the same review envelope with `provider: "codex"`,
 `model: "chatgpt-images-2.5"`, and `mediaKind: "image"`. This identifies the
 Codex product family; it does not assert a Flare or Sunburst API variant.
 
-Use the user's direction and Project defaults without a configuration or
-generation consent pause. Show configuration only if requested; automatic
-Preview is informational. Invoke the built-in capability directly, respecting
-an explicit request to review before execution. Create safe provenance with the exact final
+Use the user's direction and Project defaults without a generation consent pause.
+Follow the shared review routing: the default panel waits for Submit and consumes
+the accepted edits; the Visualize path shows configuration only if requested and
+automatic Preview is informational. Outside Codex desktop, Studio Preview is
+mandatory. Invoke the built-in capability with the exact accepted native values.
+Create safe provenance with the exact final
 prompt/request and no invented receipt. Attach it through the same
 `--provenance` boundary.
 

@@ -43,10 +43,11 @@ properties already belong to the accepted style.
 
 Select Codex or Fal.ai through explicit current user direction, then the
 Project's Image provider setting. For Fal.ai, author one provider-native review
-document through its Skill, validate it, show Preview when required, reread and
-rebuild after prompt edits, then execute after conversational confirmation. For
-Codex, use the same temporary Preview envelope and invoke the built-in capability
-directly without generation consent. Inspect and automatically import either
+document through its Skill, then follow [generation review routing](generation-review-routing.md).
+Panel mode uses Submit/consume and accepted-edit validation without Studio Preview;
+CLI/non-Codex sessions always deliver Studio Preview. Apply native prompt edits
+through the provider Skill. For Codex, use the same temporary envelope and the
+accepted native values without separate generation consent. Inspect and automatically import either
 output with exact safe generation provenance, without attachment confirmation.
 Manual or other external images omit generation provenance.
 

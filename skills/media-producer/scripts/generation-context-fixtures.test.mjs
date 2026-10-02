@@ -8,6 +8,8 @@ const { reports, fixtureIds } = JSON.parse(await fs.readFile(
 
 for (const [name, { report, text }] of Object.entries(reports)) {
   test(`generation briefing fixture ${name} preserves facts and resolves relationships`, () => {
+    assert.equal(report.workflowPolicy.codexGenerationReviewDisplayMode, 'inline');
+    assert.ok(text.includes('codexGenerationReviewDisplayMode: inline'));
     const assets = new Map(report.assets.map((asset) => [asset.id, asset]));
     assert.equal(assets.size, report.assets.length);
     for (const asset of assets.values()) {

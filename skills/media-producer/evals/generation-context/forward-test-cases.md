@@ -6,6 +6,17 @@ mutate a Project. Load current Media Producer and applicable purpose/provider
 guides. Use the same model, tool harness, provider guide and fixture facts for
 paired runs. Run each case three times, recording failures as well as successes.
 
+Fixtures expose the current default `workflowPolicy.codexGenerationReview: panel`.
+They also expose `workflowPolicy.codexGenerationReviewDisplayMode: inline`.
+For fullscreen comparisons, change that field in both report and readable text.
+Both display modes keep the same Submit/consume handoff and exclude automatic
+Studio Preview; a host-selected supported mode is not a handshake failure.
+Supply matching trusted host context and `generation.review.capabilities` results
+when a case proceeds to presentation. For Visualize-specific comparisons, set the
+returned preference to `visualize` explicitly in both structured and readable
+responses. Use the main forward-test matrix for hosting-interface behavior; a
+preparation-only briefing case does not prove native panel rendering.
+
 ## Controlled tool responses
 
 `fixtures.json` contains synthetic reports produced by the Studio Core test

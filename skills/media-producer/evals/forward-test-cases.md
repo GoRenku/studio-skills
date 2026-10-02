@@ -3,6 +3,45 @@
 See [generation briefing format and identity evaluations](generation-context/forward-test-cases.md)
 for controlled direct-reading, programmatic, dependency refresh and complete-context cases.
 
+## Review preference and host capability matrix
+
+Run preparation and mocked execution with both global preference values returned
+by `generation context`. Test image, audio and video purposes in Codex desktop,
+Codex CLI, Claude Code, Claude desktop and an unidentified interface. Desktop
+panel eligibility comes from the actual MCP capability response, never tool
+presence, model identity or environment variables.
+
+- Default panel: require standalone Validate, combined panel, turn yield, exact
+  Submit consumption, accepted edits and revised validation hash before Execute.
+  No automatic Studio Preview, Visualize template or second confirmation.
+- Explicit Visualize desktop: run the inline cases below and retain Project
+  displayPreview. A missing explicitly selected Skill stops with disclosure.
+- CLI/Claude/unidentified: require Studio Preview under either preference even
+  when Project displayPreview is false; failed mandatory delivery stops execution.
+- Missing probe in trusted desktop panel mode: stop with an integration
+  diagnostic. A known unavailable result selects mandatory Preview. Advertised
+  generic UI on a non-Codex client does not select the Codex panel.
+- Panel failure: no silent surface substitution or generation. Cancel,
+  reconfiguration and alreadyConsumed Submit never authorize execution. A model
+  change refreshes the same review only after selected-route preparation.
+- Built-in images: check image capability independently; panel mode still waits
+  for Submit, then uses accepted native values without Engines validation/receipt.
+
+Score observed artifacts and events using `generation-context/review-routing.mjs`.
+Automated tests verify this scorer; they are not evidence of autonomous live
+Skill compliance. Record actual host tests separately.
+
+## Packaged review display preference
+
+Return `workflowPolicy.codexGenerationReview: panel` and exercise omitted/default
+`codexGenerationReviewDisplayMode: inline` plus explicit `fullscreen`. In both
+cases require the same Validate/open/yield/Submit/consume sequence, no automatic
+Studio Preview, and no mode argument, browser launcher or forced fullscreen call
+from the Skill. The runtime supplies the configured preference to the host.
+Have the host choose the other supported mode and switch while the user edits;
+the review remains usable, preserves exact edits, and still requires Submit.
+Score actual rendering separately from protocol metadata and handoff events.
+
 ## Confirmed external generation and immediate playback
 
 Use mocked provider execution and attachment, never a paid call, for this suite.
@@ -45,6 +84,9 @@ CLI request fingerprint check in the real task.
 
 ## Inline configuration skill discovery
 
+Set `workflowPolicy.codexGenerationReview` to `visualize` in trusted Codex desktop
+for this suite. These cases do not define the default panel workflow.
+
 For cross-thread cache reuse, supply a previously stored compatible template
 and a new request with a different prompt and native control value. Require one
 `prepare-generation-configuration-visualization.mjs` invocation, a fresh result,
@@ -75,7 +117,8 @@ resolution and duration and verify exact native values in the resulting review
 document. Settings submission alone must not initiate the paid request before
 its resulting Preview and required generation confirmation. Then confirm and
 run the unchanged handoff case above. Also test a model change, a genuinely
-unavailable Visualize skill with explicit disclosure, and Codex built-in image
+unavailable Visualize skill with explicit disclosure and no silent substitution,
+and Codex built-in image
 generation where configuration remains optional unless requested.
 
 Also score a preparation-only run: reading Visualize twice and opening Studio
@@ -122,8 +165,9 @@ Exercise these journeys with deterministic fixture outputs before any live run:
 
 1. **Dependent sheet and hero with Codex defaults:** capture sheet context once,
    inspect/attach the sheet, then capture hero context once with the new Asset.
-   No redundant settings reads or unsolicited configuration/consent/attachment
-   pauses. Preserve exact output provenance and source linkage.
+   In panel mode require each combined review Submit; in Visualize mode preserve
+   the optional built-in settings policy. No redundant settings reads or separate
+   consent/attachment pauses. Preserve exact provenance and source linkage.
 2. **Explicit Preview and leave-unattached:** wait for requested review, read
    final edited values once, execute those values, and leave output unattached.
 3. **External route with fresh template:** reuse cache and route discovery;
@@ -161,9 +205,9 @@ Expected behavior:
 - authors a unique Codex review document under
   `tmp/operations/media-generation/` with the `chatgpt-images-2.5` family
   identity and no invented Flare or Sunburst variant;
-- skips inline configuration unless the user requested settings review;
-- opens Preview when policy requires it without pausing for generation consent,
-  even when `askBeforeGenerating` is enabled;
+- follows the host/preference matrix: default desktop panel waits for Submit
+  without Studio Preview; Visualize keeps optional built-in settings; CLI and
+  non-Codex sessions always deliver Studio Preview;
 - rereads the final prompt and invokes the built-in image capability directly;
 - inspects the output and attaches it with exact safe Codex provenance and no
   invented receipt or separate attachment confirmation;
@@ -174,10 +218,12 @@ Expected behavior:
 The user asks for an Edirne Palace Workroom location sheet and hero. Codex is
 selected, Preview and `askBeforeGenerating` are enabled, and `@Visualize` is
 available. The generated sheet has a visible furniture continuity issue.
+Run both global review preferences in eligible Codex desktop.
 
 Expected behavior:
 
-- prepares and generates the sheet without a settings or Generate confirmation;
+- prepares the sheet, completes its panel Submit or explicit Visualize path,
+  then generates without a duplicate confirmation;
 - inspects and attaches it with exact provenance, reporting the continuity
   concern without an Attach question or an unrequested corrective generation;
 - continues the requested hero using the inspected sheet and relevant context,
@@ -397,7 +443,8 @@ Expected behavior:
 
 ## inline-configuration-coverage — External providers and requested Codex configuration
 
-In Codex with `@Visualize` available, exercise one request from each purpose
+In Codex desktop with `codexGenerationReview: visualize` and `@Visualize`
+available, exercise one request from each purpose
 family in `purpose-coverage.json` before any review document is authored.
 
 Expected behavior:
@@ -411,8 +458,8 @@ Expected behavior:
   from the returned follow-up or explicit confirmation of unchanged values;
 - no purpose guide creates its own component shell, copied schema, or field
   registry; and
-- a non-Codex harness does not invent a browser substitute or callback and
-  continues with the existing conversational selection and Preview workflow.
+- a non-Codex harness uses conversational selection and mandatory Studio Preview,
+  regardless of Project displayPreview or global presentation preference.
 
 ## inline-configuration-cache — Fresh, expired, and changed schemas
 

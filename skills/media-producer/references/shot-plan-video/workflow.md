@@ -17,20 +17,20 @@ do not add repeated confirmation for unchanged already-authorized work.
    `generation models list` or explicit user direction. Prepare from the selected
    route and available bundled/personal advice using Media Producer's optional
    guidance rules; missing catalog keys or guides do not block preparation.
-5. For external generation in Codex, render the inline configuration through
-   `../inline-generation-configuration.md`: inspect the selected route's system
-   cache before fetching a live schema or generating template code, reuse a fresh
-   template/schema, and materialize this request's values. End the turn with its Visualize
-   content reference. Resume request authoring after the user accepts the
-   displayed settings. Reading the skill or fetching a schema is not rendering.
+5. Resolve [generation review routing](../generation-review-routing.md) using
+   the context's global preference and current host capabilities. Panel review
+   combines native settings with prompt and references; the explicit Visualize
+   desktop path retains its configuration-cache and acceptance workflow.
 6. Author one temporary review document from those settings with the exact
    provider-native request. Keep the Shot Plan id out of that envelope; it
    returns later only as weak attachment context. Configuration belongs in
    native provider fields, not Core.
-7. Validate and show Preview when policy or user direction requires it. Review
-   Prompt, References, and Configuration; rebuild the native request if the
-   user edits the prompt.
-8. Pause once for conversational confirmation when required, then follow the
+7. Complete the selected review path. Panel review uses Validate, opens and yields,
+   consumes Submit once and applies accepted edits without a Studio Preview.
+   CLI and non-Codex sessions always deliver Studio Preview, regardless of Project
+   displayPreview. Rebuild native prompt fields through the selected provider Skill.
+8. Panel Submit supplies the confirmation; Studio Preview paths pause once for
+   conversational confirmation when required. Then follow the
    shared execution path with Validate's `requestSha256`, without redundant validation.
 9. If a known provider request id survives an interruption, recover it rather
    than resubmitting. Present the returned video immediately, then inspect it
