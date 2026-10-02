@@ -1,6 +1,9 @@
 # Provider-Skill Media Generation Workflow
 
-Begin with `renku generation context --purpose <purpose> --target <target>`.
+For new Beat Storyboards, first complete the prerequisite check in
+`scene-storyboard-sheet.md`: resolve an unauthored visual language with the
+user and use `scene-beat-designer` to persist missing Beats.
+Then begin with `renku generation context --purpose <purpose> --target <target>`.
 For Scene Storyboards, add the exact `--revision` and repeated `--beat`
 scope. Use the returned typed Project/target context, Lookbooks, policy,
 guidance, suggestions, and warnings as the briefing before selecting a provider.

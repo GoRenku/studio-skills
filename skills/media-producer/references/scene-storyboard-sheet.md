@@ -18,6 +18,49 @@ progression, pace, and timing. They do not define production coverage, lenses,
 camera movement, rigs, lighting setups, or an edit plan; route that work to
 Shot Planner.
 
+## Prerequisite Check
+
+Complete this check before generation context, provider selection, prompt
+authoring, configuration, or image generation. Reuse verified current Project
+and prerequisite state from the calling skill; refresh missing or changed state.
+
+1. Read the Project's Storyboard Lookbook with
+   `renku lookbook show --kind storyboard --project <project-name> --json`
+   when its authored state is unknown. `CORE_LOOKBOOK_NOT_AUTHORED` means the
+   definition is missing. A Production Lookbook, existing Storyboard images,
+   or a preferred image provider does not supply that definition.
+2. If the definition is missing, explain the gap and ask whether the user
+   wants to create the Storyboard visual language themselves first or wants
+   the agent to propose one through `lookbook-designer`. Wait for their choice.
+   If they choose agent authoring, present a concrete visual direction and get
+   confirmation before applying it or generating its media. The initial
+   question may include a concrete proposal, so one reply can confirm both
+   agent authoring and that direction. Reuse an already confirmed direction;
+   do not ask again for the same decision. A broad
+   Storyboard request, a generic `continue`, Codex built-in availability, or
+   `askBeforeGenerating: false` does not confirm a visual-language proposal.
+   Never silently choose a medium or substitute Production Lookbook styling.
+3. Resolve each requested Scene and read
+   `renku screenplay beats context --scene <scene-id> --project <project-name> --json`
+   when its saved Beat state is unknown. Whole-screenplay coverage requires
+   checking every requested Scene; one Scene's revision does not establish
+   readiness for the others.
+4. If a Scene has no saved Beats for the requested revision, load
+   `scene-beat-designer/SKILL.md` and its Beat design, JSON contract, and CLI
+   workflow references before authoring. For first creation, use that workflow
+   to design and persist the narrative-appropriate Beats. Use its mutation
+   report's exact revision and Beat ids for the next step. Preserve existing
+   revisions; let the Beat workflow handle retained history, empty revisions,
+   or requested changes. Do not invent transient Beats in an image prompt or
+   write Beat JSON from this media recipe.
+
+While the visual-language choice is pending, read-only Scene and Beat checks
+may continue. Do not apply a Lookbook, author Beats, or prepare/generate images
+to advance this Storyboard request until that choice is resolved. Missing
+Lookbook **media** is distinct from a missing authored **definition**: with an
+authored definition, follow the reference guidance below. This is agent
+workflow guidance, not a Core creative-content validator.
+
 ## Required Workflow
 
 If the user names a production reference such as `Scene 22` or `22A`, resolve it
@@ -30,7 +73,8 @@ renku screenplay scene-number resolve --number <production-number> --json
 Use the returned durable `sceneId` in the attachment target and Scene Beats
 revision reads. Do not add a duplicate production-number field.
 
-1. Resolve the exact Scene Beats revision and requested Beat batch, then read
+1. After completing the prerequisite check, resolve the exact saved Scene
+   Beats revision and requested Beat batch, then read
    one complete deterministic briefing:
 
    ```bash
@@ -46,30 +90,32 @@ revision reads. Do not add a duplicate production-number field.
    images, and subject continuity suggestions.
 2. Inspect the returned candidates that are useful for this request. A current
    Storyboard Lookbook Sheet is usually the strongest appearance authority,
-   but its absence is a context gap rather than a Core blocker. The agent/user
-   may use another source or proceed without one after considering the tradeoff.
-4. Determine the exact requested or missing Beat ids. Scene Beat authoring may
+   but its absence is a context gap rather than a Core blocker. With an authored
+   Storyboard Lookbook definition, the agent/user may use another source or
+   proceed without a Sheet after considering the tradeoff. This does not permit
+   proceeding with an unauthored visual language.
+3. Determine the exact requested or missing Beat ids. Scene Beat authoring may
    contain any narrative-appropriate number of Beats. Do not add, remove,
    merge, split, pad, reorder, or rewrite Beats for image-generation cost.
-5. Partition only the requested saved Beats, in revision order, into
+4. Partition only the requested saved Beats, in revision order, into
    consecutive groups of at most four. The standard batch is the next four. A
    one-to-three-Beat batch is valid for the final remainder, an exact smaller
    subset requested by the user, or a real selected-path reference-capacity
    constraint. Never invent filler Beats or silently drop a needed reference.
-6. For each batch, use the returned exact narrative and continuity context, inspect
+5. For each batch, use the returned exact narrative and continuity context, inspect
    exact reference files, reason about visible action, stage each panel, and
    synthesize the provider prompt as described below.
-7. Use explicit user direction, then `workflowPolicy`, to choose the provider.
+6. Use explicit user direction, then `workflowPolicy`, to choose the provider.
    Choose a supported model and input mode conversationally, then read the
    provider's current native operation facts. An edit-capable provider route
    does not change this focused creation purpose to `image.edit`.
-8. Write one temporary review document per batch. Follow
+7. Write one temporary review document per batch. Follow
    [generation review routing](generation-review-routing.md): panel Submit without
    Studio Preview, or the selected Studio Preview path (mandatory outside Codex
    desktop). Validate Engines requests and apply the lane-specific authorization rules,
    reread before execution, rebuild native prompt
    fields after edits, then execute through the chosen lane.
-9. Follow `image-output-review.md`. Inspect and automatically attach the result
+8. Follow `image-output-review.md`. Inspect and automatically attach the result
     without output acceptance or attachment confirmation. Strict iterative review requires
     explicit user opt-in and a deliberately changed, newly reviewed request
     after a visual failure. For a one-Beat request, inspect the complete full-

@@ -155,6 +155,10 @@ Pass:
 - relevant Inspiration Analysis ids or folder ids;
 - the existing Lookbook id for the requested role when revising;
 - user visual preferences and exclusions.
+- when authoring a missing Storyboard Lookbook for an image request, the user's
+  choice to have the agent propose it and their confirmation of the proposed
+  visual direction before applying it. A general Storyboard request is not
+  permission to select a style.
 
 Verify:
 
@@ -255,10 +259,16 @@ Storyboard media handoff:
   and `image.edit` when one exact existing Beat image must remain the canvas
   except for named changes. New Storyboard generation alone is partitioned into
   consecutive image batches of up to four.
+- a saved Scene Beats revision and exact Beat ids must exist before image
+  preparation. Missing Beats route to Scene Beat Designer for authoring and
+  persistence; do not hand off an unsaved outline.
+- an unauthored Storyboard Lookbook pauses dependent work for the user's
+  choice between their own authoring and an agent proposal through Lookbook
+  Designer. Confirm the proposed direction before applying it.
 - the current Storyboard Lookbook document and one exact usable
-  `lookbook.storyboard-sheet` are required appearance inputs. Their absence
-  blocks Scene Storyboard generation and routes to Lookbook Designer; never
-  substitute Production Lookbook appearance.
+  `lookbook.storyboard-sheet` are required appearance inputs. Missing Sheet
+  readiness routes to Sheet preparation after the visual direction is
+  confirmed; never substitute Production Lookbook appearance.
 - Media Producer's focused Scene Storyboard guide owns prompt synthesis,
   continuity reference roles, the Project image-path setting, and
   one-pass visual QA.

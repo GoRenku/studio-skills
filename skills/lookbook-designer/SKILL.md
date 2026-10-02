@@ -61,6 +61,17 @@ below unless the task also changes the Lookbook definition.
 
 Ask only when a missing choice materially changes the Lookbook. If the user wants momentum, make a clear assumption and proceed.
 
+When a Storyboard image request exposes an unauthored Storyboard Lookbook,
+pause dependent work and ask whether the user wants to create the visual
+language themselves first or have you propose one. Wait for their choice. If
+they choose your proposal, present a concrete visual direction and obtain
+confirmation before `lookbook apply` or media generation. Include a concrete
+proposal in the initial question when available; one reply may confirm both
+agent authoring and that direction. Reuse an already confirmed direction.
+A broad Storyboard request, a generic `continue`, or a
+preference for momentum does not authorize choosing this Project direction;
+the assumption guidance above does not apply to this missing prerequisite.
+
 ## Project Preflight
 
 For an existing project:

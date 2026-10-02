@@ -125,6 +125,15 @@ Use this loop for every request:
 
 ## Specialist Ownership
 
+For new Beat Storyboards, read the Scene Beats to Storyboard playbook in
+`references/workflow-playbooks.md` before dispatch. If the Storyboard Lookbook
+is unauthored, ask whether the user wants to create it first or have
+`lookbook-designer` propose it, then wait for their choice and confirmation of
+the proposed direction. Do not assume a style from a broad Storyboard request
+or a generic `continue`. Check saved Beats for every requested Scene; dispatch
+missing Beat authoring to `scene-beat-designer` before Media Producer. Reuse
+existing confirmed direction and saved revisions.
+
 - Use `screenplay-drafter` for deterministic FDX import, screenplay creation,
   and screenplay revisions.
 - Use `screenplay-supporting-material-importer` to retain any supporting source

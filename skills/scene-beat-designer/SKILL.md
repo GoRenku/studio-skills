@@ -52,6 +52,17 @@ For storyboard generation from existing Beats, resolve the exact Scene, revision
 and requested Beat scope if unknown, then route directly to `media-producer`.
 Do not run the Beat-authoring workflow below unless the task also changes Beats.
 
+If the requested Scene has no saved Beats, a Storyboard request needs first
+Beat creation through the workflow below before Media Producer can prepare
+images. Load the Beat design, JSON contract, and CLI workflow references;
+persist the narrative-appropriate Beats and pass the returned revision and
+Beat ids unchanged. For whole-screenplay coverage, repeat this check for every
+requested Scene and reuse existing revisions. Retained history or an empty
+saved revision needs the owning Beat workflow's intent decision, not an
+automatic reset. Before dependent authoring for an image request, resolve an
+unauthored Storyboard Lookbook through Media Producer's prerequisite check;
+text-only Beat work does not require a Storyboard Lookbook.
+
 1. Resolve the current Project and exact Scene. For Studio focus, run
    `renku studio current --json`. For `Scene 22` or `22A`, run:
 

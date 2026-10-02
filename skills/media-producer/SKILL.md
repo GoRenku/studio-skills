@@ -64,6 +64,13 @@ source summaries, reuse of registered inputs, and Preview availability checks.
 
 ## Read the deterministic briefing first
 
+For new or materially recomposed Beat Storyboards, first complete the
+prerequisite check in [scene-storyboard-sheet.md](references/scene-storyboard-sheet.md).
+An unauthored Storyboard Lookbook requires the user's choice and confirmation;
+missing saved Scene Beats require `scene-beat-designer` before generation
+context, prompt authoring, configuration, or execution. A general request to
+create Storyboards does not authorize choosing the Project's visual language.
+
 For media generation from an existing Cast, Location, or Prop design, use this
 skill directly. Load `casting-director` or `production-designer` when the task
 also needs design authoring or revision; do not fetch department context to
@@ -112,7 +119,8 @@ carry it, stop before generation, explain that the request would become
 text-only, and ask whether the user wants that downgrade or another model.
 Missing Lookbook media does not invent a blocker: use the authored Lookbook
 definition as prompt direction, report the gap, and continue unless the user
-required visual-reference matching.
+required visual-reference matching. This does not waive the Storyboard
+prerequisite check when the Lookbook definition itself is unauthored.
 
 ## Choose the execution lane
 

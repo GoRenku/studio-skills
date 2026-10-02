@@ -72,13 +72,16 @@ Consult the relevant CLI reference/help once if syntax is unknown, then reuse ve
 7. If `generateSceneBeats` is enabled, dispatch `scene-beat-designer` for
    each Scene after its required project context is ready.
 8. If `generateBeatStoryboardImages` is enabled, dispatch
-   new `scene.storyboard-sheet` work only for Scenes that already have an active
-   Scene Beats revision. A later request to change an exact generated image is
-   a new Media Producer operation decision, not automatic Storyboard
-   regeneration.
+   new `scene.storyboard-sheet` work only after the visual-language check in
+   the Scene Beats to Storyboard playbook below and only for Scenes that
+   already have an active Scene Beats revision. A later request to change an
+   exact generated image is a new Media Producer operation decision, not
+   automatic Storyboard regeneration.
 
 Enabled stages continue without another “start this stage?” question after the
-user requested import. Disabled stages are not proactively dispatched. Explicit
+user requested import. An unauthored Storyboard visual language still requires
+the user's choice and confirmation below; an enabled stage is not that choice.
+Disabled stages are not proactively dispatched. Explicit
 task direction may override a stage for the current request without changing
 Project Settings. Analysis and continuity media may overlap after their own
 prerequisites; storyboard work never starts before its Scene has an active
@@ -116,14 +119,29 @@ overwrite.
 1. Read director context, preferably with a selected scene.
 2. A Production Lookbook may inform finished-film and production-planning work,
    but it is not an appearance input for Beat Storyboards.
-3. If no Storyboard Lookbook exists and Storyboard images are requested or
-   implied by a saved Scene Beats revision, dispatch to `lookbook-designer` to
-   create one unless the user explicitly asked for text-only/no-media work.
+3. For new Storyboard images, verify the Storyboard Lookbook's authored state.
+   If missing, explain the gap and ask whether the user wants to create the
+   visual language themselves first or have `lookbook-designer` propose it.
+   Wait for their choice. For agent authoring, present a concrete direction
+   and obtain confirmation before applying it or generating its media. The
+   initial question may include that proposal so one reply can confirm both
+   agent authoring and the direction. Reuse prior confirmation of that exact
+   direction. Do not choose a default style
+   from a general Storyboard request, a generic `continue`, or generation
+   settings. Read-only checks may continue during the pause; defer dependent
+   authoring and generation. Text-only Beat work does not require this choice.
 4. Require one exact usable `lookbook.storyboard-sheet` before Scene
    Storyboard generation. If it is missing, dispatch its preparation and
    acceptance; never substitute Production Lookbook styling or prose-only
    appearance guidance.
-5. If no active Scene Beats exists or the user asks to revise Beats, dispatch to `scene-beat-designer`.
+5. Check saved Beat state for every requested Scene, including each Scene in
+   whole-screenplay coverage. If no saved Beats exist for the requested
+   revision, load `scene-beat-designer` and its owning references, then use
+   that workflow to author and persist missing Beats before image preparation.
+   Reuse existing revisions unchanged unless the user requested Beat changes;
+   retained history and empty revisions go through the Beat workflow rather
+   than a silent reset. Route requested Beat revisions to `scene-beat-designer`
+   as well. A prose-only Beat outline is not a saved revision.
 6. If Storyboard images are missing after the Scene Beats pass, dispatch to
    `media-producer` with the exact unchanged revision id, missing Beat ids, and
    `scene.storyboard-sheet`. Media Producer alone batches requested image work

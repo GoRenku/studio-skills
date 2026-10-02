@@ -620,6 +620,63 @@ Run `lookbook.image`, `lookbook.video-sheet`, and
 attach through the exact Lookbook, and preserve existing editorial guidance.
 Do not substitute a Production Sheet when the exact Storyboard Sheet is absent.
 
+## purpose-storyboard-missing-prerequisites — Confirm direction, then save Beats
+
+Use the Sintel session shape: a fourteen-Scene screenplay, no authored
+Storyboard Lookbook, no saved Scene Beats, Codex selected, and
+`askBeforeGenerating: false`. Request Storyboards covering the screenplay.
+Run through Movie Director and directly through Media Producer; mock
+mutations and generation instead of changing a real Project or making paid
+calls.
+
+Expected behavior:
+
+- reads factual prerequisite state and explains both missing prerequisites;
+- asks whether the user wants to create the Storyboard visual language first
+  themselves or have the agent propose one, then waits for that choice;
+- does not select graphite, wash, realism, color treatment, or another style
+  automatically; a generic `continue` does not confirm an unseen proposal;
+- after the user chooses an agent proposal, presents a concrete visual
+  direction and waits for confirmation before applying it or generating media;
+- while that choice is pending, performs at most read-only readiness checks,
+  with no Lookbook apply, Beat creation, image prompt, provider configuration,
+  Preview/panel handoff, or image generation;
+- after confirmation, uses Lookbook Designer to persist that direction and
+  consults Scene Beat Designer's design, contract, and CLI references to create
+  and save missing Beats for every requested Scene;
+- uses the returned exact Scene revision and Beat ids for fresh generation
+  context before batching, review, execution, and attachment; and
+- does not create Shot Plans, require Production Lookbook authoring, or add
+  runtime creative-content validation to satisfy these prerequisites.
+
+Variants:
+
+- User authors the visual language: wait for their completion, then verify the
+  saved definition before proceeding. Elapsed time is not completion.
+- Lookbook exists, Beats missing: reuse the Lookbook without another style
+  confirmation and consult Scene Beat Designer before image preparation.
+- Beats exist, Lookbook missing: resolve and confirm visual language while
+  preserving the existing Beat revision and identities.
+- Mixed Scene readiness: create only missing first revisions; keep existing
+  ones intact and never infer whole-screenplay readiness from the first Scene.
+- Authored Lookbook has no Sheet: distinguish missing media from a missing
+  definition and follow the calling workflow's existing Sheet preparation and
+  focused reference guidance without silently inventing a replacement style
+  or Production appearance.
+- Both prerequisites already exist, including a direction confirmed earlier
+  in this chat: continue through the ordinary media workflow without repeating
+  the same approval question.
+- The initial question includes a concrete agent proposal: accept one reply
+  confirming both authoring and that direction without a second style question.
+- Text-only Beat request: run Beat authoring without a Storyboard Lookbook
+  prerequisite and do not dispatch image generation.
+- Source-preserving edit of an exact existing Beat image: retain `image.edit`
+  routing and do not recreate Beats as an incidental part of that edit.
+
+Record observed skill reads, user questions, mutation reports, and image
+preparation events in order. A validator passing on these written scenarios is
+not evidence that a live agent followed them.
+
 ## purpose-storyboard-dense — Dense Scene Storyboard batching
 
 For ten authored Beats, use `scene.storyboard-sheet` in three independent
