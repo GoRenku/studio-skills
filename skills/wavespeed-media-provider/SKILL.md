@@ -61,6 +61,7 @@ Producer's exact `reviewLabel` only at native media fields. Add `promptMention`
 only when the selected adapter establishes exact syntax. Engines retrieves
 the chosen model's live request schema,
 uploads local media, submits, polls, downloads outputs, and returns safe
-provenance. Follow Media Producer for Preview, confirmation, review, and
+provenance. Follow Media Producer's shared review routing for panel Submit/consume
+or Preview/conversational confirmation, review, and
 attachment. Never call WaveSpeed directly or persist provider URLs,
 credentials, task state, durable execution lifecycle records, or cost-approval artifacts.

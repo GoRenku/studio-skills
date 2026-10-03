@@ -17,7 +17,14 @@ The skills invoke that CLI through the agent's local shell tools.
 The split is deliberate: creative workflow guidance belongs here; domain
 validation and durable project mutations belong in Studio core. Changes to CLI
 commands or document contracts need coordinated updates in both repositories.
-The plugin does not bundle the Studio runtime.
+The plugin does not bundle the Studio runtime. Studio platform installers and
+both update paths install this Codex plugin from the `beta` marketplace channel
+when Codex CLI supports plugins, alongside the existing general skills picker.
+Development connections with advertised panel support use the panel without an
+installer record. Without a connection or installation record, Codex Desktop
+uses Visualize; other harnesses use Preview
+with conversation. See the canonical
+[generation review routing guide](skills/media-producer/references/generation-review-routing.md).
 
 ## Skill map
 

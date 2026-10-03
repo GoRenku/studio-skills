@@ -66,7 +66,8 @@ meaningful `reviewLabel`. Add `promptMention` only when the selected adapter
 explicitly establishes one; the initial adapter establishes none. Do not upload
 media yourself.
 
-Follow Media Producer for validation, Preview, conversational confirmation,
+Follow Media Producer's shared review routing for validation, panel Submit/consume
+or Preview/conversational confirmation,
 artifact review, and focused provenance attachment. After confirmation, follow
 the shared unchanged-document check and execute once; Execute validates before
 submission. Rebuild native prompt fields and revalidate only when edits require

@@ -5,21 +5,29 @@ for controlled direct-reading, programmatic, dependency refresh and complete-con
 
 ## Review preference and host capability matrix
 
-Run preparation and mocked execution with both global preference values returned
-by `generation context`. Test image, audio and video purposes in Codex desktop,
+Run preparation and mocked execution with all three global preference values
+and installation states returned by `generation context`. Test image, audio and video purposes in Codex desktop,
 Codex CLI, Claude Code, Claude desktop and an unidentified interface. Desktop
-panel eligibility comes from the actual MCP capability response, never tool
-presence, model identity or environment variables.
+routing uses trusted host context and probes the current Renku connection under
+`auto` or `panel`, even without installer state. The panel requires the actual
+MCP capability response and handshake. Never infer the
+host from tool presence, model identity or environment variables.
 
-- Default panel: require standalone Validate, combined panel, turn yield, exact
-  Submit consumption, accepted edits and revised validation hash before Execute.
+- Desktop with installed plugin and `auto` or `panel`: require standalone
+  Validate, combined panel, turn yield, exact Submit consumption, accepted edits and revised validation hash before Execute.
   No automatic Studio Preview, Visualize template or second confirmation.
 - Explicit Visualize desktop: run the inline cases below and retain Project
   displayPreview. A missing explicitly selected Skill stops with disclosure.
-- CLI/Claude/unidentified: require Studio Preview under either preference even
+- Development Desktop with installation flag false and advertised panel support:
+  require the combined panel for `auto` and `panel`, including built-in images,
+  audio, video and ordered batches; no automatic Preview even when displayPreview
+  is true. A working connection must not trigger installation or a state-file write.
+- Desktop without a probe or installation record: use Visualize under every
+  preference, including a saved panel preference; preserve Project displayPreview.
+- CLI/Claude/unidentified: require Studio Preview under every preference even
   when Project displayPreview is false; failed mandatory delivery stops execution.
 - Missing probe in trusted desktop panel mode: stop with an integration
-  diagnostic. A known unavailable result selects mandatory Preview. Advertised
+  diagnostic. A known unavailable result also stops, including without installer state. Advertised
   generic UI on a non-Codex client does not select the Codex panel.
 - Panel failure: no silent surface substitution or generation. Cancel,
   reconfiguration and alreadyConsumed Submit never authorize execution. A model
@@ -218,7 +226,7 @@ Expected behavior:
 The user asks for an Edirne Palace Workroom location sheet and hero. Codex is
 selected, Preview and `askBeforeGenerating` are enabled, and `@Visualize` is
 available. The generated sheet has a visible furniture continuity issue.
-Run both global review preferences in eligible Codex desktop.
+Run all global review preferences and both plugin installation states in Codex Desktop.
 
 Expected behavior:
 

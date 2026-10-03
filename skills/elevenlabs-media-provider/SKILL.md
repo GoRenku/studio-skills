@@ -66,7 +66,8 @@ non-default endpoint. This is sample retrieval, not TTS: do not add `text`,
 speech settings, or local reference media. Engines owns the authenticated
 download and returns normal audio generation provenance.
 
-Follow Media Producer for Preview and conversational confirmation. Engines owns
+Follow Media Producer's shared review routing for panel Submit/consume or
+Preview/conversational confirmation. Engines owns
 the ElevenLabs SDK call, retry, stream collection, output file, and safe
 provenance. Return the accepted output for focused media import or Cast Voice
 attachment. Voice browsing remains outside generic generation; supported

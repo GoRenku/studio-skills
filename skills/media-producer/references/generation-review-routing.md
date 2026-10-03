@@ -10,7 +10,7 @@ opening Preview themselves.
 Read `workflowPolicy.codexGenerationReview` from the current
 `renku generation context --purpose <purpose> --target <target>` report (use
 `--json` when processing it in code). It is the global Renku config preference,
-`panel` or `visualize`, and defaults to `panel`. Do not read config files directly,
+`auto`, `panel` or `visualize`, and defaults to `auto`. Do not read config files directly,
 add a Project setting, or infer the preference from previous tasks. Invalid
 configuration must be corrected before preparation.
 
@@ -24,36 +24,37 @@ between inline and fullscreen. Do not force fullscreen, open a second review,
 invoke a browser launcher, or substitute Visualize because the host uses the
 other supported mode. This setting does not change Preview or spending policy.
 
-Distinguish the hosting interface from the model. A Codex model, a `.codex`
-directory, environment variables, a CLI executable, or an installed Visualize
-Skill does not establish that the conversation can display a panel.
+Read `workflowPolicy.codexPluginInstalled` from the same context report. Core
+supplies the installer-recorded flag; it does not describe the current MCP
+connection. A development machine or manually connected plugin may have no
+installer record. Do not inspect Codex caches, write installation state, or
+run an installer to enable a review.
+Establish the current host from trusted harness context. A Codex model, a
+`.codex` directory, environment variables or a CLI executable does not establish
+Codex Desktop hosting. Unidentified hosts use Preview with conversation.
 
-When available, call `generation.review.capabilities` on the current Renku MCP
-connection. It returns the initialized `client` identity and `panel.status`:
+| Current host | Renku connection / installation record | Global preference | Configuration/review | Studio Preview |
+| --- | --- | --- | --- | --- |
+| Codex Desktop | Current probe advertises panel support, with either installation flag | `auto` or `panel` | Combined generation panel | Never automatic |
+| Codex Desktop | Any | `visualize` | Visualize configuration | Project `displayPreview` or explicit request |
+| Codex Desktop | No probe and installation flag false | `auto` or `panel` | Visualize configuration | Project `displayPreview` or explicit request |
+| Codex Desktop | Probe unavailable/failed, or no probe with installation flag true | `auto` or `panel` | Stop with an integration diagnostic | Never automatic |
+| Codex CLI, Claude, other or unidentified interface | Any | Any | Conversational configuration | Always |
 
-- `advertised`: the client is `codex-mcp-client` and advertises
-  `io.modelcontextprotocol/ui` with MIME `text/html;profile=mcp-app`. This allows
-  trying the panel; it does not prove successful rendering or message delivery.
-- `unavailable`: use conversational configuration and mandatory Studio Preview.
-  This includes Codex CLI, Claude Code, Claude desktop and unidentified hosts.
+In trusted Codex Desktop with `auto` or `panel`, call
+`generation.review.capabilities` whenever that tool is available on the current
+Renku MCP connection, including when `codexPluginInstalled` is false. The
+initialized `codex-mcp-client` identity and `panel.status: advertised` select
+the panel. Tool presence alone never proves support or rendering. A failed
+probe, `unavailable` capability, missing probe with installation flag true, or
+failed panel handshake is an integration failure: report it and stop. Do not
+automatically open Visualize or Preview as a second review. Only a missing probe
+with installation flag false selects Visualize under `auto` or `panel`.
 
-| Current host | Global preference | Configuration/review | Studio Preview |
-| --- | --- | --- | --- |
-| Codex with advertised panel support | `panel` | Combined generation panel | Never automatic |
-| Trusted Codex desktop context | `visualize` | Visualize configuration | Project `displayPreview` or explicit request |
-| Codex CLI, Claude, other or unidentified interface | Either | Conversational configuration | Always |
-
-For `panel`, a missing probe in a trusted Codex desktop session is an incomplete
-plugin connection: report it and stop; do not silently switch surfaces. If no
-trusted desktop context or probe exists, treat the host as unidentified and use
-mandatory Studio Preview. If a current probe says `unavailable`, that result
-takes precedence over an inferred desktop context.
-
-For `visualize`, use trusted desktop context or the current Codex UI advertisement
-to establish desktop eligibility, then discover Visualize in the available Skill
-catalog and read its full `SKILL.md`. A tool-name search is not discovery. If the
-explicitly selected Visualize Skill is unavailable, report the limitation and
-stop instead of silently substituting another review surface. Follow
+For Visualize, discover it in the available Skill catalog and read its full
+`SKILL.md`. Visualize is available in Codex Desktop; do not add a separate
+availability detector. If loading or rendering the selected workflow fails,
+report it and stop. Follow
 [inline-generation-configuration.md](inline-generation-configuration.md), keeping
 its optional configuration policy for Codex built-in images.
 

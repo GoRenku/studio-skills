@@ -269,9 +269,12 @@ remain governed by their existing rules.
 Read and follow
 [references/generation-review-routing.md](references/generation-review-routing.md)
 before configuring or delivering any review. Read
-`workflowPolicy.codexGenerationReview` from the CLI generation context and query
-the current connection's `generation.review.capabilities` when available.
-The global preference defaults to `panel`; it is not a Project setting.
+`workflowPolicy.codexGenerationReview` and `workflowPolicy.codexPluginInstalled`
+from the CLI generation context. The global preference defaults to `auto`;
+it is not a Project setting. Follow the canonical routing guide for trusted host
+context and the current connection's `generation.review.capabilities`. Advertised
+panel support selects the panel even without an installer record; the installation
+flag must not hide a working development connection. Verify the panel handshake.
 Also read `workflowPolicy.codexGenerationReviewDisplayMode`: `inline` (default)
 or `fullscreen`. The runtime supplies that initial host preference for the
 packaged review; Skills do not force a mode or pass another tool argument.

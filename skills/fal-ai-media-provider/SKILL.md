@@ -63,7 +63,8 @@ For Seed Audio, place one local audio marker per selected speaker sample in the
 native `audio_urls` array and follow `adapters/seed-audio.md` for exact
 `@AudioN` mention ordering. Never send more than three local voice references.
 
-Follow Media Producer for pre-Preview validation and conversational confirmation.
+Follow Media Producer's shared review routing for validation and confirmation:
+panel Submit/consume, or Preview/conversation only when that routing selects it.
 After confirmation, an unchanged prepared request goes directly to
 `renku generation execute`, which validates before submission. Follow the shared
 changed-document procedure when edits require preparation. Use

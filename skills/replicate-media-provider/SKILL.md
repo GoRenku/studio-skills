@@ -64,6 +64,7 @@ Engines retrieves the selected model's
 live input schema, uploads local files, submits, polls, retries eligible
 failures, downloads outputs, and returns safe provenance.
 
-Follow Media Producer for Preview, confirmation, artifact review, and focused
+Follow Media Producer's shared review routing for panel Submit/consume or
+Preview/conversational confirmation, artifact review, and focused
 attachment. Never call Replicate directly or persist provider URLs, tokens,
 prediction state, durable execution lifecycle records, or cost-approval artifacts.

@@ -1,12 +1,14 @@
 // Evaluate observed review/CLI outcomes across hosting interfaces, not tool-name mentions.
-export function assessReviewRouting({ host, preference, panelStatus, displayPreview, engines = true, events }) {
+export function assessReviewRouting({ host, preference, codexPluginInstalled, panelStatus, displayPreview, engines = true, events }) {
   const issues = [];
   const count = (type) => events.filter((event) => event.type === type).length;
   const at = (type) => events.findIndex((event) => event.type === type);
-  const panel = host === 'codex-desktop' && preference === 'panel' && panelStatus === 'advertised';
-  const visualize = host === 'codex-desktop' && preference === 'visualize' && panelStatus !== 'unavailable';
-  const incomplete = host === 'codex-desktop' && preference === 'panel' && panelStatus === 'missing';
-  const preview = !panel && !incomplete && (!visualize || displayPreview);
+  const panel = host === 'codex-desktop' && preference !== 'visualize'
+    && (codexPluginInstalled || panelStatus === 'advertised'
+      || panelStatus === 'unavailable' || panelStatus === 'failed');
+  const visualize = host === 'codex-desktop' && !panel;
+  const incomplete = panel && panelStatus !== 'advertised';
+  const preview = !panel && (!visualize || displayPreview);
 
   if (at('context-read') < 0) issues.push('missing-context-preference');
   if (panel && at('capabilities-read') < 0) issues.push('missing-capability-check');
