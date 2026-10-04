@@ -27,7 +27,7 @@ This applies to every image, audio, and video purpose, including exact edits.
 Respect both command and enclosing tool
 output limits; print readable output directly, without JSON-stringifying it.
 Recover truncation from the captured file, not another context call. In JSON,
-retain the top-level `assets` inventory when resolving reference identities.
+retain the top-level `assetFiles` inventory when resolving reference identities.
 Structured extraction does not replace reading the complete creative briefing.
 The Media inventory is part of that briefing even when references have already
 been chosen. Selecting a subset of references does not authorize skipping its
@@ -480,9 +480,11 @@ let `generation context` supply the complete related graph.
 
 - `project.cover` targets `project`; `image.create` targets the destination
   `shot-plan:<id>` selected by the image-operation workflow.
-- `image.edit` context targets the exact source `asset:<id>`; an accepted output
-  attaches through the user's chosen focused destination.
-- `video.edit` context and attachment target the exact source `asset:<id>`.
+- `image.edit` context targets the exact source `assetFile:<id>`; an accepted output
+  becomes a new unselected AssetFile in the source's owning collection. This
+  applies to every active image, including Inspiration and research images.
+  Preserve the original and its selection; do not choose another destination.
+- `video.edit` context and attachment target the exact source `assetFile:<id>`.
   The accepted output is a separate source-derived video Asset beside the
   source and never replaces or auto-selects it.
 - Lookbook media targets `lookbook:<id>`.

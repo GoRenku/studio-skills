@@ -8,7 +8,7 @@ and use its exact normalized Project-relative path. Do not invent generation
 provenance, an Asset id, or an Asset File id.
 
 For a localized revision of a registered image, use `image.edit` targeting
-`asset:<asset-id>`. Resolve and inspect the exact source file, then place its
+`assetFile:<asset-file-id>`. Resolve and inspect the exact source file, then place its
 local-file marker in the selected provider endpoint's real native source-media
 field. Optional Cast, Location, Lookbook, and Additional references are chosen
 from current domain context and placed in their actual native request fields.

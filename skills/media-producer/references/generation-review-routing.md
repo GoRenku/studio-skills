@@ -136,15 +136,26 @@ while retaining user-authored intent. When it does not change, preserve the exac
 prompt and schema-compatible native values. Preserve chosen references in order;
 if the selected route cannot accept them, report the issue instead of dropping them.
 
-Write and validate the replacement request, then call `generation.review` with
-the same `reviewId`, `expectedRevision` from the consumed action, and the complete
-ordered request set using the original file bindings. Leave unrelated source
-files unchanged. Replace the selected route's controls and schema-derived initial
-values; do not carry incompatible controls across models. End the turn again.
+Write the replacement request to a new, separate JSON file under
+`tmp/operations/media-generation/` and validate that staged file. Keep every
+currently bound source file byte-for-byte unchanged, including the selected
+request's prepared file. Then call `generation.review` with the same `reviewId`,
+`expectedRevision` from the consumed action, and the complete ordered request set.
+Use the staged `reviewFile` and validation's `expectedRequestSha256` for only the
+selected request; retain all other file bindings. Replace the selected route's
+controls and schema-derived initial values; do not carry incompatible controls
+across models. The server adopts the staged file only after the update passes
+validation. Use the newly bound file returned by subsequent consumed actions.
+End the turn again.
 
 If preparation fails, refresh the same review with `project`, `reviewId`,
 `expectedRevision`, and `preparationFailure` containing structured diagnostics
 instead of `requests`. Keep the error in that review and wait for a new choice.
+Leave the failed candidate separate from the prepared source. The user can retry,
+choose another model, return to the prepared model, or cancel. To return to the
+unchanged prepared model, consume that reconfiguration and refresh the review
+using its existing file, routes and controls; do not rewrite the file or discard
+the preserved user draft edits. Editing and Submit stay locked until ready.
 Expired/stale connection state requires a fresh review and fresh acceptance;
 never replay an accepted action after reconnecting.
 

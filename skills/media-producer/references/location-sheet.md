@@ -12,8 +12,8 @@ output guidance, and relationship-derived suggestions.
 
 Read the briefing directly using the shared format-choice rule in `workflow.md`.
 The Media section supplies exact files; Reference Suggestions supplies their
-roles. In JSON, resolve candidate `assetId` and `assetFileId` through top-level
-`assets`. Lookbook `images` and `sheets` retain placement metadata and `assetId`;
+roles. In JSON, resolve candidate `assetFileId` through top-level
+`assetFiles`. Lookbook `images` and `sheets` retain placement metadata and `assetFileId`;
 individual images retain their authored `sections` and `points`.
 
 Use `location.hero` for the compact Location overview image. Core suggests 16:9

@@ -118,7 +118,7 @@ generation purpose is introduced. Durable provenance belongs to the Asset;
 request/receipt/QA working files remain in categorized project `tmp/`.
 When a submitted derivative changes master timing, retain its source revision and
 exact time map in the take's existing Asset summary through `--summary` on import
-(or `renku asset update <asset-id> --project <name> --summary <text>`). For example:
+(or `renku asset update <asset-file-id> --project <name> --summary <text>`). For example:
 “Previs revision 3; 17s→15s, submitted time = master time × 15/17.” This survives
 tmp cleanup without extra folders, provider fields or a new metadata schema.
 

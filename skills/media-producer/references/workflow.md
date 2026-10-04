@@ -76,25 +76,25 @@ intent; it is distinct from common Asset display selection.
    resolving safe file markers in order. Do not retype the prompt into a second
    tool-call literal. This rule covers every destination, not only sheets.
 
-The readable Media section contains each Asset and its files once. Reference
+The readable Media section contains each retained AssetFile once. Reference
 Suggestions distinguishes role, subject, availability, display selection, and
-workflow selection. In JSON, resolve each candidate's `assetId` and `assetFileId`
-through `assets`; subject `assetIds`, Shot `imageAssetIds`, Lookbook `assetId`,
-and Voice `sampleAssetId` refer to the same inventory. Preserve opaque
+workflow selection. In JSON, resolve each candidate's `assetFileId`
+through `assetFiles`; subject `assetFileIds`, Shot `imageAssetFileIds`, Lookbook `assetFileId`,
+and Voice `sampleAssetFileId` refer to the same inventory. Preserve opaque
 `voiceIdentity` when the provider needs it. Full designs remain in `activeDesign`
-with `activeDesignId`; exact edit and Shot targets use `assetId` and `shotId`.
+with `activeDesignId`; exact edit and Shot targets use `assetFileId` and `shotId`.
 Suggestions are not the full media inventory: other returned alternatives remain
 usable. A changed task or Project state may justify another read; a routine
 text-then-JSON sequence to discover missing fields should not be necessary.
 
-Use the mutation report's `valid`, `asset.id`, and `asset.files` to confirm a
+Use the mutation report's `valid`, `assetFile.id`, and `assetFile` to confirm a
 media import. It does not expose display selection. When confirming an imported
 Hero's selected state, capture `renku asset list --project <project-name>
 --owner location:<location-id> --json` once and compare its top-level
-`selectedAssetId` with the imported `asset.id`. Print that comparison, not the
+`selectedAssetFileId` with the imported `assetFile.id`. Print that comparison, not the
 full Asset history. For other selectable owners use their exact owner syntax;
 Location Sheets have no global selection. A focused selection command already
-returns `selectedAssetId`, so it needs no extra list call. Do not search Asset
+returns `selectedAssetFileId`, so it needs no extra list call. Do not search Asset
 properties or department context for selection flags.
 
 Generation context
@@ -154,7 +154,13 @@ one unique JSON document under `tmp/operations/media-generation/`:
 
 `request` is the exact native provider input. Its contents remain opaque to
 Core and Studio. A local file is encoded only at the native file/URL field as
-`{"$file":"<registered-AssetFile-projectRelativePath>","mimeType":"image/png","reviewLabel":"Meaningful context label"}`.
+`{"$file":"<reference-projectRelativePath>","mimeType":"image/png","reviewLabel":"Meaningful context label"}`.
+Use an active registered AssetFile path. Inspiration uploads and migrated images
+are registered automatically; downloaded images must be imported through
+`asset import` before review. Nested Inspiration
+files, discarded Inspiration images/folders, non-image Inspiration files, and
+symlinks to unrelated files are unavailable. Check the review diagnostics before
+describing references as ready.
 Add `promptMention` only when the selected provider adapter documents exact
 provider-visible syntax. Derive any ordinals from the final native request
 order. Canonical model guides remain provider-neutral. Do not add a Renku
@@ -401,3 +407,25 @@ Use this structure rather than opening another Asset's historical recipe as a
 format example. Inspect and copy the generated file, prepare provenance when
 needed, and import in one shell operation where practical; check each operation
 succeeded before the next. Visual inspection still precedes attachment.
+
+## Register downloaded reference files
+
+Downloading into the Project does not complete an import. Stage temporary media
+under `tmp/`, then register the chosen set in one Core-owned command before using
+it as retained reference media:
+
+```bash
+renku asset import --project <project-name> \
+  --file <batch-json-path> --json
+renku asset import --project <project-name> \
+  --owner project --source tmp/reference.wav --json
+```
+
+The batch document is `{ "destination": { "kind": "inspiration", "folderId": "<folder-id>" }, "files": [{ "sourceProjectRelativePath": "tmp/reference.png", "title": "Optional authored title" }] }`.
+Folder imports accept supported images; project imports retain research files.
+Use the returned `assetFiles` records and their canonical `id` and
+`projectRelativePath`. In-place adoption of an unchanged file is idempotent.
+Changed bytes, a discarded file, or a different owner at the same retained path
+require an explicit new import from a separate staged source. Reading a preview
+never registers a file. Folder rename preserves file IDs; resolve current paths
+again after a rename. Titles may be null: do not invent names from filenames.

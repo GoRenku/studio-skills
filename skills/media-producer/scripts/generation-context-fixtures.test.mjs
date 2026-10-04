@@ -10,16 +10,16 @@ for (const [name, { report, text }] of Object.entries(reports)) {
   test(`generation briefing fixture ${name} preserves facts and resolves relationships`, () => {
     assert.equal(report.workflowPolicy.codexGenerationReviewDisplayMode, 'inline');
     assert.ok(text.includes('codexGenerationReviewDisplayMode: inline'));
-    const assets = new Map(report.assets.map((asset) => [asset.id, asset]));
-    assert.equal(assets.size, report.assets.length);
+    const assets = new Map(report.assetFiles.map((asset) => [asset.id, asset]));
+    assert.equal(assets.size, report.assetFiles.length);
     for (const asset of assets.values()) {
       assert.equal('generationProvenance' in asset, false);
     }
     for (const group of report.suggestedReferences) {
       for (const candidate of group.candidates) {
-        const asset = assets.get(candidate.assetId);
+        const asset = assets.get(candidate.assetFileId);
         assert.ok(asset);
-        const file = asset.files.find((entry) => entry.id === candidate.assetFileId);
+        const file = asset;
         assert.ok(file);
         assert.ok(text.includes(file.projectRelativePath));
       }
@@ -27,9 +27,9 @@ for (const [name, { report, text }] of Object.entries(reports)) {
     function inspect(value, key = '') {
       if (typeof value === 'string') {
         assert.ok(text.includes(value), `${name}: missing authored value or identity ${key}`);
-        if (['assetId', 'sampleAssetId'].includes(key)) assert.ok(assets.has(value));
+        if (['assetFileId', 'sampleAssetFileId'].includes(key)) assert.ok(assets.has(value));
       } else if (Array.isArray(value)) {
-        if (['assetIds', 'imageAssetIds'].includes(key)) {
+        if (['assetFileIds', 'imageAssetFileIds'].includes(key)) {
           for (const id of value) assert.ok(assets.has(id));
         }
         value.forEach((entry) => inspect(entry, key));
@@ -55,16 +55,16 @@ test('behavioral inputs include alternatives, voices, exact edit files and chang
     assert.equal(entries.filter((voice) => voice.isDefault).length, 1);
     assert.equal(entries[0].voiceIdentity.settings.rate, 0);
   }
-  assert.equal(reports.edit.report.assets[0].files.length, 2);
+  assert.equal(reports.edit.report.assetFiles.length, 2);
   const selected = (report) => report.suggestedReferences
     .filter((group) => group.role === 'dialogue-audio')
     .flatMap((group) => group.candidates.filter((candidate) => candidate.isWorkflowSelected));
   assert.equal(selected(reports.video.report).length, 2);
   assert.equal(selected(reports.videoAfterSelection.report).length, 1);
   assert.ok(selected(reports.video.report).every((candidate) =>
-    !selected(reports.videoAfterSelection.report).some((other) => other.assetId === candidate.assetId)));
-  assert.ok(!reports.locationBefore.report.assets.some((asset) => asset.id === fixtureIds.newLocationSheet));
-  assert.ok(reports.locationAfter.report.assets.some((asset) => asset.id === fixtureIds.newLocationSheet));
+    !selected(reports.videoAfterSelection.report).some((other) => other.assetFileId === candidate.assetFileId)));
+  assert.ok(!reports.locationBefore.report.assetFiles.some((asset) => asset.id === fixtureIds.newLocationSheet));
+  assert.ok(reports.locationAfter.report.assetFiles.some((asset) => asset.id === fixtureIds.newLocationSheet));
 });
 
 test('large-output evals can expose aggregate clipping while retaining a complete capture', () => {
@@ -88,8 +88,8 @@ test('structured reference resolution needs the inventory and preserves exact fi
     for (const group of report.suggestedReferences) {
       for (const candidate of group.candidates) {
         assert.equal(candidate.projectRelativePath, undefined);
-        const asset = report.assets.find((entry) => entry.id === candidate.assetId);
-        const file = asset.files.find((entry) => entry.id === candidate.assetFileId);
+        const asset = report.assetFiles.find((entry) => entry.id === candidate.assetFileId);
+        const file = asset;
         assert.equal(typeof file.projectRelativePath, 'string');
         assert.equal(file.id, candidate.assetFileId);
       }

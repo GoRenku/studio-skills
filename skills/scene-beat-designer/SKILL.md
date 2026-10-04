@@ -11,9 +11,9 @@ This skill requires the installed Renku runtime. If `renku` is unavailable, stop
 
 Use `--project <project-name>` on screenplay beats commands when the project is known. Read current Beat context once; list/show only for missing revision detail. Create, reset, and apply validate before writes. Separate validation is for validation-only intent or a review pause; retain a meaningful apply --dry-run when reviewing a proposed change. Use returned exact revision and Beat identities for the next step. Refresh context after relevant edits or intervening user review, and keep Storyboard/media review separate.
 
-When requesting visual references, resolve their `assetId` and `assetFileId`
+When requesting visual references, resolve their `assetFileId` and `assetFileId`
 through `visualReferences.assets`. Lookbook placements retain their annotations
-and `assetId`; reference groups retain roles, subjects, and selection facts.
+and `assetFileId`; reference groups retain roles, subjects, and selection facts.
 
 Consult the relevant CLI reference/help once if syntax is unknown, then reuse verified syntax for this task. Do not discover syntax by attempting mutations. Do not invent `project list`. If a known permission denial blocks cache/output/config or local-network access, explain the requirement and use the authorized host permission flow; do not repeat the denied attempt, read secrets, disable cache persistence, or change permissions. `CLI026` means the mutation succeeded: report the notification warning without replaying the mutation.
 

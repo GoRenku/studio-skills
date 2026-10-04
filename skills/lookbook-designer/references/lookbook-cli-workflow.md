@@ -39,7 +39,7 @@ renku lookbook show --kind <production|storyboard> --project <project-name> --js
 
 7. Import example images after files exist in the project. Selection may be
    atomic with import; placement remains separate. `media import` returns
-   `asset.id` for common selection and `ownerRecord.id` for Lookbook placement.
+   `assetFile.id` for common selection and `ownerRecord.id` for Lookbook placement.
    Tag each image with the clearest style aspect it demonstrates so Studio can
    show it next to the right widget. Production aspects are `thesis`, `palette`, `toneMood`,
    `composition`, `lighting`, `texture`, `camera`. Storyboard aspects are
@@ -88,7 +88,7 @@ Keep `--select` only when the imported image should become the Lookbook's
 canonical card image. For an existing candidate, use its common Asset id:
 
 ```bash
-renku asset select --project <project-name> --target lookbook:<lookbook-id> --asset <asset-id> --json
+renku asset select --project <project-name> --target lookbook:<lookbook-id> --asset-file <asset-file-id> --json
 renku asset clear-selection --project <project-name> --target lookbook:<lookbook-id> --json
 ```
 

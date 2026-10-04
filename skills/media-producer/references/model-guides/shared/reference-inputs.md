@@ -38,9 +38,9 @@ full briefing before making these creative choices; do not filter it in code.
 
 The briefing's Media inventory supplies complete current Asset/File facts once.
 Reference Suggestions preserves their distinct roles and selection facts. For
-programmatic JSON use, resolve `assetId` and `assetFileId` through `assets`;
-do not infer identity from a title or path. Voice `sampleAssetId`, Lookbook
-`assetId`, subject `assetIds`, and Shot `imageAssetIds` use that same inventory.
+programmatic JSON use, resolve `assetFileId` through `assetFiles`;
+do not infer identity from a title or path. Voice `sampleAssetFileId`, Lookbook
+`assetFileId`, subject `assetFileIds`, and Shot `imageAssetFileIds` use that same inventory.
 
 Use current direction to decide what to preserve and change:
 

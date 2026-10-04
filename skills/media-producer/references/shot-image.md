@@ -41,4 +41,4 @@ Use the same provenance contract for every generated output. Keep
 `--select` when the accepted output should become the Shot's current image.
 Omit it only when the user wants another unselected candidate. To choose a
 previously imported candidate, use `renku asset select --project <project>
---target shot:<shot-id> --asset <asset-id> --json`.
+--target shot:<shot-id> --asset-file <asset-file-id> --json`.

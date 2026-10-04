@@ -273,7 +273,7 @@ as pass/fail. A smaller response never compensates for incorrect references.
   Actual eval stops before provider execution or durable writes. Missing creative
   documents and unavailable alternatives are evidence gaps, not blanket blockers.
 
-For exact edit, verify `targetContext.assetId` and `asset_file_eval_alternate`;
+For exact edit, verify `targetContext.assetFileId` and `asset_file_eval_alternate`;
 never substitute the display-selected profile. For dialogue compare identity
 objects deeply, including false, zero, null and string `007`. For video compare
 all selected Take ids and their individual ranges, including overlap. For the

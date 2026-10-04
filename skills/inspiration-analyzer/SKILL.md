@@ -28,7 +28,7 @@ QA images, downloads, crops, or scratch files at the Project root.
 
 Use this skill to analyze a Renku Studio Inspiration folder as a cinematographer-focused visual reference study.
 
-The folder already exists in a Renku Studio project. Renku owns the folder metadata and persisted analysis JSON. The image files inside the folder are plain filesystem content: inspect them with normal shell commands, not with Renku asset commands.
+The folder already exists in a Renku Studio project. Renku owns the folder metadata and persisted analysis JSON. The image files have folder-owned AssetFile records. Inspect their exact stored bytes with normal shell commands; use the registered IDs and paths from the folder resource.
 
 ## Start Here
 
@@ -113,7 +113,7 @@ renku inspiration analysis show --folder <folder-id> --project <project-name> --
 
 - Do not download images from FilmGrab or the web for this workflow.
 - Do not write directly to `.renku/project.sqlite`.
-- Do not register Inspiration images as assets or create per-image database records.
+- Do not write per-image database records directly. Use `asset import` for new downloads; existing uploads and migrated files are already registered.
 - Do not store absolute paths in the JSON document.
 - Do not use project-relative paths in `imageFiles`; use folder-local filenames.
 - Core validates the write before persistence. Separate `validate` is required only for validation-only intent or a review pause.

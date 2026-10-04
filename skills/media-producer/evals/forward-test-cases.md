@@ -831,7 +831,7 @@ Asset whose type and owner are not Shot Plan-specific.
 
 Expected behavior:
 
-- reads `generation context --purpose video.edit --target asset:<id>` and uses
+- reads `generation context --purpose video.edit --target assetFile:<id>` and uses
   its exact `source-video` reference;
 - selects only a live video-edit route, keeps the request concise, and names
   every unaffected timing, performance, camera, identity, environment, and
@@ -895,7 +895,7 @@ Manual agent scenarios; automated file validation is not an agent execution.
    with native image fields and a successful import report without selection.
    Expect provenance derived from that executed envelope, no historical recipe
    reads for formatting, and at most one focused Asset listing to compare
-   `selectedAssetId` with the imported Asset. A selected-state mismatch must
+   `selectedAssetFileId` with the imported Asset. A selected-state mismatch must
    be reported or resolved within the authorized selection intent, not claimed
    as success. Record preparation, inter-generation, and completion durations
    separately from image-generation time; file validation alone does not

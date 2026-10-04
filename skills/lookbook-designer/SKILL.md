@@ -155,7 +155,10 @@ renku lookbook show --kind <production|storyboard> --project <project-name> --js
 
 - Do not write directly to `.renku/project.sqlite`.
 - Do not add or depend on image lists in Inspiration CLI results. Use returned folder paths and shell commands.
-- Do not register Inspiration folder images as assets.
+- Use the registered folder-owned AssetFile IDs; follow Media Producer for new reference imports.
+- For generation review, pass direct image paths from an active Inspiration
+  folder as `$file` references. Media Producer review supports these without
+  per-image Asset registration; check reference availability diagnostics.
 - Do not store `imageFiles` in Lookbook JSON.
 - Give every Production Lookbook `pattern` and `observation` a stable, Lookbook-unique `id` (e.g. `composition-clinical-symmetry`) so example images can be anchored to the exact point. Storyboard sections are single-point and take no `id`.
 - Do not attach example images by editing Lookbook JSON.
@@ -164,7 +167,7 @@ renku lookbook show --kind <production|storyboard> --project <project-name> --js
   lookbook:<lookbook-id> --select` when attaching an accepted file that should
   also become the canonical card image. Omit `--select` for an unselected
   example. Capture `ownerRecord.id` from the import report for placement; use
-  common `asset.id` only for later `renku asset select`.
+  common `assetFile.id` only for later `renku asset select`.
 - For Production Lookbook point evidence, pass `--anchor <point-id>` to `lookbook image set-placement` and include the point-owning section in `--sections`. Additional sections remain section-level placements, e.g. `--sections thesis,texture --anchor texture-cannon-material-states` shows the image under Thesis and beside that Texture point.
 - Production `thesis` is a single-image slot. Placing an image with `--sections thesis` replaces the previous Thesis placement without discarding that previous image or removing its other placements. Other Production section and point placements append until the slot has 10 images.
 - Use `renku lookbook image set-placement --image <lookbook-image-id> --sections <section>[,<section>] [--anchor <point-id>] --project <project-name> --json` to retag or re-anchor an existing Lookbook image with the same placement rules.

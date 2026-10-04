@@ -159,7 +159,7 @@ Rules:
 - Attach generated examples with `renku media import --purpose lookbook.image
   ... --select` when canonical card selection is part of the accepted intent,
   then use its returned `ownerRecord.id` with `renku lookbook image
-  set-placement`. Use the common `asset.id` only for a later `renku asset
+  set-placement`. Use the common `assetFile.id` only for a later `renku asset
   select`. Use `--sections thesis` for Production thesis hero evidence and
   `--anchor <point-id>` to pin an image to a specific pattern or observation
   when the point-owning section is included in `--sections`.

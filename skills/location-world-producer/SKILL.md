@@ -138,7 +138,7 @@ renku location world show --location <location-id> --json
 renku asset select \
   --project <project-name> \
   --target location-world:<location-id> \
-  --asset <location-world-asset-id> \
+  --asset-file <location-world-asset-file-id> \
   --json
 ```
 

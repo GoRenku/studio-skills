@@ -65,7 +65,7 @@ for a generic Project image with no more specific current purpose.
 For a source-preserving edit:
 
 - use `purpose: image.edit`;
-- target the exact source Asset;
+- target the exact source AssetFile;
 - pass the exact source AssetFile path through the selected provider's native
   source-image field; and
 - use revise-source prompt guidance.
@@ -97,14 +97,15 @@ Renku execution.
 
 ## Resolve the exact source
 
-An `image.edit` request requires a registered source Asset and AssetFile.
+An `image.edit` request requires one registered image AssetFile. All active
+image AssetFiles can be edited, including Inspiration and research images.
 
 - If the requested source is already registered, resolve and inspect that exact
   file from current context.
 - If it is an unattached candidate produced in the current workflow and its
   focused destination is already known, import it there as an unselected
   candidate with its exact generation provenance, report that durable
-  registration, then use the returned Asset and AssetFile as the edit source.
+  registration, then use the returned AssetFile as the edit source.
   Requesting an edit chooses the candidate as a source; it does not select it as
   canonical output.
 - If registration would require choosing an unknown destination or another
@@ -113,7 +114,11 @@ An `image.edit` request requires a registered source Asset and AssetFile.
 
 ## Attach the generated result
 
-After inspection, automatically import the edited result through the focused
-image destination chosen for that result. The destination purpose and owner are
-independent from the edit source. Preserve the exact generation provenance and
-apply that destination's ordinary selection rules.
+After inspection, attach the edited result with `image.edit` targeting the exact
+source AssetFile. Core creates a new unselected AssetFile in the same owning
+collection, preserving the original and its selection. An edited Inspiration
+image appears in the same Inspiration folder; a research edit stays beside its
+source. Preserve the exact generation provenance, including the original image
+input. Do not overwrite the original, choose a different destination, or use a
+focused creation purpose to attach the edit. Users may delete the old image
+afterward if they want.

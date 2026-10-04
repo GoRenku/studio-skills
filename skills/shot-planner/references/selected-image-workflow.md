@@ -35,9 +35,9 @@ Omit `--select` only when the accepted output should remain an unselected
 candidate. To choose a previously imported candidate, use:
 
 ```bash
-renku asset select --project <project-name> --target shot:<shot-id> --asset <asset-id> --json
+renku asset select --project <project-name> --target shot:<shot-id> --asset-file <asset-file-id> --json
 renku asset clear-selection --project <project-name> --target shot:<shot-id> --json
-renku shot-plan shot image discard --shot-plan <plan-id> --shot <shot-id> --asset <asset-id> --json
+renku shot-plan shot image discard --shot-plan <plan-id> --shot <shot-id> --asset-file <asset-file-id> --json
 ```
 
 Discarding the selected candidate clears the Shot selection. Do not add a

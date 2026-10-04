@@ -67,5 +67,5 @@ Codex-generated files. Omit it for external files with no generation provenance.
 Keep `--select` when the image should become the Lookbook's canonical card
 image. Omit it for an unselected example. To choose an existing Lookbook Image,
 use `renku asset select --project <project> --target lookbook:<lookbook-id>
---asset <asset-id> --json`; use the separate `ownerRecord.id` only for
+--asset-file <asset-file-id> --json`; use the separate `ownerRecord.id` only for
 placement.

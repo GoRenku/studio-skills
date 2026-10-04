@@ -129,7 +129,7 @@ the revision from the clip and validates its relationship to the supplied target
 For an already attached file, use:
 
 ```bash
-renku shot-plan clip take add --project <project> --clip <id> --asset <asset-id> --asset-file <file-id> --title "Initial" --json
+renku shot-plan clip take add --project <project> --clip <id> --asset-file <file-id> --title "Initial" --json
 ```
 
 Use `clip take update --take <id> --title <text>` for a short authored label and
