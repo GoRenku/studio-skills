@@ -39,5 +39,7 @@ renku media import --purpose cast.profile --target cast:<cast-member-id> --sourc
 Use the same provenance contract for Codex-generated files. Omit provenance
 for external files with no generation provenance. Omit `--select` only
 when the user explicitly wants an additional unselected Profile candidate.
+Core automatically selects the first active Profile when it is attached;
+additional candidates preserve the current selection unless `--select` is used.
 Always include `--summary` for a generated Profile and describe its useful
 appearance in concise human-readable card copy.

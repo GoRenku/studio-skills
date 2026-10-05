@@ -85,7 +85,9 @@ Use the same `--provenance` contract for Codex-generated files. Omit provenance
 flags for external files with no generation provenance. Location Sheets are
 request-scoped candidates and never use global selection. Omit Hero
 `--select` only when the user explicitly wants an additional unselected Hero
-candidate. Keep `--summary` for generated
+candidate. Core automatically selects the first active Location Hero when it is
+attached; additional candidates preserve the current selection unless `--select`
+is used. Keep `--summary` for generated
 media. Describe the visible variant or continuity role rather than repeating a
 reference name or tag. Do not crop a Location Sheet into runtime-owned
 directional slices. Temporary flat-image crops for World Labs belong only to

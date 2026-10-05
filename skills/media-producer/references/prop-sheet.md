@@ -47,6 +47,8 @@ renku media import --purpose prop.hero --target prop:<prop-id> --source <path> -
 
 Prop Sheets are request-scoped and never use global selection. Use `--select`
 for a Hero only when the user accepts it as the current compact Prop image.
+Core automatically selects the first active Prop Hero when it is attached;
+additional candidates preserve the current selection unless `--select` is used.
 Keep `--summary` for generated media. Describe
 the visible variant or continuity role rather than repeating a reference name
 or tag. Never reparent a Location Asset or automatically promote generated
