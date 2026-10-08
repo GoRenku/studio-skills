@@ -8,8 +8,8 @@ To contribute to this repository, read [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Relationship to Studio
 
-This repository supplies the Renku agent plugin. Codex provides the agent
-harness; the separately installed
+This repository supplies Renku's Claude/Codex plugins and skills for other
+compatible agents. The separately installed
 [Studio runtime](https://github.com/GoRenku/studio) provides the `renku` CLI,
 project context and storage, generation engines, and browser visualization app.
 The skills invoke that CLI through the agent's local shell tools.
@@ -18,18 +18,15 @@ The split is deliberate: creative workflow guidance belongs here; domain
 validation and durable project mutations belong in Studio core. Changes to CLI
 commands or document contracts need coordinated updates in both repositories.
 The plugin does not bundle the Studio runtime. Studio platform installers and
-both update paths install this Codex plugin from the repository's default branch
-when Codex CLI supports plugins, alongside the existing general skills picker.
-After skill installation, Studio verifies the Codex plugin and disables matching
-installer-managed standalone Renku skills in Codex only. Shared skill files and
-other harnesses' copies are retained; future plugin updates supply Codex's active
-Renku skills. When native Claude Desktop is detected on Mac or Windows, Studio
-also installs the Claude `renku@renku` plugin at user scope and excludes Claude
-from loose-skill selection. Open Desktop's Code tab once before setup, then start
-a new local Code session and use `/renku:movie-director`. No separate Claude CLI
-on PATH is required. Existing loose skills are retained. Without Desktop, Claude
-Code remains available in the general skills picker. This targets local Code,
-not Claude Desktop's account-managed Skills interface or Cowork.
+both update paths install the Codex and Claude plugins automatically when a
+compatible CLI or desktop runtime is available. No generic skills tool or agent
+picker is bundled. Existing loose skill files and their settings are retained.
+Claude setup prefers a compatible terminal CLI, otherwise Desktop's cached Code
+runtime, and installs `renku@renku` once at user scope. For Desktop-only setups,
+open its Code tab once before setup. Start a new local Code session and use
+`/renku:movie-director`. This targets local Code, not Cowork.
+Other harnesses use the [separate installation guide](https://gorenku.com/agent-skills/)
+and choose an explicit agent and project/global scope.
 Studio keeps Claude's marketplace checkout under its installation directory and
 refreshes it during `renku update` or `renku update skills`. Plugin releases must
 bump `.claude-plugin/plugin.json`'s version so Claude loads the updated content.
@@ -38,6 +35,44 @@ installer record. Without a connection or installation record, Codex Desktop
 uses Visualize; other harnesses use Preview
 with conversation. See the canonical
 [generation review routing guide](skills/media-producer/references/generation-review-routing.md).
+
+## Install skills for other agents
+
+For Cursor and other agents, install the skills yourself using the independent
+[skills tool](https://github.com/vercel-labs/skills). Install
+[Renku Studio](https://gorenku.com/download/) first and confirm `renku about`
+works in a terminal. You also need your own Node.js/npm and Git installation;
+Renku's private tools are not added to your terminal PATH. Your agent must
+support local command execution and Agent Skills.
+
+The examples below use Cursor. Replace `cursor` with your agent's identifier
+from the [supported agents list](https://github.com/vercel-labs/skills#supported-agents).
+Keep the agent selection explicit instead of selecting all agents. `npx` may
+download the skills tool and ask for confirmation.
+
+For one project, open a terminal in the folder your agent will work in and run:
+
+```bash
+npx skills add GoRenku/studio-skills --agent cursor --skill '*' --copy
+```
+
+Choose project scope if prompted, review the destination, and confirm. Keep
+your agent working in that folder so it can discover the installed skills.
+
+For all projects, add `--global` if your agent supports global installation:
+
+```bash
+npx skills add GoRenku/studio-skills --agent cursor --skill '*' --copy --global
+```
+
+The `--copy` option installs regular files instead of symbolic links. Start a
+new agent conversation, check that the skills are available, and begin with
+`movie-director` through your agent's skill interface.
+
+To update, rerun the same command with the same agent and scope; for project
+skills, run it from the same project folder. Renku's update commands manage
+Claude/Codex plugins; they do not update skills installed for other agents. See the
+[website guide](https://gorenku.com/agent-skills/) for more details.
 
 ## Skill map
 
