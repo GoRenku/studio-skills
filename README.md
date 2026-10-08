@@ -18,8 +18,21 @@ The split is deliberate: creative workflow guidance belongs here; domain
 validation and durable project mutations belong in Studio core. Changes to CLI
 commands or document contracts need coordinated updates in both repositories.
 The plugin does not bundle the Studio runtime. Studio platform installers and
-both update paths install this Codex plugin from the `beta` marketplace channel
+both update paths install this Codex plugin from the repository's default branch
 when Codex CLI supports plugins, alongside the existing general skills picker.
+After skill installation, Studio verifies the Codex plugin and disables matching
+installer-managed standalone Renku skills in Codex only. Shared skill files and
+other harnesses' copies are retained; future plugin updates supply Codex's active
+Renku skills. When native Claude Desktop is detected on Mac or Windows, Studio
+also installs the Claude `renku@renku` plugin at user scope and excludes Claude
+from loose-skill selection. Open Desktop's Code tab once before setup, then start
+a new local Code session and use `/renku:movie-director`. No separate Claude CLI
+on PATH is required. Existing loose skills are retained. Without Desktop, Claude
+Code remains available in the general skills picker. This targets local Code,
+not Claude Desktop's account-managed Skills interface or Cowork.
+Studio keeps Claude's marketplace checkout under its installation directory and
+refreshes it during `renku update` or `renku update skills`. Plugin releases must
+bump `.claude-plugin/plugin.json`'s version so Claude loads the updated content.
 Development connections with advertised panel support use the panel without an
 installer record. Without a connection or installation record, Codex Desktop
 uses Visualize; other harnesses use Preview
