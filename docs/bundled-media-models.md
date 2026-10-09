@@ -82,6 +82,7 @@ model.
 | --- | --- | --- | --- | --- | --- |
 | Seed Audio 1.0 | Speech | Speech | Speech | — | — |
 | MiniMax Speech 2.8 HD | — | — | — | Speech | — |
+| Eleven v4 | — | — | — | — | Speech |
 | Eleven v3 | — | — | — | — | Speech |
 | Eleven Multilingual v2 | — | — | — | — | Speech |
 | Eleven Turbo v2.5 | — | — | — | — | Speech |
