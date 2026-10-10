@@ -238,7 +238,7 @@ it as receipt evidence while preserving the authored prompt unchanged.
 | `scene.storyboard-sheet` | `scene-storyboard-sheet.md` |
 | `shot.image` | `shot-image.md` |
 | all `shot-plan.video-*` purposes | `shot-plan-video/index.md`, then `shot-plan-video/workflow.md` |
-| `shot-plan.dialogue-audio` | `shot-plan-dialogue-audio.md`, then `model-guides/shared/audio-and-voice.md` and the canonical audio model guide |
+| `shot-plan.dialogue-audio` | `shot-plan-dialogue-audio.md`, then `model-guides/shared/audio-and-voice.md` and the canonical audio model guide; also `dialogue-direction-panels.md` for eligible Codex Desktop requests |
 | `video.edit` | `video-reference-continuity.md`, then the canonical video edit guide |
 
 For every video workflow, also read
@@ -268,7 +268,11 @@ remain governed by their existing rules.
 
 Read and follow
 [references/generation-review-routing.md](references/generation-review-routing.md)
-before configuring or delivering any review. Read
+before configuring or delivering any review. Eligible Codex Desktop dialogue
+audio requests open a fullscreen
+[dialogue direction panel](references/dialogue-direction-panels.md) whose
+Generate click is the execution approval, independent of the review
+preferences below. Read
 `workflowPolicy.codexGenerationReview` and `workflowPolicy.codexPluginInstalled`
 from the CLI generation context. The global preference defaults to `auto`;
 it is not a Project setting. Follow the canonical routing guide for trusted host

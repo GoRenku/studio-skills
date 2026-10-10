@@ -23,7 +23,13 @@ later changes.
 Accept one Turn number (`3`) or one consecutive range (`2-4`). If the user asks
 for disjoint Turns, stop and ask them to split the request into separate Takes.
 Seed Audio and ElevenLabs may both generate a one-Turn Take. Multi-Turn
-generation uses Seed Audio.
+generation uses Seed Audio or Eleven v4 Dialogue
+(`eleven_v4/text-to-dialogue`).
+
+In trusted Codex Desktop, an eligible request opens a dialogue direction panel
+instead of this conversational configuration; follow
+[dialogue-direction-panels.md](dialogue-direction-panels.md). Every other host
+and route continues with the sections below.
 
 ## Purpose-specific configuration
 
@@ -49,13 +55,18 @@ controls only to express delivery; do not rewrite the dialogue.
 
 For ElevenLabs, the selected Cast Voice must contain a usable opaque identity
 owned by the provider Skill. Never infer or invent a voice id from Cast notes.
+For a multi-Turn Eleven v4 Dialogue Take, every speaker needs such a voice; write
+one input per Turn in screenplay order as the ElevenLabs provider Skill
+describes.
 
 For Seed Audio:
 
 - select one Cast Voice sample per distinct speaker and place the local markers
-  in `audio_urls` order;
-- mention those references as `@Audio1`, `@Audio2`, and `@Audio3` in the same
-  order;
+  in the provider's ordered reference field (`audio_urls` on Fal.ai and Pika,
+  `audios` on WaveSpeed);
+- on Fal.ai and Pika, mention those references as `@Audio1`, `@Audio2`, and
+  `@Audio3` in the same order; on WaveSpeed, describe each voice in plain text
+  as its provider adapter guide directs;
 - preserve screenplay order and make each speaker assignment explicit;
 - stop and ask the user to narrow or split the request when it contains more
   than three distinct speakers;
@@ -90,7 +101,10 @@ The new Take is an independent Media Card. Its stored facts are only the Shot
 Plan, inclusive Turn range, exact file, selection state, and generation
 provenance. It is not automatically combined with any other Take.
 
-Selection is multi-select and user-owned. Re-read Generation Context after
+A newly imported Take becomes selected. Each Turn has at most one selected
+Take: selecting a Take, including by import, clears the selection of any other
+Take in the Shot Plan whose Turn range overlaps it. Takes that cover different
+Turns stay selected together. Re-read Generation Context after
 attachment when the next video request depends on audio references. Selected
 single-Turn and multi-Turn Takes remain exact, separate reference URLs; never
 concatenate them or infer a preferred combination.

@@ -1,9 +1,9 @@
 # ElevenLabs Speech Prompt Guide
 
-Use this guide for the currently bundled routes Eleven v4, Eleven v3, Eleven
-Multilingual v2, and Eleven Turbo v2.5. The transcript is spoken content: keep
-authored words, names, numbers, and language exact unless the user asks for a
-rewrite. Voice selection and supported voice settings are request
+Use this guide for the currently bundled routes Eleven v4, Eleven v4 Dialogue,
+Eleven v3, Eleven Multilingual v2, and Eleven Turbo v2.5. The transcript is
+spoken content: keep authored words, names, numbers, and language exact unless
+the user asks for a rewrite. Voice selection and supported voice settings are request
 configuration; do not replace them with prose instructions in the transcript.
 
 ## Documented model differences
@@ -44,6 +44,24 @@ stability or style. A direction like “read this warmly” placed in the transc
 may be spoken aloud; it is not a substitute for an available setting or a
 version-supported inline tag.
 
+## Eleven v4 Dialogue
+
+The `eleven_v4/text-to-dialogue` route turns several screenplay lines into one
+multi-speaker audio file. Write one input per screenplay line, in order, and
+put the v4 tags each line needs inside that line's own text rather than relying
+on a tag from an earlier input. Use at most 10 distinct voices, and keep the total
+text of all inputs under about 2,000 characters, splitting longer ranges into
+separate Takes. An interruption can only be shown by cutting a line off with
+punctuation, such as an em dash, followed by the next speaker's input; there is
+no overlap control. Send the model through the exact route id; the provider
+default is still v3. The only dialogue settings are `stability` and
+`similarity`, shared by every line.
+
+```text
+[cold, quiet] Then the empire is suffocating—
+[cutting in, urgent] Not yet. Not while the foundry breathes.
+```
+
 ## Prompt examples and repairs
 
 The examples below are original and have not been generated or tested.
@@ -82,7 +100,10 @@ lipsync workflow; pacing cues in TTS are not an exact edit timeline.
 
 Eleven v4 behavior is documented by ElevenLabs in [Eleven v4](https://elevenlabs.io/docs/overview/capabilities/text-to-speech/eleven-v4)
 and [Models](https://elevenlabs.io/docs/overview/models) (both accessed
-2026-10-09). The model-specific controls above are documented by ElevenLabs: [Prompting
+2026-10-09). Eleven v4 Dialogue limits are documented in [Text to
+Dialogue](https://elevenlabs.io/docs/overview/capabilities/text-to-dialogue)
+and the [Text to Dialogue API reference](https://elevenlabs.io/docs/api-reference/text-to-dialogue/convert)
+(both accessed 2026-10-09). The model-specific controls above are documented by ElevenLabs: [Prompting
 Eleven v3](https://elevenlabs.io/docs/best-practices/prompting) (accessed
 2026-09-30) and [pause guidance](https://elevenlabs.io/docs/help-center/product/core-capabilities/text-to-speech/how-can-i-add-pauses)
 (accessed 2026-09-30). The [TTS guide](https://elevenlabs.io/docs/overview/capabilities/text-to-speech/best-practices)

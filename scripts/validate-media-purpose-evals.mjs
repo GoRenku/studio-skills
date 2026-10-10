@@ -35,6 +35,8 @@ const required = [
   'multi-select', 'consecutive Turn range', 'three distinct speakers',
   'prompt expansion', '2,048 characters', 'audio-capable',
   'audio-incapable', '360p', '4K', 'continuation',
+  'dialogue.direction.eleven-v4.open', 'dialogue.direction.seed-audio.open',
+  'promptMentions: none', 'alreadyConsumed', 'dialogue.direction.report',
 ];
 const missingPurposes = requiredPurposes.filter((purpose) => !coverage.purposes?.[purpose]);
 const missingEvalIds = Object.values(coverage.purposes ?? {}).filter(

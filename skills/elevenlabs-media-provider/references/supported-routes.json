@@ -3,6 +3,7 @@
   "routes": [
     { "apiId": "voice-sample-audio", "name": "ElevenLabs Voice Sample" },
     { "apiId": "eleven_v4", "name": "Eleven v4" },
+    { "apiId": "eleven_v4/text-to-dialogue", "name": "Eleven v4 Dialogue" },
     { "apiId": "eleven_v3", "name": "Eleven v3" },
     { "apiId": "eleven_multilingual_v2", "name": "Eleven Multilingual v2" },
     { "apiId": "eleven_turbo_v2_5", "name": "Eleven Turbo v2.5" },

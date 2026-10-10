@@ -719,8 +719,10 @@ consecutive Turn range. Show the transient Codex configuration component, start
 from Project Settings and default Cast Voices, preserve exact screenplay text,
 inspect the result, and attach one independent Take with `media import
 --turns`. Exercise one-Turn generation with both ElevenLabs and Seed Audio and
-one multi-Turn Seed Audio request. Never combine outputs or create durable Turn
-relations.
+one multi-Turn request each with Seed Audio and Eleven v4 Dialogue. Never
+combine outputs or create durable Turn relations. Eligible Codex Desktop routes
+use the dialogue direction panel cases below instead of the configuration
+component.
 
 ## inline-audio-configuration — Shared configuration, visible values, and exact handoff
 
@@ -767,7 +769,7 @@ Expected behavior:
 ## dialogue-audio-selection — Multi-select exact Takes
 
 The Shot Plan has three active Takes: one selected single-Turn Take, one
-unselected duplicate, and one selected multi-Turn Take.
+unselected duplicate, and one selected multi-Turn Take covering other Turns.
 
 Expected behavior:
 
@@ -789,6 +791,72 @@ Expected behavior:
 - asks the user to narrow a range with more than three distinct speakers;
 - asks the user to narrow or split oversized prompt or duration requests; and
 - never truncates text, omits a reference, or invents a voice from prose.
+
+## dialogue-direction-routing — Eligible Codex requests open a dialogue direction panel
+
+Run `shot-plan.dialogue-audio` requests in trusted Codex Desktop with an
+advertised `generation.review.capabilities` probe for: ElevenLabs `eleven_v4`
+on one line and on a range; Seed Audio 1.0 on Fal.ai, WaveSpeed and Pika; and
+each with `codexGenerationReview` set to `auto`, `panel` and `visualize` and
+`codexGenerationReviewDisplayMode` set to `inline` and `fullscreen`. Repeat the
+same requests in Codex CLI, Claude Code, Claude desktop and an unidentified
+host, and an Eleven v3 request in Codex Desktop.
+
+Expected behavior:
+
+- Codex Desktop with an eligible route reads the context, then calls exactly
+  one opening tool and ends the turn: `dialogue.direction.eleven-v4.open` for
+  ElevenLabs with `route` `{ provider: elevenlabs, speechModel: eleven_v4,
+  rangeModel: eleven_v4/text-to-dialogue }`, or
+  `dialogue.direction.seed-audio.open` for Seed Audio with `speechModel` equal
+  to `rangeModel`;
+- the Seed Audio panel sets `promptMentions: audio-tags` for Fal.ai and Pika,
+  whose drafts mention `@Audio1`–`@Audio3`, and `promptMentions: none` for
+  WaveSpeed, whose drafts contain no `@AudioN`;
+- the opening inputs match the documented shape exactly: one consecutive
+  `turnRange`, an `initialSelection` inside it, Eleven acting scripts for every
+  line exactly once with suggested tags and 0–1 voice settings, and a
+  `speakers` entry per speaker listing only compatible Cast Voices (ElevenLabs
+  opaque identities for Eleven v4, voices with sample files for Seed Audio);
+- the panel opens under `visualize` and under either display mode; no
+  combined generation review, Visualize component, Studio Preview or
+  display-mode argument appears;
+- Eleven v3 in Codex Desktop, and every request on the other hosts, keeps the
+  existing review routing and conversational flow unchanged, with no
+  dialogue direction tool call; and
+- screenplay words in every draft stay exact.
+
+## dialogue-direction-handoff — Consume, request, execute, import, report
+
+Post a panel Generate message for one Eleven v4 line, one Eleven v4 range of
+three lines with two speakers, and one Seed Audio range on Fal.ai and on
+WaveSpeed. Use mocked execution. Then repeat one message after it was handled,
+and make one execution fail.
+
+Expected behavior:
+
+- events occur in this order: `dialogue.direction.consume` once with the
+  message's session and action ids, native request written under
+  `tmp/operations/media-generation/`, `generation validate`,
+  `generation execute` with the validated hash, `media import --purpose
+  shot-plan.dialogue-audio --turns` with the draft's range, then
+  `dialogue.direction.report` with `status: attached` and the imported Take id;
+- the one-line Eleven request uses the consumed `eleven_v4` model with `text`,
+  `voice` and `voice_settings { stability, similarity_boost }`; the range uses
+  `eleven_v4/text-to-dialogue` with one `inputs` entry per line in order and
+  `settings { stability, similarity }`; voices come only from Cast Voice
+  opaque identities;
+- the Seed request keeps the draft prompt exactly and orders sample markers by
+  `voiceReferences` position, in `audio_urls` with `@AudioN` mentions on Fal.ai
+  and in `audios` without mentions on WaveSpeed;
+- no confirmation question, combined review, Visualize component or Studio
+  Preview occurs between consume and execute: the Generate click is the
+  approval;
+- an `alreadyConsumed` result authorizes nothing and produces no execute,
+  import or report;
+- the failed execution produces no import and one report with
+  `status: failed` and a user-readable message; and
+- the imported Take becomes selected, clearing any overlapping selected Take.
 
 ## dialogue-audio-capability — Two audio-capable families and one audio-incapable route
 

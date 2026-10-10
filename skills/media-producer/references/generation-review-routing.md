@@ -5,6 +5,18 @@ images. It owns presentation selection; provider Skills continue owning native
 request authoring and execution. Purpose guides inherit this routing rather than
 opening Preview themselves.
 
+## Dialogue direction panels come first
+
+In trusted Codex Desktop, a `shot-plan.dialogue-audio` request on ElevenLabs
+`eleven_v4` or `eleven_v4/text-to-dialogue`, or on Seed Audio 1.0 through
+Fal.ai, WaveSpeed or Pika, opens a fullscreen dialogue direction panel instead
+of the combined review when the current `generation.review.capabilities` probe
+advertises panel support. Follow
+[dialogue-direction-panels.md](dialogue-direction-panels.md). This rule does not
+depend on `codexGenerationReview` or `codexGenerationReviewDisplayMode`; it
+applies under `auto`, `panel` and `visualize`. Every other host, route and
+purpose uses the selection below unchanged.
+
 ## Select the review surface once
 
 Read `workflowPolicy.codexGenerationReview` from the current

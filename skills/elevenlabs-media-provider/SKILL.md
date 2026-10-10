@@ -1,6 +1,6 @@
 ---
 name: elevenlabs-media-provider
-description: Author and execute supported ElevenLabs speech or music requests for Renku Media Producer. Use for direct audio generation, not voice browsing or Cast Voice attachment ownership.
+description: Author and execute supported ElevenLabs speech, dialogue, or music requests for Renku Media Producer. Use for direct audio generation, not voice browsing or Cast Voice attachment ownership.
 ---
 
 # ElevenLabs Media Provider
@@ -48,7 +48,8 @@ operation's current request facts for native fields and constraints.
 The installed ElevenLabs integration exposes schema inspection only for voice
 sample retrieval. Generic speech/music schema inspection is unavailable; report
 that limitation when schema-driven configuration needs it. Do not invent a local
-schema. Compatible TTS requests can use their exact model string, while music
+schema. Compatible TTS requests can use their exact model string, multi-speaker
+dialogue uses the exact `eleven_v4/text-to-dialogue` route, while music
 retains the fixed `music_v1` execution path. A personal music entry cannot enable
 another music protocol. Such a request needs separate provider work, not a guide
 or paid activation check. Final validation and execution remain authoritative.
@@ -59,6 +60,17 @@ Voice's opaque identity when it has `provider: "elevenlabs"` and a non-empty
 `voiceId`; otherwise stop rather than inventing one. For music, author exact
 `prompt` and optional native duration/instrumental fields. Local-media markers
 are unsupported.
+
+For `eleven_v4/text-to-dialogue`, author this native input:
+`{ inputs: [{ text, voice }], settings?: { stability, similarity }, output_format?, language_code?, seed? }`.
+Write one `inputs` entry per screenplay line, in screenplay order, with that
+line's exact words and any inline delivery tags in its `text`. Each `voice` is
+the speaker's Cast Voice opaque identity `voiceId` with `provider: "elevenlabs"`,
+resolved exactly as for speech; stop rather than inventing one. Use at most 10
+distinct voices; Engines rejects more. `settings` accepts only `stability` and
+`similarity`, each 0 to 1, and is not the speech `voice_settings` object. Do not
+add other top-level fields or local-media markers. Engines sends model
+`eleven_v4` for this route and records the route id in provenance.
 
 For `voice-sample-audio`, author `voiceId` from the same opaque Cast Voice
 identity and optional `apiBaseUrl` only when the user deliberately selected a
