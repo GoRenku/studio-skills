@@ -17,6 +17,18 @@ depend on `codexGenerationReview` or `codexGenerationReviewDisplayMode`; it
 applies under `auto`, `panel` and `visualize`. Every other host, route and
 purpose uses the selection below unchanged.
 
+## Image edit panels come first
+
+In trusted Codex Desktop, when the current `generation.review.capabilities`
+probe advertises panel support, every `image.edit` request that matches several
+images shows the inline image chooser, whatever the model. The edit itself
+opens the fullscreen FLUX 3 Image Edit panel, instead of the combined review,
+when the route is `blackforestlabs/flux-3/edit-image` on Fal.ai; that route is
+the default whenever a Fal.ai key is saved (`renku credentials status`) and
+the user named no other model or provider, whatever the saved Image provider. Follow [image-edit-panels.md](image-edit-panels.md). Like the dialogue
+panels, this rule does not depend on `codexGenerationReview` or
+`codexGenerationReviewDisplayMode`.
+
 ## Select the review surface once
 
 Read `workflowPolicy.codexGenerationReview` from the current

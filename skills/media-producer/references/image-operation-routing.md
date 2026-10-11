@@ -32,6 +32,12 @@ rebuilds the viewpoint, composition, or subject arrangement that the user also
 asks to preserve, explain the conflict and ask which outcome matters. Do not
 silently weaken either instruction.
 
+In trusted Codex Desktop with panel support, an `image.edit` continues in the
+[image edit panels](image-edit-panels.md): the inline chooser whenever several
+images match, then the FLUX 3 region-editing panel. FLUX 3 Image Edit is the
+default edit route whenever a Fal.ai key is saved and the user named no other
+model or provider; do not ask which model to use.
+
 ## Reclassify every turn
 
 The previous request purpose is never sticky. Rerun this decision when the user

@@ -7,6 +7,12 @@ model guides own prompt craft.
 - Image edit routes place ordered source/reference markers in their current
   native image field. When the selected route documents `@ReferenceN`, derive
   `N` from final request order.
+- FLUX 3 Image edit (`blackforestlabs/flux-3/edit-image`) takes ordered
+  `image_urls`. Put the edit base first: it is `image 1` in prose and
+  `ref_image_0` in bounding-box rows, and it decides `aspect_ratio: auto`.
+  Later images are `image N` and `ref_image_<N-1>`. Fal passes BFL's in-prompt
+  bounding-box JSON through unchanged inside `prompt`; there is no separate box
+  field. Verified with one paid edit on 2026-10-11.
 - Seedance reference-to-video derives `@ImageN`, `@VideoN`, and `@AudioN` from
   final modality-local array order.
 - MiniMax H3 and H3 Max reference-to-video derive spaced `Image N`, `Video N`,

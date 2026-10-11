@@ -124,6 +124,16 @@ prerequisite check when the Lookbook definition itself is unauthored.
 
 ## Choose the execution lane
 
+**Default image edit model.** For `image.edit`, when the user names no model
+or provider, run `renku credentials status --json`. If `fal-ai` is
+`configured`, use FLUX 3 Image Edit on Fal.ai
+(`blackforestlabs/flux-3/edit-image`) without asking, even when the saved Image
+provider is another provider. In trusted Codex Desktop with panel support this
+opens the [image edit panels](references/image-edit-panels.md); elsewhere it is
+the conversational `image.edit` flow on that route. Only when Fal.ai has no
+saved key does the saved Image provider's choice below apply. A model or
+provider the user names always wins.
+
 Use the briefing's current `workflowPolicy` and the user's explicit direction.
 Do not fetch Settings again for policy already present in that briefing. The saved
 Image, Video, or Audio provider is the initial preference, including when it is
@@ -226,7 +236,7 @@ it as receipt evidence while preserving the authored prompt unchanged.
 
 | Purpose | Craft guide |
 | --- | --- |
-| `image.create`, `image.edit` | `image-operation-routing.md`, then `model-guides/shared/image-prompting.md`; also `model-guides/shared/reference-inputs.md` when references are used |
+| `image.create`, `image.edit` | `image-operation-routing.md`, then `model-guides/shared/image-prompting.md`; also `model-guides/shared/reference-inputs.md` when references are used, and `image-edit-panels.md` for every `image.edit` in Codex Desktop with panel support |
 | `project.cover` | `project-cover.md` |
 | `lookbook.image` | `lookbook-image.md` |
 | `lookbook.video-sheet`, `lookbook.storyboard-sheet` | `lookbook-sheets.md` |
@@ -270,9 +280,10 @@ Read and follow
 [references/generation-review-routing.md](references/generation-review-routing.md)
 before configuring or delivering any review. Eligible Codex Desktop dialogue
 audio requests open a fullscreen
-[dialogue direction panel](references/dialogue-direction-panels.md) whose
-Generate click is the execution approval, independent of the review
-preferences below. Read
+[dialogue direction panel](references/dialogue-direction-panels.md), and
+`image.edit` requests use the [image edit panels](references/image-edit-panels.md)
+(chooser for any model, FLUX 3 panel by default on Fal.ai); in both, the Generate
+click is the execution approval, independent of the review preferences below. Read
 `workflowPolicy.codexGenerationReview` and `workflowPolicy.codexPluginInstalled`
 from the CLI generation context. The global preference defaults to `auto`;
 it is not a Project setting. Follow the canonical routing guide for trusted host
@@ -485,9 +496,11 @@ let `generation context` supply the complete related graph.
 - `project.cover` targets `project`; `image.create` targets the destination
   `shot-plan:<id>` selected by the image-operation workflow.
 - `image.edit` context targets the exact source `assetFile:<id>`; an accepted output
-  becomes a new unselected AssetFile in the source's owning collection. This
-  applies to every active image, including Inspiration and research images.
-  Preserve the original and its selection; do not choose another destination.
+  becomes a new AssetFile in the source's owning collection. This applies to
+  every active image, including Inspiration and research images. It becomes the
+  selection when its type has one (profiles, heroes, covers, Lookbook images,
+  Shot and storyboard images); sheets and Shot Plan images are only added.
+  Preserve the original file; do not choose another destination.
 - `video.edit` context and attachment target the exact source `assetFile:<id>`.
   The accepted output is a separate source-derived video Asset beside the
   source and never replaces or auto-selects it.

@@ -12,6 +12,8 @@
     { "apiId": "xai/grok-imagine-image/edit", "name": "Grok Imagine Image Edit" },
     { "apiId": "fal-ai/flux-pro/kontext/text-to-image", "name": "FLUX Kontext Pro" },
     { "apiId": "fal-ai/flux-pro/kontext", "name": "FLUX Kontext Pro Edit" },
+    { "apiId": "blackforestlabs/flux-3/text-to-image", "name": "FLUX 3 Image" },
+    { "apiId": "blackforestlabs/flux-3/edit-image", "name": "FLUX 3 Image Edit" },
     { "apiId": "fal-ai/z-image/turbo", "name": "Z-Image Turbo" },
     { "apiId": "fal-ai/z-image/turbo/image-to-image", "name": "Z-Image Turbo Edit" },
     { "apiId": "bytedance/seedream/v5/pro/text-to-image", "name": "Seedream 5.0 Pro" },

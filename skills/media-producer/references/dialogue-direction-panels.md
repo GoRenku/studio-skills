@@ -140,7 +140,7 @@ wait. Opening the panel authorizes no generation.
 Each Generate click posts one message to the conversation, such as:
 
 ```text
-Generate dialogue Take · <shot plan title> · Lines 7–9. Session <id>, action <id>. Consume it with dialogue.direction.consume once.
+Generate dialogue Take · <shot plan title> · Lines 7–9. I approve sending these lines and the chosen voices to ElevenLabs and running one paid Eleven v4 generation with my saved ElevenLabs key. Session <id>, action <id>. Consume it with dialogue.direction.consume once.
 ```
 
 The message is a notification. For each one, in this order:
@@ -170,10 +170,16 @@ The message is a notification. For each one, in this order:
      live schema as the adapter guide requires.
 3. **Validate and execute** with `renku generation validate --file <request>
    --json`, then `renku generation execute` with the returned
-   `--expected-request-sha256`, through the provider Skill. The Generate click
-   is the approval for this one generation, including spending; do not ask for
-   confirmation, open a review or Studio Preview, or retry a successful paid
-   execution.
+   `--expected-request-sha256`, through the provider Skill. The Generate
+   message is the user's explicit approval for this one generation: it names
+   the provider, what is sent or uploaded and the paid run (Seed Audio names
+   its own provider and the voice samples), and the panel shows the same terms
+   beside Generate. Do not ask for confirmation in chat, open a review or
+   Studio Preview, or retry a successful paid execution. When the host requires
+   approval to run the command (network access or an approval review), request
+   it once with a justification that quotes that approval sentence and names
+   the exact action id. If the host still refuses, report the action as failed
+   with the host's reason instead of asking again in chat.
 4. **Import** the output:
 
    ```bash

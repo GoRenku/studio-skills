@@ -25,6 +25,7 @@ input. A single provider endpoint may handle both.
 | Grok Imagine Image | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit |
 | Seedream 5.0 Pro | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit |
 | FLUX Kontext Pro | Generate, Edit | — | Generate, Edit | Generate, Edit |
+| FLUX 3 Image | Generate, Edit | — | — | — |
 | Z-Image Turbo | Generate, Edit | — | Generate, Edit | Generate¹ |
 
 ¹ Replicate's Z-Image Turbo route is the PrunaAI deployment of the model.
