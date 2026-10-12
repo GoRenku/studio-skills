@@ -96,6 +96,65 @@ model's documented tag or supported request setting. When the request needs
 frame-accurate pauses, word timing, or synchronization, use a composition or
 lipsync workflow; pacing cues in TTS are not an exact edit timeline.
 
+## Codex panel
+
+Eleven v4 directs dialogue in the Codex
+[dialogue direction panel](../../dialogue-direction-panels.md) with one acting
+script per screenplay line:
+
+```json
+{
+  "purpose": "dialogue-direction",
+  "scriptLayout": "line-scripts",
+  "voiceBinding": { "kind": "speaker-voices" },
+  "maxVoices": 10,
+  "emphasis": "bracket-tags",
+  "routes": [
+    {
+      "provider": "elevenlabs",
+      "singleLine": {
+        "model": "eleven_v4",
+        "characterLimit": null,
+        "controlPointers": ["/voice_settings/stability", "/voice_settings/similarity_boost"],
+        "scriptLocation": { "kind": "text", "pointer": "/text" }
+      },
+      "lineRange": {
+        "model": "eleven_v4/text-to-dialogue",
+        "characterLimit": 2000,
+        "controlPointers": ["/settings/stability", "/settings/similarity"],
+        "scriptLocation": { "kind": "line-list", "listPointer": "/inputs", "textPointer": "/text" }
+      },
+      "voiceMentions": null
+    }
+  ]
+}
+```
+
+**Controls.** Stability and similarity are the only Eleven v4 settings that
+shape a performance, so they are the panel controls on both operations. They
+have different native names in speech and dialogue. The `maxVoices` of 10 is
+the dialogue route's distinct-voice limit; the 2,000-character limit is
+ElevenLabs' recommended dialogue total, shown as an advisory counter.
+
+**Initial direction.** Write one acting script per line in the panel's line
+range: the exact screenplay words with free-form bracket tags inline where
+delivery changes, following the Eleven v4 guidance above. Add a short
+`suggestedTags` list of alternative tags for this scene, each written exactly
+as it should be inserted, such as `[whispers]` or `[short pause]`. Set the
+controls' initial values to the live schema defaults unless the scene calls
+for a steadier or freer read.
+
+**Mapping the consumed draft.** Only speakers with a Cast Voice whose opaque
+identity has `provider: "elevenlabs"` and a non-empty `voiceId` are eligible.
+
+- One line (`eleven_v4`): `text` is the line's script `text` exactly, `voice`
+  is that speaker's `voiceId`, and the draft `values` set
+  `voice_settings.stability` and `voice_settings.similarity_boost`.
+- A range (`eleven_v4/text-to-dialogue`): `inputs` has one `{ text, voice }`
+  per draft script in screenplay order, with the script `text` and its line's
+  speaker `voiceId`; the draft `values` set `settings.stability` and
+  `settings.similarity`.
+
 ## Sources and evidence limits
 
 Eleven v4 behavior is documented by ElevenLabs in [Eleven v4](https://elevenlabs.io/docs/overview/capabilities/text-to-speech/eleven-v4)

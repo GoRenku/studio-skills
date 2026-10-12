@@ -1,7 +1,8 @@
 # Nano Banana Image Prompt Guide
 
-Applies to Nano Banana 2 and Nano Banana Pro generation and editing through a
-supported provider route. Google's current API guide identifies Nano Banana 2
+Applies to Nano Banana 2, Nano Banana 2.1 and Nano Banana Pro generation and
+editing through a supported provider route. Nano Banana 2.1 is the newer
+general-purpose variant on Fal.ai; the guidance below applies to it unchanged. Google's current API guide identifies Nano Banana 2
 as its general-purpose workhorse with multi-reference consistency and reliable
 text rendering; it positions Nano Banana Pro for the most complex visual work
 and precision creative control. Those are Google's selection descriptions, not
@@ -52,6 +53,34 @@ If exact text or spacing is wrong, inspect the result and restate the specific
 copy and placement that missed. Google publishes examples for text placement
 and multi-turn edits, but the visible output still needs review; the examples
 here are Renku guidance, not measured reliability claims.
+
+## Codex panel
+
+Nano Banana 2.1 Edit is a region-free route of the Codex
+[image edit panel](../../image-edit-panels.md): the user describes the change
+for the whole image and may add a style reference.
+
+```json
+{
+  "purpose": "image-edit",
+  "routes": [
+    { "provider": "fal-ai", "model": "fal-ai/nano-banana-2.1/edit", "regionModes": null, "styleReference": true, "controlPointers": ["/resolution"] }
+  ]
+}
+```
+
+**Controls.** Resolution (`1K`, `2K`, `4K` in the live schema, checked
+2026-10-11) is the one setting worth changing between iterations, in an
+"Output" group with an initial value of `2K`. Keep `aspect_ratio` at its
+default `auto` so the edit keeps the source aspect.
+
+**Mapping the consumed draft.** Write the prompt from the draft's
+`wholeImageInstruction` as a focused edit: name what changes and what must
+remain, and give the style reference a style-only role by its image number.
+Put the edit base first in `image_urls`, then the style reference, then any
+resolved references, as `$file` markers (see the Fal.ai
+[reference input adapter](../../../../fal-ai-media-provider/references/adapters/reference-inputs.md)).
+Set `resolution` from the draft `values`.
 
 Reviewed 2026-09-30 against Google's [Nano Banana image-generation guide] and
 [general Nano Banana prompt guide]. The latter is first-party craft guidance

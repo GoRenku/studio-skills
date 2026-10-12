@@ -7,3 +7,7 @@ confirmed by the selected live schema. The published route does not establish
 a prompt marker syntax for those clips, so do not copy Pika's `@AudioN` syntax
 or invent `promptMention`. Describe the intended voices and performance in
 plain prompt text while retaining the reviewed reference order.
+
+In the Codex dialogue direction panel, this route is described by the
+[Seed Audio `## Codex panel` block](../../../media-producer/references/model-guides/audio/seed-audio-1.0.md#codex-panel);
+keep the notation above when mapping its consumed draft.

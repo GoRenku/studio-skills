@@ -25,3 +25,7 @@ Each marker uses the normal Renku local-file envelope and a meaningful label:
 Use at most three markers. Do not upload the files yourself, reorder markers
 after assigning mentions, invent higher-numbered mentions, or substitute the
 native `voice` field for file-backed Cast Voice continuity.
+
+In the Codex dialogue direction panel, this route is described by the
+[Seed Audio `## Codex panel` block](../../../media-producer/references/model-guides/audio/seed-audio-1.0.md#codex-panel);
+keep the notation above when mapping its consumed draft.

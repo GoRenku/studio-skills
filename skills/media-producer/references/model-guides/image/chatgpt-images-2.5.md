@@ -14,7 +14,9 @@ describes improved reference-subject preservation, focused edits, and
 consistency across multiple editing turns. The API separately exposes GPT Image
 2.5 Flare and Sunburst. Those API names do not identify which variant the
 built-in Codex tool uses. See OpenAI's [Images 2.5 announcement] and [image
-prompting guide] for the current family and API guidance.
+prompting guide] for the current family and API guidance. For the Flare and
+Sunburst API routes on an external provider, use the
+[GPT Image 2.5 guide](gpt-image-2.5.md).
 
 ## Renku prompting recommendations
 

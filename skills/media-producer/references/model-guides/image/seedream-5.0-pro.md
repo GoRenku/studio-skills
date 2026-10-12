@@ -62,6 +62,38 @@ source details to preserve and narrow the requested change. These are Renku
 recovery recommendations drawn from ByteDance's demonstrated layout and
 regional-editing workflows, not claims that Seedream always follows them.
 
+## Codex panel
+
+Seedream 5.0 Pro Edit is a region-free route of the Codex
+[image edit panel](../../image-edit-panels.md): the user describes the change
+for the whole image and may add a style reference.
+
+```json
+{
+  "purpose": "image-edit",
+  "routes": [
+    { "provider": "fal-ai", "model": "bytedance/seedream/v5/pro/edit", "regionModes": null, "styleReference": true, "controlPointers": [] },
+    { "provider": "wavespeed-ai", "model": "bytedance/seedream-v5.0-pro/edit", "regionModes": null, "styleReference": true, "controlPointers": [] },
+    { "provider": "pika", "model": "bytedance/seedream-5.0-pro/image-to-image", "regionModes": null, "styleReference": true, "controlPointers": [] }
+  ]
+}
+```
+
+**Controls.** None. Fal.ai's only size field, `image_size`, mixes aspect
+presets with automatic sizes, and its default `auto_2K` keeps the source
+aspect. WaveSpeed and Pika expose an aspect ratio without an automatic option
+(checked 2026-10-11), so the panel shows no setting there either.
+
+**Mapping the consumed draft.** Write the prompt from the draft's
+`wholeImageInstruction` following "Editing and references" above: name the
+exact change and the source traits that must survive, and give the style
+reference a style-only role by its image number. Put the edit base first, then
+the style reference, then any resolved references, as `$file` markers in the
+route's ordered image field: `image_urls` on Fal.ai and Pika, `images` on
+WaveSpeed. Leave the size and aspect fields at their defaults (omit them where
+the schema has no default) so the output keeps the source composition, and
+confirm the fields in the live schema.
+
 Reviewed 2026-09-30 against ByteDance Seed's [Seedream 5.0 Pro launch article]
 and [model page]. The launch article is primary, maker-published guidance; its
 capability descriptions are not independent evaluations. Current provider

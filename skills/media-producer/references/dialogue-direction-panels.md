@@ -8,32 +8,76 @@ generation itself.
 
 ## Eligibility
 
-Open a dialogue direction panel only when all of these hold:
+Open the dialogue direction panel only when all of these hold:
 
 - trusted harness context identifies Codex Desktop;
 - the current Renku MCP connection's `generation.review.capabilities` probe
   returns the `codex-mcp-client` identity with `panel.status: advertised`;
 - the purpose is `shot-plan.dialogue-audio`; and
-- the selected route is one of:
-  - ElevenLabs `eleven_v4` or `eleven_v4/text-to-dialogue`, which opens the
-    **Eleven v4** panel; or
-  - Seed Audio 1.0 on Fal.ai `bytedance/seed-audio-1.0`, WaveSpeed
-    `bytedance/seed-audio-1.0` or Pika `bytedance/seed-audio-1.0/text-to-audio`,
-    which opens the **Seed Audio** panel.
+- the selected route appears in a `dialogue-direction` block of the
+  `## Codex panel` section of its canonical model guide.
 
-These panels are not generation reviews. Do not read or apply
+The panel is not a generation review. Do not read or apply
 `workflowPolicy.codexGenerationReview` or
-`workflowPolicy.codexGenerationReviewDisplayMode` to decide whether they open;
-`visualize` and `inline` do not suppress them. They always open fullscreen and
-take no display-mode argument. Do not open the combined generation review,
+`workflowPolicy.codexGenerationReviewDisplayMode` to decide whether it opens;
+`visualize` and `inline` do not suppress it. It always opens fullscreen and
+takes no display-mode argument. Do not open the combined generation review,
 Visualize configuration or Studio Preview for a panel-originated generation.
 
 Every other host and route keeps the conversational flow in
 [shot-plan-dialogue-audio.md](shot-plan-dialogue-audio.md) with the shared
 [generation review routing](generation-review-routing.md). That includes Codex
-CLI, Claude, unidentified hosts, Eleven v3 and other ElevenLabs models. A
-missing or failed probe in Codex Desktop follows the routing guide's
-integration rules; do not substitute another surface for a failed panel.
+CLI, Claude, unidentified hosts and any route without a block. A missing or
+failed probe in Codex Desktop follows the routing guide's integration rules; do
+not substitute another surface for a failed panel.
+
+## The `## Codex panel` block
+
+A panel-capable model guide holds a fenced `json` block for the
+`dialogue-direction` purpose:
+
+```json
+{
+  "purpose": "dialogue-direction",
+  "scriptLayout": "line-scripts | range-prompt",
+  "voiceBinding": { "kind": "speaker-voices | voice-references" },
+  "maxVoices": 3,
+  "emphasis": "bracket-tags | quoted-spans | null",
+  "routes": [
+    {
+      "provider": "<provider id>",
+      "singleLine": {
+        "model": "<exact route id>",
+        "characterLimit": 2000,
+        "controlPointers": ["/native/json/pointer"],
+        "scriptLocation": { "kind": "text", "pointer": "/text" }
+      },
+      "lineRange": null,
+      "voiceMentions": ["<exact mention 1>"]
+    }
+  ]
+}
+```
+
+- `scriptLayout`: `line-scripts` directs one Direction Script per screenplay
+  line; `range-prompt` directs one script for the whole selected range.
+- `voiceBinding`: `speaker-voices` sends each speaker's Cast Voice by its
+  provider identity; `voice-references` sends ordered voice samples, one per
+  speaker in order of first appearance.
+- `maxVoices`: the most distinct voices one Generate may use.
+- `emphasis`: the syntax the panel highlights, for presentation only.
+- `routes`: one entry per provider route. `singleLine` produces a one-line
+  Take; `lineRange` produces a multi-line Take, or is `null` when the route
+  directs one line per Take. Each operation names its exact route id, an
+  advisory `characterLimit` (or `null`), the few native settings to show as
+  `controlPointers` (JSON Pointers into the native request), and the
+  `scriptLocation` where its native request keeps direction text (`text` for a
+  string, `line-list` for a per-line list) or `null`.
+- `voiceMentions`: the exact prompt text that addresses each reference
+  position, or `null` when the route has no mention syntax.
+
+The guide's prose explains how to author the initial direction and how to map
+the consumed draft into that route's native request.
 
 ## 1. Read the context
 
@@ -51,96 +95,106 @@ Turn numbers, Cast Member ids and Cast Voice ids it returns.
 
 Choose one consecutive Turn range covering the Shot Plan's dialogue as
 `turnRange`, and an `initialSelection` inside it: the line or range the user
-asked to direct, or the whole range when they did not say. Disjoint lines are
-not supported; ask the user to split them.
+asked to direct, or the whole range when they did not say. When the route's
+block has `lineRange: null`, `initialSelection` is a single line. Disjoint
+lines are not supported; ask the user to split them.
 
 Select the provider and route from user direction or the Project's Audio
 provider policy, then read that provider Skill and the canonical audio model
-guide. Set `route` from the exact provider id and route ids:
+guide, including its `## Codex panel` section.
 
-| Panel | `provider` | `speechModel` | `rangeModel` |
-| --- | --- | --- | --- |
-| Eleven v4 | `elevenlabs` | `eleven_v4` | `eleven_v4/text-to-dialogue` |
-| Seed Audio, Fal.ai | `fal-ai` | `bytedance/seed-audio-1.0` | `bytedance/seed-audio-1.0` |
-| Seed Audio, WaveSpeed | `wavespeed-ai` | `bytedance/seed-audio-1.0` | `bytedance/seed-audio-1.0` |
-| Seed Audio, Pika | `pika` | `bytedance/seed-audio-1.0/text-to-audio` | `bytedance/seed-audio-1.0/text-to-audio` |
+## 3. Build the Route Description
 
-## 3. Author the drafts and voices
+Build the opening input's `route` from the block entry for the selected
+provider:
 
-Keep every screenplay word exact. Drafts express delivery only; the panel shows
-the screenplay line read-only beside them. Tags and prompts are opaque creative
-text: the panel never validates them, and neither should you beyond the
-provider's own limits.
+1. Copy `scriptLayout`, `maxVoices` and `emphasis`. For `speaker-voices`, set
+   `voiceBinding: { kind: 'speaker-voices' }`; for `voice-references`, set
+   `voiceBinding: { kind: 'voice-references', mentions }` with the entry's
+   `voiceMentions`.
+2. Set `provider` to the provider id, and take `label` and `providerLabel`
+   from the Single-Line route's `generation models list` entry, the same
+   source the combined review uses for its routes. `label` is the route index
+   `name` in `supported-routes.json`.
+3. For `singleLine` and `lineRange` (or `lineRange: null`), copy `model`,
+   `characterLimit` and `scriptLocation`, and build `controls` from the
+   operation's live schema (`renku generation schema show --provider
+   <provider> --model <model> --json`) for the listed `controlPointers` only,
+   using the generation review control rules. Put them in one group, use the
+   schema's title as the label, set each `initialValue` (the schema default or
+   the Project's direction), and never add a control the block does not list.
+   Panel controls are scalar (`text`, `number`, `integer`, `boolean`, `enum`),
+   always have an `initialValue` and are never nullable.
+
+## 4. Author the initial direction and voices
+
+Keep every screenplay word exact. Direction expresses delivery only; the panel
+shows the screenplay line read-only beside it. Direction text is opaque
+creative text: the panel never validates it, and neither should you beyond the
+provider's own limits. Follow the model guide's authoring prose.
 
 **Speakers.** Give one `speakers` entry for every speaker in `turnRange`, with
 the Cast Voices the selected provider can use and an `initialCastVoiceId` from
-that list, normally the default Cast Voice:
+that list, normally the default Cast Voice. The provider Skill decides
+compatibility: a provider voice identity for `speaker-voices` routes, a voice
+sample file for `voice-references` routes. If a speaker has no compatible Cast
+Voice, stop and say so instead of opening the panel.
 
-- Eleven v4: only Cast Voices whose opaque identity has
-  `provider: "elevenlabs"` and a non-empty `voiceId`.
-- Seed Audio: only Cast Voices with a sample file.
+**Initial Direction Scripts.** For `line-scripts`, give one single-line script
+for every line in `turnRange`, in order. For `range-prompt`, give a script for
+`initialSelection`, and optionally for other consecutive ranges the user is
+likely to direct. Each script is `{ turnRange, text }`.
 
-If a speaker has no compatible Cast Voice, stop and say so instead of opening
-the panel.
+**Suggested tags.** Optionally add a short `suggestedTags` list. The panel
+inserts each one verbatim, so write the exact text, such as `[whispers]`.
 
-**Eleven v4 drafts.** Author one acting script for every line in `turnRange`:
-the exact line with free-form bracket tags inline where delivery changes,
-following the Eleven v4 section of
-[the ElevenLabs speech guide](model-guides/audio/elevenlabs-speech.md). Add a
-short `suggestedTags` list of alternative tags for this scene, and starting
-`voiceSettings` with `stability` and `similarity` between 0 and 1.
+## 5. Open the panel and end the turn
 
-**Seed Audio drafts.** Author one performance prompt for `initialSelection`,
-and optionally for other consecutive ranges the user is likely to direct, keyed
-by `turnRange`. Follow the canonical Seed Audio guide and the provider adapter.
-Set `promptMentions` from the adapter:
-
-- Fal.ai and Pika: `audio-tags`. Address each speaker's reference as `@Audio1`,
-  `@Audio2` or `@Audio3` in order of first appearance in the range.
-- WaveSpeed: `none`. Describe the voices in plain prompt text; never write
-  `@AudioN`.
-
-## 4. Open the panel and end the turn
-
-Call exactly one opening tool with exactly these inputs:
+Call `dialogue.direction.open` with exactly these inputs:
 
 ```ts
-// dialogue.direction.eleven-v4.open
+// dialogue.direction.open
 {
   project: string;
   shotPlanId: string;
-  route: { provider: string; speechModel: string; rangeModel: string };
+  route: {
+    provider: string;
+    providerLabel: string;
+    label: string;
+    scriptLayout: 'line-scripts' | 'range-prompt';
+    voiceBinding: { kind: 'speaker-voices' } | { kind: 'voice-references'; mentions: string[] | null };
+    maxVoices: number;
+    emphasis: 'bracket-tags' | 'quoted-spans' | null;
+    operations: {
+      singleLine: Operation;
+      lineRange: Operation | null;
+    };
+  };
   turnRange: { start: number; end: number };
   initialSelection: { start: number; end: number }; // within turnRange
-  lines: Array<{ number: number; actingScript: string }>; // every line in turnRange, once
   speakers: Array<{ castMemberId: string; castVoiceIds: string[]; initialCastVoiceId: string }>;
-  voiceSettings: { stability: number; similarity: number }; // 0..1
+  initialScripts: Array<{ turnRange: { start: number; end: number }; text: string }>;
   suggestedTags: string[];
 }
 
-// dialogue.direction.seed-audio.open
-{
-  project: string;
-  shotPlanId: string;
-  route: { provider: string; speechModel: string; rangeModel: string }; // speechModel === rangeModel
-  promptMentions: 'audio-tags' | 'none';
-  turnRange: { start: number; end: number };
-  initialSelection: { start: number; end: number }; // within turnRange
-  prompts: Array<{ turnRange: { start: number; end: number }; prompt: string }>;
-  speakers: Array<{ castMemberId: string; castVoiceIds: string[]; initialCastVoiceId: string }>;
-}
+type Operation = {
+  model: string;
+  characterLimit: number | null;
+  controls: { groups: Array<{ label: string; fields: NativeRequestControl[] }> };
+  scriptLocation: { kind: 'text'; pointer: string } | { kind: 'line-list'; listPointer: string; textPointer: string } | null;
+};
 ```
 
 A `CODEX_DIALOGUE_DIRECTION_INVALID` result lists every issue; correct the
-input from the context and open again. Once the panel opens, end the turn and
-wait. Opening the panel authorizes no generation.
+input from the context and the model guide, then open again. Once the panel
+opens, end the turn and wait. Opening the panel authorizes no generation.
 
-## 5. Handle each Generate message
+## 6. Handle each Generate message
 
 Each Generate click posts one message to the conversation, such as:
 
 ```text
-Generate dialogue Take · <shot plan title> · Lines 7–9. I approve sending these lines and the chosen voices to ElevenLabs and running one paid Eleven v4 generation with my saved ElevenLabs key. Session <id>, action <id>. Consume it with dialogue.direction.consume once.
+Generate dialogue Take · <shot plan title> · Lines 7–9. I approve sending this direction and the chosen voices to <provider> and running one paid <route> generation with my saved <provider> key. Session <id>, action <id>. Consume it with dialogue.direction.consume once.
 ```
 
 The message is a notification. For each one, in this order:
@@ -149,32 +203,30 @@ The message is a notification. For each one, in this order:
    `{ sessionId, actionId }` from the message. `status: 'alreadyConsumed'`
    authorizes nothing: do not generate or report again. Otherwise use only the
    consumed `project`, `shotPlanId`, `provider`, `model` and `draft`. `model`
-   is the exact route id to execute.
-2. **Author the native request** from the draft, writing a review document
-   (`provider`, `model`, `mediaKind: "audio"`, `prompt`, `request`) under
-   `tmp/operations/media-generation/`. Resolve each `castVoiceId` from the
-   generation context; never invent a voice id or sample path.
-   - **Eleven v4, one line** (`turnRange.start === turnRange.end`, model
-     `eleven_v4`): `text` is the line's `actingScript` exactly, `voice` is that
-     speaker's Cast Voice `voiceId`, and `voice_settings` is
-     `{ stability, similarity_boost }` from the draft's `voiceSettings`.
-   - **Eleven v4, range** (model `eleven_v4/text-to-dialogue`): `inputs` has
-     one `{ text, voice }` per draft line in screenplay order, with the line's
-     `actingScript` and its speaker's `voiceId`, and `settings` is
-     `{ stability, similarity }` from `voiceSettings`.
-   - **Seed Audio:** `prompt` is the draft prompt exactly. Put one Cast Voice
-     sample `$file` marker per `voiceReferences` entry, ordered by `position`,
-     in the provider's ordered reference field: `audio_urls` with
-     `promptMention: "@AudioN"` matching `position` on Fal.ai and Pika, or
-     `audios` without `promptMention` on WaveSpeed. Confirm the field in the
-     live schema as the adapter guide requires.
+   is the exact route id of the operation the draft's range uses: the
+   Single-Line route for one line, the Line-Range route for a range.
+2. **Author the native request** from the route-neutral draft, writing a
+   review document (`provider`, `model`, `mediaKind: "audio"`, `prompt`,
+   `request`) under `tmp/operations/media-generation/`. The draft is
+   `{ turnRange, scripts, voices, values }`:
+   - `scripts` are the Direction Scripts: one per line for `line-scripts`, one
+     for the range for `range-prompt`. Put each `text` exactly where the model
+     guide's mapping says.
+   - `voices` lists one `{ castMemberId, castVoiceId }` per speaker in order of
+     first appearance. For `voice-references`, voice position `n` is reference
+     position `n` and, when the route has mentions, `mentions[n - 1]`.
+     Resolve each `castVoiceId` from the generation context; never invent a
+     voice id or sample path.
+   - `values` holds the operation's native settings keyed by JSON Pointer; set
+     each at its pointer in the native request.
+   Follow the `## Codex panel` mapping prose in the model guide and the
+   provider adapter for placement and markers.
 3. **Validate and execute** with `renku generation validate --file <request>
    --json`, then `renku generation execute` with the returned
    `--expected-request-sha256`, through the provider Skill. The Generate
    message is the user's explicit approval for this one generation: it names
-   the provider, what is sent or uploaded and the paid run (Seed Audio names
-   its own provider and the voice samples), and the panel shows the same terms
-   beside Generate. Do not ask for confirmation in chat, open a review or
+   the provider, what is sent and the paid run, and the panel shows the same
+   terms beside Generate. Do not ask for confirmation in chat, open a review or
    Studio Preview, or retry a successful paid execution. When the host requires
    approval to run the command (network access or an approval review), request
    it once with a justification that quotes that approval sentence and names

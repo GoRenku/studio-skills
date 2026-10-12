@@ -10,3 +10,7 @@ marker in `audio_urls` and set `promptMention` to its corresponding
 belongs to the base model variant; the multilingual variant uses cloning
 references. Confirm the selected variant in the live schema before preparing
 the request.
+
+In the Codex dialogue direction panel, this route is described by the
+[Seed Audio `## Codex panel` block](../../../media-producer/references/model-guides/audio/seed-audio-1.0.md#codex-panel);
+keep the notation above when mapping its consumed draft.

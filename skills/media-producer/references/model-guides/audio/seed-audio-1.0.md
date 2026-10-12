@@ -52,6 +52,94 @@ and a consistent delivery, and add meaningful in-character speech rather than
 stretching a short line with silence. The user's voice direction still controls
 the sample's character and performance.
 
+## Codex panel
+
+Seed Audio directs dialogue in the Codex
+[dialogue direction panel](../../dialogue-direction-panels.md) with one
+performance prompt for the selected line range and up to three ordered voice
+references:
+
+```json
+{
+  "purpose": "dialogue-direction",
+  "scriptLayout": "range-prompt",
+  "voiceBinding": { "kind": "voice-references" },
+  "maxVoices": 3,
+  "emphasis": "quoted-spans",
+  "routes": [
+    {
+      "provider": "fal-ai",
+      "singleLine": {
+        "model": "bytedance/seed-audio-1.0",
+        "characterLimit": 2048,
+        "controlPointers": [],
+        "scriptLocation": { "kind": "text", "pointer": "/prompt" }
+      },
+      "lineRange": {
+        "model": "bytedance/seed-audio-1.0",
+        "characterLimit": 2048,
+        "controlPointers": [],
+        "scriptLocation": { "kind": "text", "pointer": "/prompt" }
+      },
+      "voiceMentions": ["@Audio1", "@Audio2", "@Audio3"]
+    },
+    {
+      "provider": "pika",
+      "singleLine": {
+        "model": "bytedance/seed-audio-1.0/text-to-audio",
+        "characterLimit": 2048,
+        "controlPointers": [],
+        "scriptLocation": { "kind": "text", "pointer": "/prompt" }
+      },
+      "lineRange": {
+        "model": "bytedance/seed-audio-1.0/text-to-audio",
+        "characterLimit": 2048,
+        "controlPointers": [],
+        "scriptLocation": { "kind": "text", "pointer": "/prompt" }
+      },
+      "voiceMentions": ["@Audio1", "@Audio2", "@Audio3"]
+    },
+    {
+      "provider": "wavespeed-ai",
+      "singleLine": {
+        "model": "bytedance/seed-audio-1.0",
+        "characterLimit": 2048,
+        "controlPointers": [],
+        "scriptLocation": { "kind": "text", "pointer": "/prompt" }
+      },
+      "lineRange": {
+        "model": "bytedance/seed-audio-1.0",
+        "characterLimit": 2048,
+        "controlPointers": [],
+        "scriptLocation": { "kind": "text", "pointer": "/prompt" }
+      },
+      "voiceMentions": null
+    }
+  ]
+}
+```
+
+**Controls.** None. The prompt carries the whole performance; the routes'
+remaining settings do not shape dialogue direction. The 2,048-character limit
+is the advisory prompt length from Fal's workflow article (see below).
+
+**Initial direction.** Write one performance prompt for the initial
+selection, and optionally for other consecutive ranges the user is likely to
+direct, following "Writing dialogue and sound scenes" above. On Fal.ai and
+Pika, address each speaker's reference by its mention in order of first
+appearance in the range: `@Audio1`, `@Audio2`, `@Audio3`. On WaveSpeed, which
+has no mention syntax, describe the voices in plain prompt text.
+
+**Mapping the consumed draft.** Only speakers with a Cast Voice sample file are
+eligible. `prompt` is the draft's one script `text` exactly. Put one Cast Voice
+sample `$file` marker per draft voice, in voice order, in the provider's
+ordered reference field: `audio_urls` with `promptMention` set to the mention
+at the same position on [Fal.ai](../../../../fal-ai-media-provider/references/adapters/seed-audio.md)
+and [Pika](../../../../pika-media-provider/references/adapters/seed-audio.md),
+or `audios` without `promptMention` on
+[WaveSpeed](../../../../wavespeed-media-provider/references/adapters/seed-audio.md).
+Confirm the field in the live schema as each adapter requires.
+
 ## Request limits and evidence
 
 ByteDance's [Seed Audio announcement](https://seed.bytedance.com/en/blog/from-speech-to-audio-creation-introducing-the-seed-audio-1-0-audio-creation-model)

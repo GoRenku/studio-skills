@@ -7,11 +7,11 @@ opening Preview themselves.
 
 ## Dialogue direction panels come first
 
-In trusted Codex Desktop, a `shot-plan.dialogue-audio` request on ElevenLabs
-`eleven_v4` or `eleven_v4/text-to-dialogue`, or on Seed Audio 1.0 through
-Fal.ai, WaveSpeed or Pika, opens a fullscreen dialogue direction panel instead
-of the combined review when the current `generation.review.capabilities` probe
-advertises panel support. Follow
+In trusted Codex Desktop, a `shot-plan.dialogue-audio` request opens the
+fullscreen dialogue direction panel instead of the combined review when the
+current `generation.review.capabilities` probe advertises panel support and the
+selected route appears in a `dialogue-direction` block of its model guide's
+`## Codex panel` section. Follow
 [dialogue-direction-panels.md](dialogue-direction-panels.md). This rule does not
 depend on `codexGenerationReview` or `codexGenerationReviewDisplayMode`; it
 applies under `auto`, `panel` and `visualize`. Every other host, route and
@@ -22,12 +22,11 @@ purpose uses the selection below unchanged.
 In trusted Codex Desktop, when the current `generation.review.capabilities`
 probe advertises panel support, every `image.edit` request that matches several
 images shows the inline image chooser, whatever the model. The edit itself
-opens the fullscreen FLUX 3 Image Edit panel, instead of the combined review,
-when the route is `blackforestlabs/flux-3/edit-image` on Fal.ai; that route is
-the default whenever a Fal.ai key is saved (`renku credentials status`) and
-the user named no other model or provider, whatever the saved Image provider. Follow [image-edit-panels.md](image-edit-panels.md). Like the dialogue
-panels, this rule does not depend on `codexGenerationReview` or
-`codexGenerationReviewDisplayMode`.
+opens the fullscreen image edit panel, instead of the combined review, when the
+selected edit route appears in an `image-edit` block of its model guide's
+`## Codex panel` section. Follow [image-edit-panels.md](image-edit-panels.md).
+Like the dialogue panel, this rule does not depend on `codexGenerationReview`
+or `codexGenerationReviewDisplayMode`.
 
 ## Select the review surface once
 

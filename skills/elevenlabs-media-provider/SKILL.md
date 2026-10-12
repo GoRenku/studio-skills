@@ -45,10 +45,11 @@ inputs. Do not query or reinterpret Renku Project relationships. The
 supported-route index is routing guidance only; read the selected ElevenLabs
 operation's current request facts for native fields and constraints.
 
-The installed ElevenLabs integration exposes schema inspection only for voice
-sample retrieval. Generic speech/music schema inspection is unavailable; report
-that limitation when schema-driven configuration needs it. Do not invent a local
-schema. Compatible TTS requests can use their exact model string, multi-speaker
+Inspect the exact live schema for speech, dialogue and voice sample routes with
+`renku generation schema show --provider elevenlabs --model <apiId> --json`.
+Speech and dialogue schemas list the native fields and the ranges of the voice
+settings. Music schema inspection is unavailable; report that limitation when
+schema-driven configuration needs it. Do not invent a local schema. Compatible TTS requests can use their exact model string, multi-speaker
 dialogue uses the exact `eleven_v4/text-to-dialogue` route, while music
 retains the fixed `music_v1` execution path. A personal music entry cannot enable
 another music protocol. Such a request needs separate provider work, not a guide

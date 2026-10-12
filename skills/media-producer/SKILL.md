@@ -278,12 +278,14 @@ remain governed by their existing rules.
 
 Read and follow
 [references/generation-review-routing.md](references/generation-review-routing.md)
-before configuring or delivering any review. Eligible Codex Desktop dialogue
-audio requests open a fullscreen
+before configuring or delivering any review. In Codex Desktop with panel
+support, dialogue audio requests open the fullscreen
 [dialogue direction panel](references/dialogue-direction-panels.md), and
 `image.edit` requests use the [image edit panels](references/image-edit-panels.md)
-(chooser for any model, FLUX 3 panel by default on Fal.ai); in both, the Generate
-click is the execution approval, independent of the review preferences below. Read
+(chooser for any model, edit panel for a panel-capable route), when the
+selected route appears in a `## Codex panel` block of its model guide. In both,
+the Generate click is the execution approval, independent of the review
+preferences below. Read
 `workflowPolicy.codexGenerationReview` and `workflowPolicy.codexPluginInstalled`
 from the CLI generation context. The global preference defaults to `auto`;
 it is not a Project setting. Follow the canonical routing guide for trusted host

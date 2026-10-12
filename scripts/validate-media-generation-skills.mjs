@@ -19,8 +19,7 @@ for (const [skillName, provider] of providers) {
   if (!mediaProducer.includes(skillName)) {
     throw new Error(`Media Producer does not route to ${skillName}.`);
   }
-  if (provider !== 'elevenlabs'
-    && !new RegExp(`generation schema show --provider\\s+${provider}`).test(providerSkill)) {
+  if (!new RegExp(`generation schema show --provider\\s+${provider}`).test(providerSkill)) {
     throw new Error(`${skillName} must inspect its exact live provider schema.`);
   }
   for (const required of [
@@ -99,6 +98,8 @@ for (const file of allSkillFiles) {
   if (file.endsWith('.md')) await validateMarkdownLinks(file);
 }
 
+const panelBlocks = await validateCodexPanelBlocks(allSkillFiles, routesByProvider);
+
 const mediaProducerFiles = await listFiles(path.join(root, 'skills', 'media-producer'));
 const reviewFiles = mediaProducerFiles.filter((file) => file.endsWith('-review.json'));
 const reviewedMediaKinds = new Set();
@@ -125,7 +126,52 @@ if ([...reviewedMediaKinds].sort().join(',') !== 'audio,image,video' || !include
 
 console.log(`Validated ${
   [...routesByProvider.values()].reduce((sum, routes) => sum + routes.length, 0)
-} provider routes.`);
+} provider routes and ${panelBlocks} Codex panel blocks.`);
+
+/**
+ * Every `## Codex panel` block is valid JSON for a known panel purpose, names
+ * bundled provider routes, and declares each provider route at most once per purpose.
+ */
+async function validateCodexPanelBlocks(files, routes) {
+  const purposes = new Set(['dialogue-direction', 'image-edit']);
+  const declared = new Set();
+  let count = 0;
+  for (const file of files.filter((candidate) => candidate.includes(`${path.sep}model-guides${path.sep}`) && candidate.endsWith('.md'))) {
+    const content = await readFile(file, 'utf8');
+    const section = content.match(/^## Codex panel\n([\s\S]*?)(?=^## |(?![\s\S]))/m)?.[1];
+    if (section === undefined) continue;
+    const relative = path.relative(root, file);
+    const blocks = [...section.matchAll(/```json\n([\s\S]*?)\n```/g)];
+    if (blocks.length === 0) throw new Error(`${relative} has a Codex panel section without a json block.`);
+    for (const [, json] of blocks) {
+      let block;
+      try {
+        block = JSON.parse(json);
+      } catch (error) {
+        throw new Error(`${relative} has an invalid Codex panel block: ${error.message}`);
+      }
+      if (!purposes.has(block.purpose)) throw new Error(`${relative} has a Codex panel block with unknown purpose ${block.purpose}.`);
+      if (!Array.isArray(block.routes) || block.routes.length === 0) throw new Error(`${relative} has a Codex panel block without routes.`);
+      for (const entry of block.routes) {
+        const models = block.purpose === 'dialogue-direction'
+          ? [entry.singleLine?.model, entry.lineRange?.model].filter((model) => model !== undefined)
+          : [entry.model];
+        const providerRoutes = routes.get(entry.provider);
+        if (!providerRoutes) throw new Error(`${relative} names provider ${entry.provider}, which has no provider Skill.`);
+        for (const model of models) {
+          if (!providerRoutes.some((route) => route.apiId === model)) {
+            throw new Error(`${relative} names ${entry.provider} model ${model}, which is not in its supported-routes.json.`);
+          }
+        }
+        const key = `${block.purpose} ${entry.provider} ${models[0]}`;
+        if (declared.has(key)) throw new Error(`${relative} declares ${entry.provider} ${models[0]} in more than one ${block.purpose} block.`);
+        declared.add(key);
+      }
+      count += 1;
+    }
+  }
+  return count;
+}
 
 function validateReviewMarkers(value, file) {
   if (Array.isArray(value)) {

@@ -1,9 +1,9 @@
 # Image edit panels
 
 Use this guide for an eligible `image.edit` request in Codex Desktop. The user
-marks rectangular regions on the image, gives each an instruction, and clicks
-**Generate** in a fullscreen panel. You write the model prompt, execute it
-through the normal provider Skill and CLI path, import the result and report
+describes the change, marks rectangular regions when the route takes them, and
+clicks **Generate** in a fullscreen panel. You write the model prompt, execute
+it through the normal provider Skill and CLI path, import the result and report
 it. The panel never executes generation. When the request matches several
 images, you first ask which one with an inline chooser.
 
@@ -16,13 +16,12 @@ anything about the image.
 
 - **The chooser** is for every `image.edit` request in that host, whatever the
   model. Choosing the image comes before choosing the route.
-- **The panel** opens when the edit route is FLUX 3 Image Edit on Fal.ai,
-  `blackforestlabs/flux-3/edit-image`. That is the default edit route whenever
-  `renku credentials status --json` shows `fal-ai` configured and the user has
-  not named another model or provider, whatever the saved Image provider is. Do
-  not ask the user which model to use in that case. A user who names another
-  model or provider, or a Project without a saved Fal.ai key, keeps the
-  conversational `image.edit` flow on the chosen image.
+- **The panel** opens when the selected edit route appears in an
+  `image-edit` block of the `## Codex panel` section of its canonical model
+  guide. Select the route as the Media Producer Skill directs (its default
+  edit route rule applies); do not ask the user which model to use when that
+  rule decides. A route without a block keeps the conversational `image.edit`
+  flow on the chosen image.
 
 These apps are not generation reviews. Do not read or apply
 `workflowPolicy.codexGenerationReview` or
@@ -35,9 +34,9 @@ Every other host keeps the conversational `image.edit` flow with the shared
 [generation review routing](generation-review-routing.md).
 
 Never ask in chat which image to edit when several match: show the chooser.
-Never ask in chat what to change before opening the panel: the user marks and
-describes the changes in the panel. Pass any change the user already stated as
-`wholeImageInstruction`.
+Never ask in chat what to change before opening the panel: the user describes
+the changes in the panel. Pass any change the user already stated as
+`initialWholeImageInstruction`.
 
 ## 1. Find the image to edit
 
@@ -76,24 +75,67 @@ Image choice canceled. Chooser <id>. Consume it with image.edit.target.consume o
 Call `image.edit.target.consume` once with `{ chooserId }`:
 
 - `chosen` returns the exact `assetFileId`; continue with step 3 when the
-  route is FLUX 3 Image Edit, otherwise continue the conversational
+  route has a `## Codex panel` block, otherwise continue the conversational
   `image.edit` flow on that exact image.
 - `canceled` means stop and reply briefly.
 - `alreadyConsumed` authorizes nothing.
 
 ## 3. Open the panel and end the turn
 
-With the FLUX 3 Image Edit route, open the panel right away; do not ask what
-to change first.
+A panel-capable model guide holds a fenced `json` block for the `image-edit`
+purpose:
+
+```json
+{
+  "purpose": "image-edit",
+  "routes": [
+    {
+      "provider": "<provider id>",
+      "model": "<exact route id>",
+      "regionModes": [
+        { "id": "<mode id>", "label": "<button label>", "instructionRequired": true, "placeholder": "<instruction hint>" }
+      ],
+      "styleReference": true,
+      "controlPointers": ["/native/json/pointer"]
+    }
+  ]
+}
+```
+
+`regionModes` lists the region actions the route accepts in display order, the
+first being the default, or is `null` when the route takes no regions.
+`styleReference` says whether the route takes a style reference image.
+`controlPointers` lists the few native settings the panel shows. Build the
+Route Description from the entry for the selected provider and model:
+
+- copy `provider`, `model`, `regionModes` and `styleReference`;
+- take `label` and `providerLabel` from the route's `generation models list`
+  entry, the same source the combined review uses (`label` is the route index
+  `name`);
+- build `controls` from the live schema (`renku generation schema show
+  --provider <provider> --model <model> --json`) for the listed
+  `controlPointers` only, using the generation review control rules: one
+  group (use the label the guide gives, such as "Output"), the schema title as
+  each control's label, an `initialValue` for each, scalar kinds only and never
+  nullable.
+
+Open the panel right away; do not ask what to change first.
 
 ```ts
-// image.edit.flux-3.open
+// image.edit.open
 {
   project: string;
   sourceAssetFileId: string;
-  route: { provider: 'fal-ai'; model: 'blackforestlabs/flux-3/edit-image' };
-  wholeImageInstruction: string;   // the user's requested change in their words, or ''
-  resolution: '1k' | '2k' | '4k';  // usually '2k'
+  route: {
+    provider: string;
+    providerLabel: string;
+    model: string;
+    label: string;
+    regionModes: Array<{ id: string; label: string; instructionRequired: boolean; placeholder: string }> | null;
+    styleReference: boolean;
+    controls: { groups: Array<{ label: string; fields: NativeRequestControl[] }> };
+  };
+  initialWholeImageInstruction: string; // the user's requested change in their words, or ''
 }
 ```
 
@@ -106,7 +148,7 @@ turn and wait. Opening the panel authorizes no generation.
 Each Generate click posts one message:
 
 ```text
-Generate image edit · <owner> · <image type> Take <N>. I approve uploading this image and any references it needs to Fal.ai and running one paid FLUX 3 Image Edit at <resolution> with my saved Fal.ai key. Session <id>, action <id>. Consume it with image.edit.consume once.
+Generate image edit · <owner> · <image type> Take <N>. I approve uploading this image and any references it needs to <provider> and running one paid <route> with my saved <provider> key. Session <id>, action <id>. Consume it with image.edit.consume once.
 ```
 
 For each one, in this order:
@@ -126,12 +168,13 @@ For each one, in this order:
    exact active Asset File with the domain commands and generation context.
    Ask in chat instead of guessing when a name is ambiguous, and report the
    action failed if you cannot resolve it.
-3. **Write the FLUX 3 request** following
-   [the FLUX 3 Image guide](model-guides/image/flux-3-image.md) and the Fal.ai
-   [reference input adapter](../../fal-ai-media-provider/references/adapters/reference-inputs.md):
-   - `image_urls` in this order: `base` as image 1, then `styleReference` when
+3. **Write the native request** from the route-neutral draft
+   `{ baseAssetFileId, wholeImageInstruction, styleReferenceAssetFileId, regions, values }`,
+   following the `## Codex panel` mapping prose in the route's model guide and
+   the provider's reference input adapter:
+   - Order the reference images: `base` first, then `styleReference` when
      present, then each resolved reference, each as a `$file` marker with a
-     meaningful `reviewLabel`.
+     meaningful `reviewLabel`, in the native field the adapter names.
    - `styleReference` is a Production or Storyboard Lookbook sheet: a board of
      palette, lighting and rendering examples, not a scene to copy. Give it a
      style-only role, such as "match the palette, lighting and rendering style
@@ -141,27 +184,19 @@ For each one, in this order:
      "selected", "the pick", "Take 3", "the Props section", Studio names of
      panels, or any Renku id mean nothing to the model. Describe each
      reference by what it shows and its image number.
-   - Write the instruction with one inline tag per region, `<region_N>` for
-     region `N`, then the whole-image change, the style reference's role ("in
-     the style of image 2, keeping the composition of image 1") and a sentence
-     naming what must stay unchanged. Keep the user's intent; you may rephrase
-     for the model.
-   - Append one space and the JSON array of box rows. Region boxes are already
-     on the 0–1000 grid; write them as `[top, left, bottom, right]`:
-     - **Edit:** `{"id": "region_N", "from": null, "src_bbox": null, "tgt_bbox": [top, left, bottom, right], "desc": "<how the area should look after the edit>"}`.
-     - **Remove:** `{"id": "region_N", "from": "ref_image_0", "src_bbox": [top, left, bottom, right], "tgt_bbox": null, "desc": "<what is being removed>"}`; say what fills the space in the instruction, using the region's instruction when given.
-     - Add a keep row (`from: "ref_image_0"`, same `src_bbox` and `tgt_bbox`)
-       for a nearby element that must not move, such as a face beside an
-       edited hat.
-   - Set `aspect_ratio: "auto"`, `resolution` from the draft,
-     `output_format: "png"`, and leave `enable_prompt_expansion` off.
-   Write the review document (`provider`, `model`, `mediaKind: "image"`,
-   `prompt`, `request`) under `tmp/operations/media-generation/`.
+   - Each region has a route `mode` id, a box on the 0–1000 grid with the
+     origin at top-left (`top`, `left`, `bottom`, `right`), and an
+     instruction. Convert boxes to the model's native notation as its guide
+     says.
+   - Set each entry of `values` at its JSON Pointer in the native request.
+   Keep the user's intent; you may rephrase for the model. Write the review
+   document (`provider`, `model`, `mediaKind: "image"`, `prompt`, `request`)
+   under `tmp/operations/media-generation/`.
 4. **Validate and execute** with `renku generation validate --file <request>
    --json`, then `renku generation execute` with the returned
    `--expected-request-sha256`. The Generate message is the user's explicit
-   approval for this one edit: it names the upload to Fal.ai, the paid run and
-   the saved key, and the panel shows the same terms beside Generate. Do not ask
+   approval for this one edit: it names the upload to the provider, the paid
+   run and the saved key, and the panel shows the same terms beside Generate. Do not ask
    for confirmation in chat, open a review or Studio Preview, or retry a
    successful paid execution. When the host requires approval to run the
    command (network access or an approval review), request it once with a

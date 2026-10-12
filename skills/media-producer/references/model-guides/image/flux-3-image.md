@@ -98,6 +98,51 @@ sides of the face. Plan for that:
 - When the route offers prompt expansion, leave it off for region edits: an
   expanded prompt can rewrite tags or the box array.
 
+## Codex panel
+
+FLUX 3 Image Edit is the region-capable route of the Codex
+[image edit panel](../../image-edit-panels.md):
+
+```json
+{
+  "purpose": "image-edit",
+  "routes": [
+    {
+      "provider": "fal-ai",
+      "model": "blackforestlabs/flux-3/edit-image",
+      "regionModes": [
+        { "id": "edit", "label": "Edit", "instructionRequired": true, "placeholder": "What should change here?" },
+        { "id": "remove", "label": "Remove", "instructionRequired": false, "placeholder": "Optional: what should fill the space" }
+      ],
+      "styleReference": true,
+      "controlPointers": ["/resolution"]
+    }
+  ]
+}
+```
+
+**Controls.** Resolution is the one setting a director changes between
+iterations (see Settings), so it is the panel's only control, in an "Output"
+group, with the live schema's options and an initial value of `2k`. Keep
+`aspect_ratio: "auto"` so the output matches the grid the regions were drawn
+on.
+
+**Mapping the consumed draft.** Fal.ai places images in `image_urls` (see the
+[reference input adapter](../../../../fal-ai-media-provider/references/adapters/reference-inputs.md)).
+
+- Write the instruction with one inline tag per region, `<region_N>` for
+  region `N`, then the whole-image change, the style reference's role ("in the
+  style of image 2, keeping the composition of image 1") and a sentence naming
+  what must stay unchanged.
+- Append one space and the JSON array of box rows. Region boxes are already on
+  the 0–1000 grid; write them as `[top, left, bottom, right]`:
+  - **Edit:** `{"id": "region_N", "from": null, "src_bbox": null, "tgt_bbox": [top, left, bottom, right], "desc": "<how the area should look after the edit>"}`.
+  - **Remove:** `{"id": "region_N", "from": "ref_image_0", "src_bbox": [top, left, bottom, right], "tgt_bbox": null, "desc": "<what is being removed>"}`; say what fills the space in the instruction, using the region's instruction when given.
+  - Add a keep row (`from: "ref_image_0"`, same `src_bbox` and `tgt_bbox`) for
+    a nearby element that must not move, such as a face beside an edited hat.
+- Set `aspect_ratio: "auto"`, `resolution` from the draft `values`,
+  `output_format: "png"`, and leave `enable_prompt_expansion` off.
+
 Reviewed 2026-10-11 against Black Forest Labs' [bounding boxes], [layout],
 [unified prompting basics], [technical prompting], and [multi-reference
 editing] guides, and Fal.ai's [edit-image] and [text-to-image] API schemas.

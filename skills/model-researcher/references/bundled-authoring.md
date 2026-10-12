@@ -53,6 +53,46 @@ Do not copy provider schemas into the repository or introduce a new registry.
 An unsupported execution protocol needs separate runtime work; a bundled entry
 must not imply that authoring guidance enabled it.
 
+## Add Codex panel support as guide data
+
+Codex panels are purpose-owned and model-neutral: the dialogue direction panel
+([dialogue-direction-panels.md](../../media-producer/references/dialogue-direction-panels.md))
+and the image edit panel
+([image-edit-panels.md](../../media-producer/references/image-edit-panels.md)).
+A model reaches a panel only through a `## Codex panel` section in its
+canonical model guide. Adding one changes no Studio code.
+
+- **When to add a block.** Add one for a route of a panel purpose
+  (`dialogue-direction` for dialogue audio, `image-edit` for edits) when the
+  route fits the panel's interaction vocabulary: for dialogue, a Script Layout
+  (`line-scripts` or `range-prompt`), a Voice Binding (`speaker-voices` or
+  `voice-references`), and one-line and optional range operations; for image
+  edit, a whole-image instruction with optional Region Modes and an optional
+  style reference. Also confirm a Skill workflow can supply what the binding
+  needs, such as a provider voice identity for every speaker.
+- **The block.** Write one fenced `json` block per purpose, in the format the
+  panel reference documents. `routes` is an array of provider route entries,
+  so one guide can cover several providers or several models on one provider.
+  Every entry's provider must have a provider Skill and its `model` must be in
+  that Skill's `supported-routes.json`. A provider and model appears in at most
+  one block per purpose.
+- **Choosing `controlPointers`.** List only the few native settings a director
+  changes between iterations, usually one to three, as JSON Pointers into the
+  native request. Check each against the live schema: it must be a scalar
+  (string, number, integer, boolean or enum) with a default the panel can start
+  from. Never restate kinds, bounds or options in the guide; the live schema
+  supplies them. Leave out settings that must stay fixed for the panel to work,
+  such as an aspect setting that keeps regions aligned, and say so in prose.
+- **Prose.** Beside the block, explain how to author the initial direction,
+  how to map the consumed route-neutral draft into the native request, and why
+  the listed controls are the relevant ones. Provider placement and mention
+  rules stay in the provider adapters; link them.
+- **Product gaps.** When a model needs an interaction shape outside the
+  vocabulary, such as mask-based editing or an edit route without a whole-image
+  instruction, add no block. Report it to the user as a Studio product gap that
+  needs a panel vocabulary decision, and keep the conversational flow for that
+  route. Never describe a model with a field the vocabulary lacks.
+
 ## Verify and hand off
 
 Run `pnpm test` from the source repository root. Inspect the full diff and

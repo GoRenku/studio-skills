@@ -804,20 +804,26 @@ host, and an Eleven v3 request in Codex Desktop.
 
 Expected behavior:
 
-- Codex Desktop with an eligible route reads the context, then calls exactly
-  one opening tool and ends the turn: `dialogue.direction.eleven-v4.open` for
-  ElevenLabs with `route` `{ provider: elevenlabs, speechModel: eleven_v4,
-  rangeModel: eleven_v4/text-to-dialogue }`, or
-  `dialogue.direction.seed-audio.open` for Seed Audio with `speechModel` equal
-  to `rangeModel`;
-- the Seed Audio panel sets `promptMentions: audio-tags` for Fal.ai and Pika,
-  whose drafts mention `@Audio1`–`@Audio3`, and `promptMentions: none` for
-  WaveSpeed, whose drafts contain no `@AudioN`;
+- Codex Desktop with a guide-declared route reads the context and the
+  canonical model guide's `## Codex panel` block, then calls
+  `dialogue.direction.open` once and ends the turn;
+- the `route` copies the block entry for the selected provider:
+  `line-scripts` with `speaker-voices` and `maxVoices: 10` for Eleven v4,
+  whose Single-Line model is `eleven_v4` and Line-Range model is
+  `eleven_v4/text-to-dialogue`; `range-prompt` with `voice-references` and
+  `maxVoices: 3` for Seed Audio, with mentions `@Audio1`–`@Audio3` on Fal.ai
+  and Pika and `mentions: null` on WaveSpeed, whose drafts contain no
+  `@AudioN`;
+- `label` and `providerLabel` come from the route's `generation models list`
+  entry, and each operation's `controls` hold only the guide's
+  `controlPointers`, built from the live schema with initial values: stability
+  and similarity for Eleven v4, none for Seed Audio;
 - the opening inputs match the documented shape exactly: one consecutive
-  `turnRange`, an `initialSelection` inside it, Eleven acting scripts for every
-  line exactly once with suggested tags and 0–1 voice settings, and a
-  `speakers` entry per speaker listing only compatible Cast Voices (ElevenLabs
-  opaque identities for Eleven v4, voices with sample files for Seed Audio);
+  `turnRange`, an `initialSelection` inside it, one single-line Direction
+  Script per line for Eleven v4 with bracketed suggested tags written exactly,
+  and a `speakers` entry per speaker listing only compatible Cast Voices
+  (ElevenLabs opaque identities for Eleven v4, voices with sample files for
+  Seed Audio);
 - the panel opens under `visualize` and under either display mode; no
   combined generation review, Visualize component, Studio Preview or
   display-mode argument appears;
@@ -825,6 +831,20 @@ Expected behavior:
   existing review routing and conversational flow unchanged, with no
   dialogue direction tool call; and
 - screenplay words in every draft stay exact.
+
+## dialogue-direction-personal-route — A route without a guide block stays conversational
+
+In trusted Codex Desktop with an advertised probe, request dialogue audio on a
+personal route saved with `generation models import` whose model has no
+canonical guide, and on a bundled route whose guide has no `## Codex panel`
+block.
+
+Expected behavior:
+
+- no `dialogue.direction.open` call; the request follows the existing review
+  routing and conversational flow;
+- no Route Description is improvised from the route's schema or name; and
+- no warning or approval question is added for the missing block.
 
 ## dialogue-direction-handoff — Consume, request, execute, import, report
 
@@ -841,14 +861,14 @@ Expected behavior:
   `generation execute` with the validated hash, `media import --purpose
   shot-plan.dialogue-audio --turns` with the draft's range, then
   `dialogue.direction.report` with `status: attached` and the imported Take id;
-- the one-line Eleven request uses the consumed `eleven_v4` model with `text`,
-  `voice` and `voice_settings { stability, similarity_boost }`; the range uses
-  `eleven_v4/text-to-dialogue` with one `inputs` entry per line in order and
-  `settings { stability, similarity }`; voices come only from Cast Voice
-  opaque identities;
-- the Seed request keeps the draft prompt exactly and orders sample markers by
-  `voiceReferences` position, in `audio_urls` with `@AudioN` mentions on Fal.ai
-  and in `audios` without mentions on WaveSpeed;
+- the one-line Eleven request uses the consumed `eleven_v4` model with the
+  script `text`, `voice` and `voice_settings` set from the draft `values` at
+  their JSON Pointers; the range uses `eleven_v4/text-to-dialogue` with one
+  `inputs` entry per draft script in order and `settings` from `values`;
+  voices come only from Cast Voice opaque identities;
+- the Seed request keeps the draft's one script text exactly and orders sample
+  markers by voice position, in `audio_urls` with the mention at the same
+  position on Fal.ai and in `audios` without mentions on WaveSpeed;
 - no confirmation question, combined review, Visualize component or Studio
   Preview occurs between consume and execute: the Generate click is the
   approval;
@@ -857,6 +877,43 @@ Expected behavior:
 - the failed execution produces no import and one report with
   `status: failed` and a user-readable message; and
 - the imported Take becomes selected, clearing any overlapping selected Take.
+
+## image-edit-panel-routing — Guide-declared edit routes open the image edit panel
+
+In trusted Codex Desktop with an advertised probe, request edits of one Cast
+profile with a saved Fal.ai key and no named model, then name GPT Image 2.5
+Flare, Nano Banana 2.1 and Seedream 5.0 Pro on Fal.ai, and finally name a
+route whose guide has no `## Codex panel` block.
+
+Expected behavior:
+
+- the default request uses FLUX 3 Image Edit without asking and calls
+  `image.edit.open` with the guide's Region Modes (`edit`, `remove`),
+  `styleReference: true` and one "Output" control for `/resolution` built from
+  the live schema;
+- the named region-free routes call `image.edit.open` with
+  `regionModes: null` and the guide's controls: `/quality` for GPT Image 2.5
+  Flare, `/resolution` for Nano Banana 2.1, none for Seedream 5.0 Pro;
+- the route without a block keeps the conversational `image.edit` flow; and
+- no question about what to change precedes the panel; a stated change is
+  passed as `initialWholeImageInstruction`.
+
+## image-edit-region-free-handoff — Map a region-free draft into the native request
+
+Post a Generate message for a GPT Image 2.5 Flare Edit session with a
+whole-image instruction, a Production Lookbook style reference and
+`values: { "/quality": "medium" }`. Use mocked execution.
+
+Expected behavior:
+
+- `image.edit.consume` once, then a request for
+  `openai/gpt-image-2.5/flare/edit` with the base first in `image_urls`, the
+  style sheet second with a style-only role, `quality: "medium"`, and no
+  region rows, box notation or mask;
+- the prompt names no project-internal words and keeps the user's intent;
+- validate, execute, `media import --purpose image.edit --target
+  assetFile:<base id>` and `image.edit.report` follow in order; and
+- an `alreadyConsumed` result authorizes nothing.
 
 ## dialogue-audio-capability — Two audio-capable families and one audio-incapable route
 
