@@ -91,7 +91,6 @@ Model-specific craft guidance reviewed 2026-09-30:
 
 Provider route references previously checked 2026-09-24:
 
-- [Fal Veo 3.1](https://fal.ai/models/fal-ai/veo3.1)
 - [Pika Veo 3.1 text-to-video](https://dev.pika.art/llms/google/veo-3.1/text-to-video)
 - [WaveSpeed Veo 3.1](https://wavespeed.ai/veo-3-1-api)
 - [Replicate Veo 3.1](https://replicate.com/google/veo-3.1)

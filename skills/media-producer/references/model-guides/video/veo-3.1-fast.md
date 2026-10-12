@@ -66,7 +66,6 @@ General Veo craft guidance and current Google surface distinctions reviewed
 
 Fast provider route references previously checked 2026-09-24:
 
-- [Fal Veo 3.1 Fast reference-to-video](https://fal.ai/models/fal-ai/veo3.1/fast/reference-to-video/api)
 - [Pika Veo 3.1 Fast text-to-video](https://dev.pika.art/llms/google/veo-3.1-fast/text-to-video)
 - [WaveSpeed Veo 3.1](https://wavespeed.ai/veo-3-1-api)
 - [Replicate Veo 3.1 Fast](https://replicate.com/google/veo-3.1-fast)
