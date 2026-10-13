@@ -42,12 +42,13 @@ wash, hatching, roughness, modeled lighting, or a new finish unless those
 properties already belong to the accepted style.
 
 Select Codex or Fal.ai through explicit current user direction, then the
-Project's Image provider setting. For Fal.ai, author one provider-native review
-document through its Skill, then follow [generation review routing](generation-review-routing.md).
-Panel mode uses Submit/consume and accepted-edit validation without Studio Preview;
-CLI/non-Codex sessions always deliver Studio Preview. Apply native prompt edits
-through the provider Skill. For Codex, use the same temporary envelope and the
-accepted native values without separate generation consent. Inspect and automatically import either
+Image Generation lane through [route choice](route-choice.md). For Fal.ai,
+author one provider-native review document through its Skill, then follow
+[generation review routing](generation-review-routing.md). With Ask Before
+Generating on, panel mode uses Submit/consume and accepted-edit validation
+without Studio Preview, and CLI/non-Codex sessions deliver Studio Preview or a
+text review. Apply native prompt edits through the provider Skill. For Codex,
+use the same temporary envelope and the accepted native values. Inspect and automatically import either
 output with exact safe generation provenance, without attachment confirmation.
 Manual or other external images omit generation provenance.
 

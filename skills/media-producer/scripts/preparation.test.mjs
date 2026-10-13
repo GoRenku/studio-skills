@@ -2,29 +2,25 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { assessPreparation, assessModelDiscovery, assessExpansionChoice } from '../evals/generation-context/preparation.mjs';
 
-// Visualize desktop observations; panel and mandatory Preview routing have their own matrix.
+// Studio Preview path observations; panel routing has its own matrix.
 
 for (const mediaKind of ['image', 'audio', 'video']) {
-  test(`${mediaKind} reuses cached HTML, carries new settings, and prepares in one operation`, () => {
-    const payload = { mediaKind, prompt: 'Current request', controls: { quality: 'selected' } };
-    assert.deepEqual(assessPreparation({ payload, renderedPayload: payload, events: [
-      { type: 'visualization-prepared', status: 'fresh' }, { type: 'configuration-rendered' },
-      { type: 'review-authored', toolOperation: 2 }, { type: 'request-prepared', toolOperation: 2 },
+  test(`${mediaKind} writes the request and prepares it in one operation`, () => {
+    assert.deepEqual(assessPreparation({ events: [
+      { type: 'review-authored', toolOperation: 2, mediaKind }, { type: 'request-prepared', toolOperation: 2, mediaKind },
     ] }), []);
   });
 }
 
-test('detects split preparation, a rebuilt fresh cache, and stale request payload', () => {
-  assert.deepEqual(assessPreparation({ payload: { prompt: 'New' }, renderedPayload: { prompt: 'Old' }, events: [
-    { type: 'visualization-prepared', status: 'fresh' }, { type: 'schema-fetch' },
-    { type: 'template-authoring' }, { type: 'configuration-rendered' }, { type: 'validate' }, { type: 'preview' },
-  ] }), ['split-request-preparation', 'fresh-cache-rebuilt', 'request-payload-not-preserved']);
+test('detects split preparation, redundant calls and a writing roundtrip', () => {
+  assert.deepEqual(assessPreparation({ events: [{ type: 'validate' }, { type: 'preview' }] }),
+    ['split-request-preparation']);
+  assert.deepEqual(assessPreparation({ events: [{ type: 'review-authored', toolOperation: 1 },
+    { type: 'request-prepared', toolOperation: 2 }, { type: 'validate' }] }),
+  ['redundant-preparation-call', 'request-writing-roundtrip']);
 });
 
-test('permits a cache rebuild after incompatibility and preserves non-Engines and no-Preview flows', () => {
-  const events = [{ type: 'visualization-prepared', status: 'incompatible' }, { type: 'schema-fetch' },
-    { type: 'template-authoring' }, { type: 'visualization-prepared', status: 'fresh' }, { type: 'configuration-rendered' }];
-  assert.deepEqual(assessPreparation({ engines: false, events }), []);
+test('preserves non-Engines and no-Preview flows', () => {
   assert.deepEqual(assessPreparation({ previewRequired: false, events: [{ type: 'validate' }] }), []);
   assert.deepEqual(assessPreparation({ engines: false, events: [{ type: 'preview' }] }), []);
 });

@@ -1,6 +1,6 @@
 ---
 name: model-researcher
-description: Add or refresh Renku media models under existing providers, research prompting advice, and author personal library entries or explicitly requested curated additions to the Studio Skills distribution.
+description: Add or refresh Renku media models under existing providers, research prompting advice, research route prices missing from cost estimates, and author personal library entries or explicitly requested curated additions to the Studio Skills distribution.
 ---
 
 # Model Researcher
@@ -38,6 +38,12 @@ guidance at the selected destination. Preserve existing edits. Report the
 destination, exact route, guidance changes, and what was actually researched or
 tested. Do not imply a saved route proves successful execution. Bundled authoring
 leaves a reviewable source change; publishing requires a release request.
+
+When Media Producer's review estimate for a route without API pricing is
+`missingPrice` or `expired`, read
+[references/price-research.md](references/price-research.md) and record the
+route's price from the provider's public pricing page. Prices live only in
+Renku's provider metadata cache, never in Skill files.
 
 For generation, hand off to Media Producer and the selected provider Skill.
 Engines owns live/cached schemas, authentication, uploads, execution, and output

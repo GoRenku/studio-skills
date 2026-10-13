@@ -1,0 +1,43 @@
+{
+  "formatVersion": 1,
+  "lanes": {
+    "image": [
+      { "model": "chatgpt-images-2.5", "name": "GPT Image 2.5", "providers": ["codex"], "recommendedFor": ["codex"] },
+      { "model": "gpt-image-2", "name": "GPT Image 2", "providers": ["fal-ai", "pika", "replicate", "wavespeed-ai"], "recommendedFor": ["fal-ai", "pika", "replicate", "wavespeed-ai"] },
+      { "model": "nano-banana", "name": "Nano Banana", "providers": ["fal-ai", "pika", "replicate", "wavespeed-ai"], "recommendedFor": [] },
+      { "model": "flux-3-image", "name": "FLUX 3", "providers": ["fal-ai"], "recommendedFor": [] },
+      { "model": "seedream-5.0-pro", "name": "Seedream 5.0 Pro", "providers": ["fal-ai", "pika", "replicate", "wavespeed-ai"], "recommendedFor": [] },
+      { "model": "grok-imagine-image", "name": "Grok Imagine Image", "providers": ["fal-ai", "pika", "replicate", "wavespeed-ai"], "recommendedFor": [] },
+      { "model": "flux-kontext-pro", "name": "FLUX Kontext Pro", "providers": ["fal-ai", "replicate", "wavespeed-ai"], "recommendedFor": [] },
+      { "model": "z-image-turbo", "name": "Z-Image Turbo", "providers": ["fal-ai", "replicate", "wavespeed-ai"], "recommendedFor": [] }
+    ],
+    "imageEdit": [
+      { "model": "flux-3-image", "name": "FLUX 3", "providers": ["fal-ai"], "recommendedFor": ["fal-ai"] },
+      { "model": "chatgpt-images-2.5", "name": "GPT Image 2.5", "providers": ["codex"], "recommendedFor": ["codex"] },
+      { "model": "seedream-5.0-pro", "name": "Seedream 5.0 Pro", "providers": ["fal-ai", "pika", "replicate", "wavespeed-ai"], "recommendedFor": ["pika", "wavespeed-ai"] },
+      { "model": "gpt-image-2.5", "name": "GPT Image 2.5", "providers": ["fal-ai"], "recommendedFor": [] },
+      { "model": "nano-banana", "name": "Nano Banana", "providers": ["fal-ai", "pika", "replicate", "wavespeed-ai"], "recommendedFor": [] },
+      { "model": "gpt-image-2", "name": "GPT Image 2", "providers": ["fal-ai", "pika", "replicate", "wavespeed-ai"], "recommendedFor": [] },
+      { "model": "flux-kontext-pro", "name": "FLUX Kontext Pro", "providers": ["fal-ai", "replicate", "wavespeed-ai"], "recommendedFor": ["replicate"] },
+      { "model": "grok-imagine-image", "name": "Grok Imagine Image", "providers": ["fal-ai", "pika", "replicate", "wavespeed-ai"], "recommendedFor": [] },
+      { "model": "z-image-turbo", "name": "Z-Image Turbo", "providers": ["fal-ai", "wavespeed-ai"], "recommendedFor": [] }
+    ],
+    "video": [
+      { "model": "seedance-2.5", "name": "Seedance 2.5", "providers": ["fal-ai", "pika", "replicate", "wavespeed-ai"], "recommendedFor": ["fal-ai", "pika", "replicate", "wavespeed-ai"] },
+      { "model": "seedance-2.0", "name": "Seedance 2.0", "providers": ["fal-ai", "pika", "replicate", "wavespeed-ai"], "recommendedFor": [] },
+      { "model": "minimax-h3", "name": "MiniMax Hailuo 3", "providers": ["fal-ai", "pika", "replicate", "wavespeed-ai"], "recommendedFor": [] },
+      { "model": "minimax-h3-max", "name": "MiniMax H3 Max", "providers": ["fal-ai"], "recommendedFor": [] },
+      { "model": "flux-3", "name": "FLUX 3", "providers": ["fal-ai", "pika", "replicate", "wavespeed-ai"], "recommendedFor": [] },
+      { "model": "gemini-omni-flash-1.1", "name": "Gemini Omni Flash 1.1", "providers": ["fal-ai", "pika", "replicate", "wavespeed-ai"], "recommendedFor": [] },
+      { "model": "wan-3.0-prime", "name": "Wan 3.0 Prime", "providers": ["fal-ai", "pika", "replicate", "wavespeed-ai"], "recommendedFor": [] },
+      { "model": "veo-3.1", "name": "Veo 3.1", "providers": ["pika", "replicate", "wavespeed-ai"], "recommendedFor": [] },
+      { "model": "veo-3.1-fast", "name": "Veo 3.1 Fast", "providers": ["pika", "replicate", "wavespeed-ai"], "recommendedFor": [] }
+    ],
+    "audio": [
+      { "model": "elevenlabs-speech", "name": "Eleven v4", "providers": ["elevenlabs"], "recommendedFor": ["elevenlabs"] },
+      { "model": "seed-audio-1.0", "name": "Seed Audio 1.0", "providers": ["fal-ai", "pika", "wavespeed-ai"], "recommendedFor": ["fal-ai", "pika", "wavespeed-ai"] },
+      { "model": "minimax-speech-2.8-hd", "name": "MiniMax Speech 2.8 HD", "providers": ["replicate"], "recommendedFor": ["replicate"] },
+      { "model": "elevenlabs-music", "name": "Eleven Music", "providers": ["elevenlabs"], "recommendedFor": [] }
+    ]
+  }
+}

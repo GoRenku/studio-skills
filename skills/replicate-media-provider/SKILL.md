@@ -49,13 +49,6 @@ routing guidance only; run `renku generation schema show --provider replicate
 --model <api_id> --json` for the selected Replicate model's current native fields
 and constraints.
 
-When Media Producer is running its Codex inline-configuration flow, a `fresh`
-Core-managed generation configuration visualization schema snapshot is this
-inspection for pre-review authoring. Do not also run `generation schema show`
-during that 24-hour window. Media Producer owns miss, expiry, dependency-change,
-and invalidation refreshes; final validation and execution remain authoritative
-live boundaries.
-
 Use `owner/model` or the exact pinned `owner/model:version` recorded in the
 index. Author the provider-native prediction input as `request`, using `$file`
 markers with Media Producer's exact `reviewLabel` at exact native media fields.
@@ -67,4 +60,8 @@ failures, downloads outputs, and returns safe provenance.
 Follow Media Producer's shared review routing for panel Submit/consume or
 Preview/conversational confirmation, artifact review, and focused
 attachment. Never call Replicate directly or persist provider URLs, tokens,
-prediction state, durable execution lifecycle records, or cost-approval artifacts.
+prediction state, or durable execution lifecycle records.
+
+Renku estimates cost for reviews from cached provider prices. Do not write
+prices into this Skill or the review document; a missing or expired price
+follows `model-researcher`'s price research.

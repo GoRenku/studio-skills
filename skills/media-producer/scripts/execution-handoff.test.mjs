@@ -1,27 +1,11 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { assessConfigurationHandoff, assessExecutionHandoff } from '../evals/generation-context/execution-handoff.mjs';
+import { assessExecutionHandoff } from '../evals/generation-context/execution-handoff.mjs';
 
 const event = (type, toolOperation = 1) => ({ type, toolOperation });
 
-// These observations exercise the explicitly selected Visualize desktop path.
-// Default panel routing and its Submit confirmation are evaluated separately.
-test('Visualize H3 preparation that reads the Skill twice but authors no component fails', () => {
-  const events = ['visualize-read', 'schema-read', 'visualize-read', 'review-authored',
-    'preview', 'execution-rejected'].map((type) => ({ type, turn: 1 }));
-  assert.deepEqual(assessConfigurationHandoff(events),
-    ['configuration-not-rendered', 'review-before-settings-acceptance']);
-});
-
-test('rendered configuration ends preparation turn before accepted settings reach review', () => {
-  const events = [{ type: 'configuration-rendered', turn: 1 },
-    { type: 'settings-accepted', turn: 2 }, { type: 'review-authored', turn: 2 }];
-  assert.deepEqual(assessConfigurationHandoff(events), []);
-  assert.ok(assessConfigurationHandoff(events.map((entry) => ({ ...entry, turn: 1 })))
-    .includes('configuration-turn-not-ended'));
-  assert.ok(assessConfigurationHandoff(events.filter((entry) => entry.type !== 'settings-accepted'))
-    .includes('review-before-settings-acceptance'));
-});
+// These observations exercise a confirmation-required Studio Preview path.
+// Panel routing and its Submit confirmation are evaluated separately.
 const prepared = { prompt: 'Keep the face.', request: { prompt: 'Native: Keep the face.', resolution: '768P' } };
 const provenance = { ...prepared, receipt: { expanded_prompt: 'Provider-authored text', seed: 123 } };
 const preparedSha256 = 'a'.repeat(64);
@@ -66,7 +50,7 @@ test('receipt reconstruction cannot silently lose provider fields', () => {
   assert.ok(assessExecutionHandoff({ ...baseline, attachedProvenance: prepared }).includes('provenance-changed'));
 });
 
-test('Visualize configuration submission alone is not paid-generation confirmation', () => {
+test('configuration alone is not paid-generation confirmation', () => {
   const events = baseline.events.filter((entry) => entry.type !== 'confirmation');
   assert.ok(assessExecutionHandoff({ ...baseline, events }).includes('execution-without-confirmation'));
 });

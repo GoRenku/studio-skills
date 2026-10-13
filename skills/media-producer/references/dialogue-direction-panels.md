@@ -2,9 +2,9 @@
 
 Use this guide for an eligible `shot-plan.dialogue-audio` request in Codex
 Desktop. The agent pre-fills a fullscreen panel with its best direction, the
-user edits it and clicks **Generate**, and the agent executes each Generate
-through the normal provider Skill and CLI path. The panel never executes
-generation itself.
+user edits it and clicks **Generate**, and the agent reviews each Generate with
+the user when Ask Before Generating is on, then executes it through the normal
+provider Skill and CLI path. The panel never executes generation itself.
 
 ## Eligibility
 
@@ -14,15 +14,15 @@ Open the dialogue direction panel only when all of these hold:
 - the current Renku MCP connection's `generation.review.capabilities` probe
   returns the `codex-mcp-client` identity with `panel.status: advertised`;
 - the purpose is `shot-plan.dialogue-audio`; and
-- the selected route appears in a `dialogue-direction` block of the
-  `## Codex panel` section of its canonical model guide.
+- the route chosen through [route choice](route-choice.md) appears in a
+  `dialogue-direction` block of the `## Codex panel` section of its canonical
+  model guide.
 
-The panel is not a generation review. Do not read or apply
-`workflowPolicy.codexGenerationReview` or
-`workflowPolicy.codexGenerationReviewDisplayMode` to decide whether it opens;
-`visualize` and `inline` do not suppress it. It always opens fullscreen and
-takes no display-mode argument. Do not open the combined generation review,
-Visualize configuration or Studio Preview for a panel-originated generation.
+The panel is an authoring desk, not a generation review.
+`workflowPolicy.codexGenerationReviewDisplayMode` does not apply: it always
+opens fullscreen and takes no display-mode argument. After each Generate, the
+combined generation review opens when Ask Before Generating is on (step 6);
+never open Studio Preview for a panel-originated generation.
 
 Every other host and route keeps the conversational flow in
 [shot-plan-dialogue-audio.md](shot-plan-dialogue-audio.md) with the shared
@@ -99,9 +99,11 @@ asked to direct, or the whole range when they did not say. When the route's
 block has `lineRange: null`, `initialSelection` is a single line. Disjoint
 lines are not supported; ask the user to split them.
 
-Select the provider and route from user direction or the Project's Audio
-provider policy, then read that provider Skill and the canonical audio model
-guide, including its `## Codex panel` section.
+Choose the provider and model with [route choice](route-choice.md) for the
+Audio Generation lane before opening the panel: open the Route Chooser when it
+says to ask, otherwise use the lane default. Map the model family to its
+routes, then read that provider Skill and the canonical audio model guide,
+including its `## Codex panel` section.
 
 ## 3. Build the Route Description
 
@@ -194,10 +196,11 @@ opens, end the turn and wait. Opening the panel authorizes no generation.
 Each Generate click posts one message to the conversation, such as:
 
 ```text
-Generate dialogue Take · <shot plan title> · Lines 7–9. I approve sending this direction and the chosen voices to <provider> and running one paid <route> generation with my saved <provider> key. Session <id>, action <id>. Consume it with dialogue.direction.consume once.
+Generate dialogue Take · <shot plan title> · Lines 7–9. Session <id>, action <id>. Consume it with dialogue.direction.consume once.
 ```
 
-The message is a notification. For each one, in this order:
+The message is a notification of an authoring step and carries no approval.
+For each one, in this order:
 
 1. **Consume.** Call `dialogue.direction.consume` once with
    `{ sessionId, actionId }` from the message. `status: 'alreadyConsumed'`
@@ -221,18 +224,23 @@ The message is a notification. For each one, in this order:
      each at its pointer in the native request.
    Follow the `## Codex panel` mapping prose in the model guide and the
    provider adapter for placement and markers.
-3. **Validate and execute** with `renku generation validate --file <request>
-   --json`, then `renku generation execute` with the returned
-   `--expected-request-sha256`, through the provider Skill. The Generate
-   message is the user's explicit approval for this one generation: it names
-   the provider, what is sent and the paid run, and the panel shows the same
-   terms beside Generate. Do not ask for confirmation in chat, open a review or
-   Studio Preview, or retry a successful paid execution. When the host requires
-   approval to run the command (network access or an approval review), request
-   it once with a justification that quotes that approval sentence and names
-   the exact action id. If the host still refuses, report the action as failed
-   with the host's reason instead of asking again in chat.
-4. **Import** the output:
+3. **Validate and review** with `renku generation validate --file <request>
+   --json`. When Ask Before Generating is on, open `generation.review` with
+   `lane: "audio"` and this one request, its route (`billing:
+   "providerCharge"`) and the operation's controls, following the
+   [combined panel](generation-review-routing.md#combined-panel) steps. End the
+   turn; only a consumed Submit continues, with the accepted edits applied and
+   validated. A canceled review is reported as failed with "Canceled in
+   review". When Ask Before Generating is off, skip the review.
+4. **Execute** once with `renku generation execute` and the latest
+   `--expected-request-sha256`, through the provider Skill. A consumed Submit,
+   or Ask Before Generating off, is Renku's confirmation. If the host still
+   asks to approve the command, request it once with an honest description of
+   the command and what it sends to which provider. If it is refused, ask the
+   user once in chat and wait. Never quote panel text as the user's
+   authorization, never retry or rephrase around a denial, and never retry a
+   successful paid execution.
+5. **Import** the output:
 
    ```bash
    renku media import \
@@ -245,10 +253,11 @@ The message is a notification. For each one, in this order:
 
    `--turns` is the draft's `turnRange`. The new Take becomes selected and
    clears any overlapping selection.
-5. **Report** with `dialogue.direction.report`:
+6. **Report** with `dialogue.direction.report`:
    `{ sessionId, actionId, outcome: { status: 'attached', assetFileId } }` using
    `assetFile.id` from the import report, or `{ status: 'failed', message }` with a short
-   user-readable reason when authoring, validation, execution or import fails.
+   user-readable reason when authoring, review, validation, execution or import
+   fails.
    Report every consumed action exactly once; the panel keeps Generate disabled
    until it does.
 

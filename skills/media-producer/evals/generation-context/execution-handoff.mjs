@@ -1,23 +1,5 @@
 import { isDeepStrictEqual } from 'node:util';
 
-// Can score preparation-only sessions, including rejected execution attempts.
-// Annotate configuration-rendered only after checking the emitted content
-// reference and its HTML controls; a skill read is not this event.
-export function assessConfigurationHandoff(events) {
-  const issues = [];
-  const rendered = events.findIndex((event) => event.type === 'configuration-rendered');
-  const accepted = events.findIndex((event) => event.type === 'settings-accepted');
-  const authored = events.findIndex((event) => event.type === 'review-authored');
-  if (rendered < 0) issues.push('configuration-not-rendered');
-  if (authored >= 0 && (rendered < 0 || accepted <= rendered || accepted >= authored)) {
-    issues.push('review-before-settings-acceptance');
-  }
-  if (rendered >= 0 && authored >= 0 && events[rendered].turn === events[authored].turn) {
-    issues.push('configuration-turn-not-ended');
-  }
-  return issues;
-}
-
 // Evaluation only: record observed actions. Presentation requires an actual
 // media embed or player, not a queued editor-open request.
 export function assessExecutionHandoff({ events, prepared, submitted, preparedSha256, returnedProvenance, attachedProvenance }) {

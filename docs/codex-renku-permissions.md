@@ -20,6 +20,7 @@ For Renku Studio work, start from Codex's built-in `:workspace` profile and add
 only the Renku-specific pieces:
 
 - read access to Renku's global config directory;
+- write access to Renku's state directory;
 - write access to your active Renku project, through workspace roots;
 - loopback network access for the running Studio app;
 - provider network domains only for the generation providers you use.
@@ -35,7 +36,10 @@ Renku skills usually do four kinds of local work:
 
 1. Read and write the current Renku project database and media files.
 2. Create temporary specs, generated images, crops, downloads, and import files.
-3. Read provider credentials from the user's Renku config directory.
+3. Read provider credentials from the user's Renku config directory, and
+   write Renku state (current Project, Studio runtime and events, provider
+   metadata and price cache, Default Model List copy) under
+   `~/.local/state/renku`.
 4. Notify the running Studio app through local HTTP, normally
    `http://localhost:5173`.
 
@@ -112,6 +116,10 @@ extends = ":workspace"
 # Renku provider credentials are read from ~/.config/renku/.env.
 # Keep this read-only; edit credentials yourself.
 "~/.config/renku" = "read"
+# Renku state: current Project, Studio runtime and events, provider
+# metadata and price cache, and the Default Model List copy. Without this
+# write grant every generation command escalates.
+"~/.local/state/renku" = "write"
 
 # Needed only because the deny rules below use unbounded globs. This matters
 # most on Linux, WSL, and native Windows, where Codex may pre-expand deny globs
@@ -406,7 +414,8 @@ click inside the Studio window so it publishes fresh browser activity.
 - Prefer `extends = ":workspace"` over rebuilding the whole profile by hand.
   That keeps Codex's default workspace protections in place.
 - Keep Renku provider credentials in `~/.config/renku/.env`, and grant the
-  config directory read-only access.
+  config directory read-only access. Grant write access only to
+  `~/.local/state/renku`.
 - Keep project-local `.env` files denied so they cannot become a second
   provider-credential source.
 - Add provider domains only when a workflow needs them.
@@ -434,6 +443,37 @@ They do not directly control:
 Those surfaces have their own authorization and safety controls. For Renku, the
 profile mainly matters when Codex runs local commands such as `renku ...`,
 package-manager commands, or helper scripts.
+
+## Two Approval Layers
+
+Renku generation has two separate approvals:
+
+- **Renku confirmation.** "Ask Before Generating" in Project Settings decides
+  whether the agent shows the generation review (prompt, references, model
+  settings and estimated cost) and waits for Submit. Turning it off for a
+  lane lets the agent generate without asking.
+- **Host approval.** Codex asks for approval only when a command leaves the
+  active permission profile. With the profile above, `renku` commands stay
+  inside it: they write only the active Project and `~/.local/state/renku`,
+  and reach only allowlisted provider domains. No approval request exists,
+  so the approvals reviewer never runs.
+
+Renku Skills never coach the approvals reviewer, and a Renku panel message
+is never presented as your authorization. If Codex still asks for approval,
+the agent requests it once with an honest description; if it is refused, the
+agent asks you once in chat and does not retry around the denial.
+
+### Optional: An Allow Rule For Renku Generation
+
+If you want Codex to run Renku generation commands outside the sandbox
+without prompting, write your own rule in `~/.codex/rules/`. Plugins cannot
+ship rules; only you can add one:
+
+```text
+prefix_rule(pattern=["renku", "generation", "execute"], decision="allow")
+```
+
+Keep the prefix narrow. A rule for `renku` alone allows every Renku command.
 
 ## Troubleshooting
 

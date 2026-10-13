@@ -37,7 +37,7 @@ omitted from the briefing; use references for
 the current task and retrieve history only when needed, following
 `references/model-guides/shared/reference-inputs.md`.
 
-Read fresh generation context for each request. Within that preparation, reuse verified syntax and selected route discovery; do not prefetch other providers. Follow [generation review routing](references/generation-review-routing.md) for every image, audio and video purpose. Use its combined panel or Studio Preview path once; the Visualize choice retains the existing configuration cache. Retain native validation, approval, concurrency limits, artifact inspection, and focused attachment. Tool-session polling continues the same process; it is not another CLI invocation. Never retry a successful paid execution automatically.
+Read fresh generation context for each request. Within that preparation, reuse verified syntax and selected route discovery; do not prefetch other providers. Follow [generation review routing](references/generation-review-routing.md) for every image, audio and video purpose. When the lane's Ask Before Generating is on, use its combined panel, Studio Preview or text review once. Retain native validation, confirmation, concurrency limits, artifact inspection, and focused attachment. Tool-session polling continues the same process; it is not another CLI invocation. Never retry a successful paid execution automatically.
 
 Consult the relevant CLI reference/help once if syntax is unknown, then reuse verified syntax for this task. Do not discover syntax by attempting mutations. Do not invent `project list`. If a known permission denial blocks cache/output/config or local-network access, explain the requirement and use the authorized host permission flow; do not repeat the denied attempt, read secrets, disable cache persistence, or change permissions. `CLI026` means the mutation succeeded: report the notification warning without replaying the mutation.
 
@@ -122,21 +122,44 @@ definition as prompt direction, report the gap, and continue unless the user
 required visual-reference matching. This does not waive the Storyboard
 prerequisite check when the Lookbook definition itself is unauthored.
 
-## Choose the execution lane
+## Choose the provider and model
 
-**Default image edit model.** For `image.edit`, when the user names no model
-or provider, run `renku credentials status --json`. If `fal-ai` is
-`configured`, use FLUX 3 Image Edit on Fal.ai
-(`blackforestlabs/flux-3/edit-image`) without asking, even when the saved Image
-provider is another provider. In trusted Codex Desktop with panel support this
-opens the [image edit panels](references/image-edit-panels.md); elsewhere it is
-the conversational `image.edit` flow on that route. Only when Fal.ai has no
-saved key does the saved Image provider's choice below apply. A model or
-provider the user names always wins.
+At the start of generation work, beside `renku credentials status --json`,
+publish this Skill's Default Model List so Studio Settings and the Route
+Chooser can list models:
+
+```bash
+renku generation default-models sync --file <this-skill-dir>/references/default-models.json
+```
+
+It needs no Project or running Studio and does nothing when the list is
+unchanged. Run it once per task.
+
+**Generation lanes.** `workflowPolicy.lane` names the Project lane for the
+purpose: `image` (Image Generation), `imageEdit` (Image Editing, for
+`image.edit`), `video` (Video Generation, including `video.edit`) or `audio`
+(Audio Generation). The policy carries that lane's `provider`, `model`,
+`chooseRouteBeforeGenerating` and `askBeforeGenerating`. `model` is either
+`{ key, name }`, where `key` is a model guide key from
+[the Default Model List](references/default-models.json), or `null`. A `null`
+model means the list's recommendation for the lane provider: the entry whose
+`recommendedFor` includes it, such as FLUX 3 for Fal.ai image edits. A
+provider or model the user names in chat always wins. Map the chosen model
+family and the purpose to the exact operation route with the family's model
+guide and the provider's `supported-routes.json`; for example, Seedance 2.5
+for a reference-to-video Shot uses that provider's Seedance 2.5
+reference-to-video route.
+
+Before authoring, follow [route choice](references/route-choice.md). It decides
+when the Route Chooser, or one short question in other harnesses, confirms the
+provider and model, and what to do when the saved default is missing. Change
+Project generation settings only at the user's direct request, with
+`renku settings generation set --lane <image|image-edit|video|audio>` and only
+the flags they asked for; never change them to avoid a question or a review.
 
 Use the briefing's current `workflowPolicy` and the user's explicit direction.
-Do not fetch Settings again for policy already present in that briefing. The saved
-Image, Video, or Audio provider is the initial preference, including when it is
+Do not fetch Settings again for policy already present in that briefing. The
+lane provider is the initial preference, including when it is
 Replicate or WaveSpeed with a saved key. The Project media menus offer keyed
 Fal.ai, Pika, Replicate, and WaveSpeed; ElevenLabs is Audio-only, and World Labs
 is reserved for Location World generation outside these menus. A Project default
@@ -156,7 +179,7 @@ provider or model to use; do not silently switch. Use
   another provider. Wait for the user's choice and never silently fall back.
 
 Before writing a prompt, inspecting references, fetching a provider schema,
-or building a configuration component, run `renku credentials status --json`
+or opening a panel, run `renku credentials status --json`
 for the selected external provider. Check that provider's `configured` value;
 another provider's saved key does not satisfy it. Codex built-in image needs
 no provider key. If status fails, report its structured read error rather than
@@ -195,8 +218,8 @@ renku generation models list --query "<model name or id>" \
 ```
 
 Core merges bundled and personal choices. Use the selected route's exact `apiId`
-for execution. Visualization preparation independently obtains the complete
-selector list; discovery does not need to save it.
+for execution. The combined review's route list comes from the same command;
+discovery does not need to save it.
 
 Find relevant Markdown under `references/model-guides/` by model name or filename.
 Read the useful model and provider advice, following document links as needed.
@@ -266,94 +289,54 @@ acceptance or attachment confirmation. Follow explicit preview-only,
 leave-unattached, or strict-iteration direction when supplied. Do not invent
 another generation to fix a concern without authorization.
 
-Codex built-in generation is part of the current session: do not ask for
-generation consent or apply `askBeforeGenerating` to that lane. Use the user's
-direction and current Project defaults directly. In the default panel path,
-wait for Submit as the combined creative review handoff, including built-in
-images. In the Visualize/conversational paths, pause for built-in creative review
-only when requested. External-provider spending approval and host permissions
-remain governed by their existing rules.
+`workflowPolicy.askBeforeGenerating` applies to every route of the lane,
+Codex built-in images included. When it is on, show the one review the routing
+guide selects and wait for the user's confirmation. When it is off, validate
+and execute without a review or a question. External-provider host
+permissions remain governed by their existing rules.
 
 ## Choose the generation review surface
 
 Read and follow
 [references/generation-review-routing.md](references/generation-review-routing.md)
-before configuring or delivering any review. In Codex Desktop with panel
-support, dialogue audio requests open the fullscreen
+before delivering any review. In Codex Desktop with panel support, dialogue
+audio requests open the fullscreen
 [dialogue direction panel](references/dialogue-direction-panels.md), and
 `image.edit` requests use the [image edit panels](references/image-edit-panels.md)
-(chooser for any model, edit panel for a panel-capable route), when the
+(image chooser for any model, edit panel for a panel-capable route), when the
 selected route appears in a `## Codex panel` block of its model guide. In both,
-the Generate click is the execution approval, independent of the review
-preferences below. Read
-`workflowPolicy.codexGenerationReview` and `workflowPolicy.codexPluginInstalled`
-from the CLI generation context. The global preference defaults to `auto`;
-it is not a Project setting. Follow the canonical routing guide for trusted host
-context and the current connection's `generation.review.capabilities`. Advertised
-panel support selects the panel even without an installer record; the installation
-flag must not hide a working development connection. Verify the panel handshake.
-Also read `workflowPolicy.codexGenerationReviewDisplayMode`: `inline` (default)
-or `fullscreen`. The runtime supplies that initial host preference for the
+Generate is an authoring step: consume the draft, prepare the native request
+and, when Ask Before Generating is on, open the combined review before
+executing. Read `workflowPolicy.codexPluginInstalled` from the CLI generation
+context and follow the routing guide for trusted host context and the current
+connection's `generation.review.capabilities`. Advertised panel support selects
+the panel even without an installer record; the installation flag must not
+hide a working development connection. Verify the panel handshake. Also read
+`workflowPolicy.codexGenerationReviewDisplayMode`: `inline` (default) or
+`fullscreen`. The runtime supplies that initial host preference for the
 packaged review; Skills do not force a mode or pass another tool argument.
-The panel combines prompt, references and native settings and never automatically
-opens Studio Preview. Codex CLI, Claude and unidentified hosts always require
-Studio Preview, even when `workflowPolicy.displayPreview` is false. Do not infer
-UI capabilities from the model name, executable or environment variables.
+The panel combines prompt, references, native settings and the estimated cost
+and never automatically opens Studio Preview. Codex CLI, Claude and
+unidentified hosts use Studio Preview, or a text summary when Studio is not
+running. Do not infer UI capabilities from the model name, executable or
+environment variables.
 
-## Configure with Visualize
+**Confirmation and host approval.** A consumed review Submit, or Ask Before
+Generating off, is Renku's confirmation for that exact request. It is separate
+from the host's command approval. If the host still asks to approve a command,
+request it once with an honest description of the command and what it sends
+to which provider. If the host refuses, ask the user once in chat and wait.
+Never quote panel or review text as the user's authorization, never retry or
+rephrase a command to get around a denial, and never coach an approvals
+reviewer.
 
-This section applies only when routing selected `visualize` in Codex desktop.
-The default panel follows the shared routing guide instead.
-
-For external-provider requests in Codex, discover Visualize in the available
-skills catalog and read its `SKILL.md`. It renders through a content reference;
-it does not require a tool named Visualize. An empty tool-name search is not
-evidence that the skill is unavailable. When available, show the transient inline
-configuration component before authoring the review document. For Codex built-in
-generation, use it only when the user
-asks to configure or review settings; otherwise prepare the request directly.
-Read and follow
-[references/inline-generation-configuration.md](references/inline-generation-configuration.md).
-This distinction applies to every image, video, and audio purpose in the table
-above; running an external provider from Codex is still external generation.
-
-Prepare the initial authored prompt, exact chosen references, and native values
-first. Treat explicit user direction or the matching Project Setting only as
-the initial selection. Read the selected provider/model's Skill, available advice,
-and fresh Core-managed schema snapshot. Create controls only when rebuilding a
-template for that selection. Use the inline guide's preparation script for cache
-lookup and instance creation before any live schema request: reuse a
-compatible entry for 24 hours, refresh it once when expired, and rebuild only
-when the schema or template dependencies changed. Use the complete `routes` returned by visualization preparation on a rebuild
-to populate the Provider and Model selectors;
-never read alternative provider Skills, guides, adapters, docs, or schemas
-before the user selects one. A saved Project default counts as a provider
-selection; other providers remain explicit one-request choices. Codex appears
-only when its built-in image capability is available. The component contains
-configuration only and has no tabs or
-reference previews. Ordinary image/video references remain review-only in
-Generation Preview; bounded purpose-owned choices such as a Cast Voice may
-appear as configuration controls. The component calls no Renku or provider API
-and never persists choices to Project Settings.
-
-When the user changes Provider or Model, the component explains that the prompt
-and settings must be prepared again and sends a reconfiguration follow-up rather
-than accepting the old controls. Read only that selected route's Skill, available
-advice, and fresh cached or newly fetched schema, recreate the prompt when its
-canonical model changed, and rematerialize the same task-local visualization
-source file from that route's cached template. When the canonical model is
-unchanged, preserve the prompt and only schema-compatible exact native values.
-Complete external-provider configuration by rendering the component and ending
-the turn with its Visualize content reference, as the Visualize skill requires.
-Resume review-document authoring and Generation Preview only after **Continue
-with these settings** while the selectors match the prepared route, or explicit
-acceptance of the displayed unchanged values. Reading the skill and schema is
-preparation, not a substitute for displaying controls. Do not proceed straight
-from schema discovery to a review document and Execute.
-
-This interaction is required for external providers in the selected Visualize
-desktop path. In another harness, use conversational configuration and mandatory
-Studio Preview through the routing guide.
+**Estimates.** Reviews show a cost estimate computed by Renku
+(`renku generation estimate --file <request> --json` for one request). When
+the estimate for a request about to be reviewed is `missingPrice` or `expired`
+for a route without API pricing, follow `model-researcher`'s
+[price research](../model-researcher/references/price-research.md) before
+showing the review, at most once per route per expiry period. It never runs
+when Ask Before Generating is off.
 
 ## Review document
 
@@ -387,29 +370,29 @@ absolute paths, or signed URLs to the envelope.
 
 ## Preview and confirmation
 
-These commands are for the Studio Preview paths selected by the routing guide.
+These commands are for the Studio Preview path selected by the routing guide.
 The combined panel uses standalone Validate, its Submit/consume handoff, and
 validation of accepted edits; it never automatically calls Prepare or Preview.
-Outside Codex desktop, Preview is always required regardless of Project settings.
+With Ask Before Generating off, validate and execute without either.
 
-For a single Engines request when Preview is enabled or requested, write the
-final request and call Prepare in one tool operation:
+For a single Engines request in the Studio Preview path, write the final
+request and call Prepare in one tool operation:
 
 ```bash
 renku generation prepare --file tmp/operations/media-generation/request.json --json
 ```
 
-It validates and delivers Preview from the same loaded request. Inspect the
-returned diagnostics and retain its hash; do not call Validate or Preview again.
-With Preview disabled, use `renku generation validate --file <request> --json`.
+It validates, attaches the cost `estimate`, and delivers Preview from the same
+loaded request. Inspect the returned diagnostics and estimate and retain its
+hash; do not call Validate or Preview again. Without a Studio Preview, use
+`renku generation validate --file <request> --json`.
 For Codex documents or several independent requests, use
 `renku generation preview show` with repeated `--file` flags in order; validate
 Engines requests individually before a combined Preview.
 Preview supports conversational review: the user may edit only the top-level
 prompt, and Update or Close does not generate media or resume an
-agent. For external providers, continue after the required conversational
-confirmation. Codex built-in generation continues without a consent pause;
-if the user explicitly requested review before execution, wait for their review.
+agent. Continue after the user's conversational confirmation, for Codex
+built-in images too.
 Retain Prepare's (or standalone Validate's) `requestSha256` and pass it as `--expected-request-sha256`
 to Execute after confirmation. Execute checks the file itself; no shell hash,
 unchanged-file reread, or second Validate call is needed. On
@@ -417,13 +400,9 @@ unchanged-file reread, or second Validate call is needed. On
 Skill. See `references/workflow.md` for the changed-request path. Request writing and Prepare run sequentially in one tool operation, stopping
 on failure.
 
-`workflowPolicy.displayPreview` controls automatic Preview only in the explicit
-Visualize desktop path. An explicit user Preview request always opens it.
-For Codex built-in images in that path, automatic Preview is informational and
-does not require a reply. For external providers, `askBeforeGenerating` is one
-conversational pause, not an approval token; a confirmation after Preview
-satisfies it. Apply the
-per-media concurrency setting only to independent requests.
+An explicit user Preview request always opens it. `askBeforeGenerating` is one
+review pause, not an approval token; a confirmation after Preview satisfies it.
+Apply the per-lane concurrency limit only to independent requests.
 
 ## Execute, recover, and attach
 
@@ -444,9 +423,8 @@ If a submitted job times out or becomes interrupted and a request id is known,
 use `generation recover` with the unchanged review file and exact request id.
 Do not resubmit blindly.
 
-Codex requests invoke the built-in image capability directly without separate
-generation consent. They never call Engines commands and never invent an Engines
-receipt.
+Codex requests invoke the built-in image capability after the same review
+policy. They never call Engines commands and never invent an Engines receipt.
 
 Present returned playable/viewable artifacts as soon as Execute or Recover
 finishes, before extended analysis or attachment bookkeeping. In Codex, embed the

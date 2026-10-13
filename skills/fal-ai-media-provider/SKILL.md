@@ -46,13 +46,6 @@ relationships. The supported-route index is routing guidance only; run `renku
 generation schema show --provider fal-ai --model <api_id> --json` for the
 selected Fal operation's current native fields and constraints.
 
-When Media Producer is running its Codex inline-configuration flow, a `fresh`
-Core-managed generation configuration visualization schema snapshot is this
-inspection for pre-review authoring. Do not also run `generation schema show`
-during that 24-hour window. Media Producer owns miss, expiry, dependency-change,
-and invalidation refreshes; final `generation prepare`/`generation validate` and `generation
-execute` remain authoritative live boundaries.
-
 Author the exact Fal.ai input object as the review document's `request`. Put a
 `{"$file":"<project-relative-path>","mimeType":"<mime>","reviewLabel":"<Media Producer label>"}`
 marker at each native image/video field. Preserve the exact `reviewLabel`, and
@@ -72,5 +65,9 @@ changed-document procedure when edits require preparation. Use
 document. Return the artifacts and exact safe provenance to Media Producer.
 
 Do not call the Fal SDK or API directly, attach Assets, invent provider fields,
-or persist credentials, upload URLs, signed output URLs, durable execution
-lifecycle records, or cost-approval artifacts.
+or persist credentials, upload URLs, signed output URLs, or durable execution
+lifecycle records.
+
+Renku estimates cost for reviews from cached provider prices. Do not write
+prices into this Skill or the review document; a missing or expired price
+follows `model-researcher`'s price research.

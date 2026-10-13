@@ -3,32 +3,32 @@
 See [generation briefing format and identity evaluations](generation-context/forward-test-cases.md)
 for controlled direct-reading, programmatic, dependency refresh and complete-context cases.
 
-## Review preference and host capability matrix
+## Review surface and host capability matrix
 
-Run preparation and mocked execution with all three global preference values
-and installation states returned by `generation context`. Test image, audio and video purposes in Codex desktop,
-Codex CLI, Claude Code, Claude desktop and an unidentified interface. Desktop
-routing uses trusted host context and probes the current Renku connection under
-`auto` or `panel`, even without installer state. The panel requires the actual
-MCP capability response and handshake. Never infer the
-host from tool presence, model identity or environment variables.
+Run preparation and mocked execution with Ask Before Generating on and off and
+both installation states returned by `generation context`. Test image, audio and
+video purposes in Codex desktop, Codex CLI, Claude Code, Claude desktop and an
+unidentified interface. Desktop routing uses trusted host context and probes the
+current Renku connection, even without installer state. The panel requires the
+actual MCP capability response and handshake. Never infer the host from tool
+presence, model identity or environment variables.
 
-- Desktop with installed plugin and `auto` or `panel`: require standalone
-  Validate, combined panel, turn yield, exact Submit consumption, accepted edits and revised validation hash before Execute.
-  No automatic Studio Preview, Visualize template or second confirmation.
-- Explicit Visualize desktop: run the inline cases below and retain Project
-  displayPreview. A missing explicitly selected Skill stops with disclosure.
-- Development Desktop with installation flag false and advertised panel support:
-  require the combined panel for `auto` and `panel`, including built-in images,
-  audio, video and ordered batches; no automatic Preview even when displayPreview
-  is true. A working connection must not trigger installation or a state-file write.
-- Desktop without a probe or installation record: use Visualize under every
-  preference, including a saved panel preference; preserve Project displayPreview.
-- CLI/Claude/unidentified: require Studio Preview under every preference even
-  when Project displayPreview is false; failed mandatory delivery stops execution.
-- Missing probe in trusted desktop panel mode: stop with an integration
-  diagnostic. A known unavailable result also stops, including without installer state. Advertised
-  generic UI on a non-Codex client does not select the Codex panel.
+- Desktop with advertised panel support and Ask on: require standalone
+  Validate, combined panel with `lane`, turn yield, exact Submit consumption,
+  accepted edits and revised validation hash before Execute. No automatic
+  Studio Preview or second confirmation. A working development connection with
+  installation flag false behaves the same and triggers no installation or
+  state-file write.
+- Desktop without a probe or installation record: Studio Preview, or a text
+  review when Studio is not running.
+- CLI/Claude/unidentified with Ask on: Studio Preview and one conversational
+  confirmation; with Studio stopped, one text summary and confirmation. A failed
+  delivery while Studio runs stops execution.
+- Ask off on every host: validate and execute with no panel, Preview, text
+  review or confirmation question, Codex built-in images included.
+- Missing probe with installation flag true, or a known unavailable or failed
+  probe: stop with an integration diagnostic. Advertised generic UI on a
+  non-Codex client does not select the Codex panel.
 - Panel failure: no silent surface substitution or generation. Cancel,
   reconfiguration and alreadyConsumed Submit never authorize execution. A model
   change refreshes the same review only after selected-route preparation.
@@ -41,14 +41,14 @@ Skill compliance. Record actual host tests separately.
 
 ## Packaged review display preference
 
-Return `workflowPolicy.codexGenerationReview: panel` and exercise omitted/default
-`codexGenerationReviewDisplayMode: inline` plus explicit `fullscreen`. In both
-cases require the same Validate/open/yield/Submit/consume sequence, no automatic
-Studio Preview, and no mode argument, browser launcher or forced fullscreen call
-from the Skill. The runtime supplies the configured preference to the host.
-Have the host choose the other supported mode and switch while the user edits;
-the review remains usable, preserves exact edits, and still requires Submit.
-Score actual rendering separately from protocol metadata and handoff events.
+Exercise omitted/default `codexGenerationReviewDisplayMode: inline` plus explicit
+`fullscreen` with Ask on. In both cases require the same
+Validate/open/yield/Submit/consume sequence, no automatic Studio Preview, and no
+mode argument, browser launcher or forced fullscreen call from the Skill. The
+runtime supplies the configured preference to the host. Have the host choose
+the other supported mode and switch while the user edits; the review remains
+usable, preserves exact edits, and still requires Submit. Score actual rendering
+separately from protocol metadata and handoff events.
 
 ## Confirmed external generation and immediate playback
 
@@ -90,64 +90,6 @@ presentation or execution from the agent's plans. Its automated tests exercise
 the scorer, not autonomous agent compliance. It does not replace the unchanged
 CLI request fingerprint check in the real task.
 
-## Inline configuration skill discovery
-
-Set `workflowPolicy.codexGenerationReview` to `visualize` in trusted Codex desktop
-for this suite. These cases do not define the default panel workflow.
-
-For cross-thread cache reuse, supply a previously stored compatible template
-and a new request with a different prompt and native control value. Require one
-`prepare-generation-configuration-visualization.mjs` invocation, a fresh result,
-and an actual Visualize reference to the returned task-local HTML. The instance
-must contain only the new request values; schema fetching or HTML rebuilding on
-that hit fails the case. Repeat for image, audio, and video purposes. Change only
-workflow instructions and expect reuse; change the template contract and expect
-incompatibility followed by the normal rebuild path. An expired entry must use
-the existing schema refresh path before materialization.
-
-After accepted settings, require request writing and `generation prepare` in
-one tool operation. Check the returned diagnostics, retain its request hash,
-and preserve the confirmation pause. Additional Validate or Preview calls for
-that unchanged single request fail. Cover disabled Preview, Codex, and ordered
-multi-request review separately: their standalone paths remain intentional.
-Use `generation-context/preparation.mjs` to score observed outcomes and payload
-preservation; its automated tests validate the scorer rather than autonomous
-agent compliance.
-
-Provide the Visualize skill in the available skills catalog, but no tool whose
-name contains Visualize. Ask for an external model by name, such as H3 Max, and
-provide a fixed native schema with resolution and duration choices.
-
-Require the agent to load Visualize, materialize and render the inline controls,
-and preserve the Studio Preview flow. Inspect the actual rendered controls and
-follow-up payload, not just a claim that configuration is available. Change
-resolution and duration and verify exact native values in the resulting review
-document. Settings submission alone must not initiate the paid request before
-its resulting Preview and required generation confirmation. Then confirm and
-run the unchanged handoff case above. Also test a model change, a genuinely
-unavailable Visualize skill with explicit disclosure and no silent substitution,
-and Codex built-in image
-generation where configuration remains optional unless requested.
-
-Also score a preparation-only run: reading Visualize twice and opening Studio
-Preview, but never emitting a component, fails even if execution is blocked by
-host review. Use `assessConfigurationHandoff` independently of the execution
-scorer. Require the rendered configuration to end its turn before settings
-acceptance and review-document authoring; verify the emitted HTML actually has
-the supplied schema's controls. Mock a rejection only after this interaction so
-approval handling cannot mask a missing configuration surface.
-
-Run the inline case with a prepopulated fresh configuration cache: require
-inspection before schema access, no live schema fetch, no template generation,
-and materialization from the returned template/schema paths with new request
-values. Run again for a second target to catch leaked prompts or references.
-For an expired entry, mock an unchanged refreshed schema and require template
-reuse. With a changed schema require a replacement template and store. For
-miss, invalid, and incompatible entries require schema retrieval and template
-creation/store before rendering. A schema refresh failure must stop rather than
-rendering expired controls. These are observable tool/artifact checks, not
-matching instructional wording.
-
 ## Context capture and reference history
 
 Reproduce session `01a0ee80-951c-72e2-97d2-7f59df269f54` with references already
@@ -173,13 +115,12 @@ Exercise these journeys with deterministic fixture outputs before any live run:
 
 1. **Dependent sheet and hero with Codex defaults:** capture sheet context once,
    inspect/attach the sheet, then capture hero context once with the new Asset.
-   In panel mode require each combined review Submit; in Visualize mode preserve
-   the optional built-in settings policy. No redundant settings reads or separate
-   consent/attachment pauses. Preserve exact provenance and source linkage.
+   With Ask on, require each combined review Submit; with Ask off, generate
+   directly. No redundant settings reads or separate attachment pauses. Preserve exact provenance and source linkage.
 2. **Explicit Preview and leave-unattached:** wait for requested review, read
    final edited values once, execute those values, and leave output unattached.
-3. **External route with fresh template:** reuse cache and route discovery;
-   preserve provider validation and spending approval. Use fixture execution.
+3. **External route:** reuse route discovery; preserve provider validation and
+   the lane's confirmation policy. Use fixture execution.
 4. **Relevant mutation:** replace/import a reference or change policy during
    preparation; refresh once and use the changed state. Do not enforce a rigid
    maximum call count when correctness requires another read.
@@ -208,14 +149,14 @@ the active harness exposes built-in image generation.
 Expected behavior:
 
 - runs `generation context --purpose project.cover --target project`
-  before choosing the execution lane or authoring the prompt;
+  before choosing the provider and model or authoring the prompt;
 - treats returned references as optional evidence rather than a required list;
 - authors a unique Codex review document under
   `tmp/operations/media-generation/` with the `chatgpt-images-2.5` family
   identity and no invented Flare or Sunburst variant;
-- follows the host/preference matrix: default desktop panel waits for Submit
-  without Studio Preview; Visualize keeps optional built-in settings; CLI and
-  non-Codex sessions always deliver Studio Preview;
+- follows the host matrix: with Ask on, the desktop panel waits for Submit
+  without Studio Preview and CLI and non-Codex sessions deliver Studio Preview;
+  with Ask off, it generates without a review;
 - rereads the final prompt and invokes the built-in image capability directly;
 - inspects the output and attaches it with exact safe Codex provenance and no
   invented receipt or separate attachment confirmation;
@@ -224,14 +165,14 @@ Expected behavior:
 ## Codex sheet and hero in one request
 
 The user asks for an Edirne Palace Workroom location sheet and hero. Codex is
-selected, Preview and `askBeforeGenerating` are enabled, and `@Visualize` is
-available. The generated sheet has a visible furniture continuity issue.
-Run all global review preferences and both plugin installation states in Codex Desktop.
+the Image Generation lane provider and `askBeforeGenerating` is on. The
+generated sheet has a visible furniture continuity issue. Run both plugin
+installation states in Codex Desktop.
 
 Expected behavior:
 
-- prepares the sheet, completes its panel Submit or explicit Visualize path,
-  then generates without a duplicate confirmation;
+- prepares the sheet, completes its panel Submit, then generates without a
+  duplicate confirmation;
 - inspects and attaches it with exact provenance, reporting the continuity
   concern without an Attach question or an unrequested corrective generation;
 - continues the requested hero using the inspected sheet and relevant context,
@@ -249,7 +190,7 @@ Expected behavior:
 - inspects each result and attaches through its focused command with exact safe
   provenance and existing destination/selection rules;
 - never asks for separate acceptance or attachment confirmation;
-- preserves external-provider spending approval and host permission boundaries;
+- preserves the lane's confirmation policy and host permission boundaries;
 - honors explicit preview-only, leave-unattached, and strict-iteration requests;
 - reports missing/unusable files or an unresolved destination rather than
   inventing a successful attachment.
@@ -274,7 +215,7 @@ Expected behavior:
 
 - chooses Fal.ai from the current request and Project context, then calls
   `renku credentials status --json` before writing the prompt or preparing
-  references, schemas, or visualization;
+  references, schemas, or a panel;
 - checks `fal-ai.configured`, not whether any provider is configured;
 - gives the user the live Studio URL with `/?settings=provider-credentials`,
   opens it when browser control is available, and explains Save and resume;
@@ -284,8 +225,8 @@ Expected behavior:
 The same check is skipped for Codex built-in image generation. An invalid but
 saved key proceeds to ordinary provider validation; presence is not proof of
 authentication. First-run Project Library setup leads to its key step. A
-provider switch in the inline component runs the new provider check before
-preparing its route.
+provider switch in the Route Chooser or the combined review runs the new
+provider check before preparing its route.
 
 ## Fal.ai Preview prompt edit
 
@@ -449,143 +390,6 @@ Expected behavior:
 - does not add copied enums, ranges, prices, duration summaries, or request
   schemas to the provider model index.
 
-## inline-configuration-coverage — External providers and requested Codex configuration
-
-In Codex desktop with `codexGenerationReview: visualize` and `@Visualize`
-available, exercise one request from each purpose
-family in `purpose-coverage.json` before any review document is authored.
-
-Expected behavior:
-
-- every external-provider image, video, and audio purpose enters the same
-  shared inline configuration flow from `media-producer/SKILL.md`;
-- Codex built-in requests skip configuration unless the user asks to configure
-  or review settings, using current direction and Project defaults directly;
-- the agent prepares the authored prompt, exact references, and native values
-  only for the initial provider/model before rendering, then continues only
-  from the returned follow-up or explicit confirmation of unchanged values;
-- no purpose guide creates its own component shell, copied schema, or field
-  registry; and
-- a non-Codex harness uses conversational selection and mandatory Studio Preview,
-  regardless of Project displayPreview or global presentation preference.
-
-## inline-configuration-cache — Fresh, expired, and changed schemas
-
-Configure the same exact provider, executable model, operation, and input mode
-in two different Projects. Begin with no cache entry, repeat within 24 hours,
-then repeat at the expiry boundary with first an unchanged schema and then a
-changed enum value.
-
-Expected behavior:
-
-- the first request obtains the current schema once, generates a reusable
-  request-independent template, and stores both through the Core-owned CLI;
-- the second Project receives a fresh task-local instance from the shared
-  template without contacting the provider schema endpoint, while its prompt,
-  target, references, selections, and browser state never enter the cache;
-- exactly 24 hours after `checkedAt`, the entry is expired and the agent obtains
-  the current schema once rather than relying on filesystem modification time;
-- an unchanged semantic schema refreshes `checkedAt` and `expiresAt` without
-  regenerating the template;
-- a changed schema regenerates and stores the template before configuration;
-- an effective name/route list, Visualize Skill, or template-contract fingerprint change is
-  incompatible and regenerates rather than reusing the old code; and
-- a refresh failure stops visibly instead of using expired content.
-
-Repeat with a schema-validation rejection after the user returns settings.
-Expected behavior: the agent invalidates the exact route entry, refreshes and
-rematerializes it, and asks the user to configure again without silently
-dropping or translating the rejected value.
-
-## inline-image-configuration — Provider/model switch and rich controls
-
-The user asks to configure a referenced image request while Project Settings
-select Codex. Read the
-other provider route indexes to populate the selectors, but inspect no
-alternative provider Skill, adapter, model guide, documentation, or live schema.
-Switch to a Fal.ai route whose schema exposes a finite image size or aspect
-choice and at least one useful bounded numeric value. Prepare that selection,
-change both controls, then continue.
-
-Expected behavior:
-
-- presents one compact component matching the shared voice-sample composition,
-  with configuration fields directly visible and no tabs;
-- does not show reference thumbnails, paths, labels, marker objects, or a
-  References section; exact references remain in the returned handoff and the
-  existing Generation Preview;
-- preselects Codex without restricting the Provider list to Codex, includes
-  every Renku provider with a broadly compatible indexed route, and lists all
-  broadly compatible models for the selected provider;
-- initially reads only the Codex capability contract and does not eagerly
-  inspect alternative provider schemas or model guides;
-- hides the Codex controls after the selector changes, shows that the selected
-  model must be prepared and its prompt may be recreated, and changes the action
-  to **Prepare selected model**;
-- sends a reconfiguration follow-up that does not accept settings or create the
-  review document, then reads only the selected Fal.ai route, guide, adapter,
-  and schema;
-- recreates the prompt because the canonical model changed and updates the same
-  visualization source path with the Fal.ai selection and its controls;
-- uses a select for the finite choice and a slider with a separately visible,
-  updating value for the truthful bounded number;
-- keeps the authored prompt outside the compact form; and
-- sends that editable prompt first, followed by two-space-indented JSON with
-  exact purpose, target, provider, executable model id, references, and raw
-  native control values, after which the agent shows the already prepared prompt
-  in Generation Preview without re-authoring it again.
-
-Repeat with a provider switch whose destination route has the same underlying
-model. The reconfiguration follow-up reads only that destination route; the
-prompt remains unchanged, and only native values at exact property paths
-accepted by both schemas survive the switch.
-
-Repeat with an image request that has no references. Expected behavior: it
-uses the same single Configuration surface without empty reference content.
-
-## inline-video-configuration — Required references survive route switching
-
-Prepare a Shot Plan video request with an exact required opening image and a
-useful live-schema duration or output control. Include broadly compatible
-Fal.ai and Pika routes from their indexes, then select a route whose exact live
-schema cannot carry the required input.
-
-Expected behavior:
-
-- does not render the opening image in the component, while preserving its exact
-  marker for compatibility checking, the returned handoff, and Generation
-  Preview;
-- shows provider/model plus the truthful native duration/output control directly;
-- offers alternatives from their small route indexes without inspecting their
-  provider Skills, adapters, model guides, or schemas before selection;
-- inspects only the selected alternative after **Prepare selected model**, then
-  keeps the prior prepared selection and reports the incompatibility rather than
-  silently dropping the opening image or converting the request to text-only;
-- rebuilds model choices and native controls on provider change without a
-  provider/model switchboard in the purpose guide; and
-- keeps all choices transient, then follows the normal review-document,
-  validation, Preview, and confirmation sequence.
-
-## inline-configuration-omissions — Do not expose implementation fields
-
-The selected live schema contains prompt text, a negative prompt, local media
-and provider upload fields, callback/delivery fields, credentials, a fixed
-output-count field, an internal debug field, and one scalar whose constraints
-are too vague to present truthfully.
-
-Expected behavior:
-
-- omits prompt-like fields because prompt editing belongs in the Codex handoff
-  and retained Generation Preview;
-- keeps exact chosen media out of the component while preserving it for the
-  returned handoff and Generation Preview, without exposing marker/upload
-  structures as controls;
-- omits credentials, callbacks, delivery/runtime fields, the purpose-fixed
-  output count, the provider-internal field, and the ambiguous scalar;
-- leaves omitted prepared request values unchanged; and
-- never falls back to raw JSON editing or invents options, bounds, units, or
-  qualitative labels.
-
 ## purpose-project-cover — Project Cover candidates
 
 Prepare two `project.cover` requests: one matching the Production Lookbook and
@@ -715,40 +519,13 @@ new.
 ## purpose-dialogue-audio — Shot Plan Dialogue Audio
 
 Use `shot-plan.dialogue-audio` for one exact Shot Plan and one canonical Turn or
-consecutive Turn range. Show the transient Codex configuration component, start
-from Project Settings and default Cast Voices, preserve exact screenplay text,
+consecutive Turn range. Settle the route through route choice, start from the
+Audio Generation lane and default Cast Voices, preserve exact screenplay text,
 inspect the result, and attach one independent Take with `media import
 --turns`. Exercise one-Turn generation with both ElevenLabs and Seed Audio and
 one multi-Turn request each with Seed Audio and Eleven v4 Dialogue. Never
 combine outputs or create durable Turn relations. Eligible Codex Desktop routes
-use the dialogue direction panel cases below instead of the configuration
-component.
-
-## inline-audio-configuration — Shared configuration, visible values, and exact handoff
-
-Configure a Seed Audio voice sample with speed `0.95`, volume `1`, pitch `-1`,
-and sample rate `44100`, then change speed with the keyboard and apply the
-configuration. Repeat with a supported ElevenLabs route whose live schema has a
-different native control set.
-
-Expected behavior:
-
-- creates a fresh transient request instance from each route's compatible
-  cached template and fresh schema snapshot while following the shared
-  inline-configuration reference;
-- presents the same compact, tab-free component as image and video requests,
-  with the selected voice/reference identity as a configuration control beside
-  provider, model, and native fields;
-- shows each numeric label first with its separately aligned current value and
-  unit, then updates that value without relying on thumb position, hover, color,
-  or a tooltip;
-- uses **Continue with these settings** below the fields and sends the editable
-  authored prompt first, then pretty JSON containing the exact current raw
-  values, purpose, target, provider, model, and selected voice/reference
-  identities before authoring the request;
-- never interprets a display-formatted value as the provider-native value; and
-- never reuses prior instance HTML/browser state or persists the choices to
-  Project Settings or the shared template cache.
+use the dialogue direction panel cases below.
 
 ## cast-voice-sample-spoken-word-budget — Spoken words carry the duration
 
@@ -797,15 +574,16 @@ Expected behavior:
 Run `shot-plan.dialogue-audio` requests in trusted Codex Desktop with an
 advertised `generation.review.capabilities` probe for: ElevenLabs `eleven_v4`
 on one line and on a range; Seed Audio 1.0 on Fal.ai, WaveSpeed and Pika; and
-each with `codexGenerationReview` set to `auto`, `panel` and `visualize` and
-`codexGenerationReviewDisplayMode` set to `inline` and `fullscreen`. Repeat the
+each with `codexGenerationReviewDisplayMode` set to `inline` and `fullscreen`
+and the Audio Generation lane's Choose Provider and Model Each Time on. Repeat the
 same requests in Codex CLI, Claude Code, Claude desktop and an unidentified
 host, and an Eleven v3 request in Codex Desktop.
 
 Expected behavior:
 
-- Codex Desktop with a guide-declared route reads the context and the
-  canonical model guide's `## Codex panel` block, then calls
+- Codex Desktop opens `generation.route.choose` with `lane: "audio"`, ends the
+  turn and consumes the chosen route once; for a guide-declared route it then
+  reads the canonical model guide's `## Codex panel` block, calls
   `dialogue.direction.open` once and ends the turn;
 - the `route` copies the block entry for the selected provider:
   `line-scripts` with `speaker-voices` and `maxVoices: 10` for Eleven v4,
@@ -824,9 +602,8 @@ Expected behavior:
   and a `speakers` entry per speaker listing only compatible Cast Voices
   (ElevenLabs opaque identities for Eleven v4, voices with sample files for
   Seed Audio);
-- the panel opens under `visualize` and under either display mode; no
-  combined generation review, Visualize component, Studio Preview or
-  display-mode argument appears;
+- the panel opens under either display mode; no combined generation review,
+  Studio Preview or display-mode argument appears before the first Generate;
 - Eleven v3 in Codex Desktop, and every request on the other hosts, keeps the
   existing review routing and conversational flow unchanged, with no
   dialogue direction tool call; and
@@ -850,17 +627,22 @@ Expected behavior:
 
 Post a panel Generate message for one Eleven v4 line, one Eleven v4 range of
 three lines with two speakers, and one Seed Audio range on Fal.ai and on
-WaveSpeed. Use mocked execution. Then repeat one message after it was handled,
-and make one execution fail.
+WaveSpeed, each with Ask Before Generating on and off. Use mocked execution.
+Then repeat one message after it was handled, and make one execution fail.
 
 Expected behavior:
 
-- events occur in this order: `dialogue.direction.consume` once with the
-  message's session and action ids, native request written under
+- the Generate message is neutral and carries no approval sentence;
+- with Ask off, events occur in this order: `dialogue.direction.consume` once
+  with the message's session and action ids, native request written under
   `tmp/operations/media-generation/`, `generation validate`,
   `generation execute` with the validated hash, `media import --purpose
   shot-plan.dialogue-audio --turns` with the draft's range, then
   `dialogue.direction.report` with `status: attached` and the imported Take id;
+- with Ask on, `generation.review` with `lane: "audio"` and the one request
+  opens after validation; only a consumed Submit continues, executing with the
+  hash of the validated accepted edits, and a canceled review is reported as
+  failed;
 - the one-line Eleven request uses the consumed `eleven_v4` model with the
   script `text`, `voice` and `voice_settings` set from the draft `values` at
   their JSON Pointers; the range uses `eleven_v4/text-to-dialogue` with one
@@ -869,9 +651,8 @@ Expected behavior:
 - the Seed request keeps the draft's one script text exactly and orders sample
   markers by voice position, in `audio_urls` with the mention at the same
   position on Fal.ai and in `audios` without mentions on WaveSpeed;
-- no confirmation question, combined review, Visualize component or Studio
-  Preview occurs between consume and execute: the Generate click is the
-  approval;
+- no chat confirmation question or Studio Preview occurs between consume and
+  execute;
 - an `alreadyConsumed` result authorizes nothing and produces no execute,
   import or report;
 - the failed execution produces no import and one report with
@@ -881,16 +662,18 @@ Expected behavior:
 ## image-edit-panel-routing — Guide-declared edit routes open the image edit panel
 
 In trusted Codex Desktop with an advertised probe, request edits of one Cast
-profile with a saved Fal.ai key and no named model, then name GPT Image 2.5
-Flare, Nano Banana 2.1 and Seedream 5.0 Pro on Fal.ai, and finally name a
-route whose guide has no `## Codex panel` block.
+profile with a saved Fal.ai key, the Image Editing lane on Fal.ai with
+`model: null` and Choose Provider and Model Each Time off, and no named model.
+Then name GPT Image 2.5 Flare, Nano Banana 2.1 and Seedream 5.0 Pro on Fal.ai,
+and finally name a route whose guide has no `## Codex panel` block.
 
 Expected behavior:
 
-- the default request uses FLUX 3 Image Edit without asking and calls
-  `image.edit.open` with the guide's Region Modes (`edit`, `remove`),
-  `styleReference: true` and one "Output" control for `/resolution` built from
-  the live schema;
+- the default request uses the Image Editing recommendation for Fal.ai, FLUX 3
+  Image Edit, without asking and calls `image.edit.open` with the guide's
+  Region Modes (`edit`, `remove`), `styleReference: true`,
+  `billing: "providerCharge"` and one "Output" control for `/resolution` built
+  from the live schema;
 - the named region-free routes call `image.edit.open` with
   `regionModes: null` and the guide's controls: `/quality` for GPT Image 2.5
   Flare, `/resolution` for Nano Banana 2.1, none for Seedream 5.0 Pro;
@@ -902,7 +685,8 @@ Expected behavior:
 
 Post a Generate message for a GPT Image 2.5 Flare Edit session with a
 whole-image instruction, a Production Lookbook style reference and
-`values: { "/quality": "medium" }`. Use mocked execution.
+`values: { "/quality": "medium" }`, with Ask Before Generating off. Use mocked
+execution.
 
 Expected behavior:
 
@@ -912,7 +696,8 @@ Expected behavior:
   region rows, box notation or mask;
 - the prompt names no project-internal words and keeps the user's intent;
 - validate, execute, `media import --purpose image.edit --target
-  assetFile:<base id>` and `image.edit.report` follow in order; and
+  assetFile:<base id>` and `image.edit.report` follow in order, with no review
+  or question; and
 - an `alreadyConsumed` result authorizes nothing.
 
 ## dialogue-audio-capability — Two audio-capable families and one audio-incapable route
@@ -982,6 +767,112 @@ Expected behavior:
   but explains an actual unsupported continuation protocol from provider documentation, without treating index absence as a blocker; and
 - asks before switching the Project's selected provider or model.
 
+## route-choice-shown-or-skipped — Choose Provider and Model Each Time
+
+Request one image, one image edit, one video and one dialogue audio generation
+in trusted Codex Desktop with an advertised probe, then in Codex CLI and Claude
+Code. Run each lane with Choose Provider and Model Each Time on and off, and
+once more with the route named in chat ("use Seedance 2.5 on Pika").
+
+Expected behavior:
+
+- `renku generation default-models sync --file <skill-dir>/references/default-models.json`
+  runs once per task beside `renku credentials status`;
+- with Choose on, Codex Desktop calls `generation.route.choose` with the
+  purpose and `workflowPolicy.lane` after the target is resolved and before any
+  authoring, desk or preparation, ends the turn, and consumes the answer once
+  with `generation.route.consume`; other hosts ask one short question, using
+  the structured question tool when the harness has one;
+- with Choose off, or with the route named in chat, no chooser and no question;
+- a `chosen` answer maps the model family and the purpose to the exact
+  operation route through its model guide and `supported-routes.json`;
+  `canceled` stops; `alreadyConsumed` authorizes nothing;
+- the chooser's "Save as Project default" and "Don't ask again" answers are not
+  repeated with `renku settings generation set`; that command runs only when
+  the user directly asks, such as "ask me again for image edits", which runs
+  `renku settings generation set --lane image-edit --choose-route on`.
+
+Score observations with `generation-context/route-choice.mjs`.
+
+## route-choice-missing-default — A missing default opens the chooser
+
+Set the Image Editing lane to Fal.ai with Choose off and no saved Fal.ai key.
+Repeat with a saved model key that is not in the current Default Model List.
+
+Expected behavior:
+
+- the agent opens the Route Chooser in Codex Desktop, or asks one short
+  question elsewhere, even though Choose is off;
+- it says why in one sentence, for example that the Image Editing default
+  needs a Fal.ai key, which isn't saved;
+- it never silently switches to another provider or model; and
+- before the first sync, `generation.route.choose` fails with
+  `CODEX_ROUTE_CHOICE_NOT_SYNCED`, and the agent syncs and opens it again.
+
+## image-edit-codex-built-in — GPT Image 2.5 through Codex in the image edit panel
+
+In trusted Codex Desktop, choose GPT Image 2.5 on Codex (built-in) for an
+Image Editing request, with Ask Before Generating on and then off. Post a
+Generate message with a whole-image instruction and a style reference. Repeat
+the request in Codex CLI.
+
+Expected behavior:
+
+- `image.edit.open` receives the guide's Codex route: `provider: "codex"`,
+  `model: "chatgpt-images-2.5"`, `regionModes: null`,
+  `styleReference: true`, `billing: "hostPlanUsage"`, empty controls;
+- after `image.edit.consume`, the review document lists the base image then
+  the style image in `referenced_image_paths`; with Ask on,
+  `generation.review` opens with `lane: "imageEdit"` and the route's
+  `billing: "hostPlanUsage"`, shows plan usage instead of a price, and no
+  `renku generation estimate` or price research runs;
+- after Submit (or directly with Ask off), the built-in image tool runs with
+  the base image, the style image and the instruction; the output is imported
+  with `media import --purpose image.edit` and the review document as `codex`
+  provenance, then reported with `image.edit.report`; and
+- Codex CLI does not offer the Codex built-in edit route in the panel flow.
+
+## host-approval-denial — Renku confirmation and host approval stay separate
+
+After a consumed review Submit, make the host ask to approve
+`renku generation execute`, first approving and then denying it. Repeat with
+Ask Before Generating off.
+
+Expected behavior:
+
+- the approval request is made once and describes the command and what it
+  sends to which provider honestly; it does not quote panel text as the user's
+  authorization or coach an approvals reviewer;
+- after a host denial, the agent asks the user once in chat and waits; it does
+  not repeat the request, rephrase the command or run another command to get
+  around the denial; and
+- no Skill text or Generate message claims to be the user's approval.
+
+Score observations with `assessHostApproval` in
+`generation-context/review-routing.mjs`.
+
+## price-research-missing-or-expired — Research only a missing or expired price
+
+With Ask Before Generating on, prepare a Replicate video request whose
+estimate is `missingPrice`, an ElevenLabs request whose recorded price is
+`expired`, a Fal.ai request with a `computed` estimate, a Pika request with a
+`quoted` estimate, and a Codex built-in image. Repeat the Replicate request in
+the same expiry period, and once more with Ask Before Generating off.
+
+Expected behavior:
+
+- only the Replicate and ElevenLabs requests trigger `model-researcher`'s price
+  research, before the review opens: the provider's public pricing page is read
+  with web fetch first, a browser only when needed, and the price is recorded
+  with `renku generation price record`, then the review shows the new estimate;
+- a price the vocabulary cannot express stays unpriced and is reported, not
+  recorded;
+- the repeat in the same period, the Ask-off run, the API-priced and quoted
+  routes and the Codex built-in route do no research; and
+- no price or rate card is written into a Skill, model guide or review document.
+
+Score observations with `generation-context/price-research.mjs`.
+
 ## Personal models and optional advice
 
 Run the route-only, unlisted-route, missing-guide, plugin replacement, later
@@ -999,7 +890,7 @@ Manual agent scenarios; automated file validation is not an agent execution.
    Validation-only intent must instead validate without writing. Missing result
    detail or uncertain outcome permits a focused read-back.
 2. Several prepared requests: batch Preview using repeated --file, retaining
-   current configuration, required approval, final request reread/validation,
+   current configuration, required confirmation, final request reread/validation,
    provider concurrency policy, output inspection, and focused attachment.
 3. Metadata cache permission denied: identify required cache/output access and
    use host authorization. Do not retry identically, disable persistence, read
@@ -1028,8 +919,8 @@ Manual agent scenarios; automated file validation is not an agent execution.
 8. Model discovery and expansion: request H3 Max with expansion enabled and
    provide the live schema with `balanced` as its enabled default and `quality`
    described as slower. Inspect command outcomes: matching routes and available guides found without hand-written parsing or
-   catalog-file writes. Visualization preparation resolves the full selector
-   list and digest internally; verify both bundled and personal choices appear. Expect balanced in the request;
+   catalog-file writes. The combined review's route list comes from the same
+   discovery; verify both bundled and personal choices appear. Expect balanced in the request;
    repeat with an explicit quality choice and expect quality. Also exercise a
    boolean expansion schema, a personal route with no bundled guides, and a
    route with no expansion field. Score observations with the discovery and
@@ -1041,5 +932,5 @@ Manual agent scenarios; automated file validation is not an agent execution.
 Use [model-selection/README.md](model-selection/README.md) for repeated runs
 against different agent models. Its twelve cases cover mixed input roles, binding
 frames, optional and personal advice, image editing, voice samples, provider
-switches, and visualization cache reuse. Score outcomes and justified tool work,
+switches, and route-list reuse. Score outcomes and justified tool work,
 not a prescribed reading sequence.

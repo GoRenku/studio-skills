@@ -177,11 +177,10 @@ Not first-class today:
 
 - Do not write directly to `.renku/project.sqlite`.
 - Do not invent project, scene, Beat, Cast Member, Location, Prop, asset, Scene Beats revision, Lookbook, or generation ids or numbers.
-- Follow the Project's current confirmation policy and ordinary conversational
-  confirmation before paid generation; do not invent an estimate artifact,
-  approval token, or separate skill-owned gate. Codex built-in generation runs
-  within the session without separate generation consent or mandatory settings
-  confirmation. Have specialists inspect and automatically attach generated
+- Follow the Project's generation lane settings (Choose Provider and Model
+  Each Time, Ask Before Generating) for every route, Codex built-in included;
+  do not invent an estimate artifact, approval token, or separate skill-owned
+  gate. Have specialists inspect and automatically attach generated
   assets of every kind without asking for attachment acceptance, unless the
   user explicitly requested review-only or leave-unattached work.
 - Preserve explicit user choices for provider/model, authored values, exact

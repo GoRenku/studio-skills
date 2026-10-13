@@ -33,10 +33,9 @@ asks to preserve, explain the conflict and ask which outcome matters. Do not
 silently weaken either instruction.
 
 In trusted Codex Desktop with panel support, an `image.edit` continues in the
-[image edit panels](image-edit-panels.md): the inline chooser whenever several
-images match, then the FLUX 3 region-editing panel. FLUX 3 Image Edit is the
-default edit route whenever a Fal.ai key is saved and the user named no other
-model or provider; do not ask which model to use.
+[image edit panels](image-edit-panels.md): the inline image chooser whenever
+several images match, then [route choice](route-choice.md), then the edit panel
+when the chosen route has one.
 
 ## Reclassify every turn
 
@@ -85,21 +84,20 @@ an Additional or continuity slot is not a substitute for `image.edit`.
 
 ## Select execution independently
 
-After choosing focused creation or `image.edit`, select the execution path
-through the same precedence for every image purpose: explicit current user
-direction, then the Project image-provider setting.
+After choosing focused creation or `image.edit`, select the provider and model
+through [route choice](route-choice.md). The purpose decides the lane: focused
+creation uses the Image Generation lane and `image.edit` the Image Editing lane
+(`workflowPolicy.lane: imageEdit`). Explicit current user direction wins over
+the lane default; an unset Image Editing model uses the Default Model List
+recommendation for the lane provider, which is FLUX 3 for Fal.ai.
 
-When that setting selects Codex and no higher-precedence choice overrides it,
-an `image.edit` uses the built-in Codex image capability with the
-`chatgpt-images-2.5` family identity. Pass the exact source image as a built-in
-capability reference and keep the exact authored
-prompt in the shared review envelope. Do not switch to Fal.ai merely because
-its provider route ends in `/edit`.
-
-Use a Fal.ai edit route only when explicit current direction or the Project
-setting selects Fal.ai. If Codex is selected but unavailable
-in the current harness, ask which path to use; never silently fall back to paid
-Renku execution.
+When the chosen route is Codex, an `image.edit` uses the built-in Codex image
+capability with the `chatgpt-images-2.5` family identity. Pass the exact source
+image as a built-in capability reference and keep the exact authored prompt in
+the shared review envelope. Do not switch to another provider merely because
+its route ends in `/edit`. If Codex is chosen but unavailable in the current
+harness, ask which path to use; never silently fall back to paid Renku
+execution.
 
 ## Resolve the exact source
 

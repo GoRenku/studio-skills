@@ -1,5 +1,6 @@
 import { readFile, readdir, stat } from 'node:fs/promises';
 import path from 'node:path';
+import { codexIdentityIssue, validateDefaultModelList } from './media-generation-skill-checks.mjs';
 
 const root = process.cwd();
 const providers = [
@@ -74,22 +75,6 @@ for (const required of [
   }
 }
 
-const inlineConfiguration = await readFile(
-  path.join(root, 'skills/media-producer/references/inline-generation-configuration.md'),
-  'utf8',
-);
-for (const required of [
-  'configuration-visualization prepare',
-  '24 hours',
-  'prepare-generation-configuration-visualization.mjs',
-  'generation-configuration-template.md',
-  'stale-on-error',
-]) {
-  if (!inlineConfiguration.includes(required)) {
-    throw new Error(`Inline generation configuration is missing ${required}.`);
-  }
-}
-
 const allSkillFiles = (await Promise.all(
   ['media-producer', 'model-researcher', ...providers.map(([name]) => name)]
     .map((name) => listFiles(path.join(root, 'skills', name))),
@@ -99,6 +84,18 @@ for (const file of allSkillFiles) {
 }
 
 const panelBlocks = await validateCodexPanelBlocks(allSkillFiles, routesByProvider);
+
+const modelGuideKeys = new Set(allSkillFiles
+  .filter((file) => /model-guides[\\/](?:image|video|audio)[\\/]/.test(file))
+  .map(modelGuideKey));
+const defaultModelList = JSON.parse(await readFile(
+  path.join(root, 'skills/media-producer/references/default-models.json'),
+  'utf8',
+));
+const defaultModelIssues = validateDefaultModelList(defaultModelList, { guideKeys: modelGuideKeys, routesByProvider });
+if (defaultModelIssues.length > 0) {
+  throw new Error(`Default Model List is invalid:\n- ${defaultModelIssues.join('\n- ')}`);
+}
 
 const mediaProducerFiles = await listFiles(path.join(root, 'skills', 'media-producer'));
 const reviewFiles = mediaProducerFiles.filter((file) => file.endsWith('-review.json'));
@@ -126,11 +123,14 @@ if ([...reviewedMediaKinds].sort().join(',') !== 'audio,image,video' || !include
 
 console.log(`Validated ${
   [...routesByProvider.values()].reduce((sum, routes) => sum + routes.length, 0)
-} provider routes and ${panelBlocks} Codex panel blocks.`);
+} provider routes, ${panelBlocks} Codex panel blocks and ${
+  Object.values(defaultModelList.lanes).reduce((sum, entries) => sum + entries.length, 0)
+} Default Model List entries.`);
 
 /**
  * Every `## Codex panel` block is valid JSON for a known panel purpose, names
- * bundled provider routes, and declares each provider route at most once per purpose.
+ * bundled provider routes or the Codex built-in identity, and declares each
+ * provider route at most once per purpose.
  */
 async function validateCodexPanelBlocks(files, routes) {
   const purposes = new Set(['dialogue-direction', 'image-edit']);
@@ -156,11 +156,16 @@ async function validateCodexPanelBlocks(files, routes) {
         const models = block.purpose === 'dialogue-direction'
           ? [entry.singleLine?.model, entry.lineRange?.model].filter((model) => model !== undefined)
           : [entry.model];
-        const providerRoutes = routes.get(entry.provider);
-        if (!providerRoutes) throw new Error(`${relative} names provider ${entry.provider}, which has no provider Skill.`);
-        for (const model of models) {
-          if (!providerRoutes.some((route) => route.apiId === model)) {
-            throw new Error(`${relative} names ${entry.provider} model ${model}, which is not in its supported-routes.json.`);
+        if (entry.provider === 'codex') {
+          const issue = models.map((model) => codexIdentityIssue({ model, guideKey: modelGuideKey(file) })).find(Boolean);
+          if (issue) throw new Error(`${relative}: ${issue}`);
+        } else {
+          const providerRoutes = routes.get(entry.provider);
+          if (!providerRoutes) throw new Error(`${relative} names provider ${entry.provider}, which has no provider Skill.`);
+          for (const model of models) {
+            if (!providerRoutes.some((route) => route.apiId === model)) {
+              throw new Error(`${relative} names ${entry.provider} model ${model}, which is not in its supported-routes.json.`);
+            }
           }
         }
         const key = `${block.purpose} ${entry.provider} ${models[0]}`;
@@ -222,6 +227,13 @@ async function validateMarkdownLinks(file) {
       throw new Error(`Broken local Markdown link in ${path.relative(root, file)}: ${rawTarget}.`);
     }
   }
+}
+
+/** The guide key: a guide's filename, or its folder name under its media category. */
+function modelGuideKey(file) {
+  const [, category, entry] = file.split(`${path.sep}model-guides${path.sep}`)[1].match(/^([^/\\]+)[/\\]([^/\\]+)/) ?? [];
+  if (!category) throw new Error(`${path.relative(root, file)} is not under a model guide category.`);
+  return entry.replace(/\.md$/, '');
 }
 
 function nonEmpty(value) {

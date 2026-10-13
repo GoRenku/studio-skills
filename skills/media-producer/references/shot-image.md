@@ -16,16 +16,17 @@ that can carry the deliberately selected references. If the selected model
 cannot carry the Lookbook Sheet, stop and ask before a text-only downgrade or
 model change. The user may explicitly request a deliberate visual departure.
 
-Choose the path through explicit current user direction, then the Project's
-Image provider setting. Do not add a Shot Image-specific setting. If Codex is
+Choose the path through explicit current user direction, then the Image
+Generation lane through [route choice](route-choice.md). Do not add a Shot
+Image-specific setting. If Codex is
 selected but the harness lacks built-in image generation, ask rather than
 falling back to a paid provider.
 
 Use [generation review routing](generation-review-routing.md) with the standard
-temporary review document. Panel mode waits for Submit without a Studio Preview;
-CLI/non-Codex sessions always deliver Studio Preview. The Visualize desktop path
-retains Project Preview/confirmation policy. Do not add a second confirmation
-after panel Submit or a separate Codex consent pause. After execution, inspect the
+temporary review document. With Ask Before Generating on, panel mode waits for
+Submit without a Studio Preview, and CLI/non-Codex sessions deliver Studio
+Preview or a text summary; with it off, generate directly. Do not add a second
+confirmation after panel Submit. After execution, inspect the
 exact output and automatically import without asking for output acceptance:
 
 ```bash

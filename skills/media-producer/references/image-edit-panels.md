@@ -2,10 +2,12 @@
 
 Use this guide for an eligible `image.edit` request in Codex Desktop. The user
 describes the change, marks rectangular regions when the route takes them, and
-clicks **Generate** in a fullscreen panel. You write the model prompt, execute
-it through the normal provider Skill and CLI path, import the result and report
-it. The panel never executes generation. When the request matches several
-images, you first ask which one with an inline chooser.
+clicks **Generate** in a fullscreen panel. You write the model prompt, review it
+with the user when Ask Before Generating is on, execute it through the normal
+provider Skill and CLI path (or the Codex built-in image tool), import the
+result and report it. The panel never executes generation. When the request
+matches several images, you first ask which one with an inline chooser; then
+[route choice](route-choice.md) settles the provider and model.
 
 ## Eligibility
 
@@ -16,19 +18,18 @@ anything about the image.
 
 - **The chooser** is for every `image.edit` request in that host, whatever the
   model. Choosing the image comes before choosing the route.
-- **The panel** opens when the selected edit route appears in an
-  `image-edit` block of the `## Codex panel` section of its canonical model
-  guide. Select the route as the Media Producer Skill directs (its default
-  edit route rule applies); do not ask the user which model to use when that
-  rule decides. A route without a block keeps the conversational `image.edit`
-  flow on the chosen image.
+- **The panel** opens when the route chosen through
+  [route choice](route-choice.md) appears in an `image-edit` block of the
+  `## Codex panel` section of its canonical model guide. The Image Editing
+  lane (`workflowPolicy.lane: imageEdit`) supplies the default. A route
+  without a block keeps the conversational `image.edit` flow on the chosen
+  image.
 
-These apps are not generation reviews. Do not read or apply
-`workflowPolicy.codexGenerationReview` or
-`workflowPolicy.codexGenerationReviewDisplayMode`. The chooser is always
-inline and the panel always fullscreen. Do not also open the combined
-generation review, Visualize configuration or Studio Preview for a
-panel-originated edit.
+These apps are authoring desks, not generation reviews.
+`workflowPolicy.codexGenerationReviewDisplayMode` does not apply: the chooser
+is always inline and the panel always fullscreen. After each Generate, the
+combined generation review opens when Ask Before Generating is on (step 5);
+never open Studio Preview for a panel-originated edit.
 
 Every other host keeps the conversational `image.edit` flow with the shared
 [generation review routing](generation-review-routing.md).
@@ -74,13 +75,18 @@ Image choice canceled. Chooser <id>. Consume it with image.edit.target.consume o
 
 Call `image.edit.target.consume` once with `{ chooserId }`:
 
-- `chosen` returns the exact `assetFileId`; continue with step 3 when the
-  route has a `## Codex panel` block, otherwise continue the conversational
-  `image.edit` flow on that exact image.
+- `chosen` returns the exact `assetFileId`; continue with step 3.
 - `canceled` means stop and reply briefly.
 - `alreadyConsumed` authorizes nothing.
 
-## 3. Open the panel and end the turn
+## 3. Choose the route
+
+Follow [route choice](route-choice.md) for the Image Editing lane: open the
+Route Chooser when it says to ask, otherwise use the lane default. Continue
+with step 4 when the chosen route has a `## Codex panel` block, otherwise with
+the conversational `image.edit` flow on the exact image.
+
+## 4. Open the panel and end the turn
 
 A panel-capable model guide holds a fenced `json` block for the `image-edit`
 purpose:
@@ -109,6 +115,8 @@ first being the default, or is `null` when the route takes no regions.
 Route Description from the entry for the selected provider and model:
 
 - copy `provider`, `model`, `regionModes` and `styleReference`;
+- set `billing`: `hostPlanUsage` for the Codex built-in route, which runs on
+  the user's ChatGPT plan, and `providerCharge` for every other route;
 - take `label` and `providerLabel` from the route's `generation models list`
   entry, the same source the combined review uses (`label` is the route index
   `name`);
@@ -118,6 +126,10 @@ Route Description from the entry for the selected provider and model:
   group (use the label the guide gives, such as "Output"), the schema title as
   each control's label, an `initialValue` for each, scalar kinds only and never
   nullable.
+
+The Codex built-in route (provider `codex`) has no route list entry and no
+schema; its model guide gives its labels and empty controls. Offer it only in
+Codex Desktop.
 
 Open the panel right away; do not ask what to change first.
 
@@ -133,6 +145,7 @@ Open the panel right away; do not ask what to change first.
     label: string;
     regionModes: Array<{ id: string; label: string; instructionRequired: boolean; placeholder: string }> | null;
     styleReference: boolean;
+    billing: 'providerCharge' | 'hostPlanUsage';
     controls: { groups: Array<{ label: string; fields: NativeRequestControl[] }> };
   };
   initialWholeImageInstruction: string; // the user's requested change in their words, or ''
@@ -143,15 +156,16 @@ A `CODEX_IMAGE_EDIT_INVALID` or `CORE_IMAGE_EDIT_TARGET_INVALID` result lists
 every issue; correct the input and open again. Once the panel opens, end the
 turn and wait. Opening the panel authorizes no generation.
 
-## 4. Handle each Generate message
+## 5. Handle each Generate message
 
 Each Generate click posts one message:
 
 ```text
-Generate image edit · <owner> · <image type> Take <N>. I approve uploading this image and any references it needs to <provider> and running one paid <route> with my saved <provider> key. Session <id>, action <id>. Consume it with image.edit.consume once.
+Generate image edit · <owner> · <image type> Take <N>. Session <id>, action <id>. Consume it with image.edit.consume once.
 ```
 
-For each one, in this order:
+Generate is an authoring step: the message hands you the user's draft and
+carries no approval. For each one, in this order:
 
 1. **Consume.** Call `image.edit.consume` once with `{ sessionId, actionId }`.
    `alreadyConsumed` authorizes nothing: do not generate or report again.
@@ -192,18 +206,29 @@ For each one, in this order:
    Keep the user's intent; you may rephrase for the model. Write the review
    document (`provider`, `model`, `mediaKind: "image"`, `prompt`, `request`)
    under `tmp/operations/media-generation/`.
-4. **Validate and execute** with `renku generation validate --file <request>
-   --json`, then `renku generation execute` with the returned
-   `--expected-request-sha256`. The Generate message is the user's explicit
-   approval for this one edit: it names the upload to the provider, the paid
-   run and the saved key, and the panel shows the same terms beside Generate. Do not ask
-   for confirmation in chat, open a review or Studio Preview, or retry a
-   successful paid execution. When the host requires approval to run the
-   command (network access or an approval review), request it once with a
-   justification that quotes that approval sentence and names the exact action
-   id. If the host still refuses, report the action as failed with the host's
-   reason instead of asking again in chat.
-5. **Import** the output against the exact base:
+4. **Review when Ask Before Generating is on.** For an Engines route, run
+   `renku generation validate --file <request> --json` first. Then open
+   `generation.review` with `lane: "imageEdit"` and this one request, its
+   route (with the same `billing`) and the route's controls, following the
+   [combined panel](generation-review-routing.md#combined-panel) steps. End the
+   turn; only a consumed Submit continues, with the accepted edits applied and
+   validated. A canceled review is reported as failed with "Canceled in
+   review". When Ask Before Generating is off, skip the review.
+5. **Execute** once:
+   - **Engines routes:** `renku generation execute` with the latest
+     `--expected-request-sha256`.
+   - **Codex built-in route:** call the built-in image tool with the request's
+     `prompt` and its `referenced_image_paths` resolved to absolute paths in
+     order (base, style image, references). Copy the result under `tmp/media/`.
+     Its provenance is the review document itself.
+
+   A consumed Submit, or Ask Before Generating off, is Renku's confirmation.
+   If the host still asks to approve a command, request it once with an honest
+   description of the command and what it uploads to which provider. If it is
+   refused, ask the user once in chat and wait. Never quote panel text as the
+   user's authorization, never retry or rephrase around a denial, and never
+   retry a successful paid execution.
+6. **Import** the output against the exact base:
 
    ```bash
    renku media import \
@@ -213,14 +238,15 @@ For each one, in this order:
      --provenance <returned-provenancePath>
    ```
 
+   For the Codex built-in route, pass the review document as `--provenance`.
    The result is stored beside the base. It becomes the selected image when
    its type has a selection (profiles, heroes, covers, Lookbook images, Shot
    and storyboard images); sheets and Shot Plan images are only added.
-6. **Report** with `image.edit.report`:
+7. **Report** with `image.edit.report`:
    `{ sessionId, actionId, outcome: { status: 'attached', assetFileId } }` using
    `assetFile.id` from the import report, or `{ status: 'failed', message }`
-   with a short user-readable reason when resolving, authoring, validation,
-   execution or import fails. Report every consumed action exactly once; the
+   with a short user-readable reason when resolving, authoring, review,
+   validation, execution or import fails. Report every consumed action exactly once; the
    panel keeps Generate disabled until you do.
 
 Then reply briefly in the conversation and end the turn. The user compares

@@ -20,6 +20,9 @@ test('release validation accepts route-only discovery and absent optional advice
     await fs.writeFile(indexPath, JSON.stringify(index));
     const guideRoot = path.join(fixture, 'skills/media-producer/references/model-guides');
     await fs.rm(guideRoot, { recursive: true });
+    // The Default Model List names guides, so a guide-free distribution lists no models.
+    await fs.writeFile(path.join(fixture, 'skills/media-producer/references/default-models.json'),
+      JSON.stringify({ formatVersion: 1, lanes: { image: [], imageEdit: [], video: [], audio: [] } }));
     const result = await execute(process.execPath,
       [path.join(root, 'scripts/validate-media-generation-skills.mjs')], { cwd: fixture });
     assert.match(result.stdout, /Validated/);

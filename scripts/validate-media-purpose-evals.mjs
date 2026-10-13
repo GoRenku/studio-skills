@@ -37,6 +37,8 @@ const required = [
   'audio-incapable', '360p', '4K', 'continuation',
   'dialogue.direction.open', 'image.edit.open', 'mentions: null',
   'regionModes: null', 'alreadyConsumed', 'dialogue.direction.report',
+  'generation.route.choose', 'missing default', 'host denial',
+  'price research', 'hostPlanUsage', 'Ask Before Generating off',
 ];
 const missingPurposes = requiredPurposes.filter((purpose) => !coverage.purposes?.[purpose]);
 const missingEvalIds = Object.values(coverage.purposes ?? {}).filter(

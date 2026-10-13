@@ -131,16 +131,16 @@ Required outcomes: Find Pro advice and selected schema; do not assume the base
 model guide applies unchanged. Apply supported motion conditioning without
 requiring an intermediate model key or structured guide index.
 
-## 12. Discovery and visualization cache remain independent
+## 12. Discovery and the review route list stay complete
 
 User: “Repeat that video with a warmer evening light.”
 
-Setup: Same provider/route and inputs in a fresh conversation. CLI query returns
-a narrow set and a full-list digest; visualization preparation returns a fresh
-cached template. The full selector includes bundled and personal alternatives.
+Setup: Same provider/route and inputs in a fresh conversation, in Codex Desktop
+with Ask Before Generating on. CLI query returns a narrow set and a full-list
+digest. The full list includes bundled and personal alternatives.
 
-Required outcomes: Reuse the HTML template while carrying the new prompt and
-current request values. Keep all selector choices. Do not rebuild the template
-from the narrow query, author a catalog copy, refetch a fresh schema needlessly,
+Required outcomes: Carry the new prompt and current request values. Offer the
+complete route list in the combined review's `routes`, not only the narrow
+query result. Do not author a catalog copy, refetch a fresh schema needlessly,
 or reuse the previous request payload. Record justified and redundant calls
 separately; no arbitrary one-call ceiling.

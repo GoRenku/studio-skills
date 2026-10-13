@@ -1,7 +1,7 @@
 import { isDeepStrictEqual } from 'node:util';
 
-// Score observed command outcomes and rendered payloads, not mentions of commands.
-export function assessPreparation({ events, engines = true, previewRequired = true, payload, renderedPayload }) {
+// Score observed command outcomes, not mentions of commands.
+export function assessPreparation({ events, engines = true, previewRequired = true }) {
   const issues = [];
   const at = (type) => events.findIndex((event) => event.type === type);
   const prepare = at('request-prepared');
@@ -14,17 +14,6 @@ export function assessPreparation({ events, engines = true, previewRequired = tr
     if (authored >= 0 && prepare > authored && events[authored].toolOperation !== events[prepare].toolOperation) {
       issues.push('request-writing-roundtrip');
     }
-  }
-  const cache = events.find((event) => event.type === 'visualization-prepared');
-  if (cache?.status === 'fresh' && events.some((event) => ['schema-fetch', 'template-authoring'].includes(event.type))) {
-    issues.push('fresh-cache-rebuilt');
-  }
-  if (cache && cache.status !== 'fresh' && at('configuration-rendered') >= 0
-    && !events.some((event) => event.type === 'visualization-prepared' && event.status === 'fresh')) {
-    issues.push('unready-configuration-rendered');
-  }
-  if (at('configuration-rendered') >= 0 && !isDeepStrictEqual(payload, renderedPayload)) {
-    issues.push('request-payload-not-preserved');
   }
   return issues;
 }

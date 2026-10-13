@@ -52,13 +52,6 @@ Treat that raw live `input_schema` as the final authority for fields,
 requiredness, enum values, defaults, bounds, and media cardinality. The model
 index and editorial guides do not replace it.
 
-When Media Producer is running its Codex inline-configuration flow, a `fresh`
-Core-managed generation configuration visualization schema snapshot is this
-inspection for pre-review authoring. Do not also run `generation schema show`
-during that 24-hour window. Media Producer owns miss, expiry, dependency-change,
-and invalidation refreshes; final validation and execution remain authoritative
-live boundaries.
-
 Author the exact Pika-native input as the review document's `request`. Put a
 `{"$file":"<project-relative-path>","mimeType":"<mime>","reviewLabel":"<Media Producer label>"}`
 marker at each exact native local-media field. Preserve request order and the
@@ -77,5 +70,8 @@ review document.
 
 Never call the Pika API directly, inspect billing as a runtime preflight,
 persist credentials or provider URLs, attach Assets, switch provider/model on
-failure, or create durable execution lifecycle, pricing, balance, or approval
-artifacts.
+failure, or create durable execution lifecycle, balance, or approval artifacts.
+
+Renku estimates cost for reviews from cached provider prices. Do not write
+prices into this Skill or the review document; a missing or expired price
+follows `model-researcher`'s price research.

@@ -48,5 +48,36 @@ prompting guide]. The announcement is product documentation; the prompt
 patterns above are Renku recommendations for this harness, not an evaluation of
 its hidden model variant.
 
+## Codex panel
+
+The built-in tool is a route of the Codex
+[image edit panel](../../image-edit-panels.md), offered only in Codex Desktop:
+
+```json
+{
+  "purpose": "image-edit",
+  "routes": [
+    { "provider": "codex", "model": "chatgpt-images-2.5", "regionModes": null, "styleReference": true, "controlPointers": [] }
+  ]
+}
+```
+
+**Route Description.** This route has no `generation models list` entry and no
+provider schema. Use `label: "GPT Image 2.5"`, `providerLabel: "Codex
+(built-in)"`, `billing: "hostPlanUsage"` and empty controls
+(`{ "groups": [] }`). The tool has no mask parameter, so the panel shows no
+regions.
+
+**Mapping the consumed draft.** Write the review document with
+`provider: "codex"`, `model: "chatgpt-images-2.5"` and the built-in fields:
+
+- `referenced_image_paths`: the base image first, then the style reference
+  when present, then each resolved reference, as `$file` markers with
+  meaningful `reviewLabel`s. The tool takes at most five images.
+- `prompt`: the whole-image instruction as an edit of image 1, the style
+  reference's style-only role ("match the palette, lighting and rendering
+  style of image 2, keeping the composition of image 1") and a sentence naming
+  what must stay unchanged.
+
 [Images 2.5 announcement]: https://openai.com/index/introducing-chatgpt-images-2-5/
 [image prompting guide]: https://developers.openai.com/api/docs/guides/image-prompting

@@ -117,6 +117,9 @@ test('shipped skills separate temporary working files from retained Previs autho
       if (!/json/i.test(fileArgument)) {
         continue;
       }
+      if (/^<[a-z-]*skill-dir>\/references\//.test(fileArgument)) {
+        continue; // A Skill's own bundled reference file, not Project working data.
+      }
       assert.match(
         fileArgument,
         /^tmp\/operations\//,

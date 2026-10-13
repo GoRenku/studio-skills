@@ -110,9 +110,9 @@ revision reads. Do not add a duplicate production-number field.
    provider's current native operation facts. An edit-capable provider route
    does not change this focused creation purpose to `image.edit`.
 7. Write one temporary review document per batch. Follow
-   [generation review routing](generation-review-routing.md): panel Submit without
-   Studio Preview, or the selected Studio Preview path (mandatory outside Codex
-   desktop). Validate Engines requests and apply the lane-specific authorization rules,
+   [generation review routing](generation-review-routing.md): with Ask Before
+   Generating on, panel Submit without Studio Preview, or the Studio Preview or
+   text path outside Codex Desktop. Validate Engines requests and apply the lane-specific authorization rules,
    reread before execution, rebuild native prompt
    fields after edits, then execute through the chosen lane.
 8. Follow `image-output-review.md`. Inspect and automatically attach the result
@@ -274,7 +274,7 @@ structured `image_size` or `quality` field. Inspect actual dimensions and do
 not invent a pixel guarantee, provider receipt, or unsupported structured
 fields for this built-in request.
 
-When the Project Image provider is Fal.ai or the user explicitly selects it, use
+When the Image Generation lane provider is Fal.ai or the user selects it, use
 `fal-ai/openai/gpt-image-2/edit`. Put every provider-visible reference in
 `image_urls` and choose a current provider-supported custom `image_size`
 near the route's reliable high-resolution boundary while preserving the

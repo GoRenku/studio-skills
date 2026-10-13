@@ -88,5 +88,8 @@ sample retrieval runs through `voice-sample-audio` like every other Engines
 operation.
 
 Never call the SDK directly, invent a voice id, attach Cast Voice records,
-persist credentials, or create durable execution lifecycle records or
-cost-approval artifacts.
+persist credentials, or create durable execution lifecycle records.
+
+Renku estimates cost for reviews from cached provider prices. Do not write
+prices into this Skill or the review document; a missing or expired price
+follows `model-researcher`'s price research.
