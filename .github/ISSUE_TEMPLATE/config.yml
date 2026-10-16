@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Bug in Renku Studio, the command line or the installer
+    url: https://github.com/GoRenku/studio/issues/new/choose
+    about: Report these in the Studio repository.
+  - name: Question or help
+    url: https://github.com/GoRenku/studio/discussions/categories/help
+    about: Ask in Studio Discussions.
+  - name: Open-ended model wish
+    url: https://github.com/GoRenku/studio/discussions/categories/model-requests
+    about: Start a discussion in Model requests.

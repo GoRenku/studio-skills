@@ -1,0 +1,42 @@
+name: Model request
+description: Ask for a specific provider model to be bundled with Renku
+title: "[Model request]: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For an open-ended wish, start a discussion in [Model requests](https://github.com/GoRenku/studio/discussions/categories/model-requests) instead.
+  - type: input
+    id: model-name
+    attributes:
+      label: Model name
+    validations:
+      required: true
+  - type: input
+    id: route
+    attributes:
+      label: Provider and exact model ID or route
+    validations:
+      required: true
+  - type: input
+    id: model-page
+    attributes:
+      label: Link to the provider's model page
+    validations:
+      required: true
+  - type: textarea
+    id: use
+    attributes:
+      label: What would you use it for?
+    validations:
+      required: true
+  - type: dropdown
+    id: model-researcher
+    attributes:
+      label: Did you try adding it to your personal model library with the Model Researcher skill?
+      options:
+        - "Yes"
+        - "No"
+        - I didn't know about it

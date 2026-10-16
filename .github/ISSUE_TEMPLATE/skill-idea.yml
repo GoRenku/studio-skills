@@ -1,0 +1,33 @@
+name: Skill idea
+description: A filmmaking task you would like your agent to help with
+title: "[Skill idea]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: task
+    attributes:
+      label: Which filmmaking task should the agent help with?
+    validations:
+      required: true
+  - type: textarea
+    id: today
+    attributes:
+      label: How do you do it today?
+  - type: textarea
+    id: result
+    attributes:
+      label: What would a good result look like?
+    validations:
+      required: true
+  - type: dropdown
+    id: agent
+    attributes:
+      label: Agent
+      options:
+        - Codex desktop app
+        - Codex CLI
+        - Claude Desktop Code tab
+        - Claude Code in a terminal
+        - Another agent
+        - Not agent-related
