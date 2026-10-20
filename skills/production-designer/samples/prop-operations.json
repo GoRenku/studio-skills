@@ -1,0 +1,21 @@
+{
+  "kind": "propOperations",
+  "operations": [
+    {
+      "operation": "prop.add",
+      "prop": {
+        "key": "gatekeeper-staff",
+        "handle": "gatekeeper-staff",
+        "name": "Gatekeeper Double-bladed Staff and Medallion",
+        "description": {
+          "overview": "A captured double-bladed staff whose iron medallion holds the map to the dragon's cave.",
+          "storyUse": "A double-bladed staff taken by Sintel from an attacker during Scene 1. In Scene 10 the Shaman picks up this same captured weapon, described as pilfered from the Gatekeepers. At its centre is an iron medallion. He rubs grime from the blade and reveals the medallion and its imagery.",
+          "formAndMaterials": "The emblem combines a dragon insignia with an emblematic map: a curious tree with snake-like branches sits below a volcano, and a cave entrance lies beside the tree. This supplies the route to the dragon blood tree and is the object's explicit narrative function. The screenplay does not say the medallion detaches, is magical, or proves the attackers' allegiance. Keep it as an integral part of the staff rather than a separate loose map or pendant.",
+          "statesAndContinuity": "Its physical continuity runs from enemy weapon to captured object to grimy clue to readable map. No overall length, shaft material, blade profile, engraving technique or colour beyond iron is stated. The script does not explicitly identify this staff as every weapon used in the lair.",
+          "sourceNotes": "Scenes 1 and 10. Length, shaft material and blade profile are unspecified."
+        },
+        "visualNotes": "Two blades and a central iron medallion; grime must conceal then reveal readable dragon, tree, volcano and cave imagery. Preserve the map’s relative arrangement across close inspection and the real-world location match. Scenes 1 and 10."
+      }
+    }
+  ]
+}

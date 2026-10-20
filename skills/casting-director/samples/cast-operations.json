@@ -1,0 +1,26 @@
+{
+  "kind": "castOperations",
+  "operations": [
+    {
+      "operation": "castMember.add",
+      "castMember": {
+        "key": "sintel",
+        "handle": "sintel",
+        "name": "Sintel",
+        "role": "Human protagonist; solitary survivor, caregiver and dragon hunter",
+        "want": "To find and recover Pup after his abduction; initially to survive and relieve her hunger.",
+        "need": "to see beyond the fixed image of her lost companion and recognise the cost of an obsessive quest before anger destroys what she loves.",
+        "arc": "A lonely, hungry survivor discovers tenderness through caring for an injured dragon. Their growing bond is shattered by his abduction. Her search consumes fifteen years and hardens into a violent certainty that prevents her from recognising grown Pup until she has mortally wounded him. Seeing his scar and her own aged reflection breaks that certainty. She escapes bereaved, relinquishes her armour and tools, and faces a new baby dragon whose arrival leaves the possibility of renewed companionship unresolved.",
+        "voiceNotes": "Human speech. The script includes restrained exchanges with the Shaman, remembered voice-over about lifelong solitude, laughter and cheering with Pup, exertion and pain, a weak admission of failure, a deep warrior cry, and the shocked recognition “Pup?”. Accent, pitch and exact vocal age are unspecified. Voice-over is a use of this on-screen character, not a separate narrator.",
+        "description": {
+          "overview": "A solitary young survivor whose care for an injured baby dragon turns into a fifteen-year search after it is taken.",
+          "appearance": "The screenplay introduces Sintel as a young girl, slender and clad in leather, scavenging empty carts in an alley near the market. Her exact age, original hair colour, eye colour and ancestry are not specified. She says she has been alone for as long as she can remember. Hunger is visible in her stomach growling when she encounters the injured baby dragon, and her desperate eyes establish her precarious life.",
+          "behavior": "She is alert, agile and accustomed to defending herself: she draws a knife at a sound, vaults onto a roof, spins and parries with a spear, and leaps from the ziggurat towards the city wall. She initially approaches the baby creature armed, then lowers her knife on seeing its pleading eyes and injured wing. She bandages it carefully, offers meagre crumbs, strokes its head and sleeps with her arm over its wing. This care develops into companionship with Pup. She laughs, runs and cheers during his hunting and flying, while anxiety about his safety quickly surfaces. His abduction transforms her affection into a relentless search. The Shaman shelters and redirects her after she collapses.",
+          "wardrobe": "Young Sintel wears leather; she later wears a cloak at the ziggurat. On her quest she carries a heavy cloak, backpack and walking stick, uses a hunting knife from her belt and fights with a spear. In the opening fight she takes a gatekeeper's double-bladed staff. In the lair the script also calls her weapon a sword; that terminology should remain an unresolved weapon-continuity detail rather than a new character fact. At the climax her reflected appearance reveals completely white hair, an ashen, scarred face, deep fight wounds, a burnt arm, developed muscles, brown weather-aged skin and threadbare clothing after fifteen bitter years. This is the same woman, not a separate older character. Earlier subjective impressions of apparently unharmed skin must not erase the final reveal. In the ending her athletic figure is bent, her movement slow, and she drops armour and tool belts behind her.",
+          "performance": "Her progression includes guarded hunger, tentative tenderness, shared joy, terror at separation, grim resolve, exhaustion, despair, explosive anger and devastated recognition. She is panting and limping after the gatekeeper fight, collapses in the snow, and admits to the Shaman that she is lost and has failed. She fights through predators, hostile weather and difficult terrain. In the cave her rage drives the fatal throat strike; eye contact and the familiar wing scar reveal that her supposed enemy is grown Pup. Her reflection then forces recognition of the time and damage consumed by her quest. The final baby dragon follows her; the screenplay ends on their encounter without showing an explicit adoption or reconciliation.",
+          "sourceNotes": "Scenes 1–14. All physical facts above come from the imported screenplay; motivation and dramatic need below are interpretive readings of those actions."
+        }
+      }
+    }
+  ]
+}

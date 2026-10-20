@@ -31,17 +31,39 @@ Operation document:
         "handle": "control-room",
         "name": "Control Room",
         "timePeriod": "Late 1970s",
-        "description": "A cramped civic control room under budget pressure."
+        "description": {
+          "overview": "A cramped civic control room under budget pressure.",
+          "storyUse": "Ada works the night shifts here; the blackout in Scene 12 starts at its main console.",
+          "spaceAndLayout": "Banks of consoles face one wall of monitors; a single door to the stairwell. Room size and window placement are unspecified.",
+          "statesAndChanges": "Normal night lighting; emergency red light after the blackout.",
+          "sourceNotes": "Scenes 3, 7 and 12. Layout beyond the consoles and door is interpretation."
+        },
+        "visualNotes": "Low ceiling, buzzing fluorescent tubes, yellowed paper logs."
       }
     }
   ]
 }
 ```
 
+`description` sections (all optional; include at least one, or omit `description`):
+
+| Key | Studio heading | What belongs here |
+|---|---|---|
+| `overview` | (none; shown first) | What the place is, briefly |
+| `storyUse` | In the story | What happens here, and in which Scenes |
+| `spaceAndLayout` | Space and layout | What the space must contain for the action; what is unspecified |
+| `statesAndChanges` | States and changes | Time-of-day, damaged, collapsing or other changing states |
+| `sourceNotes` | Source (footnote) | Which Scenes the facts come from, and which statements are interpretation |
+
+Section text is plain prose; separate paragraphs with a blank line. Never put
+headings or capital-letter section titles inside section text. Keep short
+visual cues in `visualNotes`.
+
 Rules:
 
 - New Locations use `key`, not `id`.
 - Existing Locations use durable `id`.
+- `location.update` replaces the whole record: include every field you want to keep, including the full `description` object.
 - Handles are lower-case, stable, and unique across Cast Members, Locations,
   and Props.
 - Delete operations fail when the Location is still referenced by screenplay scenes.

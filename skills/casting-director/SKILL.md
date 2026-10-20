@@ -78,8 +78,9 @@ Follow `nextCursor` with repeated `--cursor <nextCursor>` calls until it is
 
 Resolve each returned file below the current Project's `projectFolder` and use
 the harness reader appropriate to its actual contents. Use the combined
-evidence to write more detailed Cast Member descriptions and the existing
-`arc` field. Read current facts first, preserve ambiguous identity as a user
+evidence to write each Cast Member's `description` into its named sections
+and to refine `want`, `need`, `arc` and `voiceNotes`; see the field and
+section tables in `references/cast-authoring.md`. Read current facts first, preserve ambiguous identity as a user
 question, and do not run this enrichment automatically when a file is imported.
 
 3. If the Cast Member fact itself needs to change, apply a `kind: "castOperations"` document:

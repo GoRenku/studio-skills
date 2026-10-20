@@ -78,7 +78,9 @@ Follow `nextCursor` with repeated `--cursor <nextCursor>` calls until it is
 
 Resolve each returned file below the current Project's `projectFolder` and use
 the harness reader appropriate to its actual contents. Read current facts
-first, use the combined evidence to make descriptions more specific, preserve
+first, use the combined evidence to write each description into its named
+sections (see `references/location-authoring.md` and
+`references/prop-authoring.md`), preserve
 ambiguous identity as a user question, and do not run this enrichment
 automatically when a file is imported.
 

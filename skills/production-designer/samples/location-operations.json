@@ -1,0 +1,21 @@
+{
+  "kind": "locationOperations",
+  "operations": [
+    {
+      "operation": "location.add",
+      "location": {
+        "key": "dragon-lair-cavern",
+        "handle": "dragon-lair-cavern",
+        "name": "Dragon Lair Cavern",
+        "description": {
+          "overview": "A huge cavern at the heart of the volcano, home to the adult dragon and a sleeping baby.",
+          "storyUse": "A huge cavern at the heart of the volcano cave, reached from Scene 12 and used for the nighttime climax in Scene 13. Grown Pup moves ominously in the dark. A sleeping baby dragon lies in a nest in the far corner. Sintel attempts to circle behind the adult and approach the nest. A stalagmite provides cover before the adult smashes it; other rocks and cover allow evasive movement. The baby later hides behind a rock. Sintel is thrown against a cave wall, then fights close to the nest and dragon.",
+          "spaceAndLayout": "The cavern must contain the adult's wings and body, nest, traversable ground, successive cover positions and route back to the exit. Distances, orientations, rock type, exact plan and nest construction are unspecified. The dragon's eyes reflect Sintel's aged appearance; a pool of its blood gathers during the fatal encounter. This is an effect and surface condition, not an invented mirror prop.",
+          "statesAndChanges": "After Pup dies, loosened stones and then larger boulders roll down, threatening the entrance. A last ray of light points Sintel towards escape as fire and smoke spread and the cave crumbles. She scrambles over rocks, leaving his body behind; collapse follows her. Maintain intact, combat-damaged and collapsing states. Fire is explicitly from the dragon and spreading aftermath; no visible lava lake is authored.",
+          "sourceNotes": "Scenes 12–13. Distances, rock type and the exact plan are unspecified; the layout above is the minimum the action requires."
+        },
+        "visualNotes": "Dark, expansive cavern; nest in far corner; stalagmite and rock cover; wall impact area; escape connection. Progressive debris, blood, fire, smoke and collapse in the climax. Scenes 12–13. Exact layout requires later design rather than a guessed canonical floor plan."
+      }
+    }
+  ]
+}
