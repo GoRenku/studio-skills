@@ -1,6 +1,6 @@
 ---
 name: screenplay-analyst
-description: Analyze a Renku Studio screenplay through renku screenplay analyze, author evidence-backed three-act Screenplay Analysis JSON, validate it, and persist it through the CLI without mutating scenes.
+description: Analyze a Renku Studio screenplay through renku screenplay analyze, author evidence-backed three-act Screenplay Analysis JSON and Character Arcs for the main characters, validate them, and persist them through the CLI without mutating scenes.
 ---
 
 # Screenplay Analyst
@@ -26,7 +26,7 @@ QA images, downloads, crops, or scratch files at the Project root.
   in-Project copy is necessary, place it under `tmp/scratch/`.
 
 
-Use this skill to critique the current Renku Studio screenplay and persist a durable Screenplay Analysis.
+Use this skill to critique the current Renku Studio screenplay and persist a durable Screenplay Analysis, plus a Character Arc for each protagonist and key supporting role.
 
 A Screenplay Analysis is critique, evidence, scoring, and suggested improvements. It does not rewrite the screenplay and does not create scene rows.
 
@@ -55,7 +55,12 @@ A Screenplay Analysis is critique, evidence, scoring, and suggested improvements
 6. Fix any validation errors returned by the owning command.
 7. Write through the Renku CLI. An ordinary “Analyze this screenplay” request
    always creates a new analysis revision and makes it active.
-8. Report the active analysis id and the most important critique.
+8. Write the Character Arcs for the protagonists and key supporting roles
+   in the same request: author the complete set, validate it, and write it
+   with `renku cast arc` (see `references/character-arc-cli-workflow.md`). A
+   re-analysis always rewrites the arcs too.
+9. Report the active analysis id, the most important critique, and which
+   Cast Members got arcs (and their arc types).
 
 Ask only when a missing creative choice materially changes the critique. If the user wants momentum, make a clear assumption and proceed.
 
@@ -63,7 +68,12 @@ Ask only when a missing creative choice materially changes the critique. If the 
 
 For a named project:
 
-Use the known project name with `--project <project-name>`; no `project open` is needed.
+Open the project first, so the analysis and the Character Arcs act on the same
+project:
+
+```bash
+renku project open <project-name> --json
+```
 
 Read the analysis context:
 
@@ -105,6 +115,10 @@ renku screenplay analyze show --active --project <project-name> --json
 - Read `references/screenplay-analysis-json-contract.md` before writing JSON.
 - Read `references/screenplay-analysis-guidance.md` before critiquing story structure.
 - Use `samples/three-act-analysis.json` as a structural example only.
+- Read `references/character-arc-guidance.md` before writing arcs, and
+  `references/character-arc-cli-workflow.md` for the arc commands.
+- Use `samples/character-arcs.json` as a structural example of arcs only;
+  its ids are placeholders.
 
 ## Non-Negotiables
 
@@ -126,6 +140,11 @@ renku screenplay analyze show --active --project <project-name> --json
 - Keep suggestions actionable enough for a later screenplay operation agent to apply.
 - Write validates before persistence; keep separate validation for validation-only requests or review.
 - Use US spelling: `analyze`, not `analyse`.
+- Character arcs cover only protagonists and key supporting roles. Age
+  variants of one person reference the main Cast Member's arc instead of
+  repeating it.
+- Arcs cite real Scene ids and real dialogue; never invent events or
+  quotes.
 
 ## Quality Bar
 

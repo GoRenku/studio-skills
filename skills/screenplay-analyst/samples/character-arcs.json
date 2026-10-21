@@ -1,0 +1,54 @@
+{
+  "kind": "characterArcs",
+  "arcs": [
+    {
+      "castMemberId": "cast_ada",
+      "arc": {
+        "kind": "characterArc",
+        "arcType": "positiveChange",
+        "startState": "Ada keeps the failing city grid alive alone and trusts only machines.",
+        "endState": "Ada asks for help and hands the night shift to her apprentice.",
+        "ends": { "high": "Help keeps the lights on", "low": "Only I can hold it together" },
+        "spine": {
+          "want": { "text": "To keep the grid running through the winter.", "sceneIds": ["scene_2"] },
+          "need": { "text": "To admit she cannot carry the city alone.", "sceneIds": ["scene_9", "scene_18"] },
+          "falseBelief": { "text": "Asking for help is the same as failing.", "sceneIds": ["scene_4"] },
+          "wound": { "text": "Her father's crew walked out during the last blackout and left him to it.", "sceneIds": ["scene_6"] }
+        },
+        "turningPoints": [
+          { "sceneIds": ["scene_2"], "label": "The last night operator", "state": "Proud, exhausted and alone at the consoles.", "position": -3, "lookAssetFileId": "asset_file_ada_night_shift_sheet" },
+          { "sceneIds": ["scene_4"], "label": "Turns the apprentice away", "state": "Certain that an extra pair of hands means more mistakes.", "position": -4, "quote": "I don't need a babysitter." },
+          { "sceneIds": ["scene_9", "scene_10"], "label": "The first blackout", "state": "Overwhelmed; she fixes it, but only just.", "position": -5 },
+          { "sceneIds": ["scene_13"], "label": "Lets Teo read the gauges", "state": "Grudging trust, one small task at a time.", "position": -1 },
+          { "sceneIds": ["scene_18"], "label": "Calls for help", "state": "Afraid, then relieved as the crew answers.", "position": 3, "quote": "I can't hold it. Come now." },
+          { "sceneIds": ["scene_22"], "label": "Hands over the shift", "state": "Rested, and finally part of a crew.", "position": 5, "lookAssetFileId": "asset_file_ada_dawn_sheet" }
+        ]
+      }
+    },
+    {
+      "castMemberId": "cast_mara",
+      "arc": {
+        "kind": "characterArc",
+        "arcType": "flat",
+        "startState": "Mara believes the grid belongs to everyone who keeps it.",
+        "endState": "Unchanged; the crew she gathered now runs the grid with Ada.",
+        "ends": { "high": "The grid is everyone's work", "low": "Each of us alone" },
+        "spine": {
+          "want": { "text": "To rebuild the old repair crew.", "sceneIds": ["scene_5"] },
+          "truthHeld": { "text": "A city stays lit only when its keepers share the load.", "sceneIds": ["scene_5", "scene_16"] },
+          "testedBy": { "text": "Ada's refusals, and the council's plan to automate the night shift.", "sceneIds": ["scene_4", "scene_12"] },
+          "changesOthers": { "text": "Teaches Teo the substation and turns Ada toward the crew.", "sceneIds": ["scene_13", "scene_18"] }
+        },
+        "turningPoints": [
+          { "sceneIds": ["scene_5"], "label": "Recruits Teo", "state": "Calm and certain of the crew she needs.", "position": 4 },
+          { "sceneIds": ["scene_12"], "label": "The council's plan", "state": "Shaken but unmoved.", "position": 2 },
+          { "sceneIds": ["scene_16"], "label": "Opens the old union hall", "state": "Certain again; the crew returns.", "position": 5 }
+        ]
+      }
+    },
+    {
+      "castMemberId": "cast_young_ada",
+      "arc": { "kind": "characterArcReference", "castMemberId": "cast_ada" }
+    }
+  ]
+}
