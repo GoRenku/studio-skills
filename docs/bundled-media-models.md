@@ -1,7 +1,7 @@
 # Bundled media models by provider
 
 This is the model selection supplied by the Studio Skills source checkout on
-2026-09-24. A filled cell means the bundled catalog includes an entry for those
+2026-10-22. A filled cell means the bundled catalog includes an entry for those
 operations on that provider. It does **not** mean a generation was run or that
 your account has access. Runtime validation, provider access, and your saved
 API key still determine whether a particular request can run.
@@ -55,11 +55,16 @@ endpoint for several of them.
 | Veo 3.1 | Text, Image, First/last, References, Extend | Text, References, Extend | Text, Image, First/last, References, Extend | Text, Image, First/last, References |
 | Veo 3.1 Fast | Text, Image, First/last, References, Extend | Text, References, Extend | Text, Image, First/last, References, Extend | Text, Image, First/last, References |
 | Veo 3.1 Lite | Text, Image | Image | Text, Image, First/last | Text, Image, First/last |
+| FLUX 3 Max | Text, Image, First/last, Keyframes | — | — | — |
 | FLUX 3 | Text, Image, First/last, Keyframes, Extend, Edit | Text, Image, First/last, Keyframes, Extend | Text, Image, First/last, Extend | Text, Image, First/last, Keyframes, Extend |
 | FLUX 3 Draft | Text, Image, First/last, Keyframes, Extend, Enhance | — | Text, Image, First/last, Extend | Text² |
 
 ² Replicate offers Draft as a text-only option on its FLUX 3 endpoint rather
 than a separate route.
+
+FLUX 3 Max's [prompt guide](../skills/media-producer/references/model-guides/video/flux-3-max.md)
+covers all three Fal.ai routes. First/last-frame generation uses its
+image-to-video route with the optional ending image.
 
 For Seedance 2.5 and 2.0 on WaveSpeed, the text-to-video route also accepts
 reference inputs. On Replicate, one Seedance model endpoint covers all four
