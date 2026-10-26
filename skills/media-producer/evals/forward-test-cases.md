@@ -411,13 +411,14 @@ a new round confirmation. No paid call occurs in the evaluation.
 
 ## purpose-cast-media — Character Sheet, Profile, and Voice Sample
 
-Run `cast.character-sheet` for one costume (`costume:<costume-id>`), then
-`cast.profile` and `cast.voice-sample` for the same Cast Member
-(`cast:<cast-member-id>`). The sheet uses the Look's cast candidate from the
-`cast-identity` suggestion as identity reference and the costume's wardrobe
-from the wardrobe plan, sets the route's Default Model List `detail` fields
-for the Project's `characterSheetDetail`, and imports with `--select` to pick
-it for the costume. Each request must use only its exact Cast context and retained model
+Run `cast.character-sheet` in a confirmed character sheet round of one costume
+(`casting-round:<round-id>`), then `cast.profile` and `cast.voice-sample` for
+the same Cast Member (`cast:<cast-member-id>`). The sheet skips the Route
+Chooser and per-generation review, uses the round's references from the
+`cast-identity` suggestion (the Look's cast candidate) as identity reference
+and the costume's wardrobe from the wardrobe plan, sets the route's Default
+Model List `detail` fields for the round's detail level, and imports with
+`--casting-model` and without `--select`; the director picks the sheet. Each request must use only its exact Cast context and retained model
 guide. The voice sample uses the indexed ElevenLabs workflow; image results are
 separate candidates and no paid call occurs in the evaluation.
 

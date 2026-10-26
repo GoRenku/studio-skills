@@ -29,16 +29,18 @@ authoring desk followed by the review below when Ask Before Generating is on.
 
 ## Casting rounds are confirmed once
 
-A casting round is confirmed once for all of its candidates: in Codex Desktop
-the consumed Generate of the casting round panel, and in other hosts the
-user's reply to the round set up in chat (models, counts, references and the
-estimate). Each `cast.casting-candidate` request therefore skips the review
+A casting round is confirmed once for all of its candidates, and a character
+sheet round for all of its sheets: in Codex Desktop the consumed Generate of
+the casting round panel, and in other hosts the user's reply to the round set
+up in chat (models, counts, references and the estimate). Each
+`cast.casting-candidate` and `cast.character-sheet` request therefore skips the review
 below, Studio Preview and the text review, whatever Ask Before Generating
 says. Validate each Engines request and execute it with its
 `--expected-request-sha256`; host command approval still applies as in step 9
 of the combined panel. A request outside the confirmed round (another model,
-more candidates, other references) needs a new round confirmation. See
-[cast-casting-candidate.md](cast-casting-candidate.md).
+more images, other references) needs a new round confirmation. See
+[cast-casting-candidate.md](cast-casting-candidate.md) and
+[cast-character-sheets.md](cast-character-sheets.md).
 
 ## Skip the review when Ask Before Generating is off
 

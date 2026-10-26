@@ -185,13 +185,15 @@ Casting happens before character sheets. Work one Cast Member at a time:
 4. **Wardrobe plan.** Costumes per Look with their Scenes, then
    `renku cast wardrobe validate|write --file tmp/operations/cast-wardrobe-plan.json`
    (`references/wardrobe-plan.md`).
-5. **Character sheets per costume.** `media-producer` makes
-   `cast.character-sheet` with target `costume:<costume-id>` from the Look's
-   cast candidate at `characterSheetDetail`, and one sheet is picked per
-   costume (`references/cast-media-handoff.md`).
+5. **Character sheet rounds per costume.** A round confirmation covers some
+   or all costumes of a cast Look; each costume gets a round, `media-producer`
+   makes `cast.character-sheet` with target `casting-round:<round-id>` from
+   the Look's cast candidate at `characterSheetDetail`, and the director
+   picks one sheet per costume (`references/cast-media-handoff.md`).
 
-Project casting defaults (models and counts, `candidateDetail` for casting
-rounds and `characterSheetDetail` for character sheets) are
+Project casting defaults (`candidateRoutes` and `candidateDetail` for casting
+rounds, `characterSheetRoutes` and `characterSheetDetail` for character sheet
+rounds) are
 `renku settings casting show|set --file tmp/operations/casting-settings.json`. Prices always come
 from Renku estimates.
 

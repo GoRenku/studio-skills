@@ -62,10 +62,13 @@ See `samples/cast-wardrobe-plan.json`.
 ```
 
 - The document replaces the Cast Member's costumes.
-- A listed `id` keeps the costume and its picked Character Sheet. Omit `id`
-  to add one.
-- A costume left out is removed and its picked sheet is cleared. The write
-  report lists those in `clearedSheetSelections`; tell the user.
+- A listed `id` keeps the costume, its character sheet rounds and its picked
+  sheet. Omit `id` to add one. A costume with sheet rounds keeps its Look
+  (`CASTING_COSTUME_LOOK_CHANGE_HAS_SHEETS`); to move it, leave it out and add
+  a new costume for the other Look.
+- A costume left out is removed with its sheet rounds and pick. The write
+  report lists cleared picks in `clearedSheetSelections` and the sheets that
+  stay in Assets in `releasedSheetAssetFileIds`; tell the user.
 
 When a Look must go away, write the wardrobe plan that moves its costumes
 first, then the Looks plan that removes it.
@@ -84,4 +87,5 @@ first, then the Looks plan that removes it.
   Scene production numbers and a one-line wardrobe summary, and wait for the
   reply.
 
-Then offer character sheets per costume (`cast-media-handoff.md`).
+Then offer a character sheet round for the cast Look's costumes
+(`cast-media-handoff.md`).

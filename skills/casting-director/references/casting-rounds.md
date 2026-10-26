@@ -5,6 +5,12 @@ candidates from one brief, and the director hides the ones they don't want,
 compares the rest and casts one. Casting comes before character sheets. Write the Looks first
 (`looks.md`).
 
+A character sheet round works the same way for costumes: each costume of a
+cast Look gets a round of sheets, and the director hides, compares and picks
+one sheet per costume. One panel can cover several costumes of one Look;
+every costume gets its own round with the same models and counts. The
+differences are marked **Sheets** below and in `cast-media-handoff.md`.
+
 ## 1. Prepare The Round
 
 1. Read the Look ids: `renku cast looks show --cast <cast-member-id> --json`.
@@ -19,13 +25,15 @@ compares the rest and casts one. Casting comes before character sheets. Write th
      identity reference ("same person, aged fifteen years");
    - "more like these" uses every kept (not hidden) candidate;
    - a likeness the user supplied, as an exact asset file id.
-4. Read the defaults: `renku settings casting show --json`. When `routes` is
-   empty, start from the image lane default model with the whole count
-   (`renku settings generation show --lane image`). The number run at a time
-   is the image lane's `maxConcurrentGenerations`. `candidateDetail` (default
-   `lowest`) is the round's image detail level and `characterSheetDetail`
-   (default `highest`) the character sheets' level, each `lowest`, `mid` or
-   `highest`.
+4. Read the defaults: `renku settings casting show --json`. `candidateRoutes`
+   are the models and counts of a casting round and `characterSheetRoutes`
+   the models and counts per costume of a sheet round. When the list is
+   empty, start from the image lane default model (10 candidates, or 2 sheets
+   per costume; `renku settings generation show --lane image`). The number
+   run at a time is the image lane's `maxConcurrentGenerations`.
+   `candidateDetail` (default `lowest`) is a casting round's image detail
+   level and `characterSheetDetail` (default `highest`) a sheet round's, each
+   `lowest`, `mid` or `highest`.
 5. Take each model's one-line strength note from the casting strength table
    in `media-producer`'s `references/cast-casting-candidate.md`.
 
@@ -42,19 +50,23 @@ generation review.
 // casting.round.open
 {
   project: string;
-  lookId: string;
+  subject:
+    | { kind: 'look'; lookId: string }            // casting candidates
+    | { kind: 'costumes'; costumeIds: string[] }; // sheets, costumes of one cast Look
   brief: string[];                       // display lines; not stored
   notes?: { [modelKey: string]: string }; // strength line per Default Model List key
-  references?: string[];                 // asset file ids
-  suggested?: Array<{ provider: string; model: { key: string; name: string }; count: number }>;
+  references?: string[];                 // asset file ids; costumes default to the Look's cast candidate
+  suggested?: Array<{ provider: string; model: { key: string; name: string }; count: number }>; // counts per round
 }
 ```
 
 Pass `suggested` only when the user named models or counts; otherwise the
-panel preselects the saved casting defaults. Do not prepare native requests
-before opening the panel. The panel shows a Lowest / Mid / Highest detail
-switch, preset from `candidateDetail`; the director may change it for this
-round only. The panel prices every offered image-lane model/provider with a
+panel preselects the saved defaults for the subject. Do not prepare native
+requests before opening the panel. The panel shows a Lowest / Mid / Highest
+detail switch, preset from `candidateDetail` (or `characterSheetDetail` for
+sheets); the director may change it for this round only. **Sheets:** the
+panel lists the costumes with a checkbox each, its count is per costume, and
+its estimate covers every ticked costume. The panel prices every offered image-lane model/provider with a
 configured key itself, from the Default Model List route for that provider at
 each detail level, including unselected models and alternate providers in the
 card menus. Core aggregates the per-candidate estimates by count, and the
@@ -78,15 +90,18 @@ Casting round ready · Sintel · Young · 10 candidates on 3 models, 4 at a time
 
 Call `casting.round.consume { panelId }` once:
 
-- `generate` returns `lookId`, the confirmed `routes` and `detail`,
-  `maxConcurrentGenerations`, `referenceAssetFileIds` and `estimatedCost`.
-  It is the confirmation for the round; do not ask again. Pass all but
-  `detail` straight into the `castingRoundCreate` document; `detail` goes to
-  `media-producer` with the round (step 4).
+- `generate` returns `subject` (`{ kind: 'look', lookId }` or
+  `{ kind: 'costumes', costumeIds }`, the ticked costumes), the confirmed
+  per-round `routes` and `detail`, `maxConcurrentGenerations`,
+  `referenceAssetFileIds` and the per-round `estimatedCost`. It is the
+  confirmation for every round it names; do not ask again. Write one
+  `castingRoundCreate` document per Look or costume (step 3); `detail` goes
+  to `media-producer` with the rounds (step 4).
 - `canceled`: stop and reply briefly.
 - `alreadyConsumed` authorizes nothing.
 
-The panel saves casting defaults itself when the user ticks its box; do not
+The panel saves the subject's defaults itself when the user ticks its box
+(casting defaults for a Look, character sheet defaults for costumes); do not
 repeat that with the CLI.
 
 **Claude Code and other hosts:** set the round up in chat text and wait for
@@ -110,14 +125,19 @@ Detail: Lowest
 Reply "go", or change models, counts or detail.
 ```
 
+**Sheets:** list the costumes the round covers and give counts per costume;
+the total is the per-costume count times the costumes.
+
 The user's reply confirms the round and its detail level. A change means
-showing the new round again. Save casting defaults only when the user asks:
+showing the new round again. Save defaults only when the user asks:
 `renku settings casting set --file tmp/operations/casting-settings.json --json`
-replaces the whole casting defaults document, so write every field:
+replaces the whole casting defaults document, so write every field and keep
+the ones the user did not change:
 
 ```json
 {
-  "routes": [{ "provider": "fal-ai", "model": { "key": "nano-banana", "name": "Nano Banana" }, "count": 3 }],
+  "candidateRoutes": [{ "provider": "fal-ai", "model": { "key": "nano-banana", "name": "Nano Banana" }, "count": 3 }],
+  "characterSheetRoutes": [{ "provider": "fal-ai", "model": { "key": "nano-banana", "name": "Nano Banana" }, "count": 2 }],
   "candidateDetail": "lowest",
   "characterSheetDetail": "highest"
 }
@@ -135,7 +155,7 @@ Write `castingRoundCreate` from the confirmed plan (see
 ```json
 {
   "kind": "castingRoundCreate",
-  "lookId": "look_...",
+  "subject": { "kind": "castLook", "id": "look_..." },
   "routes": [{ "provider": "fal-ai", "model": { "key": "nano-banana", "name": "Nano Banana" }, "count": 3 }],
   "maxConcurrentGenerations": 4,
   "referenceAssetFileIds": [],
@@ -147,10 +167,13 @@ Write `castingRoundCreate` from the confirmed plan (see
 renku cast casting round create --file tmp/operations/casting-round.json --json
 ```
 
-Use the estimated total the director saw, or `null` when a route had no
-price. Core numbers the round per Look and returns its `round.id`. Errors:
-`CASTING_ROUND_ROUTES_EMPTY`, and `CASTING_ROUND_REFERENCE_NOT_OWNED` when a
-reference is not one of this Cast Member's files.
+Use the estimated total the director saw for that round, or `null` when a
+route had no price. **Sheets:** write one document per ticked costume with
+`"subject": { "kind": "castCostume", "id": "cast_costume_..." }` and the same
+routes. Core numbers rounds per Look or costume and returns each `round.id`.
+Errors: `CASTING_ROUND_ROUTES_EMPTY`, `CASTING_ROUND_REFERENCE_NOT_OWNED` when
+a reference is not one of this Cast Member's files, and
+`CASTING_ROUND_LOOK_NOT_CAST` when a costume's Look is not cast yet.
 
 ## 4. Generate The Candidates
 
@@ -165,36 +188,45 @@ renku media import --purpose cast.casting-candidate --target casting-round:<roun
   --casting-model <route-model-key> --source <output> --provenance <provenancePath>
 ```
 
+**Sheets:** purpose `cast.character-sheet`, the same `casting-round:<round-id>`
+target of the costume's round and `--casting-model`; see
+`media-producer`'s `references/cast-character-sheets.md`.
+
 In Codex, open the board right after `round create` and keep generating; it
-polls and fills in as candidates land:
+polls and fills in as images land:
 
 ```text
 casting.board.open { project, mode: 'candidates', lookId }
+casting.board.open { project, mode: 'sheets', lookId, costumeId? } // sheets of the Look's costumes
 ```
 
 When every candidate is in, report how many landed and any that failed, then
 end the turn. Never retry a failed paid generation automatically.
 
-## 5. Hide, Compare And Cast
+## 5. Hide, Compare And Cast (Or Pick)
 
 - **Codex:** the board's Hide and Cast (on tiles, in the viewer and in
   Compare) write through Renku directly. Cast and "More like these" post a
   message; call `casting.board.consume { sessionId }` once. It returns
   `{ status: 'consumed', request }` where `request` is `{ kind: 'cast', lookId,
-  assetFileId }` or `{ kind: 'moreLikeKept', lookId, referenceAssetFileIds,
-  notes }`; `alreadyConsumed` authorizes nothing.
+  assetFileId }` or `{ kind: 'moreLikeKept', subject, referenceAssetFileIds,
+  notes }` with `subject` `{ kind: 'castLook' | 'castCostume', id }`;
+  `alreadyConsumed` authorizes nothing. **Sheets:** Pick saves the costume's
+  sheet directly and sends no message; the next step comes from the user in
+  chat.
 - **Claude Code:** point the user to the Cast Member's **Casting** tab in
-  Studio to hide, compare and cast. When they come back, read
-  `renku cast casting show --look <look-id> --json` for statuses and the cast
-  candidate.
+  Studio to hide, compare and cast or pick. When they come back, read
+  `renku cast casting show --look <look-id> --json` (or `--costume
+  <costume-id>`) for statuses and the cast candidate or picked sheet.
 - When the user asks in chat, set a status with
   `renku cast casting candidate status --asset-file <id> --status candidate|hidden --json`
   or cast with
   `renku asset select --project <project-name> --target look:<look-id> --asset-file <asset-file-id> --json`.
 
-**More like these** is a new round for the same Look: the kept (not hidden)
-candidates' asset file ids become `references` (and then `referenceAssetFileIds`), and the
-director's notes reshape the brief. Go back to step 2.
+**More like these** is a new round for the same Look or costume: the kept
+(not hidden) images' asset file ids become `references` (and then
+`referenceAssetFileIds`), and the director's notes reshape the brief. Go back
+to step 2.
 
 **Next Look:** once a Look is cast, offer the next Look's round with the cast
 candidate as its identity reference. When every Look is cast, move on to the

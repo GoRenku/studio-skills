@@ -9,7 +9,7 @@ Current Cast media purposes and targets:
 | Purpose | Target | Owner of the decision |
 |---|---|---|
 | `cast.casting-candidate` | `casting-round:<round-id>` | a confirmed casting round (`casting-rounds.md`) |
-| `cast.character-sheet` | `costume:<costume-id>` | one costume of the wardrobe plan (`wardrobe-plan.md`) |
+| `cast.character-sheet` | `casting-round:<round-id>` | a confirmed character sheet round of one costume (`casting-rounds.md`) |
 | `cast.profile` | `cast:<cast-member-id>` | the Cast Member |
 | `cast.voice-sample` | `cast:<cast-member-id>` | the Cast Member |
 
@@ -53,27 +53,35 @@ Profile, ask `media-producer` to import with `--select` in the same mutation.
 
 ## Character Sheets Per Costume
 
-Character sheets come after casting and the wardrobe plan. Make one sheet per
-costume, target `costume:<costume-id>`:
+Character sheets come after casting and the wardrobe plan. They are made in
+character sheet rounds, like casting rounds (`casting-rounds.md`): one panel
+or chat confirmation covers some or all costumes of one cast Look, and each
+costume gets its own round of sheets with the confirmed models, per-costume
+counts and `characterSheetDetail`. The confirmation replaces the Route Chooser
+and generation review for these sheets.
 
-- the costume's `wardrobe` and `continuityNotes` come from the wardrobe plan
-  through the generation context; do not restate them in the handoff;
-- the Look's cast candidate is offered as the identity reference (the
-  `cast-identity` suggestion). Keep it unless the user wants a different face;
-- when a Look is not cast yet, say so and offer a casting round first; the
-  user may choose to proceed without an identity reference;
-- each costume has one picked sheet. Importing with `--select` picks the new
-  sheet for its costume. To pick an existing sheet instead of generating one,
-  run
-  `renku asset select --project <project-name> --target costume:<costume-id> --asset-file <asset-file-id> --json`.
-  Any active Character Sheet of the Cast Member can be picked for any of its
-  costumes, so offer existing sheets before regenerating;
+- write the brief lines per costume from the wardrobe plan: one shared line
+  for the layout and identity, one line per costume for its clothing. The
+  costume's `wardrobe` and `continuityNotes` reach `media-producer` through
+  the generation context; do not restate them in the handoff;
+- the Look's cast candidate is the default identity reference (the panel
+  uses it when `references` is omitted). Keep it unless the user wants a
+  different face. A costume's Look must be cast before its first sheet round
+  (`CASTING_ROUND_LOOK_NOT_CAST`); offer a casting round first;
+- each costume picks one sheet, only from its own rounds. Importing never
+  picks a sheet; the director picks on the board or in the Studio Casting
+  tab, or asks in chat:
+  `renku asset select --project <project-name> --target costume:<costume-id> --asset-file <asset-file-id> --json`;
 - in Codex Desktop with panel support, `casting.board.open { project, mode:
-  'sheets', castMemberId }` shows one row per costume; clicking a sheet picks
-  it through Renku, and `casting.board.consume { sessionId }` returns
-  `{ kind: 'sheetPicksDone', picks: [{ costumeId, assetFileId }] }` after
-  "Send picks to agent". In Claude Code, the Casting tab shows the same
-  rows.
+  'sheets', lookId, costumeId? }` shows the Look's costumes as cards and one
+  costume's rounds at a time, with Hide, Compare, Pick and "More like these".
+  Picks save directly and post nothing; "More like these" arrives through
+  `casting.board.consume { sessionId }` as `{ kind: 'moreLikeKept', subject:
+  { kind: 'castCostume', id }, referenceAssetFileIds, notes }`: open the next
+  sheet round for that costume with those references. In Claude Code, the
+  Casting tab shows the same cards and rounds;
+- removing a costume in a wardrobe plan deletes its sheet rounds; the sheets
+  stay in the Cast Member's Assets (`releasedSheetAssetFileIds`).
 
 Shots and storyboards in a costume's Scenes list its picked sheet first in the
 `cast-continuity` suggestion, so an unpicked costume weakens later

@@ -37,7 +37,7 @@ omitted from the briefing; use references for
 the current task and retrieve history only when needed, following
 `references/model-guides/shared/reference-inputs.md`.
 
-Read fresh generation context for each request. Within that preparation, reuse verified syntax and selected route discovery; do not prefetch other providers. Follow [generation review routing](references/generation-review-routing.md) for every image, audio and video purpose. When the lane's Ask Before Generating is on, use its combined panel, Studio Preview or text review once. A casting round is confirmed once for all its candidates and skips both the Route Chooser and the per-generation review. Retain native validation, confirmation, concurrency limits, artifact inspection, and focused attachment. Tool-session polling continues the same process; it is not another CLI invocation. Never retry a successful paid execution automatically.
+Read fresh generation context for each request. Within that preparation, reuse verified syntax and selected route discovery; do not prefetch other providers. Follow [generation review routing](references/generation-review-routing.md) for every image, audio and video purpose. When the lane's Ask Before Generating is on, use its combined panel, Studio Preview or text review once. A casting round or character sheet round is confirmed once for all its images and skips both the Route Chooser and the per-generation review. Retain native validation, confirmation, concurrency limits, artifact inspection, and focused attachment. Tool-session polling continues the same process; it is not another CLI invocation. Never retry a successful paid execution automatically.
 
 Consult the relevant CLI reference/help once if syntax is unknown, then reuse verified syntax for this task. Do not discover syntax by attempting mutations. Do not invent `project list`. If a known permission denial blocks cache/output/config or local-network access, explain the requirement and use the authorized host permission flow; do not repeat the denied attempt, read secrets, disable cache persistence, or change permissions. `CLI026` means the mutation succeeded: report the notification warning without replaying the mutation.
 
@@ -503,8 +503,9 @@ let `generation context` supply the complete related graph.
 - Lookbook media targets `lookbook:<id>`.
 - Casting candidates target the confirmed round, `casting-round:<id>`; each
   candidate is imported as soon as it finishes and never selected.
-- Character Sheets target one costume, `costume:<id>`; `--select` picks the
-  sheet for that costume.
+- Character Sheets target the confirmed character sheet round of one costume,
+  `casting-round:<id>`, with `--casting-model`; each sheet is imported as soon
+  as it finishes and never selected.
 - Cast Profiles and voice samples target `cast:<id>`.
 - Location and Prop media target `location:<id>` and `prop:<id>`.
 - Scene Storyboards target `scene:<id>`; Shot images target `shot:<id>`.

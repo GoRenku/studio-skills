@@ -5,23 +5,26 @@ for one costume of one Look. The same universal layout applies to Production
 and Storyboard rendering. The selected appearance authority changes the
 rendering style; it never changes the layout.
 
-Begin with `renku generation context --purpose cast.character-sheet --target
-costume:<costume-id>`. Use its Cast facts/design, the Look and costume, the
+Sheets are made in a confirmed character sheet round of one costume
+(`casting-director`'s `references/casting-rounds.md`); the round confirmation
+covers every sheet in it, so no Route Chooser or generation review runs per
+sheet. Begin with `renku generation context --purpose cast.character-sheet
+--target casting-round:<round-id>`. Use its Cast facts/design, the Look and
+costume, the
 costume's Scenes (the Look's Scenes when the costume has none yet),
 Production and Storyboard Lookbooks, workflow/guidance, and
 relationship-derived suggestions. Select the references that best serve this
 request; the returned set is advisory and may be supplemented or replaced.
 
-- **Identity:** the `cast-identity` suggestion is the Look's cast candidate,
-  workflow-selected. Use it as the face and build authority unless the user
-  wants a different face. When the Look has no cast candidate, say so and
-  offer a casting round first; continue without it only when the user agrees.
+- **Identity:** the `cast-identity` suggestion holds the round's references
+  (by default the Look's cast candidate), workflow-selected. Use them as the
+  face and build authority unless the user wants a different face.
 - **Wardrobe:** dress the sheet in the costume's `wardrobe` and
   `continuityNotes` from the wardrobe plan, with Cast Design
   `costume.baseWardrobeLogic` as the rules behind them. Do not borrow another
   costume's clothing from an older sheet.
-- **Continuity:** the `cast-continuity` suggestion lists the Cast Member's
-  other sheets, with the costume's picked sheet marked when there is one.
+- **Continuity:** the `cast-continuity` suggestion lists the costume's kept
+  sheets, with its picked sheet marked when there is one.
 
 For a Storyboard continuity sheet, select the exact accepted Production
 Character Sheet of the same costume as canonical content authority and the
@@ -29,10 +32,8 @@ current Storyboard Lookbook Sheet as sole appearance authority. Use Additional
 References only for request-specific likeness, costume, accessory, or
 historical-source files.
 
-Before generating, check whether an existing sheet of the Cast Member already
-shows this costume; offer to pick it with
-`renku asset select --project <project-name> --target costume:<costume-id> --asset-file <asset-file-id> --json`
-instead of regenerating.
+Run the round's routes and counts at up to `maxConcurrentGenerations` at
+once.
 
 ## Universal layout
 
@@ -75,8 +76,8 @@ reference's photographic lighting, finish, or realism.
 
 ## Detail Level
 
-Character sheets use the Project's `characterSheetDetail` (`lowest`, `mid` or
-`highest`), read with `renku settings casting show --json`. Take the
+Character sheets use the round's confirmed detail level (the Project's
+`characterSheetDetail` unless the director changed it for the round). Take the
 `detail[<level>]` fields of the provider route used from its Default Model
 List entry (`default-models.json`) in the lane used (`image` or `imageEdit`)
 and set them in the native request; they override the model guide's default
@@ -93,19 +94,19 @@ height limitation is feedback, not a runtime rejection.
 
 ## Attachment
 
-Attach accepted sheets atomically with human-readable metadata:
+Import each sheet as soon as it finishes, with human-readable metadata:
 
 ```bash
 renku media import \
   --purpose cast.character-sheet \
-  --target costume:<costume-id> \
+  --target casting-round:<round-id> \
+  --casting-model <route-model-key> \
   --source <project-relative-path> \
   --title <title> \
   --summary <costume-summary> \
   --reference-name <costume-name> \
   --tag storyboard \
-  --provenance <provenance-json> \
-  --select
+  --provenance <provenance-json>
 ```
 
 Use the same provenance contract for every generated path. Omit `--tag storyboard` for
@@ -114,8 +115,9 @@ generated Production and Storyboard sheets; describe the costume and
 rendering in readable card copy rather than repeating the reference name or
 tags.
 
-Each costume has one picked sheet. `--select` picks the new sheet for its
-costume; use it when this sheet should be the costume's continuity sheet
-(the usual case for a Production sheet). Omit it for an alternate, and pick
-later with `renku asset select --target costume:<costume-id>`. Shots and
-storyboards in the costume's Scenes list the picked sheet first.
+Importing never picks a sheet. The director picks one sheet per costume
+from its rounds on the casting board or in the Studio Casting tab, or in chat
+with `renku asset select --target costume:<costume-id>`. Shots and
+storyboards in the costume's Scenes list the picked sheet first. Report every
+sheet that landed and any that failed; never retry a failed paid generation
+automatically.

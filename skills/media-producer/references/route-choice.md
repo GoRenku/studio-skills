@@ -7,13 +7,14 @@ has one), review, then execute, import and report.
 
 ## Casting rounds choose their own routes
 
-`cast.casting-candidate` requests never use this guide's question or the Route
-Chooser. The casting round (the Codex casting round panel, or the round the
-user confirmed in chat) already chose every provider, model and count; map
-each confirmed model family to its operation route as described below and
-follow [cast-casting-candidate.md](cast-casting-candidate.md). A missing
-provider key still stops preparation as `SKILL.md` describes. Every other
-purpose, including `cast.character-sheet`, uses this guide unchanged.
+`cast.casting-candidate` and `cast.character-sheet` requests never use this
+guide's question or the Route Chooser. The round (the Codex casting round
+panel, or the round the user confirmed in chat) already chose every provider,
+model and count; map each confirmed model family to its operation route as
+described below and follow [cast-casting-candidate.md](cast-casting-candidate.md)
+or [cast-character-sheets.md](cast-character-sheets.md). A missing provider
+key still stops preparation as `SKILL.md` describes. Every other purpose uses
+this guide unchanged.
 
 ## Read the lane
 
