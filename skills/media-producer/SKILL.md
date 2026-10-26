@@ -37,7 +37,7 @@ omitted from the briefing; use references for
 the current task and retrieve history only when needed, following
 `references/model-guides/shared/reference-inputs.md`.
 
-Read fresh generation context for each request. Within that preparation, reuse verified syntax and selected route discovery; do not prefetch other providers. Follow [generation review routing](references/generation-review-routing.md) for every image, audio and video purpose. When the lane's Ask Before Generating is on, use its combined panel, Studio Preview or text review once. Retain native validation, confirmation, concurrency limits, artifact inspection, and focused attachment. Tool-session polling continues the same process; it is not another CLI invocation. Never retry a successful paid execution automatically.
+Read fresh generation context for each request. Within that preparation, reuse verified syntax and selected route discovery; do not prefetch other providers. Follow [generation review routing](references/generation-review-routing.md) for every image, audio and video purpose. When the lane's Ask Before Generating is on, use its combined panel, Studio Preview or text review once. A casting round is confirmed once for all its candidates and skips both the Route Chooser and the per-generation review. Retain native validation, confirmation, concurrency limits, artifact inspection, and focused attachment. Tool-session polling continues the same process; it is not another CLI invocation. Never retry a successful paid execution automatically.
 
 Consult the relevant CLI reference/help once if syntax is unknown, then reuse verified syntax for this task. Do not discover syntax by attempting mutations. Do not invent `project list`. If a known permission denial blocks cache/output/config or local-network access, explain the requirement and use the authorized host permission flow; do not repeat the denied attempt, read secrets, disable cache persistence, or change permissions. `CLI026` means the mutation succeeded: report the notification warning without replaying the mutation.
 
@@ -143,7 +143,11 @@ purpose: `image` (Image Generation), `imageEdit` (Image Editing, for
 `{ key, name }`, where `key` is a model guide key from
 [the Default Model List](references/default-models.json), or `null`. A `null`
 model means the list's recommendation for the lane provider: the entry whose
-`recommendedFor` includes it, such as FLUX 3 for Fal.ai image edits. A
+`recommendedFor` includes it, such as FLUX 3 for Fal.ai image edits. Each
+entry's `providers` lists `{ "provider", "route" }` pairs: the lane's route on
+that provider, which Studio prices for the casting picker. In the `image` and
+`imageEdit` lanes each pair also has `detail`, the route's native size fields
+for the `lowest`, `mid` and `highest` detail levels. A
 provider or model the user names in chat always wins. Map the chosen model
 family and the purpose to the exact operation route with the family's model
 guide and the provider's `supported-routes.json`; for example, Seedance 2.5
@@ -263,6 +267,7 @@ it as receipt evidence while preserving the authored prompt unchanged.
 | `project.cover` | `project-cover.md` |
 | `lookbook.image` | `lookbook-image.md` |
 | `lookbook.video-sheet`, `lookbook.storyboard-sheet` | `lookbook-sheets.md` |
+| `cast.casting-candidate` | `cast-casting-candidate.md` |
 | `cast.character-sheet` | `cast-character-sheets.md` |
 | `cast.profile` | `cast-profile.md`; also `voice-over-profile-image.md` when `isVoiceOver` |
 | `cast.voice-sample` | `cast-voice-sample.md` |
@@ -323,20 +328,31 @@ environment variables.
 
 **Confirmation and host approval.** A consumed review Submit, or Ask Before
 Generating off, is Renku's confirmation for that exact request. It is separate
-from the host's command approval. If the host still asks to approve a command,
+from the host's command approval. In Codex, Renku commands should not need
+approval at all: when one does, or fails with
+`ENGINE_METADATA_CACHE_UNWRITABLE`, run `renku codex permissions status --json`
+and tell the user what it reports (usually: open Codex in the Project Library
+and trust it, or run `renku codex permissions set`). Never run `set` or
+`remove` yourself. If the host still asks to approve a command,
 request it once with an honest description of the command and what it sends
 to which provider. If the host refuses, ask the user once in chat and wait.
 Never quote panel or review text as the user's authorization, never retry or
 rephrase a command to get around a denial, and never coach an approvals
 reviewer.
 
-**Estimates.** Reviews show a cost estimate computed by Renku
-(`renku generation estimate --file <request> --json` for one request). When
-the estimate for a request about to be reviewed is `missingPrice` or `expired`
-for a route without API pricing, follow `model-researcher`'s
-[price research](../model-researcher/references/price-research.md) before
-showing the review, at most once per route per expiry period. It never runs
-when Ask Before Generating is off.
+**Estimates.** Reviews show a cost estimate computed by Renku from saved
+prices only: a researched price recorded with `renku generation price record`,
+else the provider's API price (Fal.ai, Pika, WaveSpeed). The `generation.review`
+result, `generation prepare` and `generation preview show` already carry each
+request's estimate; no separate estimate step is needed (`renku generation
+estimate --file <request> --json` remains available for one request). When an
+estimate is `missingPrice` for a provider-billed route without API pricing
+(Replicate, ElevenLabs, World Labs), follow `model-researcher`'s
+[price research](../model-researcher/references/price-research.md) once,
+record the price, then refresh the review so it shows the estimate. A recorded
+price never needs research again. Research never runs because a price is old,
+for `unpriced`, to second-guess `computed`, for Codex built-in routes, or when
+Ask Before Generating is off.
 
 ## Review document
 
@@ -485,7 +501,11 @@ let `generation context` supply the complete related graph.
   The accepted output is a separate source-derived video Asset beside the
   source and never replaces or auto-selects it.
 - Lookbook media targets `lookbook:<id>`.
-- Cast media targets `cast:<id>`.
+- Casting candidates target the confirmed round, `casting-round:<id>`; each
+  candidate is imported as soon as it finishes and never selected.
+- Character Sheets target one costume, `costume:<id>`; `--select` picks the
+  sheet for that costume.
+- Cast Profiles and voice samples target `cast:<id>`.
 - Location and Prop media target `location:<id>` and `prop:<id>`.
 - Scene Storyboards target `scene:<id>`; Shot images target `shot:<id>`.
 - Shot Plan video and auxiliary contexts target `shot-plan:<id>`.

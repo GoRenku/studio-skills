@@ -396,10 +396,28 @@ Prepare two `project.cover` requests: one matching the Production Lookbook and
 one deliberate alternative. Preview both in order, stop before generation, and
 never select either candidate automatically.
 
+## purpose-casting-candidate — Casting round
+
+A confirmed casting round for Sintel's "Young" Look has three routes (4, 3 and
+3 candidates), `detail: "mid"` and `maxConcurrentGenerations: 4`. Prepare
+every candidate with target `casting-round:<round-id>`: one prompt per route
+from that model's guide, the fixed 4:3 face close-up and full-length layout,
+the brief's clothing, one output, and each route's `detail.mid` fields from
+the Default Model List in place of the guide's default size. Do not open the Route Chooser or a per-generation review even with
+Ask Before Generating on; validate each request and keep its hash. Run four at
+a time, import each candidate as soon as it finishes without `--select`, and
+report failures without retrying. A fourth model the round did not show needs
+a new round confirmation. No paid call occurs in the evaluation.
+
 ## purpose-cast-media — Character Sheet, Profile, and Voice Sample
 
-Run `cast.character-sheet`, `cast.profile`, and `cast.voice-sample` for one Cast
-Member. Each request must use only its exact Cast context and retained model
+Run `cast.character-sheet` for one costume (`costume:<costume-id>`), then
+`cast.profile` and `cast.voice-sample` for the same Cast Member
+(`cast:<cast-member-id>`). The sheet uses the Look's cast candidate from the
+`cast-identity` suggestion as identity reference and the costume's wardrobe
+from the wardrobe plan, sets the route's Default Model List `detail` fields
+for the Project's `characterSheetDetail`, and imports with `--select` to pick
+it for the costume. Each request must use only its exact Cast context and retained model
 guide. The voice sample uses the indexed ElevenLabs workflow; image results are
 separate candidates and no paid call occurs in the evaluation.
 
@@ -671,9 +689,8 @@ Expected behavior:
 
 - the default request uses the Image Editing recommendation for Fal.ai, FLUX 3
   Image Edit, without asking and calls `image.edit.open` with the guide's
-  Region Modes (`edit`, `remove`), `styleReference: true`,
-  `billing: "providerCharge"` and one "Output" control for `/resolution` built
-  from the live schema;
+  Region Modes (`edit`, `remove`), `styleReference: true` and one "Output"
+  control for `/resolution` built from the live schema;
 - the named region-free routes call `image.edit.open` with
   `regionModes: null` and the guide's controls: `/quality` for GPT Image 2.5
   Flare, `/resolution` for Nano Banana 2.1, none for Seedream 5.0 Pro;
@@ -820,12 +837,12 @@ Expected behavior:
 
 - `image.edit.open` receives the guide's Codex route: `provider: "codex"`,
   `model: "chatgpt-images-2.5"`, `regionModes: null`,
-  `styleReference: true`, `billing: "hostPlanUsage"`, empty controls;
+  `styleReference: true` and empty controls;
 - after `image.edit.consume`, the review document lists the base image then
   the style image in `referenced_image_paths`; with Ask on,
-  `generation.review` opens with `lane: "imageEdit"` and the route's
-  `billing: "hostPlanUsage"`, shows plan usage instead of a price, and no
-  `renku generation estimate` or price research runs;
+  `generation.review` opens with `lane: "imageEdit"` and the same route, its
+  `preview.estimate` is `hostPlanUsage` and shows plan usage instead of a
+  price for the Codex built-in provider, and no price research runs;
 - after Submit (or directly with Ask off), the built-in image tool runs with
   the base image, the style image and the instruction; the output is imported
   with `media import --purpose image.edit` and the review document as `codex`
@@ -851,23 +868,25 @@ Expected behavior:
 Score observations with `assessHostApproval` in
 `generation-context/review-routing.mjs`.
 
-## price-research-missing-or-expired — Research only a missing or expired price
+## price-research-missing — Research only a missing price
 
 With Ask Before Generating on, prepare a Replicate video request whose
-estimate is `missingPrice`, an ElevenLabs request whose recorded price is
-`expired`, a Fal.ai request with a `computed` estimate, a Pika request with a
-`quoted` estimate, and a Codex built-in image. Repeat the Replicate request in
-the same expiry period, and once more with Ask Before Generating off.
+estimate is `missingPrice`, a Fal.ai request with a `computed` estimate, a
+request with an `unpriced` estimate, and a Codex built-in image. Repeat the
+Replicate request after its price is recorded, and once more with Ask Before
+Generating off.
 
 Expected behavior:
 
-- only the Replicate and ElevenLabs requests trigger `model-researcher`'s price
-  research, before the review opens: the provider's public pricing page is read
-  with web fetch first, a browser only when needed, and the price is recorded
-  with `renku generation price record`, then the review shows the new estimate;
+- only the Replicate request triggers `model-researcher`'s price research,
+  after reading `preview.estimate` from the review result: the provider's
+  public pricing page is read with web fetch first, a browser only when needed,
+  and the price is recorded with `renku generation price record`, then the
+  review is refreshed so it shows the new estimate;
+- no separate `renku generation estimate` step runs before the review opens;
 - a price the vocabulary cannot express stays unpriced and is reported, not
   recorded;
-- the repeat in the same period, the Ask-off run, the API-priced and quoted
+- the repeat after recording, the Ask-off run, the `computed` and `unpriced`
   routes and the Codex built-in route do no research; and
 - no price or rate card is written into a Skill, model guide or review document.
 

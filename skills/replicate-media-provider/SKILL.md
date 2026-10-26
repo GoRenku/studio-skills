@@ -63,5 +63,5 @@ attachment. Never call Replicate directly or persist provider URLs, tokens,
 prediction state, or durable execution lifecycle records.
 
 Renku estimates cost for reviews from cached provider prices. Do not write
-prices into this Skill or the review document; a missing or expired price
+prices into this Skill or the review document; a missing price
 follows `model-researcher`'s price research.

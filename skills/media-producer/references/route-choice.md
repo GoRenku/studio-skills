@@ -5,6 +5,16 @@ provider and model before any authoring or preparation. The order of a
 generation is: target, route choice, authoring (a purpose desk when the route
 has one), review, then execute, import and report.
 
+## Casting rounds choose their own routes
+
+`cast.casting-candidate` requests never use this guide's question or the Route
+Chooser. The casting round (the Codex casting round panel, or the round the
+user confirmed in chat) already chose every provider, model and count; map
+each confirmed model family to its operation route as described below and
+follow [cast-casting-candidate.md](cast-casting-candidate.md). A missing
+provider key still stops preparation as `SKILL.md` describes. Every other
+purpose, including `cast.character-sheet`, uses this guide unchanged.
+
 ## Read the lane
 
 From the current generation context, read `workflowPolicy.lane`, `provider`,

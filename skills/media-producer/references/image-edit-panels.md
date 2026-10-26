@@ -115,8 +115,6 @@ first being the default, or is `null` when the route takes no regions.
 Route Description from the entry for the selected provider and model:
 
 - copy `provider`, `model`, `regionModes` and `styleReference`;
-- set `billing`: `hostPlanUsage` for the Codex built-in route, which runs on
-  the user's ChatGPT plan, and `providerCharge` for every other route;
 - take `label` and `providerLabel` from the route's `generation models list`
   entry, the same source the combined review uses (`label` is the route index
   `name`);
@@ -145,7 +143,6 @@ Open the panel right away; do not ask what to change first.
     label: string;
     regionModes: Array<{ id: string; label: string; instructionRequired: boolean; placeholder: string }> | null;
     styleReference: boolean;
-    billing: 'providerCharge' | 'hostPlanUsage';
     controls: { groups: Array<{ label: string; fields: NativeRequestControl[] }> };
   };
   initialWholeImageInstruction: string; // the user's requested change in their words, or ''
@@ -209,7 +206,7 @@ carries no approval. For each one, in this order:
 4. **Review when Ask Before Generating is on.** For an Engines route, run
    `renku generation validate --file <request> --json` first. Then open
    `generation.review` with `lane: "imageEdit"` and this one request, its
-   route (with the same `billing`) and the route's controls, following the
+   route and the route's controls, following the
    [combined panel](generation-review-routing.md#combined-panel) steps. End the
    turn; only a consumed Submit continues, with the accepted edits applied and
    validated. A canceled review is reported as failed with "Canceled in

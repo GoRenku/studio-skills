@@ -1,31 +1,36 @@
 # Price research
 
-Renku estimates the cost of each reviewed request from prices cached with the
-provider metadata. Fal.ai, Pika and WaveSpeed publish prices or quotes through
-their APIs. Replicate, ElevenLabs and World Labs do not, so their prices come
-from an entry you research once and record with an expiry. This guide is that
-research. Never write a price into a Skill, model guide or review document.
+Renku estimates the cost of each reviewed request from saved prices only: a
+researched price recorded with `renku generation price record`, else the
+provider's API price. Fal.ai, Pika and WaveSpeed publish prices through their
+APIs. Replicate, ElevenLabs and World Labs do not, so their prices come from an
+entry you research once and record. This guide is that research. Never write a
+price into a Skill, model guide or review document.
 
 ## When to run it
 
 Run it only when all of these hold:
 
-- Ask Before Generating is on and the estimate for the request you are about
-  to review (`renku generation estimate`, or the `estimate` that
-  `renku generation prepare` and `preview show` attach) is `missingPrice` or
-  `expired`;
-- the route is billed by the provider (`billing: "providerCharge"`), not a
-  Codex built-in route;
-- the provider has no API price for it. A `missingPrice` from an API-priced
-  provider is a failed lookup: report its note instead of researching; and
-- you have not already researched this route in its current expiry period.
+- Ask Before Generating is on and the estimate for the request being reviewed
+  (each request's `preview.estimate` in the `generation.review` result, or the
+  `estimate` that `renku generation prepare` and `preview show` attach) is
+  `missingPrice`;
+- the route is billed by the provider, not a Codex built-in route (Studio
+  shows plan usage for the Codex built-in provider);
+- the provider has no API price for it (Replicate, ElevenLabs, World Labs). A
+  `missingPrice` from an API-priced provider is a failed lookup: report its
+  note instead of researching; and
+- the route has no recorded price yet. Research each route once; a recorded
+  price never expires and never needs refreshing.
   `renku generation price show --provider <id> --model <apiId> --json`
-  returns `recorded` with `expired: false` when a fresh entry exists.
+  returns `{ provider, model, price }`, where `price` is `{ price, ageHours }`
+  for the saved price estimates use (its `price.source.kind` is `recorded` or
+  `providerApi`) or `null` when none exists.
 
-Do not run it when Ask Before Generating is off, for `unpriced` routes whose
-pricing the price vocabulary cannot express, or to second-guess a `quoted` or
-`computed` estimate. The review stays usable while research runs; a missing
-price never blocks generation.
+Do not run it when Ask Before Generating is off, because a price is old, for
+`unpriced` routes whose pricing the price vocabulary cannot express, or to
+second-guess a `computed` estimate. The review stays usable while research
+runs; a missing price never blocks generation.
 
 ## Research the provider's public pricing page
 
@@ -51,7 +56,7 @@ price never blocks generation.
    formula or account-dependent plan pricing, do not record it. Tell the user
    the route stays unpriced and why.
 
-## Record and refresh
+## Record the price
 
 Write the entry under `tmp/scratch/` and record it:
 
@@ -62,7 +67,6 @@ Write the entry under `tmp/scratch/` and record it:
     { "unit": "<unit>", "unitPriceUsd": <usd>, "quantity": { "kind": "field", "pointer": "/<native-field>" } }
   ],
   "source": { "kind": "recorded", "url": "<pricing page>", "observedAt": "<ISO time you read it>" },
-  "expiresAt": "<ISO time>",
   "notes": ["<what the price covers, and any promotion>"]
 }
 ```
@@ -71,11 +75,14 @@ Write the entry under `tmp/scratch/` and record it:
 renku generation price record --provider <id> --model <apiId> --file tmp/scratch/price.json --json
 ```
 
-Set `expiresAt` to the earlier of the promotion end and 14 days after
-`observedAt`; Renku caps it at 14 days. Fix any reported diagnostics and
-record again.
+A recorded price does not expire. Recording again for the same route
+replaces it; do that only when the user asks or the price is known to have
+changed. Fix any reported diagnostics and record again.
 
-Then continue the review with a fresh estimate: open the combined panel, whose
-server computes it again, or rerun `renku generation preview show` for the same
-file in the Studio Preview path. Report in one sentence which page you read and
-that the estimate comes from your recorded price.
+Then refresh the review so it shows the estimate: in the combined panel, call
+`generation.review` again with `project`, its `reviewId` and current
+`revision` as `expectedRevision`, and the same `requests`, so the server
+estimates them again; in the Studio Preview path, rerun
+`renku generation preview show` for the same file.
+Report in one sentence which page you read and that the estimate comes from
+your recorded price.

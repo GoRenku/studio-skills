@@ -64,9 +64,9 @@ The built-in tool is a route of the Codex
 
 **Route Description.** This route has no `generation models list` entry and no
 provider schema. Use `label: "GPT Image 2.5"`, `providerLabel: "Codex
-(built-in)"`, `billing: "hostPlanUsage"` and empty controls
-(`{ "groups": [] }`). The tool has no mask parameter, so the panel shows no
-regions.
+(built-in)"` and empty controls (`{ "groups": [] }`); the panel shows plan
+usage automatically for the Codex built-in provider. The tool has no mask
+parameter, so the panel shows no regions.
 
 **Mapping the consumed draft.** Write the review document with
 `provider: "codex"`, `model: "chatgpt-images-2.5"` and the built-in fields:

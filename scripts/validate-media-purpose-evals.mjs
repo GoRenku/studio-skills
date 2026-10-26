@@ -16,7 +16,7 @@ const coverage = JSON.parse(readFileSync(
 ));
 const requiredPurposes = [
   'image.create', 'image.edit', 'project.cover',
-  'cast.character-sheet', 'cast.profile', 'cast.voice-sample',
+  'cast.casting-candidate', 'cast.character-sheet', 'cast.profile', 'cast.voice-sample',
   'location.sheet', 'location.hero', 'prop.sheet', 'prop.hero',
   'lookbook.image', 'lookbook.video-sheet', 'lookbook.storyboard-sheet',
   'scene.storyboard-sheet', 'shot.image',

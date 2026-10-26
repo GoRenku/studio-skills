@@ -151,7 +151,10 @@ Check exact membership across the whole list; tag order conveys no priority.
 The tag is evidence of intended use, not proof of visual correctness. Reject a
 tagged candidate that is stale, visibly unsuitable, tied to the wrong wardrobe
 or state, or rendered against an obsolete appearance authority. Never choose
-from candidate order.
+from candidate order. Each Cast Member's `wardrobe` in the batch context names
+the Scene's costume; the costume's picked sheet leads `cast-continuity` with
+`isWorkflowSelected: true` and is the default when no storyboard sheet of that
+same costume exists.
 
 When no suitable tagged sheet exists, inspect every eligible same-owner sheet
 and deliberately choose the best continuity match. Untagged and differently

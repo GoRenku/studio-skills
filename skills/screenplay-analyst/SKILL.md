@@ -140,9 +140,9 @@ renku screenplay analyze show --active --project <project-name> --json
 - Keep suggestions actionable enough for a later screenplay operation agent to apply.
 - Write validates before persistence; keep separate validation for validation-only requests or review.
 - Use US spelling: `analyze`, not `analyse`.
-- Character arcs cover only protagonists and key supporting roles. Age
-  variants of one person reference the main Cast Member's arc instead of
-  repeating it.
+- Character arcs cover only protagonists and key supporting roles. One
+  person is one Cast Member at every age, with one arc for the whole life;
+  ages are Looks of that Cast Member.
 - Arcs cite real Scene ids and real dialogue; never invent events or
   quotes.
 

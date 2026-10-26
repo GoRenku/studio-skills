@@ -40,10 +40,11 @@ tested. Do not imply a saved route proves successful execution. Bundled authorin
 leaves a reviewable source change; publishing requires a release request.
 
 When Media Producer's review estimate for a route without API pricing is
-`missingPrice` or `expired`, read
+`missingPrice`, read
 [references/price-research.md](references/price-research.md) and record the
-route's price from the provider's public pricing page. Prices live only in
-Renku's provider metadata cache, never in Skill files.
+route's price once from the provider's public pricing page; a recorded price
+never expires or needs refreshing. Prices live only in Renku's provider
+metadata cache, never in Skill files.
 
 For generation, hand off to Media Producer and the selected provider Skill.
 Engines owns live/cached schemas, authentication, uploads, execution, and output

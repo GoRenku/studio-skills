@@ -27,6 +27,19 @@ an `image-edit` block of its model guide's `## Codex panel` section. Follow
 [image-edit-panels.md](image-edit-panels.md). Like the dialogue panel, it is an
 authoring desk followed by the review below when Ask Before Generating is on.
 
+## Casting rounds are confirmed once
+
+A casting round is confirmed once for all of its candidates: in Codex Desktop
+the consumed Generate of the casting round panel, and in other hosts the
+user's reply to the round set up in chat (models, counts, references and the
+estimate). Each `cast.casting-candidate` request therefore skips the review
+below, Studio Preview and the text review, whatever Ask Before Generating
+says. Validate each Engines request and execute it with its
+`--expected-request-sha256`; host command approval still applies as in step 9
+of the combined panel. A request outside the confirmed round (another model,
+more candidates, other references) needs a new round confirmation. See
+[cast-casting-candidate.md](cast-casting-candidate.md).
+
 ## Skip the review when Ask Before Generating is off
 
 Read `workflowPolicy.askBeforeGenerating` from the current
@@ -91,9 +104,9 @@ switching to a paid provider.
 3. Discover the complete currently eligible route catalog through the existing
    `generation models list` contract; respect keyed-provider availability and
    explicit provider selection. Routes have `{provider, providerLabel, model,
-   label, mediaKind, billing}` with exact Engines `apiId` values. `billing` is
-   `hostPlanUsage` for a Codex built-in route, which runs on the user's ChatGPT
-   plan, and `providerCharge` for every other route. Include Codex only when
+   label, mediaKind}` with exact Engines `apiId` values. Studio decides billing
+   from the provider: the Codex built-in provider runs on the user's ChatGPT
+   plan and shows plan usage automatically. Include Codex only when
    the current session exposes built-in image generation. Do not read alternative
    providers' Skills, guides or schemas before a user selects them.
 4. Author `controls.groups` from the selected native schema. Each group has
@@ -115,11 +128,15 @@ switching to a paid provider.
    `expectedRequestSha256` when applicable. Keep the returned `reviewId`,
    `revision`, ordered `requestId` bindings and source hashes. Check reference
    availability, diagnostics and each request's `preview.estimate`. The server
-   computes estimates; a `hostPlanUsage` route shows plan usage instead of a
-   price. Before opening a `providerCharge` request, run `renku generation
-   estimate --file <file> --json`; when it is `missingPrice` or `expired`,
-   follow [price research](../../model-researcher/references/price-research.md)
-   first. End the turn and wait for the panel action; opening a panel or
+   computes estimates from saved prices; a Codex built-in route shows plan usage
+   instead of a price. When an estimate is `missingPrice` for a route without
+   API pricing, follow
+   [price research](../../model-researcher/references/price-research.md) once,
+   record the price, then refresh the review so it shows the estimate: call
+   `generation.review` again with `project`, the returned `reviewId` and
+   `revision` as `expectedRevision`, and the same `requests`; the server
+   estimates them again from the saved price. End the turn and wait for the
+   panel action; opening a panel or
    reading its resource does not authorize execution.
 6. The app verifies inline/fullscreen presentation and active-conversation messaging.
    Opening/handshake failure is a visible diagnostic and stops this review.
@@ -199,10 +216,10 @@ Preview once; check diagnostics, the estimate, delivery status and hash. For an
 ordered batch, validate Engines files individually and call
 `generation preview show` with repeated `--file` in order; it attaches
 estimates too. Codex built-in images use `preview show` and never Engines
-preparation. When an estimate is `missingPrice` or `expired`, follow
-[price research](../../model-researcher/references/price-research.md), then
-deliver Preview again with `generation preview show` so it shows the new
-estimate.
+preparation. When an estimate is `missingPrice` for a route without API
+pricing, follow [price research](../../model-researcher/references/price-research.md)
+once, then deliver Preview again with `generation preview show` so it shows the
+new estimate.
 
 If delivery fails because Studio is not running, review in text instead: one
 short chat summary of the provider and model, the prompt, the chosen

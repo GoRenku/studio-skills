@@ -3,6 +3,7 @@
     "image.create": "image-create-shot-plan",
     "image.edit": "image-edit-source-preserving",
     "project.cover": "purpose-project-cover",
+    "cast.casting-candidate": "purpose-casting-candidate",
     "cast.character-sheet": "purpose-cast-media",
     "cast.profile": "purpose-cast-media",
     "cast.voice-sample": "purpose-cast-media",

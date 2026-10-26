@@ -10,7 +10,9 @@ guidance, suggestions, and warnings as the briefing before selecting a provider.
 Read [route-choice.md](route-choice.md) and
 [generation-review-routing.md](generation-review-routing.md) for every purpose.
 Settle the provider and model, the lane's Ask Before Generating and the current
-host capability before any panel or Preview delivery.
+host capability before any panel or Preview delivery. A casting round
+(`cast.casting-candidate`) arrives with its routes and its confirmation
+already settled; follow [cast-casting-candidate.md](cast-casting-candidate.md).
 
 Core suggestions describe real Project relationships but do not limit creative
 choice. Deliberately choose, omit, supplement, or replace references after
@@ -84,7 +86,17 @@ and Voice `sampleAssetFileId` refer to the same inventory. Preserve opaque
 `voiceIdentity` when the provider needs it. Full designs remain in `activeDesign`
 with `activeDesignId`; exact edit and Shot targets use `assetFileId` and `shotId`.
 Suggestions are not the full media inventory: other returned alternatives remain
-usable. A changed task or Project state may justify another read; a routine
+usable.
+
+For Scene, Beat, Shot and Shot Plan purposes, each related Cast Member carries
+`wardrobe`: its Look, its costume in that Scene with the costume's
+`wardrobe` and `continuityNotes`, and the costume's picked Character Sheet
+(`wardrobe` is `null` when the Cast Member has no Look for that Scene). The
+picked sheet is the first `cast-continuity` candidate,
+with `isWorkflowSelected: true`; the Cast Member's other sheets follow. Prefer
+it for that Scene's wardrobe; a sheet of another costume is the wrong wardrobe
+unless the user asks for it. When `wardrobe` names no picked sheet, report the
+gap and choose deliberately from the other sheets. A changed task or Project state may justify another read; a routine
 text-then-JSON sequence to discover missing fields should not be necessary.
 
 Use the mutation report's `valid`, `assetFile.id`, and `assetFile` to confirm a
@@ -350,9 +362,9 @@ Codex product family; it does not assert a Flare or Sunburst API variant.
 
 Follow the shared review routing like every other route: with Ask Before
 Generating on, the panel waits for Submit and consumes the accepted edits, and
-other hosts use Studio Preview or text; with it off, generate directly. Codex
-built-in routes use `billing: "hostPlanUsage"`; their review shows plan usage
-instead of a price. Invoke the built-in capability with the exact accepted
+other hosts use Studio Preview or text; with it off, generate directly. The
+Codex built-in provider shows plan usage automatically instead of a price.
+Invoke the built-in capability with the exact accepted
 native values.
 Create safe provenance with the exact final
 prompt/request and no invented receipt. Attach it through the same
@@ -402,7 +414,7 @@ it as retained reference media:
 
 ```bash
 renku asset import --project <project-name> \
-  --file <batch-json-path> --json
+  --file tmp/operations/asset-import.json --json
 renku asset import --project <project-name> \
   --owner project --source tmp/reference.wav --json
 ```

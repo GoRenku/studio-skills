@@ -91,5 +91,5 @@ Never call the SDK directly, invent a voice id, attach Cast Voice records,
 persist credentials, or create durable execution lifecycle records.
 
 Renku estimates cost for reviews from cached provider prices. Do not write
-prices into this Skill or the review document; a missing or expired price
+prices into this Skill or the review document; a missing price
 follows `model-researcher`'s price research.

@@ -174,15 +174,15 @@ Use for:
 
 - Cast Member fact creation or revision;
 - Cast Design creation or revision;
-- costume continuity and scoped costume variants;
+- Looks (ages and big physique changes), casting rounds and wardrobe plans;
 - voice casting notes;
-- cast character-sheet/profile readiness.
+- cast character-sheet (per costume) and profile readiness.
 
 Pass:
 
 - cast member id when one exists;
 - user casting goal and constraints;
-- relevant Scene ids for costume scope;
+- relevant Scene ids for Looks and costumes;
 - whether the user wants media generation or only design writing.
 - imported cue candidates and their Dialogue Turn ids when casting follows an
   FDX import; preserve ambiguity for user confirmation.

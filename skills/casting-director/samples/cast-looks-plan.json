@@ -1,0 +1,33 @@
+{
+  "kind": "castLooksPlan",
+  "castMemberId": "cast_4e2h4dhp",
+  "looks": [
+    {
+      "id": "look_2k9dw7mq",
+      "name": "Young",
+      "description": "About 16, slender and agile, 165 cm; warm brown hair, hazel eyes, medium warm-brown skin.",
+      "sceneIds": [
+        "scene_3ebdfaf930d2bb0587486069",
+        "scene_47fd28d51f94ba4e99c68055",
+        "scene_c2018e848fe91fa152c1c1e4",
+        "scene_56f0472a8da80437adb0455e",
+        "scene_c3ddaec8fb89ccdb4cae6179",
+        "scene_b09056143b94a209c75598d4"
+      ]
+    },
+    {
+      "name": "Fifteen years later",
+      "description": "Same face about fifteen years older; white hair, scars, weather-aged skin, muscular build, burnt left forearm, 165 cm.",
+      "sceneIds": [
+        "scene_f912398add0de3ec344a70a6",
+        "scene_4911f595eedd6ab463941ca6",
+        "scene_60fd4a8d694d0ad9dd377219",
+        "scene_70a282c0da4b8f19b52072dd",
+        "scene_8132dabebe529f6c2936ec3f",
+        "scene_a516ad4c195e2c39006400dc",
+        "scene_f8e4a3c070994a50da694269",
+        "scene_6a123467a45b96778a423adf"
+      ]
+    }
+  ]
+}

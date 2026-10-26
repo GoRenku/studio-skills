@@ -269,8 +269,12 @@ evidence, not Project identities. After `imported` or `refreshed`:
 
 1. Read the canonical Screenplay plus existing Cast Members, Locations, and
    Props.
-2. Ask the user when a cue alias, composite setting, or mentioned object is
-   ambiguous.
+2. Resolve cue aliases from the complete script and prior user decisions;
+   ask when a cue alias, composite setting, or mentioned object remains
+   ambiguous. One person is one Cast Member at every age: `YOUNG EDWARD` and
+   `EDWARD` become one person with age-specific Looks when the script
+   establishes their identity. Pass that grouping to `casting-director`;
+   never suggest one Cast Member per imported cue. Preserve source cues.
 3. Return the exact evidence and unresolved identity questions to
    `movie-director`. That coordinator reads
    `projectSettings.screenplayImport` and decides which enabled follow-up

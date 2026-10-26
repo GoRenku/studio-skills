@@ -1,6 +1,6 @@
 ---
 name: casting-director
-description: Create and revise Renku Studio Cast Members, Cast Design documents, costume continuity, voice casting notes, and cast media handoffs. Use when the user asks for casting, character appearance, performance direction, wardrobe/costume variants, voice identity, or cast readiness. For media generation from an existing Cast Design, use media-producer.
+description: Create and revise Renku Studio Cast Members, Cast Design documents, Looks (ages and physique changes), casting rounds, wardrobe plans, voice casting notes, and cast media handoffs. Use when the user asks for casting, auditioning or casting a Look, character appearance, ages, performance direction, costumes and wardrobe, character sheets per costume, voice identity, or cast readiness. For media generation from an existing Cast Design, use media-producer.
 ---
 
 # Casting Director
@@ -32,7 +32,7 @@ QA images, downloads, crops, or scratch files at the Project root.
   in-Project copy is necessary, place it under `tmp/scratch/`.
 
 
-Use this skill for Renku Studio casting work. It owns Cast Member facts, Cast Design documents, and Cast Voice attachments, then hands actual media generation to `media-producer`.
+Use this skill for Renku Studio casting work. It owns Cast Member facts, Cast Design documents, Looks, casting rounds, wardrobe plans, and Cast Voice attachments, then hands actual media generation to `media-producer`.
 
 Do not route Cast Member changes through screenplay operations. The canonical mutation path is `renku cast`.
 
@@ -48,15 +48,15 @@ the authoring-context reads below unless the task also needs Cast changes.
 renku project current --json
 ```
 
-If a costume or continuity request is scoped to a production reference such as
-`Scene 22` or `22A`, resolve it before authoring Cast Design:
+If a Look, costume or continuity request is scoped to a production reference
+such as `Scene 22` or `22A`, resolve it before authoring:
 
 ```bash
 renku screenplay scene-number resolve --number <production-number> --project <project-name> --json
 ```
 
-Use the returned durable `sceneId` in the costume scope. Do not add a duplicate
-production-number field to Cast Design JSON.
+Use the returned durable `sceneId` in the Looks or wardrobe plan. Do not add a
+production-number field to any casting document.
 
 2. For Cast fact or design work on a specific Cast Member, read department context:
 
@@ -92,13 +92,17 @@ renku cast apply --file tmp/operations/cast-operations.json --dry-run --json
 renku cast apply --file tmp/operations/cast-operations.json --json
 ```
 
-When this work follows FDX import, compare each exact character-cue candidate
-and Dialogue Turn id with existing Cast facts. Ask the user before treating
-aliases such as `YOUNG MARA` and `MARA` as one person. Create/update the accepted
-Cast facts through `renku cast`, then hand their durable ids back for focused
-Screenplay speaker references. Never make the importer own that judgment.
+Before creating cast from any screenplay, group its character cues by story
+person using the complete script and existing Cast facts. `YOUNG MARA` and
+`MARA` are one Cast Member when the script establishes that identity; their
+ages become Looks. Reuse an existing Cast Member rather than adding another
+for a new cue, age, nickname, title, or voice-over appearance. Ask only when
+identity is unresolved; do not create provisional duplicates. Create or
+update accepted facts through `renku cast`. Preserve FDX cues and source
+ownership; do not bind references into an FDX-backed Screenplay. See
+`references/cast-authoring.md` for the authoring workflow.
 
-4. If interpretation, appearance, performance, costume, voice casting, continuity, or generation guidance needs to change, write a `kind: "castDesign"` document:
+4. If interpretation, appearance, performance, base wardrobe logic, voice casting, continuity, or generation guidance needs to change, write a `kind: "castDesign"` document:
 
 ```bash
 renku cast design validate --file tmp/operations/cast-design.json --json
@@ -144,19 +148,84 @@ sample because that command calls ElevenLabs and attaches the fetched MP3 to
 the Cast Member. Core allocates the durable filename directly under
 `cast/<handle>/`; never construct that path in the skill.
 
-6. Hand off character-sheet/profile/voice-sample generation to `media-producer` only when the user wants media work.
+6. Hand off profile and voice-sample generation to `media-producer` only when the user wants media work. Character sheets follow the casting flow below.
+
+## One Person, One Cast Member
+
+The same person is one Cast Member at every age. Ages and big physique
+changes are Looks of that Cast Member, each covering a list of Scenes;
+costumes are not Looks. Resolve identity before creating Cast Members, not
+after creating one per cue. For example, Big Fish's Young Edward Bloom and
+Edward Bloom belong to one Edward Bloom Cast Member with age-specific Looks.
+If existing facts already duplicate a person, report the affected identities
+and dependencies for a separate data correction; do not delete them as part
+of routine cast creation. See `references/looks.md`.
+
+## Casting Flow
+
+Casting happens before character sheets. Work one Cast Member at a time:
+
+1. **Looks.** Agree the Looks and their Scenes, then
+   `renku cast looks validate|write --file tmp/operations/cast-looks-plan.json`
+   (`references/looks.md`).
+2. **Casting round per Look.** The director picks models, counts and the
+   image detail level (preset from `candidateDetail`) and sees the estimate;
+   that one confirmation covers every candidate of the round. The round
+   prices every offered model/provider at each detail level itself; no
+   requests are prepared before showing it (`references/casting-rounds.md`).
+   Then `renku cast casting round create --file tmp/operations/casting-round.json`, and
+   `media-producer` generates the candidates in parallel with purpose
+   `cast.casting-candidate` at the round's detail level, importing each as it
+   lands (`references/casting-rounds.md`).
+3. **Hide and cast.** The director hides the candidates they don't want and
+   casts one for the Look (`renku asset select --target look:<look-id>`).
+   "More like these" is a new round with every kept (not hidden) candidate as
+   references. A later Look uses the earlier Look's cast candidate as its
+   identity reference.
+4. **Wardrobe plan.** Costumes per Look with their Scenes, then
+   `renku cast wardrobe validate|write --file tmp/operations/cast-wardrobe-plan.json`
+   (`references/wardrobe-plan.md`).
+5. **Character sheets per costume.** `media-producer` makes
+   `cast.character-sheet` with target `costume:<costume-id>` from the Look's
+   cast candidate at `characterSheetDetail`, and one sheet is picked per
+   costume (`references/cast-media-handoff.md`).
+
+Project casting defaults (models and counts, `candidateDetail` for casting
+rounds and `characterSheetDetail` for character sheets) are
+`renku settings casting show|set --file tmp/operations/casting-settings.json`. Prices always come
+from Renku estimates.
+
+**Panels or chat.** In trusted Codex Desktop whose
+`generation.review.capabilities` probe advertises panel support, use the
+casting panels: `casting.wardrobe.open` for Looks and costumes,
+`casting.round.open` for a round, and `casting.board.open` for candidates and
+sheet picks. Open one, end the turn, and consume its result once; the
+candidates board is opened while candidates generate and the turn ends after
+the last import. Panels only
+show and collect choices; the agent writes Looks and wardrobe plans with the
+CLI. `casting.round.consume` returns the round's `detail` with its routes;
+pass it to `media-producer` for the candidates. In Claude Code and every
+other host, set rounds and plans up as chat text, take the user's reply as
+the confirmation, and point the user to the Cast Member's **Casting** tab in
+Studio to hide, compare, cast and pick sheets. A chat round uses
+`candidateDetail` unless the user changes it for that round, and prices each
+route with `renku generation estimate --detail <level>`.
 
 ## Reference Files
 
 - Read `references/cast-authoring.md` for Cast Member fact commands and operation JSON.
 - Read `references/cast-design.md` before writing Cast Design JSON.
-- Read `references/cast-media-handoff.md` before asking `media-producer` for character sheets, profiles, or voice samples.
+- Read `references/looks.md` before proposing Looks or resolving age variants.
+- Read `references/casting-rounds.md` before setting up or running a casting round.
+- Read `references/wardrobe-plan.md` before writing costumes.
+- Read `references/cast-media-handoff.md` before asking `media-producer` for casting candidates, character sheets, profiles, or voice samples.
 - Read `references/voice-casting.md` when the request involves voice, accent, tempo, texture, or localization notes.
 - Read `references/cast-voice-attachments.md` before attaching durable ElevenLabs provider voice ids or sample audio.
 
 ## Boundaries
 
-- Cast Design can describe costume variants, but costume-variant media is not first-class yet.
+- Costumes live in the wardrobe plan and ages live in Looks, never in Cast Design. Cast Design keeps only `costume.baseWardrobeLogic`.
+- Casting candidate images and briefs are opaque: judge them with the user, never through Renku validation.
 - Cast Design can describe voice casting and locale notes, but durable ElevenLabs provider voice ids and sample audio belong in Cast Voice records. Kling `voice_id` values are transient shot-video run artifacts.
 - Generated files, asset ids, durable provider voice ids, transient Kling `voice_id` values, and media paths do not belong in Cast Design JSON.
 - When casting changes affect Scene Beats, report the need for a `scene-beat-designer` pass instead of editing Scene Beats revisions directly.

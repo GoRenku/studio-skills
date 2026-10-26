@@ -17,8 +17,10 @@ screenplay."
 - Will Bloom is `positiveChange` (Grows). He moves from "the stories are
   lies" to telling the story himself at the end. `need` and `falseBelief` are
   filled.
-- Young Edward Bloom has a `characterArcReference` to Edward Bloom, not an
-  arc of his own.
+- Edward Bloom's one arc covers his whole life, including the scenes of him
+  as a young man. If the project still has a separate young Edward Cast
+  Member, it gets no arc, and the agent reports the duplicate for a separate
+  data correction. Arc authoring does not delete or consolidate Cast Members.
 - Every Scene id is real and every quote is copied exactly from the
   screenplay.
 - `renku cast arc validate` passes before `write`, and the report names the

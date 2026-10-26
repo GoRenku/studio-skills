@@ -102,8 +102,7 @@ Do not use discard plus media import to retag or re-anchor an existing Lookbook 
 
 ## Hard Gaps
 
-- Costume-variant media is not a first-class purpose. Cast Voice samples use
-  `cast.voice-sample`, but durable attachment remains owned by the Cast Voice
-  command rather than generic media import.
+- Cast Voice samples use `cast.voice-sample`, but durable attachment remains
+  owned by the Cast Voice command rather than generic media import.
 - Location-local set-dressing media is not a first-class purpose.
 - Sound, music, editorial, and final assembly workflows are incomplete.

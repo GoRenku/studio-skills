@@ -18,7 +18,7 @@ Then pass the returned durable `sceneId` to the owning specialist.
 | Import Final Draft FDX, or create/revise story, screenplay, scene, dialogue, narration, scene settings, action lines | Screenwriting | `screenplay-drafter` | `renku screenplay status --json` |
 | Import research, notes, documents, images of text, or other supporting screenplay context without changing screenplay content | Source Import | `screenplay-supporting-material-importer` | `renku project current --json` |
 | Critique structure, diagnose pacing, plan revisions, derive analytical Act segments or Scene groups | Screenplay Analysis | `screenplay-analyst` | `renku screenplay analyze context --json` |
-| Create/revise Cast Member facts, appearance, performance, costume, voice casting notes | Casting | `casting-director` | `renku cast design context --cast <cast-member-id> --json` |
+| Create/revise Cast Member facts, appearance, ages (Looks), casting rounds, costumes (wardrobe plan), performance, voice casting notes | Casting | `casting-director` | `renku cast design context --cast <cast-member-id> --json` |
 | Create/revise Location facts, spatial design, set dressing, props, atmosphere | Production Design | `production-designer` | `renku production-design location context --location <location-id> --json` |
 | Create/revise durable Prop facts, Prop Design, or Prop media readiness | Production Design | `production-designer` | `renku production-design prop context --prop <prop-id> --json` |
 | Analyze reference folders, extract visual principles from images | Cinematography / Visual Language | `inspiration-analyzer` | `renku inspiration show --folder <folder-id> --json` |
@@ -43,7 +43,8 @@ Then pass the returned durable `sceneId` to the owning specialist.
 8. Project Storyboard Lookbook and one accepted
    `lookbook.storyboard-sheet` before Beat Storyboard generation.
 9. Cast Design, Location Design, and Prop Design.
-10. Cast Character Sheets, Cast Profiles, Location Sheets, and Prop Sheets.
+10. Cast Looks, casting rounds and wardrobe plans, then Cast Character Sheets
+    per costume, Cast Profiles, Location Sheets, and Prop Sheets.
 11. Scene Beats, with cardinality determined only by narrative development.
 12. Per-Beat Storyboard images, batched only at generation time in consecutive
     groups of up to four without changing the saved revision.
@@ -55,7 +56,6 @@ Then pass the returned durable `sceneId` to the owning specialist.
 
 ## Current Gaps
 
-- Costume-variant media is not first-class. Keep its notes in Cast Design.
 - Location-local set-dressing media is not first-class. Keep its notes in
   Location Design unless the object is deliberately authored as a Prop.
 - Sound, music, editorial, and final assembly do not have complete specialist workflows yet.

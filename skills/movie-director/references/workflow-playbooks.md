@@ -61,10 +61,15 @@ Consult the relevant CLI reference/help once if syntax is unknown, then reuse ve
 3. Read back the canonical Screenplay and import candidates. The deterministic
    importer stops here and returns evidence to this coordinator.
 4. If `createContinuitySubjects` is enabled, compare candidate
-   cues/headings/tags with existing Project facts, resolve ambiguity with the
-   user, dispatch accepted facts to `casting-director` and
-   `production-designer`. Never match by name alone, and do not dispatch
-   Screenplay reference bindings for an FDX-backed Screenplay.
+   cues/headings/tags with existing Project facts and the complete script.
+   Group character cues by person before dispatching cast creation: different
+   ages of one person are Looks under one Cast Member, not one Cast Member
+   per cue. Reuse existing identities and prior user decisions, resolve
+   remaining ambiguity with the user, then dispatch accepted facts to
+   `casting-director` and `production-designer`. Never match by name alone,
+   and do not dispatch Screenplay reference bindings for an FDX-backed
+   Screenplay. Use the same grouping when the user separately requests cast
+   creation from an already imported or Renku-authored screenplay.
 5. If `generateContinuityImages` is enabled, dispatch `cast.profile`,
    `location.hero`, or `prop.hero` only after each accepted subject is ready.
 6. If `runScreenplayAnalysis` is enabled, dispatch `screenplay-analyst` after
@@ -102,7 +107,7 @@ overwrite.
    it as incidental context.
 2. Dispatch Cast Member fact and Cast Design work to `casting-director`.
 3. Use the returned mutation report. Read `renku cast design context --cast <cast-member-id> --json` when further current context is needed for the next decision.
-4. If the user wants new imagery, dispatch `cast.character-sheet` or `cast.profile` work to `media-producer` using durable Cast context only.
+4. If the user wants new imagery, dispatch casting (Looks, casting rounds, wardrobe plan, then character sheets per costume) to `casting-director`, and `cast.profile` work to `media-producer`, using durable Cast context only.
 5. Refresh director context when the next cross-department decision needs updated readiness.
 
 ## Location Production Design Prompt

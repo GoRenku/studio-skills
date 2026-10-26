@@ -1,0 +1,67 @@
+{
+  "kind": "castWardrobePlan",
+  "castMemberId": "cast_4e2h4dhp",
+  "costumes": [
+    {
+      "id": "costume_a1x4n8qe",
+      "name": "Young Ishtar survivor",
+      "lookId": "look_2k9dw7mq",
+      "wardrobe": [
+        "Plain, worn brown leather separates; simple practical leather boots and belt.",
+        "No cloak, armour or backpack."
+      ],
+      "continuityNotes": ["Hunting knife carried at the belt."],
+      "sceneIds": [
+        "scene_3ebdfaf930d2bb0587486069",
+        "scene_47fd28d51f94ba4e99c68055",
+        "scene_c2018e848fe91fa152c1c1e4",
+        "scene_56f0472a8da80437adb0455e"
+      ]
+    },
+    {
+      "id": "costume_b7r2m5tk",
+      "name": "Cloaked departure",
+      "lookId": "look_2k9dw7mq",
+      "wardrobe": ["Same leather base with a plain weathered cloak; no ornate armour."],
+      "continuityNotes": [],
+      "sceneIds": [
+        "scene_c3ddaec8fb89ccdb4cae6179",
+        "scene_b09056143b94a209c75598d4"
+      ]
+    },
+    {
+      "id": "costume_c3w9p1zd",
+      "name": "Quest hunter",
+      "lookId": "look_8f1cv4hs",
+      "wardrobe": [
+        "Heavy hooded cloak, practical backpack, repaired leather layers, plain protective pieces and tool belts.",
+        "Dirt, fatigue and abrasion increase through the quest."
+      ],
+      "continuityNotes": ["The hood hides her age until the recognition in the lair."],
+      "sceneIds": [
+        "scene_f912398add0de3ec344a70a6",
+        "scene_4911f595eedd6ab463941ca6",
+        "scene_60fd4a8d694d0ad9dd377219",
+        "scene_70a282c0da4b8f19b52072dd",
+        "scene_8132dabebe529f6c2936ec3f",
+        "scene_a516ad4c195e2c39006400dc"
+      ]
+    },
+    {
+      "id": "costume_d6k8s2fa",
+      "name": "Fifteen-year reveal",
+      "lookId": "look_8f1cv4hs",
+      "wardrobe": ["Threadbare, damaged leather layers with the hood down; soot on the skin and clothes."],
+      "continuityNotes": ["Burnt left forearm visible; healed and fresh injuries shown without gore."],
+      "sceneIds": ["scene_f8e4a3c070994a50da694269"]
+    },
+    {
+      "id": "costume_e2h5q9vn",
+      "name": "Aftermath",
+      "lookId": "look_8f1cv4hs",
+      "wardrobe": ["Threadbare base clothes only; armour, backpack and tool belts left behind."],
+      "continuityNotes": ["Bent, tired posture; no rejuvenation."],
+      "sceneIds": ["scene_6a123467a45b96778a423adf"]
+    }
+  ]
+}

@@ -83,5 +83,34 @@ Rules:
 - Existing Cast Members use durable `id`.
 - `castMember.update` replaces the whole record: include every field you want to keep, including the full `description` object.
 - Handles are lower-case, stable, and unique across Cast Members and Locations.
-- Delete operations fail when the Cast Member is still referenced by screenplay scenes.
+- Delete operations fail when the Cast Member is still referenced by screenplay scenes or named by any Scene Beats revision.
 - Screenplay scenes reference Cast Members by durable id; do not create Cast Members through screenplay JSON.
+- Resolve screenplay cues to people before authoring additions; ages and significant physique changes become Looks, not additional Cast Members. See `looks.md`.
+
+## Create Cast From A Screenplay
+
+Character cues and their Dialogue Turn ids are evidence, not identities. This
+applies to imported FDX and Renku-authored screenplays alike.
+
+- Before writing a castOperations document, read the complete screenplay and
+  existing cast. Group cues by story person using the script's evidence and
+  any identity decisions already supplied by the user. Reuse existing durable
+  Cast Member ids for those people, including on repeated requests or refresh.
+- One person is one Cast Member at every age, even when different actors
+  portray them. For Big Fish, `YOUNG EDWARD` and `EDWARD` belong to Edward
+  Bloom; the same rule applies to young and adult Will Bloom and Dr. Bennett.
+  Create one Cast Member per person and propose age-specific Looks with Scene
+  coverage (`looks.md`). Do not turn each cue into a castMember.add operation.
+- Nicknames, titles, and voice-over or off-screen cues do not create a new
+  person. Conversely, shared names or an age prefix alone do not prove shared
+  identity. Preserve genuinely distinct people as separate Cast Members.
+- If the script leaves identity ambiguous, ask a focused question before
+  adding the affected people. Do not create duplicates while awaiting an answer.
+- Keep `age` to a stated age; the other ages belong in the Look descriptions.
+- Before apply, check that every resolved person has at most one proposed
+  addition and no addition duplicates an existing person. Report the cue
+  grouping and planned Looks so the result is reviewable.
+- For Renku-authored Screenplays, hand accepted Cast Member ids back for
+  focused speaker references. For FDX-backed Screenplays, preserve the exact
+  source cues and do not add reference bindings. The importer never owns
+  identity judgment.

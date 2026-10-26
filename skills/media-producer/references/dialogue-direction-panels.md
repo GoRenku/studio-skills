@@ -226,8 +226,8 @@ For each one, in this order:
    provider adapter for placement and markers.
 3. **Validate and review** with `renku generation validate --file <request>
    --json`. When Ask Before Generating is on, open `generation.review` with
-   `lane: "audio"` and this one request, its route (`billing:
-   "providerCharge"`) and the operation's controls, following the
+   `lane: "audio"` and this one request, its route and the operation's
+   controls, following the
    [combined panel](generation-review-routing.md#combined-panel) steps. End the
    turn; only a consumed Submit continues, with the accepted edits applied and
    validated. A canceled review is reported as failed with "Canceled in

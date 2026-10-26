@@ -7,7 +7,7 @@ Use it for:
 - interpretation;
 - appearance;
 - performance;
-- costume and scoped costume variants;
+- base wardrobe logic (the rules every costume follows);
 - voice casting notes;
 - continuity;
 - generation guidance.
@@ -26,7 +26,10 @@ renku cast design set-active --cast <cast-member-id> --design <cast-design-id> -
 
 Keep the document about casting. Do not store generated media paths or Scene Beats directions in Cast Design.
 
-Costume variants can be scoped to the whole project, one sequence, or one scene. They are authored design guidance, not standalone media targets yet.
+Costumes are not part of Cast Design. Each costume, with its Look and Scenes,
+lives in the wardrobe plan (`wardrobe-plan.md`); ages and big physique changes
+are Looks (`looks.md`). Cast Design keeps only `costume.baseWardrobeLogic`, the
+wardrobe rules that hold across every costume.
 
 For character-sheet readiness, use the current Cast Design fields to capture
 height and accessory continuity when the user supplies them. Do not invent new
@@ -39,8 +42,9 @@ JSON fields for this skill guidance:
   in `interpretation.audienceRead`, `interpretation.roleUnderstanding`, or
   `generationGuidance.characterSheetPositive`;
 - put character-owned accessory continuity in `costume.baseWardrobeLogic`,
-  `costume.variants[].wardrobe`, `continuity.mustRemainConsistent`, or
-  `generationGuidance.characterSheetPositive`;
+  `continuity.mustRemainConsistent`, or
+  `generationGuidance.characterSheetPositive`; accessories of one costume go in
+  that costume's `wardrobe` in the wardrobe plan;
 - use `generationGuidance.characterSheetNegative` to exclude invented
   accessories, scene props, location props, weapons, expression sheets, and
   story panels when needed;
@@ -80,15 +84,7 @@ writing:
       "sceneEnergy": ["Energy words useful to performers and generators."]
     },
     "costume": {
-      "baseWardrobeLogic": ["Core wardrobe logic."],
-      "variants": [
-        {
-          "label": "variant-name",
-          "scope": { "kind": "project" },
-          "wardrobe": ["Visible wardrobe items."],
-          "continuityNotes": ["What must remain stable."]
-        }
-      ]
+      "baseWardrobeLogic": ["Core wardrobe logic."]
     },
     "voiceCasting": {
       "voiceIdentity": "Optional voice direction.",
@@ -114,13 +110,3 @@ writing:
   "openQuestions": []
 }
 ```
-
-For scoped costume variants, use exactly one scope shape:
-
-- `{ "kind": "project" }`
-- `{ "kind": "sequence", "sequenceId": "sequence_..." }`
-- `{ "kind": "scene", "sceneId": "scene_..." }`
-
-When the user supplies a production scene number, resolve it first with
-`renku screenplay scene-number resolve --number <production-number> --json` and
-put only the returned durable `sceneId` in this scope.

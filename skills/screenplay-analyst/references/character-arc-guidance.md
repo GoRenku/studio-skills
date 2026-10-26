@@ -12,10 +12,12 @@ Write arcs for the protagonists and the key supporting roles: the characters
 whose inner state the story actually tracks. Do not write arcs for minor,
 ensemble or background Cast Members. A film usually has two to six arcs.
 
-**Age variants.** One person can appear as two Cast Members at different ages
-(for example Edward Bloom and Young Edward Bloom). Write ONE arc on the main
-Cast Member that covers the whole life. Give each age variant a reference:
-`{ "kind": "characterArcReference", "castMemberId": "<main cast id>" }`.
+**One person, one arc.** The same person is one Cast Member at every age,
+and their ages are Looks of that Cast Member. Write ONE arc that covers the
+whole life, including the younger scenes (for example Edward Bloom, young and
+old). If the project still has a separate Cast Member for a younger age, do
+not give it an arc; report the duplicate for a separate data correction.
+Do not delete or consolidate Cast Members during arc authoring.
 
 ## Choosing The Arc Type
 
@@ -79,22 +81,25 @@ The shape then shows the arc type:
   copied exactly from the screenplay.
 - **`sceneIds`.** One or more durable Scene ids, in screenplay order. Use a
   range of scenes only when the turn spans them.
-- **`lookAssetFileId`.** Optional. The character sheet that shows the
-  character at this moment (see below).
+- **`characterSheetAssetFileId`.** Optional. The character sheet that shows
+  the character at this moment (see below).
 
-## Looks On Cards
+## Character Sheets On Cards
 
-When the character (or an age variant sharing the arc) has character sheets,
-put the matching sheet's asset id in `lookAssetFileId` on the turning points
-it covers.
+When the character has character sheets, put the matching sheet's asset id in
+`characterSheetAssetFileId` on the turning points it covers.
 
-- List the sheets with
-  `renku asset list --owner castMember:<cast-member-id> --type character_sheet --json`.
-- Choose by each sheet's title and summary.
+- Each sheet belongs to one costume of one Look. Read the costumes and their
+  picked sheets with `renku cast wardrobe show --cast <cast-member-id> --json`,
+  and prefer the picked sheet of the costume worn in the turning point's
+  first Scene.
+- Otherwise list the sheets with
+  `renku asset list --owner castMember:<cast-member-id> --type character_sheet --json`
+  and choose by each sheet's title and summary.
 - Leave the field out when no sheet fits.
 
-Studio rejects any asset that is not an available character sheet of a Cast
-Member sharing the arc.
+Studio rejects any asset that is not an available character sheet of the same
+Cast Member.
 
 ## Evidence And Honesty
 

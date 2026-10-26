@@ -73,5 +73,5 @@ persist credentials or provider URLs, attach Assets, switch provider/model on
 failure, or create durable execution lifecycle, balance, or approval artifacts.
 
 Renku estimates cost for reviews from cached provider prices. Do not write
-prices into this Skill or the review document; a missing or expired price
+prices into this Skill or the review document; a missing price
 follows `model-researcher`'s price research.

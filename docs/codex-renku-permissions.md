@@ -1,5 +1,15 @@
 # Codex Permissions For Renku Skills
 
+> **Renku now sets this up for you.** When Renku creates your Project Library
+> and the Codex plugin is installed, it writes a Renku-owned
+> `.codex/config.toml` into the Project Library. Codex applies it only when it
+> works in that folder, so your personal `~/.codex/config.toml` and other
+> projects keep your own defaults. Existing installs run
+> `renku codex permissions set` once; `renku codex permissions status` checks
+> it. Trust the Project Library in Codex and open Codex there. The rest of this
+> guide covers building a personal profile by hand, for example to allow only
+> the providers you use.
+
 Codex permission profiles are the best way to give Renku skills the local
 access they need without granting broad access to the rest of your machine or
 network.
@@ -524,6 +534,12 @@ Then either:
   `[permissions.renku-studio.workspace_roots]`.
 
 ### Temp File Or Cache Permission Errors
+
+`ENGINE_METADATA_CACHE_UNWRITABLE` means Renku could not save provider data
+in its state folder, so the active profile is missing the
+`"~/.local/state/renku" = "write"` grant from Step 3. The error's suggestion
+names the exact folder. Add the grant and start a new Codex thread; do not
+approve Renku commands outside the sandbox to work around it.
 
 The recommended profile inherits temp-directory write access from `:workspace`.
 If you created a profile from scratch instead, make sure it includes:

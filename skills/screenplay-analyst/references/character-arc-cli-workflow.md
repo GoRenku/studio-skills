@@ -41,11 +41,13 @@ the latest analysis decides who has an arc.
 {
   "kind": "characterArcs",
   "arcs": [
-    { "castMemberId": "<main cast id>", "arc": { "kind": "characterArc", "...": "..." } },
-    { "castMemberId": "<age variant cast id>", "arc": { "kind": "characterArcReference", "castMemberId": "<main cast id>" } }
+    { "castMemberId": "<cast id>", "arc": { "kind": "characterArc", "...": "..." } }
   ]
 }
 ```
+
+Each person has one arc. Ages are Looks of one Cast Member, so a younger age
+never gets an arc of its own.
 
 See `samples/character-arcs.json` for a full example. Its ids are
 placeholders; use real ids from the context.
@@ -63,7 +65,8 @@ Validation reports every issue at once, with its location. Common fixes:
 - a `flat` arc without `truthHeld`, or a change arc without `need` and
   `falseBelief`;
 - an unknown Scene id;
-- a reference to a Cast Member whose own arc is not in the same document.
+- a `characterSheetAssetFileId` that is not an available character sheet of
+  that Cast Member.
 
 ## 5. Report
 
@@ -71,13 +74,13 @@ From the write report, tell the user which Cast Members got arcs (`written`)
 and which lost one (`cleared`), with each arc type in plain words (Grows,
 Holds firm, and so on).
 
-## Adding Looks Later
+## Adding Character Sheets Later
 
-When character sheets are attached after the arcs were written:
+When character sheets are picked for costumes after the arcs were written:
 
 1. Read the current arcs (`renku cast arc list --json`, then
    `renku cast arc show --cast <id> --json` for each).
-2. Add the matching `lookAssetFileId`s.
+2. Add the matching `characterSheetAssetFileId`s.
 3. Write the complete set again.
 
 ## Useful Reads

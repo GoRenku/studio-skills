@@ -104,6 +104,8 @@ artifact metadata.
 
 Renku CLI mutations notify the running Studio app through local HTTP at the Studio server URL, normally `http://localhost:5173`. In Codex, localhost HTTP is still network access. When Studio is running and a workflow will mutate project state, import media, apply Scene Beats revision operations, set active rows, or run generation/import commands that should refresh Studio, request sandbox/network permission before the first mutating command.
 
+Renku keeps Codex permissions in the Project Library's `.codex/config.toml`, which Codex applies only when it is opened in that trusted folder. If Renku commands need approval or fail with `ENGINE_METADATA_CACHE_UNWRITABLE`, run `renku codex permissions status --json` and relay its advice; only the user runs `renku codex permissions set` or `remove`.
+
 If a command reports `CLI026`, the mutation already succeeded but Studio was not notified. Do not blindly rerun non-idempotent mutations such as Scene Beats apply/create/reset or media import. Instead, report the warning, refresh/read back state, and use a separate Studio notification/recovery step if one is available with local network permission.
 
 ## Reference Files
@@ -142,7 +144,11 @@ existing confirmed direction and saved revisions.
 - Use `screenplay-analyst` for critique, three-act analysis, structure notes,
   and revision guidance. The Studio destination is **Analysis > Screenplay
   Analysis**.
-- Use `casting-director` for Cast Member facts, Cast Design, costume continuity, voice casting notes, and cast media readiness.
+- Use `casting-director` for Cast Member facts, Cast Design, Looks, casting rounds, wardrobe plans, character sheets per costume, voice casting notes, and cast media readiness.
+  For cast creation from a screenplay, pass character cues grouped by story
+  person and existing Cast Member ids. Different ages are Looks of one Cast
+  Member; do not dispatch one new Cast Member per cue. Ask about unresolved
+  identity before creating the affected cast.
 - Use `production-designer` for Location and Prop facts, Location Design, Prop
   Design, set dressing, atmosphere, and production-design media readiness.
 - Use `inspiration-analyzer` for Visual Language Inspiration folder analysis.
@@ -170,7 +176,6 @@ existing confirmed direction and saved revisions.
 
 Not first-class today:
 
-- Costume-variant media. Keep its design notes in Cast Design.
 - Set-dressing media, sound, music, editorial, and final assembly skills.
 
 ## Non-Negotiables
