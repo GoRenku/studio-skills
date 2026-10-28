@@ -1,7 +1,7 @@
 # Bundled media models by provider
 
 This is the model selection supplied by the Studio Skills source checkout on
-2026-10-22. A filled cell means the bundled catalog includes an entry for those
+2026-10-28. A filled cell means the bundled catalog includes an entry for those
 operations on that provider. It does **not** mean a generation was run or that
 your account has access. Runtime validation, provider access, and your saved
 API key still determine whether a particular request can run.
@@ -20,7 +20,11 @@ input. A single provider endpoint may handle both.
 | Model | Fal.ai | Pika | WaveSpeed | Replicate |
 | --- | --- | --- | --- | --- |
 | GPT Image 2 | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit |
-| Nano Banana 2 | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit |
+| GPT Image 2.5 Flare | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit |
+| GPT Image 2.5 Sunburst | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit |
+| Nano Banana 2.0 | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit |
+| Nano Banana 2.1 | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit |
+| Muse Image | Generate, Edit | Generate, Edit | Generate, Edit | — |
 | Nano Banana Pro | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit |
 | Grok Imagine Image | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit |
 | Seedream 5.0 Pro | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit |
@@ -29,6 +33,20 @@ input. A single provider endpoint may handle both.
 | Z-Image Turbo | Generate, Edit | — | Generate, Edit | Generate¹ |
 
 ¹ Replicate's Z-Image Turbo route is the PrunaAI deployment of the model.
+
+Nano Banana 2.0 is the explicit display label for the providers' Nano Banana 2
+(Gemini 3.1 Flash Image); the API IDs retain their published spelling. Nano
+Banana Pro remains a separate model. GPT Image 2.5 Flare and Sunburst are
+separate external-provider choices; Codex's built-in GPT Image 2.5 does not
+expose a variant selector. Replicate uses one endpoint per model for both
+generation and edits. No published Muse Image route was found on Replicate
+during the 2026-10-28 research.
+
+Prompting guidance: [Nano Banana 2.0 and Pro](../skills/media-producer/references/model-guides/image/nano-banana.md),
+[Nano Banana 2.1](../skills/media-producer/references/model-guides/image/nano-banana-2.1.md),
+[GPT Image 2.5 Flare](../skills/media-producer/references/model-guides/image/gpt-image-2.5.md),
+[GPT Image 2.5 Sunburst](../skills/media-producer/references/model-guides/image/gpt-image-2.5-sunburst.md),
+and [Muse Image](../skills/media-producer/references/model-guides/image/muse-image.md).
 
 ## Video
 

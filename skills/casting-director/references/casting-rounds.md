@@ -119,7 +119,7 @@ Casting round for Sintel · Young (round 1)
 Brief: about 16, slender, 165 cm; warm brown hair; plain close-fitting leather.
 Detail: Lowest
 - Seedream 5.0 Pro on Fal.ai × 4 — Dense layouts; keeps the two-panel split clean.
-- Nano Banana on Fal.ai × 3 — Keeps one face across references; strong for later Looks.
+- Nano Banana 2.0 on Fal.ai × 3 — Keeps one face across references; strong for later Looks.
 - GPT Image 2 on Fal.ai × 3 — Follows a detailed brief closely; clean, dependable layout.
 10 candidates, 4 at a time · estimated $0.67
 Reply "go", or change models, counts or detail.
@@ -136,8 +136,8 @@ the ones the user did not change:
 
 ```json
 {
-  "candidateRoutes": [{ "provider": "fal-ai", "model": { "key": "nano-banana", "name": "Nano Banana" }, "count": 3 }],
-  "characterSheetRoutes": [{ "provider": "fal-ai", "model": { "key": "nano-banana", "name": "Nano Banana" }, "count": 2 }],
+  "candidateRoutes": [{ "provider": "fal-ai", "model": { "key": "nano-banana", "name": "Nano Banana 2.0" }, "count": 3 }],
+  "characterSheetRoutes": [{ "provider": "fal-ai", "model": { "key": "nano-banana", "name": "Nano Banana 2.0" }, "count": 2 }],
   "candidateDetail": "lowest",
   "characterSheetDetail": "highest"
 }
@@ -156,7 +156,7 @@ Write `castingRoundCreate` from the confirmed plan (see
 {
   "kind": "castingRoundCreate",
   "subject": { "kind": "castLook", "id": "look_..." },
-  "routes": [{ "provider": "fal-ai", "model": { "key": "nano-banana", "name": "Nano Banana" }, "count": 3 }],
+  "routes": [{ "provider": "fal-ai", "model": { "key": "nano-banana", "name": "Nano Banana 2.0" }, "count": 3 }],
   "maxConcurrentGenerations": 4,
   "referenceAssetFileIds": [],
   "estimatedCost": { "amount": 0.21, "currency": "USD" }

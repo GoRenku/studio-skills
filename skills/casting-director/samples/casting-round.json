@@ -3,7 +3,7 @@
   "subject": { "kind": "castLook", "id": "look_2k9dw7mq" },
   "routes": [
     { "provider": "fal-ai", "model": { "key": "seedream-5.0-pro", "name": "Seedream 5.0 Pro" }, "count": 4 },
-    { "provider": "fal-ai", "model": { "key": "nano-banana", "name": "Nano Banana" }, "count": 3 },
+    { "provider": "fal-ai", "model": { "key": "nano-banana", "name": "Nano Banana 2.0" }, "count": 3 },
     { "provider": "fal-ai", "model": { "key": "gpt-image-2", "name": "GPT Image 2" }, "count": 3 }
   ],
   "maxConcurrentGenerations": 4,
