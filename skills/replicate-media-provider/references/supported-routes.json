@@ -13,6 +13,7 @@
     { "apiId": "google/nano-banana-2", "name": "Nano Banana 2" },
     { "apiId": "google/nano-banana-pro", "name": "Nano Banana Pro" },
     { "apiId": "xai/grok-imagine-image", "name": "Grok Imagine Image" },
+    { "apiId": "kwaivgi/kling-v4.0", "name": "Kling 4.0" },
     { "apiId": "bytedance/seedance-2.5", "name": "Seedance 2.5" },
     { "apiId": "bytedance/seedance-2.0", "name": "Seedance 2.0" },
     { "apiId": "bytedance/seedance-2.0-mini", "name": "Seedance 2.0 Mini" },

@@ -17,10 +17,11 @@ use a currently supported endpoint or a separate lipsync, talking-head, or
 composition workflow. Do not create a durable Cast Voice registration for a
 transient video-provider voice id.
 
-Direct Kling endpoints that exposed no file-backed audio field did not accept a
-Dialogue Audio reference, `<AUDIO_N>`, or invented nested media value. Exact audio
-or dialogue support required a currently supported endpoint or a separate
-lipsync, talking-head, or composition workflow.
+For [Kling 4.0](../video/kling-4.0.md), distinguish generated speech, provider
+voice identities, and file-backed voice references. A voice reference guides
+speaker identity; it does not supply an exact Dialogue Audio soundtrack. Use
+only inputs exposed by the selected provider's current schema, and never invent
+an audio token or media field for a route without one.
 
 ## Seedance
 

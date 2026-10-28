@@ -1,8 +1,8 @@
 # Kling Video Provider Research
 
-Kling is not active in the current Studio video catalog. Keep this note as
-provider research, not as a route recommendation or a claim that Kling is
-available through Renku.
+For current bundled Kling 4.0 routes and researched prompting advice, read
+[Kling 4.0](../video/kling-4.0.md). The notes below concern earlier Kling
+versions; they do not establish Kling 4.0 fields or hosted API availability.
 
 ## Separate Kling product features from hosted API routes
 
