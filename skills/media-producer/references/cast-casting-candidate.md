@@ -29,7 +29,8 @@ sheet:
 2. a face close-up and a full-length figure side by side, the same person in
    both;
 3. the full figure from head to feet, uncropped, standing neutrally;
-4. a plain neutral backdrop and even light, so the face and build read;
+4. a flat, seamless neutral mid-gray backdrop (18% gray, about #777777) and
+   even, shadowless light, so the face and build read;
 5. plain, close-fitting clothes so the build reads;
 6. the standing height visible when it is known, as a simple height scale
    beside the full figure.

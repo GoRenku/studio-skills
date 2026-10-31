@@ -10,6 +10,11 @@ fixed panel count, labels, angles, diagrams, readable text, or semantic image
 validation. Inspect the returned image as one opaque artifact and revise only
 through the user/agent review loop.
 
+Set the studies on a flat, seamless neutral mid-gray backdrop (18% gray, about
+#777777) with even, shadowless light, so the reference carries no lighting or
+color cast into later shots. The Lookbook sets the medium and finish of the
+Prop, never the backdrop.
+
 Keep the same physical Prop identity across included studies. Exclude unrelated
 characters, locations, alternate objects, UI, watermarks, and decorative copy
 unless the authored direction explicitly asks for them.

@@ -4,6 +4,9 @@ Read this for every video-generation or video-edit workflow after selecting the
 exact provider route and inspecting its live schema. This policy is based on
 capability, never on a model-family name.
 
+When a Character Sheet or casting candidate goes in as an image reference, read
+`reference-face-masks.md` and send its face-masked copy.
+
 ## Determine whether exact Dialogue Audio can be supplied
 
 Inspect the live schema for uploaded audio reference media and its current

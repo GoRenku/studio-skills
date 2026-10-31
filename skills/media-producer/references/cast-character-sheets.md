@@ -49,6 +49,13 @@ Every default Character Sheet contains:
 5. one clearly labeled height ruler with numeric marks whose proportions agree
    with the written height.
 
+Use a flat, seamless neutral mid-gray backdrop (18% gray, about #777777) with
+even, shadowless light: no floor or cast shadows, gradient, vignette, or
+colored light. Video models copy the light around a reference along with the
+person; white implies bright surroundings and swallows light clothing, black
+swallows dark hair, and a tint bleeds onto skin. The Lookbook sets the medium
+and finish of the figure, never the backdrop.
+
 Keep the same person, body proportions, wardrobe layers, and accessory
 placement in all four views. Do not invent height or accessories. When height
 is missing, ask before preparing a reusable final sheet. The user may
