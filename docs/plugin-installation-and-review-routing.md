@@ -24,6 +24,8 @@ Editing, Video Generation, Audio Generation) sets whether the agent confirms the
 provider and model and whether it asks before generating. See the canonical
 [generation review routing guide](../skills/media-producer/references/generation-review-routing.md)
 and [route choice guide](../skills/media-producer/references/route-choice.md).
-Media Producer publishes its
-[Default Model List](../skills/media-producer/references/default-models.json) to
-Studio with `renku generation default-models sync`.
+Media Producer tells Studio where its
+[Default Model List](../skills/media-producer/references/default-models.json)
+is with `renku generation default-models link`; Renku reads the file in place.
+In Claude Code, the model question built from `renku generation route options`
+takes the Route Chooser's place.

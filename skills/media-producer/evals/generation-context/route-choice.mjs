@@ -17,6 +17,9 @@ export function assessRouteChoice({ host, panelStatus, chooseRouteBeforeGenerati
     else if (authoring >= 0 && authoring < question) issues.push('authored-before-route-choice');
     if (count(chooser ? 'route-question' : 'route-chooser-opened')) issues.push('wrong-route-choice-surface');
     if (asked > 1) issues.push('repeated-route-question');
+    if (!chooser && question >= 0 && !(at('route-options-read') >= 0 && at('route-options-read') < question)) {
+      issues.push('route-question-without-options');
+    }
     if (chooser && question >= 0) {
       const consumed = events.filter((event) => event.type === 'route-consumed');
       if (at('turn-yielded') < question || (consumed.length && at('turn-yielded') > at('route-consumed'))) {
@@ -27,6 +30,8 @@ export function assessRouteChoice({ host, panelStatus, chooseRouteBeforeGenerati
     }
     if (defaultMissing && !count('missing-default-explained')) issues.push('missing-default-not-explained');
   }
-  if (count('lane-settings-changed') && !settingsChangeRequested) issues.push('unrequested-settings-change');
+  // Saving from the model question ("Save as Project default" or "Save and don't ask again") is a request.
+  const savedFromQuestion = events.some((event) => event.type === 'route-question' && event.save && event.save !== 'once');
+  if (count('lane-settings-changed') && !settingsChangeRequested && !savedFromQuestion) issues.push('unrequested-settings-change');
   return issues;
 }

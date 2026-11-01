@@ -56,6 +56,7 @@ advertises panel support, call `generation.route.choose`:
   project: string;
   purpose: string;      // the Studio purpose, such as image.edit
   lane: 'image' | 'imageEdit' | 'video' | 'audio';  // workflowPolicy.lane
+  defaultModelList: string; // absolute path of this Skill's references/default-models.json
   suggested?: { provider: string; model: string };  // a Default Model List key; omit to preselect the lane default
 }
 ```
@@ -77,23 +78,66 @@ Call `generation.route.consume` once with `{ choiceId }`:
 - `canceled` means stop and reply briefly.
 - `alreadyConsumed` authorizes nothing.
 
-`CODEX_ROUTE_CHOICE_NOT_SYNCED` means the Default Model List was not synced in
-this task: run `renku generation default-models sync` as the Media Producer
-Skill describes, then open the chooser again.
+`DEFAULT_MODELS003` means `defaultModelList` does not name a readable file:
+pass the absolute path of this Skill's `references/default-models.json`.
 
 The chooser's "Save as Project default" and "Don't ask which provider and
 model again" checkboxes are applied by the server only with Continue. Do not
 repeat them with `renku settings generation set`; mention a saved change in one
 sentence when `laneSettingsChanged` is true.
 
-## Ask in other harnesses: one short question
+## Ask in Claude Code: the model question
 
-In Codex CLI, Claude and other hosts, ask one short question naming the lane
-default (or the recommendation) and two or three alternatives from the lane's
-list for keyed providers; offer Codex only when the current harness exposes
-built-in image generation. Use the harness's structured question tool when it
-has one; otherwise ask in plain text. Wait for the answer, then map the family
-to the route as above.
+Claude Code has no Renku panels. Its question box takes the Route Chooser's
+place, for this generation's lane only. Read the choices first:
+
+```bash
+renku generation route options --project <name> --purpose <purpose> \
+  --lane <image|image-edit|video|audio> \
+  --file <this-skill-dir>/references/default-models.json --json
+```
+
+Add `--provider <id> --model <key>` only when the user's words point at a
+route, as with `suggested`. The output is the Route Chooser's data: `lane`,
+`laneLabel`, `providers` (each with `label`, `available` and `models` of
+`{ key, name, recommended }`), `preselected` and
+`chooseRouteBeforeGenerating`. `available: false` means the provider's key
+is not saved; offer none of its models. Codex (built-in) runs only inside
+Codex: leave its models out in Claude Code, and treat a Codex `preselected`
+as a missing default ("Your Image default is Codex's built-in model, which
+only runs in Codex."), recommending the first offered model instead.
+
+Ask with one `AskUserQuestion` call holding two questions:
+
+1. **Model** (header `Model`), for example "Which model for this image
+   edit?". Up to four options, each labeled `<model name> · <provider
+   label>`: first `preselected`, with "(Recommended)" after the label and a
+   description saying it is the lane default (or the recommendation when the
+   lane has none); then other models on available providers, each
+   provider's `recommended` model first, in list order. Put the provider
+   label in the label, not only the description. The built-in "Other" lets
+   the user type any model: match it by name against the output, and ask
+   again if no available provider offers it.
+2. **Default** (header `Default`), "Keep this choice?", with three options:
+   "Just this once", "Save as Project default", "Save and don't ask again".
+
+When `preselected` is `null` or the default is missing, say why in one
+sentence before asking, as above. Then:
+
+- **Just this once:** change no settings.
+- **Save as Project default:** `renku settings generation set --lane <lane>
+  --provider <id> --model <key> --model-name <name>`.
+- **Save and don't ask again:** the same command with `--choose-route off`.
+
+Mention a saved change in one sentence, then map the family to the route as
+above.
+
+## Ask in other harnesses
+
+Codex CLI and other hosts without panels or a question box ask the same
+model question in plain text, built from the same `renku generation route
+options` output, and wait for the answer. Offer Codex only when the current
+harness exposes built-in image generation.
 
 ## Turning the question back on, or saving a default
 

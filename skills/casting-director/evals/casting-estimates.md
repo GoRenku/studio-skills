@@ -9,8 +9,9 @@ price. The casting settings have `candidateDetail: "lowest"` and
 
 Expected:
 
-- Open `casting.round.open` with only the brief, strength notes and identity
-  references (and `suggested` only when the user named models or counts).
+- Open `casting.round.open` with only the brief, `defaultModelList` and
+  identity references (and `suggested` only when the user named models or
+  counts).
 - Prepare no native requests before opening the round; the panel prices every
   offered model/provider itself from its Default Model List route.
 - The panel's detail switch is preset to Lowest from `candidateDetail`. Every

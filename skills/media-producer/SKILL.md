@@ -125,15 +125,18 @@ prerequisite check when the Lookbook definition itself is unauthored.
 ## Choose the provider and model
 
 At the start of generation work, beside `renku credentials status --json`,
-publish this Skill's Default Model List so Studio Settings and the Route
-Chooser can list models:
+tell Renku where this Skill's Default Model List is, so Studio Settings lists
+its models:
 
 ```bash
-renku generation default-models sync --file <this-skill-dir>/references/default-models.json
+renku generation default-models link --file <this-skill-dir>/references/default-models.json
 ```
 
-It needs no Project or running Studio and does nothing when the list is
-unchanged. Run it once per task.
+Renku keeps no copy; it reads the file in place every time. It needs no
+Project or running Studio and does nothing when the link is unchanged. Run it
+once per task. Every panel and command that lists models also takes the
+file's absolute path: `defaultModelList` for `generation.route.choose` and
+`casting.round.open`, and `--file` for `renku generation route options`.
 
 **Generation lanes.** `workflowPolicy.lane` names the Project lane for the
 purpose: `image` (Image Generation), `imageEdit` (Image Editing, for
@@ -155,9 +158,10 @@ for a reference-to-video Shot uses that provider's Seedance 2.5
 reference-to-video route.
 
 Before authoring, follow [route choice](references/route-choice.md). It decides
-when the Route Chooser, or one short question in other harnesses, confirms the
-provider and model, and what to do when the saved default is missing. Change
-Project generation settings only at the user's direct request, with
+when the Route Chooser, or the model question in Claude Code and other hosts,
+confirms the provider and model, and what to do when the saved default is
+missing. Change Project generation settings only at the user's direct
+request (the model question's save choices count as one), with
 `renku settings generation set --lane <image|image-edit|video|audio>` and only
 the flags they asked for; never change them to avoid a question or a review.
 

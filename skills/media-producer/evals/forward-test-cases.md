@@ -794,13 +794,20 @@ once more with the route named in chat ("use Seedance 2.5 on Pika").
 
 Expected behavior:
 
-- `renku generation default-models sync --file <skill-dir>/references/default-models.json`
+- `renku generation default-models link --file <skill-dir>/references/default-models.json`
   runs once per task beside `renku credentials status`;
 - with Choose on, Codex Desktop calls `generation.route.choose` with the
-  purpose and `workflowPolicy.lane` after the target is resolved and before any
-  authoring, desk or preparation, ends the turn, and consumes the answer once
-  with `generation.route.consume`; other hosts ask one short question, using
-  the structured question tool when the harness has one;
+  purpose, `workflowPolicy.lane` and `defaultModelList` after the target is
+  resolved and before any authoring, desk or preparation, ends the turn, and
+  consumes the answer once with `generation.route.consume`;
+- with Choose on, Claude Code reads `renku generation route options` for that
+  lane, then asks one `AskUserQuestion` with a Model question (the preselected
+  route first, marked Recommended, then models on providers with saved keys,
+  no Codex built-in) and a Default question ("Just this once", "Save as
+  Project default", "Save and don't ask again"); Codex CLI asks the same in
+  plain text;
+- a Claude Code save answer runs `renku settings generation set` for that lane
+  once, with `--choose-route off` only for "Save and don't ask again";
 - with Choose off, or with the route named in chat, no chooser and no question;
 - a `chosen` answer maps the model family and the purpose to the exact
   operation route through its model guide and `supported-routes.json`;
@@ -819,13 +826,13 @@ Repeat with a saved model key that is not in the current Default Model List.
 
 Expected behavior:
 
-- the agent opens the Route Chooser in Codex Desktop, or asks one short
+- the agent opens the Route Chooser in Codex Desktop, or asks the model
   question elsewhere, even though Choose is off;
 - it says why in one sentence, for example that the Image Editing default
   needs a Fal.ai key, which isn't saved;
 - it never silently switches to another provider or model; and
-- before the first sync, `generation.route.choose` fails with
-  `CODEX_ROUTE_CHOICE_NOT_SYNCED`, and the agent syncs and opens it again.
+- a wrong `defaultModelList` path fails with `DEFAULT_MODELS003`, and the agent
+  opens the chooser again with this Skill's `references/default-models.json`.
 
 ## image-edit-codex-built-in — GPT Image 2.5 through Codex in the image edit panel
 

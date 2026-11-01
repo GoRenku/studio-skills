@@ -30,15 +30,26 @@ test('a missing default opens the chooser even when Choose is off, and says why'
 });
 
 for (const host of ['codex-cli', 'claude-code', 'unidentified']) {
-  test(`${host} asks one short question instead of opening the chooser`, () => {
+  test(`${host} asks one model question from the route options instead of opening the chooser`, () => {
     const routing = { host, panelStatus: 'unavailable', chooseRouteBeforeGenerating: true };
     assert.deepEqual(assessRouteChoice({ ...routing,
-      events: [{ type: 'context-read' }, { type: 'route-question' }, { type: 'authoring-started' }] }), []);
+      events: [{ type: 'context-read' }, { type: 'route-options-read' }, { type: 'route-question' }, { type: 'authoring-started' }] }), []);
     assert.deepEqual(assessRouteChoice({ ...routing,
-      events: [{ type: 'route-question' }, { type: 'route-question' }, { type: 'authoring-started' }] }),
+      events: [{ type: 'route-options-read' }, { type: 'route-question' }, { type: 'route-question' }, { type: 'authoring-started' }] }),
     ['repeated-route-question']);
+    assert.deepEqual(assessRouteChoice({ ...routing,
+      events: [{ type: 'context-read' }, { type: 'route-question' }, { type: 'authoring-started' }] }),
+    ['route-question-without-options']);
   });
 }
+
+test('a save answer to the model question is a requested settings change', () => {
+  const routing = { host: 'claude-code', panelStatus: 'unavailable', chooseRouteBeforeGenerating: true };
+  const events = (save) => [{ type: 'route-options-read' }, { type: 'route-question', save }, { type: 'lane-settings-changed' }, { type: 'authoring-started' }];
+  assert.deepEqual(assessRouteChoice({ ...routing, events: events('default') }), []);
+  assert.deepEqual(assessRouteChoice({ ...routing, events: events('stopAsking') }), []);
+  assert.deepEqual(assessRouteChoice({ ...routing, events: events('once') }), ['unrequested-settings-change']);
+});
 
 test('a canceled choice stops, and lane settings change only on request', () => {
   const canceled = chosen.map((event) => event.type === 'route-consumed' ? { ...event, status: 'canceled' } : event);

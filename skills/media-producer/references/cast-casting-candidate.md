@@ -120,23 +120,3 @@ read, the height scale agrees with the known height, and a later Look still
 reads as the same person as its reference. Import the candidate anyway and
 report concerns; the director hides weak candidates. Report candidates that
 failed to generate, so the board's pending count makes sense.
-
-## Casting Strength Table
-
-The round panel shows one strength line per model, passed by
-`casting-director` in `casting.round.open`'s `notes` keyed by model key.
-These lines are Renku casting advice from the model guides, not maker claims.
-Use them in the chat round in Claude Code too.
-
-| Model key | Name | Strength line |
-|---|---|---|
-| `chatgpt-images-2.5` | GPT Image 2.5 (Codex) | Holds a reference face well; runs on your ChatGPT plan. |
-| `gpt-image-2` | GPT Image 2 | Follows a detailed brief closely; clean, dependable layout. |
-| `nano-banana` | Nano Banana | Keeps one face across references; strong for later Looks. |
-| `flux-3-image` | FLUX 3 | Precise placement; describe what to show, no negatives. |
-| `seedream-5.0-pro` | Seedream 5.0 Pro | Dense layouts; keeps the two-panel split clean. |
-| `grok-imagine-image` | Grok Imagine Image | Quick variety from a short brief. |
-| `flux-kontext-pro` | FLUX Kontext Pro | Carries a reference face into a new Look. |
-| `z-image-turbo` | Z-Image Turbo | Fast; suits a wide first round with a long, detailed brief. |
-
-Keep this table in step with the image lane of `default-models.json`.

@@ -34,8 +34,6 @@ differences are marked **Sheets** below and in `cast-media-handoff.md`.
    `candidateDetail` (default `lowest`) is a casting round's image detail
    level and `characterSheetDetail` (default `highest`) a sheet round's, each
    `lowest`, `mid` or `highest`.
-5. Take each model's one-line strength note from the casting strength table
-   in `media-producer`'s `references/cast-casting-candidate.md`.
 
 ## 2. Confirm The Round With The Director
 
@@ -54,11 +52,16 @@ generation review.
     | { kind: 'look'; lookId: string }            // casting candidates
     | { kind: 'costumes'; costumeIds: string[] }; // sheets, costumes of one cast Look
   brief: string[];                       // display lines; not stored
-  notes?: { [modelKey: string]: string }; // strength line per Default Model List key
+  defaultModelList: string;              // absolute path of media-producer's references/default-models.json
   references?: string[];                 // asset file ids; costumes default to the Look's cast candidate
   suggested?: Array<{ provider: string; model: { key: string; name: string }; count: number }>; // counts per round
 }
 ```
+
+`defaultModelList` is the absolute path of `media-producer`'s list, in the
+Skill folder beside this one:
+`<this-skill-dir>/../media-producer/references/default-models.json`. The panel
+reads it as it opens, so it always shows the Skill's current models.
 
 Pass `suggested` only when the user named models or counts; otherwise the
 panel preselects the saved defaults for the subject. Do not prepare native
@@ -118,9 +121,9 @@ ChatGPT plan instead of a price.
 Casting round for Sintel · Young (round 1)
 Brief: about 16, slender, 165 cm; warm brown hair; plain close-fitting leather.
 Detail: Lowest
-- Seedream 5.0 Pro on Fal.ai × 4 — Dense layouts; keeps the two-panel split clean.
-- Nano Banana 2.0 on Fal.ai × 3 — Keeps one face across references; strong for later Looks.
-- GPT Image 2 on Fal.ai × 3 — Follows a detailed brief closely; clean, dependable layout.
+- Seedream 5.0 Pro on Fal.ai × 4
+- Nano Banana 2.0 on Fal.ai × 3
+- GPT Image 2 on Fal.ai × 3
 10 candidates, 4 at a time · estimated $0.67
 Reply "go", or change models, counts or detail.
 ```
