@@ -2,8 +2,8 @@
 
 Renku estimates the cost of each reviewed request from saved prices only: a
 researched price recorded with `renku generation price record`, else the
-provider's API price. Fal.ai, Pika and WaveSpeed publish prices through their
-APIs. Replicate, ElevenLabs and World Labs do not, so their prices come from an
+provider's API price. Fal.ai, Pika, WaveSpeed and Comfy Router publish prices
+through their APIs. Replicate, ElevenLabs and World Labs do not, so their prices come from an
 entry you research once and record. This guide is that research. Never write a
 price into a Skill, model guide or review document.
 

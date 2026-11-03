@@ -74,7 +74,8 @@ for the whole image and may add a style reference.
   "routes": [
     { "provider": "fal-ai", "model": "bytedance/seedream/v5/pro/edit", "regionModes": null, "styleReference": true, "controlPointers": [] },
     { "provider": "wavespeed-ai", "model": "bytedance/seedream-v5.0-pro/edit", "regionModes": null, "styleReference": true, "controlPointers": [] },
-    { "provider": "pika", "model": "bytedance/seedream-5.0-pro/image-to-image", "regionModes": null, "styleReference": true, "controlPointers": [] }
+    { "provider": "pika", "model": "bytedance/seedream-5.0-pro/image-to-image", "regionModes": null, "styleReference": true, "controlPointers": [] },
+    { "provider": "comfy-router", "model": "byteplus/seedream-5-0-pro-260628", "regionModes": null, "styleReference": true, "controlPointers": [] }
   ]
 }
 ```
@@ -90,7 +91,7 @@ exact change and the source traits that must survive, and give the style
 reference a style-only role by its image number. Put the edit base first, then
 the style reference, then any resolved references, as `$file` markers in the
 route's ordered image field: `image_urls` on Fal.ai and Pika, `images` on
-WaveSpeed. Leave the size and aspect fields at their defaults (omit them where
+WaveSpeed, and the `image` list on Comfy Router. Leave the size and aspect fields at their defaults (omit them where
 the schema has no default) so the output keeps the source composition, and
 confirm the fields in the live schema.
 

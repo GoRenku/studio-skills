@@ -168,8 +168,9 @@ the flags they asked for; never change them to avoid a question or a review.
 Use the briefing's current `workflowPolicy` and the user's explicit direction.
 Do not fetch Settings again for policy already present in that briefing. The
 lane provider is the initial preference, including when it is
-Replicate or WaveSpeed with a saved key. The Project media menus offer keyed
-Fal.ai, Pika, Replicate, and WaveSpeed; ElevenLabs is Audio-only, and World Labs
+Replicate, WaveSpeed, or Comfy Router with a saved key. The Project media menus
+offer keyed Fal.ai, Pika, Comfy Router, Replicate, and WaveSpeed; ElevenLabs is
+Audio-only, and World Labs
 is reserved for Location World generation outside these menus. A Project default
 does not certify support for the requested media, model, or operation. Check
 only the selected request against current provider guidance. If the preferred
@@ -179,6 +180,7 @@ provider or model to use; do not silently switch. Use
 
 - For `fal-ai`, use `fal-ai-media-provider`.
 - For `pika`, use `pika-media-provider`.
+- For `comfy-router`, use `comfy-router-media-provider`.
 - For `replicate`, use `replicate-media-provider`.
 - For `wavespeed-ai`, use `wavespeed-media-provider`.
 - For `elevenlabs`, use `elevenlabs-media-provider`.
@@ -346,7 +348,7 @@ reviewer.
 
 **Estimates.** Reviews show a cost estimate computed by Renku from saved
 prices only: a researched price recorded with `renku generation price record`,
-else the provider's API price (Fal.ai, Pika, WaveSpeed). The `generation.review`
+else the provider's API price (Fal.ai, Pika, WaveSpeed, Comfy Router). The `generation.review`
 result, `generation prepare` and `generation preview show` already carry each
 request's estimate; no separate estimate step is needed (`renku generation
 estimate --file <request> --json` remains available for one request). When an

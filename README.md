@@ -21,7 +21,7 @@ maintained workflow entrypoints, rather than a second set of tutorials here.
 | Scene and shot planning | [Scene Beat Designer](skills/scene-beat-designer/SKILL.md), [Shot Planner](skills/shot-planner/SKILL.md), [Blender Shot Planner](skills/blender-shot-planner/SKILL.md) |
 | Media workflow | [Media Producer](skills/media-producer/SKILL.md) |
 | Model research and curation | [Model Researcher](skills/model-researcher/SKILL.md) |
-| Provider execution | [Fal.ai](skills/fal-ai-media-provider/SKILL.md), [ElevenLabs](skills/elevenlabs-media-provider/SKILL.md), [Pika](skills/pika-media-provider/SKILL.md), [Replicate](skills/replicate-media-provider/SKILL.md), [WaveSpeed](skills/wavespeed-media-provider/SKILL.md) |
+| Provider execution | [Fal.ai](skills/fal-ai-media-provider/SKILL.md), [ElevenLabs](skills/elevenlabs-media-provider/SKILL.md), [Pika](skills/pika-media-provider/SKILL.md), [Comfy Router](skills/comfy-router-media-provider/SKILL.md), [Replicate](skills/replicate-media-provider/SKILL.md), [WaveSpeed](skills/wavespeed-media-provider/SKILL.md) |
 
 ## What it looks like
 

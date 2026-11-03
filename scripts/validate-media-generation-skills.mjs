@@ -6,6 +6,7 @@ const root = process.cwd();
 const providers = [
   ['fal-ai-media-provider', 'fal-ai'],
   ['pika-media-provider', 'pika'],
+  ['comfy-router-media-provider', 'comfy-router'],
   ['replicate-media-provider', 'replicate'],
   ['wavespeed-media-provider', 'wavespeed-ai'],
   ['elevenlabs-media-provider', 'elevenlabs'],

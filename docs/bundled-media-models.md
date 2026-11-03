@@ -17,20 +17,20 @@ your personal library without changing the shared catalog. See the
 **Generate** makes an image from text. **Edit** uses an existing image as an
 input. A single provider endpoint may handle both.
 
-| Model | Fal.ai | Pika | WaveSpeed | Replicate |
-| --- | --- | --- | --- | --- |
-| GPT Image 2 | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit |
-| GPT Image 2.5 Flare | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit |
-| GPT Image 2.5 Sunburst | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit |
-| Nano Banana 2.0 | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit |
-| Nano Banana 2.1 | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit |
-| Muse Image | Generate, Edit | Generate, Edit | Generate, Edit | — |
-| Nano Banana Pro | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit |
-| Grok Imagine Image | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit |
-| Seedream 5.0 Pro | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit |
-| FLUX Kontext Pro | Generate, Edit | — | Generate, Edit | Generate, Edit |
-| FLUX 3 Image | Generate, Edit | — | — | — |
-| Z-Image Turbo | Generate, Edit | — | Generate, Edit | Generate¹ |
+| Model | Fal.ai | Pika | WaveSpeed | Replicate | Comfy Router |
+| --- | --- | --- | --- | --- | --- |
+| GPT Image 2 | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit |
+| GPT Image 2.5 Flare | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit |
+| GPT Image 2.5 Sunburst | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit |
+| Nano Banana 2.0 | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit |
+| Nano Banana 2.1 | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit |
+| Muse Image | Generate, Edit | Generate, Edit | Generate, Edit | — | — |
+| Nano Banana Pro | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit |
+| Grok Imagine Image | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit | Generate |
+| Seedream 5.0 Pro | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit | Generate, Edit |
+| FLUX Kontext Pro | Generate, Edit | — | Generate, Edit | Generate, Edit | Generate, Edit |
+| FLUX 3 Image | Generate, Edit | — | — | — | Generate, Edit |
+| Z-Image Turbo | Generate, Edit | — | Generate, Edit | Generate¹ | — |
 
 ¹ Replicate's Z-Image Turbo route is the PrunaAI deployment of the model.
 
@@ -59,23 +59,23 @@ its saved draft cache. **3D previs** turns a Blender/previs clip into finished
 footage. These are distinct choices even when one provider uses a single
 endpoint for several of them.
 
-| Model | Fal.ai | Pika | WaveSpeed | Replicate |
-| --- | --- | --- | --- | --- |
-| Seedance 2.5 | Text, Image, First/last, References | Text, Image, First/last, References | Text, Image, First/last, References | Text, Image, First/last, References |
-| Seedance 2.0 | Text, Image, First/last, References | Text, Image, First/last, References | Text, Image, First/last, References | Text, Image, First/last, References |
-| Seedance 2.0 Mini | Text, Image, First/last, References | Text, Image, First/last, References | Text, Image, First/last, References | Text, Image, First/last, References |
-| Seedance 2.0 Fast | Text, Image, First/last, References | Text, Image, First/last, References | Text, Image, First/last, References | Text, Image, First/last, References |
-| MiniMax Hailuo 3 | Text, Image, First/last, References | Text, Image, First/last, References | Text, Image, First/last, References | Text, Image, First/last, References |
-| MiniMax H3 Max | Text, Image, First/last, References, 3D previs | — | — | — |
-| MiniMax H3 Max Turbo | Text, Image, First/last | — | — | — |
-| Gemini Omni Flash 1.1 | Text, Image, First/last, References, Edit | Text, Image, First/last, References, Edit | Text, Image, First/last, References, Edit | Text, Image, First/last, References, Edit |
-| Wan 3.0 Prime | Text, Image, First/last, References | Text, Image, First/last, References | Text, Image, First/last, References | Text, Image |
-| Veo 3.1 | Text, Image, First/last, References, Extend | Text, References, Extend | Text, Image, First/last, References, Extend | Text, Image, First/last, References |
-| Veo 3.1 Fast | Text, Image, First/last, References, Extend | Text, References, Extend | Text, Image, First/last, References, Extend | Text, Image, First/last, References |
-| Veo 3.1 Lite | Text, Image | Image | Text, Image, First/last | Text, Image, First/last |
-| FLUX 3 Max | Text, Image, First/last, Keyframes | — | — | — |
-| FLUX 3 | Text, Image, First/last, Keyframes, Extend, Edit | Text, Image, First/last, Keyframes, Extend | Text, Image, First/last, Extend | Text, Image, First/last, Keyframes, Extend |
-| FLUX 3 Draft | Text, Image, First/last, Keyframes, Extend, Enhance | — | Text, Image, First/last, Extend | Text² |
+| Model | Fal.ai | Pika | WaveSpeed | Replicate | Comfy Router |
+| --- | --- | --- | --- | --- | --- |
+| Seedance 2.5 | Text, Image, First/last, References | Text, Image, First/last, References | Text, Image, First/last, References | Text, Image, First/last, References | Text, Image, First/last, References |
+| Seedance 2.0 | Text, Image, First/last, References | Text, Image, First/last, References | Text, Image, First/last, References | Text, Image, First/last, References | Text, Image, First/last, References |
+| Seedance 2.0 Mini | Text, Image, First/last, References | Text, Image, First/last, References | Text, Image, First/last, References | Text, Image, First/last, References | Text, Image, First/last, References |
+| Seedance 2.0 Fast | Text, Image, First/last, References | Text, Image, First/last, References | Text, Image, First/last, References | Text, Image, First/last, References | Text, Image, First/last, References |
+| MiniMax Hailuo 3 | Text, Image, First/last, References | Text, Image, First/last, References | Text, Image, First/last, References | Text, Image, First/last, References | Text, Image, First/last, References |
+| MiniMax H3 Max | Text, Image, First/last, References, 3D previs | — | — | — | Text |
+| MiniMax H3 Max Turbo | Text, Image, First/last | — | — | — | Text |
+| Gemini Omni Flash 1.1 | Text, Image, First/last, References, Edit | Text, Image, First/last, References, Edit | Text, Image, First/last, References, Edit | Text, Image, First/last, References, Edit | — |
+| Wan 3.0 Prime | Text, Image, First/last, References | Text, Image, First/last, References | Text, Image, First/last, References | Text, Image | Text, Image, References |
+| Veo 3.1 | Text, Image, First/last, References, Extend | Text, References, Extend | Text, Image, First/last, References, Extend | Text, Image, First/last, References | Text, Image, First/last, References, Extend |
+| Veo 3.1 Fast | Text, Image, First/last, References, Extend | Text, References, Extend | Text, Image, First/last, References, Extend | Text, Image, First/last, References | Text, Image, First/last, References, Extend |
+| Veo 3.1 Lite | Text, Image | Image | Text, Image, First/last | Text, Image, First/last | Text, Image, First/last |
+| FLUX 3 Max | Text, Image, First/last, Keyframes | — | — | — | Text |
+| FLUX 3 | Text, Image, First/last, Keyframes, Extend, Edit | Text, Image, First/last, Keyframes, Extend | Text, Image, First/last, Extend | Text, Image, First/last, Keyframes, Extend | Text, Image, Keyframes, Extend |
+| FLUX 3 Draft | Text, Image, First/last, Keyframes, Extend, Enhance | — | Text, Image, First/last, Extend | Text² | — |
 
 ² Replicate offers Draft as a text-only option on its FLUX 3 endpoint rather
 than a separate route.
@@ -83,6 +83,12 @@ than a separate route.
 FLUX 3 Max's [prompt guide](../skills/media-producer/references/model-guides/video/flux-3-max.md)
 covers all three Fal.ai routes. First/last-frame generation uses its
 image-to-video route with the optional ending image.
+
+Comfy Router uses one model id per model; the request body selects the mode.
+Its MiniMax H3 Max, H3 Max Turbo and FLUX 3 Max models take a text prompt only.
+Comfy Router is left out for Gemini Omni Flash 1.1 because its Router schema does
+not declare a video output, and for ElevenLabs because a Cast Voice lives in the
+user's own ElevenLabs account.
 
 For Seedance 2.5 and 2.0 on WaveSpeed, the text-to-video route also accepts
 reference inputs. On Replicate, one Seedance model endpoint covers all four
@@ -103,17 +109,17 @@ with its own voice, into one multi-speaker audio file. **Music** creates music
 from a prompt. Voice sample retrieval gets an existing voice sample; it is not a
 generation model.
 
-| Model or capability | Fal.ai | Pika | WaveSpeed | Replicate | ElevenLabs |
-| --- | --- | --- | --- | --- | --- |
-| Seed Audio 1.0 | Speech | Speech | Speech | — | — |
-| MiniMax Speech 2.8 HD | — | — | — | Speech | — |
-| Eleven v4 | — | — | — | — | Speech |
-| Eleven v4 Dialogue | — | — | — | — | Dialogue |
-| Eleven v3 | — | — | — | — | Speech |
-| Eleven Multilingual v2 | — | — | — | — | Speech |
-| Eleven Turbo v2.5 | — | — | — | — | Speech |
-| Eleven Music | — | — | — | — | Music |
-| ElevenLabs voice sample retrieval | — | — | — | — | Voice sample |
+| Model or capability | Fal.ai | Pika | WaveSpeed | Replicate | Comfy Router | ElevenLabs |
+| --- | --- | --- | --- | --- | --- | --- |
+| Seed Audio 1.0 | Speech | Speech | Speech | — | Speech | — |
+| MiniMax Speech 2.8 HD | — | — | — | Speech | — | — |
+| Eleven v4 | — | — | — | — | — | Speech |
+| Eleven v4 Dialogue | — | — | — | — | — | Dialogue |
+| Eleven v3 | — | — | — | — | — | Speech |
+| Eleven Multilingual v2 | — | — | — | — | — | Speech |
+| Eleven Turbo v2.5 | — | — | — | — | — | Speech |
+| Eleven Music | — | — | — | — | — | Music |
+| ElevenLabs voice sample retrieval | — | — | — | — | — | Voice sample |
 
 ## Exact route IDs
 
@@ -121,6 +127,7 @@ The tables summarize the bundled selection. Provider IDs, exact API route IDs,
 and documentation links live in the current
 [Fal.ai](../skills/fal-ai-media-provider/references/supported-routes.json),
 [Pika](../skills/pika-media-provider/references/supported-routes.json),
+[Comfy Router](../skills/comfy-router-media-provider/references/supported-routes.json),
 [WaveSpeed](../skills/wavespeed-media-provider/references/supported-routes.json),
 [Replicate](../skills/replicate-media-provider/references/supported-routes.json),
 and [ElevenLabs](../skills/elevenlabs-media-provider/references/supported-routes.json)

@@ -77,7 +77,9 @@ for the whole image and may add a style reference.
     { "provider": "replicate", "model": "openai/gpt-image-2.5-flare", "regionModes": null, "styleReference": true, "controlPointers": ["/quality"] },
     { "provider": "replicate", "model": "openai/gpt-image-2.5-sunburst", "regionModes": null, "styleReference": true, "controlPointers": ["/quality"] },
     { "provider": "wavespeed-ai", "model": "openai/gpt-image-2.5-flare/edit", "regionModes": null, "styleReference": true, "controlPointers": ["/quality"] },
-    { "provider": "wavespeed-ai", "model": "openai/gpt-image-2.5-sunburst/edit", "regionModes": null, "styleReference": true, "controlPointers": ["/quality"] }
+    { "provider": "wavespeed-ai", "model": "openai/gpt-image-2.5-sunburst/edit", "regionModes": null, "styleReference": true, "controlPointers": ["/quality"] },
+    { "provider": "comfy-router", "model": "openai/gpt-image-2.5-flare", "regionModes": null, "styleReference": true, "controlPointers": ["/quality"] },
+    { "provider": "comfy-router", "model": "openai/gpt-image-2.5-sunburst", "regionModes": null, "styleReference": true, "controlPointers": ["/quality"] }
   ]
 }
 ```
@@ -90,17 +92,19 @@ whole-image interaction vocabulary.
 edit following “Editing” above. Put the base first, the optional style
 reference second with a style-only role, then other resolved references.
 Place `$file` markers in `image_urls` on Fal.ai and Pika, `input_images`
-on Replicate, and `images` on WaveSpeed. Set `quality` from draft `values`.
-For edits use Fal.ai `image_size: "auto"`, Pika `size: "auto"`, Replicate
-`aspect_ratio: "auto"`, and omit WaveSpeed's `aspect_ratio`. Pika's `size`
+on Replicate, `images` on WaveSpeed, and `image` on Comfy Router. Set `quality`
+from draft `values`. For edits use Fal.ai `image_size: "auto"`, Pika and Comfy
+Router `size: "auto"`, Replicate `aspect_ratio: "auto"`, and omit WaveSpeed's
+`aspect_ratio`. Pika's `size`
 overrides its separate aspect and resolution controls; this panel leaves
 resolution at the model's automatic choice. This avoids square defaults on
 Pika and Replicate without making unsupported dimension-preservation promises.
 
 Follow the [Fal.ai](../../../../fal-ai-media-provider/references/adapters/reference-inputs.md),
 [Pika](../../../../pika-media-provider/references/adapters/reference-inputs.md),
-[Replicate](../../../../replicate-media-provider/references/adapters/reference-inputs.md)
-and [WaveSpeed](../../../../wavespeed-media-provider/references/adapters/reference-inputs.md)
+[Replicate](../../../../replicate-media-provider/references/adapters/reference-inputs.md),
+[WaveSpeed](../../../../wavespeed-media-provider/references/adapters/reference-inputs.md)
+and [Comfy Router](../../../../comfy-router-media-provider/references/adapters/reference-inputs.md)
 adapters for reference placement and mention syntax.
 
 Reviewed 2026-10-28 against OpenAI's [image prompting guide] and Fal.ai's

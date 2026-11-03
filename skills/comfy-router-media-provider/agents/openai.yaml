@@ -1,0 +1,4 @@
+interface:
+  display_name: "Comfy Router Media Provider"
+  short_description: "Author supported Comfy Router image, video, and audio requests"
+  default_prompt: "Use $comfy-router-media-provider to author and execute this supported Comfy Router media request."

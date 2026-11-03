@@ -297,6 +297,22 @@ Use this for WaveSpeed-backed models.
 "api.wavespeed.ai" = "allow"
 ```
 
+### Comfy Router
+
+Use this for Comfy Router-backed models. Router rehosts many results on Comfy
+storage; models it does not rehost return their partner's own download URL,
+which needs that partner's domain as well.
+
+```toml
+[permissions.renku-studio.network.domains]
+"localhost" = "allow"
+"127.0.0.1" = "allow"
+"::1" = "allow"
+
+"api.comfy.org" = "allow"
+"storage.googleapis.com" = "allow"
+```
+
 ## Recommended All-In-One Domain Table
 
 If you want one profile that supports the currently known Renku providers, use
@@ -336,6 +352,9 @@ this combined domain table:
 
 # WaveSpeed
 "api.wavespeed.ai" = "allow"
+
+# Comfy Router
+"api.comfy.org" = "allow"
 ```
 
 Avoid the global network allow rule unless you intentionally want broad public

@@ -1,0 +1,29 @@
+{
+  "provider": "comfy-router",
+  "routes": [
+    { "apiId": "openai/gpt-image-2", "name": "GPT Image 2" },
+    { "apiId": "openai/gpt-image-2.5-flare", "name": "GPT Image 2.5 Flare" },
+    { "apiId": "openai/gpt-image-2.5-sunburst", "name": "GPT Image 2.5 Sunburst" },
+    { "apiId": "vertexai/gemini-3.1-flash-image", "name": "Nano Banana 2.0" },
+    { "apiId": "vertexai/gemini-nano-banana-2.1", "name": "Nano Banana 2.1" },
+    { "apiId": "vertexai/gemini-3-pro-image", "name": "Nano Banana Pro" },
+    { "apiId": "xai/grok-imagine-image", "name": "Grok Imagine Image" },
+    { "apiId": "bfl/flux-kontext-pro", "name": "FLUX Kontext Pro" },
+    { "apiId": "bfl/flux-3-image", "name": "FLUX 3 Image" },
+    { "apiId": "byteplus/seedream-5-0-pro-260628", "name": "Seedream 5.0 Pro" },
+    { "apiId": "bfl/flux-3-video", "name": "FLUX 3" },
+    { "apiId": "fal/flux-3-max", "name": "FLUX 3 Max" },
+    { "apiId": "byteplus/dreamina-seedance-2-5-260628", "name": "Seedance 2.5" },
+    { "apiId": "byteplus/dreamina-seedance-2-0-260128", "name": "Seedance 2.0" },
+    { "apiId": "byteplus/dreamina-seedance-2-0-fast-260128", "name": "Seedance 2.0 Fast" },
+    { "apiId": "byteplus/dreamina-seedance-2-0-mini", "name": "Seedance 2.0 Mini" },
+    { "apiId": "minimax/minimax-h3", "name": "MiniMax Hailuo 3" },
+    { "apiId": "fal/h3-max", "name": "MiniMax H3 Max" },
+    { "apiId": "fal/h3-max-turbo", "name": "MiniMax H3 Max Turbo" },
+    { "apiId": "wan/wan3.0-video-prime", "name": "Wan 3.0 Prime" },
+    { "apiId": "veo/veo-3.1-generate-001", "name": "Veo 3.1" },
+    { "apiId": "veo/veo-3.1-fast-generate-001", "name": "Veo 3.1 Fast" },
+    { "apiId": "veo/veo-3.1-lite-generate-001", "name": "Veo 3.1 Lite" },
+    { "apiId": "byteplus/seed-audio-1.0", "name": "Seed Audio 1.0" }
+  ]
+}
