@@ -152,3 +152,26 @@ before confirmation. No invented generation receipt and no take selection change
 On resumption reuse the imported Assets; already registered Cast and Location
 sheets stay at their current paths. If one intended reference is unavailable,
 resolve it before confirmation instead of dropping it or presenting a blank card.
+
+## Saved Seedance draft completion
+
+Given a retained Seedance 2.5 preview from a previous conversation, with its
+provider receipt saved on the AssetFile, the user asks to finish that exact
+video. Generation context omits provenance and the Project has several previews.
+Expected: resolve the exact file id, read its full provenance from the paginated
+JSON Asset listing, and use `receipt.draft_id`, not `receipt.requestId`, with
+the matching regional completion route. Prepare a video envelope with a null
+prompt and only the completion route's supported native inputs. Do not upload
+the preview or add a source-file marker. Follow normal estimate/review policy;
+Ask Before Generating off does not acquire a new confirmation requirement.
+Import the completed video separately to the existing destination, retaining
+the exact Clip/Previs context and source Take attribution where applicable.
+The draft, receipt, and existing selection remain unchanged.
+
+Also exercise a missing completion id, an expired id rejected by fal, an
+unavailable original account, and an ambiguous draft selection. Explain the
+specific blocker; never substitute a job id, choose the newest file, expose ids
+as user instructions, or submit a fresh generation without user direction.
+An interrupted job recovered through the normal recovery command retains the
+same completion id before import. No dedicated UI or new persistent lifecycle
+is required. These are preparation scenarios, not paid generation evidence.

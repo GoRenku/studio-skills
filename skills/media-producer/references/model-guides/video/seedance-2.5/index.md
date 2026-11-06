@@ -14,6 +14,11 @@ route's live schema and provider adapter for fields, bounds, and exact mentions.
 | An opening image, optionally a required ending image | [image-to-video.md](image-to-video.md) |
 | Images, motion video, Previs, or audio used as references | [reference-to-video.md](reference-to-video.md) |
 | Dialogue, voice references, ambience, effects, or music | [native-audio.md](native-audio.md) |
+| A 480p draft preview and subsequent 1080p completion on Fal | [draft-mode.md](draft-mode.md) |
+
+On Fal, `draft: true` forces the lowest resolution, 480p, and returns a
+`draft_id`; choosing 480p alone does not enable draft completion. Read the
+[draft workflow](draft-mode.md) before preparing a preview or completion request.
 
 Also read shared [input visibility](../../shared/prompt-input-visibility.md)
 and [video review](../../shared/video-quality-checklist.md) guidance. A reference

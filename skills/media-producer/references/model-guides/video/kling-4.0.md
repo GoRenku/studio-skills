@@ -50,9 +50,10 @@ keeps source sound by default. Inspect the selected schema before changing sound
 or duration behavior.
 
 The reviewed hosted routes document 720p/1080p generation, generally 3–30
-seconds. Do not infer hosted 4K/HDR, two-minute extension, or a callable Flash
-route from the model developer's product announcements. Flash is not included
-in this addition. Current schemas own limits and defaults, not this guide.
+seconds. Do not infer hosted 4K/HDR or two-minute extension from the model
+developer's product announcements. For Fal's separate 720p, 3–20 second variant,
+read [Kling 4.0 Flash](kling-4.0-flash.md), including its video editing route.
+Current schemas own limits and defaults, not this guide.
 
 ## Start with a concrete event
 

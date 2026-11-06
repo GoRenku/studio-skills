@@ -29,6 +29,13 @@ Copy it verbatim into the review document's `model` field and every generation
 command. Never substitute a model or rewrite its namespace.
 
 Find model advice by name under Media Producer's `references/model-guides/`.
+For Seedance 2.5 previews or completion of a saved draft, read
+[the draft workflow](../media-producer/references/model-guides/video/seedance-2.5/draft-mode.md).
+Execute and Recover preserve the provider's `draft_id` in the opaque receipt;
+return the saved `provenancePath` unchanged so Media Producer can retain it with
+the video. To finish a saved draft, use its saved receipt's `draft_id` with the
+matching completion route, not its request id or today's default route. Keep
+Project selection and attachment decisions with Media Producer.
 Read relevant provider guidance: [reference inputs](references/adapters/reference-inputs.md), [seed audio](references/adapters/seed-audio.md).
 Missing advice does not block a supported request; the selected schema and
 provider documentation describe its current inputs.

@@ -23,6 +23,15 @@ model guides own prompt craft.
   ids are not local audio-file markers. The
   [reference API](https://fal.ai/models/kling/v4/reference-to-video/api) was
   checked 2026-10-27; recheck the selected schema before request authoring.
+- Kling 4.0 Flash reference-to-video uses one-based `@ImageN`, `@VideoN`,
+  and `@ElementN` within `image_urls`, `video_urls`, and `elements` respectively.
+  Its optional first frame is implicit and counts toward the image limit.
+  Flash video editing places the source marker in `video_url` as `@Video1`;
+  additional `video_urls` start at `@Video2`. Flash does not accept voice
+  elements or voice ids. The [reference API](https://fal.ai/models/kling/v4/flash/reference-to-video/api)
+  and [edit API](https://fal.ai/models/kling/v4/flash/video-to-video/api) were
+  checked 2026-11-04. Read [Flash guidance](../../../media-producer/references/model-guides/video/kling-4.0-flash.md)
+  for prompt craft and inspect the exact selected schema for limits.
 - MiniMax H3 and H3 Max reference-to-video derive spaced `Image N`, `Video N`,
   and `Audio N` mentions from final modality-local array order. Do not add `@`.
   For H3 Max, Fal.ai's live schema on 2026-09-01 allowed up to 9 images, 3
