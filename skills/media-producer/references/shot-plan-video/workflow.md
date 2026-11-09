@@ -1,13 +1,15 @@
 # Shot Plan Video Renku Workflow
 
-For a Blender-authored plan, follow `blender-previs.md` for input roles and timing; continue this same generation/attachment workflow with the exact Previs plan.
+For a Previs plan, Blender or staged, follow `blender-previs.md` for input roles and timing; continue this same generation/attachment workflow with the exact Previs plan.
 
 For multi-clip work read `scene-segmentation.md`. Inspect actual delivered coverage
 before preparing a dependent request. Describe incomplete or unverified outputs
 as candidates, not corrected/complete scenes. Preserve existing authorization;
 do not add repeated confirmation for unchanged already-authorized work.
 
-1. Resolve the current Project and exact Shot Plan id.
+1. Resolve the current Project and exact Shot Plan id. For a Previs plan, also
+   settle the exact revision and video (the edit or a coverage video) with
+   [the previs video chooser](../previs-video-chooser.md) and say its name back.
 2. Read one complete Core briefing with `renku generation context --purpose
    <purpose> --target shot-plan:<shot-plan-id>`, following `../workflow.md` for
    format choice and contiguous reads through EOF. Reuse that report when
@@ -25,7 +27,8 @@ do not add repeated confirmation for unchanged already-authorized work.
 6. Author one temporary review document from those settings with the exact
    provider-native request. Keep the Shot Plan id out of that envelope; it
    returns later only as weak attachment context. Configuration belongs in
-   native provider fields, not Core.
+   native provider fields, not Core. A previs reference's `reviewLabel` is the
+   video's name, such as "Revision 2 · Edit".
 7. Complete the selected review path. Panel review uses Validate, opens and yields,
    consumes Submit once and applies accepted edits without a Studio Preview.
    CLI and non-Codex sessions deliver Studio Preview, or a text summary when
@@ -40,7 +43,9 @@ do not add repeated confirmation for unchanged already-authorized work.
 10. Attach using the returned `provenancePath` directly. The accepted result is a
     Project-owned `shot_plan_video` Asset whose file Core places in the exact
     Scene/Shot Plan folder and whose `authoredFrom` context names the Shot Plan.
-    For a Previs handoff, also pass `--previs-revision <registered-revision-id>`.
+    For a Previs handoff, also pass `--previs-revision <registered-revision-id>`,
+    or `--clip <id>` for a take of a numbered clip, such as one created for a
+    coverage video with `--coverage-video`.
     Preserve that exact association for derivative inputs; do not infer latest.
 
 Never manually copy media into the durable Shot Plan folder. Never create a

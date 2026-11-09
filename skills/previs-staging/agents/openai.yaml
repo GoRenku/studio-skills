@@ -1,0 +1,4 @@
+interface:
+  display_name: "Previs Staging"
+  short_description: "Stage and direct a Scene's 3D previs in Studio and record revisions"
+  default_prompt: "Use $previs-staging to stage this Scene's Previs in 3D."

@@ -1,0 +1,43 @@
+{
+  "frameRate": { "numerator": 24, "denominator": 1 },
+  "frameCount": 240,
+  "output": { "width": 1280, "height": 720 },
+  "locationId": "location_ferry_landing",
+  "cast": [
+    { "castMemberId": "cast_ferryman", "marks": [
+      { "id": "ferryman-start", "frame": 0, "position": [0, 0], "facing": 0, "body": "stand", "torso": "upright", "arms": "rest" },
+      { "id": "ferryman-to-rail", "frame": 48, "position": [0, -4], "cue": "The ferryman walks to the rail." },
+      { "id": "ferryman-sits", "frame": 96, "body": "sit", "lookAt": { "kind": "extra", "key": "lantern-keeper" }, "blendFrames": 24, "cue": "He sits on the bench and looks at the keeper." }
+    ] }
+  ],
+  "extras": [
+    { "key": "lantern-keeper", "label": "Lantern keeper", "standIn": { "height": 1.6, "color": "#299F94", "details": ["hat"] }, "marks": [
+      { "id": "keeper-start", "frame": 0, "position": [2, -4], "facing": 90, "body": "stand", "torso": "lean", "arms": "working" }
+    ] }
+  ],
+  "props": [],
+  "dressing": [
+    { "key": "bench", "label": "Bench", "blocks": [ { "shape": "box", "position": [0, 0.22, 0], "size": [1.4, 0.44, 0.4], "color": "#6B5A44" } ], "marks": [
+      { "id": "bench-place", "frame": 0, "position": [0, 0, -4.4] }
+    ] }
+  ],
+  "cameras": [
+    { "key": "wide", "label": "Wide", "lens": 30, "placement": { "kind": "fixed", "position": [0, 2, 6], "aim": [0, 1, -2] }, "marks": [
+      { "id": "wide-hold", "frame": 120, "position": [0, 2, 6], "aim": [0, 1, -2], "lens": 30 },
+      { "id": "wide-push", "frame": 168, "position": [0, 1.8, 2], "aim": [0, 0.9, -4], "lens": 45, "cue": "Slow push in on the bench." }
+    ] },
+    { "key": "follow", "label": "Following", "lens": 35, "placement": { "kind": "follow", "subjects": [ { "kind": "cast", "castMemberId": "cast_ferryman" } ], "heading": 0, "distance": 5, "height": 3, "aimHeight": 1, "lookAhead": 1 }, "marks": [] }
+  ],
+  "cuts": [
+    { "id": "opening", "frame": 0, "camera": "wide", "label": "Wide — the landing" },
+    { "id": "walk", "frame": 24, "camera": "follow" },
+    { "id": "bench", "frame": 120, "camera": "wide", "label": "Wide — the bench" }
+  ],
+  "coverage": [
+    { "id": "coverage-follow-120", "camera": "follow", "startFrame": 120, "endFrame": 168 }
+  ],
+  "dialogue": [
+    { "id": "mind-the-current", "speaker": { "kind": "cast", "castMemberId": "cast_ferryman" }, "startFrame": 30, "endFrame": 60, "text": "Mind the current." }
+  ],
+  "description": "## Blocking & camera\n\nA wide of the ferry landing at dusk. The ferryman walks to the rail while the lantern keeper works at her lamps; a following camera stays behind him. Back in the wide, he sits on the bench and looks at the keeper as the camera slowly pushes in.\n\n## Dialogue & timing\n\n**1.25–2.50 s · Ferryman:** Mind the current.\n"
+}

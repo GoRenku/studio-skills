@@ -10,14 +10,18 @@ renku media import --project <name> --purpose shot-plan.video-generation --targe
 The flag associates the independent Project Asset with that exact revision. Keep
 it for derivative provider inputs; never guess latest revision. The id does not
 belong in the provider request or review JSON. Video edits inherit it from their
-source Asset through the existing edit attachment path.
+source Asset through the existing edit attachment path. A take for a numbered
+clip, including every take from a coverage video, attaches with `--clip <id>`
+instead, as `scene-segmentation.md` describes.
 
 Prepared input derivatives must also be registered before Preview. Follow
 `../workflow.md`'s `shot-plan reference import` step for extracted frames,
 Previs clips and audio excerpts, with this exact revision. Use returned AssetFile
 paths in the request. Temporary preparation alone does not attach a reference.
 
-Use this workflow when the reviewed input is a Blender procedural previs.
+Use this workflow when the reviewed input is a Blender procedural previs or a
+staged previs recorded by `previs-staging`; a staged revision keeps its
+`staging.json`, description and timeline instead of Blender source.
 Read `workflow.md`, `../video-reference-continuity.md`, the selected model operation
 and provider adapter. Read generation context for the exact existing plan;
 reuse a complete current report already read for this request. Refresh after
@@ -28,8 +32,12 @@ renku generation context --project <name> --purpose shot-plan.video-generation -
 renku shot-plan previs show --project <name> --shot-plan <id> --json
 ```
 
-Choose the director-reviewed revision from the returned registered video Assets;
-newest is not automatically selected. Empty Shots are normal for a Previs plan.
+Choose the director-reviewed revision and video from the returned registered
+video Assets; newest is not automatically selected. A Blender revision only
+ever has its cut (`render`); a staged revision may also hold `coverageVideos`.
+Identify the exact video with [the previs video chooser](../previs-video-chooser.md):
+the user is watching it in Studio, names it in chat, or you ask. Say its name
+back before anything is paid for. Empty Shots are normal for a Previs plan.
 The source parameters accompanying that revision carry authored dialogue and action
 timing; use those decisions alongside current Scene context.
 
@@ -45,8 +53,10 @@ Inspect featured props and close-ups at their screen scale. Supply independent
 appearance evidence when the master image does not adequately depict them, without
 requiring a separate sheet for every incidental object or detailed Blender props.
 
-- Send the unannotated previs as an actual native video reference for blocking,
-  geography, camera path, action order and intended timing.
+- Send the chosen previs video, or an excerpt of it, unannotated as an actual
+  native video reference for blocking, geography, camera path, action order and
+  intended timing. Its `$file` marker's `reviewLabel` is the video's name, such
+  as "Revision 2 · Loukas close 24.0–30.0 s"; an excerpt adds its scene times.
 - Inspect character/location sheets and supply the relevant exact images for
   identity, costume, architecture, materials and final appearance. Map each proxy
   to its intended subject; proxy colors are not wardrobe instructions.
@@ -108,6 +118,43 @@ Read `scene-segmentation.md` for multi-clip excerpts and adaptive continuation.
 For off-screen speech, name the audible speaker, visible listener/reaction and
 who must not articulate the line. Do not silently replace off-screen coverage
 with an on-screen speaker. Unlocked Previs timing may differ in a usable take.
+
+## Coverage videos
+
+The edit stays the main path. A coverage video gives one camera's angle on its
+stretch, beside the edit. Generating the whole scene shot by shot from every
+camera is experimental: never suggest it; do it only when the director asks. A
+camera run inside the edit has no coverage video of its own: excerpt it from the
+cut as `scene-segmentation.md` describes.
+
+For a coverage video such as "Revision 2 · Loukas close 24.0–30.0 s":
+
+1. **Previs reference.** Use the coverage video's file
+   (`coverageVideos[].video`), whole or in excerpts within the route's limits,
+   exactly as for the edit. The whole file is already registered and keeps its
+   path. Import every derivative (excerpt, frame, trimmed audio) with
+   `shot-plan reference import --previs-revision <revision-id>`.
+2. **Clip time.** The video starts at the stretch's start, so clip time is
+   scene time minus the stretch start. It is one continuous camera: the edit's
+   segments do not apply, and only cues inside the stretch do.
+3. **Dialogue.** Trim each line that overlaps the stretch to the stretch, timed
+   from the stretch start. Urban's line runs 12.9–26.6 s and the stretch is
+   24.0–30.0 s, so the excerpt covers 24.0–26.6 s scene time, which is
+   0.0–2.6 s in the clip and starts 11.1 s into his performance. Excerpt the
+   selected Dialogue Take without changing its speed. If a stretch edge falls
+   inside a word, tell the director instead of moving the edge yourself.
+4. **Clip.** Create the clip for the coverage video before attaching a take:
+
+   ```bash
+   renku shot-plan clip create --project <name> --shot-plan <id> --previs-revision <revision-id> --coverage-video <coverage-video-id> --json
+   ```
+
+   Clip numbers stay unique across the revision: after the edit's Clips 1 and 2,
+   the first clip from a coverage video is Clip 3.
+5. **Attach** each take with `renku media import` and `--clip <clip-id>`, as in
+   `scene-segmentation.md`; Core takes the revision from the clip. Keep the
+   time map in the take's summary, for example "Previs revision 2 · Loukas
+   close 24.0–30.0 s; clip time = scene time − 24.0 s."
 
 ## Execute and review
 

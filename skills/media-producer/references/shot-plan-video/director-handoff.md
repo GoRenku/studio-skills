@@ -7,6 +7,10 @@ Hand the media producer:
 - the exact project and Shot Plan id;
 - for Previs, the exact registered revision id for `--previs-revision`, including
   when the provider will receive a derivative; never a newest-revision guess;
+- for Previs, the chosen video by name, such as "Revision 2 · Edit" or
+  "Revision 2 · Loukas close 24.0–30.0 s", with its coverage video id; when the
+  director has not chosen, say so and the media producer asks
+  (`../previs-video-chooser.md`);
 - the user-approved creative direction;
 - whether an auxiliary first frame, last frame, or storyboard image is wanted;
 - any explicit continuity or dialogue-audio priorities; and

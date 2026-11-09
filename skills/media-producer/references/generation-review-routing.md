@@ -27,6 +27,19 @@ an `image-edit` block of its model guide's `## Codex panel` section. Follow
 [image-edit-panels.md](image-edit-panels.md). Like the dialogue panel, it is an
 authoring desk followed by the review below when Ask Before Generating is on.
 
+## Previs videos are named first
+
+Video from a Previs Shot Plan first settles the exact previs video, the edit or
+a coverage video, with [previs-video-chooser.md](previs-video-chooser.md): the
+inline chooser in trusted Codex Desktop with panel support, a choice question
+in chat in every other host. Say the chosen name back before anything is paid
+for. In every review below, the previs reference's `$file` marker carries that
+name as its `reviewLabel`, such as "Revision 2 · Loukas close 24.0–30.0 s"; an
+excerpt adds its scene times, such as "Revision 2 · Edit, 0.0–15.0 s". The
+Codex review panel and Studio Preview show it as the reference's label, and
+the one chat confirmation after Studio Preview or the text review names the
+video too.
+
 ## Casting rounds are confirmed once
 
 A casting round is confirmed once for all of its candidates, and a character

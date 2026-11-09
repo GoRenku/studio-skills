@@ -5,7 +5,7 @@ description: Coordinate Renku Studio movie-making workflows across screenplay, a
 
 # Movie Director
 
-Route Shot List coverage to `shot-planner`; route Blender Previs creation and camera/blocking/timing revisions to `blender-shot-planner`. Route AI generation from either plan type to `media-producer`, preserving the exact plan identity.
+Route Shot List coverage to `shot-planner`. Route new Previs to `previs-staging` (3D staging in Studio) unless the user asks for Blender by name; route Blender Previs creation and revisions of a plan with Blender revisions to `blender-shot-planner`, and revisions of a staged plan to `previs-staging`. Route AI generation from any plan type to `media-producer`, preserving the exact plan identity.
 
 This skill requires the installed Renku runtime. If `renku` is unavailable, stop and direct the user to `https://gorenku.com`; do not substitute ad hoc files for the CLI-owned project state.
 

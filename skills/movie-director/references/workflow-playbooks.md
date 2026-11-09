@@ -1,6 +1,6 @@
 # Workflow Playbooks
 
-For a Previs request: resolve Scene/plan → `blender-shot-planner` reads sheets and authors/revises the scene → review/register the procedural render → `media-producer` uses that revision as video with appearance/audio references. Continue the current plan for feedback.
+For a Previs request: resolve Scene/plan → `previs-staging` (or `blender-shot-planner` when the user asks for Blender or the plan already has Blender revisions) reads sheets and stages/revises the scene → review/record the revision → `media-producer` uses that revision as video with appearance/audio references. Continue the current plan for feedback.
 
 Use these playbooks when a user asks for an outcome rather than naming a single
 department. Always preserve explicit user choices. Media Producer reads the

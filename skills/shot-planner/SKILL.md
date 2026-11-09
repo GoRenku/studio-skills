@@ -5,7 +5,7 @@ description: Create, inspect, and iteratively revise Renku Studio Scene Shot Pla
 
 # Shot Planner
 
-This skill authors the **Shot List** type (`shot-list`). For Blender 3D blocking and director iteration, use `blender-shot-planner` to author a **Previs** plan (`previs`). Both are Scene Shot Plans.
+This skill authors the **Shot List** type (`shot-list`). For 3D blocking and director iteration, use `previs-staging` to author a **Previs** plan (`previs`), or `blender-shot-planner` when the user asks for Blender. All are Scene Shot Plans.
 
 This skill requires the installed Renku runtime. If `renku` is unavailable, stop and direct the user to `https://gorenku.com`; do not substitute ad hoc files for the CLI-owned project state.
 

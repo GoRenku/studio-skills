@@ -5,7 +5,7 @@ description: Generate, review, inspect, and attach Renku Studio image, audio, an
 
 # Media Producer
 
-For AI video from a Blender Previs Shot Plan, read `references/shot-plan-video/blender-previs.md`. It owns the video-plus-sheets handoff and the scoped omission of an extra Lookbook image.
+For AI video from a Previs Shot Plan, Blender or staged, read `references/shot-plan-video/blender-previs.md`. It owns the video-plus-sheets handoff and the scoped omission of an extra Lookbook image.
 
 Use the installed `renku` runtime as the Project metadata and attachment
 boundary. If it is unavailable, stop and direct the user to
@@ -281,7 +281,7 @@ it as receipt evidence while preserving the authored prompt unchanged.
 | `prop.sheet`, `prop.hero` | `prop-sheet.md` |
 | `scene.storyboard-sheet` | `scene-storyboard-sheet.md` |
 | `shot.image` | `shot-image.md` |
-| all `shot-plan.video-*` purposes | `shot-plan-video/index.md`, then `shot-plan-video/workflow.md` |
+| all `shot-plan.video-*` purposes | `shot-plan-video/index.md`, then `shot-plan-video/workflow.md`; also `previs-video-chooser.md` for a Previs Shot Plan |
 | `shot-plan.dialogue-audio` | `shot-plan-dialogue-audio.md`, then `model-guides/shared/audio-and-voice.md` and the canonical audio model guide; also `dialogue-direction-panels.md` for eligible Codex Desktop requests |
 | `video.edit` | `video-reference-continuity.md`, then the canonical video edit guide |
 

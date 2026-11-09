@@ -43,7 +43,9 @@ Take these in order:
 4. Otherwise use the lane default without asking.
 
 Resolve the target first: an ambiguous `image.edit` uses the image chooser in
-[image edit panels](image-edit-panels.md) before route choice.
+[image edit panels](image-edit-panels.md) before route choice, and video from a
+Previs Shot Plan settles its previs video with the
+[previs video chooser](previs-video-chooser.md).
 
 ## Ask in Codex Desktop: the Route Chooser
 

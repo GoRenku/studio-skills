@@ -1,6 +1,6 @@
 # Shot Plan Video Generation
 
-For a `previs` Shot Plan, read `blender-previs.md` before selecting inputs. Empty Shots are expected; use the reviewed registered previs revision as video reference.
+For a `previs` Shot Plan, read `blender-previs.md` before selecting inputs. Empty Shots are expected; use the chosen video of the reviewed registered previs revision (its cut or a coverage video, settled with `../previs-video-chooser.md`) as video reference.
 
 Use this workflow for a video request authored from one current Shot Plan.
 The finished video is an independent Project Asset. The plan association is

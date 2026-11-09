@@ -45,7 +45,10 @@ includes final-frame continuation images and voice-delivery excerpts. Existing
 registered sources stay at their current paths. Verify all intended inputs are
 available in Preview before requesting confirmation.
 
-Prepare matching Previs excerpts and local camera/action timing. If generation
+Prepare matching Previs excerpts and local camera/action timing from the chosen
+previs video. Any camera run inside the edit is excerpted from the edit; a
+coverage video follows the Coverage videos steps in `blender-previs.md`, and
+its clip time starts at its stretch. If generation
 drifts, rebuild the next excerpt/timing from the remaining performance, not a stale
 master-time slice. Record any derivative map; retain source revision identity and
 never overwrite registered Previs. Distinguish reference context overlap from
@@ -109,7 +112,9 @@ or invented “complete” state.
 ## Identify and select raw clips in Studio
 
 Within the exact Shot Plan and Previs revision, use the stable `Clip N.M` label
-(clip number, take number), for example `Clip 1.1: Initial`. A title helps a person
+(clip number, take number), for example `Clip 1.1: Initial`. Clip numbers are
+unique across the revision, edit and coverage videos together: after the edit's
+Clips 1 and 2, the first clip from a coverage video is Clip 3. A title helps a person
 recognize a take; it is never the lookup key. Browsing a take in the player is not
 selection. “Use Clip 1.1” authorizes selecting that exact take, not another paid run.
 If the plan/revision scope is unclear, resolve it with the user before selecting.
@@ -117,11 +122,14 @@ If the plan/revision scope is unclear, resolve it with the user before selecting
 ```bash
 renku shot-plan clip list --project <project> --shot-plan <plan-id> --previs-revision <revision-id> --json
 renku shot-plan clip create --project <project> --shot-plan <plan-id> --previs-revision <revision-id> --json
+renku shot-plan clip create --project <project> --shot-plan <plan-id> --previs-revision <revision-id> --coverage-video <coverage-video-id> --json
 renku shot-plan clip take resolve --project <project> --shot-plan <plan-id> --previs-revision <revision-id> --number 1.1 --json
 renku shot-plan clip take select --project <project> --clip <resolved-clip-id> --take <resolved-take-id> --json
 ```
 
 Create a slot for each planned raw clip. New registration does not select a take.
+A clip without `--coverage-video` is made from the revision's cut; each clip's
+`coverageVideoId` says which video it came from (`null` for the edit).
 Attach a new output using the ordinary provenance-bearing `renku media import`
 command for `shot-plan.video-generation`, adding `--clip <id>`, optional
 `--take-title "Initial"`, and optional `--source-take <exact-take-id>`. Core derives
@@ -145,6 +153,8 @@ do not relabel the result as derived from the new selection. A later selection
 change does not invalidate footage or automatically authorize regeneration.
 
 The Generation player reviews selected whole files in order; it is not an editor.
+It shows the clips of the video chosen on the Previs tab: the edit's clips with
+the edit, a coverage video's clips with that video.
 Its duration may differ from Previs. Unlinked playback is independent; linking
 compares equal elapsed seconds without stretching either file. A pending slot is
 not missing dialogue evidence: inspect the media and screenplay before deciding
