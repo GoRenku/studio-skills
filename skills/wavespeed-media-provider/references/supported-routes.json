@@ -1,6 +1,8 @@
 {
   "provider": "wavespeed-ai",
   "routes": [
+    { "apiId": "minimax/h3-image/text-to-image", "name": "MiniMax H3 Image" },
+    { "apiId": "minimax/h3-image/edit", "name": "MiniMax H3 Image Edit" },
     { "apiId": "wavespeed-ai/z-image/turbo", "name": "Z-Image Turbo" },
     { "apiId": "wavespeed-ai/z-image-turbo/image-to-image", "name": "Z-Image Turbo Edit" },
     { "apiId": "wavespeed-ai/flux-kontext-pro/text-to-image", "name": "FLUX Kontext Pro" },

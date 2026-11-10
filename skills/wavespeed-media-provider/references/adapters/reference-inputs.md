@@ -3,6 +3,11 @@
 Use current WaveSpeed metadata and the live schema for exact native media
 fields, order, and cardinality.
 
+MiniMax H3 Image edit (`minimax/h3-image/edit`) uses ordered `images` with
+one-based `image 1`, `image 2` mentions. Put the edit base first. Its schema
+was checked 2026-11-10. Read [H3 Image guidance](../../../media-producer/references/model-guides/image/minimax-h3-image.md)
+for casting continuity and edit craft.
+
 - Opening and ending images are implicit unless current route documentation
   establishes an exact prompt-visible mention.
 - Reference-to-video images, videos, and audio retain modality-local request

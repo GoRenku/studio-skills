@@ -4,6 +4,14 @@
 provider routing, temporary review, conversational confirmation, execution,
 inspection, provenance, and supported focused attachments.
 
+MiniMax H3 Image and MiniMax H3 Image Highspeed are available model choices
+for casting rounds in the Default Model List. For photographic casting,
+consider them when the director wants natural skin, fabric and facial detail.
+Read [H3 Image guidance](../../media-producer/references/model-guides/image/minimax-h3-image.md)
+for prompt expansion, neutral casting layouts and reference-led identity
+continuity. Offer the standard model on Fal.ai or WaveSpeed and Highspeed on
+Fal.ai through the existing round workflow.
+
 Current Cast media purposes and targets:
 
 | Purpose | Target | Owner of the decision |

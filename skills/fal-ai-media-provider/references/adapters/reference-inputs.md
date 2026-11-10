@@ -4,6 +4,12 @@ Use the selected route's live schema as final field authority. This adapter owns
 only Fal.ai request placement and provider-visible mention syntax; canonical
 model guides own prompt craft.
 
+MiniMax H3 Image standard and Highspeed edit use ordered `image_urls` with
+one-based spaced `Image 1`, `Image 2` mentions. Put the edit base first.
+Follow [H3 Image guidance](../../../media-producer/references/model-guides/image/minimax-h3-image.md)
+for reference roles and casting continuity. The exact route schemas were
+checked 2026-11-10.
+
 - Image edit routes place ordered source/reference markers in their current
   native image field. When the selected route documents `@ReferenceN`, derive
   `N` from final request order.

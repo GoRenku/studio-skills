@@ -1,6 +1,10 @@
 {
   "provider": "fal-ai",
   "routes": [
+    { "apiId": "minimax/h3-image/text-to-image", "name": "MiniMax H3 Image" },
+    { "apiId": "minimax/h3-image/edit", "name": "MiniMax H3 Image Edit" },
+    { "apiId": "minimax/h3-image/highspeed/text-to-image", "name": "MiniMax H3 Image Highspeed" },
+    { "apiId": "minimax/h3-image/highspeed/edit", "name": "MiniMax H3 Image Highspeed Edit" },
     { "apiId": "bytedance/seed-audio-1.0", "name": "Seed Audio 1.0" },
     { "apiId": "openai/gpt-image-2", "name": "GPT Image 2" },
     { "apiId": "openai/gpt-image-2/edit", "name": "GPT Image 2 Edit" },
