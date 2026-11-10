@@ -131,6 +131,33 @@ In the Staging tab the director drags a run's handles or draws on a camera's
 row to add coverage; those edits arrive as `coverage` entries on your next
 `show`.
 
+### Full-length cameras
+
+`fullLength` is optional on a camera. `true` means the camera also films the
+whole staging as its own video, beside the edit. Leave the field out
+otherwise. Use it when the director wants one camera's angle across the whole
+scene, such as a master:
+
+```json
+{ "key": "shared-frame", "label": "The two men and the drawing", "lens": 153, "fullLength": true,
+  "placement": { "kind": "fixed", "position": [ ... ], "aim": [ ... ] }, "marks": [ ... ] }
+```
+
+- The full-length video takes the place of that camera's extra coverage
+  videos. Its `coverage` stretches stay in the staging and are filmed again
+  when `fullLength` is removed.
+- A camera the cuts keep on air for the whole staging gets no full-length
+  video: the edit already is that video.
+- It never changes the edit or the timeline.
+
+Urban Basilica, "The Price of the Bombard" (1008 frames at 24 fps), with
+coverage on `urban-single` at 212–314: turning on `fullLength` for
+`shared-frame` records the edit, `shared-frame` 0–1008 and `urban-single`
+212–314, which is 2,118 frames instead of 1,110.
+
+The director turns full length on or off in the Record dialog's "Full-length
+video" menu; those edits arrive as `fullLength` on your next `show`.
+
 ### Lines
 
 ```json

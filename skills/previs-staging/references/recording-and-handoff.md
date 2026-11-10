@@ -28,8 +28,8 @@ Failures:
 - `CORE_STAGING_RECORDING_STALE`: the staging, set or a stand-in changed while
   recording. Record again.
 - `CORE_STAGING_RECORDING_COVERAGE_MISMATCH`: the recorded coverage videos do
-  not match the staging's runs. Record again; if it repeats, report the
-  diagnostic.
+  not match the staging's extra coverage and full-length cameras. Record
+  again; if it repeats, report the diagnostic.
 - `CLI_STAGING_RECORDING_TIMEOUT`: the recorder page did not finish. Check the
   staging in Studio, then record again.
 
@@ -43,11 +43,17 @@ One recording saves one revision holding:
 - **the edit**: the whole staging filmed through the cuts; and
 - **one coverage video for each camera run with extra coverage**, filmed whole
   through that camera alone. Urban close on air 12.9–19.4 s and rolling from
-  12.5 to 20.0 s gives one 7.5 s video.
+  12.5 to 20.0 s gives one 7.5 s video; and
+- **one coverage video for each full-length camera**, the whole staging through
+  that camera, in place of its extra coverage videos. A camera the cuts keep on
+  air throughout gets none.
 
 A run fully inside the edit gets no video of its own; the generation workflow
 excerpts it from the edit. The revision is saved only when every video is
-recorded, and `coverageVideos` is empty when the staging has no extra coverage.
+recorded, and `coverageVideos` is empty when the staging has no extra coverage
+and no full-length camera. A full-length video runs from `startFrame` 0 to the
+staging's `frameCount`, for example `Revision 3 · The two men and the drawing
+0.0–42.0 s`.
 
 Each video has a plain name that Studio, the director and you all use:
 `Revision 3 · Edit` and `Revision 3 · Loukas close 24.0–30.0 s` (the camera
