@@ -11,6 +11,7 @@
     "release:major": "node scripts/release/ship.mjs major",
     "release:prepare": "node scripts/release/prepare.mjs",
     "release:publish": "node scripts/release/publish.mjs",
-    "release:test": "node --test scripts/release/*.test.mjs"
+    "release:test": "node --test scripts/release/*.test.mjs",
+    "build:cloud-plugin": "node scripts/build-cloud-plugin.mjs"
   }
 }

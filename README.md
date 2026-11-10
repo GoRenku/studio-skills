@@ -55,6 +55,21 @@ From a session on Urban Basilica, lightly trimmed:
 
 Also listed on [skills.sh](https://skills.sh/gorenku/studio-skills).
 
+### Renku Cloud (invite only)
+
+Renku Cloud runs Renku Studio for you at `https://app.gorenku.com`, so nothing
+is installed on your computer. The **Renku Cloud** plugin (`renku-cloud`) has
+the same skills; its MCP setting is the web address
+`https://app.gorenku.com/mcp` instead of the local `renku studio mcp` program.
+Add the plugin in Codex or Claude Code and sign in once when your AI app asks.
+Every skill has a **Renku Cloud** note: commands run through the
+`renku_command` tool, and generation goes through the provider's own MCP server
+(see `fal-ai-media-provider`). Chat apps without plugins can read the same
+skills with the `renku_guide` tool.
+
+Maintainers assemble the installable plugin and its marketplace files with
+`pnpm build:cloud-plugin` (output in `dist/renku-cloud-marketplace/`).
+
 ## Relationship to Studio
 
 This repository supplies Renku's Claude/Codex plugins and skills for other
@@ -143,6 +158,8 @@ before generating. For the exact command sequence, see the
   scripts, evaluations, and agent metadata where needed.
 - `.codex-plugin/` and `.agents/plugins/`: Codex plugin and marketplace manifests.
 - `.claude-plugin/`: Claude Code plugin and marketplace manifests.
+- `.codex-plugin-cloud/`, `.claude-plugin-cloud/` and `cloud.mcp.json`: the
+  Renku Cloud plugin variant, assembled by `scripts/build-cloud-plugin.mjs`.
 - `scripts/`: repository validation and maintainer release tooling.
 - `docs/`: technical integration notes.
 
@@ -157,6 +174,7 @@ installation is needed.
 | `pnpm test` | Validate media-generation skills, image/video prompt guides, media-purpose evaluations, and run supporting-script and release-tool tests. |
 | `pnpm test:media-generation` | Run the media-generation checks without the release-tool tests. |
 | `pnpm release:test` | Test release tooling only; does not create or publish a release. |
+| `pnpm build:cloud-plugin` | Assemble the Renku Cloud plugin in `dist/renku-cloud-marketplace/`; check it with `claude plugin validate`. |
 
 These checks do not evaluate every creative workflow. Review affected skill
 instructions, CLI examples, and evaluation scenarios against Studio's current

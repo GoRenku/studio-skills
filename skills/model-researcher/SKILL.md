@@ -5,6 +5,26 @@ description: Add or refresh Renku media models under existing providers, researc
 
 # Model Researcher
 
+## Renku Cloud
+
+When you have the Renku Cloud tools (`renku_command`, `renku_guide`,
+`renku_upload`, `renku_download`, `renku_view`) instead of a local `renku`
+program, Renku runs in the person's cloud sandbox. This note takes precedence
+over any instruction below to stop when `renku` is unavailable.
+
+- Run each `renku ...` command in this skill with `renku_command`, passing the
+  words after `renku` as `args`, for example `["cast", "list", "--json"]`.
+  There is no shell, so nothing needs quoting and nothing can be piped.
+- Write the JSON documents this skill creates under `tmp/` with
+  `renku_command`'s `files`, in the same call that reads them.
+- Read this skill's reference files with `renku_guide`, as
+  `"<skill>/references/<file>"`, when they are not on this computer.
+- Bring images, audio and video in with `renku_upload`, look at project images
+  and video frames with `renku_view`, and give the person files with
+  `renku_download`.
+- Generation does not run inside Renku Cloud. Follow the Renku Cloud section of
+  `fal-ai-media-provider`.
+
 Default to the personal library. For personal additions, use the installed
 `renku` CLI and read
 [references/workflow.md](references/workflow.md) for the commands and safe update

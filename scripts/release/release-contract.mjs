@@ -12,6 +12,8 @@ export const repositoryRoot = path.resolve(
 export const PLUGIN_VERSION_MANIFESTS = Object.freeze([
   '.codex-plugin/plugin.json',
   '.claude-plugin/plugin.json',
+  '.codex-plugin-cloud/plugin.json',
+  '.claude-plugin-cloud/plugin.json',
 ]);
 
 export function parseSemver(version) {

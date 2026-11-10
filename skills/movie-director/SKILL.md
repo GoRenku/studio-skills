@@ -5,6 +5,26 @@ description: Coordinate Renku Studio movie-making workflows across screenplay, a
 
 # Movie Director
 
+## Renku Cloud
+
+When you have the Renku Cloud tools (`renku_command`, `renku_guide`,
+`renku_upload`, `renku_download`, `renku_view`) instead of a local `renku`
+program, Renku runs in the person's cloud sandbox. This note takes precedence
+over any instruction below to stop when `renku` is unavailable.
+
+- Run each `renku ...` command in this skill with `renku_command`, passing the
+  words after `renku` as `args`, for example `["cast", "list", "--json"]`.
+  There is no shell, so nothing needs quoting and nothing can be piped.
+- Write the JSON documents this skill creates under `tmp/` with
+  `renku_command`'s `files`, in the same call that reads them.
+- Read this skill's reference files with `renku_guide`, as
+  `"<skill>/references/<file>"`, when they are not on this computer.
+- Bring images, audio and video in with `renku_upload`, look at project images
+  and video frames with `renku_view`, and give the person files with
+  `renku_download`.
+- Generation does not run inside Renku Cloud. Follow the Renku Cloud section of
+  `fal-ai-media-provider`.
+
 Route Shot List coverage to `shot-planner`. Route new Previs to `previs-staging` (3D staging in Studio) unless the user asks for Blender by name; route Blender Previs creation and revisions of a plan with Blender revisions to `blender-shot-planner`, and revisions of a staged plan to `previs-staging`. Route AI generation from any plan type to `media-producer`, preserving the exact plan identity.
 
 This skill requires the installed Renku runtime. If `renku` is unavailable, stop and direct the user to `https://gorenku.com`; do not substitute ad hoc files for the CLI-owned project state.

@@ -1,0 +1,36 @@
+{
+  "name": "renku-cloud",
+  "version": "0.1.0",
+  "description": "Renku filmmaking skills connected to Renku Cloud: nothing to install on your computer.",
+  "author": {
+    "name": "Kerem Karatal"
+  },
+  "license": "MIT",
+  "keywords": [
+    "renku",
+    "filmmaking",
+    "screenplay",
+    "screenwriting",
+    "pre-production",
+    "movie-making"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./cloud.mcp.json",
+  "interface": {
+    "displayName": "Renku Cloud",
+    "shortDescription": "Movie-making skills for writers and filmmakers, running in Renku Cloud.",
+    "longDescription": "Renku Cloud runs Renku Studio for you at app.gorenku.com. This plugin adds the Renku filmmaking skills and connects them to your Renku Cloud sandbox; sign in once when your AI app asks.",
+    "developerName": "Kerem Karatal",
+    "category": "Video / Media",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "brandColor": "#4F6D7A",
+    "defaultPrompt": [
+      "Use Renku to help with this movie-making workflow.",
+      "For screenplay work, use $screenplay-drafter to author persisted Renku Studio screenplay JSON.",
+      "For screenplay PDF conversion, use $screenplay-pdf-to-fdx to reconstruct and validate an editor-ready FDX file."
+    ]
+  }
+}

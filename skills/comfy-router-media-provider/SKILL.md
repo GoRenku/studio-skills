@@ -5,6 +5,26 @@ description: Author and execute supported Comfy Router image, video, or audio re
 
 # Comfy Router Media Provider
 
+## Renku Cloud
+
+When you have the Renku Cloud tools (`renku_command`, `renku_guide`,
+`renku_upload`, `renku_download`, `renku_view`) instead of a local `renku`
+program, Renku runs in the person's cloud sandbox. This note takes precedence
+over any instruction below to stop when `renku` is unavailable.
+
+- Run each `renku ...` command in this skill with `renku_command`, passing the
+  words after `renku` as `args`, for example `["cast", "list", "--json"]`.
+  There is no shell, so nothing needs quoting and nothing can be piped.
+- Write the JSON documents this skill creates under `tmp/` with
+  `renku_command`'s `files`, in the same call that reads them.
+- Read this skill's reference files with `renku_guide`, as
+  `"<skill>/references/<file>"`, when they are not on this computer.
+- Bring images, audio and video in with `renku_upload`, look at project images
+  and video frames with `renku_view`, and give the person files with
+  `renku_download`.
+- Generation does not run inside Renku Cloud. Follow the Renku Cloud section of
+  `fal-ai-media-provider`.
+
 ## Request Preparation And Recovery
 
 Reuse verified command syntax and selected-route discovery within the current request preparation. Follow existing configuration-cache freshness; final native validation and execution remain live boundaries. Do not retry paid execution automatically or replay a successful mutation after CLI026. Provider metadata cache and output writes require host permission, and Preview notification requires local network access. Explain a known denial and use the authorized permission flow instead of repeating it or disabling persistence. Keep Preview, approval, concurrency, output review, and attachment ownership with Media Producer.

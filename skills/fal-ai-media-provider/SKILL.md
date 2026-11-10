@@ -5,9 +5,49 @@ description: Author and execute supported Fal.ai image, audio, and video request
 
 # Fal.ai Media Provider
 
+## Renku Cloud
+
+When you have the Renku Cloud tools (`renku_command`, `renku_guide`,
+`renku_upload`, `renku_download`, `renku_view`) instead of a local `renku`
+program, Renku runs in the person's cloud sandbox. This note takes precedence
+over any instruction below to stop when `renku` is unavailable.
+
+- Run each `renku ...` command in this skill with `renku_command`, passing the
+  words after `renku` as `args`, for example `["cast", "list", "--json"]`.
+  There is no shell, so nothing needs quoting and nothing can be piped.
+- Write the JSON documents this skill creates under `tmp/` with
+  `renku_command`'s `files`, in the same call that reads them.
+- Read this skill's reference files with `renku_guide`, as
+  `"<skill>/references/<file>"`, when they are not on this computer.
+- Bring images, audio and video in with `renku_upload`, look at project images
+  and video frames with `renku_view`, and give the person files with
+  `renku_download`.
+- Generation does not run inside Renku Cloud. Follow the Renku Cloud section of
+  `fal-ai-media-provider`.
+
 ## Request Preparation And Recovery
 
 Reuse verified command syntax and selected-route discovery within the current request preparation. Follow existing configuration-cache freshness; final native validation and execution remain live boundaries. Do not retry paid execution automatically or replay a successful mutation after CLI026. Provider metadata cache and output writes require host permission, and Preview notification requires local network access. Explain a known denial and use the authorized permission flow instead of repeating it or disabling persistence. Keep Preview, approval, concurrency, output review, and attachment ownership with Media Producer.
+
+## Renku Cloud Generation
+
+In Renku Cloud, `renku generation execute` and `renku generation recover` are
+not available, and Renku holds no fal.ai key. Generate with fal.ai's own MCP
+server, connected in the person's AI app, instead:
+
+1. Prepare and review the request exactly as Media Producer describes, with
+   `renku generation preview` and the review panel or Studio Preview. Wait for
+   the person's approval.
+2. Call fal.ai's MCP server with the approved model `apiId` and the approved
+   native request fields. The person's own fal.ai connection pays for it.
+3. Bring the result in with `renku_upload` `{ "fromUrl": "<result file URL>" }`.
+   It returns a project path such as `tmp/uploads/<name>`.
+4. Attach it with `renku_command`:
+   `["media", "import", "--project", "<project>", "--purpose", "<purpose>", "--target", "<target>", "--source", "<returned path>"]`.
+
+A file generated this way has no Renku provenance file. Never fabricate one.
+Purposes that accept only Renku-generated media cannot be attached this way
+yet; tell the person and keep the file in `tmp/uploads/`.
 
 ## Project Workspace
 

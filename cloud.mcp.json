@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "renku": {
+      "type": "http",
+      "url": "https://app.gorenku.com/mcp"
+    }
+  }
+}
