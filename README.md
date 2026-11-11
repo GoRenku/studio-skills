@@ -163,6 +163,27 @@ before generating. For the exact command sequence, see the
 - `scripts/`: repository validation and maintainer release tooling.
 - `docs/`: technical integration notes.
 
+## Try changes in Codex
+
+Codex runs a plugin from its own copy, made at install, so edits here reach
+Codex only after a refresh. These commands use Codex's public plugin commands
+and need a personal marketplace named `renku-local`
+(`~/.agents/plugins/marketplace.json`) whose `renku` plugin points at this
+folder.
+
+| Command | Purpose |
+| --- | --- |
+| `pnpm codex:local` | Refresh Codex's copy of the Renku plugin from this folder and switch to it; removes Renku Cloud. |
+| `pnpm codex:cloud` | Build the Renku Cloud plugin, then refresh and switch to it; removes the local plugin. |
+| `pnpm codex:watch` | Refresh whichever of the two is installed each time a skill or plugin file changes. |
+
+Only one Renku plugin is installed at a time: both name their MCP server
+`renku` and carry the same skills. After a refresh, start a new Codex chat;
+restart the Codex desktop app if it still shows the old skills. The cloud
+plugin takes only files git knows about, so `git add` a new skill file first.
+When `renku` is linked to a Studio checkout, Studio changes need only a Studio
+build and a new chat, not a refresh.
+
 ## Validation
 
 This is a dependency-free, single-package repository. Node.js runs the validation
