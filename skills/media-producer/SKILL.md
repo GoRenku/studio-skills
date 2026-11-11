@@ -504,10 +504,12 @@ with `renku media import --purpose shot-plan.dialogue-audio --target
 shot-plan:<id> --turns <N-or-N-M>`. Do not create durable request/job state,
 cost approval artifacts, or lifecycle records around generation.
 
-Ordinary external media has no generation provenance. Never fabricate
-provenance merely to satisfy a generated-only purpose. Copying and selection
-remain Core-owned, and `--select` is used only when selection is part of the
-current user intent.
+Media made outside Renku (another app, a provider's website or MCP server, a
+camera, or a hand edit) has no generation provenance. Every purpose accepts it:
+attach it with the same `renku media import` command without `--provenance`.
+Never write a provenance file yourself. Copying and selection remain
+Core-owned, and `--select` is used only when selection is part of the current
+user intent.
 
 ## Purpose routing
 

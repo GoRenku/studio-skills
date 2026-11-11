@@ -45,9 +45,8 @@ server, connected in the person's AI app, instead:
 4. Attach it with `renku_command`:
    `["media", "import", "--project", "<project>", "--purpose", "<purpose>", "--target", "<target>", "--source", "<returned path>"]`.
 
-A file generated this way has no Renku provenance file. Never fabricate one.
-Purposes that accept only Renku-generated media cannot be attached this way
-yet; tell the person and keep the file in `tmp/uploads/`.
+A file generated this way has no Renku provenance file: attach it without
+`--provenance`, which every purpose accepts. Never write one yourself.
 
 ## Project Workspace
 
