@@ -19,7 +19,10 @@ Run it only when all of these hold:
   shows plan usage for the Codex built-in provider);
 - the provider has no API price for it (Replicate, ElevenLabs, World Labs). A
   `missingPrice` from an API-priced provider is a failed lookup: report its
-  note instead of researching; and
+  note instead of researching. In Renku Cloud, where Renku holds no keys, a
+  `missingPrice` from fal.ai or WaveSpeed whose lookup needs a key is not a
+  failed lookup: take the price from the provider MCP server's price tool when
+  it has one, otherwise research it here; and
 - the route has no recorded price yet. Research each route once; a recorded
   price never expires and never needs refreshing.
   `renku generation price show --provider <id> --model <apiId> --json`

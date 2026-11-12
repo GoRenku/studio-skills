@@ -7,27 +7,77 @@ description: Author and execute supported ElevenLabs speech, dialogue, or music 
 
 ## Renku Cloud
 
-When you have the Renku Cloud tools (`renku_command`, `renku_guide`,
-`renku_upload`, `renku_download`, `renku_view`) instead of a local `renku`
-program, Renku runs in the person's cloud sandbox. This note takes precedence
-over any instruction below to stop when `renku` is unavailable.
+When the Renku tools `renku_command`, `renku_upload`, `renku_download`,
+`renku_view` and `renku_guide` are present, Renku runs in the person's cloud
+sandbox and this section applies. It takes precedence over any instruction
+below to stop when `renku` is unavailable.
 
-- Run each `renku ...` command in this skill with `renku_command`, passing the
-  words after `renku` as `args`, for example `["cast", "list", "--json"]`.
-  There is no shell, so nothing needs quoting and nothing can be piped.
-- Write the JSON documents this skill creates under `tmp/` with
-  `renku_command`'s `files`, in the same call that reads them.
-- Read this skill's reference files with `renku_guide`, as
-  `"<skill>/references/<file>"`, when they are not on this computer.
-- Bring images, audio and video in with `renku_upload`, look at project images
-  and video frames with `renku_view`, and give the person files with
-  `renku_download`.
-- Generation does not run inside Renku Cloud. Follow the Renku Cloud section of
-  `fal-ai-media-provider`.
+- Run each `renku ...` command through `renku_command`, as a batch of `args`
+  lists. There is no shell: no pipes, redirects or `$(...)`. Send the review
+  document inline in the command's `files`, under
+  `tmp/operations/media-generation/`, and keep your own copy on your computer.
+- Read Media Producer's audio model guides from your installed plugin. For
+  `--route-index`, pass
+  `skill:elevenlabs-media-provider/references/supported-routes.json`. Read
+  personal model notes with
+  `generation models guide show --provider elevenlabs --model <apiId>` instead
+  of opening `personalGuidePath`.
+- Renku Cloud holds no ElevenLabs key. Before preparing, check that
+  ElevenLabs' MCP server is connected in your AI app. If it is not, ask the
+  person to connect it and wait; never ask for a key.
+- `generation schema show`, `validate`, `prepare` and `estimate` work without
+  a key; music schema inspection stays unavailable, as locally. Prices still
+  come from `model-researcher`'s price research.
+- `voice-sample-audio` cannot run in Renku Cloud. Make a voice sample as
+  [Renku Cloud Generation](#renku-cloud-generation) describes.
+- The host permission and local network rules below do not apply. Renku
+  refuses its Execute and Recover steps: generate as
+  [Renku Cloud Generation](#renku-cloud-generation) describes.
 
 ## Request Preparation And Recovery
 
 Reuse verified command syntax and selected-route discovery within the current request preparation. Follow existing configuration-cache freshness; final native validation and execution remain live boundaries. Do not retry paid execution automatically or replay a successful mutation after CLI026. Provider metadata cache and output writes require host permission, and Preview notification requires local network access. Explain a known denial and use the authorized permission flow instead of repeating it or disabling persistence. Keep Preview, approval, concurrency, output review, and attachment ownership with Media Producer.
+
+## Renku Cloud Generation
+
+In Renku Cloud, the person's AI app sends the request through ElevenLabs' own
+MCP server, and their ElevenLabs account pays for it. Media Producer's
+[Renku Cloud guide](../media-producer/references/renku-cloud.md) has the whole
+flow; these are ElevenLabs' parts.
+
+1. After approval, get the exact request with `generation native-request` and
+   the review's `requestSha256`.
+2. Send it with ElevenLabs' MCP tool for its operation: speech, dialogue or
+   music. Pass the exact model, text or `inputs`, voice ids, settings, output
+   format and seed from the native request. If the tool cannot set one of
+   them, stop and tell the person; never send a changed request. Keep at most
+   `workflowPolicy.concurrencyLimit` requests running at once.
+3. ElevenLabs answers at once; there is no job to wait for. Record the job
+   with `generation job record` straight after the reply, with the reply's
+   request id or history item id as the `providerJobId`.
+4. When the reply gives a link, upload it by `url` with `renku_upload`. When
+   the tool saved the audio on your computer, upload it by `fileName` and
+   `size`, then send it with `curl -T`.
+5. One request makes one audio file. Several takes are several requests, each
+   with its own job and receipt; import them together in one
+   `media import --file` list.
+6. Write the receipt with the fields local Renku keeps:
+   `{"byteLength": <the audio file's size in bytes>, "outputFormat": "<the native request's output_format, or the format the reply reports>"}`.
+   Leave out links and anything secret. Renku refuses a receipt holding a
+   secret or a signed link, naming the field.
+7. Import with `media import --job <job id> --receipt <receipt file>`, adding
+   `--turns` for Shot Plan Dialogue Audio.
+
+**Voice samples.** Renku Cloud cannot retrieve a voice's preview audio. Make
+the sample with an ElevenLabs speech route instead: a short line spoken with
+the Cast Voice's exact `voiceId`, reviewed and sent as above. Upload it, then
+hand the uploaded path to `casting-director`, which attaches it with
+`cast voice attach` and the voice identity
+`{"provider":"elevenlabs","voiceId":"<exact-id>"}`. That attachment takes no
+job, so do not record one for a sample.
+
+ElevenLabs' MCP server is the only way to reach ElevenLabs here; never call
+its API with a key yourself.
 
 ## Project Workspace
 
@@ -93,19 +143,21 @@ distinct voices; Engines rejects more. `settings` accepts only `stability` and
 add other top-level fields or local-media markers. Engines sends model
 `eleven_v4` for this route and records the route id in provenance.
 
-For `voice-sample-audio`, author `voiceId` from the same opaque Cast Voice
-identity and optional `apiBaseUrl` only when the user deliberately selected a
-non-default endpoint. This is sample retrieval, not TTS: do not add `text`,
-speech settings, or local reference media. Engines owns the authenticated
-download and returns normal audio generation provenance.
+`voice-sample-audio` runs only in local Renku, with the person's saved
+ElevenLabs key: Engines downloads the existing preview audio of one exact
+voice and returns normal audio generation provenance. This is sample
+retrieval, not TTS. Author `voiceId` from the same opaque Cast Voice identity
+and optional `apiBaseUrl` only when the user deliberately selected a
+non-default endpoint; do not add `text`, speech settings, or local reference
+media. Renku Cloud cannot retrieve a sample; there, make one as
+[Renku Cloud Generation](#renku-cloud-generation) describes.
 
 Follow Media Producer's shared review routing for panel Submit/consume or
-Preview/conversational confirmation. Engines owns
-the ElevenLabs SDK call, retry, stream collection, output file, and safe
-provenance. Return the accepted output for focused media import or Cast Voice
-attachment. Voice browsing remains outside generic generation; supported
-sample retrieval runs through `voice-sample-audio` like every other Engines
-operation.
+Preview/conversational confirmation. In local Renku, Engines owns the
+ElevenLabs SDK call, retry, stream collection, output file, and safe
+provenance. Return the accepted output for focused media import, or hand a
+voice sample to `casting-director` for Cast Voice attachment. Choosing an
+ElevenLabs voice stays with the person, outside Renku.
 
 Never call the SDK directly, invent a voice id, attach Cast Voice records,
 persist credentials, or create durable execution lifecycle records.

@@ -31,3 +31,11 @@ The user selects one default Cast Voice in the Cast Assets media grid. Media
 Producer starts each generation from that default and may use a different
 sample only for the current transient request through the Codex configuration
 component.
+
+In Claude Code and the Codex CLI, where that component does not open, choose
+in chat instead. List the Cast Member's voices from
+`renku cast voice list --cast <cast-member-id> --json`: each voice's name and
+purpose, and which one is the default. Let the person listen in Studio's Cast
+Assets or, in Renku Cloud, through `renku_download` links to the sample files.
+Their reply names the sample for this request only; it does not change the
+default.

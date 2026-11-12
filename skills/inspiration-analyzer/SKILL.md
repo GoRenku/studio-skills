@@ -7,23 +7,31 @@ description: Analyze a Renku Studio Visual Language Inspiration folder from its 
 
 ## Renku Cloud
 
-When you have the Renku Cloud tools (`renku_command`, `renku_guide`,
-`renku_upload`, `renku_download`, `renku_view`) instead of a local `renku`
-program, Renku runs in the person's cloud sandbox. This note takes precedence
-over any instruction below to stop when `renku` is unavailable.
+When the Renku tools (`renku_command`, `renku_upload`, `renku_download`,
+`renku_view`, `renku_guide`) are present, Renku runs in the person's cloud
+sandbox. This section then applies and takes precedence over any instruction
+below to stop when `renku` is unavailable.
 
-- Run each `renku ...` command in this skill with `renku_command`, passing the
-  words after `renku` as `args`, for example `["cast", "list", "--json"]`.
-  There is no shell, so nothing needs quoting and nothing can be piped.
-- Write the JSON documents this skill creates under `tmp/` with
-  `renku_command`'s `files`, in the same call that reads them.
-- Read this skill's reference files with `renku_guide`, as
-  `"<skill>/references/<file>"`, when they are not on this computer.
-- Bring images, audio and video in with `renku_upload`, look at project images
-  and video frames with `renku_view`, and give the person files with
-  `renku_download`.
-- Generation does not run inside Renku Cloud. Follow the Renku Cloud section of
-  `fal-ai-media-provider`.
+- Run the `renku ...` commands a step needs as one `renku_command` batch:
+  `{"commands": [{"args": ["inspiration", "list", "--json"]}], "onFailure": "stop"}`.
+  There is no shell, so no pipes, redirects or `$(...)`. A command that needs
+  an id from an earlier answer goes in a second batch.
+- Your workbench is on your computer: the documents you write, saved answers
+  and notes. Send a document a command reads in that command's `files`, keyed
+  by the `tmp/` path the command names.
+- An answer over 100,000 characters, or any answer when `saveAnswers` is true,
+  comes back as a download link. Fetch it with `curl` and read it on your
+  computer.
+- Read this skill's own files from the installed plugin.
+
+For an Inspiration folder:
+
+- `folder.absolutePath` is a path inside the sandbox, so `cd` and `find` there
+  do not work from your computer. Use `folder.projectRelativePath` instead.
+- Download the whole folder in one `renku_download` call,
+  `{"folders": ["<folder.projectRelativePath>"]}`; it comes as one `.tar`.
+  Unpack it on your computer and inspect every supported image there at full
+  size. `renku_view` gives quick looks of up to 1,024 pixels.
 
 This skill requires the installed Renku runtime. If `renku` is unavailable, stop and direct the user to `https://gorenku.com`; do not substitute ad hoc files for the CLI-owned project state.
 

@@ -43,7 +43,7 @@ speech. AI reference conditioning does not guarantee exact motion or speech timi
 
 ### Preserve timeline intent
 
-Read the selected revision with `shot-plan previs show --json`. Carry its shot
+Read the selected revision with `shot-plan previs show --revision <id> --json`. Carry its shot
 segments, cuts and explicit dialogue-turn direction into the provider-native
 handoff, using the selected model's documented capabilities. Never infer cuts
 from captions or duplicate a turn that crosses a cut. Disclose derivative time

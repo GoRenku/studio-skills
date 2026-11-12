@@ -65,8 +65,9 @@ remains unresolved. These are agent judgments, not runtime prompt filters.
 
 Retrieve history deliberately to inspect an original prompt, reuse settings,
 revise a prior prompt, or diagnose a previous result. Use
-`renku asset list --project <name> --owner <owner> --json`, save the result, and
-inspect the exact Asset id's `generationProvenance` locally. Follow `nextCursor`
+`renku asset list --project <name> --owner <owner> --include-generation-provenance --json`,
+save the result, and inspect the exact Asset id's `generationProvenance`
+locally; without that flag the listing leaves provenance out. Follow `nextCursor`
 only when needed, keeping filters unchanged. Specific voice history is available
 through `renku cast voice show`. These resources retain full provenance.
 Read necessary history once; do not dump every recipe, fetch the entire reference

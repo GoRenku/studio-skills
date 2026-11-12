@@ -7,23 +7,22 @@ description: Reconstruct a conventionally formatted screenplay PDF as a faithful
 
 ## Renku Cloud
 
-When you have the Renku Cloud tools (`renku_command`, `renku_guide`,
-`renku_upload`, `renku_download`, `renku_view`) instead of a local `renku`
-program, Renku runs in the person's cloud sandbox. This note takes precedence
-over any instruction below to stop when `renku` is unavailable.
+When the Renku tools (`renku_command`, `renku_upload`, `renku_download`,
+`renku_view`, `renku_guide`) are present, Renku runs in the person's cloud
+sandbox. The conversion still runs entirely on your computer, because Renku
+reads no PDFs.
 
-- Run each `renku ...` command in this skill with `renku_command`, passing the
-  words after `renku` as `args`, for example `["cast", "list", "--json"]`.
-  There is no shell, so nothing needs quoting and nothing can be piped.
-- Write the JSON documents this skill creates under `tmp/` with
-  `renku_command`'s `files`, in the same call that reads them.
-- Read this skill's reference files with `renku_guide`, as
-  `"<skill>/references/<file>"`, when they are not on this computer.
-- Bring images, audio and video in with `renku_upload`, look at project images
-  and video frames with `renku_view`, and give the person files with
-  `renku_download`.
-- Generation does not run inside Renku Cloud. Follow the Renku Cloud section of
-  `fal-ai-media-provider`.
+- Read the PDF and run this skill's scripts on your computer, from the
+  installed plugin, with Poppler and any OCR you need.
+- Keep the manifest, rendered pages and downloads in a working folder on your
+  computer, laid out like the `tmp/` tree below.
+- A PDF already in the Project, such as supporting material, comes down with
+  one `renku_download` call.
+- Write the `.fdx` on your computer where the person asked, or beside the
+  source.
+- For a Renku import, upload the finished `.fdx` with one `renku_upload` call
+  and hand `screenplay-drafter` the path the upload reports. It imports the
+  file with `screenplay import-fdx`.
 
 Convert the screenplay by reconstructing its semantic paragraphs. Treat PDF
 text extraction as transcription evidence, not as an authoritative parse.

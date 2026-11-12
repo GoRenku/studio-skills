@@ -7,23 +7,49 @@ description: Create and iteratively direct a Blender Previs Shot Plan for a Renk
 
 ## Renku Cloud
 
-When you have the Renku Cloud tools (`renku_command`, `renku_guide`,
-`renku_upload`, `renku_download`, `renku_view`) instead of a local `renku`
-program, Renku runs in the person's cloud sandbox. This note takes precedence
-over any instruction below to stop when `renku` is unavailable.
+When the Renku tools (`renku_command`, `renku_upload`, `renku_download`,
+`renku_view`, `renku_guide`) are present, Renku runs in the person's cloud
+sandbox. This section then applies and takes precedence over any instruction
+below to stop when `renku` is unavailable.
 
-- Run each `renku ...` command in this skill with `renku_command`, passing the
-  words after `renku` as `args`, for example `["cast", "list", "--json"]`.
-  There is no shell, so nothing needs quoting and nothing can be piped.
-- Write the JSON documents this skill creates under `tmp/` with
-  `renku_command`'s `files`, in the same call that reads them.
-- Read this skill's reference files with `renku_guide`, as
-  `"<skill>/references/<file>"`, when they are not on this computer.
-- Bring images, audio and video in with `renku_upload`, look at project images
-  and video frames with `renku_view`, and give the person files with
-  `renku_download`.
-- Generation does not run inside Renku Cloud. Follow the Renku Cloud section of
-  `fal-ai-media-provider`.
+- Run the `renku ...` commands a step needs as one `renku_command` batch:
+  `{"commands": [{"args": ["shot-plan", "list", "--scene", "<scene-id>", "--json"]}], "onFailure": "stop"}`.
+  There is no shell, so no pipes, redirects or `$(...)`. A command that needs
+  an id from an earlier answer goes in a second batch.
+- Your workbench is on your computer: the documents you write, saved answers,
+  notes and scripts. Send a document a command reads in that command's
+  `files`, keyed by the `tmp/` path the command names.
+- An answer over 100,000 characters, or any answer when `saveAnswers` is true,
+  comes back as a download link. Fetch it with `curl` and read it with jq,
+  sed or a script on your computer.
+- Files go up in one `renku_upload` call; use the path each upload reports.
+  Library files come down in one `renku_download` call, a folder as one
+  `.tar`. Read this skill's own files from the installed plugin. The
+  permission steps below do not apply to Renku commands.
+
+For Blender previs:
+
+- Blender, its Python, FFmpeg and FFprobe run on your computer, as locally.
+  Keep the plan's editable source and frames there; the library's
+  `previs/source/` is not edited in the cloud.
+- To continue a plan, read
+  `shot-plan previs show --shot-plan <id> --revision latest --json` and
+  download that revision's `sourceDirectory` in one `renku_download` call.
+  Unpack the `.tar` and build from it.
+- Look at sheets with `renku_view`, or download the originals to judge
+  geography and proportions at full size. Download selected dialogue audio to
+  listen to it.
+- To register a render, pack the candidate folder (source snapshot, built
+  `.blend`, `description.md`, `playback.json`) as a `.tar`. In one
+  `renku_upload` call, send it with `unpack: true` and `folder`
+  `tmp/operations/previs/<plan-id>`, and send the MP4 as a file with `folder`
+  `tmp/media/previs/<plan-id>`. Then run `shot-plan previs register` with
+  `--source-directory <unpacked folder>`, `--render <uploaded MP4>` and
+  `--title <render title>`, using the paths the upload reports.
+- Frames, excerpts and retimed copies for the AI handoff are made on your
+  computer; `media-producer` uploads them and registers them in one
+  `shot-plan reference import` list. It imports the AI take with `--job` and
+  `--receipt` beside `--previs-revision <id>`.
 
 Author a Scene-specific Blender previs that the director can watch and revise.
 Use the Scene's actual character, location and prop sheets to make its geography,

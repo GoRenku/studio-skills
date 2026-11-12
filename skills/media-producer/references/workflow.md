@@ -354,8 +354,9 @@ References, and Configuration view as Preview. Inspection is read-only.
 
 For provider draft workflows, retain previews through the same import boundary
 with their complete returned provenance. A later conversation must resolve the
-exact saved video and read its receipt from the paginated JSON Asset listing;
-generation context deliberately omits provenance. Do not depend on chat memory
+exact saved video and read its receipt from the paginated JSON Asset listing
+with `--include-generation-provenance`; generation context deliberately omits
+provenance. Do not depend on chat memory
 or a temporary request file.
 Read the selected model's draft/completion guidance before preparing a new
 completion request. Preserve the original preview and import completed media

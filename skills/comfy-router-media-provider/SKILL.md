@@ -7,23 +7,20 @@ description: Author and execute supported Comfy Router image, video, or audio re
 
 ## Renku Cloud
 
-When you have the Renku Cloud tools (`renku_command`, `renku_guide`,
-`renku_upload`, `renku_download`, `renku_view`) instead of a local `renku`
-program, Renku runs in the person's cloud sandbox. This note takes precedence
-over any instruction below to stop when `renku` is unavailable.
+Comfy Router is not available in Renku Cloud. When the Renku tools
+`renku_command`, `renku_upload`, `renku_download`, `renku_view` and
+`renku_guide` are present, Renku runs in the person's cloud sandbox, and
+nothing there can reach Comfy Router: Renku Cloud holds no Comfy key, and
+Comfy Router is not one of the providers it reaches through the person's AI
+app.
 
-- Run each `renku ...` command in this skill with `renku_command`, passing the
-  words after `renku` as `args`, for example `["cast", "list", "--json"]`.
-  There is no shell, so nothing needs quoting and nothing can be piped.
-- Write the JSON documents this skill creates under `tmp/` with
-  `renku_command`'s `files`, in the same call that reads them.
-- Read this skill's reference files with `renku_guide`, as
-  `"<skill>/references/<file>"`, when they are not on this computer.
-- Bring images, audio and video in with `renku_upload`, look at project images
-  and video frames with `renku_view`, and give the person files with
-  `renku_download`.
-- Generation does not run inside Renku Cloud. Follow the Renku Cloud section of
-  `fal-ai-media-provider`.
+- Do not prepare, review or send a Comfy Router request in Renku Cloud, and
+  skip the steps below.
+- Tell the person in one sentence that Comfy Router needs local Renku. Then
+  return to Media Producer's route choice, which offers the providers
+  available through their AI app. Never switch providers without their choice.
+- Comfy Router media already in the Project still shows in Studio and can be
+  chosen as a reference for another provider's request.
 
 ## Request Preparation And Recovery
 

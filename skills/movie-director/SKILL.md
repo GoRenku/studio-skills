@@ -7,23 +7,46 @@ description: Coordinate Renku Studio movie-making workflows across screenplay, a
 
 ## Renku Cloud
 
-When you have the Renku Cloud tools (`renku_command`, `renku_guide`,
-`renku_upload`, `renku_download`, `renku_view`) instead of a local `renku`
-program, Renku runs in the person's cloud sandbox. This note takes precedence
-over any instruction below to stop when `renku` is unavailable.
+When the Renku tools (`renku_command`, `renku_upload`, `renku_download`,
+`renku_view`, `renku_guide`) are present, Renku runs in the person's cloud
+sandbox. This section then applies and takes precedence over any instruction
+below to stop when `renku` is unavailable.
 
-- Run each `renku ...` command in this skill with `renku_command`, passing the
-  words after `renku` as `args`, for example `["cast", "list", "--json"]`.
-  There is no shell, so nothing needs quoting and nothing can be piped.
-- Write the JSON documents this skill creates under `tmp/` with
-  `renku_command`'s `files`, in the same call that reads them.
-- Read this skill's reference files with `renku_guide`, as
-  `"<skill>/references/<file>"`, when they are not on this computer.
-- Bring images, audio and video in with `renku_upload`, look at project images
-  and video frames with `renku_view`, and give the person files with
-  `renku_download`.
-- Generation does not run inside Renku Cloud. Follow the Renku Cloud section of
-  `fal-ai-media-provider`.
+- Run the `renku ...` commands a step needs as one `renku_command` batch:
+  `{"commands": [{"args": ["director", "context", "--json"]}], "onFailure": "stop"}`.
+  There is no shell, so no pipes, redirects or `$(...)`, and a selection
+  argument needs no quoting. A command that needs an id from an earlier
+  answer goes in a second batch.
+- Your workbench is on your computer: the documents you write, saved answers
+  and notes. An answer over 100,000 characters, or any answer when
+  `saveAnswers` is true, comes back as a download link to fetch with `curl`.
+- Files go up in one `renku_upload` call; use the path each upload reports.
+  Read the skills' own files from the installed plugin.
+
+For coordination:
+
+- Studio runs in the cloud. There is no local Studio server to stop, and the
+  Codex sandbox and Studio notification steps below do not apply.
+  `studio current` gives Studio's address as `studio.url`; when a Studio
+  Preview answers `waiting`, ask the person to open Studio there.
+- Panels open only in the Codex desktop app; Claude Code and the Codex CLI use
+  each specialist's chat steps.
+- A file the person gives you (an FDX, supporting material, a voice file, an
+  image) is on your computer: upload it and hand the specialist the uploaded
+  path, never a path on your computer.
+- Final Draft round trip: the person downloads the FDX from Studio and edits
+  it, then uploads it in Studio or gives it to you. For a file they give you,
+  upload it and run `screenplay fdx update --source <path>`. Either way the
+  person reviews the update in Studio.
+- Providers run through the person's AI app. Hand `media-producer` the
+  Project's concurrency setting with generation work; it keeps that limit
+  itself and imports outputs with `--job` and `--receipt`. Codex built-in
+  images exist only in Codex.
+- Previs routes as below: Blender runs on your computer, and a staging
+  recording opens in the person's own browser.
+- Pika, Comfy Router and World Labs are not available in Renku Cloud, so
+  there is no Location World generation; existing Worlds still show in Studio.
+- For work across many Scenes, put every Scene's commands in one batch.
 
 Route Shot List coverage to `shot-planner`. Route new Previs to `previs-staging` (3D staging in Studio) unless the user asks for Blender by name; route Blender Previs creation and revisions of a plan with Blender revisions to `blender-shot-planner`, and revisions of a staged plan to `previs-staging`. Route AI generation from any plan type to `media-producer`, preserving the exact plan identity.
 

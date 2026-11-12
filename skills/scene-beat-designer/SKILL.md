@@ -7,23 +7,34 @@ description: Design and persist Renku Studio Scene Beats by reading Scene screen
 
 ## Renku Cloud
 
-When you have the Renku Cloud tools (`renku_command`, `renku_guide`,
-`renku_upload`, `renku_download`, `renku_view`) instead of a local `renku`
-program, Renku runs in the person's cloud sandbox. This note takes precedence
-over any instruction below to stop when `renku` is unavailable.
+When the Renku tools (`renku_command`, `renku_upload`, `renku_download`,
+`renku_view`, `renku_guide`) are present, Renku runs in the person's cloud
+sandbox. This section then applies and takes precedence over any instruction
+below to stop when `renku` is unavailable.
 
-- Run each `renku ...` command in this skill with `renku_command`, passing the
-  words after `renku` as `args`, for example `["cast", "list", "--json"]`.
-  There is no shell, so nothing needs quoting and nothing can be piped.
-- Write the JSON documents this skill creates under `tmp/` with
-  `renku_command`'s `files`, in the same call that reads them.
-- Read this skill's reference files with `renku_guide`, as
-  `"<skill>/references/<file>"`, when they are not on this computer.
-- Bring images, audio and video in with `renku_upload`, look at project images
-  and video frames with `renku_view`, and give the person files with
-  `renku_download`.
-- Generation does not run inside Renku Cloud. Follow the Renku Cloud section of
-  `fal-ai-media-provider`.
+- Run the `renku ...` commands a step needs as one `renku_command` batch:
+  `{"commands": [{"args": ["screenplay", "beats", "list", "--scene", "<scene-id>", "--json"]}], "onFailure": "stop"}`.
+  There is no shell, so no pipes, redirects or `$(...)`. A command that needs
+  an id from an earlier answer goes in a second batch.
+- Your workbench is on your computer: the documents you write, saved answers
+  and notes. Send a document a command reads in that command's `files`, keyed
+  by the `tmp/` path the command names.
+- An answer over 100,000 characters, or any answer when `saveAnswers` is true,
+  comes back as a download link. Fetch it with `curl` and read it with jq,
+  sed or a script on your computer.
+- Read this skill's own files, including `samples/`, from the installed
+  plugin. The permission steps below do not apply to Renku commands.
+
+For Scene Beats:
+
+- Read context for many Scenes in one command by repeating `--scene` on
+  `screenplay beats context`; `screenplay beats storyboard status` takes
+  repeated `--scene` too.
+- For whole-screenplay coverage, write each Scene's document on your computer
+  and send every Scene's create or apply command in one batch, each document
+  in its own `files` entry. With `"onFailure": "continue"`, one invalid Scene
+  does not stop the others; fix and resend only the ones that failed.
+- Look at Beat storyboard images and visual references with `renku_view`.
 
 This skill requires the installed Renku runtime. If `renku` is unavailable, stop and direct the user to `https://gorenku.com`; do not substitute ad hoc files for the CLI-owned project state.
 

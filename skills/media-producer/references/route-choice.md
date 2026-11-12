@@ -29,6 +29,12 @@ The default is **missing** when either holds:
 - the provider needs a key and `renku credentials status --json` does not
   report it `configured`. Codex built-in needs no key.
 
+In Renku Cloud the second condition is instead: the provider is not available
+in Renku Cloud, or its MCP server is not connected in your AI app. Pass the
+Default Model List as `skill:media-producer/references/default-models.json`
+wherever this guide asks for its absolute path. See
+[Renku Cloud](renku-cloud.md#choose-the-provider).
+
 ## Decide whether to ask
 
 Take these in order:

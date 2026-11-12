@@ -7,23 +7,49 @@ description: Generate, review, inspect, and attach Renku Studio image, audio, an
 
 ## Renku Cloud
 
-When you have the Renku Cloud tools (`renku_command`, `renku_guide`,
-`renku_upload`, `renku_download`, `renku_view`) instead of a local `renku`
-program, Renku runs in the person's cloud sandbox. This note takes precedence
-over any instruction below to stop when `renku` is unavailable.
+When the Renku tools `renku_command`, `renku_upload`, `renku_download`,
+`renku_view` and `renku_guide` are present, Renku runs in the person's cloud
+sandbox and this section applies. It takes precedence over any instruction
+below to stop when `renku` is unavailable. Before any media work in the cloud,
+read [references/renku-cloud.md](references/renku-cloud.md); it has the full
+flow.
 
-- Run each `renku ...` command in this skill with `renku_command`, passing the
-  words after `renku` as `args`, for example `["cast", "list", "--json"]`.
-  There is no shell, so nothing needs quoting and nothing can be piped.
-- Write the JSON documents this skill creates under `tmp/` with
-  `renku_command`'s `files`, in the same call that reads them.
-- Read this skill's reference files with `renku_guide`, as
-  `"<skill>/references/<file>"`, when they are not on this computer.
-- Bring images, audio and video in with `renku_upload`, look at project images
-  and video frames with `renku_view`, and give the person files with
-  `renku_download`.
-- Generation does not run inside Renku Cloud. Follow the Renku Cloud section of
-  `fal-ai-media-provider`.
+- **Commands.** Run each `renku ...` command through `renku_command`, as a
+  batch of `args` lists. There is no shell: no pipes, redirects or `$(...)`.
+  Put every command a step needs in one batch; a command that needs an id from
+  an earlier answer goes in the next batch.
+- **Long answers.** An answer over 100,000 characters, or every answer when
+  `saveAnswers` is true, comes back as a link. Fetch it with `curl` and read
+  it in ranges, or filter it, on your computer. Read `generation context` in
+  parts with `--section`.
+- **Workbench.** Review documents, import lists, receipts, notes and scripts
+  live on your computer. Send a document a command reads inline in the
+  batch's `files`, under `tmp/operations/media-generation/`.
+- **Files.** Upload with one `renku_upload` call and download with one
+  `renku_download` call. Crops, frames, excerpts, masks, contact sheets,
+  resizing and transcription run on your computer; their results go up and
+  are imported.
+- **Skill files.** Read this skill's files from your installed plugin. A
+  command that reads one takes `skill:<skill>/<path>`, such as
+  `skill:media-producer/references/default-models.json` for
+  `defaultModelList` and `skill:<provider-skill>/references/supported-routes.json`
+  for `--route-index`.
+- **Providers.** Renku Cloud holds no provider keys. Skip Renku's key check
+  and Studio's key page below: check instead that the selected provider's MCP
+  server is connected in your AI app, and if it is not, ask the person to
+  connect it. Pika, Comfy Router and World Labs are not available in Renku
+  Cloud; Codex built-in images run only in Codex.
+- **Generation.** Validate, prepare and estimate work as below. Renku refuses
+  its Execute and Recover steps. After approval, get the exact request with
+  `generation native-request`, submit it through the provider's MCP server
+  within `workflowPolicy.concurrencyLimit`, record each job with
+  `generation job record`, upload the outputs and import them with `--job` and
+  `--receipt`.
+- **Reviews.** Panels open only in the Codex desktop app. A Studio Preview
+  answers `studio.delivery`; `waiting` means no Studio tab is open: give the
+  person `studio.url` from `studio current` and ask them to open it.
+- **Host permissions.** The cache, local network and `codex permissions`
+  flows below do not apply.
 
 For AI video from a Previs Shot Plan, Blender or staged, read `references/shot-plan-video/blender-previs.md`. It owns the video-plus-sheets handoff and the scoped omission of an extra Lookbook image.
 
@@ -502,12 +528,17 @@ that domain owns the attachment. Pass the same exact safe provenance through
 its focused document. For Shot Plan Dialogue Audio, attach the accepted output
 with `renku media import --purpose shot-plan.dialogue-audio --target
 shot-plan:<id> --turns <N-or-N-M>`. Do not create durable request/job state,
-cost approval artifacts, or lifecycle records around generation.
+cost approval artifacts, or lifecycle records around generation. In Renku
+Cloud, the jobs you record with `generation job record` are the only job
+records.
 
-Media made outside Renku (another app, a provider's website or MCP server, a
-camera, or a hand edit) has no generation provenance. Every purpose accepts it:
-attach it with the same `renku media import` command without `--provenance`.
-Never write a provenance file yourself. Copying and selection remain
+Media made outside Renku's generation flow (another app, a provider's website,
+a camera, or a hand edit) has no generation provenance. Every purpose accepts
+it: attach it with the same `renku media import` command without
+`--provenance`. In Renku Cloud, media you generated through a provider's MCP
+server from an approved review is not outside media: import it with `--job` and
+`--receipt` as [references/renku-cloud.md](references/renku-cloud.md)
+describes. Never write a provenance file yourself. Copying and selection remain
 Core-owned, and `--select` is used only when selection is part of the current
 user intent.
 

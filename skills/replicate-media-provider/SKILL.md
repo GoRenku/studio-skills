@@ -7,27 +7,73 @@ description: Author and execute supported Replicate image, video, or audio reque
 
 ## Renku Cloud
 
-When you have the Renku Cloud tools (`renku_command`, `renku_guide`,
-`renku_upload`, `renku_download`, `renku_view`) instead of a local `renku`
-program, Renku runs in the person's cloud sandbox. This note takes precedence
-over any instruction below to stop when `renku` is unavailable.
+When the Renku tools `renku_command`, `renku_upload`, `renku_download`,
+`renku_view` and `renku_guide` are present, Renku runs in the person's cloud
+sandbox and this section applies. It takes precedence over any instruction
+below to stop when `renku` is unavailable.
 
-- Run each `renku ...` command in this skill with `renku_command`, passing the
-  words after `renku` as `args`, for example `["cast", "list", "--json"]`.
-  There is no shell, so nothing needs quoting and nothing can be piped.
-- Write the JSON documents this skill creates under `tmp/` with
-  `renku_command`'s `files`, in the same call that reads them.
-- Read this skill's reference files with `renku_guide`, as
-  `"<skill>/references/<file>"`, when they are not on this computer.
-- Bring images, audio and video in with `renku_upload`, look at project images
-  and video frames with `renku_view`, and give the person files with
-  `renku_download`.
-- Generation does not run inside Renku Cloud. Follow the Renku Cloud section of
-  `fal-ai-media-provider`.
+- Run each `renku ...` command through `renku_command`, as a batch of `args`
+  lists. There is no shell: no pipes, redirects or `$(...)`. Send the review
+  document inline in the command's `files`, under
+  `tmp/operations/media-generation/`, and keep your own copy on your computer.
+- Read this skill's adapter and Media Producer's model guides from your
+  installed plugin. For `--route-index`, pass
+  `skill:replicate-media-provider/references/supported-routes.json`. Read
+  personal model notes with
+  `generation models guide show --provider replicate --model <apiId>` instead
+  of opening `personalGuidePath`.
+- Renku Cloud holds no Replicate token. Before preparing, check that
+  Replicate's MCP server is connected in your AI app; its sign-in asks for the
+  person's token, which Replicate keeps. If it is not connected, ask the
+  person to connect it and wait; never ask for the token.
+- `generation schema show`, `validate`, `prepare` and `estimate` work without
+  a token. When a schema cannot be read (`ENGINE_CATALOG_KEY_REQUIRED`), fetch
+  it with Replicate's MCP tools and save it with `generation schema record`.
+  Prices still come from `model-researcher`'s price research, as locally.
+- Keep the `$file` markers below in the review document. The native request
+  carries them as links.
+- The host permission and local network rules below do not apply. Renku
+  refuses its Execute and Recover steps: generate as
+  [Renku Cloud Generation](#renku-cloud-generation) describes.
 
 ## Request Preparation And Recovery
 
 Reuse verified command syntax and selected-route discovery within the current request preparation. Follow existing configuration-cache freshness; final native validation and execution remain live boundaries. Do not retry paid execution automatically or replay a successful mutation after CLI026. Provider metadata cache and output writes require host permission, and Preview notification requires local network access. Explain a known denial and use the authorized permission flow instead of repeating it or disabling persistence. Keep Preview, approval, concurrency, output review, and attachment ownership with Media Producer.
+
+## Renku Cloud Generation
+
+In Renku Cloud, the person's AI app sends the request through Replicate's own
+MCP server, and their Replicate account pays for it. Media Producer's
+[Renku Cloud guide](../media-producer/references/renku-cloud.md) has the whole
+flow; these are Replicate's parts.
+
+1. After approval, get the exact request with `generation native-request` and
+   the review's `requestSha256`. Its reference links stay readable for 24
+   hours.
+2. Create a prediction with Replicate's MCP tools for the request's model,
+   `owner/model` or the pinned `owner/model:version`, with its native input
+   exactly as given. Keep at most `workflowPolicy.concurrencyLimit`
+   predictions running at once.
+3. Record the job with `generation job record` as soon as Replicate returns
+   the prediction id; that id is the `providerJobId`.
+4. Check the prediction until its status is `succeeded`, `failed` or
+   `canceled`. Check again rather than creating another prediction. End a
+   failed or canceled one with
+   `generation job close --job <id> --reason failed|cancelled`.
+5. Replicate's output links expire after an hour, so upload and import as
+   soon as the prediction succeeds. When `output` lists several files, upload
+   every link in one `renku_upload` call and import them in one
+   `media import --file` list, each with the same job and receipt.
+6. Write the receipt with the fields local Renku keeps:
+   `{"requestId": "<prediction id>", "status": "succeeded", "metrics": <the prediction's metrics, only when present>}`.
+   Leave out the output links, the API links under `urls`, logs and anything
+   secret. Renku refuses a receipt holding a secret or a signed link, naming
+   the field.
+7. Import with `media import --job <job id> --receipt <receipt file>`.
+
+Replicate's MCP server is the only way to reach Replicate here; never call its
+API with a token yourself. If its tools cannot send the native input exactly,
+stop and tell the person rather than sending a changed request.
 
 ## Project Workspace
 

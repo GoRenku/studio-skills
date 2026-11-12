@@ -7,23 +7,20 @@ description: Generate and manage a Renku Studio 3D Location World from four revi
 
 ## Renku Cloud
 
-When you have the Renku Cloud tools (`renku_command`, `renku_guide`,
-`renku_upload`, `renku_download`, `renku_view`) instead of a local `renku`
-program, Renku runs in the person's cloud sandbox. This note takes precedence
-over any instruction below to stop when `renku` is unavailable.
+Generating a Location World is not available in Renku Cloud. When the Renku
+tools `renku_command`, `renku_upload`, `renku_download`, `renku_view` and
+`renku_guide` are present, Renku runs in the person's cloud sandbox, which
+holds no World Labs key and cannot reach World Labs. This section takes
+precedence over the instructions below.
 
-- Run each `renku ...` command in this skill with `renku_command`, passing the
-  words after `renku` as `args`, for example `["cast", "list", "--json"]`.
-  There is no shell, so nothing needs quoting and nothing can be piped.
-- Write the JSON documents this skill creates under `tmp/` with
-  `renku_command`'s `files`, in the same call that reads them.
-- Read this skill's reference files with `renku_guide`, as
-  `"<skill>/references/<file>"`, when they are not on this computer.
-- Bring images, audio and video in with `renku_upload`, look at project images
-  and video frames with `renku_view`, and give the person files with
-  `renku_download`.
-- Generation does not run inside Renku Cloud. Follow the Renku Cloud section of
-  `fal-ai-media-provider`.
+- Do not prepare four source images, a World prompt or a generation document
+  for a new World there, and do not run the [Workflow](#workflow) below.
+- Tell the person in one sentence that a new Location World needs local
+  Renku. A world-ready Location Sheet is still an ordinary sheet that
+  `media-producer` can make in the cloud.
+- Existing Worlds still show in the Location's **3D World** tab in Studio.
+- [Rollback](#rollback) works: run its commands through `renku_command`, as a
+  batch of `args` lists. There is no shell, so nothing is piped.
 
 Require the installed Renku runtime. If `renku` is unavailable, stop and direct
 the user to `https://gorenku.com`; do not construct Project state manually.

@@ -7,23 +7,35 @@ description: Author and execute supported Fal.ai image, audio, and video request
 
 ## Renku Cloud
 
-When you have the Renku Cloud tools (`renku_command`, `renku_guide`,
-`renku_upload`, `renku_download`, `renku_view`) instead of a local `renku`
-program, Renku runs in the person's cloud sandbox. This note takes precedence
-over any instruction below to stop when `renku` is unavailable.
+When the Renku tools `renku_command`, `renku_upload`, `renku_download`,
+`renku_view` and `renku_guide` are present, Renku runs in the person's cloud
+sandbox and this section applies. It takes precedence over any instruction
+below to stop when `renku` is unavailable.
 
-- Run each `renku ...` command in this skill with `renku_command`, passing the
-  words after `renku` as `args`, for example `["cast", "list", "--json"]`.
-  There is no shell, so nothing needs quoting and nothing can be piped.
-- Write the JSON documents this skill creates under `tmp/` with
-  `renku_command`'s `files`, in the same call that reads them.
-- Read this skill's reference files with `renku_guide`, as
-  `"<skill>/references/<file>"`, when they are not on this computer.
-- Bring images, audio and video in with `renku_upload`, look at project images
-  and video frames with `renku_view`, and give the person files with
-  `renku_download`.
-- Generation does not run inside Renku Cloud. Follow the Renku Cloud section of
-  `fal-ai-media-provider`.
+- Run each `renku ...` command through `renku_command`, as a batch of `args`
+  lists. There is no shell: no pipes, redirects or `$(...)`. Send the review
+  document inline in the command's `files`, under
+  `tmp/operations/media-generation/`, and keep your own copy on your computer.
+- Read this skill's adapters and Media Producer's model guides from your
+  installed plugin. For `--route-index`, pass
+  `skill:fal-ai-media-provider/references/supported-routes.json`. Read
+  personal model notes with
+  `generation models guide show --provider fal-ai --model <apiId>` instead of
+  opening `personalGuidePath`.
+- Renku Cloud holds no fal.ai key. Before preparing, check that fal.ai's MCP
+  server is connected in your AI app. If it is not, ask the person to connect
+  it and wait; never ask for a key.
+- `generation schema show`, `validate`, `prepare` and `estimate` work without
+  a key. When a schema cannot be read (`ENGINE_CATALOG_KEY_REQUIRED`), fetch
+  it with fal.ai's MCP schema tool and save it with `generation schema record`.
+  A `missingPrice` estimate can come from fal.ai here: take the price from
+  fal.ai's MCP server when it offers one, otherwise follow `model-researcher`,
+  and record it with `generation price record`.
+- Keep the `$file` markers below in the review document. The native request
+  carries them as links.
+- The host permission and local network rules below do not apply. Renku
+  refuses its Execute and Recover steps: generate as
+  [Renku Cloud Generation](#renku-cloud-generation) describes.
 
 ## Request Preparation And Recovery
 
@@ -31,22 +43,37 @@ Reuse verified command syntax and selected-route discovery within the current re
 
 ## Renku Cloud Generation
 
-In Renku Cloud, `renku generation execute` and `renku generation recover` are
-not available, and Renku holds no fal.ai key. Generate with fal.ai's own MCP
-server, connected in the person's AI app, instead:
+In Renku Cloud, the person's AI app sends the request through fal.ai's own MCP
+server, and their fal.ai account pays for it. Media Producer's
+[Renku Cloud guide](../media-producer/references/renku-cloud.md) has the whole
+flow; these are fal.ai's parts.
 
-1. Prepare and review the request exactly as Media Producer describes, with
-   `renku generation preview` and the review panel or Studio Preview. Wait for
-   the person's approval.
-2. Call fal.ai's MCP server with the approved model `apiId` and the approved
-   native request fields. The person's own fal.ai connection pays for it.
-3. Bring the result in with `renku_upload` `{ "fromUrl": "<result file URL>" }`.
-   It returns a project path such as `tmp/uploads/<name>`.
-4. Attach it with `renku_command`:
-   `["media", "import", "--project", "<project>", "--purpose", "<purpose>", "--target", "<target>", "--source", "<returned path>"]`.
+1. Prepare and review the request as Media Producer describes: the review
+   panel, or `generation prepare` or `generation preview show` for Studio
+   Preview. After approval, get the exact request with
+   `generation native-request` and the review's `requestSha256`. Its reference
+   links stay readable for 24 hours.
+2. Submit it with fal.ai's MCP tool that queues a request, passing the
+   request's route (the `apiId`) and native input exactly as given. Keep at
+   most `workflowPolicy.concurrencyLimit` fal.ai jobs running at once.
+3. Record the job with `generation job record` as soon as fal.ai returns its
+   request id; that id is the `providerJobId`. For a Seedance 2.5 draft, add
+   the result's `draft_id` as `draftId`.
+4. Check with fal.ai's status tool until the request completes, then fetch its
+   result. A queued request can take minutes: check again, never submit again.
+5. A result can list several files, for example under `images`. Upload every
+   file link in one `renku_upload` call and import them in one
+   `media import --file` list, each with the same job and receipt.
+6. Write the receipt with the fields local Renku keeps:
+   `{"requestId": "<fal.ai request id>", "draft_id": "<only when the result has one>"}`.
+   Leave out the result's file links and anything secret. Renku refuses a
+   receipt holding a secret or a signed link, naming the field.
+7. Import with `media import --job <job id> --receipt <receipt file>`.
 
-A file generated this way has no Renku provenance file: attach it without
-`--provenance`, which every purpose accepts. Never write one yourself.
+fal.ai's MCP server is the only way to reach fal.ai here; never call its API
+with a key yourself. If its tools cannot send the native input exactly, stop
+and tell the person rather than sending a changed request. A request fal.ai
+reports as failed ends with `generation job close --job <id> --reason failed`.
 
 ## Project Workspace
 

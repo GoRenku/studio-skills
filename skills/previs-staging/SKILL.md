@@ -7,23 +7,43 @@ description: Stage and iteratively direct a Previs Shot Plan in Renku Studio's 3
 
 ## Renku Cloud
 
-When you have the Renku Cloud tools (`renku_command`, `renku_guide`,
-`renku_upload`, `renku_download`, `renku_view`) instead of a local `renku`
-program, Renku runs in the person's cloud sandbox. This note takes precedence
-over any instruction below to stop when `renku` is unavailable.
+When the Renku tools (`renku_command`, `renku_upload`, `renku_download`,
+`renku_view`, `renku_guide`) are present, Renku runs in the person's cloud
+sandbox. This section then applies.
 
-- Run each `renku ...` command in this skill with `renku_command`, passing the
-  words after `renku` as `args`, for example `["cast", "list", "--json"]`.
-  There is no shell, so nothing needs quoting and nothing can be piped.
-- Write the JSON documents this skill creates under `tmp/` with
-  `renku_command`'s `files`, in the same call that reads them.
-- Read this skill's reference files with `renku_guide`, as
-  `"<skill>/references/<file>"`, when they are not on this computer.
-- Bring images, audio and video in with `renku_upload`, look at project images
-  and video frames with `renku_view`, and give the person files with
-  `renku_download`.
-- Generation does not run inside Renku Cloud. Follow the Renku Cloud section of
-  `fal-ai-media-provider`.
+- Run the `renku ...` commands a step needs as one `renku_command` batch:
+  `{"commands": [{"args": ["shot-plan", "staging", "show", "--shot-plan", "<id>", "--json"]}], "onFailure": "stop"}`.
+  There is no shell, so no pipes, redirects or `$(...)`. A command that needs
+  an id from an earlier answer goes in a second batch.
+- Your workbench is on your computer: the documents you write, saved answers
+  and notes. Send a document a command reads in that command's `files`, keyed
+  by the `tmp/` path the command names.
+- An answer over 100,000 characters, or any answer when `saveAnswers` is true,
+  comes back as a download link. Fetch it with `curl` and read it with jq,
+  sed or a script on your computer.
+- Files go up in one `renku_upload` call; use the path each upload reports.
+  Library files come down in one `renku_download` call. Read this skill's own
+  files from the installed plugin.
+
+For staging:
+
+- Read a document with `show` in one batch, change the JSON on your computer,
+  then write the whole document back with `--expected-version` in the next.
+- `shot-plan staging record` prints a `recorderUrl` and keeps waiting. Give
+  the person that link to open in their own browser, which records the
+  staging and saves the revision. When `renku_command` hands back a run id,
+  pass it back until the command prints the new revision.
+  `CLI_STAGING_CHROME_MISSING` does not apply in the cloud.
+- Read the newest revision with
+  `shot-plan previs show --shot-plan <id> --revision latest --json`, or pass
+  its exact revision id to `--revision`.
+- Look at event frames with `renku_view` at their times. For exact frames,
+  download the video and extract them with ffmpeg on your computer. Download
+  selected dialogue audio to hear the speaker and where a line starts.
+- Look at sheets and hero images with `renku_view`, or download the originals
+  to judge geography and heights at full size.
+- Upload a reference image before `shot-plan reference import` and pass the
+  uploaded path as `--source`.
 
 Stage a Scene as a 3D previs the director can watch, adjust by hand in Studio's
 Staging tab and keep directing through you. Everything you change is a whole,

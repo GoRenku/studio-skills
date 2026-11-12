@@ -13,9 +13,11 @@ briefing before configuration, including voice facts and media inventory.
 For Seed Audio sample creation, show provider, model, output format, sample
 rate, speed, volume, pitch, and multilingual when the live Fal schema exposes
 them. Do not show a reference-voice picker because the first Seed sample is
-created from text description only. For ElevenLabs sample retrieval, show the
-selected Cast Voice identity and the supported retrieval operation rather than
-inventing speech-generation controls.
+created from text description only. ElevenLabs sample retrieval runs only in
+local Renku, with the person's saved ElevenLabs key: it downloads the existing
+preview audio of one exact voice. For it, show the selected Cast Voice identity
+and the retrieval operation rather than inventing speech-generation controls.
+Renku Cloud cannot fetch a sample; see [In Renku Cloud](#in-renku-cloud).
 
 ```bash
 renku generation context --purpose cast.voice-sample --target cast:<cast-member-id>
@@ -74,3 +76,20 @@ paths or provider identities in Cast Design JSON. The attachment's optional
 Discover routes through `generation models list` and find relevant model advice
 by name under `references/model-guides/`. Use the selected schema for supported
 voice and audio inputs.
+
+## In Renku Cloud
+
+Renku Cloud holds no provider keys, so it cannot retrieve an ElevenLabs sample
+or run the sample generation itself. Make every sample through the provider's
+MCP server, as [the Renku Cloud guide](renku-cloud.md) describes:
+
+1. Author and review the request as above. For an ElevenLabs voice, the sample
+   is a short line spoken with the exact `voiceId` through an ElevenLabs speech
+   route, not the retrieval operation.
+2. Get the exact request with `generation native-request`, then send it
+   through the provider's MCP server.
+3. Upload the audio with `renku_upload`, then inspect or play it.
+4. Hand the uploaded path to `casting-director`, which attaches it with
+   `renku cast voice attach`. An ElevenLabs sample keeps its `voiceIdentity`.
+   Leave out `sample.generationProvenance`: you never write provenance
+   yourself, and the attachment takes no recorded job, so do not record one.

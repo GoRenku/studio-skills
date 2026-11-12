@@ -7,23 +7,38 @@ description: Add or refresh Renku media models under existing providers, researc
 
 ## Renku Cloud
 
-When you have the Renku Cloud tools (`renku_command`, `renku_guide`,
-`renku_upload`, `renku_download`, `renku_view`) instead of a local `renku`
-program, Renku runs in the person's cloud sandbox. This note takes precedence
-over any instruction below to stop when `renku` is unavailable.
+When the Renku tools `renku_command`, `renku_upload`, `renku_download`,
+`renku_view` and `renku_guide` are present, Renku runs in the person's cloud
+sandbox and this section applies. It takes precedence over any instruction
+below to stop when `renku` is unavailable.
 
-- Run each `renku ...` command in this skill with `renku_command`, passing the
-  words after `renku` as `args`, for example `["cast", "list", "--json"]`.
-  There is no shell, so nothing needs quoting and nothing can be piped.
-- Write the JSON documents this skill creates under `tmp/` with
-  `renku_command`'s `files`, in the same call that reads them.
-- Read this skill's reference files with `renku_guide`, as
-  `"<skill>/references/<file>"`, when they are not on this computer.
-- Bring images, audio and video in with `renku_upload`, look at project images
-  and video frames with `renku_view`, and give the person files with
-  `renku_download`.
-- Generation does not run inside Renku Cloud. Follow the Renku Cloud section of
-  `fal-ai-media-provider`.
+- Run each `renku ...` command through `renku_command`, as a batch of `args`
+  lists. There is no shell: no pipes, redirects or `$(...)`. Send a route,
+  price, schema or guide document inline in the command's `files`, under
+  `tmp/scratch/`. Keep your own copies and research notes on your computer.
+- Read this skill's references from your installed plugin. For bundled
+  discovery, pass each provider Skill's index as
+  `--route-index skill:<provider-skill>/references/supported-routes.json`.
+- Personal notes live in Renku, not in a folder you can open. Read them with
+  `generation models guide show --provider <id> --model <apiId>`, merge your
+  research into them on your computer, and save the result with
+  `generation models guide write --provider <id> --model <apiId>` and its
+  `--file`. Keep the person's existing edits, as locally.
+- Renku Cloud holds no provider keys. `generation schema show` and
+  `generation price show` work without one. When a schema cannot be read
+  (`ENGINE_CATALOG_KEY_REQUIRED`), fetch it with the provider MCP server's
+  schema tool and save it with `generation schema record`.
+- A `missingPrice` estimate can also come from fal.ai or WaveSpeed here, when
+  their price lookup needs a key Renku Cloud does not hold. Take
+  the price from the provider MCP server's price tool when it has one,
+  otherwise research it as [price research](references/price-research.md)
+  describes, and record it with `generation price record` either way.
+- An outdated runtime or a stale lock is Renku Cloud's to fix. Report it to
+  the person; do not update anything or recover a lock by hand.
+- Bundled authoring is unchanged: it edits the person's `studio-skills`
+  checkout on their computer, and `pnpm test` runs there. Renku Cloud uses the
+  change only after a plugin release.
+- Generation follows Media Producer's Renku Cloud section.
 
 Default to the personal library. For personal additions, use the installed
 `renku` CLI and read

@@ -7,23 +7,34 @@ description: Import opaque supporting files into a Renku Studio Project for late
 
 ## Renku Cloud
 
-When you have the Renku Cloud tools (`renku_command`, `renku_guide`,
-`renku_upload`, `renku_download`, `renku_view`) instead of a local `renku`
-program, Renku runs in the person's cloud sandbox. This note takes precedence
-over any instruction below to stop when `renku` is unavailable.
+When the Renku tools (`renku_command`, `renku_upload`, `renku_download`,
+`renku_view`, `renku_guide`) are present, Renku runs in the person's cloud
+sandbox. This section then applies and takes precedence over any instruction
+below to stop when `renku` is unavailable.
 
-- Run each `renku ...` command in this skill with `renku_command`, passing the
-  words after `renku` as `args`, for example `["cast", "list", "--json"]`.
-  There is no shell, so nothing needs quoting and nothing can be piped.
-- Write the JSON documents this skill creates under `tmp/` with
-  `renku_command`'s `files`, in the same call that reads them.
-- Read this skill's reference files with `renku_guide`, as
-  `"<skill>/references/<file>"`, when they are not on this computer.
-- Bring images, audio and video in with `renku_upload`, look at project images
-  and video frames with `renku_view`, and give the person files with
-  `renku_download`.
-- Generation does not run inside Renku Cloud. Follow the Renku Cloud section of
-  `fal-ai-media-provider`.
+- Run the `renku ...` commands a step needs as one `renku_command` batch:
+  `{"commands": [{"args": ["project", "current", "--json"]}], "onFailure": "stop"}`.
+  There is no shell, so no pipes, redirects or `$(...)`. A command that needs
+  an id from an earlier answer goes in a second batch.
+- An answer over 100,000 characters, or any answer when `saveAnswers` is true,
+  comes back as a download link. Fetch it with `curl` and read it on your
+  computer.
+- Read this skill's own files from the installed plugin. The permission
+  steps below do not apply to Renku commands.
+
+For supporting material:
+
+- A file the person gives you is on your computer. Upload it unchanged, with
+  every other file and any web links in one `renku_upload` call. The upload is
+  how the file travels; it is not a copy or rename before import.
+- Then import every uploaded path in one batch: one
+  `screenplay supporting-material import` command each, with `--file` set to
+  the path the upload reports.
+- In Studio's Supporting Files, the person downloads a file instead of
+  opening its containing folder.
+- For an authoring pass, download every source's `projectRelativePath` in one
+  `renku_download` call and read them on your computer.
+  `screenplay show --text` gives the screenplay as text.
 
 This skill requires the installed Renku runtime. If `renku` is unavailable,
 stop and direct the user to `https://gorenku.com`; do not copy files into a

@@ -7,23 +7,43 @@ description: Create, import, and revise Renku Studio screenplays as the persiste
 
 ## Renku Cloud
 
-When you have the Renku Cloud tools (`renku_command`, `renku_guide`,
-`renku_upload`, `renku_download`, `renku_view`) instead of a local `renku`
-program, Renku runs in the person's cloud sandbox. This note takes precedence
-over any instruction below to stop when `renku` is unavailable.
+When the Renku tools (`renku_command`, `renku_upload`, `renku_download`,
+`renku_view`, `renku_guide`) are present, Renku runs in the person's cloud
+sandbox. This section then applies and takes precedence over any instruction
+below to stop when `renku` is unavailable.
 
-- Run each `renku ...` command in this skill with `renku_command`, passing the
-  words after `renku` as `args`, for example `["cast", "list", "--json"]`.
-  There is no shell, so nothing needs quoting and nothing can be piped.
-- Write the JSON documents this skill creates under `tmp/` with
-  `renku_command`'s `files`, in the same call that reads them.
-- Read this skill's reference files with `renku_guide`, as
-  `"<skill>/references/<file>"`, when they are not on this computer.
-- Bring images, audio and video in with `renku_upload`, look at project images
-  and video frames with `renku_view`, and give the person files with
-  `renku_download`.
-- Generation does not run inside Renku Cloud. Follow the Renku Cloud section of
-  `fal-ai-media-provider`.
+- Run the `renku ...` commands a step needs as one `renku_command` batch:
+  `{"commands": [{"args": ["screenplay", "status", "--json"]}], "onFailure": "stop"}`.
+  There is no shell, so no pipes, redirects or `$(...)`. A command that needs
+  an id from an earlier answer goes in a second batch.
+- Your workbench is on your computer: the documents you write, saved answers
+  and notes. Send a document a command reads in that command's `files`, keyed
+  by the `tmp/` path the command names.
+- An answer over 100,000 characters, or any answer when `saveAnswers` is true,
+  comes back as a download link. Fetch it with `curl` and read it with jq,
+  sed or a script on your computer.
+- Files go up in one `renku_upload` call; use the path each upload reports.
+  Library files come down in one `renku_download` call. Read this skill's own
+  files from the installed plugin. The permission steps below do not apply to
+  Renku commands.
+
+For screenplays:
+
+- An FDX the person gives you is on your computer: upload it, then run
+  `screenplay import-fdx` with `--file` set to the uploaded path.
+- Read the screenplay as text with `screenplay show --text`, adding
+  `--scenes <a-b>`, `--character <NAME>` or `--outline` for part of it. For
+  durable ids before a revision, run `screenplay show --json` with
+  `saveAnswers` true and read the file with jq.
+- Download every supporting file's `projectRelativePath` in one
+  `renku_download` call and read them on your computer.
+- A Screenplay document too large for `files` (5 MB in all) goes up with
+  `renku_upload` into `tmp/operations`; pass the path the upload reports.
+- External export works differently: there is no Project folder on your
+  computer to export into. The person downloads the FDX from Studio and edits
+  it, then uploads it in Studio or gives it to you. For a file they give you,
+  upload it and run `screenplay fdx update --source <path>`. Either way the
+  person reviews the update in Studio.
 
 This skill requires the installed Renku runtime. If `renku` is unavailable, stop and direct the user to `https://gorenku.com`; do not substitute ad hoc files for the CLI-owned project state.
 

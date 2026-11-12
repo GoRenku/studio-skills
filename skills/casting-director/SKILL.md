@@ -7,23 +7,55 @@ description: Create and revise Renku Studio Cast Members, Cast Design documents,
 
 ## Renku Cloud
 
-When you have the Renku Cloud tools (`renku_command`, `renku_guide`,
-`renku_upload`, `renku_download`, `renku_view`) instead of a local `renku`
-program, Renku runs in the person's cloud sandbox. This note takes precedence
-over any instruction below to stop when `renku` is unavailable.
+When the Renku tools (`renku_command`, `renku_upload`, `renku_download`,
+`renku_view`, `renku_guide`) are present, Renku runs in the person's cloud
+sandbox. This section then applies and takes precedence over any instruction
+below to stop when `renku` is unavailable.
 
-- Run each `renku ...` command in this skill with `renku_command`, passing the
-  words after `renku` as `args`, for example `["cast", "list", "--json"]`.
-  There is no shell, so nothing needs quoting and nothing can be piped.
-- Write the JSON documents this skill creates under `tmp/` with
-  `renku_command`'s `files`, in the same call that reads them.
-- Read this skill's reference files with `renku_guide`, as
-  `"<skill>/references/<file>"`, when they are not on this computer.
-- Bring images, audio and video in with `renku_upload`, look at project images
-  and video frames with `renku_view`, and give the person files with
-  `renku_download`.
-- Generation does not run inside Renku Cloud. Follow the Renku Cloud section of
-  `fal-ai-media-provider`.
+- Run the `renku ...` commands a step needs as one `renku_command` batch:
+  `{"commands": [{"args": ["cast", "list", "--json"]}], "onFailure": "stop"}`.
+  There is no shell, so no pipes, redirects or `$(...)`. A command that needs
+  an id from an earlier answer goes in a second batch.
+- Your workbench is on your computer: the documents you write, saved answers
+  and notes. Send a document a command reads in that command's `files`, keyed
+  by the `tmp/` path the command names.
+- An answer over 100,000 characters, or any answer when `saveAnswers` is true,
+  comes back as a download link. Fetch it with `curl` and read it with jq,
+  sed or a script on your computer.
+- Files go up in one `renku_upload` call; use the path each upload reports.
+  Library files come down in one `renku_download` call. `renku_view` gives
+  quick looks at images; download an original to judge fine detail.
+- Read this skill's own files from the installed plugin. The permission
+  steps below do not apply to Renku commands.
+
+For casting:
+
+- Read the screenplay as text with `screenplay show --text`, adding
+  `--scenes <a-b>` or `--character <NAME>` for part of it.
+- Download every supporting file's `projectRelativePath` in one
+  `renku_download` call and read them on your computer.
+- Voice samples: upload the person's audio file; `media-producer` uploads a
+  sample made through ElevenLabs' MCP server. Attach either as a
+  `castVoiceFileAttachment` with the uploaded path as
+  `sample.sourceProjectRelativePath`, and leave out
+  `sample.generationProvenance`; never write one. The person listens through
+  `renku_download` links or in Studio.
+- A portrait the person gives you goes up with `renku_upload`; hand it to
+  `media-producer` as a `project-file` reference to the uploaded path.
+- Casting panels open only in the Codex desktop app, with the round panel's
+  `defaultModelList` set to `skill:media-producer/references/default-models.json`.
+  They offer the providers the person's AI app reaches, with no keys in
+  Renku. Claude Code and the Codex CLI use the chat steps.
+  `generation estimate` and `generation price record` work without keys.
+- When the director keeps the saved casting defaults,
+  `cast casting round create --look <look-id>` (or `--costume <costume-id>`)
+  builds the round without a document.
+- `media-producer` runs the candidates through the provider's MCP server, at
+  most the round's `maxConcurrentGenerations` at once. As they finish it
+  brings them in with one upload and one `media import` list carrying each
+  candidate's `job` and `receipt`, so the board fills in during the round.
+  Codex built-in images exist only in Codex.
+- Repeat `--asset-file` to set several candidate statuses in one command.
 
 This skill requires the installed Renku runtime. If `renku` is unavailable, stop and direct the user to `https://gorenku.com`; do not substitute ad hoc files for the CLI-owned project state.
 
@@ -129,7 +161,7 @@ renku cast design validate --file tmp/operations/cast-design.json --json
 renku cast design write --file tmp/operations/cast-design.json --json
 ```
 
-5. If a durable ElevenLabs provider voice id and sample audio are ready, validate and attach the right Cast Voice document:
+5. If the sample audio is in the Project, with its durable ElevenLabs provider voice id when it has one, validate and attach a Cast Voice document:
 
 ```bash
 renku cast voice validate --file tmp/operations/cast-voice-attachment.json --json
@@ -137,36 +169,37 @@ renku cast voice attach --file tmp/operations/cast-voice-attachment.json --json
 renku cast voice list --cast <cast-member-id> --json
 ```
 
-Use `kind: "castVoiceAttachment"` when the user provides or approves a
-project-local custom audio file, including an already generated sample file.
-Use `kind: "castVoiceElevenLabsSampleAttachment"` when the user provides an
-ElevenLabs `voiceId` and wants Renku to fetch an existing provider-owned sample.
-Provider sample attachment documents must include `name`, `provider`, `model`,
-`voiceId`, `purpose`, and `sample.title`; they must not include
-`sample.sourceProjectRelativePath` or `sample.receipt`.
+Every Cast Voice uses `kind: "castVoiceFileAttachment"`, whose
+`sample.sourceProjectRelativePath` names an `.mp3`, `.wav` or `.m4a` file
+already in the Project: a custom audio file the user provides or approves, or
+a sample `media-producer` generated. Renku never fetches a sample itself. For
+an existing ElevenLabs voice, ask `media-producer` for its sample through the
+ElevenLabs voice-sample route, then attach that file with the voice's exact
+identity in `voiceIdentity`. A Seed Audio sample omits `voiceIdentity`.
+Include `sample.generationProvenance` only as `media-producer` returned it.
 
-Example provider sample attachment:
+Example ElevenLabs attachment:
 
 ```json
 {
-  "kind": "castVoiceElevenLabsSampleAttachment",
+  "kind": "castVoiceFileAttachment",
   "castMemberId": "cast_urban",
   "name": "normal-voice",
-  "provider": "elevenlabs",
-  "model": "eleven_v3",
-  "voiceId": "JBFqnCBsd6RMkjVDRZzb",
   "purpose": "Default spoken dialogue and calm technical explanation.",
+  "voiceIdentity": {
+    "provider": "elevenlabs",
+    "voiceId": "JBFqnCBsd6RMkjVDRZzb"
+  },
   "sample": {
+    "sourceProjectRelativePath": "tmp/media/urban-normal-voice.mp3",
     "title": "Urban normal ElevenLabs voice sample"
   }
 }
 ```
 
-Validate before live attachment. When the environment requires network
-approval, ask before running `renku cast voice attach` for an ElevenLabs provider
-sample because that command calls ElevenLabs and attaches the fetched MP3 to
-the Cast Member. Core allocates the durable filename directly under
-`cast/<handle>/`; never construct that path in the skill.
+Validate before attachment. Core stores the sample in a durable file directly
+under `cast/<handle>/`; never construct that path in the skill. See
+`references/cast-voice-attachments.md` and `samples/cast-voice-attachment.json`.
 
 6. Hand off profile and voice-sample generation to `media-producer` only when the user wants media work. Character sheets follow the casting flow below.
 

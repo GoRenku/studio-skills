@@ -23,6 +23,11 @@ Import the preview through its normal destination with the returned
 Project database. A video left only in `tmp/` is not a saved Project draft.
 Do not rebuild the receipt, put the id in a title, or ask the user to keep it.
 
+In Renku Cloud, fal.ai's MCP result carries the `draft_id`. Record it as the
+job's `draftId` and keep it as `draft_id` beside `requestId` in the receipt,
+then import the preview with that job and receipt, as the fal.ai provider
+Skill's Renku Cloud Generation section describes.
+
 After reviewing the preview, use
 [`bytedance/seedance-2.5/draft/complete`](https://fal.ai/models/bytedance/seedance-2.5/draft/complete/api)
 to regenerate that task at 1080p. The completion input requires `draft_id`; it
@@ -43,11 +48,15 @@ When the user says "finish this draft" or selects a saved preview:
 1. Resolve the exact Project and retained video from current Studio selection,
    generation context, or the user's explicit reference. Read its full
    `generationProvenance` from
-   `renku asset list --project <project-name> --owner <owner-key> --json`,
-   following pagination as needed. Generation context identifies files but
-   intentionally omits provenance; do not treat that omission as a missing
+   `renku asset list --project <project-name> --owner <owner-key> --include-generation-provenance --json`,
+   following pagination as needed. Without `--include-generation-provenance`
+   the listing leaves provenance out. Generation context identifies files but
+   intentionally omits provenance; do not treat either omission as a missing
    receipt. Match its exact AssetFile id, not the newest file or a similar title.
-   If the intended draft is ambiguous, ask which one.
+   If the intended draft is ambiguous, ask which one. In Renku Cloud, a draft
+   whose session ended before its import is not an Asset yet:
+   `renku generation job list --unfinished` shows its recorded `draftId`.
+   Import that preview first, as Media Producer's Renku Cloud guide describes.
 2. Read its saved provider, exact model, request, and `receipt.draft_id`.
    Verify that this is the user's intended Seedance draft and select the matching
    non-US or US completion route using the saved route, not today's default

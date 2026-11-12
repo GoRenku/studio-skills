@@ -33,17 +33,12 @@ historical source honestly.
 
 Build a stable revision candidate directory under project `tmp/` containing the
 source snapshot, built `.blend`, optional `description.md` and `playback.json`. Keep frame sequences
-outside that candidate directory. Register the completed unannotated MP4:
+outside that candidate directory. Register the completed unannotated MP4 with
+project-relative paths and a short render title:
 
 ```bash
-renku shot-plan previs register --project <name> --shot-plan <id> --file tmp/operations/previs/register.json --json
-renku shot-plan previs show --project <name> --shot-plan <id> --json
-```
-
-Request file (paths are project-relative):
-
-```json
-{"sourceDirectory":"tmp/operations/previs/<plan-id>/candidate","renderPath":"tmp/media/previs/<plan-id>/<attempt>/previs.mp4"}
+renku shot-plan previs register --project <name> --shot-plan <id> --source-directory tmp/operations/previs/<plan-id>/candidate --render tmp/media/previs/<plan-id>/<attempt>/previs.mp4 --title "<render title>" --json
+renku shot-plan previs show --project <name> --shot-plan <id> --revision latest --json
 ```
 
 Core snapshots that directory into `previs/revisions/rNNN`, copies/hashes the
