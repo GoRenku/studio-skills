@@ -5,9 +5,10 @@ request. A re-analysis rewrites them.
 
 ## 1. Make The Project Current
 
-`renku cast arc` commands work on the current authoring project. Open the
-project explicitly, and confirm the analysis context you read is for the
-same project:
+`renku cast arc` commands act on the project named by `--project`, or on the
+current authoring project when `--project` is omitted. Open the project
+explicitly, and confirm the analysis context you read is for the same
+project:
 
 ```bash
 renku project open <project-name> --json

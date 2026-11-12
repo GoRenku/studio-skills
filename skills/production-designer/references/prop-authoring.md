@@ -4,8 +4,8 @@ Use `renku prop` for durable reusable production Props. Keep a Location Design
 `recurringObjects` entry local when it does not need independent design
 history, Assets, generation, or Studio navigation.
 
-Prop commands require current authoring selection. Establish it once for the
-requested Project; --project does not retarget these handlers. Use one operations
+Prop commands act on the Project named by --project, or on the current
+authoring Project when --project is omitted. Use one operations
 document for related changes. Apply validates before writing; separate validate
 is for validation-only intent or a review pause. Keep a meaningful dry run for
 change review and read missing detail when mutation reports are insufficient.
