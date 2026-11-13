@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const read = (file) => JSON.parse(readFileSync(path.join(root, file), 'utf8'));
 
-test('the Renku Cloud plugin is the Renku plugin with the cloud MCP address', () => {
+test('K1: the Renku Cloud plugin is the Renku plugin with the cloud MCP address', () => {
   for (const [local, cloud] of [['.codex-plugin/plugin.json', '.codex-plugin-cloud/plugin.json'], ['.claude-plugin/plugin.json', '.claude-plugin-cloud/plugin.json']]) {
     const localManifest = read(local);
     const cloudManifest = read(cloud);
