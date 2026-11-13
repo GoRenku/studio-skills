@@ -58,17 +58,41 @@ Also listed on [skills.sh](https://skills.sh/gorenku/studio-skills).
 ### Renku Cloud (invite only)
 
 Renku Cloud runs Renku Studio for you at `https://app.gorenku.com`, so nothing
-is installed on your computer. The **Renku Cloud** plugin (`renku-cloud`) has
-the same skills; its MCP setting is the web address
-`https://app.gorenku.com/mcp` instead of the local `renku studio mcp` program.
-Add the plugin in Codex or Claude Code and sign in once when your AI app asks.
-Every skill has a **Renku Cloud** note: commands run through the
-`renku_command` tool, and generation goes through the provider's own MCP server
-(see `fal-ai-media-provider`). Chat apps without plugins can read the same
-skills with the `renku_guide` tool.
+Renku-specific is installed on your computer. It is for Codex and Claude Code,
+in their desktop apps or CLIs; chat apps are not supported.
+
+The **Renku Cloud** plugin (`renku-cloud`) carries every skill file, the same
+as the local plugin; your agent reads them on your computer. Its MCP setting is
+the web address `https://app.gorenku.com/mcp` instead of the local
+`renku studio mcp` program. Add the plugin in Codex or Claude Code and sign in
+once when your AI app asks. Only one Renku plugin is installed at a time.
+
+Renku Cloud keeps the project, its files, Studio and the panels; your agent
+keeps doing the real work on your computer, with its own programs and
+scripts. Every skill has a **Renku Cloud** section that says what changes:
+
+- Renku commands run through the `renku_command` tool, many in one batch. A
+  script that ran `renku` becomes a local script, a batch and a local script.
+- The agent's working documents stay on your computer. Files go up with one
+  `renku_upload` call and come down with one `renku_download` call; folders
+  travel as `.tar` archives.
+- Renku Cloud holds no provider keys. Generation goes through the provider's
+  own MCP server, connected in your AI app with your own provider account:
+  fal, WaveSpeed, Replicate and ElevenLabs. Renku builds the exact request,
+  records each provider job, and imports the results with the provider's
+  receipt. Pika, Comfy Router and World Labs are not available in Renku Cloud.
+- Panels open in the Codex desktop app, as locally; Claude Code and the Codex
+  CLI use the same chat steps as locally.
+
+Media Producer's
+[Renku Cloud guide](skills/media-producer/references/renku-cloud.md) has the
+whole flow. Your personal model notes live in Renku Cloud; the agent reads and
+writes them with `renku generation models guide show|write`.
 
 Maintainers assemble the installable plugin and its marketplace files with
-`pnpm build:cloud-plugin` (output in `dist/renku-cloud-marketplace/`).
+`pnpm build:cloud-plugin` (output in `dist/renku-cloud-marketplace/`), try it
+in Codex with `pnpm codex:cloud`, and check the cloud sections with
+`pnpm eval:cloud` (see [Agent evals in Renku Cloud](#agent-evals-in-renku-cloud)).
 
 ## Relationship to Studio
 
@@ -76,7 +100,8 @@ This repository supplies Renku's Claude/Codex plugins and skills for other
 compatible agents. The separately installed
 [Studio runtime](https://github.com/GoRenku/studio) provides the `renku` CLI,
 project context and storage, generation engines, and browser visualization app.
-The skills invoke that CLI through the agent's local shell tools.
+The skills invoke that CLI through the agent's local shell tools, or, with
+Renku Cloud, through the `renku_command` tool.
 
 How the plugins are installed and refreshed, and how generation review is
 routed, is described in
@@ -160,7 +185,8 @@ before generating. For the exact command sequence, see the
 - `.claude-plugin/`: Claude Code plugin and marketplace manifests.
 - `.codex-plugin-cloud/`, `.claude-plugin-cloud/` and `cloud.mcp.json`: the
   Renku Cloud plugin variant, assembled by `scripts/build-cloud-plugin.mjs`.
-- `scripts/`: repository validation and maintainer release tooling.
+- `scripts/`: repository validation and maintainer release tooling;
+  `scripts/cloud-evals/` holds the Renku Cloud agent evals.
 - `docs/`: technical integration notes.
 
 ## Try changes in Codex
@@ -196,11 +222,29 @@ installation is needed.
 | `pnpm test:media-generation` | Run the media-generation checks without the release-tool tests. |
 | `pnpm release:test` | Test release tooling only; does not create or publish a release. |
 | `pnpm build:cloud-plugin` | Assemble the Renku Cloud plugin in `dist/renku-cloud-marketplace/`; check it with `claude plugin validate`. |
+| `pnpm eval:cloud` | Run the agent evals in Renku Cloud; uses model time, so run on demand and before a release. |
 
 These checks do not evaluate every creative workflow. Review affected skill
 instructions, CLI examples, and evaluation scenarios against Studio's current
 implementation as part of each change. Release creation and publishing are
 maintainer responsibilities.
+
+### Agent evals in Renku Cloud
+
+`pnpm eval:cloud` runs Claude Code (`claude -p`) and the Codex CLI
+(`codex exec`) with the Renku Cloud plugin against a local Renku Cloud: the
+Studio checkout's sandbox MCP server and a fake media provider, on loopback
+with no sign-in. Each case in `scripts/cloud-evals/cases/` names the design
+cases it proves, its apps, its starting project, the person's request and its
+checks. Pass or fail comes from the project afterwards and the recorded Renku
+and provider calls, never from the transcript.
+
+Build the Studio checkout first (`pnpm build` in `../studio`), and be signed
+in to Claude Code and Codex. `--list` shows the cases; `--case <name|id>` and
+`--app claude-code|codex` choose runs; `--studio <path>` points at another
+checkout. Transcripts, records and check results stay in the folder the run
+prints. Cases that need Blender or whisper are skipped where they are not
+installed.
 
 ## Technical references
 
