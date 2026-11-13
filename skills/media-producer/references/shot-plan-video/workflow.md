@@ -16,13 +16,13 @@ do not add repeated confirmation for unchanged already-authorized work.
    continuing into a video-specific guide; refresh for changed dependencies.
 3. Inspect every relevant candidate file and deliberately select or omit it.
 4. Choose the provider and model through [route choice](../route-choice.md)
-   for the Video Generation lane, then route to the selected provider Skill and
+   for the Video Generation type, then route to the selected provider Skill and
    map the model family to one exact operation route through
    `generation models list`. Prepare from the selected
    route and available bundled/personal advice using Media Producer's optional
    guidance rules; missing catalog keys or guides do not block preparation.
 5. Resolve [generation review routing](../generation-review-routing.md) using
-   the lane's Ask Before Generating and current host capabilities. Panel review
+   the generation type's Ask Before Generating and current host capabilities. Panel review
    combines native settings, prompt, references and the estimated cost.
 6. Author one temporary review document from those settings with the exact
    provider-native request. Keep the Shot Plan id out of that envelope; it

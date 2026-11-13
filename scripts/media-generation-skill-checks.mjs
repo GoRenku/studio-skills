@@ -21,30 +21,30 @@ export function codexIdentityIssue({ model, guideKey }) {
  * supported-routes.json; Codex names its built-in model and matches its guide;
  * each image and image edit provider entry has detail levels, and no video or
  * audio entry has them; and each provider has at most one recommendation per
- * lane, within the entry's providers.
+ * generation type, within the entry's providers.
  */
 export function validateDefaultModelList(list, { guideKeys, routesByProvider }) {
   const issues = [];
-  const lanes = ['image', 'imageEdit', 'video', 'audio'];
-  if (list?.formatVersion !== 1) issues.push('formatVersion must be 1.');
-  if (!list?.lanes || Object.keys(list.lanes).sort().join(',') !== [...lanes].sort().join(',')) {
-    issues.push(`lanes must be exactly ${lanes.join(', ')}.`);
+  const generationTypes = ['image', 'imageEdit', 'video', 'audio'];
+  if (list?.formatVersion !== 2) issues.push('formatVersion must be 2.');
+  if (!list?.generationTypes || Object.keys(list.generationTypes).sort().join(',') !== [...generationTypes].sort().join(',')) {
+    issues.push(`generationTypes must be exactly ${generationTypes.join(', ')}.`);
   }
-  for (const lane of lanes) {
+  for (const generationType of generationTypes) {
     const recommended = new Set();
-    for (const entry of list?.lanes?.[lane] ?? []) {
-      const where = `${lane} ${entry.model}`;
+    for (const entry of list?.generationTypes?.[generationType] ?? []) {
+      const where = `${generationType} ${entry.model}`;
       if (!guideKeys.has(entry.model)) issues.push(`${where} has no model guide.`);
       for (const providerEntry of entry.providers) {
         const issue = defaultModelProviderIssue(entry, providerEntry, routesByProvider);
         if (issue) issues.push(`${where}${issue}`);
-        const detail = detailIssue(lane, providerEntry);
+        const detail = detailIssue(generationType, providerEntry);
         if (detail) issues.push(`${where}: ${detail}`);
       }
       const providers = entry.providers.map((providerEntry) => providerEntry?.provider);
       for (const provider of entry.recommendedFor) {
         if (!providers.includes(provider)) issues.push(`${where} recommends ${provider}, which is not in providers.`);
-        if (recommended.has(provider)) issues.push(`${lane} recommends more than one model for ${provider}.`);
+        if (recommended.has(provider)) issues.push(`${generationType} recommends more than one model for ${provider}.`);
         recommended.add(provider);
       }
     }
@@ -74,14 +74,14 @@ const DETAIL_LEVELS = ['lowest', 'mid', 'highest'];
 const isJsonObject = (value) => typeof value === 'object' && value !== null && !Array.isArray(value);
 
 /**
- * Returns why one provider entry's `detail` is invalid for its lane, or null.
- * Image lanes map each detail level to that route's native request fields;
- * video and audio lanes have no detail levels.
+ * Returns why one provider entry's `detail` is invalid for its generation type, or null.
+ * Image generation types map each detail level to that route's native request fields;
+ * video and audio generation types have no detail levels.
  */
-function detailIssue(lane, providerEntry) {
+function detailIssue(generationType, providerEntry) {
   if (typeof providerEntry?.provider !== 'string') return null;
   const { provider, detail } = providerEntry;
-  if (!IMAGE_LANES.has(lane)) return detail === undefined ? null : `${provider} has detail, which only image lanes take.`;
+  if (!IMAGE_LANES.has(generationType)) return detail === undefined ? null : `${provider} has detail, which only image generation types take.`;
   if (!isJsonObject(detail)) return `${provider} has no detail object.`;
   if (Object.keys(detail).sort().join(',') !== [...DETAIL_LEVELS].sort().join(',')) {
     return `${provider} detail must have exactly ${DETAIL_LEVELS.join(', ')}.`;

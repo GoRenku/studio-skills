@@ -28,9 +28,9 @@ differences are marked **Sheets** below and in `cast-media-handoff.md`.
 4. Read the defaults: `renku settings casting show --json`. `candidateRoutes`
    are the models and counts of a casting round and `characterSheetRoutes`
    the models and counts per costume of a sheet round. When the list is
-   empty, start from the image lane default model (10 candidates, or 2 sheets
-   per costume; `renku settings generation show --lane image`). The number
-   run at a time is the image lane's `maxConcurrentGenerations`.
+   empty, start from the image generation type default model (10 candidates, or 2 sheets
+   per costume; `renku settings generation show --type image`). The number
+   run at a time is the image generation type's `maxConcurrentGenerations`.
    `candidateDetail` (default `lowest`) is a casting round's image detail
    level and `characterSheetDetail` (default `highest`) a sheet round's, each
    `lowest`, `mid` or `highest`.
@@ -69,7 +69,7 @@ requests before opening the panel. The panel shows a Lowest / Mid / Highest
 detail switch, preset from `candidateDetail` (or `characterSheetDetail` for
 sheets); the director may change it for this round only. **Sheets:** the
 panel lists the costumes with a checkbox each, its count is per costume, and
-its estimate covers every ticked costume. The panel prices every offered image-lane model/provider with a
+its estimate covers every ticked costume. The panel prices every offered image-generation type model/provider with a
 configured key itself, from the Default Model List route for that provider at
 each detail level, including unselected models and alternate providers in the
 card menus. Core aggregates the per-candidate estimates by count, and the
@@ -111,7 +111,7 @@ repeat that with the CLI.
 the reply. The round's detail level is `candidateDetail` from the casting
 settings; the user may change it in chat for this round only. Estimate each
 route as one image on that route at that level times its count: take the
-provider's `route` for the model from the Default Model List image lane and
+provider's `route` for the model from the Default Model List image generation type and
 run
 `renku generation estimate --provider <provider> --model <route> --detail <level> --json`.
 Prepare no requests to price the round. Codex built-in images run on the

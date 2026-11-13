@@ -10,7 +10,7 @@ Delegate generation to `media-producer` with:
 Media Producer obtains the complete current Shot/Plan briefing, references,
 aspect ratio and policy. Do not reconstruct them through department reads.
 Follow its shared provider precedence: explicit user direction, then the Image
-Generation lane in the briefing. Use its current model guidance.
+Generation type in the briefing. Use its current model guidance.
 
 Keep the sequence explicit:
 

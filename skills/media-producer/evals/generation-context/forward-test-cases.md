@@ -6,7 +6,7 @@ mutate a Project. Load current Media Producer and applicable purpose/provider
 guides. Use the same model, tool harness, provider guide and fixture facts for
 paired runs. Run each case three times, recording failures as well as successes.
 
-Fixtures expose the lane policy of each purpose (`workflowPolicy.lane`,
+Fixtures expose the generation type policy of each purpose (`workflowPolicy.generationType`,
 `provider`, `model: null`, `chooseRouteBeforeGenerating: true` and
 `askBeforeGenerating`) and `workflowPolicy.codexGenerationReviewDisplayMode: inline`.
 For fullscreen, Choose-off or Ask-off comparisons, change those fields in both

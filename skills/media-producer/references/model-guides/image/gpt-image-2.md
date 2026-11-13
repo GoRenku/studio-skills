@@ -61,7 +61,7 @@ that Studio purpose requests one storyboard composite:
   low-detail placeholder cell. The placeholder stabilizes the cell geometry;
   it is not a Beat, must not contain narrative imagery, and must never be
   cropped or imported.
-- When the Project ratio is known but the selected image lane has no
+- When the Project ratio is known but the selected image generation type has no
   structured output-size control, state that the outer 2×2 grid rectangle
   itself must use the Project ratio and that any extra canvas is only margin
   or letterbox. Do not let a model-default canvas ratio determine the Beat

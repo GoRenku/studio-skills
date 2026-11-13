@@ -86,7 +86,7 @@ reference's photographic lighting, finish, or realism.
 Character sheets use the round's confirmed detail level (the Project's
 `characterSheetDetail` unless the director changed it for the round). Take the
 `detail[<level>]` fields of the provider route used from its Default Model
-List entry (`default-models.json`) in the lane used (`image` or `imageEdit`)
+List entry (`default-models.json`) in the generation type used (`image` or `imageEdit`)
 and set them in the native request; they override the model guide's default
 size. An empty object leaves the route's size at its default.
 

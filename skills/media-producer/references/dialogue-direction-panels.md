@@ -100,8 +100,8 @@ block has `lineRange: null`, `initialSelection` is a single line. Disjoint
 lines are not supported; ask the user to split them.
 
 Choose the provider and model with [route choice](route-choice.md) for the
-Audio Generation lane before opening the panel: open the Route Chooser when it
-says to ask, otherwise use the lane default. Map the model family to its
+Audio Generation type before opening the panel: open the Route Chooser when it
+says to ask, otherwise use the generation type default. Map the model family to its
 routes, then read that provider Skill and the canonical audio model guide,
 including its `## Codex panel` section.
 
@@ -226,7 +226,7 @@ For each one, in this order:
    provider adapter for placement and markers.
 3. **Validate and review** with `renku generation validate --file <request>
    --json`. When Ask Before Generating is on, open `generation.review` with
-   `lane: "audio"` and this one request, its route and the operation's
+   `generationType: "audio"` and this one request, its route and the operation's
    controls, following the
    [combined panel](generation-review-routing.md#combined-panel) steps. End the
    turn; only a consumed Submit continues, with the accepted edits applied and

@@ -143,7 +143,7 @@ for them. Instead:
   server as available "through your AI app". Pika, Comfy Router and World Labs
   are not available in Renku Cloud. Codex built-in images are offered only in
   Codex.
-- The lane default is missing when its provider is not available in Renku
+- The generation type default is missing when its provider is not available in Renku
   Cloud or its MCP server is not connected. Say so in one sentence and ask, as
   route choice describes.
 

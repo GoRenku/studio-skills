@@ -9,7 +9,7 @@ scope. Use the returned typed Project/target context, Lookbooks, policy,
 guidance, suggestions, and warnings as the briefing before selecting a provider.
 Read [route-choice.md](route-choice.md) and
 [generation-review-routing.md](generation-review-routing.md) for every purpose.
-Settle the provider and model, the lane's Ask Before Generating and the current
+Settle the provider and model, the generation type's Ask Before Generating and the current
 host capability before any panel or Preview delivery. A casting round
 (`cast.casting-candidate`) arrives with its routes and its confirmation
 already settled; follow [cast-casting-candidate.md](cast-casting-candidate.md).
@@ -229,7 +229,7 @@ configuration are read-only. The user continues in the ordinary conversation;
 there is no Generate button, approval token, correlation id, or agent-resume
 callback.
 
-`askBeforeGenerating` pauses every route of the lane, Codex built-in included;
+`askBeforeGenerating` pauses every route of the generation type, Codex built-in included;
 the user's confirmation after Preview satisfies it. When Studio is not running,
 review in text as the routing guide describes. Confirmation and host approval
 follow `SKILL.md`.

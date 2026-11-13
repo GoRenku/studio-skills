@@ -7,7 +7,7 @@ const routesByProvider = new Map([
   ['fal-ai', [{ apiId: 'flux/edit', name: 'FLUX 3 Image Edit' }, { apiId: 'seedance/i2v', name: 'Seedance 2.5' }]],
   ['pika', [{ apiId: 'seedance', name: 'Seedance 2.5' }]],
 ]);
-const list = (lanes) => ({ formatVersion: 1, lanes: { image: [], imageEdit: [], video: [], audio: [], ...lanes } });
+const list = (generationTypes) => ({ formatVersion: 2, generationTypes: { image: [], imageEdit: [], video: [], audio: [], ...generationTypes } });
 const entry = (model, name, providers, recommendedFor = []) => ({ model, name, providers, recommendedFor });
 const on = (provider, route) => ({ provider, route });
 const levels = { lowest: { resolution: '1k' }, mid: { resolution: '2k' }, highest: { resolution: '4k' } };
@@ -47,7 +47,7 @@ test('every provider entry names a provider and a non-empty route', () => {
   ]);
 });
 
-test('each provider has at most one recommendation per lane, within its providers', () => {
+test('each provider has at most one recommendation per generation type, within its providers', () => {
   assert.deepEqual(validateDefaultModelList(list({
     video: [entry('seedance-2.5', 'Seedance 2.5', [on('fal-ai', 'seedance/i2v')], ['fal-ai', 'pika']),
       entry('flux-3-image', 'FLUX 3', [on('fal-ai', 'flux/edit')], ['fal-ai'])],
@@ -76,13 +76,13 @@ test('video and audio provider entries have no detail levels', () => {
   assert.deepEqual(validateDefaultModelList(list({
     video: [entry('seedance-2.5', 'Seedance 2.5', [onImage('fal-ai', 'seedance/i2v'), on('pika', 'seedance')])],
   }), { guideKeys, routesByProvider }), [
-    'video seedance-2.5: fal-ai has detail, which only image lanes take.',
+    'video seedance-2.5: fal-ai has detail, which only image generation types take.',
   ]);
 });
 
-test('the list keeps all four lanes and format version 1', () => {
-  assert.deepEqual(validateDefaultModelList({ formatVersion: 2, lanes: { image: [], video: [] } },
-    { guideKeys, routesByProvider }), ['formatVersion must be 1.', 'lanes must be exactly image, imageEdit, video, audio.']);
+test('the list keeps all four generation types and format version 2', () => {
+  assert.deepEqual(validateDefaultModelList({ formatVersion: 1, generationTypes: { image: [], video: [] } },
+    { guideKeys, routesByProvider }), ['formatVersion must be 2.', 'generationTypes must be exactly image, imageEdit, video, audio.']);
 });
 
 test('the Codex built-in identity belongs to its own guide', () => {

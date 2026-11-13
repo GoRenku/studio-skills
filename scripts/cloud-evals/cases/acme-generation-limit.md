@@ -37,7 +37,7 @@ checks:
 
 # Generation through the provider's MCP server, within the project's limit
 
-The fixture's image lane uses the fictional acme provider with at most two
+The fixture's image generation type uses the fictional acme provider with at most two
 generations at once, and asks before nothing. Each fake job runs for eight
 seconds, so starting all four together would show four at once; the fake
 provider records the peak (F11). The resized reference goes up and reaches the

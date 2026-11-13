@@ -112,9 +112,9 @@ revision reads. Do not add a duplicate production-number field.
 7. Write one temporary review document per batch. Follow
    [generation review routing](generation-review-routing.md): with Ask Before
    Generating on, panel Submit without Studio Preview, or the Studio Preview or
-   text path outside Codex Desktop. Validate Engines requests and apply the lane-specific authorization rules,
+   text path outside Codex Desktop. Validate Engines requests and apply the generation type-specific authorization rules,
    reread before execution, rebuild native prompt
-   fields after edits, then execute through the chosen lane.
+   fields after edits, then execute through the chosen generation type.
 8. Follow `image-output-review.md`. Inspect and automatically attach the result
     without output acceptance or attachment confirmation. Strict iterative review requires
     explicit user opt-in and a deliberately changed, newly reviewed request
@@ -277,7 +277,7 @@ structured `image_size` or `quality` field. Inspect actual dimensions and do
 not invent a pixel guarantee, provider receipt, or unsupported structured
 fields for this built-in request.
 
-When the Image Generation lane provider is Fal.ai or the user selects it, use
+When the Image Generation type provider is Fal.ai or the user selects it, use
 `fal-ai/openai/gpt-image-2/edit`. Put every provider-visible reference in
 `image_urls` and choose a current provider-supported custom `image_size`
 near the route's reliable high-resolution boundary while preserving the

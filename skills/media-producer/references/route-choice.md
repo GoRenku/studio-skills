@@ -16,16 +16,21 @@ or [cast-character-sheets.md](cast-character-sheets.md). A missing provider
 key still stops preparation as `SKILL.md` describes. Every other purpose uses
 this guide unchanged.
 
-## Read the lane
+## Read the generation type
 
-From the current generation context, read `workflowPolicy.lane`, `provider`,
-`model` and `chooseRouteBeforeGenerating`. The lane default is the saved
+From the current generation context, read `workflowPolicy.generationType`, `provider`,
+`model` and `chooseRouteBeforeGenerating`. The generation type default is the saved
 `model`, or, when it is `null`, the [Default Model List](default-models.json)
-entry of that lane whose `recommendedFor` includes the provider.
+entry of that generation type whose `recommendedFor` includes the provider.
 
-The default is **missing** when either holds:
+`provider` is `null` while the Project has no provider for this generation
+type; new Projects start that way for Image Editing, Video and Audio. Such a
+generation type always has `chooseRouteBeforeGenerating` on, so it asks.
 
-- the saved `model.key` is not in the lane's list for that provider; or
+The default is **missing** when any of these holds:
+
+- `provider` is `null`;
+- the saved `model.key` is not in the generation type's list for that provider; or
 - the provider needs a key and `renku credentials status --json` does not
   report it `configured`. Codex built-in needs no key.
 
@@ -40,13 +45,13 @@ wherever this guide asks for its absolute path. See
 Take these in order:
 
 1. **The user named a route in chat** (a provider, a model or both): use it and
-   do not ask. Fill a missing half from the lane default when it fits,
+   do not ask. Fill a missing half from the generation type default when it fits,
    otherwise from the list's recommendation for the named provider.
 2. **The default is missing:** ask even when `chooseRouteBeforeGenerating` is
    off, and say why in one sentence, for example "Your Image Editing default
    needs a Fal.ai key, which isn't saved."
 3. **`chooseRouteBeforeGenerating` is on:** ask.
-4. Otherwise use the lane default without asking.
+4. Otherwise use the generation type default without asking.
 
 Resolve the target first: an ambiguous `image.edit` uses the image chooser in
 [image edit panels](image-edit-panels.md) before route choice, and video from a
@@ -63,24 +68,31 @@ advertises panel support, call `generation.route.choose`:
 {
   project: string;
   purpose: string;      // the Studio purpose, such as image.edit
-  lane: 'image' | 'imageEdit' | 'video' | 'audio';  // workflowPolicy.lane
+  generationType: 'image' | 'imageEdit' | 'video' | 'audio';  // workflowPolicy.generationType
   defaultModelList: string; // absolute path of this Skill's references/default-models.json
-  suggested?: { provider: string; model: string };  // a Default Model List key; omit to preselect the lane default
+  suggested?: { provider: string; model: string };  // a Default Model List key; omit to preselect the saved default
 }
 ```
 
-Pass `suggested` only when the user's words point at a route. Then end the
-turn. The chooser posts one message:
+Pass `suggested` when the user's words point at a route. Otherwise, when the
+default is missing, pass your own suggestion: the first provider in the
+generation type's Default Model List entries that you can use here (locally,
+one whose key `renku credentials status --json` reports `configured`, or Codex
+built-in in Codex; in Renku Cloud, one available in Renku Cloud whose MCP
+server is connected in your AI app), with that provider's recommended model:
+the entry whose `recommendedFor` includes it, else its first listed model.
+Renku preselects only your suggestion or the saved default; it never picks a
+provider itself. Then end the turn. The chooser posts one message:
 
 ```text
-<Lane> route chosen · <model> on <provider>. Chooser <id>. Consume it with generation.route.consume once.
-<Lane> route choice canceled. Chooser <id>. Consume it with generation.route.consume once.
+<Generation type> route chosen · <model> on <provider>. Chooser <id>. Consume it with generation.route.consume once.
+<Generation type> route choice canceled. Chooser <id>. Consume it with generation.route.consume once.
 ```
 
 Call `generation.route.consume` once with `{ choiceId }`:
 
 - `chosen` returns `{ provider, providerLabel, model: { key, name } }` and
-  `laneSettingsChanged`. Map that model family and the purpose to the exact
+  `generationTypeSettingsChanged`. Map that model family and the purpose to the exact
   operation route with the family's model guide and the provider's
   `supported-routes.json`, then continue with authoring.
 - `canceled` means stop and reply briefly.
@@ -92,22 +104,23 @@ pass the absolute path of this Skill's `references/default-models.json`.
 The chooser's "Save as Project default" and "Don't ask which provider and
 model again" checkboxes are applied by the server only with Continue. Do not
 repeat them with `renku settings generation set`; mention a saved change in one
-sentence when `laneSettingsChanged` is true.
+sentence when `generationTypeSettingsChanged` is true.
 
 ## Ask in Claude Code: the model question
 
 Claude Code has no Renku panels. Its question box takes the Route Chooser's
-place, for this generation's lane only. Read the choices first:
+place, for this generation's generation type only. Read the choices first:
 
 ```bash
 renku generation route options --project <name> --purpose <purpose> \
-  --lane <image|image-edit|video|audio> \
+  --type <image|image-edit|video|audio> \
   --file <this-skill-dir>/references/default-models.json --json
 ```
 
-Add `--provider <id> --model <key>` only when the user's words point at a
-route, as with `suggested`. The output is the Route Chooser's data: `lane`,
-`laneLabel`, `providers` (each with `label`, `available` and `models` of
+Add `--provider <id> --model <key>` when the user's words point at a route,
+or with your own suggestion when the default is missing, exactly as with
+`suggested`. The output is the Route Chooser's data: `generationType`,
+`generationTypeLabel`, `providers` (each with `label`, `available` and `models` of
 `{ key, name, recommended }`), `preselected` and
 `chooseRouteBeforeGenerating`. `available: false` means the provider's key
 is not saved; offer none of its models. Codex (built-in) runs only inside
@@ -120,8 +133,8 @@ Ask with one `AskUserQuestion` call holding two questions:
 1. **Model** (header `Model`), for example "Which model for this image
    edit?". Up to four options, each labeled `<model name> · <provider
    label>`: first `preselected`, with "(Recommended)" after the label and a
-   description saying it is the lane default (or the recommendation when the
-   lane has none); then other models on available providers, each
+   description saying it is the generation type default (or the recommendation when the
+   generation type has none); then other models on available providers, each
    provider's `recommended` model first, in list order. Put the provider
    label in the label, not only the description. The built-in "Other" lets
    the user type any model: match it by name against the output, and ask
@@ -133,7 +146,7 @@ When `preselected` is `null` or the default is missing, say why in one
 sentence before asking, as above. Then:
 
 - **Just this once:** change no settings.
-- **Save as Project default:** `renku settings generation set --lane <lane>
+- **Save as Project default:** `renku settings generation set --type <generation type>
   --provider <id> --model <key> --model-name <name>`.
 - **Save and don't ask again:** the same command with `--choose-route off`.
 
@@ -149,15 +162,15 @@ harness exposes built-in image generation.
 
 ## Turning the question back on, or saving a default
 
-Change lane settings only when the user directly asks, with
+Change generation type settings only when the user directly asks, with
 `renku settings generation set`. For example, "ask me which model to use again
 for image edits":
 
 ```bash
-renku settings generation set --lane image-edit --choose-route on
+renku settings generation set --type image-edit --choose-route on
 ```
 
 To save a default the user names: `--provider <id> --model <key> --model-name
 <name>`, or `--clear-model` to go back to the recommendation. Changing the
 provider without a model clears the model. `renku settings generation show
---lane <lane>` prints the current lane.
+--type <generation type>` prints the current generation type.

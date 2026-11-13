@@ -17,7 +17,7 @@ cannot carry the Lookbook Sheet, stop and ask before a text-only downgrade or
 model change. The user may explicitly request a deliberate visual departure.
 
 Choose the path through explicit current user direction, then the Image
-Generation lane through [route choice](route-choice.md). Do not add a Shot
+Generation type through [route choice](route-choice.md). Do not add a Shot
 Image-specific setting. If Codex is
 selected but the harness lacks built-in image generation, ask rather than
 falling back to a paid provider.

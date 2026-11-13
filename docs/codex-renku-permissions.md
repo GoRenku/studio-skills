@@ -480,7 +480,7 @@ Renku generation has two separate approvals:
 - **Renku confirmation.** "Ask Before Generating" in Project Settings decides
   whether the agent shows the generation review (prompt, references, model
   settings and estimated cost) and waits for Submit. Turning it off for a
-  lane lets the agent generate without asking.
+  generation type lets the agent generate without asking.
 - **Host approval.** Codex asks for approval only when a command leaves the
   active permission profile. With the profile above, `renku` commands stay
   inside it: they write only the active Project and `~/.local/state/renku`,

@@ -42,7 +42,7 @@ wash, hatching, roughness, modeled lighting, or a new finish unless those
 properties already belong to the accepted style.
 
 Select Codex or Fal.ai through explicit current user direction, then the
-Image Generation lane through [route choice](route-choice.md). For Fal.ai,
+Image Generation type through [route choice](route-choice.md). For Fal.ai,
 author one provider-native review document through its Skill, then follow
 [generation review routing](generation-review-routing.md). With Ask Before
 Generating on, panel mode uses Submit/consume and accepted-edit validation

@@ -21,7 +21,7 @@ anything about the image.
 - **The panel** opens when the route chosen through
   [route choice](route-choice.md) appears in an `image-edit` block of the
   `## Codex panel` section of its canonical model guide. The Image Editing
-  lane (`workflowPolicy.lane: imageEdit`) supplies the default. A route
+  generation type (`workflowPolicy.generationType: imageEdit`) supplies the default. A route
   without a block keeps the conversational `image.edit` flow on the chosen
   image.
 
@@ -81,8 +81,8 @@ Call `image.edit.target.consume` once with `{ chooserId }`:
 
 ## 3. Choose the route
 
-Follow [route choice](route-choice.md) for the Image Editing lane: open the
-Route Chooser when it says to ask, otherwise use the lane default. Continue
+Follow [route choice](route-choice.md) for the Image Editing generation type: open the
+Route Chooser when it says to ask, otherwise use the generation type default. Continue
 with step 4 when the chosen route has a `## Codex panel` block, otherwise with
 the conversational `image.edit` flow on the exact image.
 
@@ -205,7 +205,7 @@ carries no approval. For each one, in this order:
    under `tmp/operations/media-generation/`.
 4. **Review when Ask Before Generating is on.** For an Engines route, run
    `renku generation validate --file <request> --json` first. Then open
-   `generation.review` with `lane: "imageEdit"` and this one request, its
+   `generation.review` with `generationType: "imageEdit"` and this one request, its
    route and the route's controls, following the
    [combined panel](generation-review-routing.md#combined-panel) steps. End the
    turn; only a consumed Submit continues, with the accepted edits applied and

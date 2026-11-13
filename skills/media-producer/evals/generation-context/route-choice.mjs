@@ -32,6 +32,6 @@ export function assessRouteChoice({ host, panelStatus, chooseRouteBeforeGenerati
   }
   // Saving from the model question ("Save as Project default" or "Save and don't ask again") is a request.
   const savedFromQuestion = events.some((event) => event.type === 'route-question' && event.save && event.save !== 'once');
-  if (count('lane-settings-changed') && !settingsChangeRequested && !savedFromQuestion) issues.push('unrequested-settings-change');
+  if (count('generation-type-settings-changed') && !settingsChangeRequested && !savedFromQuestion) issues.push('unrequested-settings-change');
   return issues;
 }

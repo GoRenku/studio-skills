@@ -83,7 +83,7 @@ omitted from the briefing; use references for
 the current task and retrieve history only when needed, following
 `references/model-guides/shared/reference-inputs.md`.
 
-Read fresh generation context for each request. Within that preparation, reuse verified syntax and selected route discovery; do not prefetch other providers. Follow [generation review routing](references/generation-review-routing.md) for every image, audio and video purpose. When the lane's Ask Before Generating is on, use its combined panel, Studio Preview or text review once. A casting round or character sheet round is confirmed once for all its images and skips both the Route Chooser and the per-generation review. Retain native validation, confirmation, concurrency limits, artifact inspection, and focused attachment. Tool-session polling continues the same process; it is not another CLI invocation. Never retry a successful paid execution automatically.
+Read fresh generation context for each request. Within that preparation, reuse verified syntax and selected route discovery; do not prefetch other providers. Follow [generation review routing](references/generation-review-routing.md) for every image, audio and video purpose. When the generation type's Ask Before Generating is on, use its combined panel, Studio Preview or text review once. A casting round or character sheet round is confirmed once for all its images and skips both the Route Chooser and the per-generation review. Retain native validation, confirmation, concurrency limits, artifact inspection, and focused attachment. Tool-session polling continues the same process; it is not another CLI invocation. Never retry a successful paid execution automatically.
 
 Consult the relevant CLI reference/help once if syntax is unknown, then reuse verified syntax for this task. Do not discover syntax by attempting mutations. Do not invent `project list`. If a known permission denial blocks cache/output/config or local-network access, explain the requirement and use the authorized host permission flow; do not repeat the denied attempt, read secrets, disable cache persistence, or change permissions. `CLI026` means the mutation succeeded: report the notification warning without replaying the mutation.
 
@@ -184,18 +184,21 @@ once per task. Every panel and command that lists models also takes the
 file's absolute path: `defaultModelList` for `generation.route.choose` and
 `casting.round.open`, and `--file` for `renku generation route options`.
 
-**Generation lanes.** `workflowPolicy.lane` names the Project lane for the
+**Generation types.** `workflowPolicy.generationType` names the Project generation type for the
 purpose: `image` (Image Generation), `imageEdit` (Image Editing, for
 `image.edit`), `video` (Video Generation, including `video.edit`) or `audio`
-(Audio Generation). The policy carries that lane's `provider`, `model`,
-`chooseRouteBeforeGenerating` and `askBeforeGenerating`. `model` is either
+(Audio Generation). The policy carries that generation type's `provider`, `model`,
+`chooseRouteBeforeGenerating` and `askBeforeGenerating`. `provider` is `null`
+while the Project has no provider for that generation type (new Projects start
+that way for Image Editing, Video and Audio); [route choice](references/route-choice.md)
+then suggests one. `model` is either
 `{ key, name }`, where `key` is a model guide key from
 [the Default Model List](references/default-models.json), or `null`. A `null`
-model means the list's recommendation for the lane provider: the entry whose
+model means the list's recommendation for the generation type provider: the entry whose
 `recommendedFor` includes it, such as FLUX 3 for Fal.ai image edits. Each
-entry's `providers` lists `{ "provider", "route" }` pairs: the lane's route on
+entry's `providers` lists `{ "provider", "route" }` pairs: the generation type's route on
 that provider, which Studio prices for the casting picker. In the `image` and
-`imageEdit` lanes each pair also has `detail`, the route's native size fields
+`imageEdit` generation types each pair also has `detail`, the route's native size fields
 for the `lowest`, `mid` and `highest` detail levels. A
 provider or model the user names in chat always wins. Map the chosen model
 family and the purpose to the exact operation route with the family's model
@@ -208,12 +211,12 @@ when the Route Chooser, or the model question in Claude Code and other hosts,
 confirms the provider and model, and what to do when the saved default is
 missing. Change Project generation settings only at the user's direct
 request (the model question's save choices count as one), with
-`renku settings generation set --lane <image|image-edit|video|audio>` and only
+`renku settings generation set --type <image|image-edit|video|audio>` and only
 the flags they asked for; never change them to avoid a question or a review.
 
 Use the briefing's current `workflowPolicy` and the user's explicit direction.
 Do not fetch Settings again for policy already present in that briefing. The
-lane provider is the initial preference, including when it is
+generation type provider, when there is one, is the initial preference, including when it is
 Replicate, WaveSpeed, or Comfy Router with a saved key. The Project media menus
 offer keyed Fal.ai, Pika, Comfy Router, Replicate, and WaveSpeed; ElevenLabs is
 Audio-only, and World Labs
@@ -346,7 +349,7 @@ acceptance or attachment confirmation. Follow explicit preview-only,
 leave-unattached, or strict-iteration direction when supplied. Do not invent
 another generation to fix a concern without authorization.
 
-`workflowPolicy.askBeforeGenerating` applies to every route of the lane,
+`workflowPolicy.askBeforeGenerating` applies to every route of the generation type,
 Codex built-in images included. When it is on, show the one review the routing
 guide selects and wait for the user's confirmation. When it is off, validate
 and execute without a review or a question. External-provider host
@@ -470,7 +473,7 @@ on failure.
 
 An explicit user Preview request always opens it. `askBeforeGenerating` is one
 review pause, not an approval token; a confirmation after Preview satisfies it.
-Apply the per-lane concurrency limit only to independent requests.
+Apply the per-generation-type concurrency limit only to independent requests.
 
 ## Execute, recover, and attach
 

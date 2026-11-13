@@ -14,7 +14,7 @@ the same prompt and inputs on Flare, and switching to Flare only when its
 quality still meets the brief.
 
 The model chooser exposes Flare and [Sunburst](gpt-image-2.5-sunburst.md)
-separately in both image lanes on all four providers. This guide supplies
+separately in both image generation types on all four providers. This guide supplies
 shared craft and canonical edit-panel descriptions for both variants.
 
 ## Generation

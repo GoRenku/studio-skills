@@ -2,7 +2,7 @@
 
 Use `minimax-h3-image` for the standard model and
 `minimax-h3-image-highspeed` for Fal.ai's Highspeed variant. Both are choices
-in the Default Model List's image and imageEdit lanes, including casting.
+in the Default Model List's image and imageEdit generation types, including casting.
 The standard model is available on Fal.ai and WaveSpeed. Highspeed is verified
 on Fal.ai. Select the confirmed provider and variant explicitly.
 

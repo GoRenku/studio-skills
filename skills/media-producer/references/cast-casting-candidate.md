@@ -55,7 +55,7 @@ agent and user own. The Production Lookbook may set the medium and finish
 - Size every candidate at the round's `detail` level (`lowest`, `mid` or
   `highest`), as `casting.round.consume` returned it or the chat round
   confirmed it. Take that provider route's `detail[<level>]` fields from the
-  Default Model List entry (`default-models.json`: the `image` lane for a
+  Default Model List entry (`default-models.json`: the `image` generation type for a
   text-to-image route, `imageEdit` for a reference-capable one) and set them
   in the native request; they override the model guide's default size. An
   empty object leaves the route's size at its default. The level never

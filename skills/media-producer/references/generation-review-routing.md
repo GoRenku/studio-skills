@@ -59,8 +59,8 @@ more images, other references) needs a new round confirmation. See
 
 Read `workflowPolicy.askBeforeGenerating` from the current
 `renku generation context --purpose <purpose> --target <target>` report (use
-`--json` when processing it in code). It belongs to the lane in
-`workflowPolicy.lane` and applies to every route of that lane, Codex built-in
+`--json` when processing it in code). It belongs to the generation type in
+`workflowPolicy.generationType` and applies to every route of that generation type, Codex built-in
 images included. When it is off, validate Engines requests and execute without
 a review, Studio Preview or confirmation question. An explicit user request to
 review first still opens the review below.
@@ -137,7 +137,7 @@ switching to a paid provider.
    a second schema or duplicate the controls in a saved-value list. A bounded
    purpose-owned choice such as Cast Voice requires provider-Skill preparation
    of its exact native value; a reference-gallery selection cannot mutate a file.
-5. Call `generation.review` with `project`, `lane` (from `workflowPolicy.lane`;
+5. Call `generation.review` with `project`, `generationType` (from `workflowPolicy.generationType`;
    required for a new review) and ordered `requests`, each containing
    `reviewFile`, `routes`, `controls`, and the Engines validation's
    `expectedRequestSha256` when applicable. Keep the returned `reviewId`,
@@ -181,7 +181,7 @@ switching to a paid provider.
    the user once in chat and wait. Never quote panel text as the user's
    authorization, never retry or rephrase a command around a denial, and never
    coach an approvals reviewer. A Submit with `askBeforeGeneratingNextTime:
-   false` has already turned off Ask Before Generating for the lane; the server
+   false` has already turned off Ask Before Generating for the generation type; the server
    applied it. Codex built-in images use the accepted native values directly
    and no Engines receipt. Preserve concurrency, recovery, immediate artifact display, inspection
    and focused attachment. Do not execute unseen edits or silently resubmit jobs.

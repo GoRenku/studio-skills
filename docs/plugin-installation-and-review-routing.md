@@ -19,7 +19,7 @@ bump `.claude-plugin/plugin.json`'s version so Claude loads the updated content.
 Development connections with advertised panel support use the panel without an
 installer record. Without a connection or installation record, Codex Desktop
 and other harnesses use Studio Preview with conversation, or a text review when
-Studio is not running. Each Project generation lane (Image Generation, Image
+Studio is not running. Each Project generation type (Image Generation, Image
 Editing, Video Generation, Audio Generation) sets whether the agent confirms the
 provider and model and whether it asks before generating. See the canonical
 [generation review routing guide](../skills/media-producer/references/generation-review-routing.md)

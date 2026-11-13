@@ -45,18 +45,18 @@ for (const host of ['codex-cli', 'claude-code', 'unidentified']) {
 
 test('a save answer to the model question is a requested settings change', () => {
   const routing = { host: 'claude-code', panelStatus: 'unavailable', chooseRouteBeforeGenerating: true };
-  const events = (save) => [{ type: 'route-options-read' }, { type: 'route-question', save }, { type: 'lane-settings-changed' }, { type: 'authoring-started' }];
+  const events = (save) => [{ type: 'route-options-read' }, { type: 'route-question', save }, { type: 'generation-type-settings-changed' }, { type: 'authoring-started' }];
   assert.deepEqual(assessRouteChoice({ ...routing, events: events('default') }), []);
   assert.deepEqual(assessRouteChoice({ ...routing, events: events('stopAsking') }), []);
   assert.deepEqual(assessRouteChoice({ ...routing, events: events('once') }), ['unrequested-settings-change']);
 });
 
-test('a canceled choice stops, and lane settings change only on request', () => {
+test('a canceled choice stops, and generationType settings change only on request', () => {
   const canceled = chosen.map((event) => event.type === 'route-consumed' ? { ...event, status: 'canceled' } : event);
   assert.ok(assessRouteChoice({ ...desktop, chooseRouteBeforeGenerating: true, events: canceled })
     .includes('authored-without-chosen-route'));
   assert.deepEqual(assessRouteChoice({ ...desktop, chooseRouteBeforeGenerating: false,
-    events: [...direct, { type: 'lane-settings-changed' }] }), ['unrequested-settings-change']);
+    events: [...direct, { type: 'generation-type-settings-changed' }] }), ['unrequested-settings-change']);
   assert.deepEqual(assessRouteChoice({ ...desktop, chooseRouteBeforeGenerating: false, settingsChangeRequested: true,
-    events: [...direct, { type: 'lane-settings-changed' }] }), []);
+    events: [...direct, { type: 'generation-type-settings-changed' }] }), []);
 });

@@ -85,11 +85,11 @@ an Additional or continuity slot is not a substitute for `image.edit`.
 ## Select execution independently
 
 After choosing focused creation or `image.edit`, select the provider and model
-through [route choice](route-choice.md). The purpose decides the lane: focused
-creation uses the Image Generation lane and `image.edit` the Image Editing lane
-(`workflowPolicy.lane: imageEdit`). Explicit current user direction wins over
-the lane default; an unset Image Editing model uses the Default Model List
-recommendation for the lane provider, which is FLUX 3 for Fal.ai.
+through [route choice](route-choice.md). The purpose decides the generation type: focused
+creation uses the Image Generation type and `image.edit` the Image Editing generation type
+(`workflowPolicy.generationType: imageEdit`). Explicit current user direction wins over
+the generation type default; an unset Image Editing model uses the Default Model List
+recommendation for the generation type provider, which is FLUX 3 for Fal.ai.
 
 When the chosen route is Codex, an `image.edit` uses the built-in Codex image
 capability with the `chatgpt-images-2.5` family identity. Pass the exact source

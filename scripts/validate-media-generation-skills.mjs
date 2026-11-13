@@ -125,7 +125,7 @@ if ([...reviewedMediaKinds].sort().join(',') !== 'audio,image,video' || !include
 console.log(`Validated ${
   [...routesByProvider.values()].reduce((sum, routes) => sum + routes.length, 0)
 } provider routes, ${panelBlocks} Codex panel blocks and ${
-  Object.values(defaultModelList.lanes).reduce((sum, entries) => sum + entries.length, 0)
+  Object.values(defaultModelList.generationTypes).reduce((sum, entries) => sum + entries.length, 0)
 } Default Model List entries.`);
 
 /**

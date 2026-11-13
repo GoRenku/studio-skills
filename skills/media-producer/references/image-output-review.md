@@ -41,7 +41,7 @@ attempt:
 2. change a justified prompt, reference, layout instruction, or model input;
 3. rerun image operation routing, then author and review a new temporary request
    with the resulting purpose and target;
-4. apply the lane-specific Preview, generation authorization, concurrency, and
+4. apply the generation type-specific Preview, generation authorization, concurrency, and
    provenance rules; and
 5. continue until the result passes, the user interrupts or accepts it, or a
    real blocker or approval boundary is reached.

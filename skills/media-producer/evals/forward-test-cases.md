@@ -14,7 +14,7 @@ actual MCP capability response and handshake. Never infer the host from tool
 presence, model identity or environment variables.
 
 - Desktop with advertised panel support and Ask on: require standalone
-  Validate, combined panel with `lane`, turn yield, exact Submit consumption,
+  Validate, combined panel with `generationType`, turn yield, exact Submit consumption,
   accepted edits and revised validation hash before Execute. No automatic
   Studio Preview or second confirmation. A working development connection with
   installation flag false behaves the same and triggers no installation or
@@ -120,7 +120,7 @@ Exercise these journeys with deterministic fixture outputs before any live run:
 2. **Explicit Preview and leave-unattached:** wait for requested review, read
    final edited values once, execute those values, and leave output unattached.
 3. **External route:** reuse route discovery; preserve provider validation and
-   the lane's confirmation policy. Use fixture execution.
+   the generation type's confirmation policy. Use fixture execution.
 4. **Relevant mutation:** replace/import a reference or change policy during
    preparation; refresh once and use the changed state. Do not enforce a rigid
    maximum call count when correctness requires another read.
@@ -165,7 +165,7 @@ Expected behavior:
 ## Codex sheet and hero in one request
 
 The user asks for an Edirne Palace Workroom location sheet and hero. Codex is
-the Image Generation lane provider and `askBeforeGenerating` is on. The
+the Image Generation type provider and `askBeforeGenerating` is on. The
 generated sheet has a visible furniture continuity issue. Run both plugin
 installation states in Codex Desktop.
 
@@ -190,7 +190,7 @@ Expected behavior:
 - inspects each result and attaches through its focused command with exact safe
   provenance and existing destination/selection rules;
 - never asks for separate acceptance or attachment confirmation;
-- preserves the lane's confirmation policy and host permission boundaries;
+- preserves the generation type's confirmation policy and host permission boundaries;
 - honors explicit preview-only, leave-unattached, and strict-iteration requests;
 - reports missing/unusable files or an unresolved destination rather than
   inventing a successful attachment.
@@ -273,7 +273,7 @@ and explains an actual input or model mismatch if one occurs. World Labs is
 never offered in Project Image, Video, or Audio Settings; it serves Location
 World generation. ElevenLabs is offered only in Audio Settings.
 
-## Pika Project lane and explicit override
+## Pika Project generation type and explicit override
 
 The Project selects Pika for video, and a later image request explicitly asks
 for Pika even though the saved image provider is Fal.ai.
@@ -281,7 +281,7 @@ for Pika even though the saved image provider is Fal.ai.
 Expected behavior:
 
 - routes both requests to `pika-media-provider` because explicit current-task
-  direction overrides the saved lane without mutating Settings;
+  direction overrides the saved generation type without mutating Settings;
 - chooses a supported route that serves each request and preserves its intended
   inputs; finds relevant Seedream or MiniMax H3 advice and applies useful
   provider guidance without requiring a fixed reading order;
@@ -539,7 +539,7 @@ new.
 
 Use `shot-plan.dialogue-audio` for one exact Shot Plan and one canonical Turn or
 consecutive Turn range. Settle the route through route choice, start from the
-Audio Generation lane and default Cast Voices, preserve exact screenplay text,
+Audio Generation type and default Cast Voices, preserve exact screenplay text,
 inspect the result, and attach one independent Take with `media import
 --turns`. Exercise one-Turn generation with both ElevenLabs and Seed Audio and
 one multi-Turn request each with Seed Audio and Eleven v4 Dialogue. Never
@@ -594,13 +594,13 @@ Run `shot-plan.dialogue-audio` requests in trusted Codex Desktop with an
 advertised `generation.review.capabilities` probe for: ElevenLabs `eleven_v4`
 on one line and on a range; Seed Audio 1.0 on Fal.ai, WaveSpeed and Pika; and
 each with `codexGenerationReviewDisplayMode` set to `inline` and `fullscreen`
-and the Audio Generation lane's Choose Provider and Model Each Time on. Repeat the
+and the Audio Generation type's Choose Provider and Model Each Time on. Repeat the
 same requests in Codex CLI, Claude Code, Claude desktop and an unidentified
 host, and an Eleven v3 request in Codex Desktop.
 
 Expected behavior:
 
-- Codex Desktop opens `generation.route.choose` with `lane: "audio"`, ends the
+- Codex Desktop opens `generation.route.choose` with `generationType: "audio"`, ends the
   turn and consumes the chosen route once; for a guide-declared route it then
   reads the canonical model guide's `## Codex panel` block, calls
   `dialogue.direction.open` once and ends the turn;
@@ -658,7 +658,7 @@ Expected behavior:
   `generation execute` with the validated hash, `media import --purpose
   shot-plan.dialogue-audio --turns` with the draft's range, then
   `dialogue.direction.report` with `status: attached` and the imported Take id;
-- with Ask on, `generation.review` with `lane: "audio"` and the one request
+- with Ask on, `generation.review` with `generationType: "audio"` and the one request
   opens after validation; only a consumed Submit continues, executing with the
   hash of the validated accepted edits, and a canceled review is reported as
   failed;
@@ -681,7 +681,7 @@ Expected behavior:
 ## image-edit-panel-routing — Guide-declared edit routes open the image edit panel
 
 In trusted Codex Desktop with an advertised probe, request edits of one Cast
-profile with a saved Fal.ai key, the Image Editing lane on Fal.ai with
+profile with a saved Fal.ai key, the Image Editing generation type on Fal.ai with
 `model: null` and Choose Provider and Model Each Time off, and no named model.
 Then name GPT Image 2.5 Flare, Nano Banana 2.1 and Seedream 5.0 Pro on Fal.ai,
 and finally name a route whose guide has no `## Codex panel` block.
@@ -789,7 +789,7 @@ Expected behavior:
 
 Request one image, one image edit, one video and one dialogue audio generation
 in trusted Codex Desktop with an advertised probe, then in Codex CLI and Claude
-Code. Run each lane with Choose Provider and Model Each Time on and off, and
+Code. Run each generation type with Choose Provider and Model Each Time on and off, and
 once more with the route named in chat ("use Seedance 2.5 on Pika").
 
 Expected behavior:
@@ -797,16 +797,16 @@ Expected behavior:
 - `renku generation default-models link --file <skill-dir>/references/default-models.json`
   runs once per task beside `renku credentials status`;
 - with Choose on, Codex Desktop calls `generation.route.choose` with the
-  purpose, `workflowPolicy.lane` and `defaultModelList` after the target is
+  purpose, `workflowPolicy.generationType` and `defaultModelList` after the target is
   resolved and before any authoring, desk or preparation, ends the turn, and
   consumes the answer once with `generation.route.consume`;
 - with Choose on, Claude Code reads `renku generation route options` for that
-  lane, then asks one `AskUserQuestion` with a Model question (the preselected
+  generation type, then asks one `AskUserQuestion` with a Model question (the preselected
   route first, marked Recommended, then models on providers with saved keys,
   no Codex built-in) and a Default question ("Just this once", "Save as
   Project default", "Save and don't ask again"); Codex CLI asks the same in
   plain text;
-- a Claude Code save answer runs `renku settings generation set` for that lane
+- a Claude Code save answer runs `renku settings generation set` for that generation type
   once, with `--choose-route off` only for "Save and don't ask again";
 - with Choose off, or with the route named in chat, no chooser and no question;
 - a `chosen` answer maps the model family and the purpose to the exact
@@ -815,13 +815,13 @@ Expected behavior:
 - the chooser's "Save as Project default" and "Don't ask again" answers are not
   repeated with `renku settings generation set`; that command runs only when
   the user directly asks, such as "ask me again for image edits", which runs
-  `renku settings generation set --lane image-edit --choose-route on`.
+  `renku settings generation set --type image-edit --choose-route on`.
 
 Score observations with `generation-context/route-choice.mjs`.
 
 ## route-choice-missing-default — A missing default opens the chooser
 
-Set the Image Editing lane to Fal.ai with Choose off and no saved Fal.ai key.
+Set the Image Editing generation type to Fal.ai with Choose off and no saved Fal.ai key.
 Repeat with a saved model key that is not in the current Default Model List.
 
 Expected behavior:
@@ -848,7 +848,7 @@ Expected behavior:
   `styleReference: true` and empty controls;
 - after `image.edit.consume`, the review document lists the base image then
   the style image in `referenced_image_paths`; with Ask on,
-  `generation.review` opens with `lane: "imageEdit"` and the same route, its
+  `generation.review` opens with `generationType: "imageEdit"` and the same route, its
   `preview.estimate` is `hostPlanUsage` and shows plan usage instead of a
   price for the Codex built-in provider, and no price research runs;
 - after Submit (or directly with Ask off), the built-in image tool runs with

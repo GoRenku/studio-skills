@@ -225,7 +225,7 @@ Not first-class today:
 
 - Do not write directly to `.renku/project.sqlite`.
 - Do not invent project, scene, Beat, Cast Member, Location, Prop, asset, Scene Beats revision, Lookbook, or generation ids or numbers.
-- Follow the Project's generation lane settings (Choose Provider and Model
+- Follow the Project's generation type settings (Choose Provider and Model
   Each Time, Ask Before Generating) for every route, Codex built-in included;
   do not invent an estimate artifact, approval token, or separate skill-owned
   gate. Have specialists inspect and automatically attach generated
