@@ -6,7 +6,9 @@ accepts ordered reference audio clips in `audio_urls` and identifies them in
 the prompt as `@Audio1`, `@Audio2`, and `@Audio3`. Keep each marker aligned with
 its exact native reference position. For an attached local clip, put the `$file`
 marker in `audio_urls` and set `promptMention` to its corresponding
-`@AudioN` only when the request actually uses that clip. A preset `voice`
+`@AudioN` only when the request actually uses that clip. Use at most three
+clips: Pika's live schema sets no limit, so Renku cannot refuse a fourth before
+the request reaches Pika. A preset `voice`
 belongs to the base model variant; the multilingual variant uses cloning
 references. Confirm the selected variant in the live schema before preparing
 the request.
