@@ -76,11 +76,10 @@ test('the plugin copy points its renku server at the launcher and keeps everythi
   assert.throws(() => withRenkuAddress({ mcpServers: { renku: { type: 'stdio' } } }, ADDRESSES.mcpUrl), /SKILLS_CLOUD_EVAL030/);
 });
 
-test('the launcher runs with type transforms and the eval\'s fixture, files and job length', () => {
+test('the launcher runs with the eval\'s fixture, files and job length', () => {
   const args = launcherArguments({ studioRoot: '/studio', fixture: 'small-film-acme', workspace: '/run/workspace', skillsRoot: '/skills', agentFiles: ['harbor-sheets', 'voice-samples'], providerJobMs: 8000 });
   assert.deepEqual(args, [
-    '--experimental-transform-types', '--disable-warning=ExperimentalWarning',
-    '/studio/packages/sandbox/tests/evals/serve-cloud-for-evals.mjs',
+    '/studio/packages/cloud/tests/evals/serve-cloud-for-evals.mjs',
     '--fixture', 'small-film-acme', '--workspace', '/run/workspace', '--skills-root', '/skills',
     '--agent-files', 'harbor-sheets', '--agent-files', 'voice-samples',
     '--provider-job-ms', '8000',

@@ -1,5 +1,5 @@
 // Starts and stops the studio repository's Renku Cloud launcher for evals
-// (packages/sandbox/tests/evals/serve-cloud-for-evals.mjs) and talks to its
+// (packages/cloud/tests/evals/serve-cloud-for-evals.mjs) and talks to its
 // eval control: the records of every tool call, and renku commands on the
 // project for the checks.
 import { spawn } from 'node:child_process';
@@ -7,14 +7,13 @@ import { createWriteStream, existsSync } from 'node:fs';
 import path from 'node:path';
 import { createInterface } from 'node:readline';
 
-const LAUNCHER = 'packages/sandbox/tests/evals/serve-cloud-for-evals.mjs';
+const LAUNCHER = 'packages/cloud/tests/evals/serve-cloud-for-evals.mjs';
 const START_TIMEOUT_MS = 180_000;
 const STOP_TIMEOUT_MS = 30_000;
 
 /** The launcher's command line, from the studio checkout and one eval's setup. */
 export function launcherArguments({ studioRoot, fixture, workspace, skillsRoot, agentFiles = [], providerJobMs }) {
   return [
-    '--experimental-transform-types', '--disable-warning=ExperimentalWarning',
     path.join(studioRoot, LAUNCHER),
     '--fixture', fixture,
     '--workspace', workspace,

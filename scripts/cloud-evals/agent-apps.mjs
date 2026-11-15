@@ -1,5 +1,5 @@
 // How each AI app runs one cloud eval headless, with the Renku Cloud plugin's
-// skills and two MCP servers: Renku Cloud (the launcher's sandbox server) and
+// skills and two MCP servers: Renku Cloud (the launcher's local Worker) and
 // the fictional acme provider's own server. Nothing is installed into the
 // person's own Claude Code or Codex settings. Each app's shell commands run
 // in its own sandbox: they may write only in the eval workspace, and Claude

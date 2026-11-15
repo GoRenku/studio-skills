@@ -233,8 +233,8 @@ maintainer responsibilities.
 
 `pnpm eval:cloud` runs Claude Code (`claude -p`) and the Codex CLI
 (`codex exec`) with the Renku Cloud plugin against a local Renku Cloud: the
-Studio checkout's sandbox MCP server and a fake media provider, on loopback
-with no sign-in. Each case in `scripts/cloud-evals/cases/` names the design
+Studio checkout's Renku Cloud Worker run locally and a fake media provider, on
+loopback with no sign-in. Each case in `scripts/cloud-evals/cases/` names the design
 cases it proves, its apps, its starting project, the person's request and its
 checks. Pass or fail comes from the project afterwards and the recorded Renku
 and provider calls, never from the transcript.
