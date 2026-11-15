@@ -80,8 +80,9 @@ match.
 **Down.** One `renku_download` call takes `paths` and `folders`; a folder comes
 as one `.tar`. Links serve byte ranges, so `ffprobe "<link>"` reads width,
 height and duration without a full download. Use `renku_view` for a quick look
-at images and video frames. Download the original for fine detail such as
-ruler marks, small faces and sheet text.
+at images; for a video it gives a download link, and you take frames on your
+computer. Download the original for fine detail such as ruler marks, small
+faces and sheet text.
 
 ## Your own media work stays on your computer
 

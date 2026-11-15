@@ -37,9 +37,9 @@ For staging:
 - Read the newest revision with
   `shot-plan previs show --shot-plan <id> --revision latest --json`, or pass
   its exact revision id to `--revision`.
-- Look at event frames with `renku_view` at their times. For exact frames,
-  download the video and extract them with ffmpeg on your computer. Download
-  selected dialogue audio to hear the speaker and where a line starts.
+- Download the video with `renku_download` and extract event frames with
+  ffmpeg on your computer. Download selected dialogue audio to hear the
+  speaker and where a line starts.
 - Look at sheets and hero images with `renku_view`, or download the originals
   to judge geography and heights at full size.
 - Upload a reference image before `shot-plan reference import` and pass the
