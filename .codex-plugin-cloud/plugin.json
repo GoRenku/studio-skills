@@ -19,7 +19,7 @@
   "interface": {
     "displayName": "Renku Cloud",
     "shortDescription": "Movie-making skills for writers and filmmakers, running in Renku Cloud.",
-    "longDescription": "Renku Cloud runs Renku Studio for you at app.gorenku.com. This plugin adds the Renku filmmaking skills and connects them to your Renku Cloud sandbox; sign in once when your AI app asks.",
+    "longDescription": "Renku Cloud runs Renku Studio for you at app.gorenku.com. This plugin adds the Renku filmmaking skills and connects them to your Renku Cloud account; sign in once when your AI app asks.",
     "developerName": "Kerem Karatal",
     "category": "Video / Media",
     "capabilities": [
