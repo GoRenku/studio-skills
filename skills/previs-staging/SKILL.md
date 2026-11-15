@@ -8,8 +8,8 @@ description: Stage and iteratively direct a Previs Shot Plan in Renku Studio's 3
 ## Renku Cloud
 
 When the Renku tools (`renku_command`, `renku_upload`, `renku_download`,
-`renku_view`, `renku_guide`) are present, Renku runs in the person's cloud
-sandbox. This section then applies.
+`renku_view`, `renku_guide`) are present, Renku runs in Renku
+Cloud. This section then applies.
 
 - Run the `renku ...` commands a step needs as one `renku_command` batch:
   `{"commands": [{"args": ["shot-plan", "staging", "show", "--shot-plan", "<id>", "--json"]}], "onFailure": "stop"}`.

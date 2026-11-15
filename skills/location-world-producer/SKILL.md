@@ -9,7 +9,7 @@ description: Generate and manage a Renku Studio 3D Location World from four revi
 
 Generating a Location World is not available in Renku Cloud. When the Renku
 tools `renku_command`, `renku_upload`, `renku_download`, `renku_view` and
-`renku_guide` are present, Renku runs in the person's cloud sandbox, which
+`renku_guide` are present, Renku runs in Renku Cloud, which
 holds no World Labs key and cannot reach World Labs. This section takes
 precedence over the instructions below.
 

@@ -9,7 +9,7 @@ description: Author and execute supported Comfy Router image, video, or audio re
 
 Comfy Router is not available in Renku Cloud. When the Renku tools
 `renku_command`, `renku_upload`, `renku_download`, `renku_view` and
-`renku_guide` are present, Renku runs in the person's cloud sandbox, and
+`renku_guide` are present, Renku runs in Renku Cloud, and
 nothing there can reach Comfy Router: Renku Cloud holds no Comfy key, and
 Comfy Router is not one of the providers it reaches through the person's AI
 app.

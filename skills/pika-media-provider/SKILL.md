@@ -9,7 +9,7 @@ description: Author and execute supported Pika image, video, and audio requests 
 
 Pika is not available in Renku Cloud. When the Renku tools `renku_command`,
 `renku_upload`, `renku_download`, `renku_view` and `renku_guide` are present,
-Renku runs in the person's cloud sandbox, and nothing there can reach Pika:
+Renku runs in Renku Cloud, and nothing there can reach Pika:
 Renku Cloud holds no Pika key, and Pika is not one of the providers it reaches
 through the person's AI app.
 

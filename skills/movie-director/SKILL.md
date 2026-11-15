@@ -8,8 +8,8 @@ description: Coordinate Renku Studio movie-making workflows across screenplay, a
 ## Renku Cloud
 
 When the Renku tools (`renku_command`, `renku_upload`, `renku_download`,
-`renku_view`, `renku_guide`) are present, Renku runs in the person's cloud
-sandbox. This section then applies and takes precedence over any instruction
+`renku_view`, `renku_guide`) are present, Renku runs in Renku
+Cloud. This section then applies and takes precedence over any instruction
 below to stop when `renku` is unavailable.
 
 - Run the `renku ...` commands a step needs as one `renku_command` batch:

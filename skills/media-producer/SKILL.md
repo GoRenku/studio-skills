@@ -8,8 +8,8 @@ description: Generate, review, inspect, and attach Renku Studio image, audio, an
 ## Renku Cloud
 
 When the Renku tools `renku_command`, `renku_upload`, `renku_download`,
-`renku_view` and `renku_guide` are present, Renku runs in the person's cloud
-sandbox and this section applies. It takes precedence over any instruction
+`renku_view` and `renku_guide` are present, Renku runs in Renku
+Cloud and this section applies. It takes precedence over any instruction
 below to stop when `renku` is unavailable. Before any media work in the cloud,
 read [references/renku-cloud.md](references/renku-cloud.md); it has the full
 flow.

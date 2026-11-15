@@ -8,8 +8,8 @@ description: Analyze a Renku Studio Visual Language Inspiration folder from its 
 ## Renku Cloud
 
 When the Renku tools (`renku_command`, `renku_upload`, `renku_download`,
-`renku_view`, `renku_guide`) are present, Renku runs in the person's cloud
-sandbox. This section then applies and takes precedence over any instruction
+`renku_view`, `renku_guide`) are present, Renku runs in Renku
+Cloud. This section then applies and takes precedence over any instruction
 below to stop when `renku` is unavailable.
 
 - Run the `renku ...` commands a step needs as one `renku_command` batch:
@@ -26,7 +26,7 @@ below to stop when `renku` is unavailable.
 
 For an Inspiration folder:
 
-- `folder.absolutePath` is a path inside the sandbox, so `cd` and `find` there
+- `folder.absolutePath` is a path in Renku Cloud, so `cd` and `find` there
   do not work from your computer. Use `folder.projectRelativePath` instead.
 - Download the whole folder in one `renku_download` call,
   `{"folders": ["<folder.projectRelativePath>"]}`; it comes as one `.tar`.

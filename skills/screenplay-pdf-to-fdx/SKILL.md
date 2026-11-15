@@ -8,8 +8,8 @@ description: Reconstruct a conventionally formatted screenplay PDF as a faithful
 ## Renku Cloud
 
 When the Renku tools (`renku_command`, `renku_upload`, `renku_download`,
-`renku_view`, `renku_guide`) are present, Renku runs in the person's cloud
-sandbox. The conversion still runs entirely on your computer, because Renku
+`renku_view`, `renku_guide`) are present, Renku runs in Renku
+Cloud. The conversion still runs entirely on your computer, because Renku
 reads no PDFs.
 
 - Read the PDF and run this skill's scripts on your computer, from the

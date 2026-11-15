@@ -8,8 +8,8 @@ description: Author and execute supported Fal.ai image, audio, and video request
 ## Renku Cloud
 
 When the Renku tools `renku_command`, `renku_upload`, `renku_download`,
-`renku_view` and `renku_guide` are present, Renku runs in the person's cloud
-sandbox and this section applies. It takes precedence over any instruction
+`renku_view` and `renku_guide` are present, Renku runs in Renku
+Cloud and this section applies. It takes precedence over any instruction
 below to stop when `renku` is unavailable.
 
 - Run each `renku ...` command through `renku_command`, as a batch of `args`

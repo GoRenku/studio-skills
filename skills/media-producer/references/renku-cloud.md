@@ -2,7 +2,7 @@
 
 Read this guide when the Renku tools `renku_command`, `renku_upload`,
 `renku_download`, `renku_view` and `renku_guide` are present. Renku then runs
-in the person's cloud sandbox: the Project database and files, the commands,
+in Renku Cloud: the Project database and files, the commands,
 Studio and the panels are there. You run on the person's computer.
 
 Everything in `SKILL.md` and the purpose guides still holds: the briefing,
@@ -51,7 +51,7 @@ match.
 
 - A document a command reads goes inline in that command's `files`, under
   `tmp/`, or is uploaded first.
-- A file written in the sandbox, by a command, by Studio or by a Studio Preview
+- A file written in Renku Cloud, by a command, by Studio or by a Studio Preview
   edit, is the current copy. Download it before changing it; never resend an
   older local copy over it.
 - A script cannot run `renku` in the cloud. Run the script's own work on your
@@ -176,7 +176,7 @@ for them. Instead:
   `studio current`, give the person its `studio.url` and ask them to open
   Studio; the preview shows when the tab opens. If they would rather not,
   review in text.
-- After a Studio Preview prompt edit, the sandbox's review document is the
+- After a Studio Preview prompt edit, the review document in Renku Cloud is the
   current one. Download it before rebuilding the native prompt fields, as
   [workflow.md](workflow.md) describes for a changed request.
 
