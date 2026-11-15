@@ -70,6 +70,8 @@ match.
 }
 ```
 
+- `size` is the file's exact byte count. Measure it with `wc -c < <file>`
+  once the file is final; the rounded size `ls -lh` shows is not it.
 - Each `fileName` entry returns an `uploadUrl`. Send the file with
   `curl -T <local file> "<uploadUrl>"`. Renku fetches each `url` entry itself.
 - Each entry's `path` is the project-relative path to use in `--source`,
