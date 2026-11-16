@@ -1,7 +1,7 @@
 {
   "name": "renku-cloud",
   "description": "Renku filmmaking skills connected to Renku Cloud at app.gorenku.com: nothing to install on your computer. Sign in once when Claude asks.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": {
     "name": "Kerem Karatal"
   },
