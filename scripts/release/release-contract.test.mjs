@@ -62,9 +62,19 @@ test('GitHub Release exists before the non-force beta fast-forward', () => {
 
 test('release tooling cannot write or trigger the Studio repository', () => {
   const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..', '..');
-  for (const name of ['release-contract.mjs', 'prepare.mjs', 'publish.mjs', 'ship.mjs']) {
+  const scripts = readdirSync(path.join(root, 'scripts/release')).filter((name) => name.endsWith('.mjs') && !name.endsWith('.test.mjs'));
+  assert.ok(scripts.length > 0);
+  for (const name of scripts) {
     const contents = readFileSync(path.join(root, 'scripts/release', name), 'utf8');
     assert.doesNotMatch(contents, /GoRenku\/studio(?:[^-]|$)|\.\.\/studio(?:\/|$)/);
+  }
+});
+
+test('the release commands read studio-skills/.env', () => {
+  const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..', '..');
+  const scripts = JSON.parse(readFileSync(path.join(root, 'package.json'), 'utf8')).scripts;
+  for (const name of ['release', 'release:minor', 'release:major', 'release:prepare', 'release:publish']) {
+    assert.match(scripts[name], /^node --env-file-if-exists=\.env scripts\/release\//, name);
   }
 });
 

@@ -62,10 +62,23 @@ Renku-specific is installed on your computer. It is for Codex and Claude Code,
 in their desktop apps or CLIs; chat apps are not supported.
 
 The **Renku Cloud** plugin (`renku-cloud`) carries every skill file, the same
-as the local plugin; your agent reads them on your computer. Its MCP setting is
-the web address `https://app.gorenku.com/mcp` instead of the local
-`renku studio mcp` program. Add the plugin in Codex or Claude Code and sign in
-once when your AI app asks. Only one Renku plugin is installed at a time.
+as the local plugin; your agent reads them on your computer. Its MCP server is
+the web address `https://app.gorenku.com/mcp`, in Codex and Claude Code; the
+local plugin gives Codex the `renku studio mcp` program and Claude none. Every
+release publishes it to the generated repository
+[GoRenku/renku-cloud-plugin](https://github.com/GoRenku/renku-cloud-plugin),
+which you add in the app:
+
+- **Claude app or claude.ai:** Customize → Plugins → Add → Add marketplace,
+  `GoRenku/renku-cloud-plugin`; add Renku Cloud; on its Connectors tab select
+  Add, then Connect, and sign in with your invited email.
+- **ChatGPT app (Codex):** Settings → Manage plugins, skills, and MCPs → Add →
+  Add a marketplace, Source `GoRenku/renku-cloud-plugin`; install Renku Cloud;
+  select Connect when asked and sign in.
+
+[Renku plugins](docs/renku-plugins.md) describes how both plugins are built,
+installed, signed in to and updated in each app. Only one Renku plugin is
+installed at a time.
 
 Renku Cloud keeps the project, its files, Studio and the panels; your agent
 keeps doing the real work on your computer, with its own programs and
@@ -93,6 +106,8 @@ Maintainers assemble the installable plugin and its marketplace files with
 `pnpm build:cloud-plugin` (output in `dist/renku-cloud-marketplace/`), try it
 in Codex with `pnpm codex:cloud`, and check the cloud sections with
 `pnpm eval:cloud` (see [Agent evals in Renku Cloud](#agent-evals-in-renku-cloud)).
+`pnpm release` publishes the same build to GoRenku/renku-cloud-plugin with the
+deploy key named in `.env` (see `.env.example`).
 
 ## Relationship to Studio
 
@@ -106,6 +121,8 @@ Renku Cloud, through the `renku_command` tool.
 How the plugins are installed and refreshed, and how generation review is
 routed, is described in
 [Plugin installation and review routing](docs/plugin-installation-and-review-routing.md).
+Which files each plugin uses in Codex and Claude Code, locally and in Renku
+Cloud, is in [Renku plugins](docs/renku-plugins.md).
 
 ## Install skills for other agents
 

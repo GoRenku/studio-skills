@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { assertCloudPluginMirrorReachable, deployKeyPathFromEnvironment } from './cloud-plugin-mirror.mjs';
 import {
   assertCleanMain,
   assertHeadEqualsOriginMain,
@@ -16,6 +17,7 @@ try {
   if (!['patch', 'minor', 'major'].includes(bumpType)) {
     throw new Error(`SKILLS_RELEASE017 Use patch, minor, or major; received ${bumpType}.`);
   }
+  assertCloudPluginMirrorReachable({ deployKeyPath: deployKeyPathFromEnvironment() });
   if (dryRun) {
     assertCleanMain();
     fetchOriginMain();

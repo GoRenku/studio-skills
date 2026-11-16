@@ -6,7 +6,7 @@
     "name": "Kerem Karatal"
   },
   "license": "MIT",
-  "homepage": "https://github.com/GoRenku/studio-skills",
-  "repository": "https://github.com/GoRenku/studio-skills",
+  "homepage": "https://gorenku.com/renku-plugins/",
+  "repository": "https://github.com/GoRenku/renku-cloud-plugin",
   "mcpServers": "./cloud.mcp.json"
 }

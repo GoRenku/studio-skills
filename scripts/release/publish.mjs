@@ -1,6 +1,11 @@
 #!/usr/bin/env node
 import { spawnSync } from 'node:child_process';
 import {
+  assertCloudPluginMirrorReachable,
+  deployKeyPathFromEnvironment,
+  publishCloudPluginMirror,
+} from './cloud-plugin-mirror.mjs';
+import {
   assertCleanMain,
   assertOriginMainIsAncestor,
   assertReleaseTagAtHead,
@@ -36,6 +41,8 @@ try {
   fetchOriginMain();
   assertOriginMainIsAncestor();
   const { commit } = assertReleaseTagAtHead(tag);
+  const deployKeyPath = deployKeyPathFromEnvironment();
+  assertCloudPluginMirrorReachable({ deployKeyPath });
   if (dryRun) {
     process.stdout.write(`Studio Skills publish validation passed for ${tag}; no refs changed.\n`);
   } else {
@@ -51,6 +58,12 @@ try {
     runCommand('git', ['push', 'origin', betaPushRefspec(commit)]);
     process.stdout.write(`Published Studio Skills ${tag}: ${release.url}\n`);
     process.stdout.write('The beta marketplace channel now points to this released commit.\n');
+    const mirror = publishCloudPluginMirror({ tag, sourceCommit: commit, deployKeyPath });
+    process.stdout.write(
+      mirror.status === 'published'
+        ? `Published the Renku Cloud plugin ${tag} to GoRenku/renku-cloud-plugin (${mirror.commit}).\n`
+        : `GoRenku/renku-cloud-plugin already has the Renku Cloud plugin ${tag}.\n`
+    );
   }
 } catch (error) {
   process.stderr.write(`[release:publish] ${error instanceof Error ? error.message : String(error)}\n`);
