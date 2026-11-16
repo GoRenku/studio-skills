@@ -9,7 +9,7 @@ import {
   deployKeyPathFromEnvironment,
   publishCloudPluginMirror,
 } from './cloud-plugin-mirror.mjs';
-import { mirrorCommitMessage, mirrorPushRefspecs, mirrorReadme } from './cloud-plugin-mirror-files.mjs';
+import { githubSignedInName, mirrorCommitMessage, mirrorPushRefspecs, mirrorReadme } from './cloud-plugin-mirror-files.mjs';
 
 const SOURCE_COMMIT = 'c'.repeat(40);
 const IDENTITY = { name: 'Release Test', email: 'release@example.invalid' };
@@ -146,6 +146,12 @@ test('an unreachable mirror is refused before anything is pushed', () => {
   } finally {
     cleanup();
   }
+});
+
+test('GitHub\'s SSH answer tells a deploy key from a person', () => {
+  assert.equal(githubSignedInName("Hi GoRenku/renku-cloud-plugin! You've successfully authenticated, but GitHub does not provide shell access."), 'GoRenku/renku-cloud-plugin');
+  assert.equal(githubSignedInName("Hi keremk! You've successfully authenticated, but GitHub does not provide shell access."), 'keremk');
+  assert.equal(githubSignedInName('git@github.com: Permission denied (publickey).'), null);
 });
 
 test('mirror pushes never force, and the README names its source', () => {

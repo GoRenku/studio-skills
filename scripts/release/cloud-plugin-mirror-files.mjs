@@ -59,6 +59,14 @@ export function mirrorTagMessage(version) {
   return `Renku Skills v${version}`;
 }
 
+/**
+ * Who GitHub says an SSH key signed in as, from its "Hi <name>! You've successfully
+ * authenticated" answer: a user's login, or "<owner>/<repo>" for a deploy key.
+ */
+export function githubSignedInName(sshAnswer) {
+  return /Hi ([^!\s]+)! You've successfully authenticated/.exec(sshAnswer)?.[1] ?? null;
+}
+
 /** What one mirror push sends: its main branch and the release tag. Never forced. */
 export function mirrorPushRefspecs(tag) {
   parseReleaseTag(tag);

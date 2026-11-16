@@ -8,6 +8,7 @@ import os from 'node:os';
 import path from 'node:path';
 import {
   CLOUD_PLUGIN_MIRROR_REPOSITORY,
+  githubSignedInName,
   mirrorCommitMessage,
   mirrorPushRefspecs,
   mirrorReadme,
@@ -32,7 +33,11 @@ export function deployKeyPathFromEnvironment(environment = process.env, homeDire
   return keyPath;
 }
 
-/** Fails before anything is pushed when the deploy key cannot reach the mirror. */
+/**
+ * Fails before anything is pushed when the deploy key cannot reach the mirror, or, for
+ * the GitHub mirror, when GitHub does not see the deploy key itself: the mirror's
+ * rulesets refuse every other identity, a person's own account included.
+ */
 export function assertCloudPluginMirrorReachable({ remote = CLOUD_PLUGIN_MIRROR_REMOTE, deployKeyPath }) {
   const result = runCommand('git', ['ls-remote', remote], {
     stdio: 'pipe',
@@ -41,6 +46,23 @@ export function assertCloudPluginMirrorReachable({ remote = CLOUD_PLUGIN_MIRROR_
   });
   if (result.status !== 0) {
     throw new Error(`SKILLS_RELEASE021 The deploy key ${deployKeyPath} cannot reach ${remote}: ${(result.stderr ?? '').trim()}`);
+  }
+  if (remote === CLOUD_PLUGIN_MIRROR_REMOTE) {
+    assertGithubSeesDeployKey(deployKeyPath);
+  }
+}
+
+/** GitHub answers an SSH sign-in with the deploy key's repository, or a user's login. */
+function assertGithubSeesDeployKey(deployKeyPath) {
+  const result = runCommand('ssh', [...deployKeySshOptions(deployKeyPath), '-o', 'BatchMode=yes', '-T', 'git@github.com'], {
+    stdio: 'pipe',
+    allowFailure: true,
+  });
+  const signedInAs = githubSignedInName(`${result.stdout ?? ''}${result.stderr ?? ''}`);
+  if (signedInAs !== CLOUD_PLUGIN_MIRROR_REPOSITORY) {
+    throw new Error(
+      `SKILLS_RELEASE021 The deploy key ${deployKeyPath} signs in to GitHub as ${signedInAs ?? 'nobody'}, not as ${CLOUD_PLUGIN_MIRROR_REPOSITORY}'s deploy key, so GitHub would refuse the push.`
+    );
   }
 }
 
@@ -133,8 +155,16 @@ function verifyMirrorMain(git, remote, commit) {
   }
 }
 
+/**
+ * SSH with the deploy key and nothing else: no SSH agent and no personal SSH config,
+ * since an agent's own keys are offered before -i and GitHub would see the person.
+ */
+function deployKeySshOptions(deployKeyPath) {
+  return ['-F', '/dev/null', '-o', 'IdentityAgent=none', '-o', 'IdentitiesOnly=yes', '-i', deployKeyPath];
+}
+
 function sshEnvironment(deployKeyPath) {
-  return { GIT_SSH_COMMAND: `ssh -i "${deployKeyPath}" -o IdentitiesOnly=yes` };
+  return { GIT_SSH_COMMAND: `ssh ${deployKeySshOptions(deployKeyPath).map((option) => `"${option}"`).join(' ')}` };
 }
 
 function identityEnvironment({ name, email }) {
