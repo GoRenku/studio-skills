@@ -68,6 +68,14 @@ the tools `renku_command`, `renku_upload`, `renku_download`, `renku_view` and
 `renku_guide`, and also serves the Codex panels. Both apps need this
 connection, so both `renku-cloud` manifests name `cloud.mcp.json`.
 
+The two plugins carry the same skills, so each skill's Renku Cloud section
+says how it knows where Renku runs: in Renku Cloud when the skill comes from
+the `renku-cloud` plugin or the `renku_` tools are present. The tools are
+missing until the person signs in to the connection, which the app cannot do
+for them. A `renku-cloud` skill without the tools tells the person how to sign
+in and stops; it never runs a `renku` command on the computer, even when an
+older local Renku is installed there.
+
 ## The Four Cases
 
 | | Codex, Renku on the computer | Claude Code, Renku on the computer | Codex, Renku Cloud | Claude Code, Renku Cloud |
@@ -263,13 +271,21 @@ profiles (`CODEX_HOME` and `CLAUDE_CONFIG_DIR` set to empty folders), with
   `claude mcp list` showed `plugin:renku-cloud:renku` at
   `https://app.gorenku.com/mcp` (HTTP), `Needs authentication`.
 
+On 2026-11-18, on Windows 11 in the Claude desktop app, the marketplace
+`GoRenku/renku-cloud-plugin` was added from the app, with no terminal, and
+`renku-cloud@renku-cloud` 0.2.0 installed from GitHub through Claude's own
+download; studio ADR 0110's Windows download failure did not happen. The
+connection stayed `needs_auth` because nobody had signed in. Without the
+`renku_` tools, the 0.2.0 skills used an older local Renku installed on that
+computer. The skills' Renku Cloud sections now stop and ask for the sign-in
+instead.
+
 Earlier, on 2026-08-10 (studio `docs/operations/distribution-and-release.md`),
 a throwaway Codex profile added `GoRenku/studio-skills --ref main` and
 installed `renku@renku`.
 
 Not tried yet:
 
-- installing `renku-cloud` from GitHub, since it is not published;
 - finishing the sign-in to `https://app.gorenku.com` from each app;
-- adding a marketplace from inside the Claude desktop app or the ChatGPT
-  desktop app, without a terminal CLI.
+- adding a marketplace from inside the ChatGPT desktop app, without a
+  terminal CLI.

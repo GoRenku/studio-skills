@@ -7,11 +7,25 @@ description: Author and execute supported Pika image, video, and audio requests 
 
 ## Renku Cloud
 
-Pika is not available in Renku Cloud. When the Renku tools `renku_command`,
-`renku_upload`, `renku_download`, `renku_view` and `renku_guide` are present,
-Renku runs in Renku Cloud, and nothing there can reach Pika:
-Renku Cloud holds no Pika key, and Pika is not one of the providers it reaches
-through the person's AI app.
+Pika is not available in Renku Cloud.
+
+Renku runs in Renku Cloud when this skill comes from the `renku-cloud`
+plugin (its folder is inside that plugin; Claude Code lists it as
+`renku-cloud:<skill>`), or when the Renku tools `renku_command`,
+`renku_upload`, `renku_download`, `renku_view` and `renku_guide` are
+present. An app may show them with a prefix, such as
+`mcp__plugin_renku-cloud_renku__renku_command`. In Renku Cloud, never run a
+`renku` command on the computer, even when one is installed there.
+
+When this skill comes from `renku-cloud` and the Renku tools are missing, the
+person has not signed in to Renku Cloud yet. Tell them how, and stop until
+they have: in Claude Code, type `/mcp` and sign in to
+`plugin:renku-cloud:renku`; in the Claude app, open Renku Cloud's Connectors
+tab in Customize → Plugins and select Add, then Connect; in the ChatGPT app,
+select Connect on Renku Cloud; in the Codex CLI, run `codex mcp login renku`.
+
+Nothing in Renku Cloud can reach Pika: Renku Cloud holds no Pika key, and Pika
+is not one of the providers it reaches through the person's AI app.
 
 - Do not prepare, review or send a Pika request in Renku Cloud, and skip the
   steps below.

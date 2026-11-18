@@ -1,8 +1,7 @@
 # Media Producer In Renku Cloud
 
-Read this guide when the Renku tools `renku_command`, `renku_upload`,
-`renku_download`, `renku_view` and `renku_guide` are present. Renku then runs
-in Renku Cloud: the Project database and files, the commands,
+Read this guide when Renku runs in Renku Cloud, as the Renku Cloud section of
+[SKILL.md](../SKILL.md) says: the Project database and files, the commands,
 Studio and the panels are there. You run on the person's computer.
 
 Everything in `SKILL.md` and the purpose guides still holds: the briefing,

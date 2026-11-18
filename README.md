@@ -84,6 +84,8 @@ Renku Cloud keeps the project, its files, Studio and the panels; your agent
 keeps doing the real work on your computer, with its own programs and
 scripts. Every skill has a **Renku Cloud** section that says what changes:
 
+- Until you sign in, a skill from the Renku Cloud plugin tells you how and
+  stops; it never uses a Renku installed on your computer.
 - Renku commands run through the `renku_command` tool, many in one batch. A
   script that ran `renku` becomes a local script, a batch and a local script.
 - The agent's working documents stay on your computer. Files go up with one
