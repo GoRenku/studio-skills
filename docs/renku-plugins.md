@@ -216,13 +216,23 @@ Code only loads updated plugin files when the manifest version changes.
 - **`renku`:** `renku update` or `renku update skills` refreshes the plugin
   in both apps.
 - **`renku-cloud`:** each release updates `GoRenku/renku-cloud-plugin`.
-  Plugins on a Claude account update from their source by themselves, and
-  Check for updates in Customize → Plugins pulls the latest. In the ChatGPT
-  app the person selects Upgrade marketplace. In a terminal:
+  Plugins on a Claude account (id `renku-cloud@synced` in Claude Code) update
+  from their source by themselves, and Check for updates in Customize →
+  Plugins pulls the latest. In the ChatGPT app the person selects Upgrade
+  marketplace. In a terminal:
   `claude plugin marketplace update renku-cloud` then
   `claude plugin update renku-cloud@renku-cloud`, or
   `codex plugin marketplace upgrade renku-cloud` then
   `codex plugin add renku-cloud@renku-cloud`.
+- **Installed in Claude Code itself** (id `renku-cloud@renku-cloud`, as on the
+  Windows PC on 2026-11-18): Claude Code compares against its own copy of the
+  marketplace, which it does not refresh by itself, because auto-update is
+  off for marketplaces a person adds. Its Update button reports the installed
+  version as the latest until `claude plugin marketplace update renku-cloud`
+  has run. The Claude desktop app's Code tab has its own `claude` under
+  `%APPDATA%\Claude\claude-code\<version>\<hash>\claude.exe` on Windows and
+  `~/Library/Application Support/Claude/claude-code/` on macOS, for a computer
+  with no `claude` in the terminal.
 
 ## Publishing renku-cloud
 
