@@ -122,7 +122,9 @@ After inspection, attach the edited result with `image.edit` targeting the exact
 source AssetFile. Core creates a new unselected AssetFile in the same owning
 collection, preserving the original and its selection. An edited Inspiration
 image appears in the same Inspiration folder; a research edit stays beside its
-source. Preserve the exact generation provenance, including the original image
+source. An edited casting candidate or character sheet joins its source's
+casting round, shown as "Edited"; cast or pick it there if the user wants the
+edit instead. Preserve the exact generation provenance, including the original image
 input. Do not overwrite the original, choose a different destination, or use a
 focused creation purpose to attach the edit. Users may delete the old image
 afterward if they want.

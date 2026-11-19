@@ -122,9 +122,12 @@ generated Production and Storyboard sheets; describe the costume and
 rendering in readable card copy rather than repeating the reference name or
 tags.
 
-Importing never picks a sheet. The director picks one sheet per costume
-from its rounds on the casting board or in the Studio Casting tab, or in chat
-with `renku asset select --target costume:<costume-id>`. Shots and
+Importing does not pick a sheet unless you pass `--select`, which picks it
+for its costume in the same write. Pass it only in automatic casting
+(`casting-director`'s `references/automatic-casting.md`). Otherwise the
+director picks one sheet per costume from its rounds on the casting board or
+in the Studio Casting tab, or in chat with
+`renku asset select --target costume:<costume-id>`. Shots and
 storyboards in the costume's Scenes list the picked sheet first. Report every
 sheet that landed and any that failed; never retry a failed paid generation
 automatically.

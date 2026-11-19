@@ -191,6 +191,13 @@ renku media import --purpose cast.casting-candidate --target casting-round:<roun
   --casting-model <route-model-key> --source <output> --provenance <provenancePath>
 ```
 
+`--casting-model` is required with a generation record. An outside image the
+user supplies (a headshot, a photo of the actor) has no record: import it
+without `--provenance` and without `--casting-model`, and it shows as
+"Added" in its round. `--select` casts the candidate in the same write; the
+interactive flow leaves the choice to the director and does not pass it
+(automatic casting does, see `automatic-casting.md`).
+
 **Sheets:** purpose `cast.character-sheet`, the same `casting-round:<round-id>`
 target of the costume's round and `--casting-model`; see
 `media-producer`'s `references/cast-character-sheets.md`.
@@ -221,6 +228,9 @@ end the turn. Never retry a failed paid generation automatically.
   Studio to hide, compare and cast or pick. When they come back, read
   `renku cast casting show --look <look-id> --json` (or `--costume
   <costume-id>`) for statuses and the cast candidate or picked sheet.
+- An image edit of a candidate or sheet (`image.edit`) joins its source's
+  round as a new, unchosen image marked "Edited"; the source keeps its
+  status and stays cast or picked.
 - When the user asks in chat, set a status with
   `renku cast casting candidate status --asset-file <id> --status candidate|hidden --json`
   or cast with

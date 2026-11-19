@@ -257,6 +257,14 @@ Casting happens before character sheets. Work one Cast Member at a time:
    the Look's cast candidate at `characterSheetDetail`, and the director
    picks one sheet per costume (`references/cast-media-handoff.md`).
 
+**Automatic casting.** When the user wants cast pictures and sheets made
+without reviewing each round ("cast everyone", "make the cast images and
+sheets"), follow `references/automatic-casting.md`: write the missing Looks
+and costumes, confirm the whole batch in one chat message (one candidate per
+Look and one sheet per costume by default), then cast, pick and make
+portraits yourself, importing with `--select`. It works the same in every
+agent and host and uses no panel.
+
 Project casting defaults (`candidateRoutes` and `candidateDetail` for casting
 rounds, `characterSheetRoutes` and `characterSheetDetail` for character sheet
 rounds) are
@@ -285,6 +293,7 @@ route with `renku generation estimate --detail <level>`.
 - Read `references/cast-design.md` before writing Cast Design JSON.
 - Read `references/looks.md` before proposing Looks or resolving age variants.
 - Read `references/casting-rounds.md` before setting up or running a casting round.
+- Read `references/automatic-casting.md` before casting several characters, or one, without reviewing each round.
 - Read `references/wardrobe-plan.md` before writing costumes.
 - Read `references/cast-media-handoff.md` before asking `media-producer` for casting candidates, character sheets, profiles, or voice samples.
 - Read `references/voice-casting.md` when the request involves voice, accent, tempo, texture, or localization notes.

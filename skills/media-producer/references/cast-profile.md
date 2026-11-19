@@ -6,10 +6,15 @@ Begin with `renku generation context --purpose cast.profile --target
 cast:<cast-member-id>`. Use its exact Cast/design/Scene/voice facts,
 Production Lookbook, policy/guidance, and same-Cast continuity suggestions.
 
-Use a 1:1 profile composition. Inspect every current same-Cast Character Sheet
-candidate and deliberately choose one or none; list order has no special status.
+Use a 1:1 profile composition. The profile shows the cast person: the
+`cast-identity` suggestion lists each Look's cast picture, with the first cast
+Look workflow-selected, and `cast-continuity` lists each costume's picked
+Character Sheet. Use the workflow-selected cast picture as the face, and
+choose one picked sheet or none for costume and build. When a visible Cast
+Member has no cast Look yet, stop and hand casting to `casting-director`
+instead of inventing a face.
 
-When a Character Sheet is included:
+When a cast picture or Character Sheet is included:
 
 - resolve and inspect its exact registered file;
 - choose an endpoint that accepts image media;

@@ -58,6 +58,14 @@ Project facts, including:
 
 When an accepted `cast.profile` output should become the Cast Member's current
 Profile, ask `media-producer` to import with `--select` in the same mutation.
+The profile is made from the Cast Member's casting: its first Look's cast
+picture is the identity reference, and each costume's picked sheet is
+continuity. Cast the Look before asking for a profile of a visible Cast
+Member.
+
+Every casting candidate and character sheet belongs to a round; Renku refuses
+one without (`CASTING_IMAGE_ROUND_REQUIRED`). There is no way to attach a
+sheet straight to a Cast Member.
 
 ## Character Sheets Per Costume
 

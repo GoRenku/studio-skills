@@ -107,7 +107,7 @@ overwrite.
    it as incidental context.
 2. Dispatch Cast Member fact and Cast Design work to `casting-director`.
 3. Use the returned mutation report. Read `renku cast design context --cast <cast-member-id> --json` when further current context is needed for the next decision.
-4. If the user wants new imagery, dispatch casting (Looks, casting rounds, wardrobe plan, then character sheets per costume) to `casting-director`, and `cast.profile` work to `media-producer`, using durable Cast context only.
+4. If the user wants new imagery, dispatch casting (Looks, casting rounds, wardrobe plan, then character sheets per costume) to `casting-director`, and `cast.profile` work to `media-producer`, using durable Cast context only. When the user wants the cast pictures and sheets made without reviewing each round ("cast everyone"), ask `casting-director` for automatic casting (`references/automatic-casting.md`): one confirmation for the whole batch, the same in every agent.
 5. Refresh director context when the next cross-department decision needs updated readiness.
 
 ## Location Production Design Prompt
