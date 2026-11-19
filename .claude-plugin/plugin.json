@@ -1,7 +1,7 @@
 {
   "name": "renku",
   "description": "Claude Code plugin library for filmmaking skills. Includes screenplay drafting with persisted Renku Studio screenplay JSON, story arcs, cast, locations, formal scene settings, action, narration, and dialogue.",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "author": {
     "name": "Kerem Karatal"
   },
