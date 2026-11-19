@@ -38,7 +38,7 @@ never read.
 | Skills | The folder the manifest's `skills` names (`./skills/`) | `<plugin folder>/skills/`, found without being named |
 | Connection | The file the manifest's `mcpServers` names | The file the manifest's `mcpServers` names; none when it names none |
 | Add a marketplace | `codex plugin marketplace add <folder, owner/repo[@ref] or Git URL> [--ref <ref>]` | `claude plugin marketplace add <folder, owner/repo[#ref] or Git URL>` |
-| Add a marketplace in the app | ChatGPT app (the Codex app on Windows): Settings → Manage plugins, skills, and MCPs → Add → Add a marketplace (Source: `owner/repo`, Git URL or folder; optional Git ref) | claude.ai in a web browser (Customize → Plugins): Add → Add marketplace (`owner/repo` or repository URL). This adds only the marketplace, listed under the repository's name; each plugin is then added from the plugin list. Plugins on the Claude account reach the desktop app's Code tab and a terminal `claude`. Adding a plugin in the Claude desktop app's own Plugins page, or from the Code tab's **+** → **Add plugins**, installs it into Claude Code on that computer only, marked **Installed locally**. |
+| Add a marketplace in the app | ChatGPT desktop app (ChatGPT on the web cannot add a marketplace): Settings → Manage plugins, skills, and MCPs → Add → Add a marketplace (Source: `owner/repo`, Git URL or folder; optional Git ref) | claude.ai in a web browser (Customize → Plugins): Add → Add marketplace (`owner/repo` or repository URL). This adds only the marketplace, listed under the repository's name; each plugin is then added from the plugin list. Plugins on the Claude account reach the desktop app's Code tab and a terminal `claude`. Adding a plugin in the Claude desktop app's own Plugins page, or from the Code tab's **+** → **Add plugins**, installs it into Claude Code on that computer only, marked **Installed locally**. |
 | Install a plugin | `codex plugin add <plugin>@<marketplace>` | `claude plugin install <plugin>@<marketplace>` (user scope by default) |
 | Sign in to a connection | `codex mcp login <server>`, or the app asks | `/mcp` in a session, or `claude mcp login <server>` |
 | Remove a plugin | `codex plugin remove <plugin>@<marketplace>` | `claude plugin uninstall <plugin>@<marketplace>` |
@@ -121,8 +121,8 @@ Claude's own GitHub download failed on Windows (studio ADR 0110).
 
 ### Codex, Renku Cloud
 
-In the ChatGPT app: Settings → Manage plugins, skills, and MCPs → Add → Add a
-marketplace, Source `GoRenku/renku-cloud-plugin` with the Git ref left empty
+In the ChatGPT desktop app (ChatGPT on the web cannot add a marketplace):
+Settings → Manage plugins, skills, and MCPs → Add → Add a marketplace, Source `GoRenku/renku-cloud-plugin` with the Git ref left empty
 (a marketplace added with a ref never moves past it); install Renku Cloud;
 select Connect when asked and sign in to `https://app.gorenku.com` with the
 invited email; start a new chat. In a terminal the same is
@@ -139,12 +139,13 @@ app:
 
 1. **Add** → **Add marketplace**, `GoRenku/renku-cloud-plugin`. Claude lists
    the marketplace as `renku-cloud-plugin`. Adding it does not add the plugin.
-2. **Add** → **Manage marketplaces** → **⋯** on `renku-cloud-plugin` → turn
-   on **Sync automatically** ("Re-syncs on GitHub changes").
-3. Search `renku` in Plugins, open **Renku cloud** ("From
+2. Search `renku` in Plugins, open **Renku cloud** ("From
    renku-cloud-plugin") and select **Add**.
-4. On its page, select **Connect** for the `renku` connector and sign in with
+3. On its page, select **Connect** for the `renku` connector and sign in with
    the invited email.
+
+After each release the person selects **Check for updates** for the
+marketplace ([Versions And Updates](#versions-and-updates)).
 
 The plugin is saved to the person's Claude account. The desktop app downloads
 account plugins about every 20 minutes into its own folder
@@ -248,9 +249,9 @@ Code only loads updated plugin files when the manifest version changes.
 
 | Install | How it gets a release | To get it now |
 |---|---|---|
-| Claude account (claude.ai Plugins → **Add**; `renku-cloud@synced` in a terminal Claude Code) | When the account's copy of the `renku-cloud-plugin` marketplace re-syncs: by itself with **Sync automatically** on (Claude says it "re-syncs on GitHub changes"; not yet seen with a release), or with **Check for updates**. The desktop app then downloads the new version within about 20 minutes, and the next new Code-tab session loads it. | On claude.ai, **Add** → **Manage marketplaces** → **⋯** on `renku-cloud-plugin` → **Check for updates**, then a new Code-tab session once the desktop app has downloaded it. |
+| Claude account (claude.ai Plugins → **Add**; `renku-cloud@synced` in a terminal Claude Code) | When the account's copy of the `renku-cloud-plugin` marketplace re-syncs, which so far has needed **Check for updates**. With **Sync automatically** on ("Re-syncs on GitHub changes"), v0.4.2 had still not synced five minutes after its release. The desktop app then checks plugins already added for updates only on its full sync, about once an hour; its quick syncs every 20 minutes skip them. The next new Code-tab session loads the update. | After each release, on claude.ai, **Add** → **Manage marketplaces** → **⋯** on `renku-cloud-plugin` → **Check for updates**, then a new Code-tab session once the desktop app has downloaded it. |
 | Claude Code only (the desktop app's Plugins page, Code tab **+** → **Add plugins**, or `claude plugin install`; `renku-cloud@renku-cloud`, **Installed locally** in the Plugins list) | Never by itself: auto-update is off for a marketplace a person adds. The person can turn it on in `/plugin` → Marketplaces → `renku-cloud`, or with `"autoUpdate": true` on the `renku-cloud` entry under `extraKnownMarketplaces` in `~/.claude/settings.json`. Until then the Update button reports the installed version as the latest. | `claude plugin marketplace update renku-cloud`, then `claude plugin update renku-cloud@renku-cloud`, then a new session or `/reload-plugins`. |
-| Codex (the ChatGPT app on macOS, the Codex app on Windows, or `codex`; `renku-cloud@renku-cloud`) | When Codex's app-server starts, it refreshes every Git marketplace without a pinned ref and reinstalls the plugins installed from it. Both apps keep that server running in the background for days, so this is rare. Neither app has a button to refresh a marketplace. | `codex plugin marketplace upgrade renku-cloud`, then a new chat. It replaces the installed plugin too, and a running ChatGPT app lists the new skills straight away. |
+| Codex (the ChatGPT desktop app or `codex`; `renku-cloud@renku-cloud`) | When Codex's app-server starts, it refreshes every Git marketplace without a pinned ref and reinstalls the plugins installed from it. The ChatGPT app keeps that server running while it is open, often for days, and has no button to refresh a marketplace. | Quit the ChatGPT app completely and reopen it, then a new chat. Or run the app's own `codex plugin marketplace upgrade renku-cloud`, which replaces the installed plugin too; a running ChatGPT app lists the new skills straight away. |
 
 - **Both Claude copies on one computer:** in the desktop app's Code tab, a new
   session loads the account copy. For terminal Claude Code, Claude's docs say
@@ -265,10 +266,12 @@ Code only loads updated plugin files when the manifest version changes.
   `/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex`
   on macOS, and the background service runs
   `~/.codex/packages/app-server-daemon/releases/<version>/bin/codex`. On
-  Windows the Codex app is a Microsoft Store app (`OpenAI.Codex`); its
-  `codex.exe` is
-  `C:\Program Files\WindowsApps\OpenAI.Codex_<version>_x64__2p2nqsd0c76g0\app\resources\codex.exe`,
-  which runs but is not on PATH.
+  Windows the ChatGPT app is the Microsoft Store package `OpenAI.Codex`
+  (`ChatGPT.exe`, with Codex's servers as its child processes). Its
+  `codex.exe`, not on PATH, is
+  `C:\Program Files\WindowsApps\OpenAI.Codex_<version>_x64__2p2nqsd0c76g0\app\resources\codex.exe`;
+  `& (Join-Path (Get-AppxPackage OpenAI.Codex).InstallLocation 'app\resources\codex.exe')`
+  reaches it without the version.
 
 ## Publishing renku-cloud
 
@@ -327,16 +330,16 @@ computer. The skills' Renku Cloud sections now stop and ask for the sign-in
 instead.
 
 On 2026-11-19, after v0.4.0 was published, the Windows PC's Claude desktop app
-and Codex app (with the marketplace added from inside the app) both kept
-their older version and showed no update. The Codex app could uninstall the
-plugin but offered no way to remove or refresh the marketplace. A read-only
-check on that PC found:
+and ChatGPT app (with the marketplace added from inside the app) both kept
+their older version and showed no update. The ChatGPT app could uninstall the
+plugin but offered no way to remove or refresh the marketplace, and ChatGPT on
+the web had no way to add one. A read-only check on that PC found:
 
 - **Claude:** only the Code-tab copy, `renku-cloud@renku-cloud` 0.3.1, with
   its marketplace copy last refreshed on 2026-11-18 17:02 UTC and no
   `autoUpdate`. No account copy: the desktop app had no `rpm` folder.
 - **Codex:** the marketplace without a pinned ref, its snapshot at 0.3.2, and
-  the Codex app's app-server running since 2026-11-18 18:50, when 0.3.2 was
+  the ChatGPT app's app-server running since 2026-11-18 18:50, when 0.3.2 was
   the newest release. The plugin itself was no longer installed.
 
 The Claude account, checked on claude.ai the same day:
@@ -360,6 +363,18 @@ The Claude account, checked on claude.ai the same day:
   `renku-cloud@renku-cloud` 0.2.0 was still installed and enabled. The desktop
   log showed `2 plugin(s) go to Claude Code over stdin` for that session and
   `1` for every earlier one.
+
+Two more releases the same day:
+
+- **v0.4.1** (14:18 CET): Check for updates on claude.ai brought it to the
+  account. The Mac's desktop app ran a sync six seconds after the release and
+  kept 0.4.0; its quick syncs log "kept 1 user-installed plugin(s) without
+  checking them for updates", and only a full sync, about hourly, checks.
+- **v0.4.2** (14:31 CET): with Sync automatically on, the account was still at
+  v0.4.1 (`ff24d00`) five minutes later. On the Windows PC, quitting the
+  ChatGPT app and reopening it at 14:32 started new Codex server processes,
+  which refreshed the marketplace to 0.4.2; Renku Cloud 0.4.2 was then
+  installed in Codex.
 
 On macOS, the same day:
 
@@ -388,7 +403,8 @@ installed `renku@renku`.
 Not tried yet:
 
 - finishing the sign-in to `https://app.gorenku.com` from each app;
-- whether Sync automatically brings in a release by itself;
+- whether Sync automatically brings in a release later than five minutes;
 - a new Code-tab session on Windows loading the account copy;
-- whether a restart of the computer, or an app update, restarts the Codex
-  background service and so brings in a new version.
+- whether quitting the ChatGPT app on macOS restarts its Codex server, which
+  runs there as a separate background service
+  (`codex app-server --managed-daemon`).

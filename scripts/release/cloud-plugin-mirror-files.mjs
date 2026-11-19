@@ -30,17 +30,15 @@ it up from there.
 
 1. **Add** → **Add marketplace**, and enter \`${CLOUD_PLUGIN_MIRROR_REPOSITORY}\`.
    This adds the marketplace only; Claude lists it as \`renku-cloud-plugin\`.
-2. **Add** → **Manage marketplaces** → **⋯** on \`renku-cloud-plugin\` → turn on
-   **Sync automatically**.
-3. Search \`renku\`, open **Renku cloud**, and select **Add**.
-4. On its page, select **Connect** for the \`renku\` connector and sign in.
-5. In the desktop app, start a new Code-tab session once it has picked up the
+2. Search \`renku\`, open **Renku cloud**, and select **Add**.
+3. On its page, select **Connect** for the \`renku\` connector and sign in.
+4. In the desktop app, start a new Code-tab session once it has picked up the
    plugin, within about 20 minutes.
 
-**ChatGPT app, or the Codex app on Windows:** Settings → Manage plugins,
-skills, and MCPs → Add → Add a marketplace, with Source
-\`${CLOUD_PLUGIN_MIRROR_REPOSITORY}\` and the Git ref left empty. Install Renku
-Cloud, then select Connect when asked and sign in.
+**ChatGPT (Codex):** use the ChatGPT desktop app; ChatGPT on the web can't add
+a marketplace. Settings → Manage plugins, skills, and MCPs → Add → Add a
+marketplace, with Source \`${CLOUD_PLUGIN_MIRROR_REPOSITORY}\` and the Git ref
+left empty. Install Renku Cloud, then select Connect when asked and sign in.
 
 **Terminal:**
 
@@ -61,19 +59,32 @@ codex mcp login renku
 Your app keeps its own copy of this repository and shows a new version only
 after it refreshes that copy.
 
-**Claude:** on https://claude.ai/customize/plugins, **Add** → **Manage
-marketplaces** → **⋯** on \`renku-cloud-plugin\` → **Check for updates**. The
-desktop app downloads the new version within about 20 minutes; then start a
-new session.
+**Claude:** after each new release, on https://claude.ai/customize/plugins,
+**Add** → **Manage marketplaces** → **⋯** on \`renku-cloud-plugin\` →
+**Check for updates**. Don't count on Claude to fetch a new version by itself.
+The desktop app downloads it within about an hour; then start a new session.
 
-**ChatGPT app, or the Codex app on Windows:** neither has an update button.
-Codex looks for a new version only when its background service starts, which
-can be days apart. To update now, run this in a terminal, then start a new
-chat:
+**ChatGPT (Codex):** the app has no update button. Codex looks for a new
+version only when it starts, and the ChatGPT app keeps it running while the
+app is open, often for days. After each new release, quit the ChatGPT app
+completely (closing its window isn't enough) and open it again, then start a
+new chat.
+
+If the new version still isn't there, run the app's own \`codex\`, then start a
+new chat. On a Mac, in Terminal:
 
 \`\`\`bash
-codex plugin marketplace upgrade renku-cloud
+/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex plugin marketplace upgrade renku-cloud
 \`\`\`
+
+On Windows, in PowerShell:
+
+\`\`\`powershell
+& (Join-Path (Get-AppxPackage OpenAI.Codex).InstallLocation 'app\\resources\\codex.exe') plugin marketplace upgrade renku-cloud
+\`\`\`
+
+With \`codex\` in your terminal, \`codex plugin marketplace upgrade renku-cloud\`
+does the same.
 
 **Claude Code installed from a terminal or the Code tab:**
 
