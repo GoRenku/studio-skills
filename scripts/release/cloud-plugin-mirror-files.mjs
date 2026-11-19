@@ -5,7 +5,7 @@ import { parseReleaseTag } from './release-contract.mjs';
 export const CLOUD_PLUGIN_MIRROR_REPOSITORY = 'GoRenku/renku-cloud-plugin';
 export const CLOUD_PLUGIN_SOURCE_REPOSITORY = 'GoRenku/studio-skills';
 
-/** The mirror's README: generated, what it is, and how to install the plugin from it. */
+/** The mirror's README: generated, what it is, and how to install and update the plugin from it. */
 export function mirrorReadme({ version, sourceCommit }) {
   assertCommit(sourceCommit);
   return `# Renku Cloud plugin
@@ -22,13 +22,25 @@ address your invitation was sent to.
 
 ## Install
 
-**Claude app or claude.ai:** Customize → Plugins → Add → Add marketplace, and
-enter \`${CLOUD_PLUGIN_MIRROR_REPOSITORY}\`. Add Renku Cloud, then on its
-Connectors tab select Add, then Connect, and sign in.
+**Claude:** do this on https://claude.ai/customize/plugins in your web browser,
+not in the Claude desktop app. The desktop app installs the plugin on that one
+computer (marked **Installed locally**), and that copy never updates. A plugin
+added on claude.ai is saved to your Claude account, and the desktop app picks
+it up from there.
 
-**ChatGPT app (Codex):** Settings → Manage plugins, skills, and MCPs → Add →
-Add a marketplace, with Source \`${CLOUD_PLUGIN_MIRROR_REPOSITORY}\`. Install
-Renku Cloud, then select Connect when asked and sign in.
+1. **Add** → **Add marketplace**, and enter \`${CLOUD_PLUGIN_MIRROR_REPOSITORY}\`.
+   This adds the marketplace only; Claude lists it as \`renku-cloud-plugin\`.
+2. **Add** → **Manage marketplaces** → **⋯** on \`renku-cloud-plugin\` → turn on
+   **Sync automatically**.
+3. Search \`renku\`, open **Renku cloud**, and select **Add**.
+4. On its page, select **Connect** for the \`renku\` connector and sign in.
+5. In the desktop app, start a new Code-tab session once it has picked up the
+   plugin, within about 20 minutes.
+
+**ChatGPT app, or the Codex app on Windows:** Settings → Manage plugins,
+skills, and MCPs → Add → Add a marketplace, with Source
+\`${CLOUD_PLUGIN_MIRROR_REPOSITORY}\` and the Git ref left empty. Install Renku
+Cloud, then select Connect when asked and sign in.
 
 **Terminal:**
 
@@ -43,6 +55,35 @@ codex plugin marketplace add ${CLOUD_PLUGIN_MIRROR_REPOSITORY}
 codex plugin add renku-cloud@renku-cloud
 codex mcp login renku
 \`\`\`
+
+## Update
+
+Your app keeps its own copy of this repository and shows a new version only
+after it refreshes that copy.
+
+**Claude:** on https://claude.ai/customize/plugins, **Add** → **Manage
+marketplaces** → **⋯** on \`renku-cloud-plugin\` → **Check for updates**. The
+desktop app downloads the new version within about 20 minutes; then start a
+new session.
+
+**ChatGPT app, or the Codex app on Windows:** neither has an update button.
+Codex looks for a new version only when its background service starts, which
+can be days apart. To update now, run this in a terminal, then start a new
+chat:
+
+\`\`\`bash
+codex plugin marketplace upgrade renku-cloud
+\`\`\`
+
+**Claude Code installed from a terminal or the Code tab:**
+
+\`\`\`bash
+claude plugin marketplace update renku-cloud
+claude plugin update renku-cloud@renku-cloud
+\`\`\`
+
+To have Claude Code update it by itself, turn on auto-update for
+\`renku-cloud\` in \`/plugin\` → Marketplaces.
 
 More: https://gorenku.com/renku-plugins/
 `;

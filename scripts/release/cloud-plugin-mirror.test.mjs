@@ -161,3 +161,11 @@ test('mirror pushes never force, and the README names its source', () => {
   assert.match(readme, /Generated\. Do not edit\./);
   assert.match(readme, new RegExp(`GoRenku/studio-skills[\\s\\S]*${SOURCE_COMMIT}`));
 });
+
+test('the README says how each app gets a new version', () => {
+  const update = mirrorReadme({ version: '0.2.0', sourceCommit: SOURCE_COMMIT }).split('## Update')[1];
+  assert.ok(update, 'the README has an Update section');
+  assert.match(update, /Check for updates/);
+  assert.match(update, /codex plugin marketplace upgrade renku-cloud/);
+  assert.match(update, /claude plugin marketplace update renku-cloud\nclaude plugin update renku-cloud@renku-cloud/);
+});
