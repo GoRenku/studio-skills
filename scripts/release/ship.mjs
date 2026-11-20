@@ -6,30 +6,28 @@ import {
   assertTagMissing,
   bumpSemver,
   fetchOriginMain,
+  parseReleaseArguments,
   readPluginVersion,
+  readRequiredRelease,
   runCommand,
 } from './release-contract.mjs';
 
 try {
-  const args = process.argv.slice(2).filter((argument) => argument !== '--');
-  const dryRun = args.includes('--dry-run');
-  const bumpType = args.find((argument) => argument !== '--dry-run') ?? 'patch';
-  if (!['patch', 'minor', 'major'].includes(bumpType)) {
-    throw new Error(`SKILLS_RELEASE017 Use patch, minor, or major; received ${bumpType}.`);
-  }
+  const { bumpType, dryRun, required } = parseReleaseArguments(process.argv.slice(2));
   assertCloudPluginMirrorReachable({ deployKeyPath: deployKeyPathFromEnvironment() });
   if (dryRun) {
     assertCleanMain();
     fetchOriginMain();
     assertHeadEqualsOriginMain();
+    readRequiredRelease();
     const nextVersion = bumpSemver(readPluginVersion(), bumpType);
     assertTagMissing(`v${nextVersion}`);
     runCommand('node', ['--test', 'scripts/release/release-contract.test.mjs']);
     process.stdout.write(
-      `Studio Skills release dry run passed. Next tag would be v${nextVersion}.\n`
+      `Studio Skills release dry run passed. Next tag would be v${nextVersion}, ${required ? 'required: Renku Cloud would tell older plugins they must update' : 'not required'}.\n`
     );
   } else {
-    runCommand('node', ['scripts/release/prepare.mjs', bumpType]);
+    runCommand('node', ['scripts/release/prepare.mjs', bumpType, ...(required ? ['--required'] : [])]);
     runCommand('node', [
       'scripts/release/publish.mjs',
       '--tag',

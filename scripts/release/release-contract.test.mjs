@@ -6,13 +6,18 @@ import { spawnSync } from 'node:child_process';
 import test from 'node:test';
 import {
   PLUGIN_VERSION_MANIFESTS,
+  REQUIRED_RELEASE_FILE,
   assertReleaseTagAtHead,
   betaPushRefspec,
   bumpSemver,
+  compareSemver,
   githubReleaseCreateArgs,
+  parseReleaseArguments,
   parseReleaseTag,
   readPluginVersion,
+  readRequiredRelease,
   writePluginVersion,
+  writeRequiredRelease,
 } from './release-contract.mjs';
 
 test('plugin manifests own one independent strict SemVer version', () => {
@@ -36,6 +41,55 @@ test('version updates change only version fields in both existing manifests', ()
   for (let index = 0; index < before.length; index += 1) {
     assert.deepEqual(after[index], { ...before[index], version: '0.2.0' });
   }
+});
+
+test('the bump type is the one word that is not an option, so --required is never the bump', () => {
+  assert.deepEqual(parseReleaseArguments([]), { bumpType: 'patch', dryRun: false, required: false });
+  assert.deepEqual(parseReleaseArguments(['minor', '--', '--required']), { bumpType: 'minor', dryRun: false, required: true });
+  assert.deepEqual(parseReleaseArguments(['--required', 'minor']), { bumpType: 'minor', dryRun: false, required: true });
+  assert.deepEqual(parseReleaseArguments(['--required']), { bumpType: 'patch', dryRun: false, required: true });
+  assert.deepEqual(parseReleaseArguments(['major', '--dry-run', '--required']), { bumpType: 'major', dryRun: true, required: true });
+  assert.throws(() => parseReleaseArguments(['minor', '--requried']), /SKILLS_RELEASE025/);
+  assert.throws(() => parseReleaseArguments(['minor', 'major']), /SKILLS_RELEASE017/);
+  assert.throws(() => parseReleaseArguments(['minr']), /SKILLS_RELEASE017/);
+  assert.throws(() => parseReleaseArguments(['minor', '--dry-run'], ['--required']), /SKILLS_RELEASE025/);
+});
+
+test('versions compare by major, then minor, then patch', () => {
+  assert.ok(compareSemver('0.6.0', '0.5.9') > 0);
+  assert.ok(compareSemver('0.5.10', '0.5.9') > 0);
+  assert.ok(compareSemver('1.0.0', '0.99.99') > 0);
+  assert.equal(compareSemver('0.5.0', '0.5.0'), 0);
+  assert.ok(compareSemver('0.4.2', '0.5.0') < 0);
+});
+
+test('the required release is null, or a tag no newer than the plugin manifests', () => {
+  const root = createPluginFixture('0.6.0');
+  assert.throws(() => readRequiredRelease(root), /SKILLS_RELEASE026/);
+  writeFileSync(path.join(root, REQUIRED_RELEASE_FILE), `${JSON.stringify({ requiredRelease: null }, null, 2)}\n`);
+  assert.equal(readRequiredRelease(root), null);
+  writeRequiredRelease('v0.6.0', root);
+  assert.deepEqual(JSON.parse(readFileSync(path.join(root, REQUIRED_RELEASE_FILE), 'utf8')), { requiredRelease: 'v0.6.0' });
+  assert.equal(readRequiredRelease(root), 'v0.6.0');
+  writeRequiredRelease('v0.5.0', root);
+  assert.equal(readRequiredRelease(root), 'v0.5.0');
+  writeRequiredRelease('v0.7.0', root);
+  assert.throws(() => readRequiredRelease(root), /SKILLS_RELEASE027/);
+  for (const value of ['0.6.0', 'v0.6', 'latest']) {
+    writeFileSync(path.join(root, REQUIRED_RELEASE_FILE), JSON.stringify({ requiredRelease: value }));
+    assert.throws(() => readRequiredRelease(root), /SKILLS_RELEASE003/);
+  }
+  for (const contents of [{ requiredRelease: 6 }, {}]) {
+    writeFileSync(path.join(root, REQUIRED_RELEASE_FILE), JSON.stringify(contents));
+    assert.throws(() => readRequiredRelease(root), /SKILLS_RELEASE026/);
+  }
+  assert.throws(() => writeRequiredRelease('0.6.0', root), /SKILLS_RELEASE003/);
+});
+
+test('this repository\'s required release is valid', () => {
+  const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..', '..');
+  const requiredRelease = readRequiredRelease(root);
+  assert.ok(requiredRelease === null || typeof requiredRelease === 'string');
 });
 
 test('release validation requires an annotated tag at the manifest commit', () => {

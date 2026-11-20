@@ -1,5 +1,5 @@
 import { spawnSync } from 'node:child_process';
-import { readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -15,6 +15,16 @@ export const PLUGIN_VERSION_MANIFESTS = Object.freeze([
   '.codex-plugin-cloud/plugin.json',
   '.claude-plugin-cloud/plugin.json',
 ]);
+
+/**
+ * The oldest Renku Cloud plugin release that still works with Renku Cloud, or
+ * null. Only `pnpm release:<bump> -- --required` writes it; Renku Cloud reads
+ * it from the skills it is deployed with.
+ */
+export const REQUIRED_RELEASE_FILE = 'cloud-plugin-required-release.json';
+
+const BUMP_TYPES = Object.freeze(['patch', 'minor', 'major']);
+const RELEASE_OPTIONS = Object.freeze(['--dry-run', '--required']);
 
 export function parseSemver(version) {
   const match = /^(\d+)\.(\d+)\.(\d+)$/.exec(version);
@@ -42,6 +52,32 @@ export function bumpSemver(version, bumpType) {
   throw new Error(`SKILLS_RELEASE002 Unsupported version bump: ${bumpType}`);
 }
 
+/** Negative, zero or positive as `left` is older than, equal to or newer than `right`. */
+export function compareSemver(left, right) {
+  const a = parseSemver(left);
+  const b = parseSemver(right);
+  return a.major - b.major || a.minor - b.minor || a.patch - b.patch;
+}
+
+/**
+ * The release command's arguments: the bump type is the one word that is not
+ * an option, so `--required` is never read as the bump.
+ */
+export function parseReleaseArguments(args, allowedOptions = RELEASE_OPTIONS) {
+  const words = args.filter((argument) => argument !== '--');
+  const options = words.filter((word) => word.startsWith('--'));
+  const unknown = options.filter((option) => !allowedOptions.includes(option));
+  if (unknown.length > 0) {
+    throw new Error(`SKILLS_RELEASE025 Unknown release option ${unknown.join(', ')}. Use ${allowedOptions.join(' or ')}.`);
+  }
+  const bumpTypes = words.filter((word) => !word.startsWith('--'));
+  const bumpType = bumpTypes[0] ?? 'patch';
+  if (bumpTypes.length > 1 || !BUMP_TYPES.includes(bumpType)) {
+    throw new Error(`SKILLS_RELEASE017 Use patch, minor, or major; received ${bumpTypes.join(' ')}.`);
+  }
+  return { bumpType, dryRun: options.includes('--dry-run'), required: options.includes('--required') };
+}
+
 export function parseReleaseTag(tag) {
   const match = /^v(\d+\.\d+\.\d+)$/.exec(tag);
   if (!match) {
@@ -49,6 +85,33 @@ export function parseReleaseTag(tag) {
   }
   parseSemver(match[1]);
   return match[1];
+}
+
+/**
+ * The required release tag, or null. Refuses a value that is not null or a
+ * strict vX.Y.Z tag, and a tag newer than the plugin manifests.
+ */
+export function readRequiredRelease(root = repositoryRoot) {
+  const filePath = path.join(root, REQUIRED_RELEASE_FILE);
+  if (!existsSync(filePath)) {
+    throw new Error(`SKILLS_RELEASE026 ${REQUIRED_RELEASE_FILE} is missing; it holds { "requiredRelease": null } until a release is cut with --required.`);
+  }
+  const { requiredRelease } = readJson(filePath);
+  if (requiredRelease === null) {
+    return null;
+  }
+  if (typeof requiredRelease !== 'string') {
+    throw new Error(`SKILLS_RELEASE026 ${REQUIRED_RELEASE_FILE} must hold { "requiredRelease": "vX.Y.Z" } or null.`);
+  }
+  if (compareSemver(parseReleaseTag(requiredRelease), readPluginVersion(root)) > 0) {
+    throw new Error(`SKILLS_RELEASE027 ${REQUIRED_RELEASE_FILE} names ${requiredRelease}, newer than the plugin manifests.`);
+  }
+  return requiredRelease;
+}
+
+export function writeRequiredRelease(tag, root = repositoryRoot) {
+  parseReleaseTag(tag);
+  writeFileSync(path.join(root, REQUIRED_RELEASE_FILE), `${JSON.stringify({ requiredRelease: tag }, null, 2)}\n`);
 }
 
 export function readPluginVersion(root = repositoryRoot) {

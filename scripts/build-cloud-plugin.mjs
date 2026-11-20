@@ -3,11 +3,14 @@
 // whose MCP server is Renku Cloud's web address, so nothing is installed on
 // the person's computer. Output: dist/renku-cloud-marketplace/ with Codex and
 // Claude Code marketplace files and the plugin in renku-cloud/. Committed
-// skill files only.
+// skill files only. The built cloud.mcp.json carries the plugin version (see
+// cloud-connection.mjs).
 import { execFileSync } from 'node:child_process';
-import { cpSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { cloudConnection } from './cloud-connection.mjs';
+import { readPluginVersion } from './release/release-contract.mjs';
 
 const repositoryRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const output = path.join(repositoryRoot, 'dist', 'renku-cloud-marketplace');
@@ -18,7 +21,10 @@ mkdirSync(plugin, { recursive: true });
 
 copy('.codex-plugin-cloud/plugin.json', '.codex-plugin/plugin.json');
 copy('.claude-plugin-cloud/plugin.json', '.claude-plugin/plugin.json');
-copy('cloud.mcp.json', 'cloud.mcp.json');
+writeJson(
+  path.join(plugin, 'cloud.mcp.json'),
+  cloudConnection(JSON.parse(readFileSync(path.join(repositoryRoot, 'cloud.mcp.json'), 'utf8')), readPluginVersion(repositoryRoot))
+);
 copy('LICENSE', 'LICENSE');
 for (const file of execFileSync('git', ['-C', repositoryRoot, 'ls-files', 'skills'], { encoding: 'utf8' }).split('\n').filter(Boolean)) {
   copy(file, file);
