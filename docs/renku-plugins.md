@@ -472,6 +472,23 @@ helper runs in any folder; account plugins load through the same plugin
 loader. On Windows, Claude Code runs commands in Git Bash, or in PowerShell
 without it, and the single-quoted `echo` prints the same JSON in both.
 
+On 2026-11-20, after v0.5.0 and the Renku Cloud deploy that reads the header:
+
+- **The built plugin, against the fake server.** In throwaway profiles, the
+  plugin `pnpm build:cloud-plugin` made, installed at 0.5.0, signed in, then
+  rebuilt at 0.5.1 and updated: Claude Code and the ChatGPT app's `codex`
+  (0.171.0-alpha.13) both sent `Renku-Plugin-Version: 0.5.1` with the old
+  token, and neither asked for a new sign-in.
+- **Against Renku Cloud, with this Mac's own sign-in.** This Mac's Code-tab
+  sessions take `renku-cloud` from the Claude account (the desktop app's copy
+  under `local-agent-mode-sessions/<account>/<organization>/rpm/`, then
+  0.4.1); `claude plugin list` lists no `renku-cloud`. `claude -p` with
+  `--plugin-dir` on that copy connected with the existing sign-in, and the
+  instructions began with the no-version sentence ("The latest is 0.5.0.").
+  With `--plugin-dir` on the built 0.5.0 plugin, the same sign-in worked, the
+  instructions had no notice, and `renku_command` answered. `wrangler tail`
+  showed `pluginVersion: null` then `"0.5.0"`, `aiApp: "other"`.
+
 Earlier, on 2026-08-10 (studio `docs/operations/distribution-and-release.md`),
 a throwaway Codex profile added `GoRenku/studio-skills --ref main` and
 installed `renku@renku`.
