@@ -185,8 +185,10 @@ codex.mcp.json                     renku connection for Codex: runs `renku studi
 .codex-plugin-cloud/plugin.json    renku-cloud manifest for Codex: skills ./skills/, connection ./cloud.mcp.json
 .claude-plugin-cloud/plugin.json   renku-cloud manifest for Claude: connection ./cloud.mcp.json
 cloud.mcp.json                     renku-cloud connection: https://app.gorenku.com/mcp
+cloud-plugin-required-release.json the oldest renku-cloud release that still works with Renku Cloud, or null
 skills/                            the one set of skills both plugins carry
 scripts/build-cloud-plugin.mjs     builds the renku-cloud plugin into dist/
+scripts/cloud-connection.mjs       the built cloud.mcp.json: the connection with the plugin version added
 scripts/codex-plugin.mjs           pnpm codex:local, codex:cloud and codex:watch, for trying plugins in Codex
 scripts/release/cloud-plugin-mirror.mjs        publishes the built renku-cloud plugin to GoRenku/renku-cloud-plugin
 scripts/release/cloud-plugin-mirror-files.mjs  that repository's generated README, commit message and push refspecs
@@ -207,7 +209,7 @@ dist/renku-cloud-marketplace/
   renku-cloud/
     .codex-plugin/plugin.json        copied from .codex-plugin-cloud/plugin.json
     .claude-plugin/plugin.json       copied from .claude-plugin-cloud/plugin.json
-    cloud.mcp.json                   copied from cloud.mcp.json
+    cloud.mcp.json                   cloud.mcp.json with the plugin version added (see below)
     LICENSE
     skills/                          the committed files under skills/ (git ls-files skills)
 ```
@@ -216,6 +218,19 @@ dist/renku-cloud-marketplace/
   building.
 - Nobody edits the built folder; every build replaces it.
 - `dist/` is ignored by Git. The build publishes nothing.
+- The built `cloud.mcp.json` carries the manifests' version in two fields,
+  so every request to Renku Cloud says which plugin sent it:
+
+  ```json
+  "http_headers": { "Renku-Plugin-Version": "0.5.0" },
+  "headersHelper": "echo '{\"Renku-Plugin-Version\":\"0.5.0\"}'"
+  ```
+
+  Codex reads only `http_headers`; Claude Code reads only `headersHelper`, a
+  command it runs each time it connects, which only prints that line. Neither
+  field is part of the key each app saves its sign-in under, so a new release
+  keeps the person signed in. A fixed `headers` value or a changed address
+  would ask for a new sign-in after every release (see What Has Been Tried).
 
 ## One Renku Plugin At A Time
 
@@ -272,6 +287,42 @@ Code only loads updated plugin files when the manifest version changes.
   `C:\Program Files\WindowsApps\OpenAI.Codex_<version>_x64__2p2nqsd0c76g0\app\resources\codex.exe`;
   `& (Join-Path (Get-AppxPackage OpenAI.Codex).InstallLocation 'app\resources\codex.exe')`
   reaches it without the version.
+
+### Renku Cloud Tells The Agent
+
+From 0.5.0, Renku Cloud reads the plugin's version from each session and puts
+a notice at the start of the instructions it sends the agent. The notice
+gives the update steps for the session's app (the table above) and links the
+website's steps.
+
+- **A newer plugin is out:** the agent mentions it once, with the steps.
+- **The plugin is older than the required release:** the agent says Renku may
+  fail or give wrong results until the person updates, gives the steps, and
+  asks whether to go on before any Renku work. Every `renku_command` result
+  carries the same notice in `pluginUpdate` until the person updates.
+  Commands keep running.
+- **No version arrived** (plugins before 0.5.0, or an app without the plugin):
+  a sentence asks the agent to give the steps once if its skills come from
+  this plugin.
+
+Renku Cloud learns the latest and the required release from the skills it is
+deployed with, so deploy Renku Cloud after each release.
+
+**Required releases.** `cloud-plugin-required-release.json` names the oldest
+release that still works with the Renku Cloud running now. Only the release
+writes it:
+
+```bash
+pnpm release:minor -- --required
+```
+
+writes the new tag into it, in the release commit. Use the flag for the
+release that adapts the skills to a Renku Cloud change older skills can't
+follow, such as a renamed command or a changed answer they read; then deploy
+Renku Cloud with that change. A release without the flag leaves the file as
+it is. `--dry-run` says whether the release would be required. Version
+numbers alone never make a release required: a large release can work fine
+with older skills, and a small Renku Cloud change can break them.
 
 ## Publishing renku-cloud
 
@@ -397,6 +448,29 @@ On macOS, the same day:
   `Restart to apply changes.`
 - **This Mac's own Claude Code** had `renku-cloud@renku-cloud` 0.2.0 installed,
   its marketplace copy at 0.3.0, and no synced `renku-cloud`.
+
+On 2026-11-19, on macOS, which connection fields keep the sign-in across a
+release (studio plan 0267). Each case ran in empty throwaway profiles, with
+the desktop app's Claude Code 2.1.326 and the ChatGPT app's `codex`
+0.169.0-alpha.11.1, against a local fake Renku Cloud with OAuth that logged
+every request: install 0.4.0, sign in, release 0.4.1, update, check the sign-in.
+
+| What changes each release | Claude Code | Codex |
+|---|---|---|
+| Nothing (version only) | still signed in | still signed in |
+| a fixed `headers` value | asks for a new sign-in | ignores `headers`; never sent |
+| the address (`/mcp?plugin=0.4.1`) | asks for a new sign-in | asks for a new sign-in |
+| `http_headers` | ignored | sent with the old token |
+| `headersHelper: echo '{…}'` | sent with the old token | ignored |
+| both `http_headers` and `headersHelper` | sent with the old token | sent with the old token |
+| `headersHelper` printing bad output | connects, without the header | — |
+
+Codex files its saved sign-in under the server name and a hash of the address
+with empty headers. Claude Code's docs say folder trust gates `headersHelper`
+only for servers in a project's `.mcp.json` or at local scope, so a plugin's
+helper runs in any folder; account plugins load through the same plugin
+loader. On Windows, Claude Code runs commands in Git Bash, or in PowerShell
+without it, and the single-quoted `echo` prints the same JSON in both.
 
 Earlier, on 2026-08-10 (studio `docs/operations/distribution-and-release.md`),
 a throwaway Codex profile added `GoRenku/studio-skills --ref main` and

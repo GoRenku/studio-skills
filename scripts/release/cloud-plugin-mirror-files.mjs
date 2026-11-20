@@ -57,7 +57,9 @@ codex mcp login renku
 ## Update
 
 Your app keeps its own copy of this repository and shows a new version only
-after it refreshes that copy.
+after it refreshes that copy. From 0.5.0, your agent tells you when a newer
+version is out, and says so plainly when Renku Cloud needs a newer one to
+work correctly.
 
 **Claude:** after each new release, on https://claude.ai/customize/plugins,
 **Add** → **Manage marketplaces** → **⋯** on \`renku-cloud-plugin\` →
