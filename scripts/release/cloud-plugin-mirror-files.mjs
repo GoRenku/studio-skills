@@ -62,7 +62,8 @@ after it refreshes that copy.
 **Claude:** after each new release, on https://claude.ai/customize/plugins,
 **Add** → **Manage marketplaces** → **⋯** on \`renku-cloud-plugin\` →
 **Check for updates**. Don't count on Claude to fetch a new version by itself.
-The desktop app downloads it within about an hour; then start a new session.
+The desktop app can take up to about an hour and a half to download it; then
+start a new session.
 
 **ChatGPT (Codex):** the app has no update button. Codex looks for a new
 version only when it starts, and the ChatGPT app keeps it running while the

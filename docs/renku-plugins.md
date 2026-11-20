@@ -249,7 +249,7 @@ Code only loads updated plugin files when the manifest version changes.
 
 | Install | How it gets a release | To get it now |
 |---|---|---|
-| Claude account (claude.ai Plugins → **Add**; `renku-cloud@synced` in a terminal Claude Code) | When the account's copy of the `renku-cloud-plugin` marketplace re-syncs, which so far has needed **Check for updates**. With **Sync automatically** on ("Re-syncs on GitHub changes"), v0.4.2 had still not synced five minutes after its release. The desktop app then checks plugins already added for updates only on its full sync, about once an hour; its quick syncs every 20 minutes skip them. The next new Code-tab session loads the update. | After each release, on claude.ai, **Add** → **Manage marketplaces** → **⋯** on `renku-cloud-plugin` → **Check for updates**, then a new Code-tab session once the desktop app has downloaded it. |
+| Claude account (claude.ai Plugins → **Add**; `renku-cloud@synced` in a terminal Claude Code) | When the account's copy of the `renku-cloud-plugin` marketplace re-syncs, which so far has needed **Check for updates**. With **Sync automatically** on ("Re-syncs on GitHub changes"), v0.4.2 had still not synced five minutes after its release. The desktop app then checks plugins already added for updates only on its full sync: its sync runs every 20 minutes, and only a run that finds the last full sync over an hour old is full, so an update can take up to about 80 minutes to arrive. The next new Code-tab session loads the update. | After each release, on claude.ai, **Add** → **Manage marketplaces** → **⋯** on `renku-cloud-plugin` → **Check for updates**, then a new Code-tab session once the desktop app has downloaded it. |
 | Claude Code only (the desktop app's Plugins page, Code tab **+** → **Add plugins**, or `claude plugin install`; `renku-cloud@renku-cloud`, **Installed locally** in the Plugins list) | Never by itself: auto-update is off for a marketplace a person adds. The person can turn it on in `/plugin` → Marketplaces → `renku-cloud`, or with `"autoUpdate": true` on the `renku-cloud` entry under `extraKnownMarketplaces` in `~/.claude/settings.json`. Until then the Update button reports the installed version as the latest. | `claude plugin marketplace update renku-cloud`, then `claude plugin update renku-cloud@renku-cloud`, then a new session or `/reload-plugins`. |
 | Codex (the ChatGPT desktop app or `codex`; `renku-cloud@renku-cloud`) | When Codex's app-server starts, it refreshes every Git marketplace without a pinned ref and reinstalls the plugins installed from it. The ChatGPT app keeps that server running while it is open, often for days, and has no button to refresh a marketplace. | Quit the ChatGPT app completely and reopen it, then a new chat. Or run the app's own `codex plugin marketplace upgrade renku-cloud`, which replaces the installed plugin too; a running ChatGPT app lists the new skills straight away. |
 
@@ -369,7 +369,9 @@ Two more releases the same day:
 - **v0.4.1** (14:18 CET): Check for updates on claude.ai brought it to the
   account. The Mac's desktop app ran a sync six seconds after the release and
   kept 0.4.0; its quick syncs log "kept 1 user-installed plugin(s) without
-  checking them for updates", and only a full sync, about hourly, checks.
+  checking them for updates", and only a full sync checks. Its next full
+  sync, at 15:26, logged "Refreshed 1 stale user-installed plugin(s)
+  (remote_newer)" and brought 0.4.1 in, 68 minutes after Check for updates.
 - **v0.4.2** (14:31 CET): with Sync automatically on, the account was still at
   v0.4.1 (`ff24d00`) five minutes later. On the Windows PC, quitting the
   ChatGPT app and reopening it at 14:32 started new Codex server processes,
