@@ -488,6 +488,20 @@ On 2026-11-20, after v0.5.0 and the Renku Cloud deploy that reads the header:
   With `--plugin-dir` on the built 0.5.0 plugin, the same sign-in worked, the
   instructions had no notice, and `renku_command` answered. `wrangler tail`
   showed `pluginVersion: null` then `"0.5.0"`, `aiApp: "other"`.
+- **The account's marketplace had not synced by itself.** With Sync
+  automatically on since 2026-11-19, claude.ai still showed synced commit
+  `ff24d00` (v0.4.1), missing v0.4.2 and v0.5.0. **Check for updates** moved it
+  to `e92d565` (v0.5.0) in about 3 seconds, with "1 notice": the sync record
+  says `exec_surface_changed`, "Executable files or settings in this version
+  (such as scripts, hooks, MCP servers, or the sites it declares it calls)
+  differ from the version org members were using before this sync. This
+  version was not held for approval." The new `headersHelper` is such a
+  change, and since it holds the version, every release changes it.
+- **The account copy.** The Mac's desktop app downloaded 0.5.0 into its
+  account copy 24 minutes after Check for updates, with both version fields.
+  `claude -p --plugin-dir` on that copy connected with the existing sign-in;
+  `wrangler tail` showed `pluginVersion: "0.5.0"`, `notice: "none"`, and
+  `renku_command` answered.
 
 Earlier, on 2026-08-10 (studio `docs/operations/distribution-and-release.md`),
 a throwaway Codex profile added `GoRenku/studio-skills --ref main` and
