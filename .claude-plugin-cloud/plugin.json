@@ -1,7 +1,7 @@
 {
   "name": "renku-cloud",
   "description": "Renku filmmaking skills connected to Renku Cloud at app.gorenku.com: nothing to install on your computer. After adding it, connect it on its Connectors tab (or with /mcp in Claude Code) and sign in with your invited email.",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "author": {
     "name": "Kerem Karatal"
   },
