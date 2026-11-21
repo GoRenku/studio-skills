@@ -8,5 +8,5 @@
   "license": "MIT",
   "homepage": "https://gorenku.com/renku-plugins/",
   "repository": "https://github.com/GoRenku/renku-cloud-plugin",
-  "mcpServers": "./cloud.mcp.json"
+  "mcpServers": "./claude.mcp.json"
 }

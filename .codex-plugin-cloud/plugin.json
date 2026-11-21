@@ -15,7 +15,7 @@
     "movie-making"
   ],
   "skills": "./skills/",
-  "mcpServers": "./cloud.mcp.json",
+  "mcpServers": "./codex.mcp.json",
   "interface": {
     "displayName": "Renku Cloud",
     "shortDescription": "Movie-making skills for writers and filmmakers, running in Renku Cloud.",

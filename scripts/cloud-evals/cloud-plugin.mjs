@@ -4,6 +4,7 @@
 import { execFileSync } from 'node:child_process';
 import { cp, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { CLAUDE_CONNECTION_FILE, CODEX_CONNECTION_FILE } from '../cloud-connection.mjs';
 
 /** Builds the plugin from the committed skill files and returns its folder. */
 export function buildCloudPlugin(repositoryRoot) {
@@ -11,11 +12,13 @@ export function buildCloudPlugin(repositoryRoot) {
   return path.join(marketplace, 'renku-cloud');
 }
 
-/** Copies the built plugin to `target` with its `renku` MCP server at `mcpUrl`. */
+/** Copies the built plugin to `target` with its `renku` MCP server at `mcpUrl`, in both apps' connection files. */
 export async function copyCloudPlugin(builtPlugin, target, mcpUrl) {
   await cp(builtPlugin, target, { recursive: true });
-  const configFile = path.join(target, 'cloud.mcp.json');
-  await writeFile(configFile, `${JSON.stringify(withRenkuAddress(JSON.parse(await readFile(configFile, 'utf8')), mcpUrl), null, 2)}\n`);
+  for (const name of [CLAUDE_CONNECTION_FILE, CODEX_CONNECTION_FILE]) {
+    const configFile = path.join(target, name);
+    await writeFile(configFile, `${JSON.stringify(withRenkuAddress(JSON.parse(await readFile(configFile, 'utf8')), mcpUrl), null, 2)}\n`);
+  }
   return target;
 }
 
@@ -23,7 +26,7 @@ export async function copyCloudPlugin(builtPlugin, target, mcpUrl) {
 export function withRenkuAddress(config, mcpUrl) {
   const renku = config?.mcpServers?.renku;
   if (!renku || renku.type !== 'http') {
-    throw new Error('SKILLS_CLOUD_EVAL030 cloud.mcp.json has no http server named renku.');
+    throw new Error('SKILLS_CLOUD_EVAL030 The plugin\'s connection file has no http server named renku.');
   }
   return { ...config, mcpServers: { ...config.mcpServers, renku: { ...renku, url: mcpUrl } } };
 }

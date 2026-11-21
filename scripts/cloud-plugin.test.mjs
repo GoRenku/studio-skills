@@ -3,17 +3,22 @@ import { readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { test } from 'node:test';
 import { fileURLToPath } from 'node:url';
+import { CLAUDE_CONNECTION_FILE, CODEX_CONNECTION_FILE } from './cloud-connection.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const read = (file) => JSON.parse(readFileSync(path.join(root, file), 'utf8'));
 
 test('K1: the Renku Cloud plugin is the Renku plugin with the cloud MCP address', () => {
-  for (const [local, cloud] of [['.codex-plugin/plugin.json', '.codex-plugin-cloud/plugin.json'], ['.claude-plugin/plugin.json', '.claude-plugin-cloud/plugin.json']]) {
+  const manifests = [
+    ['.codex-plugin/plugin.json', '.codex-plugin-cloud/plugin.json', `./${CODEX_CONNECTION_FILE}`],
+    ['.claude-plugin/plugin.json', '.claude-plugin-cloud/plugin.json', `./${CLAUDE_CONNECTION_FILE}`],
+  ];
+  for (const [local, cloud, connection] of manifests) {
     const localManifest = read(local);
     const cloudManifest = read(cloud);
     assert.equal(cloudManifest.name, 'renku-cloud');
     assert.equal(cloudManifest.version, localManifest.version, `${cloud} must share the release version`);
-    assert.equal(cloudManifest.mcpServers, './cloud.mcp.json');
+    assert.equal(cloudManifest.mcpServers, connection, `${cloud} reads the connection the build writes for its app`);
     if (localManifest.skills) assert.equal(cloudManifest.skills, localManifest.skills);
   }
   assert.deepEqual(read('cloud.mcp.json'), { mcpServers: { renku: { type: 'http', url: 'https://app.gorenku.com/mcp' } } });
